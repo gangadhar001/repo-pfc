@@ -1,0 +1,37 @@
+\select@language {spanish}
+\select@language {english}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {spanish}
+\contentsline {chapter}{Pr\'ologo}{xxv}
+\contentsline {chapter}{\numberline {1}\IeC {\textquestiondown }Qu\'e es \textlatin {\LaTeX }{}?}{1}
+\contentsline {chapter}{\numberline {2}Formateo b\'asico}{3}
+\contentsline {section}{\numberline {2.1}Caracteres especiales}{3}
+\contentsline {section}{\numberline {2.2}Listas en \textlatin {\LaTeX }{}}{4}
+\contentsline {subsection}{\numberline {2.2.1}Listas}{4}
+\contentsline {subsection}{\numberline {2.2.2}Justificaci\'on}{5}
+\contentsline {subsection}{\numberline {2.2.3}Citas}{6}
+\contentsline {section}{\numberline {2.3}Alegato final}{6}
+\contentsline {chapter}{\numberline {3}Documentos enriquecidos}{7}
+\contentsline {section}{\numberline {3.1}Composici\'on de ecuaciones}{7}
+\contentsline {section}{\numberline {3.2}Figuras y gr\'aficos}{8}
+\contentsline {section}{\numberline {3.3}Tablas}{12}
+\contentsline {section}{\numberline {3.4}Listados de programas}{14}
+\contentsline {section}{\numberline {3.5}Inclusi\'on de bibliograf\IeC {\'\i }a}{17}
+\contentsline {subsection}{\numberline {3.5.1}Bibliograf\IeC {\'\i }a incrustada}{17}
+\contentsline {subsection}{\numberline {3.5.2}Bibliograf\IeC {\'\i }a con Bib\textlatin {T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m }}{18}
+\contentsline {chapter}{\numberline {A}Manual de TeXniCcenter}{21}
+\contentsline {chapter}{\numberline {B}Manual de JabRef}{23}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{25}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {spanish}
+\contentsline {chapter}{\'{I}ndice alfab\'{e}tico}{27}

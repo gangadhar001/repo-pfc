@@ -1,0 +1,928 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.11.3)  20 JUL 2010 13:08
+entering extended mode
+**C:/Documents*and*Settings/jandrada/Escritorio/PlantillaPFC/PlantillaPFC.tex
+("C:/Documents and Settings/jandrada/Escritorio/PlantillaPFC/PlantillaPFC.tex"
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, spanish, french, load
+ed.
+(D:\MiKTeX\tex\latex\base\book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(D:\MiKTeX\tex\latex\base\bk12.clo
+File: bk12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\formatoPFC.tex"
+(D:\MiKTeX\tex\generic\babel\babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+(D:\MiKTeX\tex\latex\00miktex\bblopts.cfg
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+(D:\MiKTeX\tex\generic\babel\spanish.ldf
+Language: spanish.ldf 2009/01/02 v5.0h Spanish support from the babel system
+ (D:\MiKTeX\tex\generic\babel\babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\es@datefmt=\count89
+\es@quottoks=\toks14
+\es@quotdepth=\count90
+Package babel Info: Making " an active character on input line 492.
+Package babel Info: Making . an active character on input line 585.
+Package babel Info: Making < an active character on input line 630.
+Package babel Info: Making > an active character on input line 630.
+) (D:\MiKTeX\tex\generic\babel\english.ldf
+Language: english 2005/03/30 v3.3o English support from the babel system
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(D:\MiKTeX\tex\latex\oberdiek\inputenx.sty
+Package: inputenx 2009/08/13 v1.4 Enhanced input encoding handling (HO)
+
+(D:\MiKTeX\tex\latex\oberdiek\ix-alias.def
+File: ix-alias.def 2009/08/13 v1.4 Alias list (inputenx)
+)
+Package inputenx Info: Encoding name: ansinew
+(inputenx)             Encoding file: x-cp1252.def
+(inputenx)              on input line 132.
+
+(D:\MiKTeX\tex\latex\base\inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+
+(D:\MiKTeX\tex\latex\oberdiek\x-cp1252.def
+File: x-cp1252.def 2009/08/13 v1.4 Input encoding cp1252 (inputenx)
+)))
+(D:\MiKTeX\tex\latex\base\fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+ (D:\MiKTeX\tex\latex\base\t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(D:\MiKTeX\tex\latex\psnfss\times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(D:\MiKTeX\tex\latex\microtype\microtype.sty
+Package: microtype 2010/01/10 v2.4 Micro-typography with pdfTeX (RS)
+
+(D:\MiKTeX\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\MT@toks=\toks18
+\MT@count=\count91
+LaTeX Info: Redefining \lsstyle on input line 1597.
+LaTeX Info: Redefining \lslig on input line 1597.
+\MT@outer@space=\skip43
+LaTeX Info: Redefining \textls on input line 1605.
+\MT@outer@kern=\dimen104
+LaTeX Info: Redefining \textmicrotypecontext on input line 2156.
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(D:\MiKTeX\tex\latex\microtype\microtype.cfg
+File: microtype.cfg 2010/01/10 v2.4 microtype main configuration file (RS)
+))
+(D:\MiKTeX\tex\latex\base\textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+ (D:\MiKTeX\tex\latex\base\ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+)
+(D:\MiKTeX\tex\latex\marvosym\marvosym.sty
+Package: marvosym 2006/05/11 v2.1 Martin Vogel's Symbols font definitions
+)
+(D:\MiKTeX\tex\latex\psnfss\pifont.sty
+Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+ (D:\MiKTeX\tex\latex\psnfss\upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+
+(D:\MiKTeX\tex\latex\psnfss\upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+)) (D:\MiKTeX\tex\latex\ltxmisc\url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(D:\MiKTeX\tex\latex\geometry\geometry.sty
+Package: geometry 2008/12/21 v4.2 Page Geometry
+
+(D:\MiKTeX\tex\generic\oberdiek\ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(D:\MiKTeX\tex\generic\oberdiek\ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+\Gm@cnth=\count92
+\Gm@cntv=\count93
+\c@Gm@tempcnt=\count94
+\Gm@bindingoffset=\dimen105
+\Gm@wd@mp=\dimen106
+\Gm@odd@mp=\dimen107
+\Gm@even@mp=\dimen108
+\Gm@dimlist=\toks19
+
+(D:\MiKTeX\tex\latex\geometry\geometry.cfg))
+(D:\MiKTeX\tex\latex\setspace\setspace.sty
+Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
+
+Package: `setspace' 6.7 <2000/12/01>
+) (D:\MiKTeX\tex\latex\fancyhdr\fancyhdr.sty
+\fancy@headwidth=\skip44
+\f@ncyO@elh=\skip45
+\f@ncyO@erh=\skip46
+\f@ncyO@olh=\skip47
+\f@ncyO@orh=\skip48
+\f@ncyO@elf=\skip49
+\f@ncyO@erf=\skip50
+\f@ncyO@olf=\skip51
+\f@ncyO@orf=\skip52
+)
+(D:\MiKTeX\tex\latex\titlesec\titlesec.sty
+Package: titlesec 2007/08/12 v2.8 Sectioning titles
+\ttl@box=\box26
+\beforetitleunit=\skip53
+\aftertitleunit=\skip54
+\ttl@plus=\dimen109
+\ttl@minus=\dimen110
+\ttl@toksa=\toks20
+\titlewidth=\dimen111
+\titlewidthlast=\dimen112
+\titlewidthfirst=\dimen113
+)
+(D:\MiKTeX\tex\latex\caption\caption.sty
+Package: caption 2009/10/09 v3.1k Customizing captions (AR)
+
+(D:\MiKTeX\tex\latex\caption\caption3.sty
+Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
+\captionmargin=\dimen114
+\captionmargin@=\dimen115
+\captionwidth=\dimen116
+\caption@indent=\dimen117
+\caption@parindent=\dimen118
+\caption@hangindent=\dimen119
+)
+\c@ContinuedFloat=\count95
+)
+(D:\MiKTeX\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(D:\MiKTeX\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(D:\MiKTeX\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(D:\MiKTeX\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(D:\MiKTeX\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+\Gread@gobject=\count96
+))
+\Gin@req@height=\dimen120
+\Gin@req@width=\dimen121
+)
+(D:\MiKTeX\tex\latex\subfigure\subfigure.sty
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip55
+\subfigcapskip=\skip56
+\subfigcaptopadj=\dimen122
+\subfigbottomskip=\skip57
+\subfigcapmargin=\dimen123
+\subfiglabelskip=\skip58
+\c@subfigure=\count97
+\c@lofdepth=\count98
+\c@subtable=\count99
+\c@lotdepth=\count100
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(D:\MiKTeX\tex\latex\subfigure\subfigure.cfg)
+\subfig@top=\skip59
+\subfig@bottom=\skip60
+)
+(D:\MiKTeX\tex\latex\listings\listings.sty
+\lst@mode=\count101
+\lst@gtempboxa=\box27
+\lst@token=\toks21
+\lst@length=\count102
+\lst@currlwidth=\dimen124
+\lst@column=\count103
+\lst@pos=\count104
+\lst@lostspace=\dimen125
+\lst@width=\dimen126
+\lst@newlines=\count105
+\lst@lineno=\count106
+\lst@maxwidth=\dimen127
+
+(D:\MiKTeX\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count107
+\lst@skipnumbers=\count108
+\lst@framebox=\box28
+)
+(D:\MiKTeX\tex\latex\listings\listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+(D:\MiKTeX\tex\latex\fancyvrb\fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count109
+\FV@InFile=\read1
+\FV@TabBox=\box29
+\c@FancyVerbLine=\count110
+\FV@StepNumber=\count111
+\FV@OutFile=\write3
+) (D:\MiKTeX\tex\latex\algorithm2e\algorithm2e.sty
+Package: algorithm2e 2008/00/00 v3.10 algorithms environments
+\c@AlgoLine=\count112
+
+(D:\MiKTeX\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) (D:\MiKTeX\tex\latex\tools\xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+(D:\MiKTeX\tex\latex\ltxmisc\relsize.sty
+Package: relsize 2003/07/04 ver 3.1
+)
+********************************************************
+Package `algorithm2e' Release 4.01 -- december 14 2009 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (fiorio@lirmm.fr)
+********************************************************
+\skiptotal=\skip61
+\skiplinenumber=\skip62
+\skiprule=\skip63
+\skiphlne=\skip64
+\skiptext=\skip65
+\skiplength=\skip66
+\algomargin=\skip67
+\skipalgocfslide=\skip68
+\algowidth=\dimen128
+\inoutsize=\dimen129
+\inoutline=\dimen130
+\interspacetitleruled=\dimen131
+\interspacealgoruled=\dimen132
+\interspacetitleboxruled=\dimen133
+\algocf@inoutbox=\box30
+\algocf@inputbox=\box31
+\AlCapSkip=\skip69
+\AlCapHSkip=\skip70
+\algocf@nlbox=\box32
+\algocf@hangingbox=\box33
+\algocf@capbox=\box34
+\algoheightruledefault=\skip71
+\algoheightrule=\skip72
+\algotitleheightruledefault=\skip73
+\algotitleheightrule=\skip74
+\c@algocfline=\count113
+\c@algocfproc=\count114
+\c@algocf=\count115
+\algocf@algoframe=\box35
+\algocf@algobox=\box36
+) (D:\MiKTeX\tex\latex\babelbib\babelbib.sty
+Package: babelbib 2009/10/10 v1.29 babelbib: multilingual bibliographies (HH)
+)
+(D:\MiKTeX\tex\latex\base\makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+\@indexfile=\write4
+
+Writing index file PlantillaPFC.idx
+(D:\MiKTeX\tex\latex\ltxmisc\framed.sty
+Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
+\fb@frw=\dimen134
+\fb@frh=\dimen135
+\FrameRule=\dimen136
+\FrameSep=\dimen137
+)
+(D:\MiKTeX\tex\latex\pdfpages\pdfpages.sty
+Package: pdfpages 2010/01/12 v0.4j Insert pages of external PDF documents (AM)
+ (D:\MiKTeX\tex\latex\tools\calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count116
+\calc@Bcount=\count117
+\calc@Adimen=\dimen138
+\calc@Bdimen=\dimen139
+\calc@Askip=\skip75
+\calc@Bskip=\skip76
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count118
+\calc@Cskip=\skip77
+) (D:\MiKTeX\tex\latex\eso-pic\eso-pic.sty
+Package: eso-pic 2010/06/08 v2.0b eso-pic (RN)
+
+(D:\MiKTeX\tex\generic\oberdiek\atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+
+(D:\MiKTeX\tex\generic\oberdiek\infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+))
+(D:\MiKTeX\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+ (D:\MiKTeX\tex\latex\00miktex\color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)) (D:\MiKTeX\tex\latex\pdfpages\pppdftex.def
+File: pppdftex.def 2010/01/12 v0.4j Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box37
+\AM@toc@title=\toks22
+\c@AM@survey=\count119
+\AM@templatesizebox=\box38
+)
+(D:\MiKTeX\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+))
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.aux"
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Portadas.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Previos.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Listas.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Prologo.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Introduccion.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\FormatBasic.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\DocsEnriq.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Texnic.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Jabref.aux"))
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 18.
+
+(D:\MiKTeX\tex\latex\base\ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 18.
+ (D:\MiKTeX\tex\latex\psnfss\t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
+LaTeX Info: Redefining \microtypecontext on input line 18.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+Package microtype Info: No tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+
+(D:\MiKTeX\tex\latex\microtype\mt-ptm.cfg
+File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
+)
+*geometry auto-detecting driver*
+*geometry detected driver: pdftex*
+-------------------- Geometry parameters
+paper: a4paper
+landscape: --
+twocolumn: --
+twoside: true
+asymmetric: --
+h-parts: 99.58464pt, 441.01773pt, 56.9055pt
+v-parts: 71.13188pt, 702.78308pt, 71.13188pt
+hmarginratio: --
+vmarginratio: --
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: --
+includefoot: --
+includemp: --
+driver: pdftex
+-------------------- Page layout dimensions and switches
+\paperwidth  597.50787pt
+\paperheight 845.04684pt
+\textwidth  441.01773pt
+\textheight 702.78308pt
+\oddsidemargin  27.31465pt
+\evensidemargin -15.36449pt
+\topmargin  -33.0119pt
+\headheight 18.0pt
+\headsep    19.8738pt
+\footskip   30.0pt
+\marginparwidth 88.0pt
+\marginparsep   7.0pt
+\columnsep  10.0pt
+\skip\footins  10.8pt plus 4.0pt minus 2.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+\@twosidetrue \@mparswitchtrue 
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
+Package caption Info: subfigure package is loaded.
+Package caption Info: End \AtBeginDocument code.
+(D:\MiKTeX\tex\context\base\supp-pdf.tex
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count120
+\scratchdimen=\dimen140
+\scratchbox=\box39
+\nofMPsegments=\count121
+\nofMParguments=\count122
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count123
+\MPscratchDim=\dimen141
+\MPnumerator=\count124
+\everyMPtoPDFconversion=\toks24
+)
+\c@lstlisting=\count125
+
+babelbib: Use citation-dependent languages in bibliography
+babelbib: Set bibliography fall-back language to english
+(D:\MiKTeX\tex\latex\babelbib\english.bdf
+File: english.bdf 2009/10/10 v1.29 babelbib: multilingual bibliographies (HH)
+
+babelbib extension \bibsenglish added to \extrasenglish
+babelbib extension \btxifchangecaseon added to \extrasenglish
+) (D:\MiKTeX\tex\latex\babelbib\spanish.bdf
+File: spanish.bdf 2009/10/10 v1.29 babelbib: multilingual bibliographies (HH)
+
+babelbib extension \bibsspanish added to \extrasspanish
+babelbib extension \btxifchangecaseoff added to \extrasspanish
+)
+\AtBeginShipoutBox=\box40
+ ("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Portadas.tex"
+<Figuras/Cap2/escudoInfBW.pdf, id=1, 571.13374pt x 690.58pt>
+File: Figuras/Cap2/escudoInfBW.pdf Graphic file (type pdf)
+
+<use Figuras/Cap2/escudoInfBW.pdf>
+LaTeX Font Info:    Font shape `T1/ptm/bx/sc' in size <20.74> not available
+(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 17.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 20.
+ (D:\MiKTeX\tex\latex\microtype\mt-cmr.cfg
+File: mt-cmr.cfg 2009/11/09 v2.0 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 20.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 20.
+
+[1
+
+
+
+
+{C:/Documents and Settings/All Users/Datos de programa/MiKTeX/2.8/pdftex/config
+/pdftex.map} <C:/Documents and Settings/jandrada/Escritorio/PlantillaPFC/Figura
+s/Cap2/escudoInfBW.pdf>] [2
+
+]
+File: Figuras/Cap2/escudoInfBW.pdf Graphic file (type pdf)
+ <use Figuras/Cap2/escudoInfBW.pdf> [3]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 64.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 64.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 64.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 65.
+
+(D:\MiKTeX\tex\latex\psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [4]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 73.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 73.
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--78
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
+
+ []
+
+
+Overfull \hbox (6.79784pt too wide) in paragraph at lines 84--88
+ [] 
+ []
+
+[5
+
+] [6
+
+] [7] [8
+
+])
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Previos.tex"
+[9
+
+
+
+] [10
+
+] [11] [12
+
+]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 25.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 25.
+ (D:\MiKTeX\tex\latex\psnfss\t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 25.
+) [13] [14
+
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.toc"
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 8.
+)
+\tf@toc=\write5
+[15] ("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Listas.tex"
+[16
+
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.lof")
+\tf@lof=\write6
+[17] [18
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.lot"
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 11.
+
+(D:\MiKTeX\tex\latex\psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+))
+\tf@lot=\write7
+ [19] [20
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.lol")
+\tf@lol=\write8
+[21] [22
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.loa")
+\tf@loa=\write9
+) [23] ("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Prologo.tex
+" [24
+
+
+
+]) [25] [26
+
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Introduccion.tex"
+Cap\'{\i }tulo 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <24.88> on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20.74> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 4.
+) [1
+
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\FormatBasic.tex"
+[2
+
+
+
+]
+Cap\'{\i }tulo 2.
+LaTeX Font Info:    Try loading font information for U+mvs on input line 35.
+(D:\MiKTeX\tex\latex\marvosym\umvs.fd)
+(D:\MiKTeX\tex\latex\microtype\mt-mvs.cfg
+File: mt-mvs.cfg 2006/07/05 v1.1 microtype config. file: Marvosym Euro (RS)
+) [3]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 46.
+ [4] [5]) [6]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\DocsEnriq.tex"
+Cap\'{\i }tulo 3.
+[7
+
+
+
+] <Figuras/Cap2/plazaCr.jpg, id=271, 903.375pt x 1204.5pt>
+File: Figuras/Cap2/plazaCr.jpg Graphic file (type jpg)
+
+<use Figuras/Cap2/plazaCr.jpg>
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 47.
+ [8 <C:/Documents and Settings/jandrada/Escritorio/PlantillaPFC/Figuras/Cap2/pl
+azaCr.jpg>]
+<Figuras/Cap2/clockCR.jpg, id=275, 4015.0pt x 3011.25pt>
+File: Figuras/Cap2/clockCR.jpg Graphic file (type jpg)
+
+<use Figuras/Cap2/clockCR.jpg>
+<Figuras/Cap2/clockCRbw.jpg, id=276, 1606.0pt x 1204.5pt>
+File: Figuras/Cap2/clockCRbw.jpg Graphic file (type jpg)
+
+<use Figuras/Cap2/clockCRbw.jpg>
+<Figuras/Cap2/lionL.jpg, id=277, 341.275pt x 368.37625pt>
+File: Figuras/Cap2/lionL.jpg Graphic file (type jpg)
+
+<use Figuras/Cap2/lionL.jpg>
+<Figuras/Cap2/lionL.png, id=278, 341.275pt x 368.37625pt>
+File: Figuras/Cap2/lionL.png Graphic file (type png)
+
+<use Figuras/Cap2/lionL.png> [9 <C:/Documents and Settings/jandrada/Escritorio/
+PlantillaPFC/Figuras/Cap2/clockCR.jpg> <C:/Documents and Settings/jandrada/Escr
+itorio/PlantillaPFC/Figuras/Cap2/clockCRbw.jpg>]
+<Figuras/Cap2/inkscape.png, id=283, 930.47626pt x 706.64pt>
+File: Figuras/Cap2/inkscape.png Graphic file (type png)
+
+<use Figuras/Cap2/inkscape.png>
+<Figuras/Cap2/4004archCairo.pdf, id=284, 1117.12547pt x 845.04686pt>
+File: Figuras/Cap2/4004archCairo.pdf Graphic file (type pdf)
+
+<use Figuras/Cap2/4004archCairo.pdf> [10 <C:/Documents and Settings/jandrada/Es
+critorio/PlantillaPFC/Figuras/Cap2/lionL.jpg> <C:/Documents and Settings/jandra
+da/Escritorio/PlantillaPFC/Figuras/Cap2/lionL.png> <C:/Documents and Settings/j
+andrada/Escritorio/PlantillaPFC/Figuras/Cap2/inkscape.png>]
+File: Figuras/Cap2/escudoInfBW.pdf Graphic file (type pdf)
+
+<use Figuras/Cap2/escudoInfBW.pdf>
+<Figuras/Cap2/escudoInfBW.png, id=291, 619.113pt x 713.064pt>
+File: Figuras/Cap2/escudoInfBW.png Graphic file (type png)
+
+<use Figuras/Cap2/escudoInfBW.png>
+\c@cms=\count126
+ [11 <C:/Documents and Settings/jandrada/Escritorio/PlantillaPFC/Figuras/Cap2/4
+004archCairo.pdf>] [12 <C:/Documents and Settings/jandrada/Escritorio/Plantilla
+PFC/Figuras/Cap2/escudoInfBW.png>]
+<Figuras/Cap2/alimentos.pdf, id=303, 193.72375pt x 47.17625pt>
+File: Figuras/Cap2/alimentos.pdf Graphic file (type pdf)
+
+<use Figuras/Cap2/alimentos.pdf>
+Underfull \vbox (badness 1259) has occurred while \output is active []
+
+ [13 <C:/Documents and Settings/jandrada/Escritorio/PlantillaPFC/Figuras/Cap2/a
+limentos.pdf>]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 226.
+ [14] <Figuras/Cap2/javaCode.png, id=320, 792.9625pt x 374.39874pt>
+File: Figuras/Cap2/javaCode.png Graphic file (type png)
+
+<use Figuras/Cap2/javaCode.png> [15]
+
+pdfTeX warning: pdflatex (file C:/Documents and Settings/jandrada/Escritorio/Pl
+antillaPFC/Figuras/Cap2/javaCode-crop.pdf): PDF inclusion: found PDF version <1
+.6>, but at most version <1.4> allowed
+<Figuras/Cap2/javaCode-crop.pdf, id=324, 432.04582pt x 202.93115pt>
+File: Figuras/Cap2/javaCode-crop.pdf Graphic file (type pdf)
+
+<use Figuras/Cap2/javaCode-crop.pdf>
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 317.
+
+
+LaTeX Warning: Citation `usbplagio2010' on page 16 undefined on input line 319.
+
+
+[16 <C:/Documents and Settings/jandrada/Escritorio/PlantillaPFC/Figuras/Cap2/ja
+vaCode.png (PNG copy)> <C:/Documents and Settings/jandrada/Escritorio/Plantilla
+PFC/Figuras/Cap2/javaCode-crop.pdf>] [17]
+
+LaTeX Warning: Citation `kopka04' on page 18 undefined on input line 329.
+
+
+LaTeX Warning: Citation `lamport94' on page 18 undefined on input line 329.
+
+
+LaTeX Warning: Citation `goos04' on page 18 undefined on input line 329.
+
+
+LaTeX Warning: Citation `cascales00' on page 18 undefined on input line 329.
+
+
+LaTeX Warning: Citation `cascales03' on page 18 undefined on input line 329.
+
+
+LaTeX Warning: Citation `oetiker06' on page 18 undefined on input line 329.
+
+
+LaTeX Warning: Citation `cascales00' on page 18 undefined on input line 334.
+
+
+LaTeX Warning: Citation `cascales03' on page 18 undefined on input line 334.
+
+
+LaTeX Warning: Citation `goos04' on page 18 undefined on input line 334.
+
+
+LaTeX Warning: Citation `kopka04' on page 18 undefined on input line 334.
+
+
+LaTeX Warning: Citation `lamport94' on page 18 undefined on input line 334.
+
+[18] [19]) [20]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Texnic.tex"
+Ap\'{e}ndice A.
+) [21
+
+
+
+] ("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Jabref.tex" [22
+
+
+
+]
+Ap\'{e}ndice B.
+) [23] [24
+
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.bbl"
+babelbib: Using the BibTeX style's default font for `name'.
+babelbib: Using the BibTeX style's default font for `lastname'.
+babelbib: Using the BibTeX style's default font for `title'.
+babelbib: Using the BibTeX style's default font for `jtitle'.
+babelbib: Using the BibTeX style's default font for `etal'.
+babelbib: Using the BibTeX style's default font for `journal'.
+babelbib: Using the BibTeX style's default font for `volume'.
+babelbib: Using the BibTeX style's default font for `ISBN'.
+babelbib: Using the BibTeX style's default font for `ISSN'.
+babelbib: Using the BibTeX style's default font for `url'.
+babelbib: Using the BibTeX style's default font for `numeral'.
+) [25
+
+] [26
+
+]
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.ind"
+[27
+
+])
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\PlantillaPFC.aux"
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Portadas.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Previos.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Listas.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Prologo.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Introduccion.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\FormatBasic.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\DocsEnriq.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Texnic.aux")
+("C:\Documents and Settings\jandrada\Escritorio\PlantillaPFC\Jabref.aux"))
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 11431 strings out of 495259
+ 166596 string characters out of 3181266
+ 387127 words of memory out of 3000000
+ 14092 multiletter control sequences out of 15000+200000
+ 111312 words of font info for 266 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 39i,15n,51p,1485b,1277s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/MiKTeX/fonts/enc/dvips/fontname/8r.enc}<D:/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmex10.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmr12.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmsy8.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb><D
+:/MiKTeX/fonts/type1/public/amsfonts/latxfont/line10.pfb><D:/MiKTeX/fonts/type1
+/public/marvosym/marvosym.pfb><D:/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><D:
+/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><D:/MiKTeX/fonts/type1/urw/helvetic/
+uhvb8a.pfb><D:/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><D:/MiKTeX/fonts/type
+1/urw/times/utmb8a.pfb><D:/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><D:/MiKTeX/f
+onts/type1/urw/times/utmri8a.pfb><D:/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on PlantillaPFC.pdf (53 pages, 9265486 bytes).
+PDF statistics:
+ 441 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 50749 words of extra memory for PDF output out of 51595 (max. 10000000)
+

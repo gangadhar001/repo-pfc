@@ -1,0 +1,71 @@
+\begin{theindex}
+
+  \item \verb+\textbackslash+, 1
+  \item Bib\TeX{}, 18
+
+  \indexspace
+
+  \item center, \see{justificaci\'on}{5}
+  \item citas, 6
+
+  \indexspace
+
+  \item description, 5
+  \item \texttt{\textbackslash ding}, 4
+
+  \indexspace
+
+  \item ecuaciones, 7
+  \item enumerate, 4
+
+  \indexspace
+
+  \item figuras, 8
+  \item figure, 12
+  \item flushleft, \see{justificaci\'on}{5}
+
+  \indexspace
+
+  \item itemize, 4
+
+  \indexspace
+
+  \item justificaci\'on, 5
+
+  \indexspace
+
+  \item Knuth, D., 1
+
+  \indexspace
+
+  \item Lamport, L., 1
+  \item listas, 4
+
+  \indexspace
+
+  \item paquete
+    \subitem algorithm2e, 16
+    \subitem fancyvrb, 14
+    \subitem graphicx, 8
+    \subitem listings, 14
+    \subitem url, 3
+  \item pdfcrop, 13
+
+  \indexspace
+
+  \item referencias cruzadas, 6
+
+  \indexspace
+
+  \item s\IeC {\'\i }mbolos, 4
+
+  \indexspace
+
+  \item tablas, 12
+  \item \verb+\thebibliography+, 18
+
+  \indexspace
+
+  \item verbatim, 14
+
+\end{theindex}
