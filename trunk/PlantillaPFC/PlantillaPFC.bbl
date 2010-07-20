@@ -1,0 +1,96 @@
+\begin{thebibliography}{10}
+  \providebibliographyfont{name}{}%
+  \providebibliographyfont{lastname}{}%
+  \providebibliographyfont{title}{\emph}%
+  \providebibliographyfont{jtitle}{\btxtitlefont}%
+  \providebibliographyfont{etal}{\emph}%
+  \providebibliographyfont{journal}{}%
+  \providebibliographyfont{volume}{}%
+  \providebibliographyfont{ISBN}{\MakeUppercase}%
+  \providebibliographyfont{ISSN}{\MakeUppercase}%
+  \providebibliographyfont{url}{\url}%
+  \providebibliographyfont{numeral}{}%
+  \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+
+\btxselectlanguage {spanish}
+\bibitem {cascales00}
+\btxnamefont {\btxlastnamefont {Cascales}, B.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {{\LaTeX{}}. Una imprenta en sus manos}.
+\newblock \btxpublisherfont {Aula Documental de Investigación}, 2000.
+
+\bibitem {cascales03}
+\btxnamefont {\btxlastnamefont {Cascales}, B.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {El libro de {\LaTeX}}.
+\newblock \btxpublisherfont {Pearson/Prentice Hall}, 2003.
+
+\bibitem {dawson02}
+\btxnamefont {\btxlastnamefont {Dawson}, Christian\btxfnamespacelong W.}
+  \btxandlong {}\ \btxnamefont {Gregorio \btxlastnamefont
+  {Martín}}\btxauthorcolon\ \btxtitlefont {El proyecto fin de carrera en
+  {I}ngeniería {I}formática}.
+\newblock \btxpublisherfont {Prentice Hall}, 2002.
+
+\bibitem {usbplagio2010}
+\btxnamefont {\btxlastnamefont {García}, A.} \btxandlong {}\ \btxnamefont {E.
+  \btxlastnamefont {Klein.}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase
+  {¿por qué ocurre el plagio en las universidades y cómo evitarlo?}{¿Por qué
+  ocurre el plagio en las Universidades y cómo evitarlo?}}
+\newblock {\url{http://prof.usb.ve/eklein/plagio/}}.
+\newblock {\latintext \btxurlfont{http://prof.usb.ve/eklein/plagio/}}.
+
+\btxselectlanguage {english}
+\bibitem {goos04}
+\btxnamefont {\btxlastnamefont {Goossens}, M.}, \btxnamefont {F.
+  \btxlastnamefont {Mittelbach}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {A. \btxlastnamefont {Samarin}}\btxauthorcolon\ \btxtitlefont {The {\LaTeX{}}
+  companion}.
+\newblock \btxpublisherfont {Addison-Wesley Reading, MA}, \btxnumerallong
+  {2}~\btxeditionlong {}, 2004.
+
+\bibitem {goos07}
+\btxnamefont {\btxlastnamefont {Goossens}, M.}, \btxnamefont {S.
+  \btxlastnamefont {Rahtz}}\btxandcomma {} \btxandlong {}\ \btxnamefont {F.
+  \btxlastnamefont {Mittelbach}}\btxauthorcolon\ \btxtitlefont {The {\LaTeX{}}
+  graphics companion}.
+\newblock \btxpublisherfont {Addison-Wesley Reading, MA}, \btxnumerallong
+  {2}~\btxeditionlong {}, 2007.
+
+\bibitem {grat99}
+\btxnamefont {\btxlastnamefont {Grätzer}, G.A.}\btxauthorcolon\ \btxtitlefont
+  {First steps in {\LaTeX}}.
+\newblock \btxpublisherfont {Springer Verlag}, \btxnumerallong
+  {1}~\btxeditionlong {}, 1999.
+
+\bibitem {grat07}
+\btxnamefont {\btxlastnamefont {Grätzer}, G.A.}\btxauthorcolon\ \btxtitlefont
+  {More math into {\LaTeX}}.
+\newblock \btxpublisherfont {Birkhauser}, \btxnumerallong {4}~\btxeditionlong
+  {}, 2007.
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {knuth86}
+\btxnamefont {\btxlastnamefont {Knuth}, D.\btxfnamespacelong
+  E.}\btxauthorcolon\ \btxtitlefont {{The \TeX{}book}}.
+\newblock \btxpublisherfont {Addison-Wesley}, 1986.
+
+\btxselectlanguage {english}
+\bibitem {kopka04}
+\btxnamefont {\btxlastnamefont {Kopka}, H.} \btxandlong {}\ \btxnamefont
+  {{P.W.} \btxlastnamefont {Daly}}\btxauthorcolon\ \btxtitlefont {A guide to
+  {\LaTeX}}.
+\newblock \btxpublisherfont {Addison-Wesley}, \btxnumerallong
+  {4}~\btxeditionlong {}, 2004.
+
+\bibitem {lamport94}
+\btxnamefont {\btxlastnamefont {Lamport}, L.}\btxauthorcolon\ \btxtitlefont
+  {{\LaTeX}: A document preparation system}.
+\newblock \btxpublisherfont {Addison-Wesley}, \btxnumerallong
+  {2}~\btxeditionlong {}, 1994.
+
+\bibitem {oetiker06}
+\btxnamefont {\btxlastnamefont {Oetiker}, T.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {{The not so short
+  introduction to \LaTeX2e{}}}{{The not so short introduction to \LaTeX2e{}}}},
+  2006.
+
+\end{thebibliography}
