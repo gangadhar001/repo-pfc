@@ -1,26 +1,23 @@
 % Tipo de documento. En este caso es un artículo, para folios A4, tamaño de la fuente 11pt y con página separada para el título
 \documentclass[a4paper,11pt,titlepage]{article}
 
-% Carga de paquetes necesarios. OrdenesArticle es un paquete personalizado
-%\usepackage[spanish,cap,cont,title,fancy]{OrdenesArticle}
-
 %====================================
 %====================================
 % PAQUETES PARA AJUSTE DE MÁRGENES, ESPACIOS
-\usepackage[top=2.5cm,bottom=2.5cm,inner=3.5cm,outer=2cm]{geometry}
-\usepackage{setspace}         % Interlineado
-\usepackage{fancyhdr}         % Cabeceras y pies personalizados
-%\usepackage[% Utiliza el tema requerido eliminando la marca %
-%Sonny%
-%%Lenny%
-%%Glenn%
-%%Conny%
-%%Rejne%
-%%Bjarne%
-%%Bjornstrup%
-%]{fncychap}  % Cabeceras de capítulos tematizados
-\usepackage{titlesec} % Personalización completa de títulos de secciones (incompatible con fncychap)
-\usepackage[margin=10pt,font=small,labelfont=bf,format=hang]{caption} % Personalización de títulos de figuras y tablas
+%\usepackage[top=2.5cm,bottom=2.5cm,inner=3.5cm,outer=2cm]{geometry}
+%\usepackage{setspace}         % Interlineado
+%\usepackage{fancyhdr}         % Cabeceras y pies personalizados
+%%\usepackage[% Utiliza el tema requerido eliminando la marca %
+%%Sonny%
+%%%Lenny%
+%%%Glenn%
+%%%Conny%
+%%%Rejne%
+%%%Bjarne%
+%%%Bjornstrup%
+%%]{fncychap}  % Cabeceras de capítulos tematizados
+%\usepackage{titlesec} % Personalización completa de títulos de secciones (incompatible con fncychap)
+%\usepackage[margin=10pt,font=small,labelfont=bf,format=hang]{caption} % Personalización de títulos de figuras y tablas
 %\usepackage[bottom]{footmisc}
 
 %====================================
@@ -34,6 +31,8 @@
 \RequirePackage[ansinew]{inputenx} 
 \usepackage{times}            % Familia base de fundiciones
 \usepackage{microtype}        % Mejoras para pdflatex
+% Carga de paquetes necesarios. OrdenesArticle es un paquete personalizado
+\usepackage[spanish,cap,cont,title,fancy]{OrdenesArticle}
 \usepackage{lmodern}
 \usepackage{array}
 \usepackage{graphicx}
@@ -49,7 +48,7 @@
 \usepackage{url}
 \hypersetup{bookmarksopen,bookmarksopenlevel=4,linktocpage,colorlinks,urlcolor=blue,citecolor=blue,
 						linkcolor=blue,filecolor=blue,pdfnewwindow,
-						pdftitle={Plug-in de Eclipse para la gestión de conocimiento de un producto software},
+						pdftitle={Plug-in de Eclipse para la gestión de conocimiento en las fases de análisis y diseño de un producto software},
 						pdfauthor={Juan Andrada Romero},
 						pdfsubject={Propuesta del Proyecto Fin de Carrera}}
 
@@ -66,38 +65,38 @@
 %\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 %\setlength{\parindent}{8ex}
 
-%====================================
-%====================================
-% Control de las cabeceras y pies de página
-\fancyhf{}
-\fancyhead[LO]{\leftmark} 
-% En las páginas impares, parte izquierda del encabezado, aparecerá el nombre de capítulo
-\fancyhead[RE]{\rightmark} 
-% En las páginas pares, parte derecha del encabezado, aparecerá el nombre de sección
-\fancyhead[RO,LE]{\thepage} % Números de página en las esquinas de los encabezados
-
-\setlength{\headheight}{1.5\headheight} % Aumenta la altura del encabezado en una vez y media
-
-% Código para evitar que en clase book la última página de capítulo tenga cabecera y pie si dicha página está en blanco. 
-\makeatletter
-\def\cleardoublepage{\clearpage\if@twoside
-\ifodd\c@page
-\else\hbox{}\thispagestyle{empty}\newpage
-\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-\makeatother
-
-% Código de ejemplo (titlesec) para cambiar el aspecto de capítulos
-\newcommand{\bigrule}{\titlerule[0.5mm]}
-\titleformat{\chapter}[display] % cambiamos el formato de los capítulos
-{\bfseries\Huge\sffamily} % por defecto se usarán caracteres de tamaño \Huge en negrita
-{% contenido de la etiqueta
-\titlerule % línea horizontal
-\filleft % texto alineado a la derecha
-\Large\chaptertitlename\ % "Capítulo" o "Apéndice" en tamaño \Large en lugar de \Huge
-\Large\thechapter} % número de capítulo en tamaño \Large
-{0mm} % espacio mínimo entre etiqueta y cuerpo
-{\filleft} % texto del cuerpo alineado a la derecha
-[\vspace{0.5mm} \bigrule] % después del cuerpo, dejar espacio vertical y trazar línea horizontal gruesa
+%%====================================
+%%====================================
+%% Control de las cabeceras y pies de página
+%\fancyhf{}
+%\fancyhead[LO]{\leftmark} 
+%% En las páginas impares, parte izquierda del encabezado, aparecerá el nombre de capítulo
+%\fancyhead[RE]{\rightmark} 
+%% En las páginas pares, parte derecha del encabezado, aparecerá el nombre de sección
+%\fancyhead[RO,LE]{\thepage} % Números de página en las esquinas de los encabezados
+%
+%\setlength{\headheight}{1.5\headheight} % Aumenta la altura del encabezado en una vez y media
+%
+%% Código para evitar que en clase book la última página de capítulo tenga cabecera y pie si dicha página está en blanco. 
+%\makeatletter
+%\def\cleardoublepage{\clearpage\if@twoside
+%\ifodd\c@page
+%\else\hbox{}\thispagestyle{empty}\newpage
+%\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%\makeatother
+%
+%% Código de ejemplo (titlesec) para cambiar el aspecto de capítulos
+%\newcommand{\bigrule}{\titlerule[0.5mm]}
+%\titleformat{\chapter}[display] % cambiamos el formato de los capítulos
+%{\bfseries\Huge\sffamily} % por defecto se usarán caracteres de tamaño \Huge en negrita
+%{% contenido de la etiqueta
+%\titlerule % línea horizontal
+%\filleft % texto alineado a la derecha
+%\Large\chaptertitlename\ % "Capítulo" o "Apéndice" en tamaño \Large en lugar de \Huge
+%\Large\thechapter} % número de capítulo en tamaño \Large
+%{0mm} % espacio mínimo entre etiqueta y cuerpo
+%{\filleft} % texto del cuerpo alineado a la derecha
+%[\vspace{0.5mm} \bigrule] % después del cuerpo, dejar espacio vertical y trazar línea horizontal gruesa
 
 % Código para evitar la división de notas al pie en págs. diferentes
 \interfootnotelinepenalty=10000
@@ -212,8 +211,10 @@
 \pagenumbering{arabic}
 \pagestyle{fancy}
 
-%\input{1introduccion.tex}
-
+\input{1introduccion.tex}
+\input{2objetivo.tex}
+\clearpage
+\input{3herramienta.tex}
 
 % Sección de apéndices
 % Se añade el titulo de "Apéndices" al índice
@@ -226,8 +227,10 @@
 \addcontentsline{toc}{section}{Referencias}
 
 % Bibliografía. En este caso se usa BibTeX
-\bibliographystyle{plain}
+\nocite{*} % Comando por si queremos incluir todas las entradas de la bibliografía aunque no estén citadas en el texto.
+\bibliographystyle{plain} % Estilo de bibliografía
 \pagestyle{plain} 
 \bibliography{Bibliografia}
+
 
 \end{document}
