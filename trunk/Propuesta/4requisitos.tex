@@ -1,0 +1,55 @@
+\section{Requisitos Funcionales} \label{requisitos}
+
+En los siguientes apartados se comentan las diferentes funcionalidades que debe tener la herramienta que se pretende desarrollar.
+
+\paragraph{Conexión a un servidor}
+
+Como se comentó en la sección \ref{objetivo}, la herramienta está pensada para utilizarse en el ámbito del desarrollo global de software. Por este motivo, el plug-in debe poder conectarse a un servidor donde esté alojada una base de datos que almacenará todo el conocimiento (decisiones de diseño, cuestiones, respuestas, etc.) de cada uno de los proyectos que se desarrollan de manera distribuida. Así, se sigue en enfoque cliente-servidor, para que todos los equipos de desarrollo puedan acceder a una base de datos centralizada donde se almacena todo el conocimiento. 
+
+Además, para realizar la conexión con el servidor, cada usuario que haga uso de esta herramienta deberá identificarse, mediante un nombre de usuario y una contraseña. De este modo, se utilizará ese nombre de usuario para recuperar conocimiento de la base de datos y para introducir nuevo conocimiento.
+
+
+\paragraph{Introducción de nuevo conocimiento}
+
+Los usuarios de este plug-in podrán utilizar una plantilla (o formulario) predefinida para introducir nuevo conocimiento en el proyecto en el cuál está trabajando. La razón de utilizar plantillas predefinidas es proporcionar un estándar común para todos los equipos de desarrollo que se encuentran distribuidos, facilitando la posterior visualización del conocimiento y evitando inconsistencias por la forma de trabajar de cada equipo.
+
+La plantilla estará basada en los formularios utilizados en las herramientas \textit{Work item tracking} (\cite{work}) y \textit{SEURAT} (\cite{seurat}) (ver Figuras \ref{fig:formularioWork} y \ref{formularioSeurat}, respectivamente), y se utilizará para plantear cuestiones (o decisiones de diseño) relacionadas con la fase de análisis y diseño del producto software.\\
+\indent Por ejemplo, se puede plantear la siguiente cuestión: ''\textit{Utilizar el patrón modelo-vista-controlador para la separación en capas del sistema}''.
+
+De este modo, dicha plantilla constará de los siguientes campos:
+
+\begin{milista}
+	\item Nombre del usuario.
+	\item Nombre de la cuestión.
+	\item Descripción de la decisión o cuestión que se desea plantear.
+	\item Categoría a la que pertenece cada cuestión: análisis o diseño. Según la categoría elegida, se podrá asociar dicha decisión a un requisito funcional, a un patrón de diseño, a un aspecto arquitectónico, etc.
+	\item Fecha en la que se plantea la cuestión. 
+	
+\end{milista}
+
+
+Por otro lado, una vez que una cuestión es planteada por algún equipo de desarrollo, otros equipos podrán comentar dicha decisión, justificando argumentos a favor o en contra, hasta llegar a un consenso.
+
+Para esto, se utilizará otra plantilla, con los siguientes campos:
+
+\begin{milista}
+	\item Identificador de la cuestión planteada anteriormente.
+	\item Nombre de la cuestión.
+	\item Argumento: el desarrollador contará con una serie de frases predefinidas que facilitarán la justificación de aceptar, rechazar o simplemente mejorar la decisión planteada por otro usuario. 
+\end{milista}
+
+De este modo, las decisiones planteadas pueden ser discutidas por diferentes miembros de diferentes equipos de desarrollo antes de ser aceptadas como definitivas, lo que facilita que se detecten nuevas situaciones no contempladas con anterioridad y se puedan plantear nuevas decisiones de diseño. 
+
+En resumen, se creará un sistema de preguntas-respuestas que ayudarán a ir refinando las diferentes decisiones planteadas en las etapas de análisis y diseño del sistema software, hasta alcanzar la aceptación de dichas decisiones. Esto está basado en sistemas \textbf{IBIS} (Issue-Based Information System) \cite{ibis}, lo que permite registrar todo el razonamiento que se lleva a cabo hasta tomar como válida y aceptada una cuestión o decisión (\textit{issue}).
+
+
+\paragraph{Visualización del conocimiento}
+
+El plug-in a desarrollar, además de permitir el registro de nuevas cuestiones o respuestas a decisiones ya planteadas, también permitirá visualizar el conocimiento que ya se encuentra en la base de datos. La herramienta permitirá diferentes visualizaciones:
+
+\begin{enumerate}
+	\item Basándose en \cite{Libroibis}, donde se presenta un mapa de diálogo (ver Figura \ref{fig:mapaDialogo}), se visualizará en forma de grafo de las diferentes cuestiones y los argumentos que la aceptan, la rebaten o simplemente añaden nueva información.
+	\item Basándose en la herramienta SEURAT \cite{seurat}, se mostrarán las diferentes cuestiones y sus respuestas en forma de lista jerárquica (ver Figura \ref{fig:seurat}).
+	\item Basándose en \cite{visualize}, se mostrarán todas las cuestiones planteadas en una tabla (ver Figura \ref{fig:tabla}). Además, al seleccionar una fila de esa tabla, se desplegarán las respuestas que ha tenido esa cuestión (si las tiene).
+	\item Basándose en \cite{visualize}, se podrá visualizar toda la información de la base de datos (cuestiones planteadas y sus respuestas) ordenadas cronológicamente (ver Figura \ref{fig:crono}).
+\end{enumerate}
