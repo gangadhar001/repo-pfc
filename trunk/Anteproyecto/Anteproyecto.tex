@@ -26,7 +26,7 @@
 \usepackage[final]{graphicx}  % Inclusión de figuras
 \usepackage{subfigure}        % Inclusión de subfiguras
 
-\usepackage[spanish]{babel} 
+\usepackage[spanish,english]{babel} 
 \RequirePackage[T1]{fontenc}
 \RequirePackage[ansinew]{inputenx} 
 \usepackage{times}            % Familia base de fundiciones
@@ -57,6 +57,7 @@
 % PAQUETES PARA BIBLIOGRAFÍA, ÍNDICES Y GLOSARIOS
 \usepackage{babelbib} % Paquete para crear bibliografías multilingues.
 \selectlanguage{spanish} % Seleccionamos el idioma por defecto del documento
+\selectbiblanguage{spanish}
 
 %====================================
 %====================================
@@ -225,15 +226,18 @@
 
 %\input{Apendices.tex}
 
+\renewcommand{\bibname}{Bibliografía}
+\renewcommand{\refname}{\bibname} % Para cambiar el nombre de la sección de bibliografia
+
 % Añadimos la bibliografia al índice
 \clearpage\phantomsection
-\addcontentsline{toc}{section}{Referencias}
+\addcontentsline{toc}{section}{\bibname}
 
-%% Bibliografía. En este caso se usa BibTeX
+%%% Bibliografía. En este caso se usa BibTeX
 \nocite{*} % Comando por si queremos incluir todas las entradas de la bibliografía aunque no estén citadas en el texto.
-\bibliographystyle{plain} % Estilo de bibliografía
-\pagestyle{plain} 
-\bibliography{Bibliografia}
 
+%\bibliographystyle{plain} % Estilo de bibliografía
+\bibliography{Bibliografia}
+\bibliographystyle{babplain} % Estilo de bibliografía
 
 \end{document}
