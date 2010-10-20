@@ -1,5 +1,5 @@
 % Tipo de documento. En este caso es un artículo, para folios A4, tamaño de la fuente 11pt y con página separada para el título
-\documentclass[a4paper,11pt,titlepage]{article}
+\documentclass[oneside,a4paper,12pt,titlepage]{article}
 
 %====================================
 %====================================
@@ -50,14 +50,24 @@
 						linkcolor=blue,filecolor=blue,pdfnewwindow,
 						pdftitle={Plug-in de Eclipse para la gestión de conocimiento en las fases de análisis y diseño de un producto software},
 						pdfauthor={Juan Andrada Romero},
-						pdfsubject={Propuesta del Proyecto Fin de Carrera}}
+						pdfsubject={Anteproyecto Fin de Carrera}}
 
 %====================================
 %====================================
 % PAQUETES PARA BIBLIOGRAFÍA, ÍNDICES Y GLOSARIOS
-\usepackage{babelbib} % Paquete para crear bibliografías multilingues.
-\selectlanguage{spanish} % Seleccionamos el idioma por defecto del documento
+\usepackage[fixlanguage]{babelbib} % Paquete para crear bibliografías multilingues.
+
 \selectbiblanguage{spanish}
+
+
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
 
 %====================================
 %====================================
@@ -164,6 +174,8 @@
 
 \begin{document}
 
+\selectlanguage{spanish} % Seleccionamos el idioma por defecto del documento
+
 % En las páginas de portada e índices, no hay encabezado ni pie de página
 \pagestyle{empty} 
 
@@ -237,7 +249,10 @@
 \nocite{*} % Comando por si queremos incluir todas las entradas de la bibliografía aunque no estén citadas en el texto.
 
 %\bibliographystyle{plain} % Estilo de bibliografía
-\bibliography{Bibliografia}
-\bibliographystyle{babplain} % Estilo de bibliografía
+\pagestyle{plain}
+\begin{flushleft}
 
+\bibliography{Bibliografia}
+\bibliographystyle{bababbrv} % Estilo de bibliografía
+\end{flushleft}
 \end{document}
