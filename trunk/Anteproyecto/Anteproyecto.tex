@@ -1,5 +1,5 @@
 % Tipo de documento. En este caso es un artículo, para folios A4, tamaño de la fuente 11pt y con página separada para el título
-\documentclass[oneside,a4paper,12pt,titlepage]{article}
+\documentclass[oneside,a4paper,12pt,titlepage,spanish]{article}
 
 %====================================
 %====================================
@@ -27,6 +27,7 @@
 \usepackage{subfigure}        % Inclusión de subfiguras
 
 \usepackage[spanish,english]{babel} 
+\usepackage{indentfirst} % Para poner tabulacion al primer parrafo
 \RequirePackage[T1]{fontenc}
 \RequirePackage[ansinew]{inputenx} 
 \usepackage{times}            % Familia base de fundiciones
@@ -56,17 +57,7 @@
 %====================================
 % PAQUETES PARA BIBLIOGRAFÍA, ÍNDICES Y GLOSARIOS
 \usepackage[fixlanguage]{babelbib} % Paquete para crear bibliografías multilingues.
-
 \selectbiblanguage{spanish}
-
-
-%% Define a new 'leo' style for the package that will use a smaller font.
-\makeatletter
-\def\url@leostyle{%
-  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
-\makeatother
-%% Now actually use the newly defined style.
-\urlstyle{leo}
 
 
 %====================================
@@ -250,9 +241,6 @@
 
 %\bibliographystyle{plain} % Estilo de bibliografía
 \pagestyle{plain}
-\begin{flushleft}
-
 \bibliography{Bibliografia}
 \bibliographystyle{bababbrv} % Estilo de bibliografía
-\end{flushleft}
 \end{document}
