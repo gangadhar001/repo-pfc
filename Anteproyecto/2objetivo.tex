@@ -1,6 +1,5 @@
 \section{Objetivos y fundamentos teóricos} \label{objetivos}
 
-
 \indent En esta sección se presentará el objetivo que se pretende alcanzar con el desarrollo del Proyecto Fin de Carrera (en adelante PFC), así como los fundamentos teóricos necesario para alcanzar dicho objetivo. 
 
 \subsection{Objetivos del proyecto} \label{objetivoPFC}
@@ -21,6 +20,7 @@ Como se ha comentado en la sección \ref{introduccion}, con esta herramienta visu
 	\item Informar sobre la contribución de cada uno de los miembros del proyecto, ofreciendo estadísticas. 
 \end{milista}
 
+\clearpage
 
 \subsection{Fundamentos teóricos}
 
@@ -40,6 +40,31 @@ rutinas, procesos, prácticas o normas de la organización}"' \cite{Davenport2000}
 Centrándose en la gestión de conocimiento en organizaciones especializadas en desarrollo de software, se presenta en el siguiente apartado el concepto de \textit{Design Rationale}.
 
 \paragraph{Design Rationale}
+
+\textit{Design Rationale} (o \textit{Rationale} simplemente) es un método que permite capturar, representar y mantener registros de información acerca de las decisiones que son tomadas por los miembros de un equipo de desarrollo de software \cite{Dutoit2006}. Dicho método puede ser aplicado en cualquier fase del desarrollo, desde el análisis de requisitos hasta las pruebas. 
+
+De este modo, se pueden capturar todas las decisiones y alternativas que se van produciendo a lo largo del desarrollo, pudiendo discutir y decidir sobre éstas. Además, dichas decisiones quedarán almacenadas como nuevo conocimiento para la empresa y se podrá reutilizar en proyectos futuros, sobre todo aquellas decisiones que hayan sido exitosas. 
+
+Existen tres niveles de conocimiento que puede ser recopilado \cite{Dutoit2006}:
+\begin{milista}
+	\item \textbf{Decisión}: se almacena solamente la decisión.
+	\item \textbf{Decisión junto con su contexto}: se almacena las decisiones de la cuál depende la nueva decisión.
+	\item \textbf{Decisión junto con cualquier información que se considere apropiada}.
+\end{milista}
+
+Con el segundo tipo de conocimiento, existen, principalmente, dos enfoques a la hora de representar dicho conocimiento \cite{Dutoit2006}:
+
+\begin{milista}
+	\item \textbf{Causal Graph}: es un grafo causal donde cada nodo representa una decisión y los arcos representan restricciones entre ellas, como por ejemplo que una decisión depende o proviene de otra anterior. En la Figura \ref{fig:causal} puede observase un ejemplo de este tipo de grafo. 
+	\item \textbf{Dialogue Map}: es un grafo donde los nodos pueden representar una pregunta, una idea o un argumento a favor o en contra de dichas ideas y preguntas. De este modo, se puede ir discutiendo una decisión e ir añadiendo nuevas alternativas y justificaciones. En la Figura \ref{fig:dialogue} puede observarse un ejemplo. 
+	Este tipo de grafo se basa en los sistemas \textbf{IBIS} (\textbf{I}ssue-\textbf{B}ased \textbf{I}nformation \textbf{S}ystems), donde el conocimiento se almacena y representa de manera jerárquica, en forma de decisiones/preguntas y justificaciones de éstas. 
+\end{milista}
+
+%\imagen{causalGraph}{0.6}{Causal Graph}{fig:causal}
+%\imagen{causalGraph}{0.6}{Dialogue Map}{fig:dialogue}
+
+
+
 
 
 
