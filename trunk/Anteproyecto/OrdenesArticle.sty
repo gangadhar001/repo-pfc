@@ -84,9 +84,10 @@
 \ifOrdenes@title
 	\RequirePackage{titlesec}
 	\titleformat{\section}
-		{\bfseries\LARGE\scshape}
-		{\LARGE\thesection. }
+		{\Large\bfseries}
+		{\Large\thesection. }
 		{1.5pt}
+		{\MakeUppercase}
 		{}
 
 	\titleformat{\subsection}
@@ -109,7 +110,8 @@
 	\RequirePackage{fancyhdr}
 	\lhead{\nouppercase{\leftmark}}
 	\chead{}
-	\rhead{\small{\rightmark}}
+	%\rhead{\small{\rightmark}}
+	\rhead{}
 	\lfoot{}
 	\cfoot{}
 	\rfoot{\thepage}	
