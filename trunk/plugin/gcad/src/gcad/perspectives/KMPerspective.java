@@ -1,4 +1,4 @@
-package gcad.perspective;
+package gcad.perspectives;
 
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
