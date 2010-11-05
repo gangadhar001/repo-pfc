@@ -5,9 +5,24 @@
 <extension point="org.eclipse.ui.perspectives">
    <perspective
          name="%perspective.name"
-         class="gcad.perspective.KMPerspective"
+         class="gcad.perspectives.KMPerspective"
          id="gcad.perspective.KMPerspective">
    </perspective>
 </extension>
+<extension
+      point="org.eclipse.ui.views">
+   <category
+         id="gcad.category.view.userInfromation"
+         name="%category.view.user">
+   </category>
+   <view
+         category="gcad.category.view.userInfromation"
+         class="gcad.views.UserInfView"
+         id="gcad.view.UserInformation"
+         name="%view.user"
+         restorable="true">
+   </view>
+</extension>
+
 
 </plugin>
