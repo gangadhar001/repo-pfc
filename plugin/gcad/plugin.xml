@@ -22,6 +22,17 @@
          name="%view.user"
          restorable="true">
    </view>
+   <category
+         id="gcad.category.view.proposal"
+         name="%category.view.issues">
+   </category>
+   <view
+         category="gcad.category.view.proposal"
+         class="gcad.views.ProposalView"
+         id="gcad.view.issues"
+         name="%view.issues"
+         restorable="true">
+   </view>
 </extension>
 
 
