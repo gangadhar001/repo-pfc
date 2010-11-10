@@ -11,7 +11,7 @@ public abstract class AbstractProposal {
 	public AbstractProposal() {
 		title = "";
 		description = "";
-		date = null;
+		date = new Date();
 	}
 	
 	public AbstractProposal(String title, String description, Date date) {

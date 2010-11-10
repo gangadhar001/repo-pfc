@@ -2,6 +2,7 @@ package gcad.proposal.models;
 
 import gcad.domain.AbstractProposal;
 import gcad.domain.Answer;
+import gcad.domain.Proposal;
 import gcad.listeners.ProposalListener;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ProposalManager {
 	//TODO: singleton
 	
 	private static ProposalManager manager;
-	private Collection<AbstractProposal> proposals;
+	private List<Proposal> proposals;
 	private List<ProposalListener> listeners = new ArrayList<ProposalListener>();
 	
 	public ProposalManager () {	
@@ -28,18 +29,28 @@ public class ProposalManager {
 		return manager;
 	}
 	
-	public IProposalItem[] getProposals() {
+	public Object[] getProposals() {
 		if (proposals == null)
 			loadProposals();
-		return proposals.toArray(new IProposalItem[proposals.size()]);
+		return proposals.toArray();
 	}
 	
 	// TODO: temporal. Aqui se cargarian las propuestas (de ambos tipos) de la base de datos
 	public void loadProposals() {
-		proposals = new HashSet<AbstractProposal>();
+		proposals = new ArrayList<Proposal>();
 		// TODO: en la persistencia, se mira el tipo de la propuesta para crear un objeto de la subclase adecuada 
-		proposals.add(new Answer("a", "b", new Date()));
-		proposals.add(new Answer("c0", "d", new Date()));
+		Proposal root = new Proposal("Raiz", "prueba", new Date(),0);
+
+		root.add(new Answer("Nodo1", "a", new Date()));
+
+		root.add(new Answer("Nodo2", "b", new Date()));
+		
+
+		Proposal comp = new Proposal("Raiz2", "prueba2", new Date(),1);
+
+		comp.add(new Answer("Nodo3", "c", new Date()));
+		root.add(comp);
+		proposals.add(root);
 	}
 	
 	public void addProposalManagerListener(ProposalListener listener) {
