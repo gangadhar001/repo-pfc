@@ -15,6 +15,7 @@ public class Proposal extends AbstractProposal {
 	
 	public Proposal() {
 		super();
+		proposals = new ArrayList<AbstractProposal>();
 	}
 	
 	public Proposal(String title, String description, Date date, int state) {
