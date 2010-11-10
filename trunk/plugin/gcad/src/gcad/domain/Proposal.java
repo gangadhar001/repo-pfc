@@ -39,5 +39,36 @@ public class Proposal extends AbstractProposal {
 		this.state = state;
 	
 	}
+
+	@Override
+	public void add(AbstractProposal aProposal) {
+		proposals.add(aProposal);
+		
+	}
+
+	@Override
+	public String getInformation() {
+		String information = "";
+		// Information about this proposal
+		information += this.toString();
+		// Get information recursively about child proposals
+		for (int i=0; i<proposals.size(); i++) {
+			information += "\t" + proposals.get(i).getInformation();
+		}
+		return information;
+		
+		
+	}
+
+	@Override
+	public void remove(AbstractProposal aProposal) {
+		proposals.remove(aProposal);
+		
+	}
+	
+	@Override
+	public String toString () {
+		return "Title: " + super.getTitle() + " Description: " + super.getDescription() + " Date: " + super.getDate() + " State: " + this.state + "\n";
+	}
 	
 }
