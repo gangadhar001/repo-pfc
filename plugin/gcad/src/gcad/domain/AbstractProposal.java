@@ -1,8 +1,6 @@
 package gcad.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public abstract class AbstractProposal {
 
@@ -46,5 +44,11 @@ public abstract class AbstractProposal {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	public abstract void add(AbstractProposal aProposal);
+
+    public abstract void remove(AbstractProposal aProposal);
+
+    public abstract String getInformation();
 	
 }
