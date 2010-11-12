@@ -39,11 +39,12 @@ public class ProposalView extends ViewPart {
 		treeViewer.setLabelProvider(new ProposalLabelProvider());
 		// Expand the tree 
 		//treeViewer.setAutoExpandLevel(2);			
-		
-		// TODO: ejemplo apra crear un arbol. Coger el arbol del manager 
+		Proposal root = new Proposal();
+		manager.makeProposalsTree(root);
+		// TODO: ejemplo para crear un arbol. Coger el arbol del manager 
 		// Object[] b = manager.getProposals();
 		// Nodo raiz del arbol
-		Proposal root = new Proposal();
+		/*
 		
 		Proposal p = new Proposal("raiz", "prueba1", new Date(),1);
 
@@ -56,7 +57,7 @@ public class ProposalView extends ViewPart {
 
 		comp.add(new Answer("Nodo3", "c", new Date()));
 		root.add(p);
-		root.add(comp);
+		root.add(comp);*/
 		treeViewer.setInput(root);
 		
 		// Create the help context id for the viewer's control
