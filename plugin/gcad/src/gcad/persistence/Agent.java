@@ -66,7 +66,7 @@ public class Agent {
 		connection.close();
 	}
 	
-	public ResultSet query(CommandSQL command) throws SQLException {
+	public ResultSet query(SQLCommand command) throws SQLException {
 		PreparedStatement sentence;
 		ResultSet result;
 
@@ -76,7 +76,7 @@ public class Agent {
 		return result;
 	}
 
-	public void execute(CommandSQL command) throws SQLException {
+	public void execute(SQLCommand command) throws SQLException {
 		PreparedStatement sentence;
 		
 		sentence = command.createStatement(connection);

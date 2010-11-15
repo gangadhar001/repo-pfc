@@ -8,11 +8,11 @@ import java.sql.SQLException;
  * Clase que representa una consulta o modificación sobre una base de
  * datos escrita en forma de sentencia SQL.
  */
-public class CommandSQLSentence extends CommandSQL {
+public class SQLCommandSentence extends SQLCommand {
 
 	private static final long serialVersionUID = 3132897363533160582L;
 
-	public CommandSQLSentence(String sentence, Object... params) {
+	public SQLCommandSentence(String sentence, Object... params) {
 		super(sentence, params);
 	}
 	

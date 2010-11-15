@@ -9,11 +9,11 @@ import java.sql.SQLException;
  * Class representing a query or modification of a database, 
  * using a stored procedure.
  */
-public class CommandSQLProcedure extends CommandSQL {
+public class SQLCommandProcedure extends SQLCommand {
 
 	private static final long serialVersionUID = -6249425775295737777L;
 
-	public CommandSQLProcedure(String sentence, Object... params) {
+	public SQLCommandProcedure(String sentence, Object... params) {
 		super(sentence, params);
 	}
 	
