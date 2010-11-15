@@ -68,20 +68,20 @@ INSERT INTO employees (nif, login, password, rol, name, surname, email, telephon
    VALUES ("01921318C", "emp3", "emp3", 2, "Eva", "Perez Moreno", "bvcsa@gmail.com", "926119834", 1);
    
 INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
-   VALUES ("Proposal 1", "Propuesta 1 raiz", "2010-11-15", "analysis", 1, 1, null)
+   VALUES ("Proposal 1", "Propuesta 1 raiz", "2010-11-15", "analysis", 1, 1, null);
+   INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
+   VALUES ("Proposal 2", "Propuesta 2 hija de 1", "2010-11-18", "analysis", 1, 3, 1);
 INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
-   VALUES ("Proposal 2", "Propuesta 2 hija de 1", "2010-11-18", "analysis", 1, 3, 1)
+   VALUES ("Proposal 3", "Propuesta 3 raiz", "2010-11-30", "design", 2, 2, null);
 INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
-   VALUES ("Proposal 3", "Propuesta 3 raiz", "2010-11-30", "design", 2, 2, null)
-INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
-   VALUES ("Proposal 4", "Propuesta 4 raiz", "2010-11-30", "design", 2, 1, null)
+   VALUES ("Proposal 4", "Propuesta 4 raiz", "2010-11-30", "design", 2, 1, null);
 
 INSERT INTO answers (name, description, date, argument, employeeId, proposalId)
-   VALUES ("Answer 1", "Respuesta de propuesta 1", "2010-11-15", "pro", 2, 1)
+   VALUES ("Answer 1", "Respuesta de propuesta 1", "2010-11-15", "pro", 2, 1);
 INSERT INTO answers (name, description, date, argument, employeeId, proposalId)
-   VALUES ("Answer 2", "Respuesta de propuesta 2", "2010-11-20", "contra", 1, 2)
+   VALUES ("Answer 2", "Respuesta de propuesta 2", "2010-11-20", "contra", 1, 2);
 INSERT INTO answers (name, description, date, argument, employeeId, proposalId)
-   VALUES ("Answer 3", "Respuesta de propuesta 2", "2010-11-20", "pro", 3, 2)
+   VALUES ("Answer 3", "Respuesta de propuesta 2", "2010-11-20", "pro", 3, 2);
 INSERT INTO answers (name, description, date, argument, employeeId, proposalId)
-   VALUES ("Answer 4", "Respuesta de propuesta 3", "2010-11-15", "pro", 3, 3)
+   VALUES ("Answer 4", "Respuesta de propuesta 3", "2010-11-15", "pro", 3, 3);
    

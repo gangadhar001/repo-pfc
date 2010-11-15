@@ -9,6 +9,7 @@ public class Proposal extends AbstractProposal {
 	// TODO: si hay herencia con categorias de analisis y diseño, hay que cambiarlo a protected
 	// This attribute indicates if the proposal has been accepted or not yet.
 	private int state;
+	// TODO: añadir categoria, como una enumeracion
 	
 	// TODO: Una propuesta tiene a su vez otras propuestas o respuestas
 	private List<AbstractProposal> proposals;

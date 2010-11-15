@@ -4,6 +4,7 @@ import java.util.Date;
 
 public abstract class AbstractProposal {
 
+	protected int id;
 	protected String title;
 	protected String description;
 	protected Date date;
@@ -21,6 +22,14 @@ public abstract class AbstractProposal {
 		this.date = date;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
