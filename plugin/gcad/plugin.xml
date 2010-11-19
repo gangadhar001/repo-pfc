@@ -5,7 +5,7 @@
 <extension point="org.eclipse.ui.perspectives">
    <perspective
          name="%perspective.name"
-         class="gcad.perspectives.KMPerspective"
+         class="gcad.perspective.KMPerspective"
          id="gcad.perspective.KMPerspective">
    </perspective>
 </extension>
@@ -24,15 +24,21 @@
    </view>
    <category
          id="gcad.category.view.proposal"
-         name="%category.view.issues">
+         name="%category.view.proposals">
    </category>
    <view
          category="gcad.category.view.proposal"
          class="gcad.views.ProposalView"
-         id="gcad.view.issues"
-         name="%view.issues"
+         id="gcad.view.proposals"
+         name="%view.proposals"
          restorable="true">
    </view>
+</extension>
+<extension
+      point="org.eclipse.ui.startup">
+   <startup
+         class="gcad.startup.Startup">
+   </startup>
 </extension>
 
 

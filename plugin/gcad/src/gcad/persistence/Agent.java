@@ -24,7 +24,7 @@ public class Agent {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	}
 	
-	public static Agent getAgente() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static Agent getAgent() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if(instance == null) {
 			instance = new Agent();
 		}
