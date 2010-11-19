@@ -1,5 +1,6 @@
 package gcad.persistence;
 
+import gcad.communications.DBConnectionManager;
 import gcad.domain.AbstractProposal;
 import gcad.domain.Answer;
 import gcad.domain.Proposal;
@@ -34,15 +35,7 @@ public class PFProposal {
 		// Consultamos la base de datos
 		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE
 				+ " WHERE " + COL_PROJECT_ID + " = ?", projectId);
-		
-		// TODO: cambiar la forma de llamar al agente. Hacerlo desde otra clase gestora de la base de datos
-		// TODO: ¿¿ Usar el patron de ISO para hacerlo extensible a nuevas bases de datos ??
-		Agent ag = Agent.getAgente();
-		ag.setIp("localhost");
-		ag.setPort(3306);
-		ag.open();
-		
-		data = ag.query(command);
+		data = DBConnectionManager.query(command);
 		data.next();
 		
 		// TODO: ingles. Si no se obtienen datos, es porque no existen propuestas para ese proyecto
@@ -72,7 +65,6 @@ public class PFProposal {
 			} while(data.next());
 			data.close();
 		}
-		ag.close();
 		return proposals.values().toArray();
 	}
 	

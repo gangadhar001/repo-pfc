@@ -1,15 +1,14 @@
 package gcad.persistence;
 
+import gcad.communications.DBConnectionManager;
 import gcad.domain.AbstractProposal;
 import gcad.domain.Answer;
-import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 
 public class PFAnswer {
 	
@@ -31,14 +30,9 @@ public class PFAnswer {
 		// Consultamos la base de datos
 		command = new SQLCommandSentence("SELECT * FROM " + ANSWER_TABLE
 				+ " WHERE " + COL_PROPOSAL_ID + " = ?", proposalId);
+		data = DBConnectionManager.query(command);
 		
-		// TODO: cambiar la forma de llamar al agente. Hacerlo desde otra clase gestora de la base de datos
-		// TODO: ¿¿ Usar el patron de ISO para hacerlo extensible a nuevas bases de datos ??
-		Agent a = Agent.getAgente();
-		
-		data = a.query(command);
 		while (data.next()) {		
-		
 				answer = new Answer();
 				answer.setId(data.getInt(COL_ID));
 				answer.setTitle(data.getString(COL_NAME));
@@ -46,9 +40,8 @@ public class PFAnswer {
 				answer.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
 				// TODO: set argument
 				result.add((Answer) answer);
-		
 		}
-			data.close();
+		data.close();
 		
 		return result;
 	}
