@@ -40,45 +40,21 @@ public class Activator extends AbstractUIPlugin {
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
-		// TODO: cambiar la conexion con la base de datos al wizard correspondiente
-		/*DBConfiguration configuration = new DBConfiguration();
-		DBConnection database;
-		// Cerramos las conexiones que pudiera haber abiertas
-		// (ignoramos los errores que pudieran producirse)
-		try {
-			DBConnectionManager.closeConnections();
-		} catch(SQLException e) {
-		}
-		DBConnectionManager.clearConnections();
-		
-		// Creamos una conexión con la base de datos
-		try {
-			database = new DBConnection();
-			database.getAgent().setIp(configuration.getDBip());
-			database.getAgent().setPort(configuration.getDBport());
-			database.open();
-		} catch(SQLException e) {
-			throw new SQLException("No se puede establecer una conexión con el servidor de la base de datos principal (IP " + configuration.getDBip() + ", puerto " + String.valueOf(configuration.getDBport()) + ").");
-		}
-		DBConnectionManager.putConnection(database);*/
+	public void start(BundleContext context) throws Exception {		
 		
 		
-		
-		
-		// TODO: añadir el listener de la perspectiva
-		/*IWorkbenchWindow a = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IPerspectiveDescriptor b = a.getActivePage().getPerspective();
-		System.out.println(b);*/
+		/*PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(new IPerspectiveListener() {
 			
-		/*	@Override
-			public void perspectiveChanged(IWorkbenchPage page, IPerspectiveDescriptor perspective, String changeId) {
+			@Override
+			public void perspectiveChanged(IWorkbenchPage page,
+					IPerspectiveDescriptor perspective, String changeId) {
+				// TODO Auto-generated method stub
+				
 			}
 			
 			@Override
-			public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-				// TODO: cuando se activa la perspectiva de KM y no se ha conectado a ninguna base de datos,
-				// se muestra ese wizard
+			public void perspectiveActivated(IWorkbenchPage page,
+					IPerspectiveDescriptor perspective) {
 				if (perspective.getId().equals("gcad.perspective.KMPerspective")){
 					if (!DBConnectionManager.thereAreConnections()) {
 						DBConnectionWizard bdwizard = new DBConnectionWizard();
@@ -87,9 +63,10 @@ public class Activator extends AbstractUIPlugin {
 				        dialog.open();
 					}
 				}
+				
 			}
 		});*/
-		
+				
 		super.start(context);
 		plugin = this;
 			
