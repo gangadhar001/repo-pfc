@@ -63,12 +63,13 @@ public class Activator extends AbstractUIPlugin {
 		}
 		DBConnectionManager.putConnection(database);*/
 		
-		super.start(context);
-		plugin = this;
+		
 		
 		
 		// TODO: añadir el listener de la perspectiva
-		IWorkbenchWindow a = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		/*IWorkbenchWindow a = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IPerspectiveDescriptor b = a.getActivePage().getPerspective();
+		System.out.println(b);*/
 			
 		/*	@Override
 			public void perspectiveChanged(IWorkbenchPage page, IPerspectiveDescriptor perspective, String changeId) {
@@ -88,6 +89,9 @@ public class Activator extends AbstractUIPlugin {
 				}
 			}
 		});*/
+		
+		super.start(context);
+		plugin = this;
 			
 	}
 
