@@ -5,6 +5,7 @@ import gcad.wizards.DBConnectionWizard;
 
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbenchPage;
@@ -45,8 +46,19 @@ public class Startup implements IStartup {
 	}
 	
 	private void showWizardDBConnection () {
+		// TODO: se reduce la altura de la ventana
 		DBConnectionWizard bdwizard = new DBConnectionWizard();
-		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), bdwizard);
+		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), bdwizard); 
+		/*{
+			@Override
+	        protected void configureShell(Shell newShell) {
+			super.configureShell(newShell);
+			newShell.setSize(450, 350);
+			
+			
+			}	
+		};*/
+
         dialog.create();
         dialog.open();
 	}
