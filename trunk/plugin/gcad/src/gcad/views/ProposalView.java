@@ -1,6 +1,13 @@
 package gcad.views;
 
+import java.sql.SQLException;
+import java.util.Date;
+
+import javax.swing.RepaintManager;
+
 import gcad.domain.Proposal;
+import gcad.exceptions.NoProjectProposalsException;
+import gcad.internationalization.BundleInternationalization;
 import gcad.proposals.models.ProposalManager;
 import gcad.ui.treeviewer.ProposalContentProvider;
 import gcad.ui.treeviewer.ProposalLabelProvider;
@@ -13,7 +20,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
@@ -22,21 +31,24 @@ import org.eclipse.ui.part.ViewPart;
 public class ProposalView extends ViewPart {
 	
 	protected TreeViewer treeViewer;
-	private ProposalManager manager = ProposalManager.getManager();
+	private Label errorLabel;
+	private ProposalManager manager;
 	// TODO: se usa para poner los iconos de las acciones en una barra de menus dentro de la vista
 	private DrillDownAdapter drillDownAdapter;
 	private Action doubleClickAction;
+	private Proposal root;
+	private Composite parent;
 
 	@Override
-	public void createPartControl(Composite parent) {	
-		treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		drillDownAdapter = new DrillDownAdapter(treeViewer);
-		treeViewer.setContentProvider(new ProposalContentProvider());
-		treeViewer.setLabelProvider(new ProposalLabelProvider());
+	public void createPartControl(Composite parent) {
+		this.parent = parent;
+		manager = ProposalManager.getManager();		
+		root = new Proposal();
 		// Expand the tree 
 		//treeViewer.setAutoExpandLevel(2);			
-		Proposal root = new Proposal();
-		manager.makeProposalsTree(root);
+		// TODO: si no hay error en el acceso a la base de datos, se muestra el arbol.
+		// Si no, se muestra el mensaje de error
+		makeTree();
 		// TODO: ejemplo para crear un arbol. Coger el arbol del manager 
 		// Object[] b = manager.getProposals();
 		// Nodo raiz del arbol
@@ -54,12 +66,10 @@ public class ProposalView extends ViewPart {
 		comp.add(new Answer("Nodo3", "c", new Date()));
 		root.add(p);
 		root.add(comp);*/
-		treeViewer.setInput(root);
+		
 		
 		// Create the help context id for the viewer's control
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
-		makeActions();
-		hookDoubleClickAction();
+		
 	}
 	
 	private void makeActions() {
@@ -83,9 +93,53 @@ public class ProposalView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-		treeViewer.getControl().setFocus();
+		if (treeViewer!=null)
+			treeViewer.getControl().setFocus();
 
 
+	}
+	
+	public void showContentConnected() {
+		makeTree();
+	}
+	
+	private void makeTree() {
+		try {
+			manager.makeProposalsTree(root);
+			establishTree();
+		} catch (SQLException e) {			
+			errorLabel = new Label(parent, 0);
+			errorLabel.setText(e.getLocalizedMessage());
+		} catch (NoProjectProposalsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void establishTree() {
+		errorLabel.dispose();
+		treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		drillDownAdapter = new DrillDownAdapter(treeViewer);
+		treeViewer.setContentProvider(new ProposalContentProvider());
+		treeViewer.setLabelProvider(new ProposalLabelProvider());
+		treeViewer.setInput(root);
+		//treeViewer.refresh();
+		//parent.redraw(0, 0, parent.getBounds().width, parent.getBounds().height, true);
+		parent.layout();
+		setFocus();
+		//PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
+		makeActions();
+		hookDoubleClickAction();
 	}
                                                                                                                                    
 }

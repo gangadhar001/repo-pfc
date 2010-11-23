@@ -7,12 +7,16 @@ import gcad.communications.DBConfiguration;
 import gcad.communications.DBConnection;
 import gcad.communications.DBConnectionManager;
 import gcad.internationalization.BundleInternationalization;
+import gcad.views.ProposalView;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 public class DBConnectionWizard extends Wizard {
 	
@@ -38,12 +42,25 @@ public class DBConnectionWizard extends Wizard {
 	public boolean performFinish() {
 		final String IPText = page.getIPText();
 		final String portText = page.getPortText();
+		final Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
-					doFinish(monitor, IPText, portText);
+					doFinish(monitor, IPText, portText);					
 				} catch (CoreException e) {
 					throw new InvocationTargetException(e);
+				} catch (SQLException e) {
+					// TODO: solo se puede lanzar esta excepcion, por lo que se encapsula en ella
+					throw new InvocationTargetException(e);
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} finally {
 					monitor.done();
 				}
@@ -51,22 +68,33 @@ public class DBConnectionWizard extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
+			//TODO: refrescar las vistas
+			ProposalView view = (ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.proposals");
+			view.showContentConnected();
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			//MessageDialog.openError(getShell(), "Error", BundleInternationalization.getString("ErrorMessage.SQLException"));
+			//e.printStackTrace();
 			Throwable realException = e.getTargetException();
 			MessageDialog.openError(getShell(), "Error", realException.getMessage());
 			return false;
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return true;
 	}
 	
 	/**
 	 * The worker method. It will open the database connection
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SQLException 
 	 */
 
-	private void doFinish(final IProgressMonitor monitor, final String IP, final String port) throws CoreException {		
+	private void doFinish(final IProgressMonitor monitor, final String IP, final String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {		
 		monitor.beginTask(BundleInternationalization.getString("MonitorMessage"), 50);
 		
 		monitor.worked(10);
@@ -85,24 +113,13 @@ public class DBConnectionWizard extends Wizard {
 		monitor.worked(10);
 		
 		// Creamos una conexión con la base de datos
-		try {
+
 			database = new DBConnection();
 			// Se lee la IP y el puerto
 			database.getAgent().setIp(configuration.getDBip());
 			database.getAgent().setPort(configuration.getDBport());
 			database.open();
 			DBConnectionManager.putConnection(database);
-		} catch(SQLException e) {			
-			MessageDialog.openError(getShell(), "Error", BundleInternationalization.getString("ErrorMessage.SQLException"));
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 }
