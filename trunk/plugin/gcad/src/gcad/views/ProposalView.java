@@ -127,7 +127,8 @@ public class ProposalView extends ViewPart {
 	}
 	
 	private void establishTree() {
-		errorLabel.dispose();
+		if (errorLabel != null)
+			errorLabel.dispose();
 		treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		drillDownAdapter = new DrillDownAdapter(treeViewer);
 		treeViewer.setContentProvider(new ProposalContentProvider());
