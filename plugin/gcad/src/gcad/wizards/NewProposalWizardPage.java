@@ -10,22 +10,22 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class DBConnectionWizardPage extends WizardPage {
+public class NewProposalWizardPage extends WizardPage {
 	
-	private Text IPText;
-	private Text portText;
+	private Text nameText;
+	private Text descriptionText;
+	private Combo categoryChk;
+	
 
-	private static final int MINIMUM_PORT = 1;
-	private static final int MAXIMUM_PORT = 65535;
-
-	protected DBConnectionWizardPage(String pageName) {
+	protected NewProposalWizardPage(String pageName) {
 		super(pageName);
-		setTitle(BundleInternationalization.getString("DBConnectionPageTitle"));
-		setDescription(BundleInternationalization.getString("DBConnectionPageDescription"));
+		setTitle(BundleInternationalization.getString("NewProposalWizardPageTitle"));
+		setDescription(BundleInternationalization.getString("NewProposalWizardPageDescription"));
 	}
 
 	@Override
@@ -34,18 +34,16 @@ public class DBConnectionWizardPage extends WizardPage {
 		
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
-		// TODO: añadir rol al conectarse???
-		//layout.numColumns = 1;
-		//layout.verticalSpacing = 1;
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		layout.numColumns = 2;
+		layout.verticalSpacing = 9;
+		GridData gd = new GridData(GridData.FILL_BOTH);
 		
-		Label IPlabel = new Label(container, SWT.NULL);
-		IPText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		// TODO: se dice Database Port o Port Database???
-		IPlabel.setText(BundleInternationalization.getString("IPLabel")+":");	
-		IPText.setLayoutData(gd);
+		Label nameLabel = new Label(container, SWT.NULL);
+		nameText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		nameLabel.setText(BundleInternationalization.getString("NameLabel")+":");	
+		nameText.setLayoutData(gd);
 		// Listener to validate the IP when user finishes writing
-		IPText.addModifyListener(new ModifyListener() {
+		nameText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				wizardChanged();
 			}
@@ -127,13 +125,5 @@ public class DBConnectionWizardPage extends WizardPage {
 			valid = false;
 		}
 		return valid;
-	}
-
-	public String getIPText() {
-		return IPText.getText();
-	}
-
-	public String getPortText() {
-		return portText.getText();
 	}
 }

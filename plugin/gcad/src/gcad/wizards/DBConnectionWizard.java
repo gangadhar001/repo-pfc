@@ -15,6 +15,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
@@ -42,7 +45,6 @@ public class DBConnectionWizard extends Wizard {
 	public boolean performFinish() {
 		final String IPText = page.getIPText();
 		final String portText = page.getPortText();
-		final Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
@@ -68,9 +70,21 @@ public class DBConnectionWizard extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
-			//TODO: refrescar las vistas
-			ProposalView view = (ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.proposals");
-			view.showContentConnected();
+			//TODO: refrescar las vistas activas
+			boolean activeProposalsView = false;
+			// Tomar las vistas de la perspectiva activa
+			IViewReference[] references;
+			for (IWorkbenchPage page: PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()){
+				references = page.getViewReferences();
+				for (IViewReference reference : references)
+					if (reference.getId().equals("gcad.view.proposals"))
+						activeProposalsView = true;
+			}
+			// Si esta activa (visible), se refresca al conectarse a la base de datos
+			if (activeProposalsView) {
+				ProposalView pView = (ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.proposals");
+				pView.showContentConnected();
+			}
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
