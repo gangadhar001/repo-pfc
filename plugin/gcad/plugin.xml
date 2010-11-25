@@ -12,11 +12,11 @@
 <extension
       point="org.eclipse.ui.views">
    <category
-         id="gcad.category.view.userInfromation"
+         id="gcad.category.view.userInformation"
          name="%category.view.user">
    </category>
    <view
-         category="gcad.category.view.userInfromation"
+         category="gcad.category.view.userInformation"
          class="gcad.views.UserInfView"
          id="gcad.view.UserInformation"
          name="%view.user"
@@ -40,4 +40,161 @@
          class="gcad.startup.Startup">
    </startup>
 </extension>
+<extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="%category.menu.knowledge"
+            id="gcad.category.menu.knowledge">
+      </category>
+      <command
+            name="%command.newProposal"
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.newProposal">
+      </command>
+</extension>
+   
+<extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="gcad.command.newProposal"
+            class="gcad.handlers.newProposalHandler">
+      </handler>
+</extension>
+     
+<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="%category.menu.knowledge"
+               id="gcad.menus.knowledgeMenu">
+            <command
+                  commandId="gcad.command.newProposal"
+                  id="gcad.menus.newProposal">
+            </command>
+         </menu>
+     </menuContribution>
+</extension>
+
+<extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="%category.name.0"
+            id="es.uclm.smt.commands.category">
+      </category>
+      <command
+            name="%command.name.0"
+            categoryId="es.uclm.smt.commands.category"
+            id="es.uclm.smt.commands.domainMetamodel">
+      </command>
+      <command
+            name="%command.name.1"
+            categoryId="es.uclm.smt.commands.category"
+            id="es.uclm.smt.commands.domainModel">
+      </command>
+      <command
+            name="%command.name.2"
+            categoryId="es.uclm.smt.commands.category"
+            id="es.uclm.smt.commands.SoftwareMeasurement">
+      </command>
+      <command
+            name="%command.name.3"
+            categoryId="es.uclm.smt.commands.category"
+            id="es.uclm.smt.commands.RunMeasurement">
+      </command>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="es.uclm.smt.commands.domainMetamodel"
+            class="es.uclm.tsi.smt.commands.DomainMetamodelCommand">
+      </handler>
+      <handler
+            commandId="es.uclm.smt.commands.domainModel"
+            class="es.uclm.tsi.smt.commands.DomainModelCommand">
+      </handler>
+      <handler
+            commandId="es.uclm.smt.commands.SoftwareMeasurement"
+            class="es.uclm.tsi.smt.commands.SoftwareMeasurementCommand">
+      </handler>
+      <handler
+            commandId="es.uclm.smt.commands.RunMeasurement"
+            class="es.uclm.tsi.smt.commands.RunMeasurementCommand">
+      </handler>      
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="es.uclm.smt.commands.domainMetamodel"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="es.uclm.smt.commands.domainModel"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+7"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="es.uclm.smt.commands.SoftwareMeasurement"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+8"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="es.uclm.smt.commands.RunMeasurement"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+9"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension> 
+   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="%menu.label.0"
+               mnemonic="%menu.mnemonic.0"
+               id="es.uclm.smt.menus.sampleMenu">
+            <command
+                  commandId="es.uclm.smt.commands.domainMetamodel"
+                  mnemonic="%command.mnemonic.0"
+                  id="es.uclm.smt.menus.domainMetamodel">
+            </command>
+            <command
+                  commandId="es.uclm.smt.commands.domainModel"
+                  mnemonic="%command.mnemonic.1"
+                  id="es.uclm.smt.menus.domainModel">
+            </command>
+            <command
+                  commandId="es.uclm.smt.commands.SoftwareMeasurement"
+                  mnemonic="%command.mnemonic.2"
+                  id="es.uclm.smt.menus.softwareMeasurement">
+            </command>
+            <command
+                  commandId="es.uclm.smt.commands.RunMeasurement"
+                  mnemonic="%command.mnemonic.3"
+                  id="es.uclm.smt.menus.runMeasurement">
+            </command>
+         </menu>
+      </menuContribution>
+      
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="es.uclm.smt.toolbars.sampleToolbar">
+            <command
+                  commandId="es.uclm.smt.commands.domainMetamodel"
+                  icon="icons/measurement.gif"
+                  tooltip="%command.tooltip.0"
+                  id="es.uclm.smt.menus.domainMetamodel">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   
 </plugin>
