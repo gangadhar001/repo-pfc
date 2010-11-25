@@ -109,10 +109,10 @@ public class DBConnectionWizard extends Wizard {
 	 */
 
 	private void doFinish(final IProgressMonitor monitor, final String IP, final String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {		
-		monitor.beginTask(BundleInternationalization.getString("MonitorMessage"), 50);
+		monitor.beginTask(BundleInternationalization.getString("DBMonitorMessage"), 50);
 		
 		monitor.worked(10);
-		monitor.setTaskName(BundleInternationalization.getString("MonitorMessage"));
+		monitor.setTaskName(BundleInternationalization.getString("DBMonitorMessage"));
 
 		DBConfiguration configuration = new DBConfiguration(IP, Integer.parseInt(port));
 		DBConnection database;

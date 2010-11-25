@@ -107,8 +107,9 @@ public class ProposalView extends ViewPart {
 		try {
 			manager.makeProposalsTree(root);
 			establishTree();
+		// TODO: no se puede conectar con la base de datos
 		} catch (SQLException e) {			
-			errorLabel = new Label(parent, 0);
+			errorLabel = new Label(parent, SWT.NULL);
 			errorLabel.setText(e.getLocalizedMessage());
 		} catch (NoProjectProposalsException e) {
 			// TODO Auto-generated catch block

@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import gcad.internationalization.BundleInternationalization;
 
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -42,59 +43,51 @@ public class NewProposalWizardPage extends WizardPage {
 		nameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		nameLabel.setText(BundleInternationalization.getString("NameLabel")+":");	
 		nameText.setLayoutData(gd);
-		// Listener to validate the IP when user finishes writing
+		// Listener to validate the name
 		nameText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				wizardChanged();
 			}
 		});
 
-		Label portLabel = new Label(container, SWT.NULL);
-		portText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		// TODO: se dice Database Port o Port Database???
-		portLabel.setText(BundleInternationalization.getString("PortLabel")+":");	
-		portText.setLayoutData(gd);
-		// Listener to validate the Port when user finishes writing
-		portText.addModifyListener(new ModifyListener() {
+		Label descriptionLabel = new Label(container, SWT.NULL);
+		descriptionText = new Text(container, SWT.V_SCROLL | SWT.MULTI | SWT.WRAP);
+		descriptionLabel.setText(BundleInternationalization.getString("DescriptionLabel")+":");	
+		descriptionText.setLayoutData(gd);
+		// Listener to validate the description 
+		descriptionText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				wizardChanged();
 			}
 		});
+		
+		Label categoryLabel = new Label(container, SWT.NONE);
+		categoryChk = new Combo(container, SWT.V_SCROLL | SWT.MULTI | SWT.WRAP);
+		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");	
+		categoryChk .setLayoutData(gd);
 		
 		wizardChanged();
 		setControl(container);
 
 	}
 	
-	// TODO: duda ingles (database ip o al reves) This method validates the Database IP and Database Port
+	// This method validates the wizard
 	private void wizardChanged() {
 		
 		boolean valid = true;
 		
-		// The IP text can't be empty
-		if (IPText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.IPEmpty"));
+		// The name text can't be empty
+		if (nameText.getText().length() == 0) {
+			updateStatus(BundleInternationalization.getString("ErrorMessage.NameEmpty"));
 			valid = false;
 		}
 		
-		// The IP format must be correct
-		if (!validateIP(IPText.getText())) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.IPFormat"));
+		// The description text can't be empty
+		if (valid && descriptionText.getText().length() == 0) {
+			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionEmptyFormat"));
 			valid = false;
 		}
 		
-		// The port text can't be empty
-		if (portText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.PortEmpty"));
-			valid = false;
-		}
-		
-		// The port number must be correct
-		if (!validatePort(portText.getText())) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.PortRange") + " [" + MINIMUM_PORT + "-" + MAXIMUM_PORT + "]");
-			valid = false;
-		}
-
 		if (valid) 
 			updateStatus(null);
 	}
@@ -105,25 +98,4 @@ public class NewProposalWizardPage extends WizardPage {
 		
 	}
 	
-	private boolean validateIP (String IP) {
-		Pattern IPPattern = Pattern.compile("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." + 
-				"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
-                "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
-                "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
-		return IPPattern.matcher(IP).matches();
-	}
-	
-	private boolean validatePort (String port){
-		int portNumber;
-		boolean valid = true;	
-		try {
-			portNumber = Integer.parseInt(port);
-			if(portNumber < MINIMUM_PORT || portNumber > MAXIMUM_PORT) {
-				valid = false;
-			}
-		} catch(NumberFormatException ex) {
-			valid = false;
-		}
-		return valid;
-	}
 }
