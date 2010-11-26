@@ -1,26 +1,25 @@
 package gcad.views;
 
-import java.sql.SQLException;
-import java.util.Date;
-
-import javax.swing.RepaintManager;
-
 import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
 import gcad.proposals.models.ProposalManager;
 import gcad.ui.treeviewer.ProposalContentProvider;
 import gcad.ui.treeviewer.ProposalLabelProvider;
+import gcad.wizards.AbstractNewProposalWizard;
+import gcad.wizards.NewProposalViewWizard;
+import gcad.wizards.NewProposalViewWizardPage;
+
+import java.sql.SQLException;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
@@ -77,7 +76,15 @@ public class ProposalView extends ViewPart {
 			public void run() {
 				ISelection selection = treeViewer.getSelection();
 				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				MessageDialog.openInformation(treeViewer.getControl().getShell(), "Proposals View", "Double-click detected on "+obj.toString());
+				// TODO: si es una propuesta, mostrar el wizard para registrar una nueva propuesta/answer
+				if (obj instanceof Proposal) {
+					AbstractNewProposalWizard wizard = new NewProposalViewWizard(BundleInternationalization.getString("NewProposalWizard"));
+					wizard.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
+					WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
+					dialog.create();
+					dialog.open();
+				}
+				//MessageDialog.openInformation(treeViewer.getControl().getShell(), "Proposals View", "Double-click detected on "+obj.toString());
 			}
 		};
 	}
