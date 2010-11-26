@@ -6,6 +6,9 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -70,6 +73,14 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 		categoryChk = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");
 		categoryChk.setItems(new String[] { "Analysis", "Design" });
+		categoryChk.addSelectionListener(new SelectionAdapter() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				wizardChanged();
+				
+			}
+		});
 		//categoryChk .setLayoutData(gd);
 		
 		wizardChanged();
@@ -79,7 +90,6 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 	
 	// TODO: metodo para validar la parte en comun
 	private void wizardChanged() {
-		
 		boolean valid = true;
 		
 		// The name text can't be empty
@@ -94,6 +104,11 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 			valid = false;
 		}
 		
+		if (valid && categoryChk.getSelectionIndex()==-1) {
+			updateStatus(BundleInternationalization.getString("ErrorMessage.CategoryNotSelected"));
+			valid = false;
+		}
+		
 		if (valid) 
 			updateStatus(null);
 	}
@@ -103,6 +118,20 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 		setPageComplete(message == null);
 		
 	}
+
+	public String getNameText() {
+		return nameText.getText();
+	}
+
+	public String getDescriptionText() {
+		return descriptionText.getText();
+	}
+	
+	public String getItemCategoryChk() {
+		return categoryChk.getItem(categoryChk.getSelectionIndex());
+	}
+	
+	
 
 
 }

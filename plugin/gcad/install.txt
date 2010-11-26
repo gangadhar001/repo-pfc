@@ -69,7 +69,7 @@ INSERT INTO employees (nif, login, password, rol, name, surname, email, telephon
    
 INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
    VALUES ("Proposal 1", "Propuesta 1 raiz", "2010-11-15", "analysis", 1, 1, null);
-   INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
+INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
    VALUES ("Proposal 2", "Propuesta 2 hija de 1", "2010-11-18", "analysis", 1, 3, 1);
 INSERT INTO proposals (name, description, date, category, projectId, employeeId, parentProposal)
    VALUES ("Proposal 3", "Propuesta 3 raiz", "2010-11-30", "design", 2, 2, null);

@@ -22,6 +22,7 @@ public class PFProposal {
 	private static final String COL_DATE = "date";
 	private static final String COL_CATEGORY = "category";
 	private static final String COL_PROJECT_ID = "projectId";
+	private static final String COL_EMPLOYEE_ID = "employeeId";
 	private static final String COL_PARENT_PROPOSAL = "parentProposal";
 	
 	public static Object[] queryProposalTreeProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -66,6 +67,28 @@ public class PFProposal {
 			data.close();
 		}
 		return proposals.values().toArray();
+	}
+	
+	public static void insert (Proposal proposal, int idParent) throws SQLException {
+		SQLCommand command;
+		ResultSet data;
+		
+		// TODO: Cambiar con variables (no constantes)
+		command = new SQLCommandSentence("INSERT INTO " + PROPOSAL_TABLE
+				+ " (" + COL_NAME + ", " + COL_DESCRIPTION
+				+ ", "	+ COL_DATE + ", " + COL_CATEGORY
+				+ ", " + COL_PROJECT_ID + ", " + COL_EMPLOYEE_ID
+				+ ", " + COL_PARENT_PROPOSAL
+				+ ") VALUES (?, ?, ?, ?, ?, ?, ?)",
+				proposal.getTitle(), proposal.getDescription(), proposal.getDate(), "analysis", 2, 3, idParent);
+		DBConnectionManager.execute(command);
+		
+		// Recuperamos el id autonumérico asignado a la nueva cita
+		command = new SQLCommandSentence("SELECT LAST_INSERT_ID()");			
+		data = DBConnectionManager.query(command);
+		data.next();
+		proposal.setId(data.getInt("LAST_INSERT_ID()"));
+		data.close();
 	}
 	
 

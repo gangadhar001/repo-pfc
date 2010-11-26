@@ -16,6 +16,5 @@ public class NewProposalViewWizardPage extends AbstractNewProposalWizardPage {
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 	}
-		
 			
 }
