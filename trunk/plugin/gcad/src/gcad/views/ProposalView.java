@@ -37,6 +37,7 @@ public class ProposalView extends ViewPart {
 	private Action doubleClickAction;
 	private Proposal root;
 	private Composite parent;
+	private Proposal proposalSelected;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -78,6 +79,7 @@ public class ProposalView extends ViewPart {
 				Object obj = ((IStructuredSelection)selection).getFirstElement();
 				// TODO: si es una propuesta, mostrar el wizard para registrar una nueva propuesta/answer
 				if (obj instanceof Proposal) {
+					proposalSelected = (Proposal) obj;
 					AbstractNewProposalWizard wizard = new NewProposalViewWizard(BundleInternationalization.getString("NewProposalWizard"));
 					wizard.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
 					WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
@@ -150,5 +152,15 @@ public class ProposalView extends ViewPart {
 		makeActions();
 		hookDoubleClickAction();
 	}
+
+	public void refresh() {
+		treeViewer.refresh();
+		
+	}
+
+	public Proposal getProposalSelected() {
+		return proposalSelected;
+	}
+	
                                                                                                                                    
 }
