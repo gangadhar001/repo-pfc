@@ -1,10 +1,7 @@
 package gcad.wizards;
 
-import java.util.regex.Pattern;
-
 import gcad.internationalization.BundleInternationalization;
 
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -16,28 +13,34 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class NewProposalWizardPage extends WizardPage {
+public abstract class AbstractNewProposalWizardPage extends WizardPage {
 	
 	private Text nameText;
 	private Text descriptionText;
 	private Combo categoryChk;
-	
+	private Composite container;
 
-	protected NewProposalWizardPage(String pageName) {
+	protected AbstractNewProposalWizardPage(String pageName) {
 		super(pageName);
-		setTitle(BundleInternationalization.getString("NewProposalWizardPageTitle"));
-		setDescription(BundleInternationalization.getString("NewProposalWizardPageDescription"));
 	}
 
 	@Override
 	public void createControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NULL);
+		container = new Composite(parent, SWT.NULL);
+		commonControls();
+
+	}
+	
+	private void commonControls () {
+		// TODO: la wizard que se muestra en el menu y en la vista, tienen en
+		// comun el nombre, la descripcion y la categoria (...)
 		
+		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 		layout.numColumns = 2;
 		layout.verticalSpacing = 9;
-		GridData gd = new GridData(GridData.FILL_BOTH);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		
 		Label nameLabel = new Label(container, SWT.NULL);
 		nameText = new Text(container, SWT.BORDER | SWT.SINGLE);
@@ -51,9 +54,11 @@ public class NewProposalWizardPage extends WizardPage {
 		});
 
 		Label descriptionLabel = new Label(container, SWT.NULL);
-		descriptionText = new Text(container, SWT.V_SCROLL | SWT.MULTI | SWT.WRAP);
-		descriptionLabel.setText(BundleInternationalization.getString("DescriptionLabel")+":");	
-		descriptionText.setLayoutData(gd);
+		descriptionText = new Text(container, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI | SWT.WRAP);
+		descriptionLabel.setText(BundleInternationalization.getString("DescriptionLabel")+":");
+		GridData gdCombo = new GridData(GridData.FILL_HORIZONTAL);
+		gdCombo.heightHint = 50;
+		descriptionText.setLayoutData(gdCombo);
 		// Listener to validate the description 
 		descriptionText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -62,16 +67,17 @@ public class NewProposalWizardPage extends WizardPage {
 		});
 		
 		Label categoryLabel = new Label(container, SWT.NONE);
-		categoryChk = new Combo(container, SWT.V_SCROLL | SWT.MULTI | SWT.WRAP);
-		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");	
-		categoryChk .setLayoutData(gd);
+		categoryChk = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
+		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");
+		categoryChk.setItems(new String[] { "Analysis", "Design" });
+		//categoryChk .setLayoutData(gd);
 		
 		wizardChanged();
 		setControl(container);
 
 	}
 	
-	// This method validates the wizard
+	// TODO: metodo para validar la parte en comun
 	private void wizardChanged() {
 		
 		boolean valid = true;
@@ -97,5 +103,6 @@ public class NewProposalWizardPage extends WizardPage {
 		setPageComplete(message == null);
 		
 	}
-	
+
+
 }
