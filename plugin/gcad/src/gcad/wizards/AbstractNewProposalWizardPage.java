@@ -20,9 +20,10 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 	
 	private Text nameText;
 	private Text descriptionText;
-	private Combo categoryChk;
+	private Combo categoryCb;
 	private Composite container;
-
+	private boolean valid;
+	
 	protected AbstractNewProposalWizardPage(String pageName) {
 		super(pageName);
 	}
@@ -70,10 +71,10 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 		});
 		
 		Label categoryLabel = new Label(container, SWT.NONE);
-		categoryChk = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
+		categoryCb = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");
-		categoryChk.setItems(new String[] { "Analysis", "Design" });
-		categoryChk.addSelectionListener(new SelectionAdapter() {
+		categoryCb.setItems(new String[] { "Analysis", "Design" });
+		categoryCb.addSelectionListener(new SelectionAdapter() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -89,8 +90,8 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 	}
 	
 	// TODO: metodo para validar la parte en comun
-	private void wizardChanged() {
-		boolean valid = true;
+	protected void wizardChanged() {
+		valid = true;
 		
 		// The name text can't be empty
 		if (nameText.getText().length() == 0) {
@@ -104,7 +105,7 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 			valid = false;
 		}
 		
-		if (valid && categoryChk.getSelectionIndex()==-1) {
+		if (valid && categoryCb.getSelectionIndex()==-1) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.CategoryNotSelected"));
 			valid = false;
 		}
@@ -113,7 +114,7 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 			updateStatus(null);
 	}
 
-	private void updateStatus(String message) {
+	protected void updateStatus(String message) {
 		setErrorMessage(message);
 		setPageComplete(message == null);
 		
@@ -127,11 +128,20 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 		return descriptionText.getText();
 	}
 	
-	public String getItemCategoryChk() {
-		return categoryChk.getItem(categoryChk.getSelectionIndex());
+	public String getItemCategory() {
+		return categoryCb.getItem(categoryCb.getSelectionIndex());
+	}
+	
+	public Composite getContainerParent() {
+		return container;
+	}
+
+	public boolean isValid() {
+		return valid;
 	}
 	
 	
+
 
 
 }

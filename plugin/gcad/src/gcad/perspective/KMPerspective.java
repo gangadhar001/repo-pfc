@@ -4,6 +4,9 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
+/**
+ * TODO: Esta clase representa la perspectiva utilizada para la gestion del conocimiento
+ */
 public class KMPerspective implements IPerspectiveFactory {
 	
 	private static final String PROPOSAL_VIEW_ID = "gcad.category.view.proposal";
@@ -24,13 +27,6 @@ public class KMPerspective implements IPerspectiveFactory {
         // Add "Proposals View" on the bottom, too
         folderBottom.addPlaceholder(PROPOSAL_VIEW_ID);
 
-        
-        // TODO: poner otras vistas
-        // Put the "Issues" view on the left, with the "Outline" view
-        /*IFolderLayout folderLeft = layout.createFolder("left", IPageLayout.LEFT, 0.20f, idEditorArea);
-        folderLeft.addView(PROPOSAL_VIEW_ID);
-        folderLeft.addView(IPageLayout.ID_OUTLINE);*/
-		
 		// TODO: poner otras vistas
 		
 		

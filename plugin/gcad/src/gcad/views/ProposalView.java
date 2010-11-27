@@ -13,6 +13,7 @@ import gcad.wizards.NewProposalViewWizardPage;
 import java.sql.SQLException;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -48,30 +49,11 @@ public class ProposalView extends ViewPart {
 		//treeViewer.setAutoExpandLevel(2);			
 		// TODO: si no hay error en el acceso a la base de datos, se muestra el arbol.
 		// Si no, se muestra el mensaje de error
-		makeTree();
-		// TODO: ejemplo para crear un arbol. Coger el arbol del manager 
-		// Object[] b = manager.getProposals();
-		// Nodo raiz del arbol
-		/*
-		
-		Proposal p = new Proposal("raiz", "prueba1", new Date(),1);
-
-		p.add(new Answer("Nodo1", "a", new Date()));
-
-		p.add(new Answer("Nodo2", "b", new Date()));
-		
-
-		Proposal comp = new Proposal("Raiz2", "prueba2", new Date(),1);
-
-		comp.add(new Answer("Nodo3", "c", new Date()));
-		root.add(p);
-		root.add(comp);*/
-		
-		
-		// Create the help context id for the viewer's control
-		
+		makeTree();		
 	}
 	
+	// Metodo para manejar el doble clic
+	// En este caso, se añade nueva informacion a una propuesta
 	private void makeActions() {
 		doubleClickAction = new Action() {
 			public void run() {
@@ -80,13 +62,21 @@ public class ProposalView extends ViewPart {
 				// TODO: si es una propuesta, mostrar el wizard para registrar una nueva propuesta/answer
 				if (obj instanceof Proposal) {
 					proposalSelected = (Proposal) obj;
-					AbstractNewProposalWizard wizard = new NewProposalViewWizard(BundleInternationalization.getString("NewProposalWizard"));
-					wizard.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
-					WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
+					// Mostrar un dialogo para elegir si se desea añadir una nueva propuesta o una nueva respuesta
+					MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "New knowledge", null,
+							"Choose the type of knowledge to add to the proposal titled: " + proposalSelected.getTitle() , MessageDialog.INFORMATION, new String[] {
+									"Proposal", "Answer" }, 0);
 					dialog.create();
-					dialog.open();
+					int result = dialog.open();
+					// Proposal
+					if (result == 0) {
+						AbstractNewProposalWizard wizard = new NewProposalViewWizard(BundleInternationalization.getString("NewProposalWizard"));
+						wizard.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
+						WizardDialog proposalDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
+						proposalDialog.create();
+						proposalDialog.open();
+					}
 				}
-				//MessageDialog.openInformation(treeViewer.getControl().getShell(), "Proposals View", "Double-click detected on "+obj.toString());
 			}
 		};
 	}
@@ -108,6 +98,7 @@ public class ProposalView extends ViewPart {
 
 	}
 	
+	// Al conectar a la base de datos, se muestra el arbol
 	public void showContentConnected() {
 		makeTree();
 	}
@@ -153,9 +144,10 @@ public class ProposalView extends ViewPart {
 		hookDoubleClickAction();
 	}
 
-	public void refresh() {
-		treeViewer.refresh();
-		
+	public void refresh(Proposal p) {
+		//treeViewer.setInput(root);
+		treeViewer.refresh(p);
+		//makeTree();
 	}
 
 	public Proposal getProposalSelected() {
