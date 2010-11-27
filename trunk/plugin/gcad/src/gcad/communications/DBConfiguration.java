@@ -1,7 +1,7 @@
 package gcad.communications;
 
 /**
- * TODO: Clase con la configuración de la conexión del servidor front-end.
+ * TODO: Clase con la configuración de la conexión a la base de datos
  */
 public class DBConfiguration {
 

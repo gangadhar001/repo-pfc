@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * TODO: Gestor que permite acceder y modificar de forma sincronizada varias
- * bases de datos (locales o remotas).
+ * bases de datos.
  */
 public class DBConnectionManager {
 

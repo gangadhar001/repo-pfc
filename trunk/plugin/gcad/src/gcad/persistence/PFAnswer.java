@@ -21,6 +21,9 @@ public class PFAnswer {
 	private static final String COL_ARGUMENT = "argument";
 	private static final String COL_PROPOSAL_ID = "proposalId";
 	
+	/** 
+	 * Este metodo devuelve todas las respuestas asociadas a una propuesta
+	 */
 	public static ArrayList<Answer> queryAnswersFromProposal (int proposalId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		SQLCommand command;
 		ResultSet data;

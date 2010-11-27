@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase se encarga de gestionar las propuestas.  
+ */
+
 public class ProposalManager {
 
 	//TODO: singleton
@@ -26,6 +30,9 @@ public class ProposalManager {
 		return manager;
 	}
 	
+	/**
+	 * Este método se utiliza para leer la jerarquia de propuestas de la base de datos
+	 */
 	public void makeProposalsTree (Proposal root) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
 		// TODO: traducir a ingles. Manejar excepciones. Se muestra a la inversa

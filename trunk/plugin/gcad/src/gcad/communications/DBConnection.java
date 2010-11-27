@@ -7,8 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * TODO: Clase intermedia para conectarse con el agente de la base de datos
- * principal.
+ * TODO: Clase para conectarse con el agente de la base de datos
  */
 public class DBConnection implements IDBConnection {
 

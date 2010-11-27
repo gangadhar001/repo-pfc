@@ -9,7 +9,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Date;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -33,7 +32,7 @@ public class NewProposalViewWizard extends AbstractNewProposalWizard {
 		NewProposalViewWizardPage page = (NewProposalViewWizardPage) super.getPage();
 		final String nameText = page.getNameText();
 		final String descriptionText = page.getDescriptionText();
-		final String category = page.getItemCategoryChk();
+		final String category = page.getItemCategory();
 		final Proposal parentProposal = ((ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("gcad.view.proposals")).getProposalSelected();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
@@ -62,7 +61,7 @@ public class NewProposalViewWizard extends AbstractNewProposalWizard {
 			// Si esta activa (visible), se refresca al conectarse a la base de datos
 			if (activeProposalsView) {
 				ProposalView pView = (ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.proposals");
-				pView.refresh();
+				pView.refresh(parentProposal);
 			}
 		} catch (InterruptedException e) {
 			return false;
