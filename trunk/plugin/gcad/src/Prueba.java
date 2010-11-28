@@ -7,6 +7,7 @@ import gcad.domain.Answer;
 import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.persistence.PFProposal;
+import gcad.proposals.models.ProposalManager;
 
 
 public class Prueba {
@@ -16,7 +17,8 @@ public class Prueba {
 	 */
 	public static void main(String[] args) {
 		try {
-			 Object[] a = PFProposal.queryProposalTreeProject(1);
+			ProposalManager manager = ProposalManager.getManager();
+			 /*Object[] a = PFProposal.queryProposalTreeProject(1);
 			 for (Object p: a) {
 				 Proposal ej = (Proposal)p;
 				 System.out.println(ej.toString());
@@ -28,7 +30,8 @@ public class Prueba {
 					 else if (c instanceof Answer)
 						 System.out.println("\tA "+c.getInformation());
 				 }
-			 }
+			 }*/
+			System.out.println(manager.getProposals());
 			 	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

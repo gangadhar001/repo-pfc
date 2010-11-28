@@ -1,8 +1,10 @@
 package gcad.wizards;
 
 import gcad.domain.Proposal;
+import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
 import gcad.persistence.PFProposal;
+import gcad.proposals.models.ProposalManager;
 import gcad.views.ProposalView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -41,6 +43,18 @@ public class NewProposalViewWizard extends AbstractNewProposalWizard {
 				} catch (SQLException e) {
 					// TODO: solo se puede lanzar esta excepcion, por lo que se encapsula en ella
 					throw new InvocationTargetException(e);
+				} catch (NoProjectProposalsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} finally {
 					monitor.done();
 				}
@@ -58,7 +72,7 @@ public class NewProposalViewWizard extends AbstractNewProposalWizard {
 					if (reference.getId().equals("gcad.view.proposals"))
 						activeProposalsView = true;
 			}
-			// Si esta activa (visible), se refresca al conectarse a la base de datos
+			// Si esta activa (visible),
 			if (activeProposalsView) {
 				ProposalView pView = (ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.proposals");
 				pView.refresh(parentProposal);
@@ -81,9 +95,14 @@ public class NewProposalViewWizard extends AbstractNewProposalWizard {
 	/**
 	 * The worker method. It will create and insert in the database a new proposal
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws NoProjectProposalsException 
 	 */
 
-	private void doFinish(final IProgressMonitor monitor, final String name, final String description, final String category, Proposal parentProposal) throws SQLException {		
+	private void doFinish(IProgressMonitor monitor, String name, String description, String category, Proposal parentProposal) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		ProposalManager manager = ProposalManager.getManager();
 		monitor.beginTask(BundleInternationalization.getString("ProposalMonitorMessage"), 50);
 		
 		monitor.worked(10);
@@ -92,10 +111,8 @@ public class NewProposalViewWizard extends AbstractNewProposalWizard {
 		// TODO: se crea la nueva propuesta y se inserta en la base de datos
 		Proposal newProposal = new Proposal(name, description, new Date(), 0);
 		monitor.worked(10);
-		parentProposal.add(newProposal);
+		manager.addKnowledge(newProposal, parentProposal);
 		monitor.worked(10);
-		PFProposal.insert(newProposal, parentProposal.getId());
-		
 	}
 
 }
