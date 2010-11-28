@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * This class allows to query and insert answers into database
+ */
 public class PFAnswer {
 	
 	private static final String ANSWER_TABLE = "answers";
@@ -22,7 +25,7 @@ public class PFAnswer {
 	private static final String COL_PROPOSAL_ID = "proposalId";
 	
 	/** 
-	 * Este metodo devuelve todas las respuestas asociadas a una propuesta
+	 * This method returns all the answers associated with a proposal
 	 */
 	public static ArrayList<Answer> queryAnswersFromProposal (int proposalId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		SQLCommand command;

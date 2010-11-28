@@ -3,10 +3,10 @@ package gcad.internationalization;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/** 
+ * This class is used to internationalize the plug-in
+ */
 public class BundleInternationalization {
-
-	private BundleInternationalization() {
-	}
 
 	public static String getString(String key) {
 		try {

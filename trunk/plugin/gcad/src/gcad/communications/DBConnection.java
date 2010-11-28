@@ -3,11 +3,12 @@ package gcad.communications;
 import gcad.persistence.Agent;
 import gcad.persistence.SQLCommand;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * TODO: Clase para conectarse con el agente de la base de datos
+ * This class allows to connect with the database, using the Agent
  */
 public class DBConnection implements IDBConnection {
 
@@ -21,9 +22,10 @@ public class DBConnection implements IDBConnection {
 		return agent;
 	}
 	
-	// Métodos del agente
 	
-	public void open() throws SQLException {
+	// Agent's methods
+
+	public void open() throws SQLException, IOException {
 		agent.open();
 	}
 

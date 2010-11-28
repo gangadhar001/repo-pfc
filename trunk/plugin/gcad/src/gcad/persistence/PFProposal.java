@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 
+/**
+ * This class allows to query and insert proposals into database
+ */
 public class PFProposal {
 	
 	private static final String PROPOSAL_TABLE = "proposals";
@@ -26,50 +29,46 @@ public class PFProposal {
 	private static final String COL_PARENT_PROPOSAL = "parentProposal";
 	
 	/** 
-	 * Este metodo devuelve toda la jerarquia propuestas y respuestas de un proyecto, manteniendo
-	 * la jerarqui de árbol.
+	 * This method returns all proposals and answers hierarchy of a project, keeping the tree hierarchy.
 	 */
 	public static ArrayList<AbstractProposal> queryProposalTreeProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		SQLCommand command;
 		ResultSet data;
 		AbstractProposal proposal;
-		// Esta lista representa la jerarquia del arbol. Solo se añaden propuestas que sean raices superiores (sin padre),
-		// junto con todos sus hijos.
+		// This list represents the tree hierarchy. Only proposals that are upper roots (without father) are added to the list.
 		ArrayList<AbstractProposal> primaryRoots = new ArrayList<AbstractProposal>();
 		Hashtable<Integer, AbstractProposal> proposals = new Hashtable<Integer, AbstractProposal>();
 		ArrayList<Answer> answers;
 		int parent;
 		
-		// Consultamos la base de datos
 		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE
 				+ " WHERE " + COL_PROJECT_ID + " = ?", projectId);
 		data = DBConnectionManager.query(command);
 		data.next();
 		
-		// TODO: ingles. Si no se obtienen datos, es porque no existen propuestas para ese proyecto
+		// If data are not obtained, it is because there are no proposals for this project
 		if(data.getRow() == 0) {
 			data.close();
-			throw new NoProjectProposalsException();
+			throw new NoProjectProposalsException("");
 		} else {
 			do {
-				
 				proposal = new Proposal();
 				proposal.setId(data.getInt(COL_ID));
 				proposal.setTitle(data.getString(COL_NAME));
 				proposal.setDescription(data.getString(COL_DESCRIPTION));
 				proposal.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
-				// TODO: leer sus answers
+				// Set answers of this proposal
 				answers = PFAnswer.queryAnswersFromProposal(proposal.getId());
 				for (Answer a: answers) {
 					proposal.add(a);
 				}
 				parent = data.getInt(COL_PARENT_PROPOSAL);
-				// Si tiene padre, se recupera dicho padre para añadir un hijo
+				// If this proposal has father, this proposal is added like a child of this father
 				if (parent != 0) {
 					proposals.get(parent).add(proposal);
 				}
 				
-				// Si no tiene padre, es raiz primaria del arbol
+				// If this proposal has not father, it is upper root
 				else 
 					primaryRoots.add(proposal);
 				
@@ -81,11 +80,9 @@ public class PFProposal {
 	}
 	
 	/**
-	 * Este metodo devuelve todas las propuestas (sin jerarquia) de un proyecto
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
+	 * TODO: usado??? Este metodo devuelve todas las propuestas (sin jerarquia) de un proyecto
+	 * 
+	 
 	public static ArrayList<AbstractProposal> queryProposalsProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException{
 		SQLCommand command;
 		ResultSet data;
@@ -102,7 +99,7 @@ public class PFProposal {
 		// TODO: ingles. Si no se obtienen datos, es porque no existen propuestas para ese proyecto
 		if(data.getRow() == 0) {
 			data.close();
-			throw new NoProjectProposalsException();
+			throw new NoProjectProposalsException("");
 		} else {
 			do {
 				
@@ -120,23 +117,24 @@ public class PFProposal {
 			data.close();
 		}
 		return proposals;
-	}
+	}*/
 	
 	public static void insert (Proposal proposal, int idParent) throws SQLException {
 		SQLCommand command;
 		ResultSet data;
 		
 		// TODO: Cambiar con variables (no constantes)
+		// Insert the new proposal into database 
 		command = new SQLCommandSentence("INSERT INTO " + PROPOSAL_TABLE
 				+ " (" + COL_NAME + ", " + COL_DESCRIPTION
 				+ ", "	+ COL_DATE + ", " + COL_CATEGORY
 				+ ", " + COL_PROJECT_ID + ", " + COL_EMPLOYEE_ID
 				+ ", " + COL_PARENT_PROPOSAL
 				+ ") VALUES (?, ?, ?, ?, ?, ?, ?)",
-				proposal.getTitle(), proposal.getDescription(), proposal.getDate(), "analysis", 2, 3, idParent);
+				proposal.getTitle(), proposal.getDescription(), proposal.getDate(), proposal.getCategory().toString(), 2, 3, idParent);
 		DBConnectionManager.execute(command);
 		
-		// Recuperamos el id autonumérico asignado a la nueva cita
+		// Retrieve the autonumber id assigned to the new proposal
 		command = new SQLCommandSentence("SELECT LAST_INSERT_ID()");			
 		data = DBConnectionManager.query(command);
 		data.next();

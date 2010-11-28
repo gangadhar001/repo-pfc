@@ -1,19 +1,18 @@
 package gcad.persistence;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Agent Database
+ * Singleton Pattern is applied
  */
 public class Agent {
-
-	private static final String NAME_BD = "bdgcad";
-	private static final String USER_BD = "gcad";
-	private static final String PASS_BD = "gcad";
 	
 	private static Agent instance = null;
 	private Connection connection;
@@ -52,11 +51,14 @@ public class Agent {
 		this.port = port;
 	}
 
-	public void open() throws SQLException {
+	public void open() throws SQLException, IOException {
 		String url;
-		
+		// Read database configuration from properties file
+		Properties configFile = new Properties();
+		configFile.load(this.getClass().getClassLoader().getResourceAsStream("/databaseConfiguration.properties"));
+		// Open connection
 		if(connection == null || connection.isClosed()) {
-			url = "jdbc:mysql://" + ip + ":" + String.valueOf(port) + "/" + NAME_BD + "?user=" + USER_BD + "&password=" + PASS_BD;
+			url = "jdbc:mysql://" + ip + ":" + String.valueOf(port) + "/" + configFile.getProperty("DBName") + "?user=" + configFile.getProperty("DBUser") + "&password=" + configFile.getProperty("DBPassword");
 			connection = DriverManager.getConnection(url);
 			connection.setAutoCommit(false); 
 		}

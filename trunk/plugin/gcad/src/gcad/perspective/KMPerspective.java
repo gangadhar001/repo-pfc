@@ -5,7 +5,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 /**
- * TODO: Esta clase representa la perspectiva utilizada para la gestion del conocimiento
+ * This class represents the perspective used for the knowledge management
  */
 public class KMPerspective implements IPerspectiveFactory {
 	
@@ -20,7 +20,6 @@ public class KMPerspective implements IPerspectiveFactory {
         layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.LEFT, 0.25f, idEditorArea);
         
         IFolderLayout folderBottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.66f, idEditorArea);
-        
         // Add standard "Problems" and "Task List" Views on the bottom
         folderBottom.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
         folderBottom.addPlaceholder(IPageLayout.ID_TASK_LIST);
@@ -28,10 +27,6 @@ public class KMPerspective implements IPerspectiveFactory {
         folderBottom.addPlaceholder(PROPOSAL_VIEW_ID);
 
 		// TODO: poner otras vistas
-		
-		
-		
-
 	}
 
 }

@@ -8,13 +8,16 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+
+/**
+ * This abstract class represents a New Proposal Wizard Page
+ */
 
 public abstract class AbstractNewProposalWizardPage extends WizardPage {
 	
@@ -35,10 +38,10 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 
 	}
 	
-	private void commonControls () {
-		// TODO: la wizard que se muestra en el menu y en la vista, tienen en
-		// comun el nombre, la descripcion y la categoria (...)
-		
+	/**
+	 * This method creates and initialized common controls between the new proposal wizard pages
+	 */
+	private void commonControls () {	
 		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
@@ -81,15 +84,15 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 				wizardChanged();
 				
 			}
-		});
-		//categoryChk .setLayoutData(gd);
-		
+		});	
 		wizardChanged();
 		setControl(container);
 
 	}
 	
-	// TODO: metodo para validar la parte en comun
+	/**
+	 * This method validates the common controls
+	 */
 	protected void wizardChanged() {
 		valid = true;
 		

@@ -5,7 +5,6 @@ import gcad.wizards.DBConnectionWizard;
 
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbenchPage;
@@ -13,7 +12,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 
+/**
+ * This class controls the perspective changed event, to show the database connection wizard
+ */
 public class Startup implements IStartup {
+	
+	private final static String PERSPECTIVE_ID = "gcad.perspective.KMPerspective";
 
 	@Override
 	public void earlyStartup() {
@@ -25,17 +29,16 @@ public class Startup implements IStartup {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {		
 				final IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				// TODO: se está activa la perspectiva de KM, se muestra el wizard para conectar a la base de datos
-				// Lo mismo se hace cuando se cambia a esta perspectiva
+				// Tho database connection wizar is shown when the knowledge perspective is actived and it is shown 
 				if (workbenchWindow != null) {
-					if (workbenchWindow.getActivePage().getPerspective().getId().equals("gcad.perspective.KMPerspective")) {
+					if (workbenchWindow.getActivePage().getPerspective().getId().equals(PERSPECTIVE_ID)) {
 						if (!DBConnectionManager.thereAreConnections()) 
 							showWizardDBConnection();
 					}
 					
 					workbenchWindow.addPerspectiveListener(new PerspectiveAdapter() {
 						public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspectiveDescriptor) {
-							if (perspectiveDescriptor.getId().equals("gcad.perspective.KMPerspective")) {
+							if (perspectiveDescriptor.getId().equals(PERSPECTIVE_ID)) {
 								if (!DBConnectionManager.thereAreConnections())
 									showWizardDBConnection();
 							}
@@ -58,7 +61,6 @@ public class Startup implements IStartup {
 			
 			}	
 		};*/
-
         dialog.create();
         dialog.open();
 	}

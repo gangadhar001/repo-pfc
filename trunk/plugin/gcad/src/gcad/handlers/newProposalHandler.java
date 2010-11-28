@@ -1,8 +1,5 @@
 package gcad.handlers;
 
-/** 
- * TODO: Esta clase muestra el wizard para crear una nueva propuesta al seleccionar ese comando en el menu
- */
 import gcad.internationalization.BundleInternationalization;
 import gcad.wizards.AbstractNewProposalWizard;
 import gcad.wizards.NewProposalMenuWizard;
@@ -14,6 +11,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
+/** 
+ * This class handles the "New Proposal" command from the "Knowledge" menu. 
+ * It is used to show the new proposal wizard 
+ */
 public class newProposalHandler extends AbstractHandler {
 
 	@Override

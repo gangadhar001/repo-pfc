@@ -4,7 +4,7 @@ import gcad.domain.AbstractProposal;
 import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
-import gcad.proposals.models.ProposalManager;
+import gcad.proposals.models.KnowledgeManager;
 import gcad.ui.treeviewer.ProposalContentProvider;
 import gcad.ui.treeviewer.ProposalLabelProvider;
 import gcad.wizards.AbstractNewProposalWizard;
@@ -29,12 +29,14 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
-
+/**
+ * This class represents the Proposals view, where the different proposals, answers and actions over them are shown
+ */
 public class ProposalView extends ViewPart {
 	
 	protected TreeViewer treeViewer;
 	private Label errorLabel;
-	private ProposalManager manager;
+	private KnowledgeManager manager;
 	// TODO: se usa para poner los iconos de las acciones en una barra de menus dentro de la vista
 	private DrillDownAdapter drillDownAdapter;
 	private Action doubleClickAction;
@@ -45,17 +47,17 @@ public class ProposalView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-		manager = ProposalManager.getManager();		
+		manager = KnowledgeManager.getManager();		
 		root = new Proposal();
-		// Expand the tree 
+		// TODO: Expand the tree 
 		//treeViewer.setAutoExpandLevel(2);			
-		// TODO: si no hay error en el acceso a la base de datos, se muestra el arbol.
-		// Si no, se muestra el mensaje de error
 		makeTree();		
 	}
 	
-	// Metodo para manejar el doble clic
-	// En este caso, se añade nueva informacion a una propuesta
+	/**
+	 * This method handles the double click action.
+	 * TODO: añadir/eliminar una nueva propuesta/respuesta
+	 */
 	private void makeActions() {
 		doubleClickAction = new Action() {
 			public void run() {
@@ -64,13 +66,13 @@ public class ProposalView extends ViewPart {
 				// TODO: si es una propuesta, mostrar el wizard para registrar una nueva propuesta/answer
 				if (obj instanceof Proposal) {
 					proposalSelected = (Proposal) obj;
-					// Mostrar un dialogo para elegir si se desea añadir una nueva propuesta o una nueva respuesta
+					// Show a dialog to choose whether to add a new proposal or a new answer
 					MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "New knowledge", null,
 							"Choose the type of knowledge to add to the proposal titled: " + proposalSelected.getTitle() , MessageDialog.INFORMATION, new String[] {
 									"Proposal", "Answer" }, 0);
 					dialog.create();
 					int result = dialog.open();
-					// Proposal
+					// New Proposal
 					if (result == 0) {
 						AbstractNewProposalWizard wizard = new NewProposalViewWizard(BundleInternationalization.getString("NewProposalWizard"));
 						wizard.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
@@ -100,7 +102,7 @@ public class ProposalView extends ViewPart {
 
 	}
 	
-	// Al conectar a la base de datos, se muestra el arbol
+	// When the plug-in connects to database, the Proposal tree is shown
 	public void showContentConnected() {
 		makeTree();
 	}
@@ -111,7 +113,7 @@ public class ProposalView extends ViewPart {
 			for (AbstractProposal p: proposals)
 				root.add(p);
 			establishTree();
-		// TODO: no se puede conectar con la base de datos
+		// If it is no possible connect to database, shows a error message
 		} catch (SQLException e) {			
 			errorLabel = new Label(parent, SWT.NULL);
 			errorLabel.setText(e.getLocalizedMessage());
@@ -131,6 +133,7 @@ public class ProposalView extends ViewPart {
 
 	}
 	
+	// Establish and show the tree
 	private void establishTree() {
 		if (errorLabel != null)
 			errorLabel.dispose();
@@ -139,19 +142,15 @@ public class ProposalView extends ViewPart {
 		treeViewer.setContentProvider(new ProposalContentProvider());
 		treeViewer.setLabelProvider(new ProposalLabelProvider());
 		treeViewer.setInput(root);
-		//treeViewer.refresh();
-		//parent.redraw(0, 0, parent.getBounds().width, parent.getBounds().height, true);
 		parent.layout();
 		setFocus();
-		//PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
+		//TODO: PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
 		makeActions();
 		hookDoubleClickAction();
 	}
 
-	public void refresh(Proposal p) {
-		//treeViewer.setInput(root);
-		treeViewer.refresh(p);
-		//makeTree();
+	public void refresh() {
+		treeViewer.refresh();
 	}
 
 	public Proposal getProposalSelected() {

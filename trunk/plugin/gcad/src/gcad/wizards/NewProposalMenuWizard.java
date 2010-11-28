@@ -1,22 +1,10 @@
 package gcad.wizards;
 
 import gcad.domain.Proposal;
-import gcad.internationalization.BundleInternationalization;
-import gcad.persistence.PFProposal;
-import gcad.views.ProposalView;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import java.util.Date;
-
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.ui.IViewReference;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-
+/**
+ * This abstract class represents a New Proposal Wizard when it is shown since the "Knowledge" menu
+ */
 public class NewProposalMenuWizard extends AbstractNewProposalWizard {
 
 	public NewProposalMenuWizard(String wizardTitle) {
@@ -35,70 +23,8 @@ public class NewProposalMenuWizard extends AbstractNewProposalWizard {
 		final String category = page.getItemCategory();
 		int indeParentProposal = page.getItemCbProposals();
 		final Proposal parentProposal = (Proposal) page.getProposals().get(indeParentProposal);
-		IRunnableWithProgress op = new IRunnableWithProgress() {
-			public void run(IProgressMonitor monitor) throws InvocationTargetException {
-				try {
-					doFinish(monitor, nameText, descriptionText, category, parentProposal);					
-				} catch (SQLException e) {
-					// TODO: solo se puede lanzar esta excepcion, por lo que se encapsula en ella
-					throw new InvocationTargetException(e);
-				} finally {
-					monitor.done();
-				}
-			}
-		};
-		try {
-			getContainer().run(true, false, op);
-			//TODO: refrescar la vista de las propuestas
-			boolean activeProposalsView = false;
-			// Tomar las vistas de la perspectiva activa
-			IViewReference[] references;
-			for (IWorkbenchPage p: PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()){
-				references = p.getViewReferences();
-				for (IViewReference reference : references)
-					if (reference.getId().equals("gcad.view.proposals"))
-						activeProposalsView = true;
-			}
-			// Si esta activa (visible), se refresca al conectarse a la base de datos
-			if (activeProposalsView) {
-				ProposalView pView = (ProposalView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.proposals");
-				pView.refresh(parentProposal);
-			}
-		} catch (InterruptedException e) {
-			return false;
-		} catch (InvocationTargetException e) {
-			//MessageDialog.openError(getShell(), "Error", BundleInternationalization.getString("ErrorMessage.SQLException"));
-			//e.printStackTrace();
-			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
-			return false;
-		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return true;
+		return super.run(nameText, descriptionText, category, parentProposal);
 	}
-	
-	/**
-	 * The worker method. It will create and insert in the database a new proposal
-	 * @throws SQLException 
-	 */
-
-	private void doFinish(final IProgressMonitor monitor, final String name, final String description, final String category, Proposal parentProposal) throws SQLException {		
-		monitor.beginTask(BundleInternationalization.getString("ProposalMonitorMessage"), 50);
-		
-		monitor.worked(10);
-		monitor.setTaskName(BundleInternationalization.getString("ProposalMonitorMessage"));
-		monitor.worked(10);
-		// TODO: se crea la nueva propuesta y se inserta en la base de datos
-		Proposal newProposal = new Proposal(name, description, new Date(), 0);
-		monitor.worked(10);
-		parentProposal.add(newProposal);
-		monitor.worked(10);
-		PFProposal.insert(newProposal, parentProposal.getId());
-		
-	}
-
 }
 
 

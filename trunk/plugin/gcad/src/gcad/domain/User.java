@@ -1,5 +1,8 @@
 package gcad.domain;
 
+/**
+ * Abstract class that represents a system user
+ */
 public abstract class User {
 
 	protected String nif;
@@ -87,7 +90,8 @@ public abstract class User {
 		this.telephone = telephone;
 	}
 
-	public boolean equals(Object o) {
+	/*TODO: usados??
+	 * public boolean equals(Object o) {
 		User u;
 		boolean dev;
 		
@@ -103,6 +107,6 @@ public abstract class User {
 
 	public String toString() {
 		return "User: " + nif + ", " + login + ", " + password + ", " + name + ", " + surname + ", " + email + ", " + telephone;
-	}
+	}*/
 	
 }

@@ -1,7 +1,7 @@
 package gcad.ui.treeviewer;
 
 import gcad.domain.Proposal;
-import gcad.proposals.models.ProposalManager;
+import gcad.proposals.models.KnowledgeManager;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -10,7 +10,7 @@ import org.eclipse.jface.viewers.Viewer;
 public class ProposalContentProvider implements ITreeContentProvider{
 
 	private TreeViewer viewer;
-	private ProposalManager manager;
+	private KnowledgeManager manager;
 	private static Object[] NO_ELEMENT = new Object[0];
 	
 	@Override

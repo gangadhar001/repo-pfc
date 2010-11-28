@@ -1,5 +1,6 @@
 package gcad.communications;
 
+import gcad.internationalization.BundleInternationalization;
 import gcad.persistence.SQLCommand;
 
 import java.sql.ResultSet;
@@ -7,8 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * TODO: Gestor que permite acceder y modificar de forma sincronizada varias
- * bases de datos.
+ * This class represents a manager that allows to access and synchronize changes in several databases
  */
 public class DBConnectionManager {
 
@@ -25,7 +25,7 @@ public class DBConnectionManager {
 	}
 	
 	public static void closeConnections() throws SQLException {
-		// TODO: Cerramos todas las conexiones con bases de datos
+		// Close all databases connections
 		for(IDBConnection connection : connections) 
 			connection.close();	
 	}
@@ -33,9 +33,9 @@ public class DBConnectionManager {
 	public static ResultSet query(SQLCommand command) throws SQLException {
 		ResultSet datos;
 		
-			// TODO: Para hacer una consulta utilizamos la primera conexión
+			// Use the first connection for make a query
 			if(connections.size() == 0) {
-				throw new SQLException("La lista de conexiones está vacía.");
+				throw new SQLException(BundleInternationalization.getString("ErrorMessage.NoConnections"));
 			}
 			datos = connections.get(0).query(command);
 		return datos;
@@ -44,10 +44,10 @@ public class DBConnectionManager {
 	public static void execute(SQLCommand command) throws SQLException {
 		ArrayList<IDBConnection> usedConnections;
 	
-		// TODO: Para hacer una modificación accedemos a todas las bases de
-		// datos, y si alguna falla revertimos los cambios de las anteriores
+		// In order to make an update, we access to all databases and if one of them fails, 
+		// we revert the changes
 		if(connections.size() == 0) {
-			throw new SQLException("La lista de conexiones está vacía.");
+			throw new SQLException(BundleInternationalization.getString("ErrorMessage.NoConnections"));
 		}
 		usedConnections = new ArrayList<IDBConnection>();
 		for(IDBConnection conexion : connections) {
@@ -55,18 +55,18 @@ public class DBConnectionManager {
 				conexion.execute(command);
 				usedConnections.add(conexion);
 			} catch(Exception ex) {
-				// TODO: Deshacemos los cambios en las conexiones
+				// Undo the changes
 				for(IDBConnection conexionUsada : usedConnections) {
 					conexionUsada.rollback();
 				}
 				if(conexion instanceof DBConnection) {
-					throw new SQLException("Error en el acceso a la base de datos principal.", ex);
+					throw new SQLException(BundleInternationalization.getString("ErrorMessage.FailAccess"), ex);
 				} else {
-					throw new SQLException("Error en el acceso a las bases de datos.", ex);
+					throw new SQLException(BundleInternationalization.getString("ErrorMessage.FailAccess"), ex);
 				}
 			}
 		}
-		// Aplicamos los cambios en todas las conexiones
+
 		for(IDBConnection conexion : connections) {
 			conexion.commit();
 		}

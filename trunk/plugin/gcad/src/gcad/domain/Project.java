@@ -2,6 +2,9 @@ package gcad.domain;
 
 import java.util.Date;
 
+/**
+ * This class represents a Project
+ */
 public class Project {
 
 	private String name;

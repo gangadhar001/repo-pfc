@@ -1,7 +1,7 @@
 package gcad.communications;
 
 /**
- * TODO: Clase con la configuración de la conexión a la base de datos
+ * This class represents the configuration of the database connection
  */
 public class DBConfiguration {
 

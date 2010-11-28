@@ -4,10 +4,11 @@ import java.util.List;
 
 import gcad.domain.AbstractProposal;
 import gcad.domain.Answer;
+import gcad.domain.Categories;
 import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.persistence.PFProposal;
-import gcad.proposals.models.ProposalManager;
+import gcad.proposals.models.KnowledgeManager;
 
 
 public class Prueba {
@@ -16,8 +17,8 @@ public class Prueba {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {
-			ProposalManager manager = ProposalManager.getManager();
+
+			//KnowledgeManager manager = KnowledgeManager.getManager();
 			 /*Object[] a = PFProposal.queryProposalTreeProject(1);
 			 for (Object p: a) {
 				 Proposal ej = (Proposal)p;
@@ -31,24 +32,9 @@ public class Prueba {
 						 System.out.println("\tA "+c.getInformation());
 				 }
 			 }*/
-			System.out.println(manager.getProposals());
+			System.out.println(Categories.valueOf("analysis"));
 			 	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoProjectProposalsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 	}
 

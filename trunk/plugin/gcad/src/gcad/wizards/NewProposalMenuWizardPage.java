@@ -3,8 +3,7 @@ package gcad.wizards;
 import gcad.domain.AbstractProposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
-import gcad.persistence.PFProposal;
-import gcad.proposals.models.ProposalManager;
+import gcad.proposals.models.KnowledgeManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +15,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+/**
+ * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
+ */
 public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
 	
 	private Combo cbProposals;
@@ -30,11 +32,10 @@ public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
 	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		ProposalManager manager = ProposalManager.getManager();
+		KnowledgeManager manager = KnowledgeManager.getManager();
 		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
 		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
-		// TODO: se toman las propuestas existentes en el arbol
 		try {
 			proposals = manager.getProposals();
 			for (int i=0; i<proposals.size(); i++)
@@ -57,7 +58,6 @@ public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
 		}
 		
 		cbProposals.addSelectionListener(new SelectionAdapter() {
-			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				wizardChanged();

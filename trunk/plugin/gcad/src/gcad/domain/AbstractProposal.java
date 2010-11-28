@@ -2,12 +2,18 @@ package gcad.domain;
 
 import java.util.Date;
 
+/**
+ * This class represents the knowledge to manage, which can be a Proposal or an Answer.
+ * Composite Pattern is applied 
+ */
 public abstract class AbstractProposal {
 
 	protected int id;
 	protected String title;
 	protected String description;
 	protected Date date;
+	// TODO: agregarlo al constructor
+	protected Employee employee;
 		
 	public AbstractProposal() {
 		title = "";
@@ -53,7 +59,15 @@ public abstract class AbstractProposal {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+		
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	public abstract void add(AbstractProposal aProposal);
 
     public abstract void remove(AbstractProposal aProposal);

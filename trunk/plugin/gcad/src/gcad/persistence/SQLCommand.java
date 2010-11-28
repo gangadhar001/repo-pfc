@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Abstract class that represents a query or modification of a database.
- * 
+ * Command Pattern is applied
  */
 public abstract class SQLCommand implements Serializable {
 
