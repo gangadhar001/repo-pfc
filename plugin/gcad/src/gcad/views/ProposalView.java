@@ -1,5 +1,6 @@
 package gcad.views;
 
+import gcad.domain.AbstractProposal;
 import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
@@ -11,6 +12,7 @@ import gcad.wizards.NewProposalViewWizard;
 import gcad.wizards.NewProposalViewWizardPage;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -105,7 +107,9 @@ public class ProposalView extends ViewPart {
 	
 	private void makeTree() {
 		try {
-			manager.makeProposalsTree(root);
+			ArrayList<AbstractProposal> proposals = manager.getProposalsTree();
+			for (AbstractProposal p: proposals)
+				root.add(p);
 			establishTree();
 		// TODO: no se puede conectar con la base de datos
 		} catch (SQLException e) {			

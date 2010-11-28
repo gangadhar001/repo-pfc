@@ -4,6 +4,7 @@ import gcad.domain.AbstractProposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
 import gcad.persistence.PFProposal;
+import gcad.proposals.models.ProposalManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,12 +30,13 @@ public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
 	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
+		ProposalManager manager = ProposalManager.getManager();
 		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
 		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
-		// TODO: leer de la base de datos
+		// TODO: se toman las propuestas existentes en el arbol
 		try {
-			proposals = PFProposal.queryProposalsProject(2);
+			proposals = manager.getProposals();
 			for (int i=0; i<proposals.size(); i++)
 				cbProposals.add(proposals.get(i).getTitle()); 
 		} catch (SQLException e1) {

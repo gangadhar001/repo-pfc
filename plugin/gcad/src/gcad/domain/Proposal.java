@@ -12,7 +12,7 @@ public class Proposal extends AbstractProposal {
 	// TODO: añadir categoria, como una enumeracion
 	
 	// TODO: Una propuesta tiene a su vez otras propuestas o respuestas
-	private List<AbstractProposal> proposals;
+	private ArrayList<AbstractProposal> proposals;
 	
 	public Proposal() {
 		super();
@@ -25,11 +25,11 @@ public class Proposal extends AbstractProposal {
 		proposals = new ArrayList<AbstractProposal>();
 	}
 
-	public List<AbstractProposal> getProposals() {
+	public ArrayList<AbstractProposal> getProposals() {
 		return proposals;
 	}
 
-	public void setProposals(List<AbstractProposal> proposals) {
+	public void setProposals(ArrayList<AbstractProposal> proposals) {
 		this.proposals = proposals;
 	}
 

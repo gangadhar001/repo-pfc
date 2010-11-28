@@ -29,7 +29,7 @@ public class PFProposal {
 	 * Este metodo devuelve toda la jerarquia propuestas y respuestas de un proyecto, manteniendo
 	 * la jerarqui de árbol.
 	 */
-	public static Object[] queryProposalTreeProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static ArrayList<AbstractProposal> queryProposalTreeProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		SQLCommand command;
 		ResultSet data;
 		AbstractProposal proposal;
@@ -77,7 +77,7 @@ public class PFProposal {
 			} while(data.next());
 			data.close();
 		}
-		return primaryRoots.toArray();
+		return primaryRoots;
 	}
 	
 	/**
