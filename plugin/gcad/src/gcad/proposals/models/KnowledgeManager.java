@@ -3,49 +3,41 @@ package gcad.proposals.models;
 import gcad.domain.AbstractProposal;
 import gcad.domain.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
-import gcad.listeners.ProposalListener;
 import gcad.persistence.PFProposal;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
- * Esta clase se encarga de gestionar las propuestas.  
+ * This class represents a manager that allows to manage the knowledge (proposals or answers)
+ * Singleton Pattern is applied
  */
+public class KnowledgeManager {
 
-public class ProposalManager {
-
-	//TODO: singleton
-	
-	private static ProposalManager manager;
-	private List<ProposalListener> listeners = new ArrayList<ProposalListener>();
+	private static KnowledgeManager manager;
+	//TODO: private List<ProposalListener> listeners = new ArrayList<ProposalListener>();
 	private ArrayList<AbstractProposal> proposals;
 	
-	public ProposalManager () {	
-	}
-	
-	public static ProposalManager getManager() {
+	public static KnowledgeManager getManager() {
 		if (manager == null) {
-			manager = new ProposalManager();
+			manager = new KnowledgeManager();
 		}
 		return manager;
 	}
 	
 	/**
-	 * Este método se utiliza para leer la jerarquia de propuestas de la base de datos.
-	 * Se devuelven aquellas que sn raices primarias, junto a todos sus hijos
+	 * This method is used to retrieve the proposals and answers hierarchy from database.
 	 */
 	public ArrayList<AbstractProposal> getProposalsTree() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// TODO: traducir a ingles. Se muestra a la inversa
+		// TODO: Se muestra a la inversa
+		// This method access to database only the first time, when "proposals" is not initialized.
 		if (proposals == null)
 			proposals = PFProposal.queryProposalTreeProject(2);
 		return proposals;
 	}
 	
 	/**
-	 * Este metodo devuelve todas las propuestas existentes
+	 * This method returns all existing proposals, recursively
 	 */
 	public ArrayList<AbstractProposal> getProposals() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ArrayList<AbstractProposal> existingProposals = getProposalsTree();
@@ -72,20 +64,19 @@ public class ProposalManager {
 		return result;
 	}
 
-	// TODO: hacer la clase generica para propuestas/respuestas
 	public void addKnowledge(AbstractProposal knowledge, AbstractProposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// Se añade la nueva propuesta al modelo ya existente
-		//ArrayList<AbstractProposal> existingProposals = getProposalsTree();
-		// Se busca dentro de la jerarquia la propuesta padre, para añadirle un nuevo hijo
+		// Add the new knowledge(proposal/answer) to the existing proposal
 		parent.add(knowledge);
-		//int index = existingProposals.indexOf(parent);
-		//existingProposals.get(index).add(knowledge);
-		// Se inserta en la base de datos
+		// The new knowledge is inserted into database
 		if (knowledge instanceof Proposal)
 			PFProposal.insert((Proposal)knowledge, parent.getId());
+		/* TODO:
+		 * else if (knowledge instanceof Answer)
+			PFAnswer.insert((Answer)knowledge, parent.getId());*/
 	}
 	
-	public void addProposalManagerListener(ProposalListener listener) {
+	/* TODO: usado?????
+	 * public void addProposalManagerListener(ProposalListener listener) {
 		if (!listeners.contains(listener))
 			listeners.add(listener);
 	}
@@ -93,7 +84,7 @@ public class ProposalManager {
 	public void removeProposalManagerListener(ProposalListener listener) {
 		if (listeners.contains(listener))
 			listeners.remove(listener);
-	}
+	}*/
 	
 	
 }

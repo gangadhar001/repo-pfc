@@ -2,17 +2,17 @@ package gcad.communications;
 
 import gcad.persistence.SQLCommand;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * TODO: Interfaz que deben implementar las clases que proporcionen acceso a una
- * base de datos para poder ser utilizadas por el gestor de conexiones de
- * bases de datos.
+ * Interface that must implement the classes that provide access to a database in order to be used 
+ * by the manager of the databases connection.
  */
 public interface IDBConnection {
 	
-	public void open() throws SQLException;
+	public void open() throws SQLException, IOException;
 	
 	public void close() throws SQLException;
 

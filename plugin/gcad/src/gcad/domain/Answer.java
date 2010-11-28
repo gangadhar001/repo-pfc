@@ -1,7 +1,12 @@
 package gcad.domain;
 
+import gcad.internationalization.BundleInternationalization;
+
 import java.util.Date;
 
+/** 
+ * This class represents an Answer given to a Proposal
+ */
 public class Answer extends AbstractProposal{
 		
 	public Answer() {
@@ -12,20 +17,26 @@ public class Answer extends AbstractProposal{
 		
 	}
 
+	// An answer cannot have any child
 	@Override
 	public void add(AbstractProposal aProposal) {		
 	}
 
 	@Override
+	public void remove(AbstractProposal aProposal) {		
+	}
+	
+	@Override
 	public String getInformation() {
-		String information = "";
 		// Information about this answer
-		information += "Title: " + super.getTitle() + " Description: " + super.getDescription() + " Date: " + super.getDate() + "\n";
-		return information;
+		return BundleInternationalization.getString("Title") +": " + super.getTitle() 
+		+ " " + BundleInternationalization.getString("Description") +": " + super.getDescription() 
+		+ " " + BundleInternationalization.getString("Date") +": " + super.getDate();
+	}
+	
+	public String toString(){
+		return getInformation();
 	}
 
-	@Override
-	public void remove(AbstractProposal aProposal) {		
-	}	
 
 }

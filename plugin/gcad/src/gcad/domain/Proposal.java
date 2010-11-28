@@ -1,17 +1,20 @@
 package gcad.domain;
 
+import gcad.internationalization.BundleInternationalization;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+/**
+ * This class represents a Proposal
+ */
 public class Proposal extends AbstractProposal {
 	
 	// TODO: si hay herencia con categorias de analisis y diseño, hay que cambiarlo a protected
 	// This attribute indicates if the proposal has been accepted or not yet.
 	private int state;
-	// TODO: añadir categoria, como una enumeracion
-	
-	// TODO: Una propuesta tiene a su vez otras propuestas o respuestas
+	private Categories category;
+	// A proposal has another proposals and answers
 	private ArrayList<AbstractProposal> proposals;
 	
 	public Proposal() {
@@ -19,9 +22,10 @@ public class Proposal extends AbstractProposal {
 		proposals = new ArrayList<AbstractProposal>();
 	}
 	
-	public Proposal(String title, String description, Date date, int state) {
+	public Proposal(String title, String description, Date date, Categories category, int state) {
 		super(title, description, date);
 		this.state = state;
+		this.category = category;
 		proposals = new ArrayList<AbstractProposal>();
 	}
 
@@ -42,12 +46,26 @@ public class Proposal extends AbstractProposal {
 	
 	}
 
+	public Categories getCategory() {
+		return category;
+	}
+
+	public void setCategory(Categories category) {
+		this.category = category;
+	}
+
 	@Override
 	public void add(AbstractProposal aProposal) {
 		proposals.add(aProposal);
 		
 	}
-
+	
+	@Override
+	public void remove(AbstractProposal aProposal) {
+		proposals.remove(aProposal);
+		
+	}
+	
 	@Override
 	public String getInformation() {
 		String information = "";
@@ -58,19 +76,15 @@ public class Proposal extends AbstractProposal {
 			information += "\t" + proposals.get(i).getInformation();
 		}
 		return information;
-		
-		
-	}
-
-	@Override
-	public void remove(AbstractProposal aProposal) {
-		proposals.remove(aProposal);
-		
 	}
 	
 	@Override
 	public String toString () {
-		return "Title: " + super.getTitle() + " Description: " + super.getDescription() + " Date: " + super.getDate() + " State: " + this.state + "\n";
+		return BundleInternationalization.getString("Title") +": " + super.getTitle() 
+		+ " " + BundleInternationalization.getString("Description") +": " + super.getDescription() 
+		+ " " + BundleInternationalization.getString("Date") +": " + super.getDate()
+		+ " " + BundleInternationalization.getString("Category") +": " + getCategory()
+		+ " " + BundleInternationalization.getString("State") +": "  + this.state;
 	}
 	
 }

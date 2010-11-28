@@ -14,6 +14,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * This abstract class represents a DB Connection Wizard Page
+ */
 public class DBConnectionWizardPage extends WizardPage {
 	
 	private Text IPText;
@@ -41,7 +44,6 @@ public class DBConnectionWizardPage extends WizardPage {
 		
 		Label IPlabel = new Label(container, SWT.NULL);
 		IPText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		// TODO: se dice Database Port o Port Database???
 		IPlabel.setText(BundleInternationalization.getString("IPLabel")+":");	
 		IPText.setLayoutData(gd);
 		// Listener to validate the IP when user finishes writing
@@ -53,7 +55,6 @@ public class DBConnectionWizardPage extends WizardPage {
 
 		Label portLabel = new Label(container, SWT.NULL);
 		portText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		// TODO: se dice Database Port o Port Database???
 		portLabel.setText(BundleInternationalization.getString("PortLabel")+":");	
 		portText.setLayoutData(gd);
 		// Listener to validate the Port when user finishes writing
@@ -68,7 +69,9 @@ public class DBConnectionWizardPage extends WizardPage {
 
 	}
 	
-	// TODO: duda ingles (database ip o al reves) This method validates the Database IP and Database Port
+	/** 
+	 * This method validates the Database IP and Database Port
+	 */
 	private void wizardChanged() {
 		
 		boolean valid = true;
