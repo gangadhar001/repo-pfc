@@ -23,21 +23,21 @@ import org.eclipse.ui.PlatformUI;
 /**
  * This abstract class represents a DB Connection Wizard
  */
-public class DBConnectionWizard extends Wizard {
+public class LoginWizard extends Wizard {
 	
 	private final static String PROPOSAL_VIEW_ID = "gcad.view.proposals";
 	
-	private DBConnectionWizardPage page;
+	private LoginWizardPage page;
 
-	public DBConnectionWizard () {
+	public LoginWizard () {
 		super();
-		setWindowTitle(BundleInternationalization.getString("DBConnectionWizard"));
+		setWindowTitle(BundleInternationalization.getString("LoginWizardTitle"));
 		setNeedsProgressMonitor(true);
 	}
 	
 	public void addPages() {
 		super.addPages();
-		page = new DBConnectionWizardPage(BundleInternationalization.getString("DBConnectionPageTitle"));
+		page = new LoginWizardPage(BundleInternationalization.getString("LoginWizardTitle"));
 		addPage(page);
 	}
 	

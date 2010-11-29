@@ -17,15 +17,17 @@ import org.eclipse.swt.widgets.Text;
 /**
  * This abstract class represents a DB Connection Wizard Page
  */
-public class DBConnectionWizardPage extends WizardPage {
+public class LoginWizardPage extends WizardPage {
 	
+	private Text loginText;
+	private Text passText;
 	private Text IPText;
 	private Text portText;
 
 	private static final int MINIMUM_PORT = 1;
 	private static final int MAXIMUM_PORT = 65535;
 
-	protected DBConnectionWizardPage(String pageName) {
+	protected LoginWizardPage(String pageName) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("DBConnectionPageTitle"));
 		setDescription(BundleInternationalization.getString("DBConnectionPageDescription"));
@@ -37,11 +39,14 @@ public class DBConnectionWizardPage extends WizardPage {
 		
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
-		// TODO: añadir rol al conectarse???
+		// TODO: el rol se sabe por el usuario que inicia sesion
 		//layout.numColumns = 1;
 		//layout.verticalSpacing = 1;
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		
+		Label loginLabel = new Label(container, SWT.NULL);
+		loginText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		loginLabel.setText(BundleInternationalization.getString("IPLabel")+":");
 		Label IPlabel = new Label(container, SWT.NULL);
 		IPText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		IPlabel.setText(BundleInternationalization.getString("IPLabel")+":");	

@@ -1,7 +1,7 @@
 package gcad.startup;
 
 import gcad.communications.DBConnectionManager;
-import gcad.wizards.DBConnectionWizard;
+import gcad.wizards.LoginWizard;
 
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
@@ -50,7 +50,7 @@ public class Startup implements IStartup {
 	
 	private void showWizardDBConnection () {
 		// TODO: se reduce la altura de la ventana
-		DBConnectionWizard bdwizard = new DBConnectionWizard();
+		LoginWizard bdwizard = new LoginWizard();
 		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), bdwizard); 
 		/*{
 			@Override
