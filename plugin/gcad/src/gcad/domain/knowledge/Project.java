@@ -1,4 +1,4 @@
-package gcad.domain;
+package gcad.domain.knowledge;
 
 import java.util.Date;
 

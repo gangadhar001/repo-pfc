@@ -1,9 +1,9 @@
 package gcad.wizards;
 
-import gcad.domain.AbstractProposal;
+import gcad.domain.control.KnowledgeManager;
+import gcad.domain.knowledge.AbstractProposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
-import gcad.proposals.models.KnowledgeManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

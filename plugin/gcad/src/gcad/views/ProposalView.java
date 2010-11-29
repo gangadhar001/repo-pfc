@@ -1,10 +1,10 @@
 package gcad.views;
 
-import gcad.domain.AbstractProposal;
-import gcad.domain.Proposal;
+import gcad.domain.control.KnowledgeManager;
+import gcad.domain.knowledge.AbstractProposal;
+import gcad.domain.knowledge.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
-import gcad.proposals.models.KnowledgeManager;
 import gcad.ui.treeviewer.ProposalContentProvider;
 import gcad.ui.treeviewer.ProposalLabelProvider;
 import gcad.wizards.AbstractNewProposalWizard;

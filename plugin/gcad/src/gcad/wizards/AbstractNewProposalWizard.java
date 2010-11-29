@@ -4,11 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Date;
 
-import gcad.domain.Categories;
-import gcad.domain.Proposal;
+import gcad.domain.control.KnowledgeManager;
+import gcad.domain.knowledge.Categories;
+import gcad.domain.knowledge.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.internationalization.BundleInternationalization;
-import gcad.proposals.models.KnowledgeManager;
 import gcad.views.ProposalView;
 
 import org.eclipse.core.runtime.IProgressMonitor;
