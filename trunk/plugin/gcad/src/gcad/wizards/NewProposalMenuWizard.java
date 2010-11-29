@@ -1,6 +1,6 @@
 package gcad.wizards;
 
-import gcad.domain.Proposal;
+import gcad.domain.knowledge.Proposal;
 
 /**
  * This abstract class represents a New Proposal Wizard when it is shown since the "Knowledge" menu

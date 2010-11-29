@@ -1,7 +1,7 @@
 package gcad.ui.treeviewer;
 
-import gcad.domain.Answer;
-import gcad.domain.Proposal;
+import gcad.domain.knowledge.Answer;
+import gcad.domain.knowledge.Proposal;
 
 import org.eclipse.jface.viewers.LabelProvider;
 

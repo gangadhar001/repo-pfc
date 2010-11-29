@@ -1,4 +1,4 @@
-package gcad.domain;
+package gcad.domain.knowledge;
 
 
 /**
@@ -23,14 +23,11 @@ public class Employee extends User {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}	
+	
+	public UserRole getRol(){
+		return UserRole.Employee;
 	}
-	
-	
-	
-	/*TODO
-	public EmployeeRole getRol(){
-		return RolesUsuario.Citador;
-	}*/
 	
 	
 

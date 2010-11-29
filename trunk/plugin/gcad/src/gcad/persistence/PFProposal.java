@@ -1,9 +1,9 @@
 package gcad.persistence;
 
 import gcad.communications.DBConnectionManager;
-import gcad.domain.AbstractProposal;
-import gcad.domain.Answer;
-import gcad.domain.Proposal;
+import gcad.domain.knowledge.AbstractProposal;
+import gcad.domain.knowledge.Answer;
+import gcad.domain.knowledge.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 
 import java.sql.ResultSet;

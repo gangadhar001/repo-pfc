@@ -1,7 +1,7 @@
 package gcad.ui.treeviewer;
 
-import gcad.domain.Proposal;
-import gcad.proposals.models.KnowledgeManager;
+import gcad.domain.control.KnowledgeManager;
+import gcad.domain.knowledge.Proposal;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;

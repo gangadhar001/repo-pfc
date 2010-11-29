@@ -1,6 +1,6 @@
 package gcad.wizards;
 
-import gcad.domain.Proposal;
+import gcad.domain.knowledge.Proposal;
 import gcad.views.ProposalView;
 
 import org.eclipse.ui.PlatformUI;

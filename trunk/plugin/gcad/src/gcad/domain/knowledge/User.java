@@ -1,4 +1,4 @@
-package gcad.domain;
+package gcad.domain.knowledge;
 
 /**
  * Abstract class that represents a system user
@@ -33,6 +33,7 @@ public abstract class User {
 		this.telephone = telephone;
 	}
 
+	public abstract UserRole getRol();
 	
 	public String getNif() {
 		return nif;
@@ -90,8 +91,7 @@ public abstract class User {
 		this.telephone = telephone;
 	}
 
-	/*TODO: usados??
-	 * public boolean equals(Object o) {
+	public boolean equals(Object o) {
 		User u;
 		boolean dev;
 		
@@ -107,6 +107,6 @@ public abstract class User {
 
 	public String toString() {
 		return "User: " + nif + ", " + login + ", " + password + ", " + name + ", " + surname + ", " + email + ", " + telephone;
-	}*/
+	}
 	
 }

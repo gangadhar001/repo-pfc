@@ -2,13 +2,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import gcad.domain.AbstractProposal;
-import gcad.domain.Answer;
-import gcad.domain.Categories;
-import gcad.domain.Proposal;
+import gcad.domain.control.KnowledgeManager;
+import gcad.domain.knowledge.AbstractProposal;
+import gcad.domain.knowledge.Answer;
+import gcad.domain.knowledge.Categories;
+import gcad.domain.knowledge.Proposal;
 import gcad.exceptions.NoProjectProposalsException;
 import gcad.persistence.PFProposal;
-import gcad.proposals.models.KnowledgeManager;
 
 
 public class Prueba {
