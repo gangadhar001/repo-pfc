@@ -1,9 +1,9 @@
 package gcad.wizards;
 
+import gcad.internationalization.BundleInternationalization;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import gcad.internationalization.BundleInternationalization;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -12,6 +12,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
@@ -37,18 +38,25 @@ public class LoginWizardPage extends WizardPage {
 	}
 
 	@Override
-	public void createControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NULL);
-		
-		GridLayout layout = new GridLayout();
-		container.setLayout(layout);
+	public void createControl(Composite parent) {		
 		// TODO: el rol se sabe por el usuario que inicia sesion
-		//layout.numColumns = 1;
-		//layout.verticalSpacing = 1;
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		
-		Label loginLabel = new Label(container, SWT.NULL);
-		loginText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		Composite container = new Composite(parent, SWT.NONE);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		container.setLayout(new GridLayout());
+
+		Group groupLogin = new Group(container, SWT.NONE);
+		groupLogin.setLayout(new GridLayout(2,false));
+		groupLogin.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		groupLogin.setText("Login information");
+		
+		Group groupDB = new Group(container, SWT.NONE);
+		groupDB.setLayout(new GridLayout(2,false));
+		groupDB.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		groupDB.setText("Database connection information");
+		
+		Label loginLabel = new Label(groupLogin, SWT.NULL);
+		loginText = new Text(groupLogin, SWT.BORDER | SWT.SINGLE);
 		loginLabel.setText(BundleInternationalization.getString("UserLabel")+":");
 		loginText.setLayoutData(gd);
 		// Listener to validate the user name when user finishes writing
@@ -58,8 +66,8 @@ public class LoginWizardPage extends WizardPage {
 			}
 		});
 		
-		Label passLabel = new Label(container, SWT.NULL);
-		passText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		Label passLabel = new Label(groupLogin, SWT.NULL);
+		passText = new Text(groupLogin, SWT.BORDER | SWT.SINGLE);
 		passLabel.setText(BundleInternationalization.getString("PassLabel")+":");
 		passText.setLayoutData(gd);
 		// Listener to validate the password when user finishes writing
@@ -67,10 +75,10 @@ public class LoginWizardPage extends WizardPage {
 			public void modifyText(ModifyEvent e) {
 				wizardChanged();
 			}
-		});
+		});		
 		
-		Label IPlabel = new Label(container, SWT.NULL);
-		IPText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		Label IPlabel = new Label(groupDB, SWT.NULL);
+		IPText = new Text(groupDB, SWT.BORDER | SWT.SINGLE);
 		IPlabel.setText(BundleInternationalization.getString("IPLabel")+":");	
 		IPText.setLayoutData(gd);
 		// Listener to validate the IP when user finishes writing
@@ -80,8 +88,8 @@ public class LoginWizardPage extends WizardPage {
 			}
 		});
 
-		Label portLabel = new Label(container, SWT.NULL);
-		portText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		Label portLabel = new Label(groupDB, SWT.NULL);
+		portText = new Text(groupDB, SWT.BORDER | SWT.SINGLE);
 		portLabel.setText(BundleInternationalization.getString("PortLabel")+":");	
 		portText.setLayoutData(gd);
 		// Listener to validate the Port when user finishes writing
