@@ -1,7 +1,6 @@
 package gcad.wizards;
 
 import gcad.communications.DBConfiguration;
-import gcad.communications.DBConnection;
 import gcad.communications.DBConnectionManager;
 import gcad.domain.control.SessionManager;
 import gcad.exceptions.IncorrectEmployeeException;

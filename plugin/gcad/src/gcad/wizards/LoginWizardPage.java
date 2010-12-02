@@ -70,6 +70,7 @@ public class LoginWizardPage extends WizardPage {
 		passText = new Text(groupLogin, SWT.BORDER | SWT.SINGLE);
 		passLabel.setText(BundleInternationalization.getString("PassLabel")+":");
 		passText.setLayoutData(gd);
+		passText.setEchoChar('*');
 		// Listener to validate the password when user finishes writing
 		passText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
