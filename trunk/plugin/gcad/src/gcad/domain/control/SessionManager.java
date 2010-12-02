@@ -1,15 +1,14 @@
 package gcad.domain.control;
 
+import gcad.domain.knowledge.Session;
+import gcad.domain.knowledge.User;
+import gcad.exceptions.IncorrectEmployeeException;
+import gcad.persistence.PFEmployee;
+
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Random;
-
-import gcad.domain.knowledge.Session;
-import gcad.domain.knowledge.ISession;
-import gcad.domain.knowledge.User;
-import gcad.exceptions.IncorrectEmployeeException;
-import gcad.persistence.PFEmployee;
 
 public class SessionManager {
 
