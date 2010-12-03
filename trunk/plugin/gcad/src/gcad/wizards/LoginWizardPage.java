@@ -165,7 +165,7 @@ public class LoginWizardPage extends WizardPage {
 	}
 
 	private boolean validatePass(String pass) {
-		Pattern patronPassword;
+		Pattern passwordPattern;
 	    Matcher matcher;
 		boolean valid = true;
 		
@@ -174,8 +174,8 @@ public class LoginWizardPage extends WizardPage {
 		}
 
 		if(valid && pass.length() >= MINIMUM_LENGHT_PASSWORD) {
-			patronPassword = Pattern.compile("[a-zA-Z0-9]+");
-		    matcher = patronPassword.matcher(pass);
+			passwordPattern = Pattern.compile("[a-zA-Z0-9]+");
+		    matcher = passwordPattern.matcher(pass);
 		    if(!matcher.matches())
 	    		valid = false;
 		}

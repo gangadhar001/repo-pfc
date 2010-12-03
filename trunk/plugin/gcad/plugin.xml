@@ -51,6 +51,15 @@
             categoryId="gcad.category.menu.knowledge"
             id="gcad.command.newProposal">
       </command>
+      <category
+            id="gcad.category.menu.databaseInformation"
+            name="%category.menu.DBInformation">
+      </category>
+      <command
+            categoryId="gcad.category.menu.databaseInformation"
+            id="gcad.command.insertDBInformation"
+            name="%command.insertDBData">
+      </command>
 </extension>
    
 <extension
@@ -58,6 +67,10 @@
       <handler
             commandId="gcad.command.newProposal"
             class="gcad.handlers.newProposalHandler">
+      </handler>
+      <handler
+            class="gcad.handlers.newDBInformationHandler"
+            commandId="gcad.command.insertDBInformation">
       </handler>
 </extension>
      
@@ -71,6 +84,14 @@
             <command
                   commandId="gcad.command.newProposal"
                   id="gcad.menus.newProposal">
+            </command>
+         </menu>
+         <menu
+               id="gcad.menus.DBMenu"
+               label="%category.menu.DBInformation">
+            <command
+                  commandId="gcad.command.insertDBInformation"
+                  id="gcad.menus.newDBInformation">
             </command>
          </menu>
      </menuContribution>
