@@ -12,20 +12,29 @@ public class Project {
 	private Date startDate;
 	private Date endDate;
 	private double budget;
+	private int quantityLines;
+	private String domain;
+	private String progLanguage;
+	private int estimatedHours;
 	
 	public Project() {
 	}
-	
+		
 	public Project(String name, String description, Date startDate,
-			Date endDate, double budget) {
+			Date endDate, double budget, int quantityLines, String domain,
+			String progLanguage, int estimatedHours) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.budget = budget;
+		this.quantityLines = quantityLines;
+		this.domain = domain;
+		this.progLanguage = progLanguage;
+		this.estimatedHours = estimatedHours;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -56,6 +65,39 @@ public class Project {
 	public void setBudget(double budget) {
 		this.budget = budget;
 	}
+
+	public int getQuantityLines() {
+		return quantityLines;
+	}
+
+	public void setQuantityLines(int quantityLines) {
+		this.quantityLines = quantityLines;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getProgLanguage() {
+		return progLanguage;
+	}
+
+	public void setProgLanguage(String progLanguage) {
+		this.progLanguage = progLanguage;
+	}
+
+	public int getEstimatedHours() {
+		return estimatedHours;
+	}
+
+	public void setEstimatedHours(int estimatedHours) {
+		this.estimatedHours = estimatedHours;
+	}
+	
 	
 	
 }

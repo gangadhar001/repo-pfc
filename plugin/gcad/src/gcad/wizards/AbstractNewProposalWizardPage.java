@@ -104,7 +104,7 @@ public abstract class AbstractNewProposalWizardPage extends WizardPage {
 		
 		// The description text can't be empty
 		if (valid && descriptionText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionEmptyFormat"));
+			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionEmpty"));
 			valid = false;
 		}
 		
