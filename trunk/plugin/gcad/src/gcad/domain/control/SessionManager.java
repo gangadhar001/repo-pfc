@@ -1,14 +1,19 @@
 package gcad.domain.control;
 
+import gcad.domain.knowledge.Operations;
 import gcad.domain.knowledge.Session;
 import gcad.domain.knowledge.User;
+import gcad.domain.knowledge.UserRole;
 import gcad.exceptions.IncorrectEmployeeException;
+import gcad.exceptions.IncorrectOptionException;
+import gcad.exceptions.InvalidSessionException;
 import gcad.persistence.PFEmployee;
 
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Random;
+import java.util.Vector;
 
 public class SessionManager {
 
@@ -71,85 +76,57 @@ public class SessionManager {
 	public static Hashtable<Long, Session> getSessions() {
 		return sessions;
 	}
-	
-	
-	/* Método que devuelve las operaciones que puede realizar el usuario con el servidor
-	public static Vector<Operaciones> operacionesDisponibles(long idSesion) throws SesionInvalidaException {
-		Vector<Operaciones> operaciones;
-		Sesion sesion;
+
+	// TODO: traducir
+	public static void checkPermission(long idSesion, Operations operation) throws IncorrectOptionException, InvalidSessionException {
+		Vector<Operations> operations;
+		Session session;
 		
 		// Comprobamos si la sesión es válida
-		sesion = sesiones.get(idSesion);
-		if(sesion == null) {
-			throw new SesionInvalidaException("El identificador de la sesión es inválido.");
+		session = sessions.get(idSesion);
+		if(session == null) {
+			throw new InvalidSessionException("El identificador de la sesión es inválido.");
 		}
+
+		// Obtenemos la lista de operaciones disponibles para el usuario
+		operations = availableOperations(idSesion);
+
+		// Comprobamos si se tienen permisos para realizar la operación
+		if(!operations.contains(operation)) {
+			throw new IncorrectOptionException("El rol " + UserRole.values()[(int)session.getRol()] + " no tiene permiso para realizar la operación " + operation.toString() + ".");
+		}
+	}
 		
+	
+	// Método que devuelve las operaciones que puede realizar el usuario con el servidor
+	public static Vector<Operations> availableOperations(long idSesion) {
+		Vector<Operations> operations;
+		Session session = sessions.get(idSesion);
 		// Agregamos las operaciones permitidas para todos los usuarios
-		operaciones = new Vector<Operaciones>();
-		operaciones.add(Operaciones.ConsultarPropioUsuario);
+		operations = new Vector<Operations>();
+		
+		// TODO: añadir operaciones para cualquier usuario
+		/*operaciones.add(Operaciones.ConsultarPropioUsuario);
 		operaciones.add(Operaciones.ConsultarBeneficiario);
 		operaciones.add(Operaciones.ConsultarCentros);
 		operaciones.add(Operaciones.ConsultarVolante);
-		operaciones.add(Operaciones.CorrespondeNIFUsuario);
+		operaciones.add(Operaciones.CorrespondeNIFUsuario);*/
 		
-		// Agregamos las operaciones permitidas para citadores y administradores
-		if(sesion.getRol() == RolesUsuario.Administrador.ordinal() || sesion.getRol() == RolesUsuario.Citador.ordinal()) {
-			operaciones.add(Operaciones.RegistrarBeneficiario);
-			operaciones.add(Operaciones.ModificarBeneficiario);
-			operaciones.add(Operaciones.EliminarBeneficiario);
+		// Agregamos las operaciones permitidas para el jefe de proyecto (o admin)
+		if(session.getRol() == UserRole.ChiefProject.ordinal()) {
+			operations.add(Operations.CreateProject);
+			// TODO: añadir mas operaciones
+			/*operations.add(Operaciones.ModificarBeneficiario);
+			operations.add(Operaciones.EliminarBeneficiario);
 			operaciones.add(Operaciones.ConsultarMedico);
 			operaciones.add(Operaciones.ConsultarMedicoCita);
 			operaciones.add(Operaciones.ConsultarCitasBeneficiario);
 			operaciones.add(Operaciones.ConsultarCitasMedico);
 			operaciones.add(Operaciones.TramitarCita);
 			operaciones.add(Operaciones.TramitarCitaVolante);
-			operaciones.add(Operaciones.AnularCita);
+			operaciones.add(Operaciones.AnularCita);*/
 		}
 		
-		// Agregamos las operaciones permitidas para administradores
-		if(sesion.getRol() == RolesUsuario.Administrador.ordinal()) {
-			operaciones.add(Operaciones.ConsultarUsuario);
-			operaciones.add(Operaciones.RegistrarUsuario);
-			operaciones.add(Operaciones.ModificarUsuario);
-			operaciones.add(Operaciones.EliminarUsuario);
-			operaciones.add(Operaciones.RegistrarMedico);
-			operaciones.add(Operaciones.ModificarMedico);
-			operaciones.add(Operaciones.EliminarMedico);
-			operaciones.add(Operaciones.ConsultarMedicosTipo);
-			operaciones.add(Operaciones.ConsultarSustitutosPosibles);
-			operaciones.add(Operaciones.EstablecerSustituto);
-			operaciones.add(Operaciones.ConsultarBeneficiariosMedico);
-		}
-		
-		// Agregamos las operaciones permitidas para médicos
-		if(sesion.getRol() == RolesUsuario.Médico.ordinal()) {
-			operaciones.add(Operaciones.ConsultarMedicosTipo);
-			operaciones.add(Operaciones.EmitirVolante);
-			operaciones.add(Operaciones.ConsultarCitasPropiasMedico);
-		}
-		
-		return operaciones;
-	}
-	
-	// Método utilizado por otros gestores para comprobar los permisos de un usuario
-	public static void comprobarPermiso(long idSesion, Operaciones operacion) throws SesionInvalidaException, OperacionIncorrectaException {
-		Vector<Operaciones> operaciones;
-		Sesion sesion;
-		
-		// Comprobamos si la sesión es válida
-		sesion = sesiones.get(idSesion);
-		if(sesion == null) {
-			throw new SesionInvalidaException("El identificador de la sesión es inválido.");
-		}
-
-		// Obtenemos la lista de operaciones disponibles para el usuario
-		operaciones = operacionesDisponibles(idSesion);
-
-		// Comprobamos si se tienen permisos para realizar la operación
-		if(!operaciones.contains(operacion)) {
-			throw new OperacionIncorrectaException("El rol " + RolesUsuario.values()[(int)sesion.getRol()] + " no tiene permiso para realizar la operación " + operacion.toString() + ".");
-		}
-	}*/
-
-	
+		return operations;
+	}	
 }

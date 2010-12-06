@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Project {
 
+	private int id;
 	private String name;
 	private String description;
 	private Date startDate;
@@ -35,6 +36,13 @@ public class Project {
 		this.estimatedHours = estimatedHours;
 	}
 
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
