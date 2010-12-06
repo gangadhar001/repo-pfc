@@ -1,5 +1,6 @@
 package gcad.wizards;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -236,5 +237,41 @@ public class NewProjectWizardPage extends WizardPage {
         }		
 	}
 
+	public String getNameText() {
+		return nameText.getText();
+	}
+
+	public String getDescriptionText() {
+		return descriptionText.getText();
+	}
+
+	// TODO: mirar como crear una fecha
+	public Date getStartDate() {
+		return new Date(startDateText.getDay(), startDateText.getMonth()+1, startDateText.getYear());
+	}
+	
+	public Date getEndDate() {
+		return new Date(endDateText.getDay(), endDateText.getMonth()+1, endDateText.getYear());
+	}
+
+	public String getBudgetText() {
+		return budgetText.getText();
+	}
+	
+	public String getQuantityLinesText() {
+		return quantityLinesText.getText();
+	}
+
+	public String getDomainText() {
+		return domainText.getText();
+	}
+
+	public String getProgLanguage() {
+		return progLanguageCombo.getItem(progLanguageCombo.getSelectionIndex());
+	}
+	
+	public String getEstimatedHoursText() {
+		return estimatedHoursText.getText();
+	}
 
 }
