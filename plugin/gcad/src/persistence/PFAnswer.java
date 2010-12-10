@@ -1,11 +1,15 @@
 package persistence;
 
-import persistence.communications.DBConnectionManager;
+import exceptions.NoProjectProposalsException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+
+import persistence.commands.SQLCommand;
+import persistence.commands.SQLCommandSentence;
+import persistence.communications.DBConnectionManager;
 
 import model.business.knowledge.AbstractProposal;
 import model.business.knowledge.Answer;
@@ -54,3 +58,4 @@ public class PFAnswer {
 	
 
 }
+	

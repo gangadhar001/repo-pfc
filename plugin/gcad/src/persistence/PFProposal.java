@@ -1,9 +1,5 @@
 package persistence;
 
-import persistence.communications.DBConnectionManager;
-import gcad.domain.AbstractProposal;
-import gcad.domain.Answer;
-import gcad.domain.Proposal;
 import exceptions.NoProjectProposalsException;
 
 import java.sql.ResultSet;
@@ -11,6 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+
+import persistence.commands.SQLCommand;
+import persistence.commands.SQLCommandSentence;
+import persistence.communications.DBConnectionManager;
+
+import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.Answer;
+import model.business.knowledge.Proposal;
 
 /**
  * This class allows to query and insert proposals into database
@@ -141,6 +145,4 @@ public class PFProposal {
 		proposal.setId(data.getInt("LAST_INSERT_ID()"));
 		data.close();
 	}
-	
-
 }
