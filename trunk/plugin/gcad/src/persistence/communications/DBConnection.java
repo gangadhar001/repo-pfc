@@ -1,11 +1,12 @@
 package persistence.communications;
 
-import gcad.persistence.Agent;
-import gcad.persistence.SQLCommand;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import persistence.Agent;
+import persistence.commands.SQLCommand;
 
 /**
  * This class allows to connect with the database, using the Agent

@@ -1,4 +1,4 @@
-package gcad.persistence;
+package persistence.commands;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

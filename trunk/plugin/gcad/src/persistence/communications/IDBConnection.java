@@ -1,10 +1,11 @@
 package persistence.communications;
 
 
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import persistence.commands.SQLCommand;
 
 /**
  * Interface that must implement the classes that provide access to a database in order to be used 

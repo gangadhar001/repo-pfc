@@ -1,4 +1,4 @@
-package gcad.communications;
+package persistence.communications;
 
 /**
  * This class represents the configuration of the database connection

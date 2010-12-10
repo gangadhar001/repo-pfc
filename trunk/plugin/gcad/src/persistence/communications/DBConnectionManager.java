@@ -1,11 +1,14 @@
 package persistence.communications;
 
-import internationalization.BundleInternationalization;
-import persistence.SQLCommand;
 
+import internationalization.BundleInternationalization;
+
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import persistence.commands.SQLCommand;
 
 /**
  * This class represents a manager that allows to access and synchronize changes in several databases
@@ -13,6 +16,16 @@ import java.util.ArrayList;
 public class DBConnectionManager {
 
 	private static ArrayList<IDBConnection> connections = new ArrayList<IDBConnection>();
+	
+	public static void initializate(DBConfiguration configuration) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
+		DBConnection database = new DBConnection();
+		database.getAgent().setIp(configuration.getDBip());
+		database.getAgent().setPort(configuration.getDBport());
+		// Open the connection
+		database.open();
+		putConnection(database);
+		
+	}
 	
 	public static void putConnection(IDBConnection connection) {
 		if(!connections.contains(connection)) {
@@ -76,5 +89,7 @@ public class DBConnectionManager {
 	public static boolean thereAreConnections () {
 		return !connections.isEmpty();
 	}
+
+	
 	
 }
