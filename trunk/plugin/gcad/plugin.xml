@@ -5,7 +5,7 @@
 <extension point="org.eclipse.ui.perspectives">
    <perspective
          name="%perspective.name"
-         class="gcad.perspective.KMPerspective"
+         class="presentation.KMPerspective"
          id="gcad.perspective.KMPerspective">
    </perspective>
 </extension>
@@ -17,7 +17,7 @@
    </category>
    <view
          category="gcad.category.view.userInformation"
-         class="gcad.views.UserInfView"
+         class="presentation.views.UserInfView"
          id="gcad.view.UserInformation"
          name="%view.user"
          restorable="true">
@@ -28,7 +28,7 @@
    </category>
    <view
          category="gcad.category.view.proposal"
-         class="gcad.views.ProposalView"
+         class="presentation.views.ProposalView"
          id="gcad.view.proposals"
          name="%view.proposals"
          restorable="true">
@@ -37,7 +37,7 @@
 <extension
       point="org.eclipse.ui.startup">
    <startup
-         class="gcad.startup.Startup">
+         class="presentation.handlers.Startup">
    </startup>
 </extension>
 <extension
@@ -60,17 +60,39 @@
             id="gcad.command.insertDBInformation"
             name="%command.insertDBData">
       </command>
+      <category
+            id="gcad.category.menu.session"
+            name="%category.menu.session">
+      </category>
+      <command
+            categoryId="gcad.category.menu.session"
+            id="gcad.command.login"
+            name="%command.login">
+      </command>
+      <command
+            categoryId="gcad.category.menu.session"
+            id="gcad.command.signout"
+            name="%command.signout">
+      </command>
 </extension>
    
 <extension
          point="org.eclipse.ui.handlers">
       <handler
             commandId="gcad.command.newProposal"
-            class="gcad.handlers.newProposalHandler">
+            class="presentation.handlers.NewProposalHandler">
       </handler>
       <handler
-            class="gcad.handlers.newDBInformationHandler"
+            class="presentation.handlers.NewDBInformationHandler"
             commandId="gcad.command.insertDBInformation">
+      </handler>
+      <handler
+            class="presentation.handlers.LoginHandler"
+            commandId="gcad.command.login">
+      </handler>
+      <handler
+            class="presentation.handlers.SignoutHandler"
+            commandId="gcad.command.signout">
       </handler>
 </extension>
      
@@ -92,6 +114,20 @@
             <command
                   commandId="gcad.command.insertDBInformation"
                   id="gcad.menus.newDBInformation">
+            </command>
+         </menu>
+         <menu
+               id="gcad.menus.session"
+               label="%category.menu.session">
+            <command
+                  commandId="gcad.command.login">
+            </command>
+            <separator
+                  name="gcad.menu.session.separator"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="gcad.command.signout">
             </command>
          </menu>
      </menuContribution>
