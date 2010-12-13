@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import persistence.PFEmployee;
 
+import model.business.knowledge.ISession;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Session;
 import model.business.knowledge.User;
@@ -27,7 +28,7 @@ public class SessionController {
 	 * @throws SQLException 
 	 * @throws IncorrectEmployeeException 
 	 */
-	public static void login(String login, String password) throws IncorrectEmployeeException, SQLException {
+	public static ISession login(String login, String password) throws IncorrectEmployeeException, SQLException {
 		Enumeration<Session> openedSessions; 
 		Session session, openedSession;
 		User user;
@@ -72,6 +73,8 @@ public class SessionController {
 		// Creamos la sesión y la guardamos en la tabla de sesiones
 		session = new Session(idSesion, user);
 		sessions.put(idSesion, session);
+		
+		return (ISession) session;
 		
 	}
 

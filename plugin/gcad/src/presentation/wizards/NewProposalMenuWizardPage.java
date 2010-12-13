@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import model.business.control.Controller;
 import model.business.control.KnowledgeController;
 import model.business.control.PresentationController;
 import model.business.knowledge.AbstractProposal;
@@ -39,12 +40,11 @@ public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
 	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		KnowledgeController manager = KnowledgeController.getManager();
 		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
 		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
-			proposals = manager.getProposals();
+			proposals = Controller.getProposals();
 			for (int i=0; i<proposals.size(); i++)
 				cbProposals.add(proposals.get(i).getTitle()); 
 		} catch (SQLException e1) {

@@ -6,10 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Date;
 
-import exceptions.NoProjectProposalsException;
-
-import model.business.control.KnowledgeController;
-import model.business.control.PresentationController;
+import model.business.control.Controller;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 
@@ -18,12 +15,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.ui.IViewReference;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
-import presentation.views.ProposalView;
+import exceptions.NoProjectProposalsException;
 
 /**
  * This abstract class represents a New Proposal Wizard
@@ -78,10 +71,8 @@ public abstract class AbstractNewProposalWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
+			Controller.notifyKnowledgeAdded();
 			// When a new proposal is added, the proposals view are refreshed
-			
-			//TODO: notificar cambio en las propuestas
-			PresentationController.notifyProposals();
 			
 			/*boolean activeProposalsView = false;
 			IViewReference[] references;
@@ -112,8 +103,7 @@ public abstract class AbstractNewProposalWizardController extends Wizard {
 	/**
 	 * The worker method. It will create and insert in the database a new proposal
 	 */
-	private void doFinish(final IProgressMonitor monitor, final String name, final String description, final String category, Proposal parentProposal) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {		
-		KnowledgeController manager = KnowledgeController.getManager();
+	private void doFinish(IProgressMonitor monitor, String name, String description, String category, Proposal parentProposal) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {		
 		monitor.beginTask(BundleInternationalization.getString("ProposalMonitorMessage"), 50);
 		
 		monitor.worked(10);
@@ -122,7 +112,7 @@ public abstract class AbstractNewProposalWizardController extends Wizard {
 		// The new proposal is created and inserted into database
 		Proposal newProposal = new Proposal(name, description, new Date(), Categories.valueOf(category), 0);
 		monitor.worked(10);
-		manager.addKnowledge(newProposal, parentProposal);
+		Controller.addKnowledge(newProposal, parentProposal);
 		monitor.worked(10);
 		
 	}

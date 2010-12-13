@@ -7,13 +7,13 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
-import presentation.wizards.control.NewProjectWizard;
+import presentation.wizards.control.NewProjectWizardController;
 
 public class NewDBInformationHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		NewProjectWizard wizard = new NewProjectWizard();
+		NewProjectWizardController wizard = new NewProjectWizardController();
 		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
 	    dialog.create();
 	    dialog.open();

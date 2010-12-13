@@ -1,13 +1,12 @@
 package presentation.views;
 
-import exceptions.NoProjectProposalsException;
-
 import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import model.business.control.Controller;
 import model.business.control.KnowledgeController;
 import model.business.control.PresentationController;
 import model.business.knowledge.AbstractProposal;
@@ -34,7 +33,8 @@ import org.eclipse.ui.part.ViewPart;
 import presentation.IPresentation;
 import presentation.wizards.NewProposalViewWizardPage;
 import presentation.wizards.control.AbstractNewProposalWizardController;
-import presentation.wizards.control.NewProposalViewWizard;
+import presentation.wizards.control.NewProposalViewWizardController;
+import exceptions.NoProjectProposalsException;
 
 /**
  * This class represents the Proposals view, where the different proposals, answers and actions over them are shown
@@ -43,25 +43,30 @@ public class ProposalView extends ViewPart implements IPresentation {
 	
 	protected TreeViewer treeViewer;
 	private Label errorLabel;
-	private KnowledgeController manager;
+
 	// TODO: se usa para poner los iconos de las acciones en una barra de menus dentro de la vista
 	private DrillDownAdapter drillDownAdapter;
 	private Action doubleClickAction;
 	private Proposal root;
 	private Composite parent;
 	private Proposal proposalSelected;
+	private boolean visible = false;
 
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-		manager = KnowledgeController.getManager();		
-		root = new Proposal();
-		// TODO: Expand the tree 
-		//treeViewer.setAutoExpandLevel(2);			
-		updateState(false);
+		visible = true;
 		
 		// TODO: se añade a la lista de observados
 		PresentationController.attachObserver(this);
+		
+		root = new Proposal();
+		
+		// TODO: Expand the tree 
+		//treeViewer.setAutoExpandLevel(2);
+		
+		// TODO: mirar si se ha iniciado sesion previamente 
+		updateState(Controller.getInstance().isLogged());
 	}
 	
 	/**
@@ -84,7 +89,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 					int result = dialog.open();
 					// New Proposal
 					if (result == 0) {
-						AbstractNewProposalWizardController wizard = new NewProposalViewWizard(BundleInternationalization.getString("NewProposalWizard"));
+						AbstractNewProposalWizardController wizard = new NewProposalViewWizardController(BundleInternationalization.getString("NewProposalWizard"));
 						wizard.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
 						WizardDialog proposalDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
 						proposalDialog.create();
@@ -119,7 +124,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 	
 	private void makeTree() {
 		try {
-			ArrayList<AbstractProposal> proposals = manager.getProposalsTree();
+			ArrayList<AbstractProposal> proposals = KnowledgeController.getProposalsTree();
 			for (AbstractProposal p: proposals)
 				root.add(p);
 			establishTree();
@@ -165,7 +170,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 
 	@Override
 	public void updateOperations(Vector<Operations> availableOperations) {
-		// TODO Auto-generated method stub
+		// TODO Habilitar/deshabilitar acciones segun operaciones
 		
 	}
 
@@ -175,17 +180,35 @@ public class ProposalView extends ViewPart implements IPresentation {
 	}
 
 	@Override
-	// TODO
 	public void updateState(boolean connected) {
 		if (!connected) {
 			errorLabel = new Label(parent, SWT.NULL);
-			errorLabel.setText("NO CONECTADO");
+			errorLabel.setText(BundleInternationalization.getString("ErrorMessage.NotConnected"));
 		}
-		else {
+		else if (visible){
+			/* TODO: boolean activeProposalsView = false;
+			 * 
+			// Check if this view is activated and visible			
+			IViewReference[] references;
+			for (IWorkbenchPage page: PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()){
+				references = page.getViewReferences();
+				for (IViewReference reference : references)
+					if (reference.getId().equals(PROPOSAL_VIEW_ID))
+						activeProposalsView = true;
+			}
+			// If the proposals view is visible, it is updated
+			if (activeProposalsView) 
+				makeTree();
+		}*/
 			makeTree();
 		}
 		
 	}
 	
+	public void dispose () {
+		super.dispose();
+		visible = false;
+		PresentationController.detachObserver(this);			
+	}
                                                                                                                                    
 }
