@@ -114,6 +114,15 @@
             <command
                   commandId="gcad.command.insertDBInformation"
                   id="gcad.menus.newDBInformation">
+               <visibleWhen
+                     checkEnabled="true">
+                  <with
+                        variable="visibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
             </command>
          </menu>
          <menu
@@ -131,5 +140,15 @@
             </command>
          </menu>
      </menuContribution>
+</extension>
+<extension
+      point="org.eclipse.ui.services">
+   <sourceProvider
+         provider="gcad.AbstractSourceProvider">
+      <variable
+            name="gcad.menus.visibleWhenPermission"
+            priorityLevel="workbench">
+      </variable>
+   </sourceProvider>
 </extension>   
 </plugin>
