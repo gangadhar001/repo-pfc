@@ -11,7 +11,7 @@ import org.eclipse.ui.PlatformUI;
 
 import presentation.wizards.NewProposalMenuWizardPage;
 import presentation.wizards.control.AbstractNewProposalWizardController;
-import presentation.wizards.control.NewProposalMenuWizard;
+import presentation.wizards.control.NewProposalMenuWizardController;
 
 /** 
  * This class handles the "New Proposal" command from the "Knowledge" menu. 
@@ -21,7 +21,7 @@ public class NewProposalHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		AbstractNewProposalWizardController wizard = new NewProposalMenuWizard(BundleInternationalization.getString("NewProposalWizard"));
+		AbstractNewProposalWizardController wizard = new NewProposalMenuWizardController(BundleInternationalization.getString("NewProposalWizard"));
 		wizard.addPages(new NewProposalMenuWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         dialog.create();

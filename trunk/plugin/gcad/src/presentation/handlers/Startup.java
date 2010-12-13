@@ -11,7 +11,7 @@ import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 
 import persistence.communications.DBConnectionManager;
-import presentation.wizards.control.LoginWizard;
+import presentation.wizards.control.LoginWizardController;
 
 /**
  * This class controls the perspective changed event, to show the database connection wizard
@@ -51,7 +51,7 @@ public class Startup implements IStartup {
 	
 	private void showWizardDBConnection () {
 		// TODO: se reduce la altura de la ventana
-		LoginWizard bdwizard = new LoginWizard();
+		LoginWizardController bdwizard = new LoginWizardController();
 		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), bdwizard); 
 		/*{
 			@Override

@@ -16,21 +16,14 @@ import model.business.knowledge.Proposal;
  */
 public class KnowledgeController {
 
-	private static KnowledgeController manager;
-	//TODO: private List<ProposalListener> listeners = new ArrayList<ProposalListener>();
-	private ArrayList<AbstractProposal> proposals;
 	
-	public static KnowledgeController getManager() {
-		if (manager == null) {
-			manager = new KnowledgeController();
-		}
-		return manager;
-	}
+	//TODO: private List<ProposalListener> listeners = new ArrayList<ProposalListener>();
+	private static ArrayList<AbstractProposal> proposals;
 	
 	/**
 	 * This method is used to retrieve the proposals and answers hierarchy from database.
 	 */
-	public ArrayList<AbstractProposal> getProposalsTree() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static ArrayList<AbstractProposal> getProposalsTree() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// TODO: Se muestra a la inversa
 		// This method access to database only the first time, when "proposals" is not initialized.
 		if (proposals == null)
@@ -41,7 +34,7 @@ public class KnowledgeController {
 	/**
 	 * This method returns all existing proposals, recursively
 	 */
-	public ArrayList<AbstractProposal> getProposals() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static ArrayList<AbstractProposal> getProposals() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ArrayList<AbstractProposal> existingProposals = getProposalsTree();
 		ArrayList<AbstractProposal> result = new ArrayList<AbstractProposal>();
 		for (AbstractProposal p: existingProposals) {
@@ -53,7 +46,7 @@ public class KnowledgeController {
 		return result;
 	}
 	
-	private ArrayList<AbstractProposal> getRecursiveProposal(Proposal proposal) {
+	private static ArrayList<AbstractProposal> getRecursiveProposal(Proposal proposal) {
 		ArrayList<AbstractProposal> list = new ArrayList<AbstractProposal>();
 		ArrayList<AbstractProposal> result = new ArrayList<AbstractProposal>();
 		list = proposal.getProposals();
@@ -66,7 +59,7 @@ public class KnowledgeController {
 		return result;
 	}
 
-	public void addKnowledge(AbstractProposal knowledge, AbstractProposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void addKnowledge(AbstractProposal knowledge, AbstractProposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// Add the new knowledge(proposal/answer) to the existing proposal
 		parent.add(knowledge);
 		// The new knowledge is inserted into database
