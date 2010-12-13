@@ -1,7 +1,6 @@
 package presentation.wizards.control;
 
-import exceptions.IncorrectEmployeeException;
-
+import gcad.AbstractSourceProvider;
 import internationalization.BundleInternationalization;
 
 import java.io.IOException;
@@ -9,23 +8,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 import model.business.control.Controller;
-import model.business.control.PresentationController;
-import model.business.control.SessionController;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IViewReference;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.services.ISourceProviderService;
 
 import persistence.communications.DBConfiguration;
 import persistence.communications.DBConnectionManager;
-import presentation.views.ProposalView;
 import presentation.wizards.LoginWizardPage;
+import exceptions.IncorrectEmployeeException;
 
 /**
  * This abstract class represents a DB Connection Wizard
@@ -90,7 +85,13 @@ public class LoginWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
+			
+			//TODO: según el rol, activar/desactivar menus
 			Controller.getInstance().notifyLogin();
+			ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
+			AbstractSourceProvider commandStateService = (AbstractSourceProvider) sourceProviderService.getSourceProvider(AbstractSourceProvider.CONDITION_NAME);
+			commandStateService.setEnabled(false);
+		
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {

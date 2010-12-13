@@ -3,6 +3,10 @@ package model.business.control;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.eclipse.ui.services.ISourceProviderService;
+
+import presentation.handlers.NewDBInformationHandler;
+
 import model.business.knowledge.AbstractProposal;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Proposal;
