@@ -51,6 +51,31 @@
             categoryId="gcad.category.menu.knowledge"
             id="gcad.command.newProposal">
       </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.modifyProposal"
+            name="%command.modifyProposal">
+      </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.deleteProposal"
+            name="%command.deleteProposal">
+      </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.newAnswer"
+            name="%command.newAnswer">
+      </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.modifyAnswer"
+            name="%command.modifyAnswer">
+      </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.deleteAnswer"
+            name="%command.deleteAnswer">
+      </command>
       <category
             id="gcad.category.menu.databaseInformation"
             name="%category.menu.DBInformation">
@@ -83,6 +108,21 @@
             class="presentation.handlers.NewProposalHandler">
       </handler>
       <handler
+            commandId="gcad.command.modifyProposal">
+      </handler>
+      <handler
+            commandId="gcad.command.deleteProposal">
+      </handler>
+      <handler
+            commandId="gcad.command.newAnswer">
+      </handler>
+      <handler
+            commandId="gcad.command.modifyAnswer">
+      </handler>
+      <handler
+            commandId="gcad.command.deleteAnswer">
+      </handler>
+      <handler
             class="presentation.handlers.NewDBInformationHandler"
             commandId="gcad.command.insertDBInformation">
       </handler>
@@ -106,6 +146,80 @@
             <command
                   commandId="gcad.command.newProposal"
                   id="gcad.menus.newProposal">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="newProposalVisibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="gcad.command.modifyProposal"
+                  id="gcad.menus.modifyProposal">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="modifyProposalVisibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="gcad.command.deleteProposal"
+                  id="gcad.menus.deleteProposal">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="deleteProposalVisibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="gcad.command.newAnswer"
+                  id="gcad.menus.newAnswer">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="newAnswerVisibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="gcad.command.modifyAnswer"
+                  id="gcad.menus.modifyAnswer">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="modifyAnswerVisibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="gcad.command.deleteAnswer"
+                  id="gcad.menus.deleteAnswer">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="deleteAnswerVisibleWhenPermission">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
             </command>
          </menu>
          <menu
@@ -115,9 +229,9 @@
                   commandId="gcad.command.insertDBInformation"
                   id="gcad.menus.newDBInformation">
                <visibleWhen
-                     checkEnabled="true">
+                     checkEnabled="false">
                   <with
-                        variable="visibleWhenPermission">
+                        variable="newProjectVisibleWhenPermission">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -144,7 +258,7 @@
 <extension
       point="org.eclipse.ui.services">
    <sourceProvider
-         provider="gcad.AbstractSourceProvider">
+         provider="gcad.SourceProvider">
       <variable
             name="gcad.menus.visibleWhenPermission"
             priorityLevel="workbench">
