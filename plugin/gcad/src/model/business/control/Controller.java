@@ -2,6 +2,7 @@ package model.business.control;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import org.eclipse.ui.services.ISourceProviderService;
 
@@ -9,6 +10,7 @@ import presentation.handlers.NewDBInformationHandler;
 
 import model.business.knowledge.AbstractProposal;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Operations;
 import model.business.knowledge.Proposal;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NoProjectProposalsException;
@@ -34,7 +36,7 @@ public class Controller {
 		//TODO: se notifica la conexion con la base de datos a las vistas
 		PresentationController.notifyConnection(true);
 		// TODO: se notifican los permisos
-		PresentationController.notifyPermission(SessionController.availableOperations(session.getId()));
+		PresentationController.notifyPermission(SessionController.getAvailableOperations(session.getId()));
 	}
 	
 	public static void addKnowledge (AbstractProposal p, Proposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -54,6 +56,10 @@ public class Controller {
 	
 	public boolean isLogged () {
 		return session != null;
+	}
+
+	public Vector<Operations> getAvailableOperations() {
+		return SessionController.getAvailableOperations(session.getId());
 	}
 
 	

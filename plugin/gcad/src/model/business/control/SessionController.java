@@ -94,7 +94,7 @@ public class SessionController {
 		}
 
 		// Obtenemos la lista de operaciones disponibles para el usuario
-		operations = availableOperations(idSesion);
+		operations = getAvailableOperations(idSesion);
 
 		// Comprobamos si se tienen permisos para realizar la operación
 		if(!operations.contains(operation)) {
@@ -104,32 +104,24 @@ public class SessionController {
 		
 	
 	// Método que devuelve las operaciones que puede realizar el usuario con el servidor
-	public static Vector<Operations> availableOperations(long idSesion) {
+	public static Vector<Operations> getAvailableOperations(long idSession) {
 		Vector<Operations> operations;
-		Session session = sessions.get(idSesion);
+		Session session = sessions.get(idSession);
 		// Agregamos las operaciones permitidas para todos los usuarios
 		operations = new Vector<Operations>();
 		
 		// TODO: añadir operaciones para cualquier usuario
-		/*operaciones.add(Operaciones.ConsultarPropioUsuario);
-		operaciones.add(Operaciones.ConsultarBeneficiario);
-		operaciones.add(Operaciones.ConsultarCentros);
-		operaciones.add(Operaciones.ConsultarVolante);
-		operaciones.add(Operaciones.CorrespondeNIFUsuario);*/
+		operations.add(Operations.AddProposal);
+		operations.add(Operations.AddAnswer);
 		
 		// Agregamos las operaciones permitidas para el jefe de proyecto (o admin)
 		if(session.getRol() == UserRole.ChiefProject.ordinal()) {
 			operations.add(Operations.CreateProject);
-			// TODO: añadir mas operaciones
-			/*operations.add(Operaciones.ModificarBeneficiario);
-			operations.add(Operaciones.EliminarBeneficiario);
-			operaciones.add(Operaciones.ConsultarMedico);
-			operaciones.add(Operaciones.ConsultarMedicoCita);
-			operaciones.add(Operaciones.ConsultarCitasBeneficiario);
-			operaciones.add(Operaciones.ConsultarCitasMedico);
-			operaciones.add(Operaciones.TramitarCita);
-			operaciones.add(Operaciones.TramitarCitaVolante);
-			operaciones.add(Operaciones.AnularCita);*/
+			// TODO: ¿¿¿estas operaciones solo son del jefe o de todos????
+			operations.add(Operations.ModifyProposal);
+			operations.add(Operations.ModifyAnswer);
+			operations.add(Operations.DeleteProposal);
+			operations.add(Operations.DeleteAnswer);
 		}
 		
 		return operations;

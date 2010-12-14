@@ -1,13 +1,15 @@
 package presentation.wizards.control;
 
-import gcad.AbstractSourceProvider;
+import gcad.SourceProvider;
 import internationalization.BundleInternationalization;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import model.business.control.Controller;
+import model.business.knowledge.Operations;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -85,13 +87,9 @@ public class LoginWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
-			
-			//TODO: según el rol, activar/desactivar menus
 			Controller.getInstance().notifyLogin();
-			ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
-			AbstractSourceProvider commandStateService = (AbstractSourceProvider) sourceProviderService.getSourceProvider(AbstractSourceProvider.CONDITION_NAME);
-			commandStateService.setEnabled(false);
-		
+			updateMenus();
+			
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
@@ -128,5 +126,41 @@ public class LoginWizardController extends Wizard {
 		
 		// TODO: Identificarse
 		Controller.getInstance().login(user,pass);		
+	}
+	
+	private void updateMenus() {
+		//TODO: según el rol, activar/desactivar menus
+		// Hacerlo por XML con DIGESTER
+		ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
+		
+		Vector<Operations> operations = Controller.getInstance().getAvailableOperations();
+		if (!operations.contains(Operations.CreateProject)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_NEW_PROJECT);
+			commandStateService.setNewProjectMenuItemVisible(false);
+		}
+		if (!operations.contains(Operations.AddProposal)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_NEW_PROPOSAL);
+			commandStateService.setNewProposalMenuItemVisible(false);
+		}
+		if (!operations.contains(Operations.ModifyProposal)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_MODIFY_PROPOSAL);
+			commandStateService.setModifyProposalMenuItemVisible(false);
+		}
+		if (!operations.contains(Operations.DeleteProposal)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_DELETE_PROPOSAL);
+			commandStateService.setDeleteProposalMenuItemVisible(false);
+		}
+		if (!operations.contains(Operations.AddAnswer)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_NEW_ANSWER);
+			commandStateService.setNewAnswerMenuItemVisible(false);
+		}
+		if (!operations.contains(Operations.ModifyAnswer)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_MODIFY_ANSWER);
+			commandStateService.setModifyAnswerMenuItemVisible(false);
+		}	
+		if (!operations.contains(Operations.DeleteAnswer)) {
+			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_DELETE_ANSWER);
+			commandStateService.setDeleteAnswerMenuItemVisible(false);
+		}
 	}
 }
