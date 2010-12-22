@@ -7,6 +7,7 @@ import org.eclipse.ui.ISources;
 
 public class SourceProvider extends org.eclipse.ui.AbstractSourceProvider {
 
+	// TODO: sacar esto a una interfaz de acciones constantes
 	public final static String CONDITION_NEW_PROJECT = "newProjectVisibleWhenPermission";
 	public final static String CONDITION_NEW_PROPOSAL = "newProposalVisibleWhenPermission";
 	public final static String CONDITION_MODIFY_PROPOSAL = "modifyProposalVisibleWhenPermission";
