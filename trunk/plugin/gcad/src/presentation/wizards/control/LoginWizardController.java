@@ -130,7 +130,11 @@ public class LoginWizardController extends Wizard {
 	
 	private void updateMenus() {
 		//TODO: según el rol, activar/desactivar menus
-		// Hacerlo por XML con DIGESTER
+		// Hacerlo por XML
+		// Al inicio, solo está activo el menu "Session"
+		// Segun la lista de operaciones leida del XML, se activa. Recorrer esa lista y llamar al "getSourceProvider" con
+		// el valor correspondiente de la interfaz
+		
 		ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
 		
 		Vector<Operations> operations = Controller.getInstance().getAvailableOperations();
