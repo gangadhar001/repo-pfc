@@ -1,7 +1,6 @@
 package model.treeviewer;
 
 
-import model.business.control.KnowledgeController;
 import model.business.knowledge.Proposal;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -11,7 +10,7 @@ import org.eclipse.jface.viewers.Viewer;
 public class ProposalContentProvider implements ITreeContentProvider{
 
 	private TreeViewer viewer;
-	private KnowledgeController manager;
+	//private KnowledgeController manager;
 	private static Object[] NO_ELEMENT = new Object[0];
 	
 	@Override

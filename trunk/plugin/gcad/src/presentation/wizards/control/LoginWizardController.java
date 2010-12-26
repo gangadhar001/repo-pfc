@@ -88,7 +88,7 @@ public class LoginWizardController extends Wizard {
 		try {
 			getContainer().run(true, false, op);
 			Controller.getInstance().notifyLogin();
-			updateMenus();
+			//updateMenus();
 			
 		} catch (InterruptedException e) {
 			return false;

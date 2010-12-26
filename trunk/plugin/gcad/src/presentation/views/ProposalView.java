@@ -116,14 +116,10 @@ public class ProposalView extends ViewPart implements IPresentation {
 
 
 	}
-	
-	// When the plug-in connects to database, the Proposal tree is shown
-	public void showContentConnected() {
-		makeTree();
-	}
-	
+		
 	private void makeTree() {
 		try {
+			// TODO: llamarlo a traves del controlador
 			ArrayList<AbstractProposal> proposals = KnowledgeController.getProposalsTree();
 			for (AbstractProposal p: proposals)
 				root.add(p);

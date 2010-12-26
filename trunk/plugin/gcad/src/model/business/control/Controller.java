@@ -4,10 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import org.eclipse.ui.services.ISourceProviderService;
-
-import presentation.handlers.NewDBInformationHandler;
-
 import model.business.knowledge.AbstractProposal;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Operations;
@@ -35,8 +31,8 @@ public class Controller {
 	public void notifyLogin () {
 		//TODO: se notifica la conexion con la base de datos a las vistas
 		PresentationController.notifyConnection(true);
-		// TODO: se notifican los permisos
-		PresentationController.notifyPermission(SessionController.getAvailableOperations(session.getId()));
+		// TODO: se notifican los permisos. Cambiar
+		//PresentationController.notifyPermission(SessionController.getAvailableOperations(session.getId()));
 	}
 	
 	public static void addKnowledge (AbstractProposal p, Proposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {

@@ -7,9 +7,12 @@ Bundle-Activator: gcad.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  MySQLPlugin;bundle-version="1.0.0",
- CommonsConfiguratorPlugin;bundle-version="1.0.0"
+ CommonsConfigurationPlugin;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Import-Package: org.eclipse.jdt.internal.debug.ui,
- org.eclipse.ui.forms.widgets
+ org.eclipse.ui.forms.widgets,
+ org.eclipse.zest.core.viewers,
+ org.eclipse.zest.layouts,
+ org.eclipse.zest.layouts.algorithms
