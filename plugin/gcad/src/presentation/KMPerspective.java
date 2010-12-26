@@ -9,7 +9,9 @@ import org.eclipse.ui.IPerspectiveFactory;
  */
 public class KMPerspective implements IPerspectiveFactory {
 	
-	private static final String PROPOSAL_VIEW_ID = "gcad.category.view.proposal";
+	//TODO: leerlo del fichero de properties
+	private static final String PROPOSAL_VIEW_ID = "gcad.view.proposals";
+	private static final String PROPOSAL_GRAPH_VIEW_ID = "gcad.view.graph";
 		
 	@Override
 	public void createInitialLayout(IPageLayout layout) {
@@ -18,6 +20,8 @@ public class KMPerspective implements IPerspectiveFactory {
         
         // Put the "Outline" View on the left 
         layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.LEFT, 0.25f, idEditorArea);
+        
+        layout.addView(PROPOSAL_GRAPH_VIEW_ID, IPageLayout.RIGHT, 0.25f, idEditorArea);
         
         IFolderLayout folderBottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.66f, idEditorArea);
         // Add standard "Problems" and "Task List" Views on the bottom

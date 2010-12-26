@@ -33,6 +33,17 @@
          name="%view.proposals"
          restorable="true">
    </view>
+   <category
+         id="gcad.category.view.graph"
+         name="%category.view.graph">
+   </category>
+   <view
+         category="gcad.category.view.graph"
+         class="presentation.views.GraphView"
+         id="gcad.view.Graph"
+         name="%view.graph"
+         restorable="true">
+   </view>
 </extension>
 <extension
       point="org.eclipse.ui.startup">

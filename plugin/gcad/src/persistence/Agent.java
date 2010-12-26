@@ -57,7 +57,7 @@ public class Agent {
 		String url;
 		// Read database configuration from properties file
 		Properties configFile = new Properties();
-		configFile.load(this.getClass().getClassLoader().getResourceAsStream("/databaseConfiguration.properties"));
+		configFile.load(this.getClass().getClassLoader().getResourceAsStream("./configuration/databaseConfiguration.properties"));
 		// Open connection
 		if(connection == null || connection.isClosed()) {
 			url = "jdbc:mysql://" + ip + ":" + String.valueOf(port) + "/" + configFile.getProperty("DBName") + "?user=" + configFile.getProperty("DBUser") + "&password=" + configFile.getProperty("DBPassword");
