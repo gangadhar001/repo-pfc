@@ -2,7 +2,8 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-<extension point="org.eclipse.ui.perspectives">
+<extension 
+	point="org.eclipse.ui.perspectives">
    <perspective
          name="%perspective.name"
          class="presentation.KMPerspective"
@@ -40,7 +41,7 @@
    <view
          category="gcad.category.view.graph"
          class="presentation.views.GraphView"
-         id="gcad.view.Graph"
+         id="gcad.view.graph"
          name="%view.graph"
          restorable="true">
    </view>
@@ -160,7 +161,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="newProposalVisibleWhenPermission">
+                        variable="NewProposal">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -173,7 +174,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="modifyProposalVisibleWhenPermission">
+                        variable="ModifyProposal">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -186,7 +187,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="deleteProposalVisibleWhenPermission">
+                        variable="DeleteProposal">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -199,7 +200,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="newAnswerVisibleWhenPermission">
+                        variable="NewAnswer">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -212,7 +213,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="modifyAnswerVisibleWhenPermission">
+                        variable="ModifyAnswer">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -225,7 +226,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="deleteAnswerVisibleWhenPermission">
+                        variable="DeleteAnswer">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -242,7 +243,7 @@
                <visibleWhen
                      checkEnabled="false">
                   <with
-                        variable="newProjectVisibleWhenPermission">
+                        variable="NewProject">
                      <equals
                            value="ENABLED">
                      </equals>
@@ -262,6 +263,12 @@
             </separator>
             <command
                   commandId="gcad.command.signout">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="SignOut">
+                  </with>
+               </visibleWhen>
             </command>
          </menu>
      </menuContribution>

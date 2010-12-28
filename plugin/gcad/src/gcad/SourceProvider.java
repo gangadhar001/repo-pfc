@@ -1,20 +1,13 @@
 package gcad;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.ui.ISources;
 
 public class SourceProvider extends org.eclipse.ui.AbstractSourceProvider {
-
-	// TODO: sacar esto a una interfaz de acciones constantes
-	public final static String CONDITION_NEW_PROJECT = "newProjectVisibleWhenPermission";
-	public final static String CONDITION_NEW_PROPOSAL = "newProposalVisibleWhenPermission";
-	public final static String CONDITION_MODIFY_PROPOSAL = "modifyProposalVisibleWhenPermission";
-	public final static String CONDITION_DELETE_PROPOSAL = "deleteProposalVisibleWhenPermission";
-	public final static String CONDITION_NEW_ANSWER = "newAnswerVisibleWhenPermission";
-	public final static String CONDITION_MODIFY_ANSWER = "modifyAnswerVisibleWhenPermission";
-	public final static String CONDITION_DELETE_ANSWER = "deleteAnswerVisibleWhenPermission";
 	
 	public final static String ENABLED = "ENABLED";
 	public final static String DISABLED = "DISABLED";
@@ -25,57 +18,26 @@ public class SourceProvider extends org.eclipse.ui.AbstractSourceProvider {
 
 	@Override
 	public String[] getProvidedSourceNames() {
-		return new String[] { CONDITION_NEW_PROJECT, CONDITION_NEW_PROPOSAL, CONDITION_MODIFY_PROPOSAL, CONDITION_DELETE_PROPOSAL, CONDITION_NEW_ANSWER, CONDITION_MODIFY_ANSWER, CONDITION_DELETE_ANSWER};
+		return new IActions().actions;
 	}
 
-	
-	public void setNewProjectMenuItemVisible(boolean enabled) {
+	public void setMenuItemVisible(boolean enabled, String nameItem) {
 		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_NEW_PROJECT, value);
+		fireSourceChanged(ISources.WORKBENCH, nameItem, value);
 	}
 	
-	public void setNewProposalMenuItemVisible(boolean enabled) {
-		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_NEW_PROPOSAL, value);
-	}
-	
-	public void setModifyProposalMenuItemVisible(boolean enabled) {
-		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_MODIFY_PROPOSAL, value);
-	}
-	
-	public void setDeleteProposalMenuItemVisible(boolean enabled) {
-		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_DELETE_PROPOSAL, value);
-	}
-	
-	public void setNewAnswerMenuItemVisible(boolean enabled) {
-		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_NEW_ANSWER, value);
-	}
-	
-	public void setModifyAnswerMenuItemVisible(boolean enabled) {
-		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_MODIFY_ANSWER, value);
-	}
-	
-	public void setDeleteAnswerMenuItemVisible(boolean enabled) {
-		String value = enabled ? ENABLED : DISABLED;
-		fireSourceChanged(ISources.WORKBENCH, CONDITION_DELETE_ANSWER, value);
-	}
-
 	@Override
 	public Map getCurrentState() {
-		Map map = new HashMap(7);
-		map.put(CONDITION_NEW_PROJECT, ENABLED);
-		map.put(CONDITION_NEW_PROPOSAL, ENABLED);
-		map.put(CONDITION_MODIFY_PROPOSAL, ENABLED);
-		map.put(CONDITION_DELETE_PROPOSAL, ENABLED);
-		map.put(CONDITION_NEW_ANSWER, ENABLED);
-		map.put(CONDITION_MODIFY_ANSWER, ENABLED);
-		map.put(CONDITION_DELETE_ANSWER, ENABLED);
+		String[] actions = IActions.actions;
+		Map map = new HashMap(actions.length);
+		// First of all, only is enabled the action "login"
+		for (String act: actions) {
+			map.put(act, DISABLED);
+		}
 		return map;
 	}
+	
+	
 
 
 }

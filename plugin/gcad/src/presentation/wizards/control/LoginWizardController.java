@@ -1,16 +1,24 @@
 package presentation.wizards.control;
 
+
+import gcad.IActions;
+import gcad.IResources;
 import gcad.SourceProvider;
 import internationalization.BundleInternationalization;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import model.business.control.Controller;
-import model.business.knowledge.Operations;
+import model.business.knowledge.UserRole;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.commons.configuration.XMLConfiguration;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -18,6 +26,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.ISourceProviderService;
+import org.omg.CORBA.portable.InputStream;
 
 import persistence.communications.DBConfiguration;
 import persistence.communications.DBConnectionManager;
@@ -25,7 +34,7 @@ import presentation.wizards.LoginWizardPage;
 import exceptions.IncorrectEmployeeException;
 
 /**
- * This abstract class represents a DB Connection Wizard
+ * This class allows to login
  */
 public class LoginWizardController extends Wizard {
 		
@@ -53,6 +62,7 @@ public class LoginWizardController extends Wizard {
 		final String passText = page.getPassText();
 		final String IPText = page.getIPText();
 		final String portText = page.getPortText();
+
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
@@ -71,8 +81,8 @@ public class LoginWizardController extends Wizard {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IncorrectEmployeeException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						// It is only possible to throw this exception type
+						throw new InvocationTargetException(e);
 					}					
 				} catch (CoreException e) {
 					throw new InvocationTargetException(e);
@@ -87,8 +97,10 @@ public class LoginWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
+			// Notify to the views the satisfactory login
 			Controller.getInstance().notifyLogin();
-			//updateMenus();
+			// This class is responsible to update the menu items, depend on the user role logged
+			updateMenus(UserRole.values()[Controller.getInstance().getSession().getRol()]);
 			
 		} catch (InterruptedException e) {
 			return false;
@@ -96,6 +108,9 @@ public class LoginWizardController extends Wizard {
 			Throwable realException = e.getTargetException();
 			MessageDialog.openError(getShell(), "Error", realException.getMessage());
 			return false;	
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return true;
 	}
@@ -128,43 +143,95 @@ public class LoginWizardController extends Wizard {
 		Controller.getInstance().login(user,pass);		
 	}
 	
-	private void updateMenus() {
+	/**
+	 * This method reads the profiles available for a user role from a XML file, and enables/disables the corresponding menu items.
+	 * First of all, when no user is logged, only is enabled "Session" menu
+	 */
+	public void updateMenus(UserRole role) throws ConfigurationException {
 		//TODO: según el rol, activar/desactivar menus
 		// Hacerlo por XML
 		// Al inicio, solo está activo el menu "Session"
 		// Segun la lista de operaciones leida del XML, se activa. Recorrer esa lista y llamar al "getSourceProvider" con
 		// el valor correspondiente de la interfaz
+		XMLConfiguration config;
+	    
+		List<String> rolesName;
+		List<String> profiles;
+		List<String> profilesName;
+		List<String> actionsName;
 		
-		ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
+		List<HierarchicalConfiguration> profilesConfiguration;
+		List<HierarchicalConfiguration> actionsConfigurations;
 		
-		Vector<Operations> operations = Controller.getInstance().getAvailableOperations();
-		if (!operations.contains(Operations.CreateProject)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_NEW_PROJECT);
-			commandStateService.setNewProjectMenuItemVisible(false);
+		int index;
+		String profile; 
+		
+		// If no user is logged, disabled all menus and actions, except "Session" menu
+		if (role==null) {
+			
 		}
-		if (!operations.contains(Operations.AddProposal)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_NEW_PROPOSAL);
-			commandStateService.setNewProposalMenuItemVisible(false);
-		}
-		if (!operations.contains(Operations.ModifyProposal)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_MODIFY_PROPOSAL);
-			commandStateService.setModifyProposalMenuItemVisible(false);
-		}
-		if (!operations.contains(Operations.DeleteProposal)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_DELETE_PROPOSAL);
-			commandStateService.setDeleteProposalMenuItemVisible(false);
-		}
-		if (!operations.contains(Operations.AddAnswer)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_NEW_ANSWER);
-			commandStateService.setNewAnswerMenuItemVisible(false);
-		}
-		if (!operations.contains(Operations.ModifyAnswer)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_MODIFY_ANSWER);
-			commandStateService.setModifyAnswerMenuItemVisible(false);
-		}	
-		if (!operations.contains(Operations.DeleteAnswer)) {
-			SourceProvider commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(SourceProvider.CONDITION_DELETE_ANSWER);
-			commandStateService.setDeleteAnswerMenuItemVisible(false);
+		
+		else {
+		    config = new XMLConfiguration(this.getClass().getClassLoader().getResource(IResources.XML_PROFILES_PATH+"profiles-role.xml"));
+		    // Take defined roles in that XML file (returns a list)
+		    rolesName = config.getList("Role.name");		    		
+		    // Check it the user role that is logged exists in that list
+		    if (rolesName.contains(role.toString())) {
+		    	// If it exists, take its profiles (actions)
+		    	index = rolesName.indexOf(role.toString());
+		    	profilesConfiguration = config.configurationsAt("Role("+index+").Profile");
+		    	profiles = new ArrayList<String>();		    
+		    	for(Iterator it = profilesConfiguration.iterator(); it.hasNext();)
+			    {
+			        HierarchicalConfiguration sub = (HierarchicalConfiguration) it.next();
+			        // "Sub" contains now all data about a single field
+			        String profileName = sub.getString("name");
+			        profiles.add(profileName);
+			    }	
+			    System.out.println("Perfiles: " + profiles);
+			    
+				
+				// When it is read the profiles of that user role, read the actions and menu items available for those profiles
+				config = new XMLConfiguration(this.getClass().getClassLoader().getResource(IResources.XML_PROFILES_PATH+"profiles.xml"));
+				profilesName = config.getList("Profile.name");
+				actionsConfigurations = new ArrayList<HierarchicalConfiguration>();
+		
+				for (int i=0; i<profiles.size(); i++) {
+					profile = profiles.get(i);
+					// Take the actions corresponding to the profiles that was read previously
+					if (profilesName.contains(profile)) {
+						index = profilesName.indexOf(profile);
+						actionsConfigurations.addAll(config.configurationsAt("Profile("+index+").Actions"));
+					}
+				}
+		
+				// Take the actions name
+				actionsName = new ArrayList<String>();	
+				for(Iterator it = actionsConfigurations.iterator(); it.hasNext();)
+				    {
+				        HierarchicalConfiguration sub = (HierarchicalConfiguration) it.next();
+				        actionsName.addAll(sub.getList("name"));
+				    }	
+				System.out.println("Acciones para esos perfiles: " + actionsName);
+				
+				// Enabled/disabled actions
+				ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
+				SourceProvider commandStateService = null;
+				for (String act: IActions.actions) {
+					// Enable action
+					if (actionsName.contains(act)) {
+						commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(act);
+						commandStateService.setMenuItemVisible(true, act);
+					}
+					// Disable
+					else {
+						commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(act);
+						commandStateService.setMenuItemVisible(false, act);
+					}
+						
+				}
+		    }
+		    else {} //TODO: no existe ese rol en el sistema
 		}
 	}
 }

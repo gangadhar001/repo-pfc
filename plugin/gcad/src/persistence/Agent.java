@@ -1,5 +1,7 @@
 package persistence;
 
+import gcad.IResources;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.XMLConfiguration;
 
 import persistence.commands.SQLCommand;
 
@@ -57,7 +62,7 @@ public class Agent {
 		String url;
 		// Read database configuration from properties file
 		Properties configFile = new Properties();
-		configFile.load(this.getClass().getClassLoader().getResourceAsStream("./configuration/databaseConfiguration.properties"));
+		configFile.load(this.getClass().getClassLoader().getResourceAsStream(IResources.DBCONFIGURATION));
 		// Open connection
 		if(connection == null || connection.isClosed()) {
 			url = "jdbc:mysql://" + ip + ":" + String.valueOf(port) + "/" + configFile.getProperty("DBName") + "?user=" + configFile.getProperty("DBUser") + "&password=" + configFile.getProperty("DBPassword");
