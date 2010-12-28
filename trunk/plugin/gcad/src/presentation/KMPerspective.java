@@ -17,18 +17,20 @@ public class KMPerspective implements IPerspectiveFactory {
 	public void createInitialLayout(IPageLayout layout) {
 		// Get the editor area identifier
         String idEditorArea = layout.getEditorArea();
+                
+        layout.setEditorAreaVisible(false);
         
         // Put the "Outline" View on the left 
-        layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.LEFT, 0.25f, idEditorArea);
+        //layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.LEFT, 0.25f, idEditorArea);
         
-        layout.addView(PROPOSAL_GRAPH_VIEW_ID, IPageLayout.RIGHT, 0.25f, idEditorArea);
+        layout.addView(PROPOSAL_GRAPH_VIEW_ID, IPageLayout.LEFT, 0.65f, idEditorArea);
+        layout.addView(PROPOSAL_VIEW_ID, IPageLayout.RIGHT, 0.35f, idEditorArea);
         
-        IFolderLayout folderBottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.66f, idEditorArea);
+        IFolderLayout folderBottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.6f, PROPOSAL_GRAPH_VIEW_ID);
         // Add standard "Problems" and "Task List" Views on the bottom
-        folderBottom.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
+        //folderBottom.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
         folderBottom.addPlaceholder(IPageLayout.ID_TASK_LIST);
-        // Add "Proposals View" on the bottom, too
-        folderBottom.addPlaceholder(PROPOSAL_VIEW_ID);
+        
 
 		// TODO: poner otras vistas
 	}

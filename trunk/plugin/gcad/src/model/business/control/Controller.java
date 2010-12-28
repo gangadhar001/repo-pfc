@@ -31,8 +31,6 @@ public class Controller {
 	public void notifyLogin () {
 		//TODO: se notifica la conexion con la base de datos a las vistas
 		PresentationController.notifyConnection(true);
-		// TODO: se notifican los permisos. Cambiar
-		//PresentationController.notifyPermission(SessionController.getAvailableOperations(session.getId()));
 	}
 	
 	public static void addKnowledge (AbstractProposal p, Proposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -54,9 +52,11 @@ public class Controller {
 		return session != null;
 	}
 
-	public Vector<Operations> getAvailableOperations() {
-		return SessionController.getAvailableOperations(session.getId());
+	public ISession getSession() {
+		return session;
 	}
+	
+	
 
 	
 }

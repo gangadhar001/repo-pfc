@@ -1,6 +1,8 @@
 package presentation.handlers;
 
 
+import model.business.control.Controller;
+
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
@@ -30,25 +32,28 @@ public class Startup implements IStartup {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {		
 				final IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				// The database connection wizard is shown when the knowledge perspective is activated and it is shown 
+				// The login wizard is shown when the knowledge perspective is activated and there isn't any user logged yet
 				if (workbenchWindow != null) {
 					if (workbenchWindow.getActivePage().getPerspective().getId().equals(PERSPECTIVE_ID)) {
-						if (!DBConnectionManager.thereAreConnections()) 
+						if (!Controller.getInstance().isLogged()) {
 							showWizardDBConnection();
+						}
 					}
 					
 					workbenchWindow.addPerspectiveListener(new PerspectiveAdapter() {
+						// The login wizard is shown when the user changes to knowledge perspective
 						public void perspectiveActivated(IWorkbenchPage page, IPerspectiveDescriptor perspectiveDescriptor) {
 							if (perspectiveDescriptor.getId().equals(PERSPECTIVE_ID)) {
-								if (!DBConnectionManager.thereAreConnections())
+								if (!Controller.getInstance().isLogged()) {
 									showWizardDBConnection();
+								}
 							}
 						}
 					});
 				}
 		}});
 	}
-	
+
 	private void showWizardDBConnection () {
 		// TODO: se reduce la altura de la ventana
 		LoginWizardController bdwizard = new LoginWizardController();

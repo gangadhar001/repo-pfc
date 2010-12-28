@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import persistence.PFProject;
 
-import exceptions.IncorrectOptionException;
 import exceptions.InvalidSessionException;
 
 import model.business.knowledge.Operations;
@@ -15,7 +14,7 @@ public class ProjectController {
 
 	// TODO: traducir
 	// Método para registrar un nuevo beneficiario en el sistema
-	public static void createProject(long idSesion, Project project) throws IncorrectOptionException, InvalidSessionException, SQLException {			
+	public static void createProject(long idSesion, Project project) throws InvalidSessionException, SQLException {			
 		// Comprobamos si se tienen permisos para realizar la operación
 		//TODO: descomentar SessionManager.checkPermission(idSesion, Operations.CreateProject);
 		

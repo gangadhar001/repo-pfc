@@ -4,7 +4,6 @@
 	<Profile>
 		<name>Default</name>
 		<Actions>
-			<name>Login</name>
 			<name>SignOut</name>
 			<name>NewProposal</name>
 			<name>NewAnswer</name>
@@ -13,6 +12,7 @@
 	<Profile>
 		<name>Chief</name>			
 		<Actions>
+			<name>NewProject</name>
 			<name>ModifyProposal</name>
 			<name>DeleteProposal</name>
 			<name>ModifyAnswer</name>

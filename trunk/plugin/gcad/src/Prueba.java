@@ -1,3 +1,5 @@
+import gcad.IResources;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +38,7 @@ public class Prueba {
 		try
 		{
 			// Hacer una interfaz para tomar esta ruta
-		    config = new XMLConfiguration("./profiles/profiles-role.xml");
+			 config = new XMLConfiguration(IResources.XML_PROFILES_PATH);
 		    // Se toman los roles definidos
 		    rolesName = config.getList("Role.name");		    		
 		    // Se comprueba en la lista de roles definidos en el sistema si existe ese rol

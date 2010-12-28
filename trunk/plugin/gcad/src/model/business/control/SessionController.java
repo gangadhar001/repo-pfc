@@ -1,22 +1,15 @@
 package model.business.control;
 
-import exceptions.IncorrectEmployeeException;
-import exceptions.IncorrectOptionException;
-import exceptions.InvalidSessionException;
-
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Random;
-import java.util.Vector;
-
-import persistence.PFEmployee;
 
 import model.business.knowledge.ISession;
-import model.business.knowledge.Operations;
 import model.business.knowledge.Session;
 import model.business.knowledge.User;
-import model.business.knowledge.UserRole;
+import persistence.PFEmployee;
+import exceptions.IncorrectEmployeeException;
 
 public class SessionController {
 
@@ -81,49 +74,4 @@ public class SessionController {
 	public static Hashtable<Long, Session> getSessions() {
 		return sessions;
 	}
-
-	// TODO: traducir
-	public static void checkPermission(long idSesion, Operations operation) throws IncorrectOptionException, InvalidSessionException {
-		Vector<Operations> operations;
-		Session session;
-		
-		// Comprobamos si la sesión es válida
-		session = sessions.get(idSesion);
-		if(session == null) {
-			throw new InvalidSessionException("El identificador de la sesión es inválido.");
-		}
-
-		// Obtenemos la lista de operaciones disponibles para el usuario
-		operations = getAvailableOperations(idSesion);
-
-		// Comprobamos si se tienen permisos para realizar la operación
-		if(!operations.contains(operation)) {
-			throw new IncorrectOptionException("El rol " + UserRole.values()[(int)session.getRol()] + " no tiene permiso para realizar la operación " + operation.toString() + ".");
-		}
-	}
-		
-	
-	// Método que devuelve las operaciones que puede realizar el usuario con el servidor
-	public static Vector<Operations> getAvailableOperations(long idSession) {
-		Vector<Operations> operations;
-		Session session = sessions.get(idSession);
-		// Agregamos las operaciones permitidas para todos los usuarios
-		operations = new Vector<Operations>();
-		
-		// TODO: añadir operaciones para cualquier usuario
-		operations.add(Operations.AddProposal);
-		operations.add(Operations.AddAnswer);
-		
-		// Agregamos las operaciones permitidas para el jefe de proyecto (o admin)
-		if(session.getRol() == UserRole.ChiefProject.ordinal()) {
-			operations.add(Operations.CreateProject);
-			// TODO: ¿¿¿estas operaciones solo son del jefe o de todos????
-			operations.add(Operations.ModifyProposal);
-			operations.add(Operations.ModifyAnswer);
-			operations.add(Operations.DeleteProposal);
-			operations.add(Operations.DeleteAnswer);
-		}
-		
-		return operations;
-	}	
 }

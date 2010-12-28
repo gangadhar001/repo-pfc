@@ -6,6 +6,6 @@ package model.business.knowledge;
 public interface ISession {
 
 	public long getId();
-	public long getRol();
+	public int getRol();
 	
 }
