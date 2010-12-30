@@ -83,12 +83,13 @@ public class LoginWizardController extends Wizard {
 					} catch (IncorrectEmployeeException e) {
 						// It is only possible to throw this exception type
 						throw new InvocationTargetException(e);
+					} catch (CoreException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// It is only possible to throw this exception type
+						throw new InvocationTargetException(e);
 					}					
-				} catch (CoreException e) {
-					throw new InvocationTargetException(e);
-				} catch (SQLException e) {
-					// It is only possible to throw this exception type
-					throw new InvocationTargetException(e);
 				
 				} finally {
 					monitor.done();
