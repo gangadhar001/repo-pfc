@@ -11,7 +11,7 @@ public class ChiefProject extends Employee {
 		super(nif, login, password, name, surname, email, telephone);
 	}
 	
-	public UserRole getRol(){
+	public UserRole getRole(){
 		return UserRole.ChiefProject;
 	}
 

@@ -44,7 +44,7 @@ public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
 		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
-			proposals = Controller.getProposals();
+			proposals = Controller.getInstance().getProposals();
 			for (int i=0; i<proposals.size(); i++)
 				cbProposals.add(proposals.get(i).getTitle()); 
 		} catch (SQLException e1) {

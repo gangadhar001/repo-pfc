@@ -14,8 +14,8 @@ public class Session implements ISession {
 		return idSesion;
 	}
 
-	public int getRol() {
-		return user.getRol().ordinal();
+	public int getRole() {
+		return user.getRole().ordinal();
 	}
 
 	public void setId(long idSesion) {

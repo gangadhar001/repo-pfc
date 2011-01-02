@@ -22,8 +22,6 @@ import exceptions.NoProjectProposalsException;
  * This abstract class represents a New Proposal Wizard
  */
 public abstract class AbstractNewProposalWizardController extends Wizard {
-
-	//private final static String PROPOSAL_VIEW_ID = "gcad.view.proposals";
 	
 	private WizardPage page;
 	
@@ -71,7 +69,7 @@ public abstract class AbstractNewProposalWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
-			Controller.notifyKnowledgeAdded();
+			Controller.getInstance().notifyKnowledgeAdded();
 			// When a new proposal is added, the proposals view are refreshed
 			
 			/*boolean activeProposalsView = false;
@@ -112,7 +110,7 @@ public abstract class AbstractNewProposalWizardController extends Wizard {
 		// The new proposal is created and inserted into database
 		Proposal newProposal = new Proposal(name, description, new Date(), Categories.valueOf(category), 0);
 		monitor.worked(10);
-		Controller.addKnowledge(newProposal, parentProposal);
+		Controller.getInstance().addKnowledge(newProposal, parentProposal);
 		monitor.worked(10);
 		
 	}

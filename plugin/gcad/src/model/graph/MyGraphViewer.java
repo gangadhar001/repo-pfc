@@ -7,11 +7,13 @@ import org.eclipse.zest.core.viewers.GraphViewer;
 public class MyGraphViewer extends GraphViewer {
 
 	public MyGraphViewer(Composite composite, int style) {
-		super(composite, style);	
+		super(composite, style);
 	}
 	
 	public Graph getGraph() {
 		return graph;
 	}
+	
+	
 
 }

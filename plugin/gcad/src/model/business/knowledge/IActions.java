@@ -1,4 +1,4 @@
-package gcad;
+package model.business.knowledge;
 
 public class IActions {
 

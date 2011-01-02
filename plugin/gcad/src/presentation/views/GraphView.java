@@ -21,8 +21,6 @@ import model.graph.NodeContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
@@ -30,14 +28,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
-import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
 import org.eclipse.zest.core.viewers.ZoomContributionViewItem;
 import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 import presentation.IPresentation;
 import exceptions.NoProjectProposalsException;
@@ -122,29 +118,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 					System.out.println("b");
 					
 				}
-			});
-			
-			graphViewer.getGraph().addMouseListener(new MouseListener() {
-				
-				@Override
-				public void mouseUp(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseDown(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseDoubleClick(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-					
+			});					
 			LayoutAlgorithm layout = setLayout();
 			graphViewer.setLayoutAlgorithm(layout, true);
 			graphViewer.applyLayout();
@@ -202,12 +176,6 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	public Proposal getProposalSelected() {
 		return proposalSelected;
 	}
-
-	@Override
-	public void updateOperations(Vector<Operations> availableOperations) {
-		// TODO Habilitar/deshabilitar acciones segun operaciones
-		
-	}
 	
 	// TODO: cambiar
 	@Override
@@ -218,8 +186,15 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	@Override
 	public void updateState(boolean connected) {
 		if (!connected) {
+			// Clean parent	
+			if (parent.getChildren().length > 0) {
+				parent.getChildren()[0].dispose();
+				graphViewer = null;
+			}
+			
 			errorLabel = new Label(parent, SWT.NULL);
 			errorLabel.setText(BundleInternationalization.getString("ErrorMessage.NotConnected"));
+			parent.layout();
 		}
 		else
 			showGraph();		
@@ -229,5 +204,11 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		super.dispose();
 		visible = false;
 		PresentationController.detachObserver(this);			
+	}
+
+	@Override
+	public void updateActions(Vector<Operations> availableOperations) {
+		// TODO actualizar la toolbar
+		
 	}
 }

@@ -194,6 +194,9 @@
                   </with>
                </visibleWhen>
             </command>
+            <separator
+                  name="gcad.separator1">
+            </separator>
             <command
                   commandId="gcad.command.newAnswer"
                   id="gcad.menus.newAnswer">
@@ -255,18 +258,22 @@
                id="gcad.menus.session"
                label="%category.menu.session">
             <command
-                  commandId="gcad.command.login">
+                  commandId="gcad.command.login"
+                  id="gcad.menus.login">
             </command>
             <separator
-                  name="gcad.menu.session.separator"
-                  visible="true">
+                  name="gcad.separator2">
             </separator>
             <command
-                  commandId="gcad.command.signout">
+                  commandId="gcad.command.signout"
+                  id="gcad.menus.signOut">
                <visibleWhen
                      checkEnabled="false">
                   <with
                         variable="SignOut">
+                     <equals
+                           value="ENABLED">
+                     </equals>
                   </with>
                </visibleWhen>
             </command>

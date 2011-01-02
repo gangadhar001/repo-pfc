@@ -33,7 +33,7 @@ public abstract class User {
 		this.telephone = telephone;
 	}
 
-	public abstract UserRole getRol();
+	public abstract UserRole getRole();
 	
 	public String getNif() {
 		return nif;
