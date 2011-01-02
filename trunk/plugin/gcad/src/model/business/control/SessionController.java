@@ -10,6 +10,7 @@ import model.business.knowledge.Session;
 import model.business.knowledge.User;
 import persistence.PFEmployee;
 import exceptions.IncorrectEmployeeException;
+import exceptions.NonExistentRole;
 
 public class SessionController {
 
@@ -20,8 +21,9 @@ public class SessionController {
 	 * Method that log in an user and creates a session
 	 * @throws SQLException 
 	 * @throws IncorrectEmployeeException 
+	 * @throws NonExistentRole 
 	 */
-	public static ISession login(String login, String password) throws IncorrectEmployeeException, SQLException {
+	public static ISession login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		Enumeration<Session> openedSessions; 
 		Session session, openedSession;
 		User user;

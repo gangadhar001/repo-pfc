@@ -8,7 +8,7 @@ public interface IPresentation {
 
 	public void updateState(boolean connected);
 	
-	public void updateOperations(Vector<Operations> availableOperations);
+	public void updateActions(Vector<Operations> availableOperations);
 	
 	public void updateProposals();
 	

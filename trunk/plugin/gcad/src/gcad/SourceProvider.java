@@ -1,9 +1,9 @@
 package gcad;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import model.business.knowledge.IActions;
 
 import org.eclipse.ui.ISources;
 
@@ -18,7 +18,7 @@ public class SourceProvider extends org.eclipse.ui.AbstractSourceProvider {
 
 	@Override
 	public String[] getProvidedSourceNames() {
-		return new IActions().actions;
+		return IActions.actions;
 	}
 
 	public void setMenuItemVisible(boolean enabled, String nameItem) {
@@ -30,7 +30,6 @@ public class SourceProvider extends org.eclipse.ui.AbstractSourceProvider {
 	public Map getCurrentState() {
 		String[] actions = IActions.actions;
 		Map map = new HashMap(actions.length);
-		// First of all, only is enabled the action "login"
 		for (String act: actions) {
 			map.put(act, DISABLED);
 		}

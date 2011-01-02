@@ -1,6 +1,9 @@
 package persistence;
 
 import exceptions.IncorrectEmployeeException;
+import exceptions.NonExistentRole;
+
+import internationalization.BundleInternationalization;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +32,10 @@ public class PFEmployee {
 	private static final String COL_TELEPHONE = "telephone";
 	private static final String COL_PROJECT_ID = "projectId";
 	
-	public static User queryUser(String login, String password) throws IncorrectEmployeeException, SQLException {
+	public static User queryUser(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		SQLCommand command;
 		ResultSet data;
-		User user;
+		User user = null;
 		
 		command = new SQLCommandSentence("SELECT * FROM " + EMPLOYEE_TABLE
 				+ " WHERE " + COL_LOGIN + " = ? AND " + COL_PASSWORD + " = ?",
@@ -46,16 +49,18 @@ public class PFEmployee {
 			throw new IncorrectEmployeeException("El nombre de usuario o contraseña introducidos no son válidos.");
 		} else {
 			// Creamos un usuario del tipo adecuado
-			switch(UserRole.values()[data.getInt(COL_ROL)]) {
-			case Employee:
-				user = new Employee();
-				break;
-			case ChiefProject:
-				user = new ChiefProject();
-				break;
-			default:
-				data.close();
-				throw new IncorrectEmployeeException("El tipo del usuario con login " + login + " es inválido.");
+			try {
+				switch(UserRole.values()[data.getInt(COL_ROL)]) {
+				case Employee:
+					user = new Employee();
+					break;
+				case ChiefProject:
+					user = new ChiefProject();
+					break;
+				}
+			// If the role id is out of the bound, it means that that role does not exist in the system
+			} catch (ArrayIndexOutOfBoundsException e) {
+				throw new NonExistentRole(BundleInternationalization.getString("Exception.NonExistentRole") + data.getInt(COL_ROL));
 			}
 			// Establecemos los datos del usuario
 			user.setNif(data.getString(COL_NIF));

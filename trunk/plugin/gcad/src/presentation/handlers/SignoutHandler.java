@@ -5,6 +5,8 @@ import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
 
+import model.business.control.Controller;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -25,9 +27,9 @@ public class SignoutHandler extends AbstractHandler {
         int result = mb.open();
 		if (result == SWT.OK)
 			try {
-				DBConnectionManager.closeConnections();
-				DBConnectionManager.clearConnections();
-				// TODO: refrescar las vistas
+				Controller.getInstance().signout();
+				// Notify that the user has signed out
+				Controller.getInstance().notifySignOut();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

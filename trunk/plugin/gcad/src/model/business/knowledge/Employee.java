@@ -25,7 +25,7 @@ public class Employee extends User {
 		this.project = project;
 	}	
 	
-	public UserRole getRol(){
+	public UserRole getRole(){
 		return UserRole.Employee;
 	}
 	

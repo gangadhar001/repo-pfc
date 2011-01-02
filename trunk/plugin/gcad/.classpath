@@ -3,8 +3,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/UCLM/5ºCurso/PFC/repo-pfc/plugin/plugins/lib/org.eclipse.birt.chart.engine.extension_2.6.1.v20100902.jar"/>
-	<classpathentry kind="lib" path="D:/UCLM/5ºCurso/PFC/repo-pfc/plugin/plugins/lib/org.eclipse.birt.chart.engine_2.6.1.v20100909.jar"/>
-	<classpathentry kind="lib" path="D:/UCLM/5ºCurso/PFC/repo-pfc/plugin/plugins/lib/org.eclipse.birt_2.6.1.v20100813.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

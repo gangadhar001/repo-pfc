@@ -148,6 +148,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 	private void establishTree() {
 		if (errorLabel != null)
 			errorLabel.dispose();
+		
 		treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		drillDownAdapter = new DrillDownAdapter(treeViewer);
 		treeViewer.setContentProvider(new ProposalContentProvider());
@@ -165,12 +166,6 @@ public class ProposalView extends ViewPart implements IPresentation {
 	}
 
 	@Override
-	public void updateOperations(Vector<Operations> availableOperations) {
-		// TODO Habilitar/deshabilitar acciones segun operaciones
-		
-	}
-
-	@Override
 	public void updateProposals() {
 		treeViewer.refresh();		
 	}
@@ -178,9 +173,18 @@ public class ProposalView extends ViewPart implements IPresentation {
 	@Override
 	public void updateState(boolean connected) {
 		if (!connected) {
+			// Clean parent		
+			if (parent.getChildren().length > 0) {
+				parent.getChildren()[0].dispose();
+				treeViewer = null;
+				root = new Proposal();
+			}
+			
 			errorLabel = new Label(parent, SWT.NULL);
 			errorLabel.setText(BundleInternationalization.getString("ErrorMessage.NotConnected"));
+			parent.layout();
 		}
+		
 		else if (visible){
 			/* TODO: boolean activeProposalsView = false;
 			 * 
@@ -205,6 +209,12 @@ public class ProposalView extends ViewPart implements IPresentation {
 		super.dispose();
 		visible = false;
 		PresentationController.detachObserver(this);			
+	}
+
+	@Override
+	public void updateActions(Vector<Operations> availableOperations) {
+		// TODO Actualizar la toolbar
+		
 	}
                                                                                                                                    
 }
