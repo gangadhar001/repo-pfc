@@ -5,9 +5,14 @@ import internationalization.BundleInternationalization;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /** 
  * This class represents an Answer given to a Proposal
  */
+@XmlAccessorType( XmlAccessType.FIELD )
 public class Answer extends AbstractProposal{
 		
 	public Answer() {

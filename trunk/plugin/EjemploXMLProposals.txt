@@ -1,0 +1,10 @@
+<Proposals>
+	<Proposal>
+		<name>Prueba</name>
+		<fecha>...</fecha>
+		<Answer>
+			<name>Respuesta</name>
+			<fecha>...</fecha>
+		</Answer>
+	</Proposal>
+</Proposals>
