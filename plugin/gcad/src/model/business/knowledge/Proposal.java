@@ -6,18 +6,32 @@ import internationalization.BundleInternationalization;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType;
+
 /**
  * This class represents a Proposal
  */
+
+@XmlRootElement ( name="Proposals" )
+@XmlAccessorType( XmlAccessType.FIELD )
 public class Proposal extends AbstractProposal {
 	
 	// TODO: si hay herencia con categorias de analisis y diseño, hay que cambiarlo a protected
+	
 	// This attribute indicates if the proposal has been accepted or not yet.
 	private int state;
 	
 	private Categories category;
+	
 	// A proposal has another proposals and answers
-	private ArrayList<AbstractProposal> proposals;
+	@XmlElements({
+        @XmlElement(name = "Answer",   type = Answer.class),
+        @XmlElement(name = "Proposal", type = Proposal.class)
+    }) private ArrayList<AbstractProposal> proposals;
 	
 	public Proposal() {
 		super();

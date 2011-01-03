@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+
 public class ChiefProject extends Employee {
 	
 	// TODO: pasar el proyecto(s)
