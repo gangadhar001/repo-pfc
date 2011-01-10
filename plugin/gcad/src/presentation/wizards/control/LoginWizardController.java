@@ -17,7 +17,6 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 
 import persistence.communications.DBConfiguration;
-import persistence.communications.DBConnectionManager;
 import presentation.wizards.LoginWizardPage;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
@@ -84,10 +83,10 @@ public class LoginWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
-			// Notify to the views the satisfactory login
-			Controller.getInstance().notifyLogin();
 			// Notify the actions that the user logged can do
 			Controller.getInstance().notifyActionAllowed();
+			// Notify to the views the satisfactory login
+			Controller.getInstance().notifyLogin();			
 			
 		} catch (InterruptedException e) {
 			return false;

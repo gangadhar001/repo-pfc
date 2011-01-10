@@ -5,6 +5,7 @@ import internationalization.BundleInternationalization;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import model.business.control.Controller;
@@ -18,14 +19,19 @@ import model.graph.GraphLabelProvider;
 import model.graph.MyGraphViewer;
 import model.graph.NodeContentProvider;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -48,6 +54,10 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	private boolean visible = false;
 	private Proposal root;
 	
+	private Action addAction;
+	private Action editAction;
+	private Action deleteAction;
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		// TODO Auto-generated method stub
@@ -58,9 +68,45 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		PresentationController.attachObserver(this);
 				
 		root = new Proposal(); 
+		// Se crean las acciones del toolbar y se define el listener para el doble clic
+		makeActions();
+		createToolbar();
 		
 		// TODO: mirar si se ha iniciado sesion previamente 
 		updateState(Controller.getInstance().isLogged());		
+	}
+	
+	/**
+     * Create toolbar.
+     */
+    private void createToolbar() {
+            IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
+            mgr.add(addAction);
+            mgr.add(deleteAction);
+    }
+    
+	private void makeActions() {
+		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
+            public void run() { 
+            	addAbstractProposal();
+            }
+		};
+		//addAction.setImageDescriptor(getImageDescriptor("add.gif"));
+
+		deleteAction = new Action(BundleInternationalization.getString("Actions.Delete")) {
+			public void run() {
+				deleteAbstractProposal();
+			}
+		};
+		//deleteAction.setImageDescriptor(getImageDescriptor("delete.gif"));
+	}
+	
+	private void addAbstractProposal() {
+		
+	}
+	
+	private void deleteAbstractProposal() {
+		
 	}
 	
 	@Override
@@ -207,8 +253,8 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	}
 
 	@Override
-	public void updateActions(Vector<Operations> availableOperations) {
-		// TODO actualizar la toolbar
+	public void updateActions(List<String> actionsName) {
+		// TODO Auto-generated method stub
 		
 	}
 }

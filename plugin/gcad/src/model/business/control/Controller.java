@@ -157,9 +157,10 @@ public class Controller {
 				}
 					
 			}
+			
+			//TODO: actualizar las vistas para cambiar su toolbar 
+		    PresentationController.notifyActionsAllowed(actionsName);
 	    }
-	    
-	    //TODO: actualizar las vistas para cambiar su toolbar 
 	    
 	    else {
 	    	throw new NonPermissionRole(BundleInternationalization.getString("Exception.NonPermissionRole") + role.toString());
