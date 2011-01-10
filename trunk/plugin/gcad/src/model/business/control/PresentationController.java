@@ -1,6 +1,7 @@
 package model.business.control;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import model.business.knowledge.Operations;
@@ -31,6 +32,11 @@ public class PresentationController {
 	public static void notifyProposals() {
 		for (IPresentation observer: observers)
 			observer.updateProposals();
+	}
+	
+	public static void notifyActionsAllowed(List<String> actionsName) {
+		for (IPresentation observer: observers)
+			observer.updateActions(actionsName);
 	}
 }
 

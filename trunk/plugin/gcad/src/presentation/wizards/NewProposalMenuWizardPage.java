@@ -1,18 +1,12 @@
 package presentation.wizards;
 
-import exceptions.NoProjectProposalsException;
-
 import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import model.business.control.Controller;
-import model.business.control.KnowledgeController;
-import model.business.control.PresentationController;
 import model.business.knowledge.AbstractProposal;
-import model.business.knowledge.Operations;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -21,12 +15,12 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import presentation.IPresentation;
+import exceptions.NoProjectProposalsException;
 
 /**
  * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
  */
-public class NewProposalMenuWizardPage extends AbstractNewProposalWizardPage {
+public class NewProposalMenuWizardPage extends NewProposalViewWizardPage {
 	
 	private Combo cbProposals;
 	private ArrayList<AbstractProposal> proposals;

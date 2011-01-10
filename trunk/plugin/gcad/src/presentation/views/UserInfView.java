@@ -9,22 +9,12 @@ import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.jfree.chart.ChartFactory;
-	import org.jfree.chart.ChartMouseEvent;
-	import org.jfree.chart.ChartMouseListener;
-	import org.jfree.chart.ChartPanel;
-	import org.jfree.chart.JFreeChart;
-	import org.jfree.chart.encoders.ImageEncoder;
-	import org.jfree.chart.encoders.ImageEncoderFactory;
-	import org.jfree.chart.encoders.ImageFormat;
-import org.jfree.chart.entity.PieSectionEntity;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
-	import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleInsets;
-import org.jfree.util.Rotation;
 
 
 public class UserInfView extends ViewPart {
