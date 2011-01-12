@@ -12,8 +12,9 @@ import persistence.commands.SQLCommand;
 import persistence.commands.SQLCommandSentence;
 import persistence.communications.DBConnectionManager;
 
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
+import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 
 /**
@@ -28,90 +29,38 @@ public class PFProposal {
 	private static final String COL_DESCRIPTION = "description";
 	private static final String COL_DATE = "date";
 	private static final String COL_CATEGORY = "category";
-	private static final String COL_PROJECT_ID = "projectId";
 	private static final String COL_EMPLOYEE_ID = "employeeId";
-	private static final String COL_PARENT_PROPOSAL = "parentProposal";
+	private static final String COL_TOPIC_ID = "topicId";
 	
 	/** 
 	 * This method returns all proposals and answers hierarchy of a project, keeping the tree hierarchy.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static ArrayList<AbstractProposal> queryProposalTreeProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static ArrayList<Proposal> queryProposalsTopic(int topicId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {	
 		SQLCommand command;
 		ResultSet data;
-		AbstractProposal proposal;
-		// This list represents the tree hierarchy. Only proposals that are upper roots (without father) are added to the list.
-		ArrayList<AbstractProposal> primaryRoots = new ArrayList<AbstractProposal>();
-		Hashtable<Integer, AbstractProposal> proposals = new Hashtable<Integer, AbstractProposal>();
+		Proposal proposal;
 		ArrayList<Answer> answers;
-		int parent;
+		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 		
 		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE
-				+ " WHERE " + COL_PROJECT_ID + " = ?", projectId);
+				+ " WHERE " + COL_TOPIC_ID + " = ?", topicId);
 		data = DBConnectionManager.query(command);
 		data.next();
 		
 		// If data are not obtained, it is because there are no proposals for this project
-		if(data.getRow() == 0) {
-			data.close();
-			throw new NoProjectProposalsException("");
-		} else {
+		if(data.getRow() > 0) {
 			do {
 				proposal = new Proposal();
 				proposal.setId(data.getInt(COL_ID));
 				proposal.setTitle(data.getString(COL_NAME));
 				proposal.setDescription(data.getString(COL_DESCRIPTION));
 				proposal.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
+				proposal.setCategory(Categories.valueOf(data.getString(COL_CATEGORY)));
 				// Set answers of this proposal
-				answers = PFAnswer.queryAnswersFromProposal(proposal.getId());
-				for (Answer a: answers) {
-					proposal.add(a);
-				}
-				parent = data.getInt(COL_PARENT_PROPOSAL);
-				// If this proposal has father, this proposal is added like a child of this father
-				if (parent != 0) {
-					proposals.get(parent).add(proposal);
-				}
-				
-				// If this proposal has not father, it is upper root
-				else 
-					primaryRoots.add(proposal);
-				
-				proposals.put(proposal.getId(), proposal);
-			} while(data.next());
-			data.close();
-		}
-		return primaryRoots;
-	}
-	
-	/**
-	 * TODO: usado??? Este metodo devuelve todas las propuestas (sin jerarquia) de un proyecto
-	 * 
-	 
-	public static ArrayList<AbstractProposal> queryProposalsProject(int projectId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException{
-		SQLCommand command;
-		ResultSet data;
-		AbstractProposal proposal;
-		ArrayList<AbstractProposal> proposals = new ArrayList<AbstractProposal>();
-		ArrayList<Answer> answers;
-		
-		// Consultamos la base de datos
-		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE
-				+ " WHERE " + COL_PROJECT_ID + " = ?", projectId);
-		data = DBConnectionManager.query(command);
-		data.next();
-		
-		// TODO: ingles. Si no se obtienen datos, es porque no existen propuestas para ese proyecto
-		if(data.getRow() == 0) {
-			data.close();
-			throw new NoProjectProposalsException("");
-		} else {
-			do {
-				
-				proposal = new Proposal();
-				proposal.setId(data.getInt(COL_ID));
-				proposal.setTitle(data.getString(COL_NAME));
-				proposal.setDescription(data.getString(COL_DESCRIPTION));
-				proposal.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
 				answers = PFAnswer.queryAnswersFromProposal(proposal.getId());
 				for (Answer a: answers) {
 					proposal.add(a);
@@ -121,9 +70,9 @@ public class PFProposal {
 			data.close();
 		}
 		return proposals;
-	}*/
+	}
 	
-	public static void insert (Proposal proposal, int idParent) throws SQLException {
+	public static void insert (Proposal proposal, int topicId) throws SQLException {
 		SQLCommand command;
 		ResultSet data;
 		
@@ -131,11 +80,11 @@ public class PFProposal {
 		// Insert the new proposal into database 
 		command = new SQLCommandSentence("INSERT INTO " + PROPOSAL_TABLE
 				+ " (" + COL_NAME + ", " + COL_DESCRIPTION
-				+ ", "	+ COL_DATE + ", " + COL_CATEGORY
-				+ ", " + COL_PROJECT_ID + ", " + COL_EMPLOYEE_ID
-				+ ", " + COL_PARENT_PROPOSAL
-				+ ") VALUES (?, ?, ?, ?, ?, ?, ?)",
-				proposal.getTitle(), proposal.getDescription(), proposal.getDate(), proposal.getCategory().toString(), 2, 3, idParent);
+				+ ", " + COL_DATE + ", " + COL_CATEGORY
+				+ ", " + COL_EMPLOYEE_ID
+				+ ", " + COL_TOPIC_ID
+				+ ") VALUES (?, ?, ?, ?, ?, ?)",
+				proposal.getTitle(), proposal.getDescription(), proposal.getDate(), proposal.getCategory().toString(), 3, topicId);
 		DBConnectionManager.execute(command);
 		
 		// Retrieve the autonumber id assigned to the new proposal

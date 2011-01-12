@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Operations;
 
 import presentation.IPresentation;
@@ -29,9 +30,9 @@ public class PresentationController {
 			observer.updateState(connected);
 	}
 		
-	public static void notifyProposals() {
+	public static void notifyProposals(AbstractKnowledge newKnowledge) {
 		for (IPresentation observer: observers)
-			observer.updateProposals();
+			observer.updateProposals(newKnowledge);
 	}
 	
 	public static void notifyActionsAllowed(List<String> actionsName) {

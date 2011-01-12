@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
+import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.UserRole;
 
 import org.apache.commons.configuration.ConfigurationException;
@@ -20,6 +22,7 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.ISourceProviderService;
 
+import persistence.PFProposal;
 import persistence.communications.DBConfiguration;
 import persistence.communications.DBConnectionManager;
 
@@ -57,15 +60,15 @@ public class Controller {
 		PresentationController.notifyConnection(false);
 	}
 	
-	public void addKnowledge (AbstractProposal p, Proposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		KnowledgeController.addKnowledge(p, parent);
+	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		KnowledgeController.addProposal(p, parent);
 	}
 	
-	public void notifyKnowledgeAdded() {
-		PresentationController.notifyProposals();
+	public void notifyKnowledgeAdded(AbstractKnowledge newKnowledge) {
+		PresentationController.notifyProposals(newKnowledge);
 	}
 	
-	public ArrayList<AbstractProposal> getProposals() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public ArrayList<AbstractKnowledge> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		return KnowledgeController.getProposals();
 	}
 	
@@ -80,6 +83,10 @@ public class Controller {
 		return session;
 	}
 
+	public static TopicWrapper getKnowledgeTreeProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return KnowledgeController.getKnowledgeTreeProject(idProject);
+	}
+	
 	/**
 	 * This method reads the profiles available for a user role from a XML file, and enables/disables the corresponding menu items.
 	 * First of all, when no user is logged, only is enabled "Session" menu

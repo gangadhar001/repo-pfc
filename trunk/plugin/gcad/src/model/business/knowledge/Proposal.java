@@ -8,17 +8,14 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessType;
 
 /**
  * This class represents a Proposal
  */
 
-@XmlRootElement ( name="Proposals" )
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Proposal extends AbstractProposal {
+public class Proposal extends AbstractKnowledge {
 	
 	// TODO: si hay herencia con categorias de analisis y diseño, hay que cambiarlo a protected
 	
@@ -27,30 +24,28 @@ public class Proposal extends AbstractProposal {
 	
 	private Categories category;
 	
-	// A proposal has another proposals and answers
-	@XmlElements({
-        @XmlElement(name = "Answer",   type = Answer.class),
-        @XmlElement(name = "Proposal", type = Proposal.class)
-    }) private ArrayList<AbstractProposal> proposals;
+	// A proposal may has and answers
+	@XmlElement( name = "Answer" )
+    private ArrayList<Answer> answers;
 	
 	public Proposal() {
 		super();
-		proposals = new ArrayList<AbstractProposal>();
+		answers = new ArrayList<Answer>();
 	}
 	
 	public Proposal(String title, String description, Date date, Categories category, int state) {
 		super(title, description, date);
 		this.state = state;
 		this.category = category;
-		proposals = new ArrayList<AbstractProposal>();
+		answers = new ArrayList<Answer>();
 	}
 
-	public ArrayList<AbstractProposal> getProposals() {
-		return proposals;
+	public ArrayList<Answer> getAnswers() {
+		return answers;
 	}
 
-	public void setProposals(ArrayList<AbstractProposal> proposals) {
-		this.proposals = proposals;
+	public void setAnswers(ArrayList<Answer> answers) {
+		this.answers = answers;
 	}
 
 	public int getState() {
@@ -70,28 +65,14 @@ public class Proposal extends AbstractProposal {
 		this.category = category;
 	}
 
-	@Override
-	public void add(AbstractProposal aProposal) {
-		proposals.add(aProposal);
+	public void add(Answer answer) {
+		answers.add(answer);
 		
 	}
 	
-	@Override
-	public void remove(AbstractProposal aProposal) {
-		proposals.remove(aProposal);
+	public void remove(Answer answer) {
+		answers.remove(answer);
 		
-	}
-	
-	@Override
-	public String getInformation() {
-		String information = "";
-		// Information about this proposal
-		information += this.toString();
-		// Get information recursively about child proposals
-		for (int i=0; i<proposals.size(); i++) {
-			information += "\t" + proposals.get(i).getInformation();
-		}
-		return information;
 	}
 	
 	@Override
