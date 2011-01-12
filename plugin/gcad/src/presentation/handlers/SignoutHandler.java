@@ -1,6 +1,5 @@
 package presentation.handlers;
 
-
 import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
@@ -13,8 +12,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.PlatformUI;
-
-import persistence.communications.DBConnectionManager;
 
 public class SignoutHandler extends AbstractHandler {
 

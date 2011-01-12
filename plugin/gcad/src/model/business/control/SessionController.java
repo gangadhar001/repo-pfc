@@ -19,9 +19,6 @@ public class SessionController {
 
 	/**
 	 * Method that log in an user and creates a session
-	 * @throws SQLException 
-	 * @throws IncorrectEmployeeException 
-	 * @throws NonExistentRole 
 	 */
 	public static ISession login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		Enumeration<Session> openedSessions; 
@@ -75,5 +72,9 @@ public class SessionController {
 
 	public static Hashtable<Long, Session> getSessions() {
 		return sessions;
+	}
+
+	public static void signout(ISession session) {
+		sessions.remove(session.getId());		
 	}
 }

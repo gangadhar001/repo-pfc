@@ -4,12 +4,10 @@ package persistence;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.business.knowledge.Project;
 import persistence.commands.SQLCommand;
 import persistence.commands.SQLCommandSentence;
 import persistence.communications.DBConnectionManager;
-
-import model.business.knowledge.Project;
-import model.business.knowledge.Proposal;
 
 public class PFProject {
 

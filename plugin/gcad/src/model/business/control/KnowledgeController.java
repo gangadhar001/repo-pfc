@@ -1,15 +1,14 @@
 package model.business.control;
 
-import exceptions.NoProjectProposalsException;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import exceptions.NoProposalsException;
 
 import persistence.PFAnswer;
 import persistence.PFProposal;
 import persistence.PFTopic;
 
-import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -28,8 +27,7 @@ public class KnowledgeController {
 	/**
 	 * This method is used to retrieve the proposals and answers hierarchy from database.
 	 */
-	public static TopicWrapper getKnowledgeTreeProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// TODO: Se muestra a la inversa
+	public static TopicWrapper getTopicsProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// This method access to database only the first time, when "proposals" is not initialized.
 		if (topicWrapper == null) {
 			 topicWrapper = new TopicWrapper();
@@ -39,42 +37,23 @@ public class KnowledgeController {
 	}
 	
 	/**
-	 * This method returns all existing proposals, recursively
+	 * This method returns all existing proposals 
 	 */
-	public static ArrayList<AbstractKnowledge> getProposals() throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		ArrayList<AbstractKnowledge> existingProposals = getKnowledgeTree();
-		ArrayList<AbstractKnowledge> result = new ArrayList<AbstractKnowledge>();
-		for (AbstractKnowledge p: existingProposals) {
-			if (p instanceof Proposal) {
-				result.add(p);
-				result.addAll(getRecursiveProposal((Proposal)p));
-			}
-		}
-		return result;
-	}
-	
-	private static ArrayList<AbstractKnowledge> getRecursiveProposal(Proposal proposal) {
-		ArrayList<AbstractKnowledge> list = new ArrayList<AbstractKnowledge>();
-		ArrayList<AbstractKnowledge> result = new ArrayList<AbstractKnowledge>();
-		list = proposal.getProposals();
-		for (AbstractKnowledge p: list) {
-			if (p instanceof Proposal) {
-				result.add(p);
-				result.addAll(getRecursiveProposal((Proposal)p));
-			}
-		}
-		return result;
+	public static ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
+		return PFProposal.queryAllProposals();		
 	}
 
 	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// Add the new proposal to the existing topic
+		parent.add(proposal);
 		PFProposal.insert(proposal, parent.getId());
 	}
 	
-	/*public static void addAnswer(Answer answer, Proposal parent) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void addAnswer(Answer answer, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// Add the new proposal to the existing topic
+		parent.add(answer);
 		PFAnswer.insert(answer, parent.getId());
-	}*/
+	}
 	
 	
 }

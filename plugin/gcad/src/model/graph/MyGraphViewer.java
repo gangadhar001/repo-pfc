@@ -13,7 +13,5 @@ public class MyGraphViewer extends GraphViewer {
 	public Graph getGraph() {
 		return graph;
 	}
-	
-	
 
 }

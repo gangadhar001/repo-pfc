@@ -6,10 +6,11 @@ public class Edge {
 
 	private String id;
 	private String label;
-	private AbstractKnowledge source;
+	// TODO: el origen puede ser un Topic o una Proposal
+	private Object source;
 	private AbstractKnowledge destination;
 	
-	public Edge(String id, String label, AbstractKnowledge source, AbstractKnowledge destination) {
+	public Edge(String id, String label, Object source, AbstractKnowledge destination) {
 		this.id = id;
 		this.label = label;
 		this.source = source;
@@ -24,7 +25,7 @@ public class Edge {
 		return label;
 	}
 
-	public AbstractKnowledge getSource() {
+	public Object getSource() {
 		return source;
 	}
 

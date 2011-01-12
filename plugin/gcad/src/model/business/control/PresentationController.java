@@ -2,10 +2,6 @@ package model.business.control;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
-import model.business.knowledge.AbstractKnowledge;
-import model.business.knowledge.Operations;
 
 import presentation.IPresentation;
 
@@ -30,9 +26,9 @@ public class PresentationController {
 			observer.updateState(connected);
 	}
 		
-	public static void notifyProposals(AbstractKnowledge newKnowledge) {
+	public static void notifyKnowledge() {
 		for (IPresentation observer: observers)
-			observer.updateProposals(newKnowledge);
+			observer.updateKnowledge();
 	}
 	
 	public static void notifyActionsAllowed(List<String> actionsName) {

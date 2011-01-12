@@ -45,7 +45,6 @@ import presentation.wizards.NewProposalViewWizardPage;
 import presentation.wizards.control.AbstractNewKnowledgeWizardController;
 import presentation.wizards.control.NewAnswerViewWizardController;
 import presentation.wizards.control.NewProposalViewWizardController;
-import exceptions.NoProjectProposalsException;
 
 /**
  * This class represents the Proposals view, where the different proposals, answers and actions over them are shown
@@ -60,17 +59,19 @@ public class ProposalView extends ViewPart implements IPresentation {
 
 	// TODO: se usa para poner los iconos de las acciones en una barra de menus dentro de la vista
 	private DrillDownAdapter drillDownAdapter;
+	
 	private Action doubleClickAction;
 	private Action addAction;
 	private Action editAction;
 	private Action deleteAction;
-	private TopicWrapper topicWrapper;
+	
 	private Composite parent;
-	private Object selectedItem;
+	private Object selectedItem;	
+	private ISelection selection;
+	
+	private TopicWrapper topicWrapper;
 	private boolean visible = false;
 	private ArrayList<String> actionsAllowed;
-	
-	private ISelection selection;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -127,12 +128,12 @@ public class ProposalView extends ViewPart implements IPresentation {
 	}
 	
 	/**
-     * Create toolbar.
+     * Create toolbar with actions.
      */
     private void createToolbar() {
-            IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
-            mgr.add(addAction);
-            mgr.add(deleteAction);
+        IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
+        mgr.add(addAction);
+        mgr.add(deleteAction);
     }
     
 	/*private int showDialogTypeProposal() {
@@ -238,7 +239,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 	private void makeTree() {
 		try {
 			// TODO: cambiar el id del proyecto
-			topicWrapper = Controller.getKnowledgeTreeProject(2);
+			topicWrapper = Controller.getInstance().getTopicsProject(2);
 			//ArrayList<Topic> topics = KnowledgeController.getKnowledgeTreeProject(2);
 						
 			/*Topic t1 = new Topic("Tema 1");
@@ -296,13 +297,13 @@ public class ProposalView extends ViewPart implements IPresentation {
 	}*/
 
 	@Override
-	public void updateProposals(AbstractKnowledge newKnowledge) {
+	public void updateKnowledge() {
 		// Si no habia nada seleccionado, esta es una nueva raiz del arbol
 		/*if (proposalSelected == null)
-			root.add(newKnowledge);
+			root.add(newKnowledge);*/
 		// si se ha añadido una nueva 
 		treeViewer.refresh();
-		refreshComposite();*/
+		refreshComposite();
 	}
 
 	@Override

@@ -1,21 +1,17 @@
 package persistence;
 
-import exceptions.NoProjectProposalsException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 
-import persistence.commands.SQLCommand;
-import persistence.commands.SQLCommandSentence;
-import persistence.communications.DBConnectionManager;
-
-import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
+import persistence.commands.SQLCommand;
+import persistence.commands.SQLCommandSentence;
+import persistence.communications.DBConnectionManager;
+import exceptions.NoProposalsException;
 
 /**
  * This class allows to query and insert proposals into database
@@ -34,16 +30,10 @@ public class PFProposal {
 	
 	/** 
 	 * This method returns all proposals and answers hierarchy of a project, keeping the tree hierarchy.
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
 	 */
 	public static ArrayList<Proposal> queryProposalsTopic(int topicId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {	
 		SQLCommand command;
 		ResultSet data;
-		Proposal proposal;
-		ArrayList<Answer> answers;
 		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 		
 		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE
@@ -53,22 +43,51 @@ public class PFProposal {
 		
 		// If data are not obtained, it is because there are no proposals for this project
 		if(data.getRow() > 0) {
-			do {
-				proposal = new Proposal();
-				proposal.setId(data.getInt(COL_ID));
-				proposal.setTitle(data.getString(COL_NAME));
-				proposal.setDescription(data.getString(COL_DESCRIPTION));
-				proposal.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
-				proposal.setCategory(Categories.valueOf(data.getString(COL_CATEGORY)));
-				// Set answers of this proposal
-				answers = PFAnswer.queryAnswersFromProposal(proposal.getId());
-				for (Answer a: answers) {
-					proposal.add(a);
-				}
-				proposals.add(proposal);
-			} while(data.next());
-			data.close();
+			proposals = getProposals(data);
 		}
+		
+		return proposals;
+	}
+	
+	public static ArrayList<Proposal> queryAllProposals() throws SQLException, NoProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		SQLCommand command;
+		ResultSet data;
+		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+		
+		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE);
+		data = DBConnectionManager.query(command);
+		data.next();
+		
+		// If data are not obtained, it is because there are no proposals
+		if(data.getRow() == 0) 
+			throw new NoProposalsException();
+		else 
+			proposals = getProposals(data);
+		
+		return proposals;
+	}
+	
+	private static ArrayList<Proposal> getProposals(ResultSet data) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+		ArrayList<Answer> answers;
+		Proposal proposal;
+		
+		do {
+			proposal = new Proposal();
+			proposal.setId(data.getInt(COL_ID));
+			proposal.setTitle(data.getString(COL_NAME));
+			proposal.setDescription(data.getString(COL_DESCRIPTION));
+			proposal.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
+			proposal.setCategory(Categories.valueOf(data.getString(COL_CATEGORY)));
+			// Set answers of this proposal
+			answers = PFAnswer.queryAnswersFromProposal(proposal.getId());
+			for (Answer a: answers) {
+				proposal.add(a);
+			}
+			proposals.add(proposal);
+		} while(data.next());
+		data.close();
+		
 		return proposals;
 	}
 	
