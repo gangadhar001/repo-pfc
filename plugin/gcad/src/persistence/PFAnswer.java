@@ -11,7 +11,7 @@ import persistence.commands.SQLCommand;
 import persistence.commands.SQLCommandSentence;
 import persistence.communications.DBConnectionManager;
 
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
 
 /**
@@ -31,10 +31,10 @@ public class PFAnswer {
 	/** 
 	 * This method returns all the answers associated with a proposal
 	 */
-	public static ArrayList<Answer> queryAnswersFromProposal (int proposalId) throws SQLException, NoProjectProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static ArrayList<Answer> queryAnswersFromProposal (int proposalId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		SQLCommand command;
 		ResultSet data;
-		AbstractProposal answer;
+		AbstractKnowledge answer;
 		ArrayList<Answer> result = new ArrayList<Answer>();
 		
 		// Consultamos la base de datos

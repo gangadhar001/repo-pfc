@@ -2,6 +2,8 @@ package model.treeviewer;
 
 
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
+import model.business.knowledge.TopicWrapper;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -36,9 +38,17 @@ public class ProposalContentProvider implements ITreeContentProvider{
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		Object[] childrens = NO_ELEMENT;
-		if (parentElement instanceof Proposal) {
+		if (parentElement instanceof TopicWrapper) {
+			TopicWrapper topic = (TopicWrapper) parentElement;
+			childrens = topic.getTopics().toArray();
+		}
+		else if (parentElement instanceof Topic) {
+			Topic topic = (Topic) parentElement;
+			childrens = topic.getProposals().toArray();
+		}
+		else if (parentElement instanceof Proposal) {
 			Proposal proposal = (Proposal) parentElement;
-			childrens = proposal.getProposals().toArray();
+			childrens = proposal.getAnswers().toArray();
 		}
 		return childrens;
 	}

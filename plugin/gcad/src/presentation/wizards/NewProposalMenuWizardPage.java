@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.business.control.Controller;
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -23,7 +23,7 @@ import exceptions.NoProjectProposalsException;
 public class NewProposalMenuWizardPage extends NewProposalViewWizardPage {
 	
 	private Combo cbProposals;
-	private ArrayList<AbstractProposal> proposals;
+	private ArrayList<AbstractKnowledge> proposals;
 
 	public NewProposalMenuWizardPage(String pageName) {
 		super(pageName);
@@ -80,7 +80,7 @@ public class NewProposalMenuWizardPage extends NewProposalViewWizardPage {
 			super.updateStatus(null);
 	}
 
-	public ArrayList<AbstractProposal> getProposals() {
+	public ArrayList<AbstractKnowledge> getProposals() {
 		return proposals;
 	}
 

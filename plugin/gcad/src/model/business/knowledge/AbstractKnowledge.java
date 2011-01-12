@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public abstract class AbstractProposal {
+public abstract class AbstractKnowledge {
 
 	protected int id;
 	protected String title;
@@ -21,13 +21,13 @@ public abstract class AbstractProposal {
 	// TODO: agregarlo al constructor
 	@XmlElement protected Employee employee;
 		
-	public AbstractProposal() {
+	public AbstractKnowledge() {
 		title = "";
 		description = "";
 		date = new Date();
 	}
 	
-	public AbstractProposal(String title, String description, Date date) {
+	public AbstractKnowledge(String title, String description, Date date) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -73,11 +73,6 @@ public abstract class AbstractProposal {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
-	public abstract void add(AbstractProposal aProposal);
-
-    public abstract void remove(AbstractProposal aProposal);
-
-    public abstract String getInformation();
+	
 	
 }

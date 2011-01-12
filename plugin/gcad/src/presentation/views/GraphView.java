@@ -6,14 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 import model.business.control.Controller;
 import model.business.control.KnowledgeController;
 import model.business.control.PresentationController;
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
-import model.business.knowledge.Operations;
 import model.business.knowledge.Proposal;
 import model.graph.GraphLabelProvider;
 import model.graph.MyGraphViewer;
@@ -21,17 +19,14 @@ import model.graph.NodeContentProvider;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -130,10 +125,10 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		graphViewer.setLabelProvider(new GraphLabelProvider());
 
 		// TODO: llamarlo a traves del controlador
-		ArrayList<AbstractProposal> proposals;
+		ArrayList<AbstractKnowledge> proposals;
 		try {
-			proposals = KnowledgeController.getProposalsTree();
-			for (AbstractProposal p: proposals)
+			proposals = KnowledgeController.getKnowledgeTree();
+			for (AbstractKnowledge p: proposals)
 				root.add(p);
 			graphViewer.setInput(root.getProposals());
 			graphViewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -154,7 +149,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					// TODO: se coge el nodo seleccionado. Mirar si hay alguno seleccionado y no es una arista
-					AbstractProposal a = ((AbstractProposal)((GraphNode) graphViewer.getGraph().getSelection().get(0)).getData());
+					AbstractKnowledge a = ((AbstractKnowledge)((GraphNode) graphViewer.getGraph().getSelection().get(0)).getData());
 					System.out.println(a);
 					
 				}
@@ -225,7 +220,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	
 	// TODO: cambiar
 	@Override
-	public void updateProposals() {
+	public void updateProposals(AbstractKnowledge newKnowledge) {
 		graphViewer.refresh();		
 	}
 

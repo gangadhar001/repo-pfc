@@ -4,14 +4,19 @@ import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.business.control.Controller;
 import model.business.control.KnowledgeController;
 import model.business.control.PresentationController;
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
+import model.business.knowledge.Answer;
+import model.business.knowledge.Categories;
 import model.business.knowledge.IActions;
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
+import model.business.knowledge.TopicWrapper;
 import model.treeviewer.ProposalContentProvider;
 import model.treeviewer.ProposalLabelProvider;
 
@@ -59,9 +64,9 @@ public class ProposalView extends ViewPart implements IPresentation {
 	private Action addAction;
 	private Action editAction;
 	private Action deleteAction;
-	private Proposal root;
+	private TopicWrapper topicWrapper;
 	private Composite parent;
-	private Proposal proposalSelected;
+	private Object selectedItem;
 	private boolean visible = false;
 	private ArrayList<String> actionsAllowed;
 	
@@ -75,7 +80,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 		// TODO: se añade a la lista de observados
 		PresentationController.attachObserver(this);
 		// Se inicializa la raíz del árbol
-		root = new Proposal();
+		topicWrapper = new TopicWrapper();
 		// Se crean las acciones del toolbar y se define el listener para el doble clic
 		makeActions();
 		createToolbar();
@@ -94,7 +99,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 	private void makeActions() {
 		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
             public void run() { 
-            	addAbstractProposal();
+            	//addAbstractProposal();
             }
 		};
 		//addAction.setImageDescriptor(getImageDescriptor("add.gif"));
@@ -109,10 +114,13 @@ public class ProposalView extends ViewPart implements IPresentation {
 		doubleClickAction = new Action() {
 			public void run() {
 				selection = treeViewer.getSelection();
-				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				// TODO: si es una propuesta, mostrar el wizard para registrar una nueva propuesta/answer
-				if (obj instanceof Proposal) {
-					addKnowledge((Proposal)obj);
+				selectedItem = ((IStructuredSelection)selection).getFirstElement();
+				// TODO: si es un topic, se añade una propuesta. Si es una propuesta, se añade una respuesta
+				if (selectedItem instanceof Topic) {
+					addProposal();
+				}
+				else if (selectedItem instanceof Proposal) {
+					addAnswer();
 				}
 			}
 		};
@@ -127,16 +135,16 @@ public class ProposalView extends ViewPart implements IPresentation {
             mgr.add(deleteAction);
     }
     
-	private int showDialogTypeProposal() {
+	/*private int showDialogTypeProposal() {
 		MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "New knowledge", null,
 				"Choose the type of knowledge to add to the proposal titled: " + proposalSelected.getTitle() , MessageDialog.INFORMATION, new String[] {
 						"Proposal", "Answer" }, 0);
 		dialog.create();
 		int result = dialog.open();
 		return result;
-	}
+	}*/
 	
-	private void addAbstractProposal() {
+	/*private void addAbstractProposal() {
 		selection = treeViewer.getSelection();
 		Proposal pro = null;
 		if (selection!=null) {
@@ -145,17 +153,24 @@ public class ProposalView extends ViewPart implements IPresentation {
 				pro = (Proposal)obj;
 			}
 		}
+		// El nuevo conocimiento se añade a una propuesta existente
 		if (pro!=null)
-			addKnowledge(pro);
-		else
-			MessageDialog.openWarning(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Warning", "Debes seleccionar una propuesta");
-	}
+			addKnowledgeParent(pro);
+		else {
+			// Se muestra un diálogo para confirmar que se quiere añadir una nueva propuesta raiz
+			boolean result = MessageDialog.openQuestion(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Question", "Debes seleccionar una propuesta");
+			if (result) {
+				addProposal();
+			}
+		}
+			
+	}*/
 	
 	private void deleteAbstractProposal() {
 		
 	}
 	
-	private void addKnowledge(Proposal pro) {
+	/*private void addKnowledgeParent(Proposal pro) {
 		int result;
 		proposalSelected = pro;
 		// Show a dialog to choose whether to add a new proposal or a new answer
@@ -166,16 +181,16 @@ public class ProposalView extends ViewPart implements IPresentation {
 		// New Answer
 		else if (result == 1)
 			addAnswer();
-	}
+	}*/
 	
 	private void addProposal() {
-		wizardAbstractProposal = new NewProposalViewWizardController(BundleInternationalization.getString("NewProposalWizard"), proposalSelected);
+		wizardAbstractProposal = new NewProposalViewWizardController(BundleInternationalization.getString("NewProposalWizard"), (Topic)selectedItem);
 		wizardAbstractProposal.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
 		showWizardDialog(wizardAbstractProposal);
 	}
 	
 	private void addAnswer() {
-		wizardAbstractProposal = new NewAnswerViewWizardController(BundleInternationalization.getString("NewAnswerWizard"), proposalSelected);
+		wizardAbstractProposal = new NewAnswerViewWizardController(BundleInternationalization.getString("NewAnswerWizard"), (Proposal)selectedItem);
 		wizardAbstractProposal.addPages(new NewAnswerViewWizardPage(BundleInternationalization.getString("NewAnswerWizardPageTitle")));
 		showWizardDialog(wizardAbstractProposal);
 	}
@@ -222,17 +237,37 @@ public class ProposalView extends ViewPart implements IPresentation {
 		
 	private void makeTree() {
 		try {
-			// TODO: llamarlo a traves del controlador
-			ArrayList<AbstractProposal> proposals = KnowledgeController.getProposalsTree();
-			for (AbstractProposal p: proposals)
-				root.add(p);
+			// TODO: cambiar el id del proyecto
+			topicWrapper = Controller.getKnowledgeTreeProject(2);
+			//ArrayList<Topic> topics = KnowledgeController.getKnowledgeTreeProject(2);
+						
+			/*Topic t1 = new Topic("Tema 1");
+			Topic t2 = new Topic("Tema 2");
+			
+			Proposal p1 = new Proposal("P1", "D1", new Date(), Categories.Analysis, 0);
+			Proposal p2 = new Proposal("P2", "D2", new Date(), Categories.Design, 1);
+			Proposal p3 = new Proposal("P3", "D3", new Date(), Categories.Analysis, 0);
+			
+			Answer a1 = new Answer("A1", "A1", new Date());
+			Answer a2 = new Answer("A2", "A2", new Date());
+			
+			p1.add(a1);
+			p1.add(a2);
+			
+			t1.add(p1);
+			t1.add(p2);
+			t2.add(p3);
+			
+			TopicWrapper t = new TopicWrapper();
+			t.add(t1);
+			t.add(t2);*/
 			cleanComposite();
 			
 			treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 			drillDownAdapter = new DrillDownAdapter(treeViewer);
 			treeViewer.setContentProvider(new ProposalContentProvider());
 			treeViewer.setLabelProvider(new ProposalLabelProvider());
-			treeViewer.setInput(root);
+			treeViewer.setInput(topicWrapper);
 			hookDoubleClickAction();
 			hookSelectionListener();
 			
@@ -243,9 +278,6 @@ public class ProposalView extends ViewPart implements IPresentation {
 		// If it is no possible connect to database, shows a error message
 		} catch (SQLException e) {			
 			setErrorLabel(e.getLocalizedMessage());
-		} catch (NoProjectProposalsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -259,13 +291,18 @@ public class ProposalView extends ViewPart implements IPresentation {
 
 	}
 	
-	public Proposal getProposalSelected() {
+	/*public Proposal getProposalSelected() {
 		return proposalSelected;
-	}
+	}*/
 
 	@Override
-	public void updateProposals() {
-		treeViewer.refresh();		
+	public void updateProposals(AbstractKnowledge newKnowledge) {
+		// Si no habia nada seleccionado, esta es una nueva raiz del arbol
+		/*if (proposalSelected == null)
+			root.add(newKnowledge);
+		// si se ha añadido una nueva 
+		treeViewer.refresh();
+		refreshComposite();*/
 	}
 
 	@Override
@@ -316,7 +353,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 			else {
 				parent.getChildren()[0].dispose();
 				treeViewer = null;
-				root = new Proposal();
+				topicWrapper = new TopicWrapper();
 			}
 		}
 	}

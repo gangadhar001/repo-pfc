@@ -1,15 +1,15 @@
 package model.graph;
 
-import model.business.knowledge.AbstractProposal;
+import model.business.knowledge.AbstractKnowledge;
 
 public class Edge {
 
 	private String id;
 	private String label;
-	private AbstractProposal source;
-	private AbstractProposal destination;
+	private AbstractKnowledge source;
+	private AbstractKnowledge destination;
 	
-	public Edge(String id, String label, AbstractProposal source, AbstractProposal destination) {
+	public Edge(String id, String label, AbstractKnowledge source, AbstractKnowledge destination) {
 		this.id = id;
 		this.label = label;
 		this.source = source;
@@ -24,11 +24,11 @@ public class Edge {
 		return label;
 	}
 
-	public AbstractProposal getSource() {
+	public AbstractKnowledge getSource() {
 		return source;
 	}
 
-	public AbstractProposal getDestination() {
+	public AbstractKnowledge getDestination() {
 		return destination;
 	}	
 	
