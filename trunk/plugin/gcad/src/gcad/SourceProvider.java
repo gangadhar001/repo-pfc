@@ -27,9 +27,9 @@ public class SourceProvider extends org.eclipse.ui.AbstractSourceProvider {
 	}
 	
 	@Override
-	public Map getCurrentState() {
+	public Map<String, String> getCurrentState() {
 		String[] actions = IActions.actions;
-		Map map = new HashMap(actions.length);
+		Map<String, String> map = new HashMap<String, String>(actions.length);
 		for (String act: actions) {
 			map.put(act, DISABLED);
 		}

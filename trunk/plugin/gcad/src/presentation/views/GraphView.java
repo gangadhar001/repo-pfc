@@ -13,6 +13,7 @@ import model.business.control.PresentationController;
 import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
 import model.graph.GraphLabelProvider;
 import model.graph.MyGraphViewer;
 import model.graph.NodeContentProvider;
@@ -36,8 +37,9 @@ import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 
+import exceptions.NoProposalsException;
+
 import presentation.IPresentation;
-import exceptions.NoProjectProposalsException;
 
 public class GraphView extends ViewPart implements IPresentation, IZoomableWorkbenchPart {
 
@@ -116,6 +118,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	}
 	
 	private void showGraph() {
+		try {
 		if (errorLabel != null)
 			errorLabel.dispose();
 		
@@ -124,20 +127,39 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		graphViewer.setContentProvider(new NodeContentProvider());
 		graphViewer.setLabelProvider(new GraphLabelProvider());
 
-		// TODO: llamarlo a traves del controlador
-		ArrayList<AbstractKnowledge> proposals;
-		try {
-			proposals = KnowledgeController.getKnowledgeTree();
-			for (AbstractKnowledge p: proposals)
-				root.add(p);
-			graphViewer.setInput(root.getProposals());
+		// TODO: necesario deslegar los nodos del grafo, ya que ni no, slo bajaba un nivel.
+		ArrayList<Object> nodosGrafo = new ArrayList<Object>();
+		ArrayList<Topic> topics = Controller.getInstance().getTopicsProject(2).getTopics();
+		for (Topic t: topics) {
+			nodosGrafo.add(t);
+			for (Proposal p: t.getProposals()) {
+				nodosGrafo.add(p);
+				nodosGrafo.addAll(p.getAnswers());
+			}
+		}
+		
+			graphViewer.setInput(nodosGrafo);
 			graphViewer.addDoubleClickListener(new IDoubleClickListener() {
 				
 				@Override
 				public void doubleClick(DoubleClickEvent event) {
 					Answer a = new Answer("aa","",new Date());
 					root.add(a);
-					graphViewer.setInput(root.getProposals());
+					try {
+						graphViewer.setInput(Controller.getInstance().getTopicsProject(2).getTopics());
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InstantiationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					graphViewer.applyLayout();
 					parent.layout();
 					
@@ -166,9 +188,6 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 			fillToolBar();
 			parent.layout();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoProjectProposalsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
@@ -220,7 +239,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	
 	// TODO: cambiar
 	@Override
-	public void updateProposals(AbstractKnowledge newKnowledge) {
+	public void updateKnowledge() {
 		graphViewer.refresh();		
 	}
 

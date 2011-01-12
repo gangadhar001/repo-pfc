@@ -106,10 +106,10 @@ public class LoginWizardController extends Wizard {
 	 * The worker method. It will log in the user and create the database connection
 	 */
 	private void doFinish(IProgressMonitor monitor, String user, String pass, String IP, String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, IncorrectEmployeeException, NonExistentRole {		
-		monitor.beginTask(BundleInternationalization.getString("DBMonitorMessage"), 60);
+		monitor.beginTask(BundleInternationalization.getString("LoginMonitorMessage"), 60);
 
 		monitor.worked(10);
-		monitor.setTaskName(BundleInternationalization.getString("DBMonitorMessage"));
+		monitor.setTaskName(BundleInternationalization.getString("LoginMonitorMessage"));
 
 		// Create the configuration of the database connection
 		DBConfiguration configuration = new DBConfiguration(IP, Integer.parseInt(port));

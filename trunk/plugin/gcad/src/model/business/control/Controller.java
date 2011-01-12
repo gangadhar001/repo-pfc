@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.business.knowledge.AbstractKnowledge;
+import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Proposal;
@@ -22,12 +22,11 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.ISourceProviderService;
 
-import persistence.PFProposal;
 import persistence.communications.DBConfiguration;
 import persistence.communications.DBConnectionManager;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NoProjectProposalsException;
+import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
 import gcad.IResources;
@@ -50,6 +49,41 @@ public class Controller {
 		session = SessionController.login(user, pass);
 	}
 	
+	public void signout() throws SQLException {
+		SessionController.signout(session);
+		session = null;
+		DBConnectionManager.closeConnections();
+		DBConnectionManager.clearConnections();		
+	}
+
+	public void initDBConnection(DBConfiguration configuration) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
+		// Close older connections (ignore errors)
+		try {
+			DBConnectionManager.closeConnections();
+		} catch(SQLException e) { }
+		DBConnectionManager.clearConnections();
+		
+		// Create and initialize a new database connection
+		DBConnectionManager.initializate(configuration);
+		
+	}
+	
+	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		KnowledgeController.addProposal(p, parent);
+	}
+	
+	public void addAnwser (Answer a, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		KnowledgeController.addAnswer(a, parent);
+	}
+		
+	public ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
+		return KnowledgeController.getProposals();
+	}
+		
+	public TopicWrapper getTopicsProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return KnowledgeController.getTopicsProject(idProject);
+	}
+	
 	public void notifyLogin () {
 		//TODO: se notifica la conexion con la base de datos a las vistas
 		PresentationController.notifyConnection(true);
@@ -60,37 +94,15 @@ public class Controller {
 		PresentationController.notifyConnection(false);
 	}
 	
-	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		KnowledgeController.addProposal(p, parent);
-	}
-	
-	public void notifyKnowledgeAdded(AbstractKnowledge newKnowledge) {
-		PresentationController.notifyProposals(newKnowledge);
-	}
-	
-	public ArrayList<AbstractKnowledge> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		return KnowledgeController.getProposals();
-	}
-	
-	/* TODO: añadir funcionalidades para que esta clase gestione los casos
-	de uso del plugin */
-	
-	public boolean isLogged () {
-		return session != null;
-	}
-
-	public ISession getSession() {
-		return session;
-	}
-
-	public static TopicWrapper getKnowledgeTreeProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		return KnowledgeController.getKnowledgeTreeProject(idProject);
+	public void notifyKnowledgeAdded() {
+		PresentationController.notifyKnowledge();
 	}
 	
 	/**
 	 * This method reads the profiles available for a user role from a XML file, and enables/disables the corresponding menu items.
 	 * First of all, when no user is logged, only is enabled "Session" menu
 	 */
+	@SuppressWarnings("unchecked")
 	public void notifyActionAllowed() throws ConfigurationException, NonPermissionRole {		
 		XMLConfiguration config;
 	    
@@ -173,23 +185,13 @@ public class Controller {
 	    	throw new NonPermissionRole(BundleInternationalization.getString("Exception.NonPermissionRole") + role.toString());
 	    }
 	}
-
-	public void signout() throws SQLException {
-		session = null;
-		DBConnectionManager.closeConnections();
-		DBConnectionManager.clearConnections();		
+	
+	public boolean isLogged () {
+		return session != null;
 	}
 
-	public void initDBConnection(DBConfiguration configuration) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		// Close older connections (ignore errors)
-		try {
-			DBConnectionManager.closeConnections();
-		} catch(SQLException e) { }
-		DBConnectionManager.clearConnections();
-		
-		// Create and initialize a new database connection
-		DBConnectionManager.initializate(configuration);
-		
+	public ISession getSession() {
+		return session;
 	}
 			
 }

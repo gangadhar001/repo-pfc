@@ -1,8 +1,5 @@
 package presentation.handlers;
 
-
-
-
 import java.sql.SQLException;
 
 import internationalization.BundleInternationalization;

@@ -12,7 +12,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 
-import persistence.communications.DBConnectionManager;
 import presentation.wizards.control.LoginWizardController;
 
 /**
