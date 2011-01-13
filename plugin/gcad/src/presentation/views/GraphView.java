@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import model.business.control.Controller;
-import model.business.control.KnowledgeController;
 import model.business.control.PresentationController;
 import model.business.knowledge.AbstractKnowledge;
 import model.business.knowledge.Answer;
@@ -129,7 +128,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 
 		// TODO: necesario deslegar los nodos del grafo, ya que ni no, slo bajaba un nivel.
 		ArrayList<Object> nodosGrafo = new ArrayList<Object>();
-		ArrayList<Topic> topics = Controller.getInstance().getTopicsProject(2).getTopics();
+		ArrayList<Topic> topics = Controller.getInstance().getTopicsWrapper().getTopics();
 		for (Topic t: topics) {
 			nodosGrafo.add(t);
 			for (Proposal p: t.getProposals()) {
@@ -146,7 +145,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 					Answer a = new Answer("aa","",new Date());
 					root.add(a);
 					try {
-						graphViewer.setInput(Controller.getInstance().getTopicsProject(2).getTopics());
+						graphViewer.setInput(Controller.getInstance().getTopicsWrapper().getTopics());
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

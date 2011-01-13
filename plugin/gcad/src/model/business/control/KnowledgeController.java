@@ -27,11 +27,12 @@ public class KnowledgeController {
 	/**
 	 * This method is used to retrieve the proposals and answers hierarchy from database.
 	 */
-	public static TopicWrapper getTopicsProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static TopicWrapper getTopicsWrapper() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// This method access to database only the first time, when "proposals" is not initialized.
 		if (topicWrapper == null) {
-			 topicWrapper = new TopicWrapper();
-			 topicWrapper.setTopics(PFTopic.queryTopicsProject(idProject));
+			// TODO: el idProject estará guardado en la ISession, cuando hace login el usuario
+			topicWrapper = new TopicWrapper();
+			topicWrapper.setTopics(PFTopic.queryTopicsProject(2));
 		}
 		return topicWrapper;
 	}
@@ -40,7 +41,11 @@ public class KnowledgeController {
 	 * This method returns all existing proposals 
 	 */
 	public static ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
-		return PFProposal.queryAllProposals();		
+		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+		for (Topic t: getTopicsWrapper().getTopics()) {
+			proposals.addAll(t.getProposals());
+		}
+		return proposals;
 	}
 
 	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -54,6 +59,5 @@ public class KnowledgeController {
 		parent.add(answer);
 		PFAnswer.insert(answer, parent.getId());
 	}
-	
 	
 }

@@ -24,7 +24,7 @@ public class PFAnswer {
 	private static final String COL_DESCRIPTION = "description";
 	private static final String COL_DATE = "date";
 	private static final String COL_ARGUMENT = "argument";
-	private static final String COL_EMPLOYEE_ID = "proposalId";
+	private static final String COL_EMPLOYEE_ID = "employeeId";
 	private static final String COL_PROPOSAL_ID = "proposalId";
 	
 	/** 

@@ -126,6 +126,7 @@
             commandId="gcad.command.deleteProposal">
       </handler>
       <handler
+            class="presentation.handlers.NewAnswerHandler"
             commandId="gcad.command.newAnswer">
       </handler>
       <handler

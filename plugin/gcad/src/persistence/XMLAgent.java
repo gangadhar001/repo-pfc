@@ -9,7 +9,8 @@ import javax.xml.bind.Marshaller;
 
 public class XMLAgent {
 
-    public static <E> void marshal(String fileName, Class<E> className, Object obj) throws JAXBException {
+    @SuppressWarnings("unchecked")
+	public static <E> void marshal(String fileName, Class<E> className, Object obj) throws JAXBException {
     
     JAXBContext jaxbContent = JAXBContext.newInstance(className);
 
