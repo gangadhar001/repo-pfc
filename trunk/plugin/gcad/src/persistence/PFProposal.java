@@ -11,7 +11,6 @@ import model.business.knowledge.Proposal;
 import persistence.commands.SQLCommand;
 import persistence.commands.SQLCommandSentence;
 import persistence.communications.DBConnectionManager;
-import exceptions.NoProposalsException;
 
 /**
  * This class allows to query and insert proposals into database
@@ -45,24 +44,6 @@ public class PFProposal {
 		if(data.getRow() > 0) {
 			proposals = getProposals(data);
 		}
-		
-		return proposals;
-	}
-	
-	public static ArrayList<Proposal> queryAllProposals() throws SQLException, NoProposalsException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		SQLCommand command;
-		ResultSet data;
-		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-		
-		command = new SQLCommandSentence("SELECT * FROM " + PROPOSAL_TABLE);
-		data = DBConnectionManager.query(command);
-		data.next();
-		
-		// If data are not obtained, it is because there are no proposals
-		if(data.getRow() == 0) 
-			throw new NoProposalsException();
-		else 
-			proposals = getProposals(data);
 		
 		return proposals;
 	}

@@ -16,14 +16,14 @@ import org.eclipse.swt.widgets.Text;
  * This abstract class represents a New Proposal Wizard Page
  */
 
-public abstract class AbstractNewProposalWizardPage extends WizardPage {
+public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 	
 	private Text nameText;
 	private Text descriptionText;
 	private Composite container;
 	private boolean valid;
 	
-	protected AbstractNewProposalWizardPage(String pageName) {
+	protected AbstractNewKnowledgeWizardPage(String pageName) {
 		super(pageName);
 	}
 

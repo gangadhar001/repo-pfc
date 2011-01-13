@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Label;
 /**
  * This abstract class represents a New Proposal Wizard Page when it is shown since the "Proposals" view
  */
-public class NewProposalViewWizardPage extends AbstractNewProposalWizardPage {
+public class NewProposalViewWizardPage extends AbstractNewKnowledgeWizardPage {
 	
 	private Combo categoryCb;
 	

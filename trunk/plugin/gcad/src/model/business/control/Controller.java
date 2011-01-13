@@ -80,17 +80,15 @@ public class Controller {
 		return KnowledgeController.getProposals();
 	}
 		
-	public TopicWrapper getTopicsProject(int idProject) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		return KnowledgeController.getTopicsProject(idProject);
+	public TopicWrapper getTopicsWrapper() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return KnowledgeController.getTopicsWrapper();
 	}
-	
+		
 	public void notifyLogin () {
-		//TODO: se notifica la conexion con la base de datos a las vistas
 		PresentationController.notifyConnection(true);
 	}
 	
 	public void notifySignOut () {
-		//TODO: se notifica la conexion con la base de datos a las vistas
 		PresentationController.notifyConnection(false);
 	}
 	
@@ -193,5 +191,7 @@ public class Controller {
 	public ISession getSession() {
 		return session;
 	}
+
+	
 			
 }

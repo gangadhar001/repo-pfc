@@ -14,6 +14,7 @@ public class Topic {
 	private String title;
 	@XmlElement( name = "Proposal" )
 	private ArrayList<Proposal> proposals;
+	// TODO: proyecto
 	
 	public Topic() {
 		proposals = new ArrayList<Proposal>();

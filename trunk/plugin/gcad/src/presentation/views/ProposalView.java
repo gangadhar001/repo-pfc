@@ -239,7 +239,7 @@ public class ProposalView extends ViewPart implements IPresentation {
 	private void makeTree() {
 		try {
 			// TODO: cambiar el id del proyecto
-			topicWrapper = Controller.getInstance().getTopicsProject(2);
+			topicWrapper = Controller.getInstance().getTopicsWrapper();
 			//ArrayList<Topic> topics = KnowledgeController.getKnowledgeTreeProject(2);
 						
 			/*Topic t1 = new Topic("Tema 1");

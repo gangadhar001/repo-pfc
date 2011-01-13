@@ -1,7 +1,6 @@
 package presentation.wizards.control;
 
 
-import internationalization.BundleInternationalization;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -65,7 +64,7 @@ public class NewAnswerViewWizardController extends AbstractNewKnowledgeWizardCon
 		};
 		try {
 			getContainer().run(true, false, op);
-			Controller.getInstance().notifyKnowledgeAdded(newAnswer);
+			Controller.getInstance().notifyKnowledgeAdded();
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
@@ -74,20 +73,5 @@ public class NewAnswerViewWizardController extends AbstractNewKnowledgeWizardCon
 			return false;
 		}
 		return true;
-	}
-	
-	/**
-	 * The worker method. It will create and insert in the database a new proposal
-	 */
-	private void doFinish(IProgressMonitor monitor, Answer newAnswer, Proposal proposalSelected) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {		
-		monitor.beginTask(BundleInternationalization.getString("ProposalMonitorMessage"), 50);
-		
-		monitor.worked(10);
-		monitor.setTaskName(BundleInternationalization.getString("ProposalMonitorMessage"));
-		monitor.worked(10);
-		// The new proposal is created and inserted into database
-		Controller.getInstance().addAnwser(newAnswer, proposalSelected);
-		monitor.worked(10);
-		
 	}
 }

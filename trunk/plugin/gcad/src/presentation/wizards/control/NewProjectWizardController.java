@@ -14,7 +14,6 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 
 import presentation.wizards.NewProjectWizardPage;
-import exceptions.InvalidSessionException;
 
 public class NewProjectWizardController extends Wizard {
 
@@ -44,12 +43,8 @@ public class NewProjectWizardController extends Wizard {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
 					doFinish(monitor, project);					
-				} catch (InvalidSessionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new InvocationTargetException(e);
 				} finally {
 					monitor.done();
 				}
@@ -70,18 +65,14 @@ public class NewProjectWizardController extends Wizard {
 	
 	/**
 	 * The worker method. It will create a new project and insert it into database
-	 * @throws SQLException 
-	 * @throws InvalidSessionException 
-	 * @throws IncorrectOptionException 
 	 */
-	private void doFinish(IProgressMonitor monitor, Project project) throws InvalidSessionException, SQLException {		
+	private void doFinish(IProgressMonitor monitor, Project project) throws SQLException {		
 		monitor.beginTask(BundleInternationalization.getString("ProjectMonitorMessage"), 60);
 		monitor.worked(10);
 		monitor.setTaskName(BundleInternationalization.getString("ProjectMonitorMessage"));
 		
-		// TODO: recuperar id sesion
 		// TODO: Crear e insertar el nuevo proyecto
-		ProjectController.createProject(1, project);
+		ProjectController.createProject(project);
 		
 		
 	}
