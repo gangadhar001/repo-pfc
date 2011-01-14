@@ -369,6 +369,11 @@ public class ProposalView extends ViewPart implements IPresentation {
 		addAction.setEnabled(false);
 		deleteAction.setEnabled(false);
 	}
+
+	@Override
+	public void updateNewTopic(Topic newTopic) {
+		treeViewer.refresh();		
+	}
 	
 
 	

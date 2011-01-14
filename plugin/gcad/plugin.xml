@@ -80,6 +80,11 @@
       </command>
       <command
             categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.newTopic"
+            name="%command.newTopic">
+      </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
             id="gcad.command.modifyAnswer"
             name="%command.modifyAnswer">
       </command>
@@ -134,6 +139,10 @@
       </handler>
       <handler
             commandId="gcad.command.deleteAnswer">
+      </handler>
+      <handler
+            class="presentation.handlers.NewTopicHandler"
+            commandId="gcad.command.newTopic">
       </handler>
       <handler
             class="presentation.handlers.NewDBInformationHandler"
@@ -231,6 +240,23 @@
                      checkEnabled="false">
                   <with
                         variable="DeleteAnswer">
+                     <equals
+                           value="ENABLED">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <separator
+                  name="gcad.separator1">
+            </separator>
+            <command
+                  commandId="gcad.command.newTopic"
+                  id="gcad.menus.newTopic"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="NewTopic">
                      <equals
                            value="ENABLED">
                      </equals>

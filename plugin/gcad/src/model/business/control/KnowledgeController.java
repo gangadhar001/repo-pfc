@@ -48,6 +48,12 @@ public class KnowledgeController {
 		return proposals;
 	}
 
+	public static void addTopic(Topic topic) throws SQLException {
+		topicWrapper.add(topic);
+		PFTopic.insert(topic);
+		
+	}
+	
 	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// Add the new proposal to the existing topic
 		parent.add(proposal);

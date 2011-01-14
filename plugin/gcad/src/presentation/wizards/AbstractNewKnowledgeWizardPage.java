@@ -31,7 +31,6 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 	public void createControl(Composite parent) {
 		container = new Composite(parent, SWT.NULL);
 		commonControls();
-
 	}
 	
 	/**
@@ -40,9 +39,9 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 	private void commonControls () {	
 		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
 		GridLayout layout = new GridLayout();
-		container.setLayout(layout);
 		layout.numColumns = 2;
 		layout.verticalSpacing = 9;
+		container.setLayout(layout);		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		
 		Label nameLabel = new Label(container, SWT.NULL);
