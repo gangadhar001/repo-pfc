@@ -17,6 +17,7 @@
 			<name>DeleteProposal</name>
 			<name>ModifyAnswer</name>
 			<name>DeleteAnswer</name>
+			<name>NewTopic</name>
 		</Actions>
 	</Profile>	
 </Profiles>

@@ -48,7 +48,7 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	private Composite parent;
 	private Proposal proposalSelected;
 	private boolean visible = false;
-	private Proposal root;
+	private ArrayList<Object> nodosGrafo;
 	
 	private Action addAction;
 	private Action editAction;
@@ -63,7 +63,6 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		// TODO: se añade a la lista de observados
 		PresentationController.attachObserver(this);
 				
-		root = new Proposal(); 
 		// Se crean las acciones del toolbar y se define el listener para el doble clic
 		makeActions();
 		createToolbar();
@@ -126,8 +125,8 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		graphViewer.setContentProvider(new NodeContentProvider());
 		graphViewer.setLabelProvider(new GraphLabelProvider());
 
-		// TODO: necesario deslegar los nodos del grafo, ya que ni no, slo bajaba un nivel.
-		ArrayList<Object> nodosGrafo = new ArrayList<Object>();
+		// TODO: necesario desplegar los nodos del grafo, ya que ni no, slo bajaba un nivel.
+		nodosGrafo = new ArrayList<Object>();
 		ArrayList<Topic> topics = Controller.getInstance().getTopicsWrapper().getTopics();
 		for (Topic t: topics) {
 			nodosGrafo.add(t);
@@ -142,9 +141,8 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 				
 				@Override
 				public void doubleClick(DoubleClickEvent event) {
-					Answer a = new Answer("aa","",new Date());
-					root.add(a);
 					try {
+						//TODO: cambiar. Doble clic en un elemento. Segun eso, se añade el objeto adecuado
 						graphViewer.setInput(Controller.getInstance().getTopicsWrapper().getTopics());
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
@@ -240,6 +238,11 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	@Override
 	public void updateKnowledge() {
 		graphViewer.refresh();		
+	}
+	
+	public void updateNewTopic(Topic newTopic) {
+		nodosGrafo.add(newTopic);
+		graphViewer.refresh();	
 	}
 
 	@Override

@@ -68,6 +68,10 @@ public class Controller {
 		
 	}
 	
+	public void addTopic (Topic topic) throws SQLException {
+		KnowledgeController.addTopic(topic);
+	}
+	
 	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		KnowledgeController.addProposal(p, parent);
 	}
@@ -94,6 +98,10 @@ public class Controller {
 	
 	public void notifyKnowledgeAdded() {
 		PresentationController.notifyKnowledge();
+	}
+	
+	public void notifyNewTopic(Topic topic) {
+		PresentationController.notifyNewTopic(topic);
 	}
 	
 	/**
