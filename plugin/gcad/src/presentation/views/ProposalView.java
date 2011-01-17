@@ -4,15 +4,10 @@ import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.business.control.Controller;
-import model.business.control.KnowledgeController;
 import model.business.control.PresentationController;
-import model.business.knowledge.AbstractKnowledge;
-import model.business.knowledge.Answer;
-import model.business.knowledge.Categories;
 import model.business.knowledge.IActions;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -100,14 +95,14 @@ public class ProposalView extends ViewPart implements IPresentation {
 	private void makeActions() {
 		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
             public void run() { 
-            	//addAbstractProposal();
+            	addKnowledge();
             }
 		};
 		//addAction.setImageDescriptor(getImageDescriptor("add.gif"));
 
 		deleteAction = new Action(BundleInternationalization.getString("Actions.Delete")) {
 			public void run() {
-				deleteAbstractProposal();
+				deleteKnowledge();
 			}
 		};
 		//deleteAction.setImageDescriptor(getImageDescriptor("delete.gif"));
@@ -136,54 +131,29 @@ public class ProposalView extends ViewPart implements IPresentation {
         mgr.add(deleteAction);
     }
     
-	/*private int showDialogTypeProposal() {
-		MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "New knowledge", null,
-				"Choose the type of knowledge to add to the proposal titled: " + proposalSelected.getTitle() , MessageDialog.INFORMATION, new String[] {
-						"Proposal", "Answer" }, 0);
-		dialog.create();
-		int result = dialog.open();
-		return result;
-	}*/
-	
-	/*private void addAbstractProposal() {
+	private void addKnowledge() {
 		selection = treeViewer.getSelection();
-		Proposal pro = null;
 		if (selection!=null) {
 			Object obj = ((IStructuredSelection)selection).getFirstElement();
-			if (obj instanceof Proposal) {
-				pro = (Proposal)obj;
-			}
-		}
-		// El nuevo conocimiento se añade a una propuesta existente
-		if (pro!=null)
-			addKnowledgeParent(pro);
-		else {
-			// Se muestra un diálogo para confirmar que se quiere añadir una nueva propuesta raiz
-			boolean result = MessageDialog.openQuestion(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Question", "Debes seleccionar una propuesta");
-			if (result) {
+			if (obj instanceof Topic) {
+				selectedItem = (Topic)obj;
 				addProposal();
+			}
+			else if (obj instanceof Proposal) {
+				selectedItem = (Proposal)obj;
+				addAnswer();				
+			}
+			else {
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "No se puede añadir nuevo conocimiento a una respuesta");
 			}
 		}
 			
-	}*/
-	
-	private void deleteAbstractProposal() {
-		
 	}
 	
-	/*private void addKnowledgeParent(Proposal pro) {
-		int result;
-		proposalSelected = pro;
-		// Show a dialog to choose whether to add a new proposal or a new answer
-		result = showDialogTypeProposal();
-		// New Proposal
-		if (result == 0) 
-			addProposal();
-		// New Answer
-		else if (result == 1)
-			addAnswer();
-	}*/
-	
+	private void deleteKnowledge() {
+		
+	}
+		
 	private void addProposal() {
 		wizardAbstractProposal = new NewProposalViewWizardController(BundleInternationalization.getString("NewProposalWizard"), (Topic)selectedItem);
 		wizardAbstractProposal.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
@@ -373,9 +343,6 @@ public class ProposalView extends ViewPart implements IPresentation {
 	@Override
 	public void updateNewTopic(Topic newTopic) {
 		treeViewer.refresh();		
-	}
-	
-
-	
+	}	
                                                                                                                                    
 }
