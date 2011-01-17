@@ -116,74 +116,79 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	}
 	
 	private void showGraph() {
-		try {
 		if (errorLabel != null)
 			errorLabel.dispose();
-		
+
 		graphViewer = new MyGraphViewer(parent, SWT.BORDER);
-		
 		graphViewer.setContentProvider(new NodeContentProvider());
 		graphViewer.setLabelProvider(new GraphLabelProvider());
+		deployedGraphNodes();
+		graphViewer.setInput(nodosGrafo);
+		graphViewer.addDoubleClickListener(new IDoubleClickListener() {
 
-		// TODO: necesario desplegar los nodos del grafo, ya que ni no, slo bajaba un nivel.
-		nodosGrafo = new ArrayList<Object>();
-		ArrayList<Topic> topics = Controller.getInstance().getTopicsWrapper().getTopics();
-		for (Topic t: topics) {
-			nodosGrafo.add(t);
-			for (Proposal p: t.getProposals()) {
-				nodosGrafo.add(p);
-				nodosGrafo.addAll(p.getAnswers());
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				try {
+					// TODO: cambiar. Doble clic en un elemento. Segun eso, se
+					// añade el objeto adecuado
+					graphViewer.setInput(Controller.getInstance()
+							.getTopicsWrapper().getTopics());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				graphViewer.applyLayout();
+				parent.layout();
+
 			}
-		}
-		
-			graphViewer.setInput(nodosGrafo);
-			graphViewer.addDoubleClickListener(new IDoubleClickListener() {
-				
-				@Override
-				public void doubleClick(DoubleClickEvent event) {
-					try {
-						//TODO: cambiar. Doble clic en un elemento. Segun eso, se añade el objeto adecuado
-						graphViewer.setInput(Controller.getInstance().getTopicsWrapper().getTopics());
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					graphViewer.applyLayout();
-					parent.layout();
-					
+		});
+
+		graphViewer.getGraph().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO: se coge el nodo seleccionado. Mirar si hay alguno
+				// seleccionado y no es una arista
+				AbstractKnowledge a = ((AbstractKnowledge) ((GraphNode) graphViewer
+						.getGraph().getSelection().get(0)).getData());
+				System.out.println(a);
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				System.out.println("b");
+
+			}
+		});
+		LayoutAlgorithm layout = setLayout();
+		graphViewer.setLayoutAlgorithm(layout, true);
+		graphViewer.applyLayout();
+		fillToolBar();
+		parent.layout();		
+	}
+	
+	private void deployedGraphNodes() {
+		nodosGrafo = new ArrayList<Object>();
+		ArrayList<Topic> topics;
+		try {
+			topics = Controller.getInstance().getTopicsWrapper().getTopics();
+			for (Topic t: topics) {
+				nodosGrafo.add(t);
+				for (Proposal p: t.getProposals()) {
+					nodosGrafo.add(p);
+					nodosGrafo.addAll(p.getAnswers());
 				}
-			});
-			
-			graphViewer.getGraph().addSelectionListener(new SelectionListener() {
-				
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					// TODO: se coge el nodo seleccionado. Mirar si hay alguno seleccionado y no es una arista
-					AbstractKnowledge a = ((AbstractKnowledge)((GraphNode) graphViewer.getGraph().getSelection().get(0)).getData());
-					System.out.println(a);
-					
-				}
-				
-				@Override
-				public void widgetDefaultSelected(SelectionEvent e) {
-					System.out.println("b");
-					
-				}
-			});					
-			LayoutAlgorithm layout = setLayout();
-			graphViewer.setLayoutAlgorithm(layout, true);
-			graphViewer.applyLayout();
-			fillToolBar();
-			parent.layout();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -197,9 +202,6 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		
-		
 		
 	}
 	
@@ -237,12 +239,8 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 	// TODO: cambiar
 	@Override
 	public void updateKnowledge() {
-		graphViewer.refresh();		
-	}
-	
-	public void updateNewTopic(Topic newTopic) {
-		nodosGrafo.add(newTopic);
-		graphViewer.refresh();	
+		deployedGraphNodes();
+		graphViewer.setInput(nodosGrafo);		
 	}
 
 	@Override

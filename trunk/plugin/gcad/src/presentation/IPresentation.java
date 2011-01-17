@@ -11,7 +11,5 @@ public interface IPresentation {
 	public void updateActions(List<String> actionsName);
 	
 	public void updateKnowledge();
-	
-	public void updateNewTopic(Topic newTopic);
-	
+		
 }
