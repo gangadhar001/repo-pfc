@@ -3,8 +3,6 @@ package model.business.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.business.knowledge.Topic;
-
 import presentation.IPresentation;
 
 public class PresentationController {
@@ -38,9 +36,5 @@ public class PresentationController {
 			observer.updateActions(actionsName);
 	}
 
-	public static void notifyNewTopic(Topic topic) {
-		for (IPresentation observer: observers)
-			observer.updateNewTopic(topic);
-	}
 }
 

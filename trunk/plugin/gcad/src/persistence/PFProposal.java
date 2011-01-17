@@ -94,4 +94,14 @@ public class PFProposal {
 		proposal.setId(data.getInt("LAST_INSERT_ID()"));
 		data.close();
 	}
+
+	public static void delete(Proposal pro) throws SQLException {
+		SQLCommand command;
+		
+		command = new SQLCommandSentence("DELETE FROM " + PROPOSAL_TABLE
+				+ " WHERE " + COL_ID + " = ? ", 
+				pro.getId());
+		DBConnectionManager.execute(command);
+		
+	}
 }

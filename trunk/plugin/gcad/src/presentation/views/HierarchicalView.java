@@ -16,162 +16,93 @@ import model.treeviewer.ProposalContentProvider;
 import model.treeviewer.ProposalLabelProvider;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.DrillDownAdapter;
-import org.eclipse.ui.part.ViewPart;
 
 import presentation.IPresentation;
-import presentation.wizards.NewAnswerViewWizardPage;
-import presentation.wizards.NewProposalViewWizardPage;
-import presentation.wizards.control.AbstractNewKnowledgeWizardController;
-import presentation.wizards.control.NewAnswerViewWizardController;
-import presentation.wizards.control.NewProposalViewWizardController;
+import presentation.utils.Dialogs;
 
 /**
  * This class represents the Proposals view, where the different proposals, answers and actions over them are shown
  */
-public class ProposalView extends ViewPart implements IPresentation {
+public class HierarchicalView extends AbstractKnowledgeView implements IPresentation {
 	
 	private TreeViewer treeViewer;
-	private Label errorLabel;
-	
-	private AbstractNewKnowledgeWizardController wizardAbstractProposal;
-	private WizardDialog wizardDialog;
-
-	// TODO: se usa para poner los iconos de las acciones en una barra de menus dentro de la vista
-	private DrillDownAdapter drillDownAdapter;
-	
-	private Action doubleClickAction;
-	private Action addAction;
-	private Action editAction;
-	private Action deleteAction;
-	
-	private Composite parent;
-	private Object selectedItem;	
-	private ISelection selection;
+		
+	private Action doubleClickAction;	
 	
 	private TopicWrapper topicWrapper;
-	private boolean visible = false;
-	private ArrayList<String> actionsAllowed;
+	
+	private Object selectedItem;
 
-	@Override
 	public void createPartControl(Composite parent) {
-		this.parent = parent;
-		visible = true;
-		
-		// TODO: se añade a la lista de observados
-		PresentationController.attachObserver(this);
+		super.createPartControl(parent);
+		this.makeActions();
+		super.createToolbar();
 		// Se inicializa la raíz del árbol
 		topicWrapper = new TopicWrapper();
-		// Se crean las acciones del toolbar y se define el listener para el doble clic
-		makeActions();
-		createToolbar();
-		
-		// TODO: Expand the tree 
-		//treeViewer.setAutoExpandLevel(2);
-		
+		// TODO: se añade a la lista de observados
+		PresentationController.attachObserver(this);
 		// TODO: se refresca la vista segun este logueado o no 
 		updateState(Controller.getInstance().isLogged());
 	}
 	
-	/**
-	 * This method handles the double click action.
-	 * TODO: añadir/eliminar una nueva propuesta/respuesta
-	 */
-	private void makeActions() {
-		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
-            public void run() { 
-            	addKnowledge();
-            }
-		};
-		//addAction.setImageDescriptor(getImageDescriptor("add.gif"));
-
-		deleteAction = new Action(BundleInternationalization.getString("Actions.Delete")) {
-			public void run() {
-				deleteKnowledge();
-			}
-		};
-		//deleteAction.setImageDescriptor(getImageDescriptor("delete.gif"));
-		
+	@Override
+	protected void makeActions() {
+		super.makeActions();
 		doubleClickAction = new Action() {
 			public void run() {
 				selection = treeViewer.getSelection();
 				selectedItem = ((IStructuredSelection)selection).getFirstElement();
 				// TODO: si es un topic, se añade una propuesta. Si es una propuesta, se añade una respuesta
 				if (selectedItem instanceof Topic) {
-					addProposal();
+					addProposal((Topic)selectedItem);
 				}
 				else if (selectedItem instanceof Proposal) {
-					addAnswer();
+					addAnswer((Proposal)selectedItem);
 				}
 			}
 		};
 	}
 	
-	/**
-     * Create toolbar with actions.
-     */
-    private void createToolbar() {
-        IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
-        mgr.add(addAction);
-        mgr.add(deleteAction);
-    }
-    
-	private void addKnowledge() {
-		selection = treeViewer.getSelection();
+	protected void addKnowledge() {
+		Object objectSelected = null;
+		setSelection();
 		if (selection!=null) {
-			Object obj = ((IStructuredSelection)selection).getFirstElement();
-			if (obj instanceof Topic) {
-				selectedItem = (Topic)obj;
-				addProposal();
-			}
-			else if (obj instanceof Proposal) {
-				selectedItem = (Proposal)obj;
-				addAnswer();				
-			}
-			else {
-				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "No se puede añadir nuevo conocimiento a una respuesta");
+			objectSelected = ((IStructuredSelection)selection).getFirstElement();
+			super.createKnowledge(objectSelected);
+		}
+		// TODO: si no se selecciona nada, se añade un topic
+		else {
+			addTopic();
+		}
+	}	
+	
+	protected void deleteKnowledge() {
+		Object objectSelected = null;
+		setSelection();
+		if (selection!=null) {
+			if (Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmDelete"), BundleInternationalization.getString("Message.ConfirmDelete"))) { 
+				objectSelected = ((IStructuredSelection)selection).getFirstElement();
+				super.removeKnowledge(objectSelected);
 			}
 		}
-			
+		else {
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "Debes seleccionar un elemento");	
+		}
 	}
 	
-	private void deleteKnowledge() {
-		
+	protected void setSelection() {
+		selection = treeViewer.getSelection();
 	}
-		
-	private void addProposal() {
-		wizardAbstractProposal = new NewProposalViewWizardController(BundleInternationalization.getString("NewProposalWizard"), (Topic)selectedItem);
-		wizardAbstractProposal.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
-		showWizardDialog(wizardAbstractProposal);
-	}
-	
-	private void addAnswer() {
-		wizardAbstractProposal = new NewAnswerViewWizardController(BundleInternationalization.getString("NewAnswerWizard"), (Proposal)selectedItem);
-		wizardAbstractProposal.addPages(new NewAnswerViewWizardPage(BundleInternationalization.getString("NewAnswerWizardPageTitle")));
-		showWizardDialog(wizardAbstractProposal);
-	}
-	
-	private void showWizardDialog(Wizard wizard) {
-		wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
-		wizardDialog.create();
-		wizardDialog.open();
-	}
-
 	
 	// Listener for Double Click Action
 	private void hookDoubleClickAction() {
@@ -184,10 +115,10 @@ public class ProposalView extends ViewPart implements IPresentation {
 	
 	private void hookSelectionListener() {
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			
+	
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				selection = treeViewer.getSelection();
+				setSelection();
 				Object obj = ((IStructuredSelection)selection).getFirstElement();
 				// TODO: si es una propuesta, habilitar todas las acciones posibles
 				if (obj instanceof Proposal) {
@@ -235,7 +166,6 @@ public class ProposalView extends ViewPart implements IPresentation {
 			cleanComposite();
 			
 			treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-			drillDownAdapter = new DrillDownAdapter(treeViewer);
 			treeViewer.setContentProvider(new ProposalContentProvider());
 			treeViewer.setLabelProvider(new ProposalLabelProvider());
 			treeViewer.setInput(topicWrapper);
@@ -301,17 +231,8 @@ public class ProposalView extends ViewPart implements IPresentation {
 	public void updateActions(List<String> actionsName) {
 		actionsAllowed = (ArrayList<String>) actionsName;		
 	}
-	
-	private void setErrorLabel (String message) {
-		errorLabel = new Label(parent, SWT.NULL);
-		errorLabel.setText(message);
-	}
-	
-	private void refreshComposite () {
-		parent.layout();
-	}
-		
-	private void cleanComposite () {
+			
+	protected void cleanComposite () {
 		// Clean composite parent. 
 		// TODO: controlar si no hay nada en el composite	
 		if (parent.getChildren().length > 0) {
@@ -335,14 +256,6 @@ public class ProposalView extends ViewPart implements IPresentation {
 		PresentationController.detachObserver(this);			
 	}
 	
-	private void disableActions() {
-		addAction.setEnabled(false);
-		deleteAction.setEnabled(false);
-	}
-
-	@Override
-	public void updateNewTopic(Topic newTopic) {
-		treeViewer.refresh();		
-	}	
+	
                                                                                                                                    
 }

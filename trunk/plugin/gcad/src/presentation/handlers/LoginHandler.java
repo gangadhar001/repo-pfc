@@ -11,10 +11,9 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.PlatformUI;
 
+import presentation.utils.Dialogs;
 import presentation.wizards.control.LoginWizardController;
 
 
@@ -26,10 +25,7 @@ public class LoginHandler extends AbstractHandler {
 		boolean logged = Controller.getInstance().isLogged();
 		boolean result = false;
 		if (logged) {
-			MessageBox mb = new MessageBox(PlatformUI.getWorkbench().getDisplay().getActiveShell(), SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);
-			mb.setText(BundleInternationalization.getString("Title.ConfirmNewLogin"));
-			mb.setMessage(BundleInternationalization.getString("Message.ConfirmLogin"));
-			result = (mb.open()== SWT.OK);
+			result =Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmNewLogin"), BundleInternationalization.getString("Message.ConfirmLogin")); 
 			if (result) {
 				try {
 					Controller.getInstance().signout();

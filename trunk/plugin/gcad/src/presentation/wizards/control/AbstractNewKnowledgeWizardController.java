@@ -65,7 +65,7 @@ public abstract class AbstractNewKnowledgeWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
-			Controller.getInstance().notifyKnowledgeAdded();
+			Controller.getInstance().notifyKnowledgeChanged();
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
@@ -101,7 +101,7 @@ public abstract class AbstractNewKnowledgeWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
-			Controller.getInstance().notifyKnowledgeAdded();
+			Controller.getInstance().notifyKnowledgeChanged();
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {

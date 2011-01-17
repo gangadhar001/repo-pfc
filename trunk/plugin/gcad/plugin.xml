@@ -29,7 +29,7 @@
    </category>
    <view
          category="gcad.category.view.proposal"
-         class="presentation.views.ProposalView"
+         class="presentation.views.HierarchicalView"
          id="gcad.view.proposals"
          name="%view.proposals"
          restorable="true">

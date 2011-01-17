@@ -64,7 +64,7 @@ public class NewAnswerViewWizardController extends AbstractNewKnowledgeWizardCon
 		};
 		try {
 			getContainer().run(true, false, op);
-			Controller.getInstance().notifyKnowledgeAdded();
+			Controller.getInstance().notifyKnowledgeChanged();
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {

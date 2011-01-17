@@ -80,6 +80,21 @@ public class Controller {
 		KnowledgeController.addAnswer(a, parent);
 	}
 		
+	public void deleteTopic(Topic to) throws SQLException {
+		KnowledgeController.deleteTopic(to);
+		notifyKnowledgeChanged();
+	}
+	
+	public void deleteProposal(Proposal p) throws SQLException {
+		KnowledgeController.deleteProposal(p);
+		notifyKnowledgeChanged();
+	}
+
+	public void deleteAnswer (Answer a) throws SQLException {
+		KnowledgeController.deleteAnswer(a);	
+		notifyKnowledgeChanged();
+	}
+	
 	public ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
 		return KnowledgeController.getProposals();
 	}
@@ -96,12 +111,8 @@ public class Controller {
 		PresentationController.notifyConnection(false);
 	}
 	
-	public void notifyKnowledgeAdded() {
+	public void notifyKnowledgeChanged() {
 		PresentationController.notifyKnowledge();
-	}
-	
-	public void notifyNewTopic(Topic topic) {
-		PresentationController.notifyNewTopic(topic);
 	}
 	
 	/**
