@@ -4,30 +4,26 @@ import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.business.control.Controller;
 import model.business.control.PresentationController;
-import model.business.knowledge.AbstractKnowledge;
-import model.business.knowledge.Answer;
+import model.business.knowledge.IActions;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.graph.GraphLabelProvider;
 import model.graph.MyGraphViewer;
 import model.graph.NodeContentProvider;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
 import org.eclipse.zest.core.viewers.ZoomContributionViewItem;
@@ -36,94 +32,60 @@ import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 
-import exceptions.NoProposalsException;
-
 import presentation.IPresentation;
+import presentation.utils.Dialogs;
 
-public class GraphView extends ViewPart implements IPresentation, IZoomableWorkbenchPart {
+public class GraphView extends AbstractKnowledgeView implements IPresentation, IZoomableWorkbenchPart {
 
-	protected MyGraphViewer graphViewer;
-	private Label errorLabel;
-
-	private Composite parent;
-	private Proposal proposalSelected;
-	private boolean visible = false;
-	private ArrayList<Object> nodosGrafo;
+	private MyGraphViewer graphViewer;
 	
-	private Action addAction;
-	private Action editAction;
-	private Action deleteAction;
+	private boolean isEdge;
+	
+	private Object objectSelected;
+	
 	
 	@Override
 	public void createPartControl(Composite parent) {
-		// TODO Auto-generated method stub
-		this.parent = parent;
-		visible = true;
-		
-		// TODO: se añade a la lista de observados
+		super.createPartControl(parent);
+		super.makeActions();
+		super.createToolbar();
 		PresentationController.attachObserver(this);
-				
-		// Se crean las acciones del toolbar y se define el listener para el doble clic
-		makeActions();
-		createToolbar();
-		
-		// TODO: mirar si se ha iniciado sesion previamente 
-		updateState(Controller.getInstance().isLogged());		
+		// TODO: se refresca la vista segun este logueado o no 
+		updateState(Controller.getInstance().isLogged());
+	}
+    	
+	//TODO: controlar si se selecciona una arista al añadir/eliminar, para mostrar mensaje de error
+	
+	protected void addKnowledge() {
+		setSelection();
+		if (objectSelected!=null) {
+			super.createKnowledge(objectSelected);
+		}
+		// TODO: si no se selecciona nada, se añade un topic
+		else if (!isEdge){
+			addTopic();
+		}
 	}
 	
-	/**
-     * Create toolbar.
-     */
-    private void createToolbar() {
-            IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
-            mgr.add(addAction);
-            mgr.add(deleteAction);
-    }
-    
-	private void makeActions() {
-		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
-            public void run() { 
-            	addAbstractProposal();
-            }
-		};
-		//addAction.setImageDescriptor(getImageDescriptor("add.gif"));
-
-		deleteAction = new Action(BundleInternationalization.getString("Actions.Delete")) {
-			public void run() {
-				deleteAbstractProposal();
+	protected void deleteKnowledge() {
+		setSelection();
+		if (objectSelected!=null) {
+			if (Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmDelete"), BundleInternationalization.getString("Message.ConfirmDelete"))) { 
+				super.removeKnowledge(objectSelected);
 			}
-		};
-		//deleteAction.setImageDescriptor(getImageDescriptor("delete.gif"));
+		}
+		else {
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "Debes seleccionar un elemento");	
+		}		
 	}
-	
-	private void addAbstractProposal() {
 		
-	}
-	
-	private void deleteAbstractProposal() {
-		
-	}
-	
-	@Override
-	public void setFocus() {
-		if (graphViewer!=null)
-			graphViewer.getControl().setFocus();
-	}
-	
-	// When the plug-in connects to database, the Proposal tree is shown
-	public void showContentConnected() {
-		showGraph();
-	}
-	
 	private void showGraph() {
-		if (errorLabel != null)
-			errorLabel.dispose();
+		cleanComposite();
 
 		graphViewer = new MyGraphViewer(parent, SWT.BORDER);
 		graphViewer.setContentProvider(new NodeContentProvider());
 		graphViewer.setLabelProvider(new GraphLabelProvider());
-		deployedGraphNodes();
-		graphViewer.setInput(nodosGrafo);
+		graphViewer.setInput(deployedGraphNodes());
 		graphViewer.addDoubleClickListener(new IDoubleClickListener() {
 
 			@Override
@@ -158,35 +120,47 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 			public void widgetSelected(SelectionEvent e) {
 				// TODO: se coge el nodo seleccionado. Mirar si hay alguno
 				// seleccionado y no es una arista
-				AbstractKnowledge a = ((AbstractKnowledge) ((GraphNode) graphViewer
-						.getGraph().getSelection().get(0)).getData());
-				System.out.println(a);
+				 setSelection();
 
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				System.out.println("b");
-
 			}
 		});
+		
 		LayoutAlgorithm layout = setLayout();
 		graphViewer.setLayoutAlgorithm(layout, true);
 		graphViewer.applyLayout();
 		fillToolBar();
-		parent.layout();		
+
+		refreshComposite();		
 	}
 	
-	private void deployedGraphNodes() {
-		nodosGrafo = new ArrayList<Object>();
+	@SuppressWarnings("unchecked")
+	protected void setSelection() {
+		// TODO: si hay algo seleccionado que no sea arista, se toma
+		List selectionList = graphViewer.getGraph().getSelection();
+		isEdge = false;
+		objectSelected = null;
+		if (selectionList.size() > 0) {
+			if (selectionList.get(0) instanceof GraphNode)
+				objectSelected = ((GraphNode) selectionList.get(0)).getData();
+			else
+				isEdge = true;
+		}
+	}
+	
+	private ArrayList<Object> deployedGraphNodes() {
+		ArrayList<Object> graphNodes = new ArrayList<Object>();
 		ArrayList<Topic> topics;
 		try {
 			topics = Controller.getInstance().getTopicsWrapper().getTopics();
 			for (Topic t: topics) {
-				nodosGrafo.add(t);
+				graphNodes.add(t);
 				for (Proposal p: t.getProposals()) {
-					nodosGrafo.add(p);
-					nodosGrafo.addAll(p.getAnswers());
+					graphNodes.add(p);
+					graphNodes.addAll(p.getAnswers());
 				}
 			}
 		} catch (SQLException e) {
@@ -202,7 +176,14 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return graphNodes;
 		
+	}
+	
+	@Override
+	public void setFocus() {
+		if (graphViewer!=null)
+			graphViewer.getControl().setFocus();
 	}
 	
 	private LayoutAlgorithm setLayout() {
@@ -232,43 +213,60 @@ public class GraphView extends ViewPart implements IPresentation, IZoomableWorkb
 		return graphViewer;
 	}
 
-	public Proposal getProposalSelected() {
-		return proposalSelected;
-	}
-	
 	// TODO: cambiar
 	@Override
 	public void updateKnowledge() {
-		deployedGraphNodes();
-		graphViewer.setInput(nodosGrafo);		
+		graphViewer.setInput(deployedGraphNodes());		
 	}
 
 	@Override
 	public void updateState(boolean connected) {
+		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
 		if (!connected) {
-			// Clean parent	
-			if (parent.getChildren().length > 0) {
+			cleanComposite();
+			disableActions();
+			setErrorLabel(BundleInternationalization.getString("ErrorMessage.NotConnected"));
+			refreshComposite();
+		}
+		
+		// Si esta logueado y esta vista es visible, se crea el arbol
+		else if (visible) {
+			showGraph();
+			// Se habilitan las acciones segun los permisos
+			if (actionsAllowed.contains(IActions.NEW_PROPOSAL) || actionsAllowed.contains(IActions.NEW_ANSWER))
+				addAction.setEnabled(true);
+			if (actionsAllowed.contains(IActions.DELETE_PROPOSAL) || actionsAllowed.contains(IActions.DELETE_ANSWER))
+				deleteAction.setEnabled(true);
+		}
+	}
+	
+	@Override
+	public void updateActions(List<String> actionsName) {
+		actionsAllowed = (ArrayList<String>) actionsName;		
+	}
+	
+	protected void cleanComposite () {
+		// Clean composite parent. 
+		// TODO: controlar si no hay nada en el composite	
+		if (parent.getChildren().length > 0) {
+			// Clean label
+			if (errorLabel != null) {
+				errorLabel.dispose();
+				errorLabel = null;
+			}
+			// Clean tree
+			else {
 				parent.getChildren()[0].dispose();
 				graphViewer = null;
 			}
-			
-			errorLabel = new Label(parent, SWT.NULL);
-			errorLabel.setText(BundleInternationalization.getString("ErrorMessage.NotConnected"));
-			parent.layout();
 		}
-		else
-			showGraph();		
 	}
-	
+		
 	public void dispose () {
 		super.dispose();
 		visible = false;
 		PresentationController.detachObserver(this);			
 	}
 
-	@Override
-	public void updateActions(List<String> actionsName) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

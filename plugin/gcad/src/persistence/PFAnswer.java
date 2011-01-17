@@ -78,6 +78,16 @@ public class PFAnswer {
 		data.close();
 		
 	}
+
+	public static void delete(Answer a) throws SQLException {
+		SQLCommand command;
+		
+		command = new SQLCommandSentence("DELETE FROM " + ANSWER_TABLE
+				+ " WHERE " + COL_ID + " = ? ", 
+				a.getId());
+		DBConnectionManager.execute(command);
+		
+	}
 	
 
 }

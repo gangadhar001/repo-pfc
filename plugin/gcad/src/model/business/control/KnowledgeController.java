@@ -66,4 +66,26 @@ public class KnowledgeController {
 		PFAnswer.insert(answer, parent.getId());
 	}
 	
+	public static void deleteTopic(Topic to) throws SQLException {
+		topicWrapper.remove(to);
+		PFTopic.delete(to);
+	}
+	
+	public static void deleteProposal(Proposal p) throws SQLException {
+		for(Topic t: topicWrapper.getTopics()){
+			if (t.getProposals().contains(p))
+				t.getProposals().remove(p);
+		}
+		PFProposal.delete(p);
+	}
+
+	public static void deleteAnswer(Answer a) throws SQLException {
+		for(Topic t: topicWrapper.getTopics()){
+			for (Proposal p: t.getProposals())
+				if (p.getAnswers().contains(a))
+					p.getAnswers().remove(a);
+		}
+		PFAnswer.delete(a);
+	}
+		
 }

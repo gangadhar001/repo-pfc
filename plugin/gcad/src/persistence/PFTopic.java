@@ -75,4 +75,14 @@ public class PFTopic {
 		data.close();
 	}
 
+	public static void delete(Topic topic) throws SQLException {
+		SQLCommand command;
+		
+		command = new SQLCommandSentence("DELETE FROM " + TOPIC_TABLE
+				+ " WHERE " + COL_ID + " = ? ", 
+				topic.getId());
+		DBConnectionManager.execute(command);
+		
+	}
+
 }
