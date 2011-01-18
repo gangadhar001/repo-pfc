@@ -3,7 +3,10 @@ package model.business.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.ui.PlatformUI;
+
 import presentation.IPresentation;
+import presentation.utils.InputDialogs;
 
 public class PresentationController {
 

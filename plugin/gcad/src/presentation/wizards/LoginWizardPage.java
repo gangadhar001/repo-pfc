@@ -246,4 +246,5 @@ public class LoginWizardPage extends WizardPage {
 		return passText.getText();
 	}
 	
+	
 }

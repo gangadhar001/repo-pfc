@@ -6,6 +6,7 @@ package model.business.knowledge;
 public interface ISession {
 
 	public long getId();
+	public int getCurrentActiveProject();
 	public int getRole();
 	
 }

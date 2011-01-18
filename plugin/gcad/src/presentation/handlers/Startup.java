@@ -12,6 +12,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 
+import presentation.utils.LoginWizardDialog;
 import presentation.wizards.control.LoginWizardController;
 
 /**
@@ -56,7 +57,7 @@ public class Startup implements IStartup {
 	private void showWizardDBConnection () {
 		// TODO: se reduce la altura de la ventana
 		LoginWizardController bdwizard = new LoginWizardController();
-		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), bdwizard); 
+		LoginWizardDialog dialog = new LoginWizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), bdwizard); 
 		/*{
 			@Override
 	        protected void configureShell(Shell newShell) {

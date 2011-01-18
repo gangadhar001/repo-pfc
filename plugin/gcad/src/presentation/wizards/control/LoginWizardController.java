@@ -14,10 +14,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
 import persistence.communications.DBConfiguration;
 import presentation.wizards.LoginWizardPage;
+import presentation.wizards.SelectCurrentProjectWizardPage;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
@@ -27,7 +29,8 @@ import exceptions.NonPermissionRole;
  */
 public class LoginWizardController extends Wizard {
 		
-	private LoginWizardPage page;
+	private LoginWizardPage page1;
+	private SelectCurrentProjectWizardPage page2;
 
 	public LoginWizardController () {
 		super();
@@ -37,8 +40,10 @@ public class LoginWizardController extends Wizard {
 	
 	public void addPages() {
 		super.addPages();
-		page = new LoginWizardPage(BundleInternationalization.getString("LoginWizardTitle"));
-		addPage(page);
+		page1 = new LoginWizardPage(BundleInternationalization.getString("LoginWizardTitle"));
+		addPage(page1);
+		page2 = new SelectCurrentProjectWizardPage(BundleInternationalization.getString("SelectCurrentProjectWizardPageTitle"));
+		addPage(page2);		
 	}
 	
 	/**
@@ -47,18 +52,14 @@ public class LoginWizardController extends Wizard {
 	 * using wizard as execution context.
 	 */
 	public boolean performFinish() {
-		final String userName = page.getLoginText();
-		final String passText = page.getPassText();
-		final String IPText = page.getIPText();
-		final String portText = page.getPortText();
-
+		final int selectedProject = page2.getItemCbProjects();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
-				try {
 					try {
-						doFinish(monitor, userName, passText, IPText, portText);
+						
+						doFinish(monitor, selectedProject);					
 					// At this point, it is only possible to throw the InvocationTargetException type
-					} catch (InstantiationException e) {
+					/*} catch (InstantiationException e) {
 						throw new InvocationTargetException(e);
 					} catch (IllegalAccessException e) {
 						throw new InvocationTargetException(e);
@@ -74,7 +75,7 @@ public class LoginWizardController extends Wizard {
 						throw new InvocationTargetException(e);
 					} catch (NonExistentRole e) {
 						throw new InvocationTargetException(e);
-					}					
+					}	*/				
 				
 				} finally {
 					monitor.done();
@@ -83,6 +84,10 @@ public class LoginWizardController extends Wizard {
 		};
 		try {
 			getContainer().run(true, false, op);
+			
+			//InputDialogs a = new InputDialogs(PlatformUI.getWorkbench().getDisplay().getActiveShell());
+			//a.open();
+			
 			// Notify the actions that the user logged can do
 			Controller.getInstance().notifyActionAllowed();
 			// Notify to the views the satisfactory login
@@ -101,25 +106,29 @@ public class LoginWizardController extends Wizard {
 		}
 		return true;
 	}
-	
-	/**
-	 * The worker method. It will log in the user and create the database connection
-	 */
-	private void doFinish(IProgressMonitor monitor, String user, String pass, String IP, String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, IncorrectEmployeeException, NonExistentRole {		
+		
+	private void doFinish(IProgressMonitor monitor, int selectedProject) {
 		monitor.beginTask(BundleInternationalization.getString("LoginMonitorMessage"), 60);
-
+		
 		monitor.worked(10);
 		monitor.setTaskName(BundleInternationalization.getString("LoginMonitorMessage"));
-
-		// Create the configuration of the database connection
-		DBConfiguration configuration = new DBConfiguration(IP, Integer.parseInt(port));
-		monitor.worked(10);
 		
-		// Create and initialize a new database connection
-		Controller.getInstance().initDBConnection(configuration);
+		Controller.getInstance().setCurrentProject(selectedProject);
 		monitor.worked(10);
-		
-		// Login
-		Controller.getInstance().login(user,pass);		
 	}
+
+	public LoginWizardPage getPage() {
+		return page1;
+	}
+	
+	public IWizardPage getNextPage() {
+		return page2;
+	}
+	
+	@Override
+	public IWizardPage getNextPage(IWizardPage page) {
+		// TODO Auto-generated method stub
+		return super.getNextPage(page);
+	}
+		
 }
