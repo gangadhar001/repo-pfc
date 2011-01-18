@@ -20,7 +20,7 @@ public class SessionController {
 	/**
 	 * Method that log in an user and creates a session
 	 */
-	public static ISession login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
+	public static Session login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		Enumeration<Session> openedSessions; 
 		Session session, openedSession;
 		User user;
@@ -66,7 +66,7 @@ public class SessionController {
 		session = new Session(idSesion, user);
 		sessions.put(idSesion, session);
 		
-		return (ISession) session;
+		return session;
 		
 	}
 

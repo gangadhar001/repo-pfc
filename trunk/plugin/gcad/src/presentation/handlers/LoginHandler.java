@@ -1,8 +1,8 @@
 package presentation.handlers;
 
-import java.sql.SQLException;
-
 import internationalization.BundleInternationalization;
+
+import java.sql.SQLException;
 
 import model.business.control.Controller;
 
@@ -10,10 +10,10 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
 import presentation.utils.Dialogs;
+import presentation.utils.LoginWizardDialog;
 import presentation.wizards.control.LoginWizardController;
 
 
@@ -37,7 +37,7 @@ public class LoginHandler extends AbstractHandler {
 		}
 		if (result || !logged) {
 			LoginWizardController wizard = new LoginWizardController();
-			WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
+			LoginWizardDialog dialog = new LoginWizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
 			dialog.create();
 			dialog.open();
 		}

@@ -11,7 +11,9 @@ import java.util.List;
 import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Session;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.UserRole;
@@ -24,7 +26,6 @@ import org.eclipse.ui.services.ISourceProviderService;
 
 import persistence.communications.DBConfiguration;
 import persistence.communications.DBConnectionManager;
-
 import exceptions.IncorrectEmployeeException;
 import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
@@ -34,7 +35,7 @@ import gcad.SourceProvider;
 
 public class Controller {
 
-	private ISession session = null;
+	private Session session = null;
 	
 	private static Controller instance = null;
 		
@@ -98,7 +99,13 @@ public class Controller {
 	public ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
 		return KnowledgeController.getProposals();
 	}
-		
+	
+	public ArrayList<Project> getProjectsUser() {
+		// TODO: return los proyectos del usuario de la sesion
+		// return ProjectController.getProjectsUser(session.getUser().getId());
+		return null;
+	}	
+	
 	public TopicWrapper getTopicsWrapper() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		return KnowledgeController.getTopicsWrapper();
 	}
@@ -211,6 +218,9 @@ public class Controller {
 		return session;
 	}
 
-	
+	public void setCurrentProject(int id) {
+		session.setCurrentActiveProject(id);
+		
+	}
 			
 }

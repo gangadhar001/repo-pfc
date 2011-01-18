@@ -3,6 +3,7 @@ package model.business.knowledge;
 public class Session implements ISession {
 	
 	private long idSesion;
+	private int currentActiveProject;
 	private User user;
 	
 	public Session(long idSesion, User user) {
@@ -12,10 +13,6 @@ public class Session implements ISession {
 	
 	public long getId() {
 		return idSesion;
-	}
-
-	public int getRole() {
-		return user.getRole().ordinal();
 	}
 
 	public void setId(long idSesion) {
@@ -28,6 +25,18 @@ public class Session implements ISession {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public int getRole() {
+		return user.getRole().ordinal();
+	}
+	
+	public int getCurrentActiveProject() {
+		return currentActiveProject;
+	}
+
+	public void setCurrentActiveProject(int currentActiveProject) {
+		this.currentActiveProject = currentActiveProject;
 	}
 
 	public boolean equals(Object o) {
