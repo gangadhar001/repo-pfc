@@ -12,6 +12,7 @@ public class KMPerspective implements IPerspectiveFactory {
 	//TODO: leerlo del fichero de properties
 	private static final String PROPOSAL_VIEW_ID = "gcad.view.proposals";
 	private static final String PROPOSAL_GRAPH_VIEW_ID = "gcad.view.graph";
+	private static final String USER_INF_VIEW_ID = "category.view.user";
 		
 	@Override
 	public void createInitialLayout(IPageLayout layout) {
@@ -30,7 +31,7 @@ public class KMPerspective implements IPerspectiveFactory {
         // Add standard "Problems" and "Task List" Views on the bottom
         //folderBottom.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
         folderBottom.addPlaceholder(IPageLayout.ID_TASK_LIST);
-        
+        folderBottom.addPlaceholder(USER_INF_VIEW_ID);
 
 		// TODO: poner otras vistas
 	}
