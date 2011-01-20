@@ -58,5 +58,10 @@ public class Topic {
 		proposals.remove(proposal);
 		
 	}	
+	
+	public String toString() {
+		return "Topic Name: " + title;
+		
+	}
 
 }

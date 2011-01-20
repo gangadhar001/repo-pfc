@@ -1,6 +1,7 @@
-\section{Objetivos y fundamentos teóricos} \label{objetivos}
+\section{Objetivos}% y fundamentos teóricos} 
+\label{objetivos}
 
-\indent En esta sección se presentará el objetivo que se pretende alcanzar con el desarrollo del Proyecto Fin de Carrera (en adelante PFC), así como los fundamentos teóricos necesarios para alcanzar dicho objetivo. 
+\indent En esta sección se presentará el objetivo que se pretende alcanzar con el desarrollo del Proyecto Fin de Carrera (en adelante PFC).
 
 \subsection{Objetivos del proyecto} \label{objetivoPFC}
 
@@ -8,62 +9,54 @@
 
 Dicha herramienta se desarrollará en forma de plug-in para el IDE Eclipse \cite{eclipse}, uno de los más utilizados por las empresas en el ámbito de desarrollo de software. 
 
-Como se ha comentado en la sección \ref{introduccion}, con esta herramienta visual se intenta reducir o eliminar una de las problemáticas que aparece en DGS, como es la falta de comunicación y control, así como los malentendidos que pueden surgir a la hora de tomar decisiones en el desarrollo de un producto software. \\
-\indent Por esta razón, la herramienta debe cumplir con los siguientes objetivos:
+Como se ha comentado en la sección \ref{introduccion}, con esta herramienta visual se intenta reducir o eliminar una de las problemáticas que aparece en DGS, como es la falta de comunicación y control, así como los malentendidos que pueden surgir a la hora de tomar decisiones en el desarrollo de un producto software.
+
+Por esta razón, la herramienta debe cumplir con los siguientes objetivos:
 
 \begin{milista}
 	\item Almacenar conocimiento en forma de alternativas y decisiones planteadas en las fases de análisis y diseño de un producto software. 
-	\item Mostrar de una forma visual las diferentes alternativas y decisiones que han sido tomadas en las fases de análisis y diseño de un producto software. 
+	\item Mostrar de una forma visual e intuitiva las diferentes alternativas y decisiones que han sido tomadas en las fases de análisis y diseño de un producto software. 
 	\item Notificar nuevas contribuciones y conocimiento disponible. 
-	\item Proporcionar información acerca de quién aporta una alternativa o decisión (rol de esa persona, país donde se encuentra, experiencia acumulada en desarrollo de software, antigüedad en la empresa, etc.).
-	\item Aconsejar decisiones de análisis y diseño que hayan sido exitosas en otros proyectos con características similares. 
-	\item Informar sobre la contribución de cada uno de los miembros del proyecto, ofreciendo estadísticas que ayuden a conocer qué personas aportan más.
+	\item Proporcionar información acerca de quién aporta una alternativa o decisión. Dicha información puede ser el rol de esa persona, el país donde se encuentra trabajando, experiencia acumulada en desarrollo de software, antigüedad en la empresa, etcétera.
+	\item Aconsejar decisiones de análisis y diseño que hayan sido exitosas en otros proyectos con características similares. Para ello, se pretende utilizar técnicas de razonamiento basado en casos. 
+	\item Informar sobre la contribución de cada uno de los miembros del proyecto, ofreciendo estadísticas que ayuden a conocer qué personas aportan más. Dichas estadísticas podrán visualizarse en forma de diagramas de barras, diagrama circular, etcétera.
+	\item Exportar el conocimiento utilizando un estándar para el intercambio de información estructurada, como es XML \cite{XML}. También se permitirá exportar imágenes de los gráficos generados en formato PNG \cite{png}.
 \end{milista}
 
-\clearpage
+%\clearpage
 
-\subsection{Fundamentos teóricos}
-
-Los conceptos teóricos que intervienen en este PFC son la Gestión de Conocimiento, \textit{Design Rationale} y el desarrollo distribuido de software, donde nos centraremos en el Desarrollo Global de Software. Éste último ya ha sido comentado en la sección \ref{introduccion}, por lo que se presenta a continuación el concepto de Gestión de Conocimiento y \textit{Design Rationale}. 
-
-\paragraph{Gestión del Conocimiento}
-
-Aunque actualmente no existe un consenso acerca del concepto de gestión del conocimiento, se podría definir como un proceso que permite capturar, crear, identificar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. 
-
-Por otra parte, el conocimiento se define como ''\textit{una mezcla fluida de experiencias enmarcadas, valores, información
-contextual, y pericia que provee de un marco para evaluar e incorporar nuevas experiencias
-e información. Esto se origina y es aplicado en la mente de quienes conocen. En las organizaciones,
-con frecuencia viene embebido no solo en documentos o repositorios, sino también en
-rutinas, procesos, prácticas o normas de la organización}'' \cite{Davenport2000}. \\
-\indent En el caso concreto de una organización dedicada al desarrollo software, el conocimiento que más interesa gestionar son las alternativas y decisiones planteadas en el análisis y diseño del producto software, los diferentes diagramas, la documentación, las pruebas del software, etc. 
-
-Centrándose en la gestión de conocimiento en organizaciones especializadas en desarrollo de software, se presenta en el siguiente apartado el concepto de \textit{Design Rationale}.
-
-\paragraph{Design Rationale}
-
-\textit{Design Rationale} (o \textit{Rationale} simplemente) es ''\textit{un método que permite capturar, representar y mantener registros de información acerca de las decisiones que son tomadas por los miembros de un equipo de desarrollo de software}'' \cite{Dutoit2006}. Dicho método puede ser aplicado en cualquier fase del desarrollo, desde el análisis de requisitos hasta las pruebas. 
-
-De este modo, se pueden capturar todas las decisiones y alternativas que se van produciendo a lo largo del desarrollo, pudiendo discutir y decidir sobre éstas. Además, dichas decisiones quedarán almacenadas como nuevo conocimiento para la empresa y se podrá reutilizar en proyectos futuros, sobre todo aquellas decisiones que hayan sido exitosas. 
-
-Existen tres niveles de conocimiento que puede ser recopilado \cite{Dutoit2006}:
-\begin{milista}
-	\item \textbf{Decisión}: se almacena solamente la decisión.
-	\item \textbf{Decisión junto con su contexto}: se almacena las decisiones de la cuál depende la nueva decisión.
-	\item \textbf{Decisión junto con cualquier información que se considere apropiada}.
-\end{milista}
-
-A la hora de representar el conocimiento, existen, principalmente, dos enfoques \cite{Dutoit2006}:
-
-\begin{milista}
-	\item \textbf{Causal Graph}: es un grafo causal donde cada nodo representa una decisión y los arcos representan restricciones entre ellas, como por ejemplo que una decisión depende o proviene de otra anterior. En la Figura \ref{fig:causal} puede observase un ejemplo de este tipo de grafo. 
-	\item \textbf{Dialogue Map}: es un grafo donde los nodos pueden representar una pregunta, una idea o un argumento a favor o en contra de dichas ideas y preguntas. De este modo, se puede ir discutiendo una decisión e ir añadiendo nuevas alternativas y justificaciones. En la Figura \ref{fig:dialogue} puede observarse un ejemplo. 
-	Este tipo de grafo se basa en los sistemas \textbf{IBIS} (\textbf{I}ssue-\textbf{B}ased \textbf{I}nformation \textbf{S}ystems), donde el conocimiento se almacena y representa de manera jerárquica, en forma de decisiones/preguntas y justificaciones de éstas. 
-\end{milista}
-
-\imagen{causal}{0.3}{Causal Graph}{fig:causal}
-\imagen{ibis}{0.25}{Dialogue Map}{fig:dialogue}
-
-
+%\subsection{Fundamentos teóricos}
+%
+%Los conceptos teóricos que intervienen en este PFC son la Gestión de Conocimiento, \textit{Design Rationale} y el desarrollo distribuido de software, donde nos centraremos en el Desarrollo Global de Software. Éste último ya ha sido comentado en la sección \ref{introduccion}, por lo que se presenta a continuación el concepto de Gestión de Conocimiento y \textit{Design Rationale}. 
+%
+%\paragraph{Gestión del Conocimiento}
+%
+%Aunque actualmente no existe un consenso acerca del concepto de gestión del conocimiento, se podría definir como un proceso que permite capturar, crear, identificar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. 
+%
+%Por otra parte, el conocimiento se define como ''\textit{una mezcla fluida de experiencias enmarcadas, valores, información
+%contextual, y pericia que provee de un marco para evaluar e incorporar nuevas experiencias
+%e información. Esto se origina y es aplicado en la mente de quienes conocen. En las organizaciones,
+%con frecuencia viene embebido no solo en documentos o repositorios, sino también en
+%rutinas, procesos, prácticas o normas de la organización}'' \cite{Davenport2000}. En el caso concreto de una organización dedicada al desarrollo software, el conocimiento que más interesa gestionar son las alternativas y decisiones planteadas en el análisis y diseño del producto software, los diferentes diagramas, la documentación, las pruebas del software, etc. 
+%
+%Centrándose en la gestión de conocimiento en organizaciones especializadas en desarrollo de software, se presenta en el siguiente apartado el concepto de \textit{Design Rationale}.
+%
+%\paragraph{Design Rationale}
+%
+%\textit{Design Rationale} (o \textit{Rationale} simplemente) es ''\textit{un método que permite capturar, representar y mantener registros de información acerca de las decisiones que son tomadas por los miembros de un equipo de desarrollo de software}'' \cite{Dutoit2006}. Dicho método puede ser aplicado en cualquier fase del desarrollo, desde el análisis de requisitos hasta las pruebas. 
+%
+%De este modo, se pueden capturar todas las decisiones y alternativas que se van produciendo a lo largo del desarrollo, pudiendo discutir y decidir sobre éstas. Además, dichas decisiones quedarán almacenadas como nuevo conocimiento para la empresa y se podrá reutilizar en proyectos futuros, sobre todo aquellas decisiones que hayan sido exitosas. 
+%
+%A la hora de representar el conocimiento, existen, principalmente, dos enfoques \cite{Dutoit2006}:
+%
+%\begin{milista}
+%	\item \textbf{Causal Graph}: es un grafo causal donde cada nodo representa una decisión y los arcos representan restricciones entre ellas, como por ejemplo que una decisión depende o proviene de otra anterior. En la Figura \ref{fig:causal} puede observase un ejemplo de este tipo de grafo. 
+%	\item \textbf{Dialogue Map}: es un grafo donde los nodos pueden representar una pregunta, una idea o un argumento a favor o en contra de dichas ideas y preguntas. De este modo, se puede ir discutiendo una decisión e ir añadiendo nuevas alternativas y justificaciones. En la Figura \ref{fig:dialogue} puede observarse un ejemplo. 
+%	Este tipo de grafo se basa en los sistemas \textbf{IBIS} (\textbf{I}ssue-\textbf{B}ased \textbf{I}nformation \textbf{S}ystems), donde el conocimiento se almacena y representa de manera jerárquica, en forma de decisiones/preguntas y justificaciones de éstas. 
+%\end{milista}
+%
+%\imagenBorde{causal}{0.3}{Causal Graph}{fig:causal}
+%\imagenBorde{ibis}{0.25}{Dialogue Map}{fig:dialogue}
 
 
 
