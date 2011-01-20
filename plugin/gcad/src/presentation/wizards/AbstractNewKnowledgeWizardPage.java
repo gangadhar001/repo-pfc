@@ -81,13 +81,13 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 		
 		// The name text can't be empty
 		if (nameText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.NameEmpty"));
+			updateStatus(BundleInternationalization.getString("ErrorMessage.NameProposalEmpty"));
 			valid = false;
 		}
 		
 		// The description text can't be empty
 		if (valid && descriptionText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionEmpty"));
+			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionProposalEmpty"));
 			valid = false;
 		}
 		

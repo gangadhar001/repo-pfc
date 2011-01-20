@@ -2,8 +2,6 @@ package presentation.views;
 
 import java.awt.Color;
 import java.awt.Frame;
-import java.io.File;
-import java.io.IOException;
 
 import org.eclipse.draw2d.GridData;
 import org.eclipse.swt.SWT;
@@ -12,7 +10,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -67,12 +64,12 @@ public class UserInfView extends ViewPart {
 			        panel.setPopupMenu(null);
 		      fileTableFrame.add(panel);
 		      
-		      try {
+		    /*  try {
 				ChartUtilities.saveChartAsPNG(new File ("D:\\UCLM\\5ºCurso\\PFC\\repo-pfc\\diagrama.png"), jfreechart, 500, 500);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 		
 	}
 
