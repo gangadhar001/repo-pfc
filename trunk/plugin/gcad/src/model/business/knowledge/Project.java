@@ -2,9 +2,13 @@ package model.business.knowledge;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * This class represents a Project
  */
+@XmlAccessorType( XmlAccessType.FIELD )
 public class Project {
 
 	private int id;
@@ -17,14 +21,10 @@ public class Project {
 	private String domain;
 	private String progLanguage;
 	private int estimatedHours;
-	
-	public Project() {
-	}
 		
 	public Project(String name, String description, Date startDate,
 			Date endDate, double budget, int quantityLines, String domain,
 			String progLanguage, int estimatedHours) {
-		super();
 		this.name = name;
 		this.description = description;
 		this.startDate = startDate;
@@ -40,36 +40,47 @@ public class Project {
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public Date getStartDate() {
 		return startDate;
 	}
+	
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	
 	public Date getEndDate() {
 		return endDate;
 	}
+	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
 	public double getBudget() {
 		return budget;
 	}
+	
 	public void setBudget(double budget) {
 		this.budget = budget;
 	}
@@ -106,6 +117,20 @@ public class Project {
 		this.estimatedHours = estimatedHours;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("Project:\n");		
+		result.append("      " + name + "\n");
+		result.append("      " + description + "\n");
+		result.append("      " + startDate + "\n");
+		result.append("      " + endDate + "\n");
+		result.append("      " + budget + "\n");
+		result.append("      " + quantityLines + "\n");
+		result.append("      " + domain + "\n");
+		result.append("      " + progLanguage + "\n");
+		result.append("      " + estimatedHours + "\n");
+		return result.toString();
+	}	
 	
 }

@@ -36,6 +36,13 @@ public class TopicWrapper {
 		this.topics = topics;
 	}	
 	
-	
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("Topics:\n");
+		for (Topic t: topics ) {
+			result.append("      " + t + "\n");
+		}	
+		return result.toString();
+	}
 
 }

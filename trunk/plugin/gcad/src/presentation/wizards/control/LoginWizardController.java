@@ -100,7 +100,7 @@ public class LoginWizardController extends Wizard {
 			MessageDialog.openError(getShell(), "Error", realException.getMessage());
 			return false;
 		} catch (ConfigurationException e) {
-			MessageDialog.openError(getShell(), "Error", e.getMessage());
+			MessageDialog.openError(getShell(), "Error", e.getLocalizedMessage());
 		} catch (NonPermissionRole e) {
 			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		}

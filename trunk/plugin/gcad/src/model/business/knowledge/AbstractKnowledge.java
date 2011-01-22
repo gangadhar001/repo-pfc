@@ -18,8 +18,7 @@ public abstract class AbstractKnowledge {
 	protected String title;
 	protected String description;
 	protected Date date;
-	// TODO: agregarlo al constructor
-	@XmlElement protected Employee employee;
+	@XmlElement protected User user;
 		
 	public AbstractKnowledge() {
 		title = "";
@@ -27,11 +26,11 @@ public abstract class AbstractKnowledge {
 		date = new Date();
 	}
 	
-	public AbstractKnowledge(String title, String description, Date date) {
-		super();
+	public AbstractKnowledge(String title, String description, Date date, User u) {
 		this.title = title;
 		this.description = description;
 		this.date = date;
+		this.user = u;
 	}
 	
 	public int getId() {
@@ -66,13 +65,12 @@ public abstract class AbstractKnowledge {
 		this.date = date;
 	}
 		
-	public Employee getEmployee() {
-		return employee;
+	public User getUser() {
+		return user;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
 	
 }

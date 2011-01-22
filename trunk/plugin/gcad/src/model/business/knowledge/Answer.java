@@ -1,8 +1,5 @@
 package model.business.knowledge;
 
-
-import internationalization.BundleInternationalization;
-
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,20 +11,20 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Answer extends AbstractKnowledge{
 		
-	public Answer() {
-	}
-	
-	public Answer(String title, String argument, Date date) {
-		super(title, argument, date);
+	public Answer(String title, String argument, Date date, User u) {
+		super(title, argument, date, u);
 		
 	}
 
 	@Override
 	public String toString() {
-		// Information about this answer
-		return BundleInternationalization.getString("Title") +": " + super.getTitle() 
-		+ " " + BundleInternationalization.getString("Description") +": " + super.getDescription() 
-		+ " " + BundleInternationalization.getString("Date") +": " + super.getDate();
+		StringBuffer result = new StringBuffer();
+		result.append("Answer:\n");
+		result.append("      " + title + "\n");
+		result.append("      " + description + "\n");
+		result.append("      " + date + "\n");
+		result.append("      " + user + "\n");
+		return result.toString();
 	}
 	
 }
