@@ -1,0 +1,289 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+CREATE SCHEMA IF NOT EXISTS `dbgcad` DEFAULT CHARACTER SET latin1 ;
+USE `dbgcad` ;
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`projects`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`projects` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`projects` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `description` TEXT NOT NULL ,
+  `startDate` DATETIME NOT NULL ,
+  `endDate` DATETIME NOT NULL ,
+  `budget` DOUBLE NOT NULL ,
+  `quantityLines` INT NOT NULL ,
+  `domain` TEXT NOT NULL ,
+  `progLanguage` TEXT NOT NULL ,
+  `estimatedHours` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`adresses`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`adresses` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`adresses` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `street` TEXT NOT NULL ,
+  `city` TEXT NOT NULL ,
+  `country` VARCHAR(45) NOT NULL ,
+  `zip` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`companies`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`companies` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`companies` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `cif` CHAR(9) NOT NULL ,
+  `name` TEXT NOT NULL ,
+  `information` TEXT NOT NULL ,
+  `addressId` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `cif_UNIQUE` (`cif` ASC) ,
+  INDEX `fk_companies_address` (`addressId` ASC) ,
+  CONSTRAINT `fk_companies_address`
+    FOREIGN KEY (`addressId` )
+    REFERENCES `dbgcad`.`adresses` (`id` )
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`users` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `nif` CHAR(9) NOT NULL ,
+  `login` TEXT NOT NULL ,
+  `password` VARCHAR(255) NOT NULL ,
+  `role` INT NOT NULL ,
+  `name` TEXT NOT NULL ,
+  `surname` TEXT NOT NULL ,
+  `email` TEXT NULL ,
+  `telephone` VARCHAR(9) NULL ,
+  `companyId` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `nif_UNIQUE` (`nif` ASC) ,
+  INDEX `fk_user_company` (`companyId` ASC) ,
+  CONSTRAINT `fk_user_company`
+    FOREIGN KEY (`companyId` )
+    REFERENCES `dbgcad`.`companies` (`id` )
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`usersProjects`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`usersProjects` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`usersProjects` (
+  `idUser` INT NOT NULL ,
+  `idProject` INT NOT NULL ,
+  PRIMARY KEY (`idUser`, `idProject`) ,
+  INDEX `fk_userProject_employee` (`idUser` ASC) ,
+  INDEX `fk_userProject_project` (`idProject` ASC) ,
+  CONSTRAINT `fk_userProject_employee`
+    FOREIGN KEY (`idUser` )
+    REFERENCES `dbgcad`.`users` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_userProject_project`
+    FOREIGN KEY (`idProject` )
+    REFERENCES `dbgcad`.`projects` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`topics`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`topics` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`topics` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(255) NOT NULL ,
+  `creationDate` DATETIME NOT NULL ,
+  `projectId` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_topic_project` (`projectId` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
+  CONSTRAINT `fk_topic_project`
+    FOREIGN KEY (`projectId` )
+    REFERENCES `dbgcad`.`projects` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`proposals`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`proposals` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `description` TEXT NOT NULL ,
+  `date` DATETIME NOT NULL ,
+  `category` ENUM('Analysis', 'Design') NOT NULL ,
+  `userId` INT NOT NULL ,
+  `topicId` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
+  INDEX `fk_proposal_user` (`userId` ASC) ,
+  INDEX `fk_proposal_topic` (`topicId` ASC) ,
+  CONSTRAINT `fk_proposal_user`
+    FOREIGN KEY (`userId` )
+    REFERENCES `dbgcad`.`users` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_proposal_topic`
+    FOREIGN KEY (`topicId` )
+    REFERENCES `dbgcad`.`topics` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`answers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`answers` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
+  `id` INT NOT NULL ,
+  `name` VARCHAR(255) NOT NULL ,
+  `description` TEXT NOT NULL ,
+  `date` DATETIME NOT NULL ,
+  `argument` ENUM('Pro', 'Contra') NOT NULL ,
+  `userId` INT NOT NULL ,
+  `proposalId` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_anwser_proposal` (`proposalId` ASC) ,
+  INDEX `fk_answer_user` (`userId` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
+  CONSTRAINT `fk_anwser_proposal`
+    FOREIGN KEY (`proposalId` )
+    REFERENCES `dbgcad`.`proposals` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_answer_user`
+    FOREIGN KEY (`userId` )
+    REFERENCES `dbgcad`.`users` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`projects`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`projects` (`id`, `name`, `description`, `startDate`, `endDate`, `budget`, `quantityLines`, `domain`, `progLanguage`, `estimatedHours`) VALUES ('1', 'Project1', 'description 1', '2002-03-05', '2012-12-31', '23458.1', '12341', 'bank', 'C#', '9812');
+INSERT INTO `dbgcad`.`projects` (`id`, `name`, `description`, `startDate`, `endDate`, `budget`, `quantityLines`, `domain`, `progLanguage`, `estimatedHours`) VALUES ('2', 'Project2', 'description2', '2000-01-01', '2013-12-31', '1315251.98', '1415125', 'defense', 'Java', '1914814');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`adresses`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`adresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('1', 'street', 'Ciudad Real', 'Spain', '13300');
+INSERT INTO `dbgcad`.`adresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('2', 'street', 'Londres', 'UK', '12349CMA');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`companies`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`companies` (`id`, `cif`, `name`, `information`, `addressId`) VALUES ('1', '1291489IO', 'Indra', 'Info', '1');
+INSERT INTO `dbgcad`.`companies` (`id`, `cif`, `name`, `information`, `addressId`) VALUES ('2', '91841340P', 'Ericsson', 'Info', '2');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`users`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`users` (`id`, `nif`, `login`, `password`, `role`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('1', '06941082A', 'emp1', 'emp1', '0', 'Juan', 'Lopez', NULL, NULL, '1');
+INSERT INTO `dbgcad`.`users` (`id`, `nif`, `login`, `password`, `role`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('2', '58123457B', 'emp2', 'emp2', '1', 'Antonio', 'Perez', 'antonio@gmail.com', '913517281', '2');
+INSERT INTO `dbgcad`.`users` (`id`, `nif`, `login`, `password`, `role`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('3', '01921318C', 'emp3', 'emp3', '0', 'Ana', 'Lopez', NULL, '671234091', '1');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`usersProjects`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`usersProjects` (`idUser`, `idProject`) VALUES ('1', '1');
+INSERT INTO `dbgcad`.`usersProjects` (`idUser`, `idProject`) VALUES ('1', '2');
+INSERT INTO `dbgcad`.`usersProjects` (`idUser`, `idProject`) VALUES ('2', '2');
+INSERT INTO `dbgcad`.`usersProjects` (`idUser`, `idProject`) VALUES ('3', '1');
+INSERT INTO `dbgcad`.`usersProjects` (`idUser`, `idProject`) VALUES ('3', '2');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`topics`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`topics` (`id`, `title`, `creationDate`, `projectId`) VALUES ('1', 'Patrones', '2011-01-22', '2');
+INSERT INTO `dbgcad`.`topics` (`id`, `title`, `creationDate`, `projectId`) VALUES ('2', 'Frameworks', '2011-01-21', '2');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`proposals`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('1', 'Proposal 1', 'p1', '2011-01-23', 'Analysis', '1', '1');
+INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('2', 'Proposal 2', 'p2', '2011-01-31', 'Design', '3', '1');
+INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('3', 'Proposal 3', 'p3', '2011-02-01', 'Analysis', '2', '2');
+INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('4', 'Proposal 4', 'p4', '2011-02-23', 'Analysis', '1', '2');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`answers`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('1', 'Answer 1', 'a1', '2011-03-01', 'Pro', '1', '1');
+INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('2', 'Answer 2', 'a2', '2011-04-01', 'Contra', '2', '2');
+INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('3', 'Answer 3', 'a3', '2011-03-31', 'Pro', '1', '2');
+INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('4', 'Answer 4', 'a4', '2011-03-12', 'Pro', '3', '3');
+
+COMMIT;

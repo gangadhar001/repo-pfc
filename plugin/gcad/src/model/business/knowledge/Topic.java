@@ -1,6 +1,9 @@
 package model.business.knowledge;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,19 +15,18 @@ public class Topic {
 	
 	private int id;
 	private String title;
+	private Date creationDate;
 	@XmlElement( name = "Proposal" )
-	private ArrayList<Proposal> proposals;
-	// TODO: proyecto
+	private Set<Proposal> proposals = new HashSet<Proposal>();
+	private Project project;
 	
-	public Topic() {
-		proposals = new ArrayList<Proposal>();
-	}
 	
-	public Topic(String title) {
+	public Topic(String title, Project p) {
 		this.title = title;
-		proposals = new ArrayList<Proposal>();
+		this.project = p;
 	}
 
+	
 	public int getId() {
 		return id;
 	}
@@ -41,27 +43,54 @@ public class Topic {
 		this.title = title;
 	}
 
-	public ArrayList<Proposal> getProposals() {
+	
+	public Set<Proposal> getProposals() {
 		return proposals;
 	}
 
-	public void setProposals(ArrayList<Proposal> proposals) {
+	public void setProposals(Set<Proposal> proposals) {
 		this.proposals = proposals;
 	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public void add(Proposal proposal) {
 		proposals.add(proposal);
-		
 	}
 	
 	public void remove(Proposal proposal) {
 		proposals.remove(proposal);
-		
 	}	
 	
 	public String toString() {
-		return "Topic Name: " + title;
-		
+		StringBuffer result = new StringBuffer();
+		Proposal p;
+		result.append("Topic:\n");
+		result.append("      " + title + "\n");
+		result.append("      " + creationDate + "\n");
+		result.append("      Project:\n");
+		result.append("      " + project + "\n");
+		result.append("      Proposals:\n");
+		for (Iterator<Proposal> i = proposals.iterator(); i.hasNext(); ) {
+			p = (Proposal) i.next();
+			result.append("      " + p + "\n");
+		}	
+		return result.toString();
 	}
 
 }

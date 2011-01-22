@@ -2,12 +2,19 @@ import java.util.Date;
 
 import javax.xml.bind.JAXBException;
 
+import org.hibernate.classic.Session;
+
+import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Categories;
+import model.business.knowledge.Company;
+import model.business.knowledge.Employee;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
+import model.business.knowledge.User;
 import persistence.XMLAgent;
+import utils.HibernateUtil;
 
 public class Prueba {
 
@@ -16,8 +23,17 @@ public class Prueba {
 	 */
 	public static void main(String[] args) {
 		
+		Address a = new Address(1, "street", "city", "country", "zip");
+		Company c = new Company(1, "cif", "name", "information", a);
+		User u = new Employee("nif", "login", "password", "name", "surname", "email", "telephone", c);
 		
-		Topic t1 = new Topic("Tema 1");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(u);
+		session.getTransaction().commit();
+		session.close();
+		
+		/*Topic t1 = new Topic("Tema 1");
 		Topic t2 = new Topic("Tema 2");
 		
 		Proposal p1 = new Proposal("P1", "D1", new Date(), Categories.Analysis, 0);
@@ -42,7 +58,7 @@ public class Prueba {
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

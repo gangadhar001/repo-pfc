@@ -1,15 +1,13 @@
 package model.business.knowledge;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
-public class ChiefProject extends Employee {
+@XmlAccessorType( XmlAccessType.FIELD )
+public class ChiefProject extends User {
 	
-	// TODO: pasar el proyecto(s)
-	public ChiefProject() {
-		super();
-	}
-
-	public ChiefProject(String nif, String login, String password, String name, String surname, String email, String telephone) {
-		super(nif, login, password, name, surname, email, telephone);
+	public ChiefProject(String nif, String login, String password, String name, String surname, String email, String telephone, Company c) {
+		super(nif, login, password, name, surname, email, telephone, c);
 	}
 	
 	public UserRole getRole(){

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="model.business.knowledge">
+	<class name="Topic" table="topics">
+		<id name="id" column="id" type="int">
+			<generator class="native" />
+		</id>
+		<many-to-one name="project" column="projectId" class="Project" lazy="false" />
+		<property name="title" column="title" type="string" not-null="true" />
+		<property name="creationDate" column="creationDate" type="timestamp" not-null="true" />
+		<set name="proposals" table="proposals" lazy="false" cascade="all" >
+			<key column="topicId" unique="true" not-null="true" />
+			<one-to-many class="Proposal" />
+		</set>
+	</class>
+</hibernate-mapping>

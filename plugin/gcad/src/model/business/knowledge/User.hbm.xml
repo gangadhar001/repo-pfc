@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="model.business.knowledge">
+	<class name="User" table="users" discriminator-value="-1">
+		<id name="id" column="id" type="int">
+			<generator class="native" />
+		</id>		
+		<property name="nif" column="nif" type="string" not-null="true" />
+		<property name="login" column="login" type="string" not-null="true" />
+		<property name="password" column="password" type="string" not-null="true" />
+		<discriminator column="role" type="int" not-null="true" />
+		<property name="name" column="name" type="string" not-null="true" />
+		<property name="surname" column="surname" type="string" not-null="true" />
+		<property name="email" column="email" type="string" not-null="false" />
+		<property name="telephone" column="telephone" type="string" not-null="false" />
+		<set name="projects" table="usersProjects" cascade="all" lazy="false">
+			<key column="idUsers" unique="true" not-null="true" />
+			<many-to-many class="Project" column="projectId" />
+		</set>
+		<subclass name="Employee" discriminator-value="0" />
+		<subclass name="ChiefProject" discriminator-value="1" />
+	</class>
+</hibernate-mapping>

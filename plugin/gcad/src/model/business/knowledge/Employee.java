@@ -1,34 +1,21 @@
 package model.business.knowledge;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 
 /**
  * This class represents an Employee
  */
+@XmlAccessorType( XmlAccessType.FIELD )
 public class Employee extends User {
 	
-	//TODO: pasarlo al constructor
-	private Project project;
-	
-	public Employee() {
-		super();
+	public Employee(String nif, String login, String password, String name, String surname, String email, String telephone, Company c) {
+		super(nif, login, password, name, surname, email, telephone, c);
 	}
-
-	public Employee(String nif, String login, String password, String name, String surname, String email, String telephone) {
-		super(nif, login, password, name, surname, email, telephone);
-	}
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}	
 	
 	public UserRole getRole(){
 		return UserRole.Employee;
 	}
-	
-	
 
 }

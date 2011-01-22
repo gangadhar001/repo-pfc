@@ -5,18 +5,21 @@ Bundle-SymbolicName: gcad;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: gcad.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- MySQLPlugin;bundle-version="1.0.0",
- CommonsConfigurationPlugin;bundle-version="1.0.0",
- JFreeChartPlugin;bundle-version="1.0.0"
+ org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
-Import-Package: org.eclipse.draw2d,
+Import-Package: com.mysql.jdbc,
+ org.apache.commons.configuration,
+ org.eclipse.draw2d,
  org.eclipse.jdt.internal.debug.ui,
  org.eclipse.ui.forms.widgets,
  org.eclipse.zest.core.viewers,
  org.eclipse.zest.core.widgets,
  org.eclipse.zest.layouts,
- org.eclipse.zest.layouts.algorithms
+ org.eclipse.zest.layouts.algorithms,
+ org.jfree.chart,
+ org.jfree.chart.plot,
+ org.jfree.data.category,
+ org.jfree.ui
 Bundle-ClassPath: .
