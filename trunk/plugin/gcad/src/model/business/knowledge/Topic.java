@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,7 +12,12 @@ import javax.xml.bind.annotation.XmlElement;
 
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Topic {
+public class Topic implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -485599952417592267L;
 	
 	private int id;
 	private String title;
@@ -20,7 +26,10 @@ public class Topic {
 	private Set<Proposal> proposals = new HashSet<Proposal>();
 	private Project project;
 	
-	
+	public Topic () {
+		
+	}
+
 	public Topic(String title, Project p) {
 		this.title = title;
 		this.project = p;

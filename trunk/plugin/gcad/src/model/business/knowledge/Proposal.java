@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,16 +15,25 @@ import javax.xml.bind.annotation.XmlAccessType;
  */
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Proposal extends AbstractKnowledge {
+public class Proposal extends AbstractKnowledge implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -404860160279086681L;
+
 	private Categories category;
 	
 	// A proposal may have answers
 	@XmlElement( name = "Answer" )
     private Set<Answer> answers = new HashSet<Answer>();;
 		
-	public Proposal(String title, String description, Date date, Categories category, int state, Employee e) {
-		super(title, description, date, e);
+    public Proposal () {
+		
+	}
+
+	public Proposal(String title, String description, Date date, Categories category, int state, User u) {
+		super(title, description, date, u);
 		this.category = category;
 	}
 

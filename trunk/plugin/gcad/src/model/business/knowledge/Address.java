@@ -1,16 +1,26 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Address {
+public class Address implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2427789923156077868L;
+	
 	private int id;
 	private String street;
 	private String city;
 	private String country;
 	private String zip;
+	
+	public Address () {
+	}
 	
 	public Address(int id, String street, String city, String country, String zip) {
 		this.id = id;
