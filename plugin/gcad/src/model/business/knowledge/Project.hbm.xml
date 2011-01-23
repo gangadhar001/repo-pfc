@@ -13,7 +13,7 @@
 		<property name="description" column="description" type="string" not-null="true" />
 		<property name="startDate" column="startDate" type="timestamp" not-null="true" />
 		<property name="endDate" column="endDate" type="timestamp" not-null="true" />
-		<property name="budget" column="budget" type="float" not-null="true" />
+		<property name="budget" column="budget" type="double" not-null="true" />
 		<property name="quantityLines" column="quantityLines" type="int" not-null="true" />
 		<property name="domain" column="domain" type="string" not-null="true" />
 		<property name="progLanguage" column="progLanguage" type="string" not-null="true" />

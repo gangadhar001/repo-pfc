@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -12,8 +13,14 @@ import javax.xml.bind.annotation.XmlElement;
  * Abstract class that represents a system user
  */
 @XmlAccessorType( XmlAccessType.FIELD )
-public abstract class User {
+public abstract class User implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5527024994128298797L;
+	
+	protected int id;
 	protected String nif;
 	protected String login;
 	protected String password;
@@ -24,6 +31,10 @@ public abstract class User {
 	@XmlElement( name = "Project" )
 	private Set<Project> projects = new HashSet<Project>();
 	@XmlElement private Company company;
+	
+	public User () {
+		
+	}
 	
 	public User(String nif, String login, String password, String name, String surname, String email, String telephone, Company c) {
 		this.nif = nif;
@@ -38,6 +49,15 @@ public abstract class User {
 	
 	public abstract UserRole getRole();
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNif() {
 		return nif;
 	}

@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,8 +10,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * This class represents a Project
  */
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Project {
+public class Project implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2054443822372394331L;
+	
 	private int id;
 	private String name;
 	private String description;
@@ -22,6 +28,10 @@ public class Project {
 	private String progLanguage;
 	private int estimatedHours;
 		
+	public Project () {
+		
+	}
+
 	public Project(String name, String description, Date startDate,
 			Date endDate, double budget, int quantityLines, String domain,
 			String progLanguage, int estimatedHours) {

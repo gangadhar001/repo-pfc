@@ -27,11 +27,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbgcad`.`adresses`
+-- Table `dbgcad`.`addresses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbgcad`.`adresses` ;
+DROP TABLE IF EXISTS `dbgcad`.`addresses` ;
 
-CREATE  TABLE IF NOT EXISTS `dbgcad`.`adresses` (
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`addresses` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `street` TEXT NOT NULL ,
   `city` TEXT NOT NULL ,
@@ -57,7 +57,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`companies` (
   INDEX `fk_companies_address` (`addressId` ASC) ,
   CONSTRAINT `fk_companies_address`
     FOREIGN KEY (`addressId` )
-    REFERENCES `dbgcad`.`adresses` (`id` )
+    REFERENCES `dbgcad`.`addresses` (`id` )
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -70,10 +70,10 @@ DROP TABLE IF EXISTS `dbgcad`.`users` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `nif` CHAR(9) NOT NULL ,
-  `login` TEXT NOT NULL ,
-  `password` VARCHAR(255) NOT NULL ,
   `role` INT NOT NULL ,
+  `nif` CHAR(9) NOT NULL ,
+  `login` VARCHAR(255) NOT NULL ,
+  `password` VARCHAR(255) NOT NULL ,
   `name` TEXT NOT NULL ,
   `surname` TEXT NOT NULL ,
   `email` TEXT NULL ,
@@ -82,6 +82,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`users` (
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `nif_UNIQUE` (`nif` ASC) ,
   INDEX `fk_user_company` (`companyId` ASC) ,
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC) ,
   CONSTRAINT `fk_user_company`
     FOREIGN KEY (`companyId` )
     REFERENCES `dbgcad`.`companies` (`id` )
@@ -123,7 +124,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`topics` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(255) NOT NULL ,
   `creationDate` DATETIME NOT NULL ,
-  `projectId` INT NOT NULL ,
+  `projectId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_topic_project` (`projectId` ASC) ,
   UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
@@ -142,14 +143,14 @@ DROP TABLE IF EXISTS `dbgcad`.`proposals` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(255) NOT NULL ,
+  `title` VARCHAR(255) NOT NULL ,
   `description` TEXT NOT NULL ,
   `date` DATETIME NOT NULL ,
   `category` ENUM('Analysis', 'Design') NOT NULL ,
   `userId` INT NOT NULL ,
   `topicId` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
   INDEX `fk_proposal_user` (`userId` ASC) ,
   INDEX `fk_proposal_topic` (`topicId` ASC) ,
   CONSTRAINT `fk_proposal_user`
@@ -172,7 +173,7 @@ DROP TABLE IF EXISTS `dbgcad`.`answers` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   `id` INT NOT NULL ,
-  `name` VARCHAR(255) NOT NULL ,
+  `title` VARCHAR(255) NOT NULL ,
   `description` TEXT NOT NULL ,
   `date` DATETIME NOT NULL ,
   `argument` ENUM('Pro', 'Contra') NOT NULL ,
@@ -181,7 +182,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   PRIMARY KEY (`id`) ,
   INDEX `fk_anwser_proposal` (`proposalId` ASC) ,
   INDEX `fk_answer_user` (`userId` ASC) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
   CONSTRAINT `fk_anwser_proposal`
     FOREIGN KEY (`proposalId` )
     REFERENCES `dbgcad`.`proposals` (`id` )
@@ -211,12 +212,12 @@ INSERT INTO `dbgcad`.`projects` (`id`, `name`, `description`, `startDate`, `endD
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `dbgcad`.`adresses`
+-- Data for table `dbgcad`.`addresses`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`adresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('1', 'street', 'Ciudad Real', 'Spain', '13300');
-INSERT INTO `dbgcad`.`adresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('2', 'street', 'Londres', 'UK', '12349CMA');
+INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('1', 'street', 'Ciudad Real', 'Spain', '13300');
+INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('2', 'street', 'Londres', 'UK', '12349CMA');
 
 COMMIT;
 
@@ -235,9 +236,9 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`users` (`id`, `nif`, `login`, `password`, `role`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('1', '06941082A', 'emp1', 'emp1', '0', 'Juan', 'Lopez', NULL, NULL, '1');
-INSERT INTO `dbgcad`.`users` (`id`, `nif`, `login`, `password`, `role`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('2', '58123457B', 'emp2', 'emp2', '1', 'Antonio', 'Perez', 'antonio@gmail.com', '913517281', '2');
-INSERT INTO `dbgcad`.`users` (`id`, `nif`, `login`, `password`, `role`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('3', '01921318C', 'emp3', 'emp3', '0', 'Ana', 'Lopez', NULL, '671234091', '1');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('1', '0', '06941082A', 'emp1', 'emp1', 'Juan', 'Lopez', NULL, NULL, '1');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('2', '1', '58123457B', 'emp2', 'emp2', 'Antonio', 'Perez', 'antonio@gmail.com', '913517281', '2');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('3', '0', '01921318C', 'emp3', 'emp3', 'Ana', 'Lopez', NULL, '671234091', '1');
 
 COMMIT;
 
@@ -269,10 +270,10 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('1', 'Proposal 1', 'p1', '2011-01-23', 'Analysis', '1', '1');
-INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('2', 'Proposal 2', 'p2', '2011-01-31', 'Design', '3', '1');
-INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('3', 'Proposal 3', 'p3', '2011-02-01', 'Analysis', '2', '2');
-INSERT INTO `dbgcad`.`proposals` (`id`, `name`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('4', 'Proposal 4', 'p4', '2011-02-23', 'Analysis', '1', '2');
+INSERT INTO `dbgcad`.`proposals` (`id`, `title`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('1', 'Proposal 1', 'p1', '2011-01-23', 'Analysis', '1', '1');
+INSERT INTO `dbgcad`.`proposals` (`id`, `title`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('2', 'Proposal 2', 'p2', '2011-01-31', 'Design', '3', '1');
+INSERT INTO `dbgcad`.`proposals` (`id`, `title`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('3', 'Proposal 3', 'p3', '2011-02-01', 'Analysis', '2', '2');
+INSERT INTO `dbgcad`.`proposals` (`id`, `title`, `description`, `date`, `category`, `userId`, `topicId`) VALUES ('4', 'Proposal 4', 'p4', '2011-02-23', 'Analysis', '1', '2');
 
 COMMIT;
 
@@ -281,9 +282,9 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('1', 'Answer 1', 'a1', '2011-03-01', 'Pro', '1', '1');
-INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('2', 'Answer 2', 'a2', '2011-04-01', 'Contra', '2', '2');
-INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('3', 'Answer 3', 'a3', '2011-03-31', 'Pro', '1', '2');
-INSERT INTO `dbgcad`.`answers` (`id`, `name`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('4', 'Answer 4', 'a4', '2011-03-12', 'Pro', '3', '3');
+INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('1', 'Answer 1', 'a1', '2011-03-01', 'Pro', '1', '1');
+INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('2', 'Answer 2', 'a2', '2011-04-01', 'Contra', '2', '2');
+INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('3', 'Answer 3', 'a3', '2011-03-31', 'Pro', '1', '2');
+INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('4', 'Answer 4', 'a4', '2011-03-12', 'Pro', '3', '3');
 
 COMMIT;

@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,8 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
  */
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public abstract class AbstractKnowledge {
+public abstract class AbstractKnowledge implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7039151251262020404L;
+	
 	protected int id;
 	protected String title;
 	protected String description;
@@ -21,9 +27,6 @@ public abstract class AbstractKnowledge {
 	@XmlElement protected User user;
 		
 	public AbstractKnowledge() {
-		title = "";
-		description = "";
-		date = new Date();
 	}
 	
 	public AbstractKnowledge(String title, String description, Date date, User u) {
