@@ -4,7 +4,7 @@
 <target name="External Plugins Target">
 <locations>
 <location path="${eclipse_home}" type="Profile"/>
-<location path="D:\UCLM\5ºCurso\PFC\repo-pfc\plugin\plugins" type="Directory"/>
+<location path="${project_loc}\lib" type="Directory"/>
 </locations>
 <implicitDependencies>
 <plugin id="CommonsConfigurationPlugin"/>
