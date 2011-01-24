@@ -8,7 +8,7 @@ import java.util.Random;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Session;
 import model.business.knowledge.User;
-import persistence.PFEmployee;
+import persistence.DAOUser;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 
@@ -36,7 +36,7 @@ public class SessionController {
 			throw new SQLException("No se puede encriptar la contraseña del usuario.");
 		}*/
 		// Comprobamos el login y la contraseña encriptada del usuario
-		user = PFEmployee.queryUser(login, password);
+		user = DAOUser.queryUser(login, password);
 
 		// Comprobamos si el usuario ya tenía una sesión iniciada
 		openedSessions = sessions.elements();

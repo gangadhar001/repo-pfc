@@ -6,11 +6,7 @@ import java.util.Set;
 
 import javax.xml.bind.JAXBException;
 
-import org.hibernate.Query;
-import org.hibernate.classic.Session;
-
 import model.business.knowledge.Address;
-import model.business.knowledge.Answer;
 import model.business.knowledge.Categories;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
@@ -20,8 +16,11 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
+
+import org.hibernate.classic.Session;
+
 import persistence.XMLAgent;
-import utils.HibernateUtil;
+import persistence.utils.HibernateUtil;
 
 public class HibernatePrueba {
 
@@ -30,37 +29,49 @@ public class HibernatePrueba {
 	 */
 	public static void main(String[] args) {
 		
-		Address a = new Address(1, "street", "city", "country", "zip");
+		/*Address a = new Address(1, "street", "city", "country", "zip");
 		Company c = new Company(1, "cif2", "name", "information", a);
 		User u = new ChiefProject("nif1", "login1", "password", "name", "surname", "email", "telephone", c);
 		Set<Project> projects = new HashSet<Project>();
-		projects.add(new Project("name1", "description", new Date(), new Date(), 212.12, 1, "domain", "progLanguage", 12)); 
+		Project p1 = new Project("name1", "description", new Date(), new Date(), 212.12, 1, "domain", "progLanguage", 12);
+		projects.add(p1); 
 		u.setProjects(projects);
+		Topic t = new Topic("adad", new Date());
+		t.setProject(p1);*/
 		
 		
+		HibernateUtil.setDatabaseURL("127.0.0.1");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
 		// CONSULTA
-		List b = session.createQuery("From Topic where projectId=2").list();
-		System.out.println(b);
+
 		
 		TopicWrapper t = new TopicWrapper();
-		t.setTopics((ArrayList<Topic>) b);
-		try {
+		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=3").list());
+		User u = (ChiefProject)(session.createQuery("From User where Id=4").list()).get(0);
+		Topic lo = t.getTopics().get(0);
+		Proposal p = new Proposal("title2", "description", new Date(), Categories.Design, 0);
+		p.setUser(u);
+		lo.add(p);
+		session.save(p);
+		session.getTransaction().commit();
+		
+		/*try {
 			XMLAgent.marshal("prueba.xml", TopicWrapper.class, (TopicWrapper)t);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		// INSERT
 		/*session.save(a);
 		session.save(c);
 		session.save(u);
-		//session.save(topic);
+		session.save(t);
+
 		session.getTransaction().commit();
-		session.close();
+		session.close();*/
 		
 		/*Topic t1 = new Topic("Tema 1");
 		Topic t2 = new Topic("Tema 2");

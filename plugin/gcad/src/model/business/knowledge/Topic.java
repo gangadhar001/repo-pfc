@@ -30,9 +30,9 @@ public class Topic implements Serializable {
 		
 	}
 
-	public Topic(String title, Project p) {
+	public Topic(String title, Date creationDate) {
 		this.title = title;
-		this.project = p;
+		this.creationDate = creationDate;
 	}
 
 	
@@ -102,4 +102,39 @@ public class Topic implements Serializable {
 		return result.toString();
 	}
 
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Topic other = (Topic) obj;
+		if (creationDate == null) {
+			if (other.creationDate != null)
+				return false;
+		} else if (!creationDate.equals(other.creationDate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (project == null) {
+			if (other.project != null)
+				return false;
+		} else if (!project.equals(other.project))
+			return false;
+		if (proposals == null) {
+			if (other.proposals != null)
+				return false;
+		} else if (!proposals.equals(other.proposals))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
+	}
+	
 }

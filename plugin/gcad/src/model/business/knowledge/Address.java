@@ -79,8 +79,39 @@ public class Address implements Serializable {
 		result.append("      " + country + "\n");
 		return result.toString();
 	}
-	
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (id != other.id)
+			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
+		if (zip == null) {
+			if (other.zip != null)
+				return false;
+		} else if (!zip.equals(other.zip))
+			return false;
+		return true;
+	}
 	
 }

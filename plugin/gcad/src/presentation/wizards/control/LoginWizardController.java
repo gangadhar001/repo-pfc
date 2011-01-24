@@ -3,25 +3,19 @@ package presentation.wizards.control;
 
 import internationalization.BundleInternationalization;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 
 import model.business.control.Controller;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
-import persistence.communications.DBConfiguration;
 import presentation.wizards.LoginWizardPage;
 import presentation.wizards.SelectCurrentProjectWizardPage;
-import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
 
 /**

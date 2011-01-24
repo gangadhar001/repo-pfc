@@ -36,7 +36,7 @@ import gcad.SourceProvider;
 public class Controller {
 
 	private Session session = null;
-	
+
 	private static Controller instance = null;
 		
 	public static Controller getInstance() {
@@ -53,19 +53,14 @@ public class Controller {
 	public void signout() throws SQLException {
 		SessionController.signout(session);
 		session = null;
-		DBConnectionManager.closeConnections();
 		DBConnectionManager.clearConnections();		
 	}
 
 	public void initDBConnection(DBConfiguration configuration) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		// Close older connections (ignore errors)
-		try {
-			DBConnectionManager.closeConnections();
-		} catch(SQLException e) { }
 		DBConnectionManager.clearConnections();
 		
 		// Create and initialize a new database connection
-		DBConnectionManager.initializate(configuration);
+		DBConnectionManager.initializateConnection(configuration);
 		
 	}
 	
@@ -74,6 +69,7 @@ public class Controller {
 	}
 	
 	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		p.setUser(session.getUser());
 		KnowledgeController.addProposal(p, parent);
 	}
 	

@@ -14,7 +14,7 @@
 		<property name="description" column="description" type="string" not-null="true" />
 		<property name="date" column="date" type="timestamp" not-null="true" />
 		<property name="category" column="category" not-null="true" >
-			<type name="utils.EnumUserType">  
+			<type name="persistence.utils.EnumUserType">  
 				<param name="enumClassName"> 
 					model.business.knowledge.Categories
 				</param> 

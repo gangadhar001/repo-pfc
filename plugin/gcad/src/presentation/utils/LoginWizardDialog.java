@@ -2,24 +2,35 @@ package presentation.utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 
 import model.business.control.Controller;
+import model.business.knowledge.Categories;
+import model.business.knowledge.ChiefProject;
+import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
+import model.business.knowledge.TopicWrapper;
+import model.business.knowledge.User;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.hibernate.classic.Session;
 
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 
 import persistence.communications.DBConfiguration;
+import persistence.utils.HibernateUtil;
 import presentation.wizards.LoginWizardPage;
 import presentation.wizards.control.LoginWizardController;
 
 public class LoginWizardDialog extends WizardDialog {
 
-	private IWizard newWizard; 
+	private IWizard newWizard;
+	
 	public LoginWizardDialog(Shell parentShell, IWizard newWizard) {
 		super(parentShell, newWizard);
 		this.newWizard = newWizard;
@@ -28,6 +39,23 @@ public class LoginWizardDialog extends WizardDialog {
 	// TODO: cuando se pulsa next, se conecta con la base de datos y se pasa la informacion a la otra pagina
 	@Override
 	protected void nextPressed() {
+ 		HibernateUtil.setDatabaseURL("127.0.0.1");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		// CONSULTA
+
+		
+		TopicWrapper t = new TopicWrapper();
+		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=2").list());
+		User u = (ChiefProject)(session.createQuery("From User where Id=2").list()).get(0);
+		Topic lo = t.getTopics().get(0);
+		Proposal p = new Proposal("title2", "description", new Date(), Categories.Design, 0);
+		p.setUser(u);
+		lo.add(p);
+		session.save(p);
+		session.getTransaction().commit();
+		
 		if (newWizard instanceof LoginWizardController) {
 			LoginWizardPage page = ((LoginWizardController) newWizard).getPage();
 			// Tomar los datos de la primera pagina

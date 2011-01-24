@@ -23,8 +23,8 @@ public class Answer extends AbstractKnowledge implements Serializable{
 		
 	}
 	
-	public Answer(String title, String argument, Date date, User u) {
-		super(title, argument, date, u);
+	public Answer(String title, String argument, Date date) {
+		super(title, argument, date);
 		
 	}
 
@@ -46,5 +46,21 @@ public class Answer extends AbstractKnowledge implements Serializable{
 		result.append("      " + user + "\n");
 		return result.toString();
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Answer other = (Answer) obj;
+		if (argument == null) {
+			if (other.argument != null)
+				return false;
+		} else if (!argument.equals(other.argument))
+			return false;
+		return true;
+	}	
 }

@@ -1,14 +1,11 @@
 package persistence.communications;
 
 
-import internationalization.BundleInternationalization;
-
-import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import persistence.commands.SQLCommand;
+import persistence.HibernateQuery;
 
 /**
  * This class represents a manager that allows to access and synchronize changes in several databases
@@ -16,16 +13,12 @@ import persistence.commands.SQLCommand;
 public class DBConnectionManager {
 
 	private static ArrayList<IDBConnection> connections = new ArrayList<IDBConnection>();
-	
-	public static void initializate(DBConfiguration configuration) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		DBConnection database = new DBConnection();
-		database.getAgent().setIp(configuration.getDBip());
-		database.getAgent().setPort(configuration.getDBport());
-		// Open the connection
-		database.open();
-		putConnection(database);
 		
-	}
+	public static void initializateConnection(DBConfiguration configuration) {
+		DBConnection dbconnection = new DBConnection();
+		dbconnection.changeURL(configuration.getDBip(), configuration.getDBport());
+		putConnection(dbconnection);
+	}	
 	
 	public static void putConnection(IDBConnection connection) {
 		if(!connections.contains(connection)) {
@@ -37,59 +30,125 @@ public class DBConnectionManager {
 		connections.clear();
 	}
 	
-	public static void closeConnections() throws SQLException {
-		// Close all databases connections
-		for(IDBConnection connection : connections) 
-			connection.close();	
-	}
-	
-	public static ResultSet query(SQLCommand command) throws SQLException {
-		ResultSet datos;
-		
-			// Use the first connection for make a query
-			if(connections.size() == 0) {
-				throw new SQLException(BundleInternationalization.getString("ErrorMessage.NoConnections"));
-			}
-			datos = connections.get(0).query(command);
-		return datos;
-	}
-	
-	public static void execute(SQLCommand command) throws SQLException {
-		ArrayList<IDBConnection> usedConnections;
-	
-		// In order to make an update, we access to all databases and if one of them fails, 
-		// we revert the changes
+	public static void initTransaction() throws SQLException {
+		// Iniciamos una transacción que puede estar formada
+		// por más de una operación sobre la base de datos
 		if(connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("ErrorMessage.NoConnections"));
+			throw new SQLException("La lista de conexiones está vacía.");
 		}
-		usedConnections = new ArrayList<IDBConnection>();
+		for(IDBConnection connection : connections) {
+			try {
+				connection.initTransaction();
+			} catch(Exception ex) {
+				throw new SQLException("Error en el acceso a las bases de datos.", ex);
+			}
+		}
+	}
+	
+	public static void finishTransaction() throws SQLException {
+		SQLException excepcion;
+		boolean error;
+		
+		// Intentamos finalizar la última transacción iniciada
+		if(connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+		error = false;
+		excepcion = null;
+		for(IDBConnection connection : connections) {
+			try {
+				connection.commit();
+			} catch(Exception ex) {
+				try {
+					connection.rollback();
+				} catch(Exception ex2) {
+				}
+				error = true;
+				excepcion = new SQLException("Error en el acceso a las bases de datos.", ex);
+			}
+		}
+		if(error) {
+			throw excepcion;
+		}
+	}
+	
+	public static List<?> query(HibernateQuery query) throws SQLException {
+		List<?> data;
+		
+		// TODO: Para hacer una consulta utilizamos sólo la primera conexión
+		if(connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+		try {
+			data = connections.get(0).query(query);
+		} catch(Exception ex) {		
+			throw new SQLException("Error en el acceso a las bases de datos.", ex);
+			
+		}
+		
+		return data;
+	}
+	
+	public static void insert(Object object) throws SQLException {
+		// Insertamos el objeto en todas las conexiones, y nos quedamos
+		// con la copia devuelta por la primera conexión
+		if(connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+		for(IDBConnection connection : connections) {
+			try {
+				connection.insert(object);
+			} catch(Exception ex) {
+				throw new SQLException("Error en el acceso a las bases de datos.", ex);
+			}
+		}
+	}
+	
+	public static void update(Object object) throws SQLException {
+		// Actualizamos el objeto en todas las conexiones
+		if(connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+		for(IDBConnection connection : connections) {
+			try {
+				connection.update(object);
+			} catch(Exception ex) {
+				throw new SQLException("Error en el acceso a las bases de datos.", ex);
+			}
+		}
+	}
+	
+	public static void delete(Object object) throws SQLException {
+		// Eliminamos el objeto en todas las conexiones
+		if(connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+		for(IDBConnection connection : connections) {
+			try {
+				connection.delete(object);
+			} catch(Exception ex) {
+				throw new SQLException("Error en el acceso a las bases de datos.", ex);
+			}
+		}
+	}
+	
+	public static void clearCache(Object object) throws SQLException {
+		// Borramos el objeto de la caché de todas las conexiones
+		if(connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
 		for(IDBConnection conexion : connections) {
 			try {
-				conexion.execute(command);
-				usedConnections.add(conexion);
+				// Borramos el objeto
+				conexion.clearCache(object);
 			} catch(Exception ex) {
-				// Undo the changes
-				for(IDBConnection conexionUsada : usedConnections) {
-					conexionUsada.rollback();
-				}
-				if(conexion instanceof DBConnection) {
-					throw new SQLException(BundleInternationalization.getString("ErrorMessage.FailAccess"), ex);
-				} else {
-					throw new SQLException(BundleInternationalization.getString("ErrorMessage.FailAccess"), ex);
-				}
+				throw new SQLException("Error en el acceso a las bases de datos.", ex);
 			}
 		}
-
-		for(IDBConnection conexion : connections) {
-			conexion.commit();
-		}
-		
 	}
 	
 	public static boolean thereAreConnections () {
 		return !connections.isEmpty();
 	}
-
-	
 	
 }

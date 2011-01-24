@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import exceptions.NoProposalsException;
 
 import persistence.PFAnswer;
-import persistence.PFProposal;
-import persistence.PFTopic;
+import persistence.DAOProposal;
+import persistence.DAOTopic;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
@@ -32,7 +32,7 @@ public class KnowledgeController {
 		if (topicWrapper == null) {
 			// TODO: el idProject estará guardado en la ISession, cuando hace login el usuario
 			topicWrapper = new TopicWrapper();
-			topicWrapper.setTopics(PFTopic.queryTopicsProject(2));
+			topicWrapper.setTopics(DAOTopic.queryTopicsProject(2));
 		}
 		return topicWrapper;
 	}
@@ -50,14 +50,14 @@ public class KnowledgeController {
 
 	public static void addTopic(Topic topic) throws SQLException {
 		topicWrapper.add(topic);
-		PFTopic.insert(topic);
+		DAOTopic.insert(topic);
 		
 	}
 	
 	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// Add the new proposal to the existing topic
 		parent.add(proposal);
-		PFProposal.insert(proposal, parent.getId());
+		DAOProposal.insert(proposal);
 	}
 	
 	public static void addAnswer(Answer answer, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -68,7 +68,7 @@ public class KnowledgeController {
 	
 	public static void deleteTopic(Topic to) throws SQLException {
 		topicWrapper.remove(to);
-		PFTopic.delete(to);
+		DAOTopic.delete(to);
 	}
 	
 	public static void deleteProposal(Proposal p) throws SQLException {
@@ -76,7 +76,7 @@ public class KnowledgeController {
 			if (t.getProposals().contains(p))
 				t.getProposals().remove(p);
 		}
-		PFProposal.delete(p);
+		DAOProposal.delete(p);
 	}
 
 	public static void deleteAnswer(Answer a) throws SQLException {

@@ -124,7 +124,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`topics` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(255) NOT NULL ,
   `creationDate` DATETIME NOT NULL ,
-  `projectId` INT NOT NULL DEFAULT -1 ,
+  `projectId` INT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_topic_project` (`projectId` ASC) ,
   UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
@@ -148,7 +148,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
   `date` DATETIME NOT NULL ,
   `category` ENUM('Analysis', 'Design') NOT NULL ,
   `userId` INT NOT NULL ,
-  `topicId` INT NOT NULL ,
+  `topicId` INT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
   INDEX `fk_proposal_user` (`userId` ASC) ,
@@ -178,7 +178,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   `date` DATETIME NOT NULL ,
   `argument` ENUM('Pro', 'Contra') NOT NULL ,
   `userId` INT NOT NULL ,
-  `proposalId` INT NOT NULL ,
+  `proposalId` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_anwser_proposal` (`proposalId` ASC) ,
   INDEX `fk_answer_user` (`userId` ASC) ,
@@ -196,6 +196,17 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
 ENGINE = InnoDB;
 
 
+;
+CREATE USER `gcad` IDENTIFIED BY 'gcad';
+
+grant ALL on TABLE `dbgcad`.`addresses` to gcad;
+grant ALL on TABLE `dbgcad`.`answers` to gcad;
+grant ALL on TABLE `dbgcad`.`companies` to gcad;
+grant ALL on TABLE `dbgcad`.`projects` to gcad;
+grant ALL on TABLE `dbgcad`.`proposals` to gcad;
+grant ALL on TABLE `dbgcad`.`topics` to gcad;
+grant ALL on TABLE `dbgcad`.`users` to gcad;
+grant ALL on TABLE `dbgcad`.`usersProjects` to gcad;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
