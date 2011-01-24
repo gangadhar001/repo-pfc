@@ -45,4 +45,16 @@ public class TopicWrapper {
 		return result.toString();
 	}
 
+	public Topic getTopic(Topic t) {
+		boolean found = false;
+		Topic result = null;
+		for (int i=0; i<topics.size() && !found; i++) {
+			if (topics.get(i).equals(t)) {
+				result = topics.get(i);
+				found=true;
+			}
+		}
+		return result;
+	}
+
 }

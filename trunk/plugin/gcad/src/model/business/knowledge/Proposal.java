@@ -26,17 +26,17 @@ public class Proposal extends AbstractKnowledge implements Serializable {
 	
 	// A proposal may have answers
 	@XmlElement( name = "Answer" )
-    private Set<Answer> answers = new HashSet<Answer>();;
+    private Set<Answer> answers = new HashSet<Answer>();
 		
     public Proposal () {
 		
 	}
 
-	public Proposal(String title, String description, Date date, Categories category, int state, User u) {
-		super(title, description, date, u);
+    public Proposal(String title, String description, Date date, Categories category, int state) {
+		super(title, description, date);
 		this.category = category;
 	}
-
+    
 	public Set<Answer> getAnswers() {
 		return answers;
 	}
@@ -77,6 +77,28 @@ public class Proposal extends AbstractKnowledge implements Serializable {
 			result.append("      " + a + "\n");
 		}			
 		return result.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Proposal other = (Proposal) obj;
+		if (answers == null) {
+			if (other.answers != null)
+				return false;
+		} else if (!answers.equals(other.answers))
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		return true;
 	}
 	
 }

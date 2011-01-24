@@ -27,3 +27,4 @@ Import-Package: com.mysql.jdbc,
  org.jfree.data.category,
  org.jfree.ui
 Bundle-ClassPath: .
+Eclipse-RegisterBuddy: HibernatePlugin

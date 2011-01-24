@@ -1,11 +1,10 @@
 package persistence.communications;
 
 
-import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import persistence.commands.SQLCommand;
+import persistence.HibernateQuery;
 
 /**
  * Interface that must implement the classes that provide access to a database in order to be used 
@@ -13,13 +12,17 @@ import persistence.commands.SQLCommand;
  */
 public interface IDBConnection {
 	
-	public void open() throws SQLException, IOException;
+	public List<?> query(HibernateQuery query) throws SQLException;
 	
-	public void close() throws SQLException;
-
-	public ResultSet query(SQLCommand comando) throws SQLException;
+	public void initTransaction() throws SQLException;
 	
-	public void execute(SQLCommand comando) throws SQLException;
+	public void insert(Object object) throws SQLException;
+	
+	public void update(Object object) throws SQLException;
+	
+	public void delete(Object object) throws SQLException;
+	
+	public void clearCache(Object object) throws SQLException;
 	
 	public void commit() throws SQLException;
 	

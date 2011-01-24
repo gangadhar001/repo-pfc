@@ -84,9 +84,10 @@ public abstract class AbstractKnowledgeView extends ViewPart {
 	abstract protected void cleanComposite(); 
 
 
-	protected void createKnowledge(Object obj) {
+	protected void createKnowledge(Object obj) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if (obj instanceof Topic) {
-			addProposal((Topic)obj);
+			Topic t = Controller.getInstance().getTopicsWrapper().getTopic((Topic)obj);
+			addProposal(t);
 		}
 		else if (obj instanceof Proposal) {
 			addAnswer((Proposal)obj);				

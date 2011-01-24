@@ -81,8 +81,40 @@ public class Company implements Serializable {
 		result.append("      " + address + "\n");
 		return result.toString();
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Company other = (Company) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (cif == null) {
+			if (other.cif != null)
+				return false;
+		} else if (!cif.equals(other.cif))
+			return false;
+		if (id != other.id)
+			return false;
+		if (information == null) {
+			if (other.information != null)
+				return false;
+		} else if (!information.equals(other.information))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}	
 	
 }
 

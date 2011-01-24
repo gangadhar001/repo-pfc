@@ -29,11 +29,10 @@ public abstract class AbstractKnowledge implements Serializable {
 	public AbstractKnowledge() {
 	}
 	
-	public AbstractKnowledge(String title, String description, Date date, User u) {
+	public AbstractKnowledge(String title, String description, Date date) {
 		this.title = title;
 		this.description = description;
 		this.date = date;
-		this.user = u;
 	}
 	
 	public int getId() {
@@ -75,5 +74,7 @@ public abstract class AbstractKnowledge implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
 	
 }
