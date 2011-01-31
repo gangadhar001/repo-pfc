@@ -16,7 +16,7 @@ public interface IDBConnection {
 	
 	public void initTransaction() throws SQLException;
 	
-	public void insert(Object object) throws SQLException;
+	public Object insert(Object object) throws SQLException;
 	
 	public void update(Object object) throws SQLException;
 	

@@ -39,10 +39,9 @@ public class LoginWizardDialog extends WizardDialog {
 	// TODO: cuando se pulsa next, se conecta con la base de datos y se pasa la informacion a la otra pagina
 	@Override
 	protected void nextPressed() {
- 		HibernateUtil.setDatabaseURL("127.0.0.1");
+ 		/*HibernateUtil.setDatabaseURL("127.0.0.1");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		
 		// CONSULTA
 
 		
@@ -50,11 +49,12 @@ public class LoginWizardDialog extends WizardDialog {
 		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=2").list());
 		User u = (ChiefProject)(session.createQuery("From User where Id=2").list()).get(0);
 		Topic lo = t.getTopics().get(0);
-		Proposal p = new Proposal("title2", "description", new Date(), Categories.Design, 0);
+		Proposal p = new Proposal("title3", "description", new Date(), Categories.Design, 0);
 		p.setUser(u);
 		lo.add(p);
 		session.save(p);
 		session.getTransaction().commit();
+		session.close();*/
 		
 		if (newWizard instanceof LoginWizardController) {
 			LoginWizardPage page = ((LoginWizardController) newWizard).getPage();

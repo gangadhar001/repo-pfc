@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.HibernateQuery;
+import persistence.utils.HibernateUtil;
 
 /**
  * This class represents a manager that allows to access and synchronize changes in several databases
@@ -89,19 +90,30 @@ public class DBConnectionManager {
 		return data;
 	}
 	
-	public static void insert(Object object) throws SQLException {
+	public static Object insert(Object object) throws SQLException {
+		Object copy;
+		
 		// Insertamos el objeto en todas las conexiones, y nos quedamos
 		// con la copia devuelta por la primera conexión
 		if(connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}
-		for(IDBConnection connection : connections) {
+		copy = null;
+		for(IDBConnection conexion : connections) {
 			try {
-				connection.insert(object);
+				if(copy == null) {
+					copy = conexion.insert(object);
+				} else {
+					conexion.insert(object);
+				}
 			} catch(Exception ex) {
-				throw new SQLException("Error en el acceso a las bases de datos.", ex);
+				
+					throw new SQLException("Error en el acceso a las bases de datos.", ex);
+
 			}
 		}
+		
+		return copy;
 	}
 	
 	public static void update(Object object) throws SQLException {

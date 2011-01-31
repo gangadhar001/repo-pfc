@@ -101,4 +101,8 @@ public class Proposal extends AbstractKnowledge implements Serializable {
 		return true;
 	}
 	
+	public Object clone () {
+		return this;
+	}
+	
 }

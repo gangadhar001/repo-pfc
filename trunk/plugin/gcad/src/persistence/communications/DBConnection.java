@@ -41,12 +41,13 @@ public class DBConnection implements IDBConnection {
 		return datosLeidos;
 	}
 
-	public void insert(Object object) throws SQLException {
+	public Object insert(Object object) throws SQLException {
 		try {
 			HibernateUtil.getSession().save(object);
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
+		return object;
 	}
 
 	public void update(Object object) throws SQLException {
@@ -77,7 +78,6 @@ public class DBConnection implements IDBConnection {
 	public void commit() throws SQLException {
 		try {
 			HibernateUtil.getSession().getTransaction().commit();
-			HibernateUtil.getSession().close();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}

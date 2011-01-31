@@ -18,18 +18,17 @@ public class DAOTopic {
 		HibernateQuery query;
 		List<?> data;
 		ArrayList<Topic> result = new ArrayList<Topic>();
-		
-		query = new HibernateQuery("From " + TOPIC_CLASS + " Where " + COL_PROJECT_ID + " = ?", projectId);
-		data = DBConnectionManager.query(query);
 
-		if(data.size() > 0) {
-			result = (ArrayList<Topic>) data;
-			// Borramos los objetos leídos de la caché
-			for(Object object : result) {
-				DBConnectionManager.clearCache(object);
+			query = new HibernateQuery("From " + TOPIC_CLASS + " Where " + COL_PROJECT_ID + " = ?", projectId);
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				result = (ArrayList<Topic>) data;
+				// Borramos los objetos leídos de la caché
+				for(Object object : result) {
+					DBConnectionManager.clearCache(object);
+				}
 			}
-		}
-		
 		return result;
 	}
 	
@@ -72,6 +71,24 @@ public class DAOTopic {
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
+	}
+
+	public static Topic queryTopic(int id) throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		Topic result = null;
+
+			query = new HibernateQuery("From " + TOPIC_CLASS + " Where Id = ?", id);
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				result= (Topic) data.get(0);
+				// Borramos los objetos leídos de la caché
+				for(Object object : data) {
+					DBConnectionManager.clearCache(object);
+				}
+			}
+		return result;
 	}
 
 }

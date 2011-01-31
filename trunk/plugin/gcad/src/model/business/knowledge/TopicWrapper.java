@@ -12,10 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TopicWrapper {
 	
 	@XmlElement( name = "Topic" )
-	private ArrayList<Topic> topics;
+	private ArrayList<Topic> topics = new ArrayList<Topic>();;
 	
 	public TopicWrapper() {
-		topics = new ArrayList<Topic>();
 	}
 	
 	public void add(Topic topic) {

@@ -75,9 +75,11 @@ public class DAOProposal {
 	
 	public static void insert (Proposal proposal) throws SQLException {
 		// Modificamos la base de datos y copiamos los ids asignados
+		Proposal newProposal;
 		try {
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.insert(proposal);
+			newProposal = (Proposal)DBConnectionManager.insert(proposal.clone());
+			proposal.setId(newProposal.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
