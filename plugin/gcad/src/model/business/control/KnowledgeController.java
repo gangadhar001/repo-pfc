@@ -3,11 +3,14 @@ package model.business.control;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.hibernate.classic.Session;
+
 import exceptions.NoProposalsException;
 
 import persistence.PFAnswer;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
+import persistence.utils.HibernateUtil;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
@@ -32,7 +35,8 @@ public class KnowledgeController {
 		if (topicWrapper == null) {
 			// TODO: el idProject estará guardado en la ISession, cuando hace login el usuario
 			topicWrapper = new TopicWrapper();
-			topicWrapper.setTopics(DAOTopic.queryTopicsProject(2));
+			for (Topic t: DAOTopic.queryTopicsProject(2))
+				topicWrapper.add(t);
 		}
 		return topicWrapper;
 	}
@@ -56,7 +60,12 @@ public class KnowledgeController {
 	
 	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// Add the new proposal to the existing topic
-		parent.add(proposal);
+		TopicWrapper t = new TopicWrapper();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=2").list());
+		Topic lo = t.getTopics().get(0);
+		lo.add(proposal);
 		DAOProposal.insert(proposal);
 	}
 	
