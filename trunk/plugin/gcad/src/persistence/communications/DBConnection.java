@@ -4,14 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.classic.Session;
 
-import persistence.HibernateQuery;
+import persistence.utils.HibernateQuery;
 import persistence.utils.HibernateUtil;
 
 /**
  * This class allows to connect with the database
  */
 public class DBConnection implements IDBConnection {
+
+	private Session session;
 	
 	public DBConnection() {
 	}
@@ -22,7 +25,8 @@ public class DBConnection implements IDBConnection {
 	
 	public void initTransaction() throws SQLException {
 		try {
-			HibernateUtil.getSession().beginTransaction();
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
@@ -32,8 +36,7 @@ public class DBConnection implements IDBConnection {
 		List<?> datosLeidos;
 		
 		try {
-			HibernateUtil.getSession().beginTransaction();
-			datosLeidos = query.crearQuery(HibernateUtil.getSession()).list();
+			datosLeidos = query.crearQuery(session).list();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
@@ -43,41 +46,42 @@ public class DBConnection implements IDBConnection {
 
 	public Object insert(Object object) throws SQLException {
 		try {
-			HibernateUtil.getSession().save(object);
+			session.save(object);
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
 		return object;
 	}
-
-	public void update(Object object) throws SQLException {
-		try {
-			HibernateUtil.getSession().update(object);
-		} catch(HibernateException ex) {
-			throw new SQLException(ex.getLocalizedMessage(), ex);
-		}
-	}
-
-	public void delete(Object object) throws SQLException {
-		try {
-			HibernateUtil.getSession().delete(object);
-		} catch(HibernateException ex) {
-			throw new SQLException(ex.getLocalizedMessage(), ex);
-		}
-	}
-	
-	public void clearCache(Object objeto) throws SQLException {
-		try {
-			HibernateUtil.getSession().evict(objeto);
-		} catch(HibernateException ex) {
-			throw new SQLException(ex.getLocalizedMessage(), ex);
-		}
-	}
-
-	
+//
+//	public void update(Object object) throws SQLException {
+//		try {
+//			HibernateUtil.getSession().update(object);
+//		} catch(HibernateException ex) {
+//			throw new SQLException(ex.getLocalizedMessage(), ex);
+//		}
+//	}
+//
+//	public void delete(Object object) throws SQLException {
+//		try {
+//			HibernateUtil.getSession().delete(object);
+//		} catch(HibernateException ex) {
+//			throw new SQLException(ex.getLocalizedMessage(), ex);
+//		}
+//	}
+//	
+//	public void clearCache(Object objeto) throws SQLException {
+//		try {
+//			HibernateUtil.getSession().evict(objeto);
+//		} catch(HibernateException ex) {
+//			throw new SQLException(ex.getLocalizedMessage(), ex);
+//		}
+//	}
+//
+//	
 	public void commit() throws SQLException {
 		try {
-			HibernateUtil.getSession().getTransaction().commit();
+			session.getTransaction().commit();
+			closeSession();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
@@ -85,10 +89,35 @@ public class DBConnection implements IDBConnection {
 
 	public void rollback() throws SQLException {
 		try {
-			HibernateUtil.getSession().getTransaction().rollback();
-			HibernateUtil.getSession().close();
+			session.getTransaction().rollback();
+			closeSession();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
 	}
+	
+	public void closeSession() {
+		session.close();
+	}
+
+@Override
+public void update(Object object) throws SQLException {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void delete(Object object) throws SQLException {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void clearCache(Object object) throws SQLException {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
 }

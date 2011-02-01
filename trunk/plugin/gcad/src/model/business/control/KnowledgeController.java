@@ -3,6 +3,7 @@ package model.business.control;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 
 import exceptions.NoProposalsException;
@@ -59,13 +60,7 @@ public class KnowledgeController {
 	}
 	
 	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// Add the new proposal to the existing topic
-		TopicWrapper t = new TopicWrapper();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=2").list());
-		Topic lo = t.getTopics().get(0);
-		lo.add(proposal);
+		
 		DAOProposal.insert(proposal);
 	}
 	

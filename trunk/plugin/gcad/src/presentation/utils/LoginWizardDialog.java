@@ -22,7 +22,6 @@ import org.hibernate.classic.Session;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 
-import persistence.communications.DBConfiguration;
 import persistence.utils.HibernateUtil;
 import presentation.wizards.LoginWizardPage;
 import presentation.wizards.control.LoginWizardController;
@@ -97,12 +96,9 @@ public class LoginWizardDialog extends WizardDialog {
 	/**
 	 * This will create the database connection and log in the user
 	 */
-	private void doNext(String user, String pass, String IP, String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, IncorrectEmployeeException, NonExistentRole {		
-		// Create the configuration of the database connection
-		DBConfiguration configuration = new DBConfiguration(IP, Integer.parseInt(port));
-		
+	private void doNext(String user, String pass, String IP, String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, IncorrectEmployeeException, NonExistentRole {				
 		// Create and initialize a new database connection
-		Controller.getInstance().initDBConnection(configuration);
+		Controller.getInstance().initDBConnection(IP, port);
 		
 		// Login
 		Controller.getInstance().login(user,pass);		

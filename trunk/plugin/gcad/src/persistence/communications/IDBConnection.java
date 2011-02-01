@@ -4,13 +4,15 @@ package persistence.communications;
 import java.sql.SQLException;
 import java.util.List;
 
-import persistence.HibernateQuery;
+import persistence.utils.HibernateQuery;
 
 /**
  * Interface that must implement the classes that provide access to a database in order to be used 
  * by the manager of the databases connection.
  */
 public interface IDBConnection {
+	
+	public void changeURL(String ip, int port);
 	
 	public List<?> query(HibernateQuery query) throws SQLException;
 	
@@ -27,5 +29,7 @@ public interface IDBConnection {
 	public void commit() throws SQLException;
 	
 	public void rollback() throws SQLException;
+
+	public void closeSession();
 		
 }
