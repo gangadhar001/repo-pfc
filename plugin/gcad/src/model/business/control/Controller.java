@@ -24,7 +24,6 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.ISourceProviderService;
 
-import persistence.communications.DBConfiguration;
 import persistence.communications.DBConnectionManager;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NoProposalsException;
@@ -53,15 +52,12 @@ public class Controller {
 	public void signout() throws SQLException {
 		SessionController.signout(session);
 		session = null;
-		DBConnectionManager.clearConnections();		
+		DBConnectionManager.closeConnection();
 	}
 
-	public void initDBConnection(DBConfiguration configuration) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		DBConnectionManager.clearConnections();
-		
+	public void initDBConnection(String ip, String port) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
 		// Create and initialize a new database connection
-		DBConnectionManager.initializateConnection(configuration);
-		
+		DBConnectionManager.initializateConnection(ip, Integer.parseInt(port));
 	}
 	
 	public void addTopic (Topic topic) throws SQLException {
@@ -70,6 +66,7 @@ public class Controller {
 	
 	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		p.setUser(session.getUser());
+		parent.add(p);
 		KnowledgeController.addProposal(p, parent);
 	}
 	

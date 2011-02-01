@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.business.knowledge.User;
 import persistence.communications.DBConnectionManager;
+import persistence.utils.HibernateQuery;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 
@@ -21,7 +22,9 @@ public class DAOUser {
 		User user = null;
 		
 			query = new HibernateQuery("From " + USER_CLASS + " Where " + COL_LOGIN + " = ? AND " + COL_PASSWORD + " = ?", login, password);
+			DBConnectionManager.initTransaction();
 			data = DBConnectionManager.query(query);
+			DBConnectionManager.closeConnection();
 	
 			// TODO: ingles. Si no se obtienen datos, es porque no existe el usuario
 			if(data.size() == 0) {

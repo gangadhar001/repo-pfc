@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.business.knowledge.Topic;
 import persistence.communications.DBConnectionManager;
+import persistence.utils.HibernateQuery;
 
 public class DAOTopic {
 	
@@ -20,7 +21,9 @@ public class DAOTopic {
 		ArrayList<Topic> result = new ArrayList<Topic>();
 
 			query = new HibernateQuery("From " + TOPIC_CLASS + " Where " + COL_PROJECT_ID + " = ?", projectId);
+			DBConnectionManager.initTransaction();
 			data = DBConnectionManager.query(query);
+			DBConnectionManager.closeConnection();
 	
 			if(data.size() > 0) {
 				result = (ArrayList<Topic>) data;
@@ -56,7 +59,8 @@ public class DAOTopic {
 		// Modificamos la base de datos y copiamos los ids asignados
 		try {
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.insert(topic);
+			Topic newTopic = (Topic)DBConnectionManager.insert(topic.clone());
+			topic.setId(newTopic.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}

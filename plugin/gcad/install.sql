@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -51,7 +51,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`companies` (
   `cif` CHAR(9) NOT NULL ,
   `name` TEXT NOT NULL ,
   `information` TEXT NOT NULL ,
-  `addressId` INT NULL ,
+  `addressId` INT DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `cif_UNIQUE` (`cif` ASC) ,
   INDEX `fk_companies_address` (`addressId` ASC) ,
@@ -78,7 +78,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`users` (
   `surname` TEXT NOT NULL ,
   `email` TEXT NULL ,
   `telephone` VARCHAR(9) NULL ,
-  `companyId` INT NULL ,
+  `companyId` INT DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `nif_UNIQUE` (`nif` ASC) ,
   INDEX `fk_user_company` (`companyId` ASC) ,
@@ -124,7 +124,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`topics` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(255) NOT NULL ,
   `creationDate` DATETIME NOT NULL ,
-  `projectId` INT NULL DEFAULT -1 ,
+  `projectId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_topic_project` (`projectId` ASC) ,
   UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
@@ -147,8 +147,8 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
   `description` TEXT NOT NULL ,
   `date` DATETIME NOT NULL ,
   `category` ENUM('Analysis', 'Design') NOT NULL ,
-  `userId` INT NOT NULL ,
-  `topicId` INT NULL ,
+  `userId` INT NOT NULL DEFAULT -1 ,
+  `topicId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
   INDEX `fk_proposal_user` (`userId` ASC) ,
@@ -177,8 +177,8 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   `description` TEXT NOT NULL ,
   `date` DATETIME NOT NULL ,
   `argument` ENUM('Pro', 'Contra') NOT NULL ,
-  `userId` INT NOT NULL ,
-  `proposalId` INT NULL ,
+  `userId` INT NOT NULL DEFAULT -1 ,
+  `proposalId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_anwser_proposal` (`proposalId` ASC) ,
   INDEX `fk_answer_user` (`userId` ASC) ,
@@ -196,7 +196,6 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
 ENGINE = InnoDB;
 
 
-;
 CREATE USER `gcad` IDENTIFIED BY 'gcad';
 
 grant ALL on TABLE `dbgcad`.`addresses` to gcad;

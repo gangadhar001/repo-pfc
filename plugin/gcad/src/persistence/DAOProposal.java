@@ -1,15 +1,17 @@
 package persistence;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import model.business.knowledge.Answer;
-import model.business.knowledge.Categories;
+import org.hibernate.classic.Session;
+
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
+import model.business.knowledge.TopicWrapper;
 import persistence.communications.DBConnectionManager;
+import persistence.utils.HibernateQuery;
+import persistence.utils.HibernateUtil;
 
 /**
  * This class allows to query and insert proposals into database
@@ -76,14 +78,34 @@ public class DAOProposal {
 	public static void insert (Proposal proposal) throws SQLException {
 		// Modificamos la base de datos y copiamos los ids asignados
 		Proposal newProposal;
-		try {
-			DBConnectionManager.initTransaction();
-			newProposal = (Proposal)DBConnectionManager.insert(proposal.clone());
-			proposal.setId(newProposal.getId());
-		} finally {
-			DBConnectionManager.finishTransaction();
-		}
+		
+		DBConnectionManager.initTransaction();
+//		 Session session = HibernateUtil.getSessionFactory().openSession();
+//	        session.beginTransaction();
+//		Topic lo = (Topic) session.createQuery("From Topic where Id=2").list().get(0);
+//	      lo.add(proposal);
+	     Topic lo = DAOTopic.queryTopic(2);
+	     lo.add(proposal);
+	      DBConnectionManager.insert(proposal);
+	      DBConnectionManager.finishTransaction();
+	      
+//	    session.save(proposal);
+//	    session.getTransaction().commit();
+//	    session.close();
+//			
+		
 	}
+//		} finally {
+//			DBConnectionManager.finishTransaction();
+//		}
+//		TopicWrapper t = new TopicWrapper();
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        Topic lo = (Topic) session.createQuery("From Topic where Id=2").list().get(0);
+//        lo.add(proposal);
+//      session.save(proposal);
+//      session.getTransaction().commit();
+	
 
 	public static void delete(Proposal pro) throws SQLException {
 	}

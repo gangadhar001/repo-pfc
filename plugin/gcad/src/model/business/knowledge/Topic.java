@@ -137,4 +137,8 @@ public class Topic implements Serializable {
 		return true;
 	}
 	
+	public Object clone () {
+		return this;
+	}
+	
 }
