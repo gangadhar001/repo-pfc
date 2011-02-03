@@ -32,7 +32,7 @@ public class Proposal extends AbstractKnowledge implements Serializable {
 		
 	}
 
-    public Proposal(String title, String description, Date date, Categories category, int state) {
+    public Proposal(String title, String description, Date date, Categories category) {
 		super(title, description, date);
 		this.category = category;
 	}
@@ -102,7 +102,15 @@ public class Proposal extends AbstractKnowledge implements Serializable {
 	}
 	
 	public Object clone () {
-		return this;
-	}
+		Proposal p;
+		HashSet<Answer> answers = new HashSet<Answer>();
+		p = new Proposal(getTitle(), getDescription(), getDate(), getCategory());
+		p.setId(getId());
+		p.setUser((User)getUser().clone());
+		for (Answer a: getAnswers())
+			answers.add((Answer)a.clone());
+		setAnswers(answers);
+		return p;
+	}	
 	
 }

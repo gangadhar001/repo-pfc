@@ -138,7 +138,15 @@ public class Topic implements Serializable {
 	}
 	
 	public Object clone () {
-		return this;
+		Topic t;
+		HashSet<Proposal> proposals = new HashSet<Proposal>();
+		t = new Topic(getTitle(), getCreationDate());
+		t.setId(getId());
+		t.setProject((Project)getProject().clone());
+		for (Proposal p: getProposals())
+			proposals.add((Proposal)p.clone());
+		t.setProposals(proposals);
+		return t;
 	}
 	
 }

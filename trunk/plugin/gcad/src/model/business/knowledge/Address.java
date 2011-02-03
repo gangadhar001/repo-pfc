@@ -22,8 +22,7 @@ public class Address implements Serializable {
 	public Address () {
 	}
 	
-	public Address(int id, String street, String city, String country, String zip) {
-		this.id = id;
+	public Address(String street, String city, String country, String zip) {
 		this.street = street;
 		this.city = city;
 		this.country = country;
@@ -114,4 +113,10 @@ public class Address implements Serializable {
 		return true;
 	}
 	
+	public Object clone () {
+		Address a;
+		a = new Address(getStreet(), getCity(), getCountry(), getZip());
+		a.setId(getId());
+		return a;
+	}
 }

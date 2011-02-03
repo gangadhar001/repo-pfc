@@ -28,7 +28,7 @@ public class NewProposalMenuWizardController extends AbstractNewKnowledgeWizardC
 		String category = page.getItemCategory();
 		int indeParentTopic = page.getItemCbTopics();
 		Topic parentTopic = (Topic) page.getTopics().get(indeParentTopic);
-		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category), 0);
+		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category));
 			
 		return runNewProposal(newProposal, parentTopic);
 	}

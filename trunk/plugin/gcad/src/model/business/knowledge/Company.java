@@ -23,8 +23,7 @@ public class Company implements Serializable {
 	public Company () {
 	}
 	
-	public Company(int id, String cif, String name, String information, Address address) {
-		this.id = id;
+	public Company(String cif, String name, String information, Address address) {
 		this.cif = cif;
 		this.name = name;
 		this.information = information;
@@ -115,6 +114,13 @@ public class Company implements Serializable {
 			return false;
 		return true;
 	}	
+	
+	public Object clone() {
+		Company c;
+		c = new Company(getCif(), getName(), getInformation(), (Address)getAddress().clone());
+		c.setId(getId());
+		return c;
+	}
 	
 }
 
