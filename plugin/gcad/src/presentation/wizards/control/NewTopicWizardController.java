@@ -5,6 +5,7 @@ import internationalization.BundleInternationalization;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.Date;
 
 import model.business.control.Controller;
 import model.business.knowledge.Topic;
@@ -42,7 +43,7 @@ public class NewTopicWizardController extends Wizard {
 	 */
 	public boolean performFinish() {
 		String topicName = page.getTopicText();
-		final Topic topic = new Topic(topicName);
+		final Topic topic = new Topic(topicName, new Date());
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {

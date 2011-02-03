@@ -23,8 +23,9 @@ public class Answer extends AbstractKnowledge implements Serializable{
 		
 	}
 	
-	public Answer(String title, String argument, Date date) {
-		super(title, argument, date);
+	public Answer(String title, String description, Date date, String argument) {
+		super(title, description, date);
+		this.argument = argument;
 		
 	}
 
@@ -63,4 +64,13 @@ public class Answer extends AbstractKnowledge implements Serializable{
 			return false;
 		return true;
 	}	
+	
+	public Object clone () {
+		Answer a;
+		a = new Answer(getTitle(), getDescription(), getDate(), getArgument());
+		a.setId(getId());
+		a.setUser((User)getUser().clone());
+		return a;
+	}		
+	
 }

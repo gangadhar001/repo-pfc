@@ -1,6 +1,7 @@
 package model.business.knowledge;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -23,6 +24,17 @@ public class ChiefProject extends User implements Serializable {
 	
 	public UserRole getRole(){
 		return UserRole.ChiefProject;
+	}
+
+	public Object clone() {
+		ChiefProject c; 
+		HashSet<Project> projects = new HashSet<Project>();		
+		c = new ChiefProject(getNif(), getLogin(), getPassword(), getName(), getSurname(), getEmail(), getTelephone(), (Company)getCompany().clone());
+		c.setId(getId());
+		for (Project p: getProjects())
+			projects.add((Project)p.clone());
+		c.setProjects(projects);
+		return c;
 	}
 
 }

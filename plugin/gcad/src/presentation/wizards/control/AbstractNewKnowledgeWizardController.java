@@ -16,6 +16,8 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+import exceptions.IncorrectEmployeeException;
+
 /**
  * This abstract class represents a New Proposal Wizard
  */
@@ -56,6 +58,9 @@ public abstract class AbstractNewKnowledgeWizardController extends Wizard {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IncorrectEmployeeException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} finally {
@@ -116,7 +121,7 @@ public abstract class AbstractNewKnowledgeWizardController extends Wizard {
 	/**
 	 * The worker method. It will create and insert in the database a new proposal
 	 */
-	protected void doFinish(IProgressMonitor monitor, Proposal newProposal, Topic topicSelected) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {		
+	protected void doFinish(IProgressMonitor monitor, Proposal newProposal, Topic topicSelected) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IncorrectEmployeeException {		
 		monitor.beginTask(BundleInternationalization.getString("ProposalMonitorMessage"), 50);
 		
 		monitor.worked(10);

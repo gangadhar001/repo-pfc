@@ -208,4 +208,6 @@ public abstract class User implements Serializable {
 		return true;
 	}
 	
+	public abstract Object clone();
+	
 }

@@ -26,7 +26,8 @@ public class NewAnswerMenuWizardController extends AbstractNewKnowledgeWizardCon
 		String descriptionText = page.getDescriptionText();
 		int indeParentProposal = page.getItemCbProposals();
 		Proposal parentProposal = (Proposal) page.getProposals().get(indeParentProposal);
-		Answer newAnswer = new Answer(nameText, descriptionText, new Date());
+		// TODO: añadir argumento
+		Answer newAnswer = new Answer(nameText, descriptionText, new Date(), " ");
 			
 		return runNewAnswer(newAnswer, parentProposal);
 	}

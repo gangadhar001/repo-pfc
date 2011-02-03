@@ -21,7 +21,7 @@
 			</type>
 		</property>
 		<set name="answers" table="answers" lazy="false" cascade="all">
-			<key column="proposalId" unique="true" not-null="true" />
+			<key column="proposalId" unique="true" not-null="true"/>
 			<one-to-many class="Answer" />
 		</set>
 	</class>

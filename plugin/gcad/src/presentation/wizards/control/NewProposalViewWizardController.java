@@ -32,7 +32,7 @@ public class NewProposalViewWizardController extends AbstractNewKnowledgeWizardC
 		String category = page.getItemCategory();
 		// TODO: cambiar estado;
 		
-		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category), 0);
+		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category));
 		
 		return runNewProposal(newProposal, topicSelected);
 	}

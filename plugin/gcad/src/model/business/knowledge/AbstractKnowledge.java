@@ -75,6 +75,6 @@ public abstract class AbstractKnowledge implements Serializable {
 		this.user = user;
 	}
 	
-	
+	public abstract Object clone();
 	
 }

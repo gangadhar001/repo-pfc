@@ -194,4 +194,10 @@ public class Project implements Serializable {
 		return true;
 	}	
 	
+	public Object clone() {
+		Project p;
+		p = new Project(getName(), getDescription(), getStartDate(), getEndDate(), getBudget(), getQuantityLines(), getDomain(), getProgLanguage(), getEstimatedHours());
+		p.setId(getId());
+		return p;
+	}
 }
