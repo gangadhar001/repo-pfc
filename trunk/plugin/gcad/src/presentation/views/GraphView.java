@@ -59,7 +59,21 @@ public class GraphView extends AbstractKnowledgeView implements IPresentation, I
 	protected void addKnowledge() {
 		setSelection();
 		if (objectSelected!=null) {
-			super.createKnowledge(objectSelected);
+			try {
+				super.createKnowledge(objectSelected);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO: si no se selecciona nada, se añade un topic
 		else if (!isEdge){

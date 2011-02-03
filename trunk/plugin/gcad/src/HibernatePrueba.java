@@ -20,7 +20,7 @@ import model.business.knowledge.User;
 import org.hibernate.classic.Session;
 
 import persistence.XMLAgent;
-import persistence.utils.HibernateUtil;
+
 
 public class HibernatePrueba {
 
@@ -40,22 +40,22 @@ public class HibernatePrueba {
 		t.setProject(p1);*/
 		
 		
-		HibernateUtil.setDatabaseURL("127.0.0.1");
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		
-		// CONSULTA
-
-		
-		TopicWrapper t = new TopicWrapper();
-		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=3").list());
-		User u = (ChiefProject)(session.createQuery("From User where Id=4").list()).get(0);
-		Topic lo = t.getTopics().get(0);
-		Proposal p = new Proposal("title2", "description", new Date(), Categories.Design, 0);
-		p.setUser(u);
-		lo.add(p);
-		session.save(p);
-		session.getTransaction().commit();
+//		HibernateUtil.setDatabaseURL("127.0.0.1");
+//		Session session = HibernateUtil.getSessionFactory().openSession();
+//		session.beginTransaction();
+//		
+//		// CONSULTA
+//
+//		
+//		TopicWrapper t = new TopicWrapper();
+//		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=3").list());
+//		User u = (ChiefProject)(session.createQuery("From User where Id=4").list()).get(0);
+//		Topic lo = t.getTopics().get(0);
+//		Proposal p = new Proposal("title2", "description", new Date(), Categories.Design, 0);
+//		p.setUser(u);
+//		lo.add(p);
+//		session.save(p);
+//		session.getTransaction().commit();
 		
 		/*try {
 			XMLAgent.marshal("prueba.xml", TopicWrapper.class, (TopicWrapper)t);

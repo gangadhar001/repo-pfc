@@ -51,7 +51,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`companies` (
   `cif` CHAR(9) NOT NULL ,
   `name` TEXT NOT NULL ,
   `information` TEXT NOT NULL ,
-  `addressId` INT DEFAULT -1 ,
+  `addressId` INT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `cif_UNIQUE` (`cif` ASC) ,
   INDEX `fk_companies_address` (`addressId` ASC) ,
@@ -78,7 +78,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`users` (
   `surname` TEXT NOT NULL ,
   `email` TEXT NULL ,
   `telephone` VARCHAR(9) NULL ,
-  `companyId` INT DEFAULT -1 ,
+  `companyId` INT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `nif_UNIQUE` (`nif` ASC) ,
   INDEX `fk_user_company` (`companyId` ASC) ,
@@ -172,7 +172,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `dbgcad`.`answers` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(255) NOT NULL ,
   `description` TEXT NOT NULL ,
   `date` DATETIME NOT NULL ,

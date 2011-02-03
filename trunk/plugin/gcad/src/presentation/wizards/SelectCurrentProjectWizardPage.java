@@ -86,7 +86,7 @@ public class SelectCurrentProjectWizardPage extends WizardPage {
 	}
 
 	public int getItemCbProjects() {
-		return cbProjects.getSelectionIndex();
+		return Integer.parseInt(cbProjects.getItem(cbProjects.getSelectionIndex()));
 	}	
 	
 }

@@ -22,18 +22,13 @@ public class DAOUser {
 		User user = null;
 		
 			query = new HibernateQuery("From " + USER_CLASS + " Where " + COL_LOGIN + " = ? AND " + COL_PASSWORD + " = ?", login, password);
-			DBConnectionManager.initTransaction();
 			data = DBConnectionManager.query(query);
-			DBConnectionManager.closeConnection();
 	
 			// TODO: ingles. Si no se obtienen datos, es porque no existe el usuario
 			if(data.size() == 0) {
 				throw new IncorrectEmployeeException("El nombre de usuario o contraseña introducidos no son válidos.");
 			} else {
-				user = (User)data.get(0);
-				for(Object object : data) {
-					DBConnectionManager.clearCache(object);
-				}
+				user = (User) data.get(0);				
 			}
 		return user;
 	}

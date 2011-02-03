@@ -2,29 +2,18 @@ package presentation.utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 
 import model.business.control.Controller;
-import model.business.knowledge.Categories;
-import model.business.knowledge.ChiefProject;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
-import model.business.knowledge.TopicWrapper;
-import model.business.knowledge.User;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.hibernate.classic.Session;
 
-import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
-
-import persistence.utils.HibernateUtil;
 import presentation.wizards.LoginWizardPage;
 import presentation.wizards.control.LoginWizardController;
+import exceptions.IncorrectEmployeeException;
+import exceptions.NonExistentRole;
 
 public class LoginWizardDialog extends WizardDialog {
 

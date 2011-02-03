@@ -38,7 +38,7 @@ public class NewAnswerViewWizardController extends AbstractNewKnowledgeWizardCon
 		final String nameText = page.getNameText();
 		final String descriptionText = page.getDescriptionText();
 		// TODO: añadir argumento
-		final Answer newAnswer = new Answer(nameText, descriptionText, new Date(), " ");
+		final Answer newAnswer = new Answer(nameText, descriptionText, new Date(), "Pro");
 
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {

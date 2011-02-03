@@ -11,9 +11,7 @@ import persistence.utils.HibernateQuery;
  * by the manager of the databases connection.
  */
 public interface IDBConnection {
-	
-	public void changeURL(String ip, int port);
-	
+		
 	public List<?> query(HibernateQuery query) throws SQLException;
 	
 	public void initTransaction() throws SQLException;
@@ -23,13 +21,9 @@ public interface IDBConnection {
 	public void update(Object object) throws SQLException;
 	
 	public void delete(Object object) throws SQLException;
-	
-	public void clearCache(Object object) throws SQLException;
-	
+		
 	public void commit() throws SQLException;
 	
 	public void rollback() throws SQLException;
-
-	public void closeSession();
 		
 }

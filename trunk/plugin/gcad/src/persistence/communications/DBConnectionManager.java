@@ -1,12 +1,10 @@
 package persistence.communications;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.classic.Session;
-
 import persistence.utils.HibernateQuery;
-import persistence.utils.HibernateUtil;
 
 /**
  * This class represents a manager that allows to access and synchronize changes
@@ -14,23 +12,36 @@ import persistence.utils.HibernateUtil;
  */
 public class DBConnectionManager {
 
-	private static IDBConnection connection = null;
+	private static ArrayList<IDBConnection> connections = new ArrayList<IDBConnection>();
 
-	public static void initializateConnection(String ip, int port) {
-		connection = new DBConnection();
-		connection.changeURL(ip, port);
+	public static void addConnection(IDBConnection conn) {
+		if (!connections.contains(conn))
+			connections.add(conn);
+	}
+
+	public static void clear() {
+		connections.clear();
 	}
 
 	public static void initTransaction() throws SQLException {
 		// Iniciamos una transacción que puede estar formada
 		// por más de una operación sobre la base de datos
 
-		try {
-			connection.initTransaction();
-		} catch (Exception ex) {
-			throw new SQLException("Error en el acceso a las bases de datos.", ex);
+		// Iniciamos una transacción que puede estar formada
+		// por más de una operación sobre la base de datos
+		if (connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
 		}
+		for (IDBConnection conexion : connections) {
+			try {
+				conexion.initTransaction();
+			} catch (Exception ex) {
 
+				throw new SQLException(
+						"Error en el acceso a las bases de datos.", ex);
+
+			}
+		}
 	}
 
 	public static void finishTransaction() throws SQLException {
@@ -38,22 +49,26 @@ public class DBConnectionManager {
 		boolean error;
 
 		// Intentamos finalizar la última transacción iniciada
-
+		if (connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
 		error = false;
 		excepcion = null;
-
-		try {
-			connection.commit();
-		} catch (Exception ex) {
+		for (IDBConnection conexion : connections) {
 			try {
-				connection.rollback();
-			} catch (Exception ex2) {
-			}
-			error = true;
-			excepcion = new SQLException(
-					"Error en el acceso a las bases de datos.", ex);
-		}
+				conexion.commit();
+			} catch (Exception ex) {
+				try {
+					conexion.rollback();
+				} catch (Exception ex2) {
+				}
+				error = true;
 
+				excepcion = new SQLException(
+						"Error en el acceso a las bases de datos.", ex);
+
+			}
+		}
 		if (error) {
 			throw excepcion;
 		}
@@ -64,78 +79,80 @@ public class DBConnectionManager {
 
 		// TODO: Para hacer una consulta utilizamos sólo la primera conexión
 
+		if (connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+
 		try {
-			data = connection.query(query);
+			data = connections.get(0).query(query);
 		} catch (Exception ex) {
-			throw new SQLException("Error en el acceso a las bases de datos.", ex);
+
+			throw new SQLException("Error en el acceso a las bases de datos.",
+					ex);
 
 		}
 		return data;
-	
 	}
 
 	public static Object insert(Object object) throws SQLException {
-		Object copy;
+		Object copia;
 
 		// Insertamos el objeto en todas las conexiones, y nos quedamos
 		// con la copia devuelta por la primera conexión
-		copy = null;
-		try {
-			if (copy == null) {
-				copy = connection.insert(object);
-			} else {
-				connection.insert(object);
+		if (connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
+		}
+		copia = null;
+		for (IDBConnection conexion : connections) {
+			try {
+				if (copia == null) {
+					copia = conexion.insert(object);
+				} else {
+					conexion.insert(object);
+				}
+			} catch (Exception ex) {
+
+				throw new SQLException(
+						"Error en el acceso a las bases de datos.", ex);
+
 			}
-		} catch (Exception ex) {
-
-			throw new SQLException("Error en el acceso a las bases de datos.",
-					ex);
-
 		}
 
-		return copy;
+		return copia;
 	}
 
-	public static void update(Object object) throws SQLException {
+	public static void update(Object objeto) throws SQLException {
 		// Actualizamos el objeto en todas las conexiones
-
-		try {
-			connection.update(object);
-		} catch (Exception ex) {
-			throw new SQLException("Error en el acceso a las bases de datos.",
-					ex);
+		if (connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
 		}
+		for (IDBConnection conexion : connections) {
+			try {
+				conexion.update(objeto);
+			} catch (Exception ex) {
 
+				throw new SQLException(
+						"Error en el acceso a las bases de datos.", ex);
+
+			}
+		}
 	}
 
-	public static void delete(Object object) throws SQLException {
+	public static void delete(Object objeto) throws SQLException {
 		// Eliminamos el objeto en todas las conexiones
-
-		try {
-			connection.delete(object);
-		} catch (Exception ex) {
-			throw new SQLException("Error en el acceso a las bases de datos.",
-					ex);
+		if (connections.size() == 0) {
+			throw new SQLException("La lista de conexiones está vacía.");
 		}
+		for (IDBConnection conexion : connections) {
+			try {
+				conexion.delete(objeto);
+			} catch (Exception ex) {
 
-	}
+				throw new SQLException(
+						"Error en el acceso a las bases de datos.", ex);
 
-	public static void clearCache(Object object) throws SQLException {
-		// Borramos el objeto de la caché de todas las conexiones
-
-		try {
-			// Borramos el objeto
-			connection.clearCache(object);
-		} catch (Exception ex) {
-			throw new SQLException("Error en el acceso a las bases de datos.",
-					ex);
+			}
 		}
-
-	}
-
-	public static void closeConnection() {
-		connection.closeSession();
-		
 	}
 
 }
