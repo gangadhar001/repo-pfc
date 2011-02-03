@@ -3,20 +3,19 @@ package model.business.control;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 
 import exceptions.NoProposalsException;
 
-import persistence.PFAnswer;
+import persistence.DAOAnswer;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
-import persistence.utils.HibernateUtil;
+
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
+import model.business.knowledge.User;
 
 /**
  * This class represents a manager that allows to manage the knowledge (proposals or answers)
@@ -36,7 +35,7 @@ public class KnowledgeController {
 		if (topicWrapper == null) {
 			// TODO: el idProject estará guardado en la ISession, cuando hace login el usuario
 			topicWrapper = new TopicWrapper();
-			for (Topic t: DAOTopic.queryTopicsProject(2))
+			for (Topic t: DAOTopic.queryTopicsProject(Controller.getInstance().getSession().getCurrentActiveProject()))
 				topicWrapper.add(t);
 		}
 		return topicWrapper;
@@ -59,15 +58,18 @@ public class KnowledgeController {
 		
 	}
 	
-	public static void addProposal(Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		
-		DAOProposal.insert(proposal);
+	public static void addProposal(User u, Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		// Se establece el usuario
+		proposal.setUser(u);
+		// Se añade al topic parent para refrescar las vistas
+		parent.add(proposal);
+		DAOProposal.insert(proposal, parent.getId());
 	}
 	
-	public static void addAnswer(Answer answer, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// Add the new proposal to the existing topic
+	public static void addAnswer(User u, Answer answer, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		answer.setUser(u);
 		parent.add(answer);
-		PFAnswer.insert(answer, parent.getId());
+		DAOAnswer.insert(answer, parent.getId());
 	}
 	
 	public static void deleteTopic(Topic to) throws SQLException {
@@ -89,7 +91,7 @@ public class KnowledgeController {
 				if (p.getAnswers().contains(a))
 					p.getAnswers().remove(a);
 		}
-		PFAnswer.delete(a);
+		DAOAnswer.delete(a);
 	}
 		
 }

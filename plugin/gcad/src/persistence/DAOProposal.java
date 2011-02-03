@@ -11,7 +11,7 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import persistence.communications.DBConnectionManager;
 import persistence.utils.HibernateQuery;
-import persistence.utils.HibernateUtil;
+
 
 /**
  * This class allows to query and insert proposals into database
@@ -32,24 +32,22 @@ public class DAOProposal {
 	 * This method returns all proposals and answers hierarchy of a project, keeping the tree hierarchy.
 	 */
 	@SuppressWarnings("unchecked")
-	public static ArrayList<Proposal> queryProposalsTopic(int topicId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {	
-		HibernateQuery query;
-		List<?> data;
-		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-		
-		query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where " + COL_TOPIC_ID + " = ?", topicId);
-		data = DBConnectionManager.query(query);
-		
-		// If data are not obtained, it is because there are no proposals for this project
-		if(data.size() > 0) {
-			proposals = (ArrayList<Proposal>) data;
-			for(Object object : proposals) {
-				DBConnectionManager.clearCache(object);
-			}
-		}
-		
-		return proposals;
-	}
+//	public static ArrayList<Proposal> queryProposalsTopic(int topicId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {	
+//		HibernateQuery query;
+//		List<?> data;
+//		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+//		
+//		query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where " + COL_TOPIC_ID + " = ?", topicId);
+//		data = DBConnectionManager.query(query);
+//		
+//		// If data are not obtained, it is because there are no proposals for this project
+//		if(data.size() > 0) {
+//			proposals = (ArrayList<Proposal>) data;
+//			
+//		}
+//		
+//		return proposals;
+//	}
 	
 	/*private static ArrayList<Proposal> getProposals(ResultSet data) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
@@ -75,38 +73,46 @@ public class DAOProposal {
 		return proposals;
 	}*/
 	
-	public static void insert (Proposal proposal) throws SQLException {
+	public static Proposal queryProposal(int id) throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		Proposal result = null;
+
+			query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where Id = ?", id);
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				result= (Proposal) data.get(0);
+				// Borramos los objetos leídos de la caché
+				
+			}
+		return result;
+	}
+	
+	public static void insert(Proposal proposal, int idParent) throws SQLException {
 		// Modificamos la base de datos y copiamos los ids asignados
 		Proposal newProposal;
 		
-		DBConnectionManager.initTransaction();
-//		 Session session = HibernateUtil.getSessionFactory().openSession();
-//	        session.beginTransaction();
-//		Topic lo = (Topic) session.createQuery("From Topic where Id=2").list().get(0);
-//	      lo.add(proposal);
-	     Topic lo = DAOTopic.queryTopic(2);
-	     lo.add(proposal);
-	      DBConnectionManager.insert(proposal);
-	      DBConnectionManager.finishTransaction();
-	      
-//	    session.save(proposal);
-//	    session.getTransaction().commit();
-//	    session.close();
-//			
-		
-	}
-//		} finally {
-//			DBConnectionManager.finishTransaction();
-//		}
-//		TopicWrapper t = new TopicWrapper();
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        Topic lo = (Topic) session.createQuery("From Topic where Id=2").list().get(0);
-//        lo.add(proposal);
-//      session.save(proposal);
-//      session.getTransaction().commit();
-	
+		try {
+			DBConnectionManager.initTransaction();
+			// TODO: necesario hacer esto para que Hibernate actualice correctamente las claves ajenas y referencias
+			Topic aux = DAOTopic.queryTopic(idParent);
+			aux.add(proposal);
+			DBConnectionManager.insert(proposal);
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
 
+	}
+	
 	public static void delete(Proposal pro) throws SQLException {
+		// Modificamos la base de datos (automáticamente se
+		// borran los datos adicionales si el usuario es médico)
+		try {
+			DBConnectionManager.initTransaction();
+			DBConnectionManager.delete(pro);
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
 	}
 }

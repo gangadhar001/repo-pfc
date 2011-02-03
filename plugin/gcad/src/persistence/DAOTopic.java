@@ -14,6 +14,22 @@ public class DAOTopic {
 	
 	private static final String COL_PROJECT_ID = "projectId";
 			
+	public static Topic queryTopic(int id) throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		Topic result = null;
+
+			query = new HibernateQuery("From " + TOPIC_CLASS + " Where Id = ?", id);
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				result= (Topic) data.get(0);
+				// Borramos los objetos leídos de la caché
+				
+			}
+		return result;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static ArrayList<Topic> queryTopicsProject(int projectId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		HibernateQuery query;
@@ -21,16 +37,12 @@ public class DAOTopic {
 		ArrayList<Topic> result = new ArrayList<Topic>();
 
 			query = new HibernateQuery("From " + TOPIC_CLASS + " Where " + COL_PROJECT_ID + " = ?", projectId);
-			DBConnectionManager.initTransaction();
 			data = DBConnectionManager.query(query);
-			DBConnectionManager.closeConnection();
 	
 			if(data.size() > 0) {
 				result = (ArrayList<Topic>) data;
 				// Borramos los objetos leídos de la caché
-				for(Object object : result) {
-					DBConnectionManager.clearCache(object);
-				}
+				
 			}
 		return result;
 	}
@@ -59,8 +71,8 @@ public class DAOTopic {
 		// Modificamos la base de datos y copiamos los ids asignados
 		try {
 			DBConnectionManager.initTransaction();
-			Topic newTopic = (Topic)DBConnectionManager.insert(topic.clone());
-			topic.setId(newTopic.getId());
+			DBConnectionManager.insert(topic);
+			//topic.setId(newTopic.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
@@ -76,23 +88,4 @@ public class DAOTopic {
 			DBConnectionManager.finishTransaction();
 		}
 	}
-
-	public static Topic queryTopic(int id) throws SQLException {
-		HibernateQuery query;
-		List<?> data;
-		Topic result = null;
-
-			query = new HibernateQuery("From " + TOPIC_CLASS + " Where Id = ?", id);
-			data = DBConnectionManager.query(query);
-	
-			if(data.size() > 0) {
-				result= (Topic) data.get(0);
-				// Borramos los objetos leídos de la caché
-				for(Object object : data) {
-					DBConnectionManager.clearCache(object);
-				}
-			}
-		return result;
-	}
-
 }
