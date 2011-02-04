@@ -307,6 +307,7 @@
          </menu>
      </menuContribution>
 </extension>
+
 <extension
       point="org.eclipse.ui.services">
    <sourceProvider
@@ -317,4 +318,14 @@
       </variable>
    </sourceProvider>
 </extension>   
+
+<extension
+	point="org.eclipse.ui.exportWizards">
+	<wizard
+		id="gcad.export.exportXMLWizard"
+		name="%export.XMLWizard"
+		class="presentation.wizards.export.exportXMLWizard">
+	</wizard>
+</extension>
+
 </plugin>
