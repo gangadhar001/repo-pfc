@@ -15,13 +15,14 @@ import javax.xml.bind.annotation.XmlAccessType;
  */
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Proposal extends AbstractKnowledge implements Serializable {
+public class Proposal extends Knowledge implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -404860160279086681L;
 
+	private String description;
 	private Categories category;
 	
 	// A proposal may have answers
@@ -32,11 +33,21 @@ public class Proposal extends AbstractKnowledge implements Serializable {
 		
 	}
 
+    
     public Proposal(String title, String description, Date date, Categories category) {
-		super(title, description, date);
+		super(title, date);
+		this.description = description;
 		this.category = category;
 	}
     
+    public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public Set<Answer> getAnswers() {
 		return answers;
 	}

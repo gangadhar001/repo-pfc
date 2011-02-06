@@ -31,7 +31,8 @@
 		<mapping resource="model/business/knowledge/User.hbm.xml" />		
 		<mapping resource="model/business/knowledge/Topic.hbm.xml" />
 		<mapping resource="model/business/knowledge/Answer.hbm.xml" />
-		<mapping resource="model/business/knowledge/Proposal.hbm.xml" />		
+		<mapping resource="model/business/knowledge/Proposal.hbm.xml" />
+		<mapping resource="model/business/knowledge/Notification.hbm.xml" />		
 		
 	</session-factory>
 	

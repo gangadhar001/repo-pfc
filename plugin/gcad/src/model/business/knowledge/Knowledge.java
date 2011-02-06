@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public abstract class AbstractKnowledge implements Serializable {
+public abstract class Knowledge implements Serializable {
 
 	/**
 	 * 
@@ -22,16 +22,14 @@ public abstract class AbstractKnowledge implements Serializable {
 	
 	protected int id;
 	protected String title;
-	protected String description;
 	protected Date date;
 	@XmlElement protected User user;
 		
-	public AbstractKnowledge() {
+	public Knowledge() {
 	}
 	
-	public AbstractKnowledge(String title, String description, Date date) {
+	public Knowledge(String title, Date date) {
 		this.title = title;
-		this.description = description;
 		this.date = date;
 	}
 	
@@ -50,15 +48,7 @@ public abstract class AbstractKnowledge implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
+		
 	public Date getDate() {
 		return date;
 	}

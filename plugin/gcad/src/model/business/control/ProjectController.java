@@ -2,7 +2,7 @@ package model.business.control;
 
 import java.sql.SQLException;
 
-import persistence.PFProject;
+import persistence.DAOProject;
 
 import model.business.knowledge.Project;
 
@@ -19,6 +19,6 @@ public class ProjectController {
 		}*/
 		
 		// Añadimos el proyecto al sistema
-		PFProject.insert(project);
+		DAOProject.insert(project);
 	}
 }

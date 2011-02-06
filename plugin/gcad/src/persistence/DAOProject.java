@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import model.business.knowledge.Project;
 import persistence.communications.DBConnectionManager;
 
-public class PFProject {
+public class DAOProject {
 
 	private static final String PROJECT_TABLE = "projects";
 	

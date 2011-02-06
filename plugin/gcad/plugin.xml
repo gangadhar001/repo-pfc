@@ -45,6 +45,17 @@
          name="%view.graph"
          restorable="true">
    </view>
+   <category
+         id="gcad.category.view.notification"
+         name="%category.view.notification">
+   </category>
+   <view
+         category="gcad.category.view.notification"
+         class="presentation.views.NotificationsView"
+         id="gcad.view.notifications"
+         name="%view.notifications"
+         restorable="true">
+   </view>
 </extension>
 <extension
       point="org.eclipse.ui.startup">

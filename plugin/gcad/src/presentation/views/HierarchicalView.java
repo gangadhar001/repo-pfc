@@ -12,8 +12,8 @@ import model.business.knowledge.IActions;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
-import model.treeviewer.ProposalContentProvider;
-import model.treeviewer.ProposalLabelProvider;
+import model.treeviewer.KnowledgeContentProvider;
+import model.treeviewer.KnowledgeLabelProvider;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -147,8 +147,6 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 	public void setFocus() {
 		if (treeViewer!=null)
 			treeViewer.getControl().setFocus();
-
-
 	}
 		
 	private void makeTree() {
@@ -179,9 +177,9 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 			t.add(t2);*/
 			cleanComposite();
 			
-			treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-			treeViewer.setContentProvider(new ProposalContentProvider());
-			treeViewer.setLabelProvider(new ProposalLabelProvider());
+			treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE);
+			treeViewer.setContentProvider(new KnowledgeContentProvider());
+			treeViewer.setLabelProvider(new KnowledgeLabelProvider());
 			treeViewer.setInput(topicWrapper);
 			hookDoubleClickAction();
 			hookSelectionListener();

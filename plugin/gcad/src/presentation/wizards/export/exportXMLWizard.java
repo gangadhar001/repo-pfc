@@ -76,7 +76,7 @@ public class exportXMLWizard extends WizardPage {
 		else  
 			updateStatus(null);
 	}
-	
+
 	 public boolean finish() {
 		 boolean result = false;
 		 if (Controller.getInstance().isLogged()) {
@@ -88,14 +88,14 @@ public class exportXMLWizard extends WizardPage {
 			 MessageDialog.openError(getShell(), "Error", "Debes estar logueado para realizar esta acción");
 		 return result;
 		 
-	 }
+	}
 	 
-	 protected void updateStatus(String message) {
+	protected void updateStatus(String message) {
 		setErrorMessage(message);
 		setPageComplete(message == null);		
 	}
-
-
+	
+	
 	public String getFilePath() {
 		return filePath;
 	}

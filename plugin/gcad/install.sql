@@ -125,14 +125,21 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`topics` (
   `title` VARCHAR(255) NOT NULL ,
   `creationDate` DATETIME NOT NULL ,
   `projectId` INT NOT NULL DEFAULT -1 ,
+  `userId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_topic_project` (`projectId` ASC) ,
   UNIQUE INDEX `name_UNIQUE` (`title` ASC) ,
+  INDEX `fk_topic_user` (`userId` ASC) ,
   CONSTRAINT `fk_topic_project`
     FOREIGN KEY (`projectId` )
     REFERENCES `dbgcad`.`projects` (`id` )
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_topic_user`
+    FOREIGN KEY (`userId` )
+    REFERENCES `dbgcad`.`users` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -193,6 +200,46 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
     REFERENCES `dbgcad`.`users` (`id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`Notifications`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`Notifications` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`Notifications` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `state` ENUM('Read','Unread') NOT NULL ,
+  `topicId` INT NULL ,
+  `proposalId` INT NULL ,
+  `answerId` INT NULL ,
+  `projectId` INT NOT NULL DEFAULT -1 ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_notifications_topic` (`topicId` ASC) ,
+  INDEX `fk_notifications_proposal` (`proposalId` ASC) ,
+  INDEX `fk_notifications_answer` (`answerId` ASC) ,
+  INDEX `fk_notifications_project` (`projectId` ASC) ,
+  CONSTRAINT `fk_notifications_topic`
+    FOREIGN KEY (`topicId` )
+    REFERENCES `dbgcad`.`topics` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notifications_proposal`
+    FOREIGN KEY (`proposalId` )
+    REFERENCES `dbgcad`.`proposals` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notifications_answer`
+    FOREIGN KEY (`answerId` )
+    REFERENCES `dbgcad`.`answers` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notifications_project`
+    FOREIGN KEY (`projectId` )
+    REFERENCES `dbgcad`.`projects` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -270,8 +317,8 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`topics` (`id`, `title`, `creationDate`, `projectId`) VALUES ('1', 'Patrones', '2011-01-22', '2');
-INSERT INTO `dbgcad`.`topics` (`id`, `title`, `creationDate`, `projectId`) VALUES ('2', 'Frameworks', '2011-01-21', '2');
+INSERT INTO `dbgcad`.`topics` (`id`, `title`, `creationDate`, `projectId`, `userId`) VALUES ('1', 'Patrones', '2011-01-22', '2', '1');
+INSERT INTO `dbgcad`.`topics` (`id`, `title`, `creationDate`, `projectId`, `userId`) VALUES ('2', 'Frameworks', '2011-01-21', '2', '2');
 
 COMMIT;
 
@@ -296,5 +343,16 @@ INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`
 INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('2', 'Answer 2', 'a2', '2011-04-01', 'Contra', '2', '2');
 INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('3', 'Answer 3', 'a3', '2011-03-31', 'Pro', '1', '2');
 INSERT INTO `dbgcad`.`answers` (`id`, `title`, `description`, `date`, `argument`, `userId`, `proposalId`) VALUES ('4', 'Answer 4', 'a4', '2011-03-12', 'Pro', '3', '3');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`Notifications`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`Notifications` (`id`, `state`, `topicId`, `proposalId`, `answerId`, `projectId`) VALUES ('1', 'Read', NULL, '2', NULL, '2');
+INSERT INTO `dbgcad`.`Notifications` (`id`, `state`, `topicId`, `proposalId`, `answerId`, `projectId`) VALUES ('2', 'Unread', NULL, NULL, '3', '2');
+INSERT INTO `dbgcad`.`Notifications` (`id`, `state`, `topicId`, `proposalId`, `answerId`, `projectId`) VALUES ('3', 'Unread', '1', NULL, NULL, '2');
 
 COMMIT;
