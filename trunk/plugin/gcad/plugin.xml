@@ -324,7 +324,7 @@
 	<wizard
 		id="gcad.export.exportXMLWizard"
 		name="%export.XMLWizard"
-		class="presentation.wizards.export.exportXMLWizard">
+		class="presentation.wizards.export.exportXMLWizardController">
 	</wizard>
 </extension>
 
