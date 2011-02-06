@@ -12,16 +12,13 @@ import javax.xml.bind.annotation.XmlElement;
 
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Topic implements Serializable {
+public class Topic extends Knowledge implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -485599952417592267L;
 	
-	private int id;
-	private String title;
-	private Date creationDate;
 	@XmlElement( name = "Proposal" )
 	private Set<Proposal> proposals = new HashSet<Proposal>();
 	private Project project;
@@ -31,8 +28,7 @@ public class Topic implements Serializable {
 	}
 
 	public Topic(String title, Date creationDate) {
-		this.title = title;
-		this.creationDate = creationDate;
+		super(title, creationDate);
 	}
 
 	
@@ -71,11 +67,11 @@ public class Topic implements Serializable {
 
 	
 	public Date getCreationDate() {
-		return creationDate;
+		return date;
 	}
 
 	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+		this.date = creationDate;
 	}
 
 	public void add(Proposal proposal) {
@@ -91,7 +87,7 @@ public class Topic implements Serializable {
 		Proposal p;
 		result.append("Topic:\n");
 		result.append("      " + title + "\n");
-		result.append("      " + creationDate + "\n");
+		result.append("      " + date + "\n");
 		result.append("      Project:\n");
 		result.append("      " + project + "\n");
 		result.append("      Proposals:\n");
@@ -112,10 +108,10 @@ public class Topic implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Topic other = (Topic) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
+		if (date == null) {
+			if (other.date != null)
 				return false;
-		} else if (!creationDate.equals(other.creationDate))
+		} else if (!date.equals(other.date))
 			return false;
 		if (id != other.id)
 			return false;

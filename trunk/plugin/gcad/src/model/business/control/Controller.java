@@ -11,6 +11,7 @@ import java.util.List;
 import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Session;
@@ -212,6 +213,16 @@ public class Controller {
 	public void setCurrentProject(int id) {
 		session.setCurrentActiveProject(id);
 		
+	}
+
+	public void removeNotification(Notification objectSelected) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ArrayList<Notification> getNotifications() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 			
 }

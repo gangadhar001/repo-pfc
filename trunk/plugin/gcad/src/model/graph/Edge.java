@@ -1,6 +1,6 @@
 package model.graph;
 
-import model.business.knowledge.AbstractKnowledge;
+import model.business.knowledge.Knowledge;
 
 public class Edge {
 
@@ -8,9 +8,9 @@ public class Edge {
 	private String label;
 	// TODO: el origen puede ser un Topic o una Proposal
 	private Object source;
-	private AbstractKnowledge destination;
+	private Knowledge destination;
 	
-	public Edge(String id, String label, Object source, AbstractKnowledge destination) {
+	public Edge(String id, String label, Object source, Knowledge destination) {
 		this.id = id;
 		this.label = label;
 		this.source = source;
@@ -29,7 +29,7 @@ public class Edge {
 		return source;
 	}
 
-	public AbstractKnowledge getDestination() {
+	public Knowledge getDestination() {
 		return destination;
 	}	
 	

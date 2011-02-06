@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 
-public class ProposalContentProvider implements ITreeContentProvider{
+public class KnowledgeContentProvider implements ITreeContentProvider{
 
 	private TreeViewer viewer;
 	//private KnowledgeController manager;

@@ -7,7 +7,7 @@ import model.business.knowledge.Topic;
 
 import org.eclipse.jface.viewers.LabelProvider;
 
-public class ProposalLabelProvider extends LabelProvider {
+public class KnowledgeLabelProvider extends LabelProvider {
 	
 	@Override
 	public String getText(Object element) {
