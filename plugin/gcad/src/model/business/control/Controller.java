@@ -215,14 +215,13 @@ public class Controller {
 		
 	}
 
-	public void removeNotification(Notification objectSelected) {
-		// TODO Auto-generated method stub
+	public void removeNotification(Notification notification) throws SQLException {
+		NotificationController.deleteNotification(notification);
 		
 	}
 
-	public ArrayList<Notification> getNotifications() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Notification> getNotifications() throws SQLException {
+		return NotificationController.getNotifications(session.getCurrentActiveProject());
 	}
 			
 }
