@@ -78,7 +78,7 @@ public class DAOProposal {
 		List<?> data;
 		Proposal result = null;
 
-			query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where Id = ?", id);
+			query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where id = ?", id);
 			data = DBConnectionManager.query(query);
 	
 			if(data.size() > 0) {
