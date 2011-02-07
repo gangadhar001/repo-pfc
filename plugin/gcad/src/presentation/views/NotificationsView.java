@@ -42,7 +42,7 @@ import presentation.utils.Dialogs;
 // TODO: referencia: http://www.vogella.de/articles/EclipseJFaceTable/article.html
 public class NotificationsView extends ViewPart implements IPresentation {
 
-protected Label errorLabel;
+	private Label errorLabel;
 	
 	private Composite parent;
 	private ISelection selection;
