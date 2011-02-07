@@ -19,7 +19,7 @@ public class DAOTopic {
 		List<?> data;
 		Topic result = null;
 
-			query = new HibernateQuery("From " + TOPIC_CLASS + " Where Id = ?", id);
+			query = new HibernateQuery("From " + TOPIC_CLASS + " Where id = ?", id);
 			data = DBConnectionManager.query(query);
 	
 			if(data.size() > 0) {
