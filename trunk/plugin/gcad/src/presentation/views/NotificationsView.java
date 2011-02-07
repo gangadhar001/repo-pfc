@@ -76,11 +76,16 @@ protected Label errorLabel;
 	
 	protected void deleteNotification() {
 		Object objectSelected = null;
-		selection = tableViewer.getSelection();
+		setSelection();
 		if (selection!=null) {
 			if (Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmDelete"), BundleInternationalization.getString("Message.ConfirmDelete"))) { 
-				setSelection();
-				Controller.getInstance().removeNotification((Notification)objectSelected);
+				objectSelected = ((IStructuredSelection)selection).getFirstElement();
+				try {
+					Controller.getInstance().removeNotification((Notification)objectSelected);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		else {
@@ -183,12 +188,7 @@ protected Label errorLabel;
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				setSelection();
-				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				// TODO: si es una propuesta, habilitar todas las acciones posibles
-				if (obj instanceof Proposal) {
 					
-				}
-				
 			}
 		});
 	}
@@ -201,7 +201,7 @@ protected Label errorLabel;
 
 	// This will create the columns for the table
 	private void createColumns(final Composite parent, final TableViewer viewer) {
-		String[] titles = { "State", "Type", "Title", "Date", "User Info" };
+		String[] titles = { "State", "Type", "Title", "Date"};
 		int[] bounds = { 100, 100, 100, 100 };
 
 		// First column is for the notification state (read/unread)

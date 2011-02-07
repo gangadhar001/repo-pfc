@@ -248,6 +248,7 @@ grant ALL on TABLE `dbgcad`.`topics` to gcad;
 grant ALL on TABLE `dbgcad`.`users` to gcad;
 grant ALL on TABLE `dbgcad`.`usersProjects` to gcad;
 grant ALL on TABLE `dbgcad`.`knowledge` to gcad;
+grant ALL on TABLE `dbgcad`.`notifications` to gcad;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

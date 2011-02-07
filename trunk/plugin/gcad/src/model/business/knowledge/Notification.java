@@ -1,11 +1,20 @@
 package model.business.knowledge;
 
-public class Notification {
+import java.io.Serializable;
+
+public class Notification implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1555825725259998376L;
 	
 	private int id;
 	private Knowledge knowledge;
 	private String state;
 	private Project project;
+	
+	public Notification() { }
 	
 	public Notification(Knowledge knowledge) {
 		this.knowledge = knowledge;
