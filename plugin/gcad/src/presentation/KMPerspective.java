@@ -12,7 +12,7 @@ public class KMPerspective implements IPerspectiveFactory {
 	//TODO: leerlo del fichero de properties
 	private static final String PROPOSAL_VIEW_ID = "gcad.view.proposals";
 	private static final String PROPOSAL_GRAPH_VIEW_ID = "gcad.view.graph";
-	private static final String USER_INF_VIEW_ID = "category.view.user";
+	private static final String USER_INF_VIEW_ID = "gcad.view.UserInformation";
 		
 	@Override
 	public void createInitialLayout(IPageLayout layout) {

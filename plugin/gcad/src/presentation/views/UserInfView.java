@@ -9,7 +9,9 @@ import java.util.List;
 
 import model.business.control.Controller;
 import model.business.control.PresentationController;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
+import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 
 import org.eclipse.draw2d.GridData;
@@ -48,11 +50,13 @@ public class UserInfView extends ViewPart implements IPresentation{
 	private boolean visible = false;
 	private TableViewer tableViewer;
 	private Object selectedItem;
+	private ArrayList<User> users;
 	
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
 		visible = true;	
+		users = new ArrayList<User>(); 
 		// TODO: se añade a la lista de observados
 		PresentationController.attachObserver(this);
 		// TODO: se refresca la vista segun este logueado o no 
@@ -146,7 +150,7 @@ public class UserInfView extends ViewPart implements IPresentation{
 			table.setHeaderVisible(true);
 			table.setLinesVisible(true);
 			tableViewer.setContentProvider(new ArrayContentProvider());
-			tableViewer.setInput(new ArrayList<User>());
+			tableViewer.setInput(users);
 			
 			GridData gridData = new GridData();
 			gridData.verticalAlignment = GridData.FILL;
@@ -257,6 +261,12 @@ public class UserInfView extends ViewPart implements IPresentation{
 		
 	}
 	
+	public void refresh(Knowledge k) {
+		users.clear();
+		users.add(k.getUser());
+		tableViewer.refresh();
+	}
+	
 	protected void cleanComposite () {
 		// Clean composite parent. 
 		// TODO: controlar si no hay nada en el composite	
@@ -270,6 +280,7 @@ public class UserInfView extends ViewPart implements IPresentation{
 			else {
 				parent.getChildren()[0].dispose();
 				tableViewer = null;
+				users = new ArrayList<User>();
 			}
 		}
 	}	
