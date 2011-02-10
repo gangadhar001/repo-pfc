@@ -9,9 +9,11 @@ import exceptions.NoProposalsException;
 import persistence.DAOAnswer;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
+import persistence.DAOUser;
 
 
 import model.business.knowledge.Answer;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
@@ -93,5 +95,6 @@ public class KnowledgeController {
 		}
 		DAOAnswer.delete(a);
 	}
+
 		
 }

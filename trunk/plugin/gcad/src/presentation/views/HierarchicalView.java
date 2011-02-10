@@ -9,6 +9,7 @@ import java.util.List;
 import model.business.control.Controller;
 import model.business.control.PresentationController;
 import model.business.knowledge.IActions;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
@@ -25,6 +26,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import presentation.IPresentation;
@@ -134,12 +137,17 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 			public void selectionChanged(SelectionChangedEvent event) {
 				setSelection();
 				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				// TODO: si es una propuesta, habilitar todas las acciones posibles
-				if (obj instanceof Proposal) {
-					
+				try {
+					// Al seleccionar un conocimiento, se muestra el usuario que lo ha producido, en su vista correspondiente
+					UserInfView userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
+					userView.refresh((Knowledge)obj);
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
-			}
+				}
+			
 		});
 	}
 

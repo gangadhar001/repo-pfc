@@ -11,6 +11,7 @@ import java.util.List;
 import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
@@ -223,5 +224,5 @@ public class Controller {
 	public ArrayList<Notification> getNotifications() throws SQLException {
 		return NotificationController.getNotifications(session.getCurrentActiveProject());
 	}
-			
+
 }
