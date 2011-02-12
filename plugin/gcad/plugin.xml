@@ -24,24 +24,20 @@
          restorable="true">
    </view>
    <category
-         id="gcad.category.view.proposal"
-         name="%category.view.proposals">
+         id="gcad.category.view.knowledge"
+         name="%category.view.Knowledge">
    </category>
    <view
-         category="gcad.category.view.proposal"
+         category="gcad.category.view.knowledge"
          class="presentation.views.HierarchicalView"
-         id="gcad.view.proposals"
-         name="%view.proposals"
+         id="gcad.view.HierarchicalKnowledge"
+         name="%view.hierarchical"
          restorable="true">
    </view>
-   <category
-         id="gcad.category.view.graph"
-         name="%category.view.graph">
-   </category>
    <view
-         category="gcad.category.view.graph"
+         category="gcad.category.view.knowledge"
          class="presentation.views.GraphView"
-         id="gcad.view.graph"
+         id="gcad.view.GraphKnowledge"
          name="%view.graph"
          restorable="true">
    </view>

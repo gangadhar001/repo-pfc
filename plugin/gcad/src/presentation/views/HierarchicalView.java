@@ -46,6 +46,8 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 	
 	private Object selectedItem;
 
+	private UserInfView userView;
+	
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		this.makeActions();
@@ -65,6 +67,15 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 			public void run() {
 				selection = treeViewer.getSelection();
 				selectedItem = ((IStructuredSelection)selection).getFirstElement();
+				// Al seleccionar un conocimiento, se muestra el usuario que lo ha producido, en su vista correspondiente
+				try {
+					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
+					userView.refresh((Knowledge)selectedItem);
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				// TODO: si es un topic, se añade una propuesta. Si es una propuesta, se añade una respuesta
 				if (selectedItem instanceof Topic) {
 					addProposal((Topic)selectedItem);
@@ -139,7 +150,7 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 				Object obj = ((IStructuredSelection)selection).getFirstElement();
 				try {
 					// Al seleccionar un conocimiento, se muestra el usuario que lo ha producido, en su vista correspondiente
-					UserInfView userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
+					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
 					userView.refresh((Knowledge)obj);
 				} catch (PartInitException e) {
 					// TODO Auto-generated catch block

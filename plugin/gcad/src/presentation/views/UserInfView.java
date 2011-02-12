@@ -2,46 +2,35 @@ package presentation.views;
 
 import internationalization.BundleInternationalization;
 
-import java.awt.Color;
-import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.Controller;
 import model.business.control.PresentationController;
 import model.business.knowledge.Knowledge;
-import model.business.knowledge.Notification;
-import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
+import model.tableviewer.UserInfCompanyLabelProvider;
 
 import org.eclipse.draw2d.GridData;
-import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.RectangleInsets;
 
 import presentation.IPresentation;
 
 
 public class UserInfView extends ViewPart implements IPresentation{
+
 
 
 	private Label errorLabel;
@@ -50,7 +39,7 @@ public class UserInfView extends ViewPart implements IPresentation{
 	private boolean visible = false;
 	private TableViewer tableViewer;
 	private Object selectedItem;
-	private ArrayList<User> users;
+	private ArrayList<User> users;	
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -144,13 +133,23 @@ public class UserInfView extends ViewPart implements IPresentation{
 			//User u = Controller.getInstance().getUserKnowledge(knowledge);
 			cleanComposite();
 			
-			tableViewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.SINGLE);
-			createColumns(parent, tableViewer);
+			tableViewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.SINGLE);
 			final Table table = tableViewer.getTable();
+			String[] titles = { "Name", "Surname", "Email", "Company"};
+			final int[] bounds = { 100, 150, 250, 150 };
+			createColumns(titles, bounds, parent, tableViewer, table);
+			//Table table = new Table(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.SINGLE);
 			table.setHeaderVisible(true);
 			table.setLinesVisible(true);
+			
+			
+			//tableViewer = new TableViewer(table);
+			
+			
+			//		
+			
 			tableViewer.setContentProvider(new ArrayContentProvider());
-			tableViewer.setInput(users);
+			tableViewer.setInput(users);			
 			
 			GridData gridData = new GridData();
 			gridData.verticalAlignment = GridData.FILL;
@@ -159,6 +158,37 @@ public class UserInfView extends ViewPart implements IPresentation{
 			gridData.grabExcessVerticalSpace = true;
 			gridData.horizontalAlignment = GridData.FILL;
 			tableViewer.getControl().setLayoutData(gridData);
+			
+			table.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseUp(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseDown(MouseEvent e) {
+					// Se comprueba si se ha pinchado dentro del boton, para 
+					// mostrar el dialogo
+					int leftLimit =  bounds[0] + bounds[1] + bounds[2];
+					int rightLimit =  leftLimit + UserInfCompanyLabelProvider.BUTTON_WIDTH;
+					int upperLimit = table.getItemHeight();
+					int downLimit = table.getItemHeight() + UserInfCompanyLabelProvider.BUTTON_HEIGHT;
+					if (e.x >= leftLimit && e.x <= rightLimit && e.y >= upperLimit && e.y <= downLimit) {
+						MessageDialog.openError(getSite().getShell(), "Error", "ENTRA");
+						//System.out.println(button.getBounds().width + " " + button.getBounds().height);
+					}							
+				}
+				
+				@Override
+				public void mouseDoubleClick(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		    
+			//table.setLayoutData(gridData);
 						
 			refreshComposite();
 			
@@ -173,9 +203,7 @@ public class UserInfView extends ViewPart implements IPresentation{
 	}
 	
 	// This will create the columns for the table
-	private void createColumns(final Composite parent, final TableViewer viewer) {
-		String[] titles = { "Name", "Surname", "Email", "Company"};
-		int[] bounds = { 100, 100, 100, 100 };
+	private void createColumns(String[] titles, int[] bounds, final Composite parent, final TableViewer viewer, final Table table) {
 
 		// First column is for the notification state (read/unread)
 		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
@@ -202,30 +230,22 @@ public class UserInfView extends ViewPart implements IPresentation{
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				User u = (User) element;
+				User u = (User) element;				
 				return u.getEmail();
 			}
+			
 		});
 
 		// Fourth column is for the date of the new knowledge
-		col = createTableViewerColumn(titles[3], bounds[3], 3);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				User u = (User) element;
-				return u.getCompany().toString();
-			}
+		col = createTableViewerColumn(titles[3], bounds[3], 3);		
+		col.setLabelProvider(new UserInfCompanyLabelProvider(tableViewer));
+		 
 
-//			@Override
-//			public Image getImage(Object element) {
-//				if (((Person) element).isMarried()) {
-//					return CHECKED;
-//				} else {
-//					return UNCHECKED;
-//				}
-//			}
-		});
-		
+		//col.setEditingSupport(new PruebaEditor(tableViewer));
+//		CellEditor [] e = new CellEditor[1];
+//		e[0] = new ButtonCellEditor(table, SWT.NONE);
+//		tableViewer.setCellEditors(e);
+				
 //		// Fifth column is for the title of the new knowledge
 //		col = createTableViewerColumn(titles[2], bounds[2], 2);
 //		col.setLabelProvider(new ColumnLabelProvider() {
