@@ -9,6 +9,7 @@ import java.util.List;
 import model.business.control.Controller;
 import model.business.control.PresentationController;
 import model.business.knowledge.IActions;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.graph.GraphLabelProvider;
@@ -23,6 +24,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -42,6 +44,8 @@ public class GraphView extends AbstractKnowledgeView implements IPresentation, I
 	private boolean isEdge;
 	
 	private Object objectSelected;
+	
+	private UserInfView userView;
 	
 	
 	@Override
@@ -158,8 +162,16 @@ public class GraphView extends AbstractKnowledgeView implements IPresentation, I
 		isEdge = false;
 		objectSelected = null;
 		if (selectionList.size() > 0) {
-			if (selectionList.get(0) instanceof GraphNode)
+			if (selectionList.get(0) instanceof GraphNode) {
 				objectSelected = ((GraphNode) selectionList.get(0)).getData();
+				try {
+					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
+					userView.refresh((Knowledge)objectSelected);
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			else
 				isEdge = true;
 		}

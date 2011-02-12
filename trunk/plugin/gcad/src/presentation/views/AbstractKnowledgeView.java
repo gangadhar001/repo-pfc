@@ -45,7 +45,8 @@ public abstract class AbstractKnowledgeView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-		visible = true;				
+		visible = true;		
+		actionsAllowed = new ArrayList<String>();
 	}
 	
 	
