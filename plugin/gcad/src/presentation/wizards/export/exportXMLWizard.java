@@ -1,11 +1,8 @@
 package presentation.wizards.export;
 
-import internationalization.BundleInternationalization;
-
 import model.business.control.Controller;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;

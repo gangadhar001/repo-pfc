@@ -1,14 +1,10 @@
 package persistence;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.classic.Session;
 
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
-import model.business.knowledge.TopicWrapper;
 import persistence.communications.DBConnectionManager;
 import persistence.utils.HibernateQuery;
 

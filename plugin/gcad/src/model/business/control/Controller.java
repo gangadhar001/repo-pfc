@@ -11,7 +11,6 @@ import java.util.List;
 import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
-import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
@@ -48,6 +47,7 @@ public class Controller {
 		return instance;
 	}
 	
+	/*** Métodos para controlar el login y signout ***/
 	public void login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		session = SessionController.login(user, pass);
 	}
@@ -58,10 +58,10 @@ public class Controller {
 	}
 
 	public void initDBConnection(String ip, String port) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		// Create and initialize a new database connection
 		DBConnectionManager.addConnection(new DBConnection(ip, Integer.parseInt(port), "dbgcad"));
 	}
 	
+	/*** Metodos para añadir nuevo conocimiento ***/
 	public void addTopic (Topic topic) throws SQLException {
 		KnowledgeController.addTopic(topic);
 	}
@@ -74,6 +74,7 @@ public class Controller {
 		KnowledgeController.addAnswer(session.getUser(), a, parent);
 	}
 		
+	/*** Métodos para eliminar conocimiento ***/
 	public void deleteTopic(Topic to) throws SQLException {
 		KnowledgeController.deleteTopic(to);
 		notifyKnowledgeChanged();
@@ -89,6 +90,20 @@ public class Controller {
 		notifyKnowledgeChanged();
 	}
 	
+	/*** Métodos para controlar las notificaciones ***/
+	public void addNotification(Notification notification) throws SQLException {
+		NotificationController.deleteNotification(notification);
+	}
+	
+	public void removeNotification(Notification notification) throws SQLException {
+		NotificationController.deleteNotification(notification);
+	}
+
+	public ArrayList<Notification> getNotifications() throws SQLException {
+		return NotificationController.getNotifications(session.getCurrentActiveProject());
+	}
+	
+	/*** Métodos auxiliares ***/
 	public ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
 		return KnowledgeController.getProposals();
 	}
@@ -103,6 +118,7 @@ public class Controller {
 		return KnowledgeController.getTopicsWrapper();
 	}
 		
+	/*** Metodos para la notificacion del observador ***/
 	public void notifyLogin () {
 		PresentationController.notifyConnection(true);
 	}
@@ -144,15 +160,13 @@ public class Controller {
 	    	index = rolesName.indexOf(role.toString());
 	    	profilesConfiguration = config.configurationsAt("Role("+index+").Profile");
 	    	profiles = new ArrayList<String>();		    
-	    	for(Iterator it = profilesConfiguration.iterator(); it.hasNext();)
+	    	for(Iterator<HierarchicalConfiguration> it = profilesConfiguration.iterator(); it.hasNext();)
 		    {
-		        HierarchicalConfiguration sub = (HierarchicalConfiguration) it.next();
+		        HierarchicalConfiguration sub = it.next();
 		        // "Sub" contains now all data about a single field
 		        String profileName = sub.getString("name");
 		        profiles.add(profileName);
-		    }	
-		    System.out.println("Perfiles: " + profiles);
-		    
+		    }		    
 			
 			// When it is read the profiles of that user role, read the actions and menu items available for those profiles
 			config = new XMLConfiguration(this.getClass().getClassLoader().getResource(IResources.XML_PROFILES_PATH+"profiles.xml"));
@@ -170,12 +184,11 @@ public class Controller {
 	
 			// Take the actions name
 			actionsName = new ArrayList<String>();	
-			for(Iterator it = actionsConfigurations.iterator(); it.hasNext();)
+			for(Iterator<HierarchicalConfiguration> it = actionsConfigurations.iterator(); it.hasNext();)
 			    {
-			        HierarchicalConfiguration sub = (HierarchicalConfiguration) it.next();
+			        HierarchicalConfiguration sub = it.next();
 			        actionsName.addAll(sub.getList("name"));
 			    }	
-			System.out.println("Acciones para esos perfiles: " + actionsName);
 			
 			// Enabled/disabled actions from the menus
 			ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
@@ -194,7 +207,6 @@ public class Controller {
 					
 			}
 			
-			//TODO: actualizar las vistas para cambiar su toolbar 
 		    PresentationController.notifyActionsAllowed(actionsName);
 	    }
 	    
@@ -214,15 +226,6 @@ public class Controller {
 	public void setCurrentProject(int id) {
 		session.setCurrentActiveProject(id);
 		
-	}
-
-	public void removeNotification(Notification notification) throws SQLException {
-		NotificationController.deleteNotification(notification);
-		
-	}
-
-	public ArrayList<Notification> getNotifications() throws SQLException {
-		return NotificationController.getNotifications(session.getCurrentActiveProject());
 	}
 
 }

@@ -3,7 +3,6 @@ package presentation.handlers;
 
 import model.business.control.Controller;
 
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IStartup;

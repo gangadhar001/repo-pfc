@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -130,8 +130,8 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`knowledge` (
   CONSTRAINT `fk_knowledge_user`
     FOREIGN KEY (`userId` )
     REFERENCES `dbgcad`.`users` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -154,8 +154,8 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`topics` (
   CONSTRAINT `fk_topic_knowledgr`
     FOREIGN KEY (`id` )
     REFERENCES `dbgcad`.`knowledge` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -180,8 +180,8 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
   CONSTRAINT `fk_proposal_knowledge`
     FOREIGN KEY (`id` )
     REFERENCES `dbgcad`.`knowledge` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -206,8 +206,8 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   CONSTRAINT `fk_answer_knowledge`
     FOREIGN KEY (`id` )
     REFERENCES `dbgcad`.`knowledge` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -219,21 +219,21 @@ DROP TABLE IF EXISTS `dbgcad`.`notifications` ;
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`notifications` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `state` ENUM('Read','Unread') NOT NULL ,
-  `knowledgelId` INT NOT NULL ,
+  `knowledgeId` INT NOT NULL ,
   `projectId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_notifications_knowledge` (`knowledgelId` ASC) ,
+  INDEX `fk_notifications_knowledge` (`knowledgeId` ASC) ,
   INDEX `fk_notifications_project` (`projectId` ASC) ,
   CONSTRAINT `fk_notifications_knowledge`
-    FOREIGN KEY (`knowledgelId` )
+    FOREIGN KEY (`knowledgeId` )
     REFERENCES `dbgcad`.`knowledge` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_notifications_project`
     FOREIGN KEY (`projectId` )
     REFERENCES `dbgcad`.`projects` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -365,8 +365,8 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgelId`, `projectId`) VALUES ('1', 'Read', '2', '2');
-INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgelId`, `projectId`) VALUES ('2', 'Unread', '4', '2');
-INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgelId`, `projectId`) VALUES ('3', 'Unread', '6', '2');
+INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgeId`, `projectId`) VALUES ('1', 'Read', '2', '2');
+INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgeId`, `projectId`) VALUES ('2', 'Unread', '4', '2');
+INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgeId`, `projectId`) VALUES ('3', 'Unread', '6', '2');
 
 COMMIT;

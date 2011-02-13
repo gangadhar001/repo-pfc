@@ -64,8 +64,7 @@ public class DBConnectionManager {
 				}
 				error = true;
 
-				excepcion = new SQLException(
-						"Error en el acceso a las bases de datos.", ex);
+				excepcion = new SQLException("Error en el acceso a las bases de datos.", ex);
 
 			}
 		}

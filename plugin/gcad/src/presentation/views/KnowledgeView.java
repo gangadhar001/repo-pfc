@@ -13,14 +13,10 @@ import model.business.knowledge.Topic;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.ViewPart;
 
 import presentation.wizards.NewAnswerViewWizardPage;
 import presentation.wizards.NewProposalViewWizardPage;
@@ -28,31 +24,24 @@ import presentation.wizards.control.NewAnswerViewWizardController;
 import presentation.wizards.control.NewProposalViewWizardController;
 import presentation.wizards.control.NewTopicWizardController;
 
-public abstract class AbstractKnowledgeView extends ViewPart {
-	
-	protected Label errorLabel;
-	
-	protected Composite parent;
-	protected ISelection selection;
+
+public abstract class KnowledgeView extends AbstractView {	
 	
 	protected Action addAction;
 	protected Action editAction;
-	protected Action deleteAction;
 	
-	protected boolean visible = false;
 	protected ArrayList<String> actionsAllowed;
 
 	@Override
 	public void createPartControl(Composite parent) {
-		this.parent = parent;
-		visible = true;		
+		super.createPartControl(parent);
+		makeActions();
+		createToolbar();
 		actionsAllowed = new ArrayList<String>();
 	}
 	
-	
 	/**
-	 * This method handles the double click action.
-	 * TODO: añadir/eliminar una nueva propuesta/respuesta
+	 * TODO: This method handles the double click action.
 	 */
 	protected void makeActions() {
 		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
@@ -79,11 +68,8 @@ public abstract class AbstractKnowledgeView extends ViewPart {
         mgr.add(deleteAction);
     }
     
-	abstract protected void addKnowledge();	
-	abstract protected void deleteKnowledge();
-	abstract protected void setSelection();
-	abstract protected void cleanComposite(); 
-
+	protected abstract void addKnowledge();	
+	protected abstract void deleteKnowledge();
 
 	protected void createKnowledge(Object obj) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if (obj instanceof Topic) {
@@ -133,20 +119,6 @@ public abstract class AbstractKnowledgeView extends ViewPart {
 		WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
 		wizardDialog.create();
 		wizardDialog.open();
-	}	
+	}		
 	
-	protected void setErrorLabel (String message) {
-		errorLabel = new Label(parent, SWT.NULL);
-		errorLabel.setText(message);
-	}
-	
-	protected void refreshComposite () {
-		parent.layout();
-	}
-	
-	protected void disableActions() {
-		addAction.setEnabled(false);
-		deleteAction.setEnabled(false);
-	}
-
 }

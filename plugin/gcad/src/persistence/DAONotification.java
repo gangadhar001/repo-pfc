@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.business.knowledge.Answer;
 import model.business.knowledge.Notification;
 import persistence.communications.DBConnectionManager;
 import persistence.utils.HibernateQuery;
