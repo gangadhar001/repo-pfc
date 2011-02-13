@@ -54,6 +54,7 @@ public class Controller {
 	
 	public void signout() throws SQLException {
 		SessionController.signout(session);
+		DBConnectionManager.clear();
 		session = null;
 	}
 
@@ -63,7 +64,15 @@ public class Controller {
 	
 	/*** Metodos para añadir nuevo conocimiento ***/
 	public void addTopic (Topic topic) throws SQLException {
-		KnowledgeController.addTopic(topic);
+		boolean found = false;
+		Project project = null;
+		for (Iterator<Project> i = session.getUser().getProjects().iterator(); i.hasNext() && !found; ) {
+			project = (Project)i.next();
+			if (project.getId() == session.getCurrentActiveProject()) {
+				found = true;
+			}		
+		}	
+		KnowledgeController.addTopic(session.getUser(), project , topic);
 	}
 	
 	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {

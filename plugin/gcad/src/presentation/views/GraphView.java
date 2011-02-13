@@ -117,31 +117,22 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 		graphViewer.setContentProvider(new NodeContentProvider());
 		graphViewer.setLabelProvider(new GraphLabelProvider());
 		graphViewer.setInput(deployedGraphNodes());
+		
 		graphViewer.addDoubleClickListener(new IDoubleClickListener() {
 
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				try {
-					// TODO: cambiar. Doble clic en un elemento. Segun eso, se
-					// añade el objeto adecuado
-					graphViewer.setInput(Controller.getInstance()
-							.getTopicsWrapper().getTopics());
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			
+				setSelection();
+				if (objectSelected != null && !isEdge) {
+					if (objectSelected instanceof Topic)
+						addProposal((Topic)objectSelected);
+					else if (objectSelected instanceof Proposal)
+						addAnswer((Proposal)objectSelected);
 				}
+			
 				graphViewer.applyLayout();
-				parent.layout();
-
+				refreshComposite();
 			}
 		});
 

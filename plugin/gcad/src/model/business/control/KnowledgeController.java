@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.business.knowledge.Answer;
+import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
@@ -41,7 +42,9 @@ public class KnowledgeController {
 		return proposals;
 	}
 
-	public static void addTopic(Topic topic) throws SQLException {
+	public static void addTopic(User u, Project p, Topic topic) throws SQLException {
+		topic.setUser(u);
+		topic.setProject(p);
 		topicWrapper.add(topic);
 		DAOTopic.insert(topic);
 		
