@@ -21,7 +21,6 @@ import persistence.XMLAgent;
 public class exportXMLWizardController extends Wizard implements IExportWizard {
 
 	private exportXMLWizard page; 
-	private IStructuredSelection selection;
 	
 	public exportXMLWizardController() {
 		super();
@@ -38,7 +37,6 @@ public class exportXMLWizardController extends Wizard implements IExportWizard {
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		this.selection = selection;
 		setWindowTitle("ada");
 		// ImageDescriptor
 

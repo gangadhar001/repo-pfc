@@ -2,13 +2,9 @@ package model.tableviewer;
 
 
 import gcad.Activator;
-import model.business.knowledge.Answer;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
 import model.business.knowledge.User;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;

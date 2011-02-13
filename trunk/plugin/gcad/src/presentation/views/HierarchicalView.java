@@ -26,7 +26,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
@@ -36,7 +35,7 @@ import presentation.utils.Dialogs;
 /**
  * This class represents the Proposals view, where the different proposals, answers and actions over them are shown
  */
-public class HierarchicalView extends AbstractKnowledgeView implements IPresentation {
+public class HierarchicalView extends KnowledgeView implements IPresentation {
 	
 	private TreeViewer treeViewer;
 		
@@ -50,8 +49,7 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 	
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		this.makeActions();
-		super.createToolbar();
+		addDoubleClickAction();
 		// Se inicializa la raíz del árbol
 		topicWrapper = new TopicWrapper();
 		// TODO: se añade a la lista de observados
@@ -59,10 +57,8 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 		// TODO: se refresca la vista segun este logueado o no 
 		updateState(Controller.getInstance().isLogged());
 	}
-	
-	@Override
-	protected void makeActions() {
-		super.makeActions();
+		
+	private void addDoubleClickAction() {
 		doubleClickAction = new Action() {
 			public void run() {
 				selection = treeViewer.getSelection();
@@ -279,6 +275,11 @@ public class HierarchicalView extends AbstractKnowledgeView implements IPresenta
 				topicWrapper = new TopicWrapper();
 			}
 		}
+	}
+	
+	protected void disableActions() {
+		super.disableActions();
+		addAction.setEnabled(false);
 	}
 	
 	public void dispose () {

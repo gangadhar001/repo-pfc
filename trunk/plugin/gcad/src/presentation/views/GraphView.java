@@ -20,6 +20,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
@@ -37,7 +39,7 @@ import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 import presentation.IPresentation;
 import presentation.utils.Dialogs;
 
-public class GraphView extends AbstractKnowledgeView implements IPresentation, IZoomableWorkbenchPart {
+public class GraphView extends KnowledgeView implements IPresentation, IZoomableWorkbenchPart {
 
 	private MyGraphViewer graphViewer;
 	
@@ -51,11 +53,22 @@ public class GraphView extends AbstractKnowledgeView implements IPresentation, I
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		super.makeActions();
-		super.createToolbar();
+		
+		// TODO: para controlar el resize
+		parent.addControlListener(new ControlAdapter() {
+		
+	        @Override
+	        public void controlResized(final ControlEvent e) {
+	            if (graphViewer!=null)
+	            	graphViewer.applyLayout();
+	        }
+	    });
+		
 		PresentationController.attachObserver(this);
 		// TODO: se refresca la vista segun este logueado o no 
 		updateState(Controller.getInstance().isLogged());
+		
+		
 	}
     	
 	//TODO: controlar si se selecciona una arista al añadir/eliminar, para mostrar mensaje de error
@@ -155,9 +168,9 @@ public class GraphView extends AbstractKnowledgeView implements IPresentation, I
 		refreshComposite();		
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void setSelection() {
 		// TODO: si hay algo seleccionado que no sea arista, se toma
+		@SuppressWarnings("rawtypes")
 		List selectionList = graphViewer.getGraph().getSelection();
 		isEdge = false;
 		objectSelected = null;
@@ -286,6 +299,11 @@ public class GraphView extends AbstractKnowledgeView implements IPresentation, I
 				graphViewer = null;
 			}
 		}
+	}
+	
+	protected void disableActions() {
+		super.disableActions();
+		addAction.setEnabled(false);
 	}
 		
 	public void dispose () {

@@ -6,13 +6,10 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 
 public class KnowledgeContentProvider implements ITreeContentProvider{
 
-	private TreeViewer viewer;
-	//private KnowledgeController manager;
 	private static Object[] NO_ELEMENT = new Object[0];
 	
 	@Override
@@ -26,13 +23,6 @@ public class KnowledgeContentProvider implements ITreeContentProvider{
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		this.viewer = (TreeViewer) viewer;
-		/*if (manager!=null)
-			manager.removeProposalManagerListener(this);
-		manager = (ProposalManager) newInput;
-		if (manager!=null)
-			manager.addProposalManagerListener(this);
-		*/
 	}
 
 	@Override
