@@ -217,7 +217,8 @@ public class UserInfView extends AbstractView implements IPresentation{
 
 	public void refresh(Knowledge k) {
 		users.clear();
-		users.add(k.getUser());
+		if (k!= null)
+			users.add(k.getUser());
 		tableViewer.refresh();
 	}
 	

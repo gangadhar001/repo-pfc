@@ -94,7 +94,9 @@ public class DBConnection implements IDBConnection {
 	
 	public void commit() throws SQLException {
 		try {
+			HibernateSessionFactory.getSession().flush();
 			HibernateSessionFactory.getSession().getTransaction().commit();
+			HibernateSessionFactory.closeSession();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
@@ -102,6 +104,7 @@ public class DBConnection implements IDBConnection {
 
 	public void rollback() throws SQLException {
 		try {
+			HibernateSessionFactory.getSession().flush();
 			HibernateSessionFactory.getSession().getTransaction().rollback();
 			HibernateSessionFactory.closeSession();
 		} catch(HibernateException ex) {
