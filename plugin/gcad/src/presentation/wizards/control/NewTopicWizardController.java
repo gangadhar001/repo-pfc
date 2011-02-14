@@ -59,7 +59,7 @@ public class NewTopicWizardController extends Wizard {
 		try {
 			getContainer().run(true, false, op);
 			// Notify the the new topic added
-			Controller.getInstance().notifyKnowledgeChanged();
+			Controller.getInstance().notifyKnowledgeAdded(topic);
 			
 		} catch (InterruptedException e) {
 			return false;

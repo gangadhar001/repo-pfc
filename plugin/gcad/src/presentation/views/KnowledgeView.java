@@ -1,5 +1,6 @@
 package presentation.views;
 
+import gcad.Activator;
 import internationalization.BundleInternationalization;
 
 import java.sql.SQLException;
@@ -49,14 +50,14 @@ public abstract class KnowledgeView extends AbstractView {
             	addKnowledge();
             }
 		};
-		//addAction.setImageDescriptor(getImageDescriptor("add.gif"));
+		addAction.setImageDescriptor(Activator.getImageDescriptor("resources/images/add.png"));
 
 		deleteAction = new Action(BundleInternationalization.getString("Actions.Delete")) {
 			public void run() {
 				deleteKnowledge();
 			}
 		};
-		//deleteAction.setImageDescriptor(getImageDescriptor("delete.gif"));
+		deleteAction.setImageDescriptor(Activator.getImageDescriptor("resources/images/remove.png"));
 	}
 	
 	/**

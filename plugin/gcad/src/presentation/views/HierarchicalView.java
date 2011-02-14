@@ -224,16 +224,6 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 	}*/
 
 	@Override
-	public void updateKnowledge() {
-		// Si no habia nada seleccionado, esta es una nueva raiz del arbol
-		/*if (proposalSelected == null)
-			root.add(newKnowledge);*/
-		// si se ha añadido una nueva 
-		treeViewer.refresh();
-		refreshComposite();
-	}
-
-	@Override
 	public void updateState(boolean connected) {
 		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
 		if (!connected) {
@@ -282,12 +272,30 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 		addAction.setEnabled(false);
 	}
 	
+	private void refresh() {
+		treeViewer.refresh();
+		refreshComposite();
+	}
+	
 	public void dispose () {
 		super.dispose();
 		visible = false;
 		PresentationController.detachObserver(this);			
 	}
-	
-	
+
+	@Override
+	public void updateKnowledgeAdded(Knowledge k) {
+		refresh();		
+	}
+
+	@Override
+	public void updateKnowledgeEdited(Knowledge k) {
+		refresh();		
+	}
+
+	@Override
+	public void updateKnowledgeRemoved(Knowledge k) {
+		refresh();		
+	}	
                                                                                                                                    
 }

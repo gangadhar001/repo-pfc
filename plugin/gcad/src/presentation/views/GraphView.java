@@ -243,12 +243,6 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 		return graphViewer;
 	}
 
-	// TODO: cambiar
-	@Override
-	public void updateKnowledge() {
-		graphViewer.setInput(deployedGraphNodes());		
-	}
-
 	@Override
 	public void updateState(boolean connected) {
 		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
@@ -301,6 +295,24 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 		super.dispose();
 		visible = false;
 		PresentationController.detachObserver(this);			
+	}
+
+	@Override
+	public void updateKnowledgeAdded(Knowledge k) {
+		graphViewer.setInput(deployedGraphNodes());		
+		
+	}
+
+	@Override
+	public void updateKnowledgeEdited(Knowledge k) {
+		graphViewer.setInput(deployedGraphNodes());
+		
+	}
+
+	@Override
+	public void updateKnowledgeRemoved(Knowledge k) {
+		graphViewer.setInput(deployedGraphNodes());
+		
 	}
 
 	
