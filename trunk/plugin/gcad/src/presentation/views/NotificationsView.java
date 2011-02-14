@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.business.control.Controller;
 import model.business.control.PresentationController;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 
 import org.eclipse.jface.action.Action;
@@ -57,7 +58,7 @@ public class NotificationsView extends AbstractView implements IPresentation {
 				deleteNotification();
 			}
 		};
-		//deleteAction.setImageDescriptor(getImageDescriptor("delete.gif"));
+		deleteAction.setImageDescriptor(Activator.getImageDescriptor("resources/images/remove.png"));
 	}
 	
 	private void deleteNotification() {
@@ -230,17 +231,28 @@ public class NotificationsView extends AbstractView implements IPresentation {
 			}
 		}
 	}	
+
+	@Override
+	public void updateActions(List<String> actionsName) { }
+
+	@Override
+	public void updateKnowledgeAdded(Knowledge k) {	}
+
+	@Override
+	public void updateKnowledgeEdited(Knowledge k) { }
+
+	@Override
+	public void updateKnowledgeRemoved(Knowledge k) {
+		for (Notification n: notifications)
+			if (n.getKnowledge().equals(k))
+				notifications.remove(n);
+		tableViewer.refresh();
+	}
 	
 	public void dispose () {
 		super.dispose();
 		visible = false;
 		PresentationController.detachObserver(this);			
 	}
-
-	@Override
-	public void updateActions(List<String> actionsName) { }
-	
-	@Override
-	public void updateKnowledge() { }
 	
 }

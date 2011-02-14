@@ -11,6 +11,7 @@ import java.util.List;
 import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
@@ -86,17 +87,17 @@ public class Controller {
 	/*** Métodos para eliminar conocimiento ***/
 	public void deleteTopic(Topic to) throws SQLException {
 		KnowledgeController.deleteTopic(to);
-		notifyKnowledgeChanged();
+		notifyKnowledgeRemoved(to);
 	}
 	
 	public void deleteProposal(Proposal p) throws SQLException {
 		KnowledgeController.deleteProposal(p);
-		notifyKnowledgeChanged();
+		notifyKnowledgeRemoved(p);
 	}
 
 	public void deleteAnswer (Answer a) throws SQLException {
 		KnowledgeController.deleteAnswer(a);	
-		notifyKnowledgeChanged();
+		notifyKnowledgeRemoved(a);
 	}
 	
 	/*** Métodos para controlar las notificaciones ***/
@@ -136,8 +137,16 @@ public class Controller {
 		PresentationController.notifyConnection(false);
 	}
 	
-	public void notifyKnowledgeChanged() {
-		PresentationController.notifyKnowledge();
+	public void notifyKnowledgeAdded(Knowledge k) {
+		PresentationController.notifyKnowledgeAdded(k);
+	}
+	
+	public void notifyKnowledgeChanged(Knowledge k) {
+		PresentationController.notifyKnowledgeEdited(k);
+	}
+	
+	public void notifyKnowledgeRemoved(Knowledge k) {
+		PresentationController.notifyKnowledgeRemoved(k);
 	}
 	
 	/**

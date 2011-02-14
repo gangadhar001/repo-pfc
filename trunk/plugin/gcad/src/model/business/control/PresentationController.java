@@ -2,6 +2,8 @@ package model.business.control;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.business.knowledge.Knowledge;
 import presentation.IPresentation;
 
 public class PresentationController {
@@ -30,9 +32,19 @@ public class PresentationController {
 			observer.updateState(connected);
 	}
 		
-	public static void notifyKnowledge() {
+	public static void notifyKnowledgeAdded(Knowledge k) {
 		for (IPresentation observer: observers)
-			observer.updateKnowledge();
+			observer.updateKnowledgeAdded(k);
+	}
+	
+	public static void notifyKnowledgeEdited(Knowledge k) {
+		for (IPresentation observer: observers)
+			observer.updateKnowledgeEdited(k);
+	}
+	
+	public static void notifyKnowledgeRemoved(Knowledge k) {
+		for (IPresentation observer: observers)
+			observer.updateKnowledgeRemoved(k);
 	}
 	
 	public static void notifyActionsAllowed(List<String> actionsName) {

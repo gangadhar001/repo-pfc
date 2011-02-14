@@ -250,9 +250,6 @@ public class UserInfView extends AbstractView implements IPresentation{
 	public void updateActions(List<String> actionsName) { }
 	
 	@Override
-	public void updateKnowledge() { }
-	
-	@Override
 	protected void makeActions() { }
 	
 	@Override
@@ -260,5 +257,15 @@ public class UserInfView extends AbstractView implements IPresentation{
 
 	@Override
 	protected void setSelection() { }
+
+	@Override
+	public void updateKnowledgeAdded(Knowledge k) { }
+		
+
+	@Override
+	public void updateKnowledgeEdited(Knowledge k) { }
+		
+	@Override
+	public void updateKnowledgeRemoved(Knowledge k) { }
 	
 }
