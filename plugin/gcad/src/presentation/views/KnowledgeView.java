@@ -19,11 +19,11 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 
-import presentation.wizards.NewAnswerViewWizardPage;
-import presentation.wizards.NewProposalViewWizardPage;
-import presentation.wizards.control.NewAnswerViewWizardController;
-import presentation.wizards.control.NewProposalViewWizardController;
-import presentation.wizards.control.NewTopicWizardController;
+import presentation.wizards.control.knowledge.NewAnswerViewWC;
+import presentation.wizards.control.knowledge.NewProposalViewWC;
+import presentation.wizards.control.knowledge.NewTopicWC;
+import presentation.wizards.knowledge.AnswerViewWP;
+import presentation.wizards.knowledge.ProposalViewWP;
 
 
 public abstract class KnowledgeView extends AbstractView {	
@@ -100,19 +100,19 @@ public abstract class KnowledgeView extends AbstractView {
 	}
 	
 	protected void addTopic() {
-		NewTopicWizardController wizarTopicController = new NewTopicWizardController();
+		NewTopicWC wizarTopicController = new NewTopicWC();
 		showWizardDialog(wizarTopicController);
 	}
 	
 	protected void addProposal(Topic topicSelected) {
-		NewProposalViewWizardController wizardAbstractProposalController = new NewProposalViewWizardController(BundleInternationalization.getString("NewProposalWizard"), topicSelected);
-		wizardAbstractProposalController.addPages(new NewProposalViewWizardPage(BundleInternationalization.getString("NewProposalWizardPageTitle")));
+		NewProposalViewWC wizardAbstractProposalController = new NewProposalViewWC(BundleInternationalization.getString("NewProposalWizard"), topicSelected);
+		wizardAbstractProposalController.addPages(new ProposalViewWP(BundleInternationalization.getString("NewProposalWizardPageTitle")));
 		showWizardDialog(wizardAbstractProposalController);
 	}
 	
 	protected void addAnswer(Proposal proposalSelected) {
-		NewAnswerViewWizardController wizardAbstractProposalController = new NewAnswerViewWizardController(BundleInternationalization.getString("NewAnswerWizard"), proposalSelected);
-		wizardAbstractProposalController.addPages(new NewAnswerViewWizardPage(BundleInternationalization.getString("NewAnswerWizardPageTitle")));
+		NewAnswerViewWC wizardAbstractProposalController = new NewAnswerViewWC(BundleInternationalization.getString("NewAnswerWizard"), proposalSelected);
+		wizardAbstractProposalController.addPages(new AnswerViewWP(BundleInternationalization.getString("NewAnswerWizardPageTitle")));
 		showWizardDialog(wizardAbstractProposalController);
 	}
 	

@@ -1,15 +1,17 @@
-package presentation.wizards;
+package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 /**
  * This abstract class represents a New Answer Wizard Page when it is shown since the "Proposals" view
  */
-public class NewAnswerViewWizardPage extends AbstractNewKnowledgeWizardPage {
+public class AnswerViewWP extends AbstractKnowledgeWP {
 	
-	public NewAnswerViewWizardPage(String pageName) {
+	public AnswerViewWP(String pageName) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("NewAnswerWizardPageTitle"));
 		setDescription(BundleInternationalization.getString("NewAnswerWizardPageDescription"));
@@ -17,7 +19,13 @@ public class NewAnswerViewWizardPage extends AbstractNewKnowledgeWizardPage {
 
 	@Override
 	public void createControl(Composite parent) {
-		super.createControl(parent);
+		Composite container = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		layout.verticalSpacing = 9;
+		container.setLayout(layout);	
+		super.createControl(container);
+		container.layout();
 	}
 			
 }

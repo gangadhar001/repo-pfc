@@ -14,7 +14,7 @@ import org.eclipse.ui.PlatformUI;
 
 import presentation.utils.Dialogs;
 import presentation.utils.LoginWizardDialog;
-import presentation.wizards.control.LoginWizardController;
+import presentation.wizards.control.login.LoginWizardController;
 
 
 public class LoginHandler extends AbstractHandler {

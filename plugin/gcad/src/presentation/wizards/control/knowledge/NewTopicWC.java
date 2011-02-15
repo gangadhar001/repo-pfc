@@ -1,4 +1,4 @@
-package presentation.wizards.control;
+package presentation.wizards.control.knowledge;
 
 
 import internationalization.BundleInternationalization;
@@ -15,24 +15,24 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 
-import presentation.wizards.NewTopicWizardPage;
+import presentation.wizards.knowledge.TopicWP;
 
 /**
  * This class allows to login
  */
-public class NewTopicWizardController extends Wizard {
+public class NewTopicWC extends AbstractNewKnowledgeWC {
 		
-	private NewTopicWizardPage page;
+	private TopicWP page;
 
-	public NewTopicWizardController () {
-		super();
+	public NewTopicWC () {
+		super("a");
 		setWindowTitle(BundleInternationalization.getString("NewTopicWizard"));
 		setNeedsProgressMonitor(true);
 	}
 	
 	public void addPages() {
 		super.addPages();
-		page = new NewTopicWizardPage(BundleInternationalization.getString("NewTopicWizardPageTitle"));
+		page = new TopicWP(BundleInternationalization.getString("NewTopicWizardPageTitle"));
 		addPage(page);
 	}
 	

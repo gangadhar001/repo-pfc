@@ -1,13 +1,16 @@
-package presentation.wizards;
+package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
+
+import model.business.knowledge.Answer;
+import model.business.knowledge.Knowledge;
+import model.business.knowledge.Proposal;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -16,20 +19,21 @@ import org.eclipse.swt.widgets.Text;
  * This abstract class represents a New Proposal Wizard Page
  */
 
-public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
+public abstract class AbstractKnowledgeWP extends WizardPage {
 	
-	private Text nameText;
+	private Text titleText;
 	private Text descriptionText;
 	private Composite container;
 	private boolean valid;
 	
-	protected AbstractNewKnowledgeWizardPage(String pageName) {
+	protected AbstractKnowledgeWP(String pageName) {
 		super(pageName);
 	}
 
 	@Override
 	public void createControl(Composite parent) {
-		container = new Composite(parent, SWT.NULL);
+		//container = new Composite(parent, SWT.NULL);
+		container = parent;
 		commonControls();
 	}
 	
@@ -38,18 +42,19 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 	 */
 	private void commonControls () {	
 		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		layout.verticalSpacing = 9;
-		container.setLayout(layout);		
+		
+//		GridLayout layout = new GridLayout();
+//		layout.numColumns = 2;
+//		layout.verticalSpacing = 9;
+//		container.setLayout(layout);		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		
 		Label nameLabel = new Label(container, SWT.NULL);
-		nameText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		titleText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		nameLabel.setText(BundleInternationalization.getString("NameLabel")+":");	
-		nameText.setLayoutData(gd);
+		titleText.setLayoutData(gd);
 		// Listener to validate the name
-		nameText.addModifyListener(new ModifyListener() {
+		titleText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				wizardChanged();
 			}
@@ -67,10 +72,21 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 				wizardChanged();
 			}
 		});
-		
+
 		wizardChanged();
 		setControl(container);
 
+	}
+	
+	public void fillData(Knowledge k) {
+		if (k!=null) {
+			titleText.setText(k.getTitle());
+			if (k instanceof Proposal)
+				descriptionText.setText(((Proposal)k).getDescription());
+			if (k instanceof Answer)
+				descriptionText.setText(((Answer)k).getDescription());
+			wizardChanged();
+		}
 	}
 	
 	/**
@@ -80,7 +96,7 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 		valid = true;
 		
 		// The name text can't be empty
-		if (nameText.getText().length() == 0) {
+		if (titleText.getText().length() == 0) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.NameProposalEmpty"));
 			valid = false;
 		}
@@ -102,7 +118,7 @@ public abstract class AbstractNewKnowledgeWizardPage extends WizardPage {
 	}
 
 	public String getNameText() {
-		return nameText.getText();
+		return titleText.getText();
 	}
 
 	public String getDescriptionText() {

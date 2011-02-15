@@ -1,4 +1,4 @@
-package presentation.wizards.control;
+package presentation.wizards.control.knowledge;
 
 
 import java.util.Date;
@@ -6,16 +6,16 @@ import java.util.Date;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
-import presentation.wizards.NewProposalViewWizardPage;
+import presentation.wizards.knowledge.ProposalViewWP;
 
 /**
  * This abstract class represents a New Proposal Wizard when it is shown since the "Proposals" view
  */
-public class NewProposalViewWizardController extends AbstractNewKnowledgeWizardController {
+public class NewProposalViewWC extends AbstractNewKnowledgeWC {
 
 	private Topic topicSelected;
 	
-	public NewProposalViewWizardController(String wizardTitle, Topic topicSelected) {
+	public NewProposalViewWC(String wizardTitle, Topic topicSelected) {
 		super(wizardTitle);
 		this.topicSelected = topicSelected;
 	}
@@ -26,11 +26,10 @@ public class NewProposalViewWizardController extends AbstractNewKnowledgeWizardC
 	 * using wizard as execution context.
 	 */
 	public boolean performFinish() {
-		NewProposalViewWizardPage page = (NewProposalViewWizardPage) super.getPage();
+		ProposalViewWP page = (ProposalViewWP) super.getPage();
 		String nameText = page.getNameText();
 		String descriptionText = page.getDescriptionText();
 		String category = page.getItemCategory();
-		// TODO: cambiar estado;
 		
 		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category));
 		

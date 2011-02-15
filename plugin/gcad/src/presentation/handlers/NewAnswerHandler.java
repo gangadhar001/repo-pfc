@@ -9,9 +9,9 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
-import presentation.wizards.NewAnswerMenuWizardPage;
-import presentation.wizards.control.AbstractNewKnowledgeWizardController;
-import presentation.wizards.control.NewAnswerMenuWizardController;
+import presentation.wizards.control.knowledge.AbstractNewKnowledgeWC;
+import presentation.wizards.control.knowledge.NewAnswerMenuWC;
+import presentation.wizards.knowledge.NewAnswerMenuWP;
 
 /** 
  * This class handles the "New Proposal" command from the "Knowledge" menu. 
@@ -21,8 +21,8 @@ public class NewAnswerHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		AbstractNewKnowledgeWizardController wizard = new NewAnswerMenuWizardController(BundleInternationalization.getString("NewAnswerWizard"));
-		wizard.addPages(new NewAnswerMenuWizardPage(BundleInternationalization.getString("NewAnswerWizardPageTitle")));
+		AbstractNewKnowledgeWC wizard = new NewAnswerMenuWC(BundleInternationalization.getString("NewAnswerWizard"));
+		wizard.addPages(new NewAnswerMenuWP(BundleInternationalization.getString("NewAnswerWizardPageTitle")));
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         dialog.create();
         dialog.open();
