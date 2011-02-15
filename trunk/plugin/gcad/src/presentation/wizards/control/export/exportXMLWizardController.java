@@ -1,4 +1,4 @@
-package presentation.wizards.export;
+package presentation.wizards.control.export;
 
 import java.sql.SQLException;
 
@@ -15,6 +15,7 @@ import org.eclipse.ui.IExportWizard;
 import org.eclipse.ui.IWorkbench;
 
 import persistence.XMLAgent;
+import presentation.wizards.export.exportXMLWizard;
 
 //TODO: referencia: http://kickjava.com/src/org/eclipse/ui/wizards/datatransfer/FileSystemExportWizard.java.htm
 

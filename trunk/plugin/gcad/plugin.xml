@@ -132,6 +132,7 @@
             class="presentation.handlers.NewProposalHandler">
       </handler>
       <handler
+            class="presentation.handlers.ModifyProposalHandler"
             commandId="gcad.command.modifyProposal">
       </handler>
       <handler
@@ -331,7 +332,7 @@
 	<wizard
 		id="gcad.export.exportXMLWizard"
 		name="%export.XMLWizard"
-		class="presentation.wizards.export.exportXMLWizardController">
+		class="presentation.wizards.control.export.exportXMLWizardController">
 	</wizard>
 </extension>
 

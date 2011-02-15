@@ -1,10 +1,11 @@
-package presentation.wizards;
+package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -12,11 +13,11 @@ import org.eclipse.swt.widgets.Label;
 /**
  * This abstract class represents a New Proposal Wizard Page when it is shown since the "Proposals" view
  */
-public class NewProposalViewWizardPage extends AbstractNewKnowledgeWizardPage {
+public class ProposalViewWP extends AbstractKnowledgeWP {
 	
 	private Combo categoryCb;
 	
-	public NewProposalViewWizardPage(String pageName) {
+	public ProposalViewWP(String pageName) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("NewProposalWizardPageTitle"));
 		setDescription(BundleInternationalization.getString("NewProposalWizardPageDescription"));
@@ -24,9 +25,16 @@ public class NewProposalViewWizardPage extends AbstractNewKnowledgeWizardPage {
 
 	@Override
 	public void createControl(Composite parent) {
-		super.createControl(parent);
-		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
-		categoryCb = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
+		Composite container = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		layout.verticalSpacing = 9;
+		container.setLayout(layout);
+		
+		super.createControl(container);
+		
+		Label categoryLabel = new Label(container, SWT.NONE);
+		categoryCb = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");
 		categoryCb.setItems(new String[] { "Analysis", "Design" });
 		categoryCb.addSelectionListener(new SelectionAdapter() {
@@ -36,7 +44,10 @@ public class NewProposalViewWizardPage extends AbstractNewKnowledgeWizardPage {
 				wizardChanged();
 				
 			}
-		});	
+		});
+		container.layout();
+		wizardChanged();
+		
 	}
 	
 	protected void wizardChanged(){

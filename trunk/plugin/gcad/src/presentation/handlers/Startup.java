@@ -12,7 +12,7 @@ import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 
 import presentation.utils.LoginWizardDialog;
-import presentation.wizards.control.LoginWizardController;
+import presentation.wizards.control.login.LoginWizardController;
 
 /**
  * This class controls the perspective changed event, to show the database connection wizard

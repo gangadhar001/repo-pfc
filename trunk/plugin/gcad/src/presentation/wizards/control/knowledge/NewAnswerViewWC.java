@@ -1,4 +1,4 @@
-package presentation.wizards.control;
+package presentation.wizards.control.knowledge;
 
 
 
@@ -14,16 +14,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
-import presentation.wizards.NewAnswerViewWizardPage;
+import presentation.wizards.knowledge.AnswerViewWP;
 
 /**
  * This abstract class represents a New Answer Wizard when it is shown since the "Proposals" view
  */
-public class NewAnswerViewWizardController extends AbstractNewKnowledgeWizardController {
+public class NewAnswerViewWC extends AbstractNewKnowledgeWC {
 
 	private Proposal proposalSelected;
 	
-	public NewAnswerViewWizardController(String wizardTitle, Proposal proposalSelected) {
+	public NewAnswerViewWC(String wizardTitle, Proposal proposalSelected) {
 		super(wizardTitle);
 		this.proposalSelected = proposalSelected;
 	}
@@ -34,7 +34,7 @@ public class NewAnswerViewWizardController extends AbstractNewKnowledgeWizardCon
 	 * using wizard as execution context.
 	 */
 	public boolean performFinish() {
-		NewAnswerViewWizardPage page = (NewAnswerViewWizardPage) super.getPage();
+		AnswerViewWP page = (AnswerViewWP) super.getPage();
 		final String nameText = page.getNameText();
 		final String descriptionText = page.getDescriptionText();
 		// TODO: añadir argumento

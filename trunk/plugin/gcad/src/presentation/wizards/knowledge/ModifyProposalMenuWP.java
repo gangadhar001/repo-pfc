@@ -1,4 +1,4 @@
-package presentation.wizards;
+package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
 
@@ -11,32 +11,43 @@ import model.business.knowledge.Proposal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 
 import exceptions.NoProposalsException;
 
-/**
- * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
- */
-public class NewAnswerMenuWizardPage extends AbstractNewKnowledgeWizardPage {
-	
+public class ModifyProposalMenuWP extends NewProposalMenuWP {
+
 	private Combo cbProposals;
-	
+	private Composite parent;
 	private ArrayList<Proposal> proposals;
-
-	public NewAnswerMenuWizardPage(String pageName) {
+	private Group groupProposalContent;
+	
+	public ModifyProposalMenuWP(String pageName) {
 		super(pageName);
-		setTitle(BundleInternationalization.getString("NewAnswerWizardPageTitle"));
-		setDescription(BundleInternationalization.getString("NewAnswerWizardPageDescription"));
+//		setTitle(BundleInternationalization.getString("NewAnswerWizardPageTitle"));
+//		setDescription(BundleInternationalization.getString("NewAnswerWizardPageDescription"));
 	}
-
+	
 	@Override
-	public void createControl(Composite parent) {
-		super.createControl(parent);
-		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
-		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
+	public void createControl(Composite parent) {		
+		Composite container = new Composite(parent, SWT.NONE);
+		container.setLayout(new GridLayout());
+
+		Group groupLogin = new Group(container, SWT.NONE);
+		groupLogin.setLayout(new GridLayout(2,false));
+		groupLogin.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		groupLogin.setText("Login information");
+
+		this.parent = container;
+		
+		Label categoryLabel = new Label(groupLogin, SWT.NULL);
+		cbProposals = new Combo(groupLogin, SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
 			proposals = Controller.getInstance().getProposals();
@@ -64,23 +75,41 @@ public class NewAnswerMenuWizardPage extends AbstractNewKnowledgeWizardPage {
 		cbProposals.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				fillDataProposal();
 				wizardChanged();
 				
 			}
 		});
 		wizardChanged();
+		setControl(container);
+	}
+	
+	private void fillDataProposal() {
+		if (cbProposals!= null && cbProposals.getSelectionIndex()!=-1) {
+			Proposal p = proposals.get(cbProposals.getSelectionIndex());			
+
+			if (groupProposalContent != null)
+				groupProposalContent.dispose();			
+			groupProposalContent = new Group(parent, SWT.NONE);
+			groupProposalContent.setLayout(new GridLayout(2,false));
+			groupProposalContent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			groupProposalContent.setText("Proposal Content");
+			super.createControl(groupProposalContent);
+			super.fillData(p);
+			parent.layout();
+		}
 	}
 	
 	protected void wizardChanged(){
-		super.wizardChanged();
 		boolean valid = isValid();
 		// Must select a parent proposals
 		if (cbProposals!= null && valid && cbProposals.getSelectionIndex()==-1) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.ProposalParentNotSelected"));
 			valid = false;
 		}
-		if (valid) 
-			super.updateStatus(null);
+		if (valid) { 
+			super.wizardChanged();
+		}
 	}
 
 	public int getItemCbProposals() {
@@ -91,4 +120,5 @@ public class NewAnswerMenuWizardPage extends AbstractNewKnowledgeWizardPage {
 		return proposals;
 	}
 	
+
 }

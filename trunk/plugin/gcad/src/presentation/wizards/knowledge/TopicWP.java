@@ -1,4 +1,4 @@
-package presentation.wizards;
+package presentation.wizards.knowledge;
 
 
 import internationalization.BundleInternationalization;
@@ -16,11 +16,11 @@ import org.eclipse.swt.widgets.Text;
 /**
  * This abstract class represents a DB Connection Wizard Page
  */
-public class NewTopicWizardPage extends WizardPage {
+public class TopicWP extends WizardPage {
 	
 	private Text topicText;
 	
-	public NewTopicWizardPage(String pageName) {
+	public TopicWP(String pageName) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("NewTopicWizardPageTitle"));
 		setDescription(BundleInternationalization.getString("NewTopicWizardPageDescription"));
@@ -46,6 +46,7 @@ public class NewTopicWizardPage extends WizardPage {
 			}
 		});
 		
+		container.layout();
 		wizardChanged();
 		setControl(container);
 

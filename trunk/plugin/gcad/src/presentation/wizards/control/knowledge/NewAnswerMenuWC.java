@@ -1,17 +1,17 @@
-package presentation.wizards.control;
+package presentation.wizards.control.knowledge;
 
 import java.util.Date;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
-import presentation.wizards.NewAnswerMenuWizardPage;
+import presentation.wizards.knowledge.NewAnswerMenuWP;
 
 /**
  * This abstract class represents a New Proposal Wizard when it is shown since the "Knowledge" menu
  */
-public class NewAnswerMenuWizardController extends AbstractNewKnowledgeWizardController {
+public class NewAnswerMenuWC extends AbstractNewKnowledgeWC {
 
-	public NewAnswerMenuWizardController(String wizardTitle) {
+	public NewAnswerMenuWC(String wizardTitle) {
 		super(wizardTitle);
 	}
 	
@@ -21,7 +21,7 @@ public class NewAnswerMenuWizardController extends AbstractNewKnowledgeWizardCon
 	 * using wizard as execution context.
 	 */
 	public boolean performFinish() {
-		NewAnswerMenuWizardPage page = (NewAnswerMenuWizardPage) super.getPage();
+		NewAnswerMenuWP page = (NewAnswerMenuWP) super.getPage();
 		String nameText = page.getNameText();
 		String descriptionText = page.getDescriptionText();
 		int indeParentProposal = page.getItemCbProposals();

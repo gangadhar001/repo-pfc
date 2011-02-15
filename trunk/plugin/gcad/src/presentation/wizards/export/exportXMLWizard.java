@@ -22,7 +22,7 @@ public class exportXMLWizard extends WizardPage {
 	private Button selectFileButton;
 	private String filePath = "";
 	
-	protected exportXMLWizard() {
+	public exportXMLWizard() {
 		super("nombrwe");
 		setTitle("title");
 		setDescription("a");

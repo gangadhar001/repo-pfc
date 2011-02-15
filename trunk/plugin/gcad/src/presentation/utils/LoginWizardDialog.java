@@ -10,8 +10,8 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import presentation.wizards.LoginWizardPage;
-import presentation.wizards.control.LoginWizardController;
+import presentation.wizards.control.login.LoginWizardController;
+import presentation.wizards.login.LoginWizardPage;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 

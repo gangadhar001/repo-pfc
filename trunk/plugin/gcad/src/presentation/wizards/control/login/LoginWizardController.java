@@ -1,4 +1,4 @@
-package presentation.wizards.control;
+package presentation.wizards.control.login;
 
 
 import internationalization.BundleInternationalization;
@@ -14,8 +14,8 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
-import presentation.wizards.LoginWizardPage;
-import presentation.wizards.SelectCurrentProjectWizardPage;
+import presentation.wizards.login.LoginWizardPage;
+import presentation.wizards.login.SelectCurrentProjectWizardPage;
 import exceptions.NonPermissionRole;
 
 /**

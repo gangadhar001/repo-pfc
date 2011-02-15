@@ -1,4 +1,4 @@
-package presentation.wizards;
+package presentation.wizards.login;
 
 
 import internationalization.BundleInternationalization;

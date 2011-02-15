@@ -1,4 +1,4 @@
-package presentation.wizards.control;
+package presentation.wizards.control.knowledge;
 
 import internationalization.BundleInternationalization;
 
@@ -21,11 +21,11 @@ import exceptions.IncorrectEmployeeException;
 /**
  * This abstract class represents a New Proposal Wizard
  */
-public abstract class AbstractNewKnowledgeWizardController extends Wizard {
+public abstract class AbstractNewKnowledgeWC extends Wizard {
 	
 	private WizardPage page;
 	
-	public AbstractNewKnowledgeWizardController (String wizardTitle) {
+	public AbstractNewKnowledgeWC (String wizardTitle) {
 		super();
 		setWindowTitle(wizardTitle);
 		setNeedsProgressMonitor(true);

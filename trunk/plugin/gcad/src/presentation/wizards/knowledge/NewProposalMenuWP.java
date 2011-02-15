@@ -1,4 +1,4 @@
-package presentation.wizards;
+package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
 
@@ -11,6 +11,7 @@ import model.business.knowledge.Topic;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -20,21 +21,21 @@ import exceptions.NoTopicsException;
 /**
  * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
  */
-public class NewProposalMenuWizardPage extends NewProposalViewWizardPage {
+public class NewProposalMenuWP extends ProposalViewWP {
 	
-	private Combo cbTopics;
-	
+	private Combo cbTopics;	
 	private ArrayList<Topic> topics;
 
-	public NewProposalMenuWizardPage(String pageName) {
+	public NewProposalMenuWP(String pageName) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("NewProposalWizardPageTitle"));
 		setDescription(BundleInternationalization.getString("NewProposalWizardPageDescription"));
 	}
 
 	@Override
-	public void createControl(Composite parent) {
+	public void createControl(Composite parent) {		
 		super.createControl(parent);
+
 		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
 		cbTopics = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("TopicLabel")+":");
@@ -68,6 +69,7 @@ public class NewProposalMenuWizardPage extends NewProposalViewWizardPage {
 				
 			}
 		});
+		getContainerParent().layout();
 		wizardChanged();
 	}
 	

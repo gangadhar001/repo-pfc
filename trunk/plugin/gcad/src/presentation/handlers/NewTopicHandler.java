@@ -7,7 +7,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
-import presentation.wizards.control.NewTopicWizardController;
+import presentation.wizards.control.knowledge.NewTopicWC;
 
 /** 
  * This class handles the "New Proposal" command from the "Knowledge" menu. 
@@ -17,7 +17,7 @@ public class NewTopicHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		NewTopicWizardController wizard = new NewTopicWizardController();
+		NewTopicWC wizard = new NewTopicWC();
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         dialog.create();
         dialog.open();
