@@ -83,6 +83,12 @@ public class Controller {
 	public void addAnwser (Answer a, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		KnowledgeController.addAnswer(session.getUser(), a, parent);
 	}
+	
+	/*** Métodos para actualizar conocimiento 
+	 * @throws SQLException ***/
+	public void updateAnswer(Answer answer, Proposal parent) throws SQLException {
+		KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
+	}
 		
 	/*** Métodos para eliminar conocimiento ***/
 	public void deleteTopic(Topic to) throws SQLException {
@@ -116,6 +122,10 @@ public class Controller {
 	/*** Métodos auxiliares ***/
 	public ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
 		return KnowledgeController.getProposals();
+	}
+	
+	public ArrayList<Answer> getAnswers() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return KnowledgeController.getAnswers();
 	}
 	
 	public ArrayList<Project> getProjectsUser() {

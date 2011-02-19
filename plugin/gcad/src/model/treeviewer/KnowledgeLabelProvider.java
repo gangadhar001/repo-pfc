@@ -1,6 +1,5 @@
 package model.treeviewer;
 
-
 import gcad.Activator;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
@@ -10,6 +9,10 @@ import model.business.knowledge.Topic;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ * This class represents a label provider for the tree. It allows to get the text or set 
+ * an image for a child
+ */
 public class KnowledgeLabelProvider extends LabelProvider {
 	
 	@Override

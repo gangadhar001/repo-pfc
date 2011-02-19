@@ -32,7 +32,7 @@ public class KnowledgeController {
 	}
 	
 	/**
-	 * This method returns all existing proposals 
+	 * This method returns all existing proposals from a project 
 	 */
 	public static ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
 		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
@@ -40,6 +40,19 @@ public class KnowledgeController {
 			proposals.addAll(t.getProposals());
 		}
 		return proposals;
+	}
+	
+	/**
+	 * This method returns all existing answers from a project
+	 */
+	public static ArrayList<Answer> getAnswers() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		ArrayList<Answer> answers = new ArrayList<Answer>();
+		for (Topic t: getTopicsWrapper().getTopics()) {
+			for (Proposal p: t.getProposals()) {
+				answers.addAll(p.getAnswers());
+			}
+		}
+		return answers;
 	}
 
 	public static void addTopic(User u, Project p, Topic topic) throws SQLException {
@@ -60,6 +73,12 @@ public class KnowledgeController {
 		answer.setUser(u);
 		parent.add(answer);
 		DAOAnswer.insert(answer, parent.getId());
+	}
+	
+	public static void updateAnswer(User user, Answer answer, Proposal parent) throws SQLException {
+		answer.setUser(user);
+		parent.remove(answer);
+		DAOAnswer.update(answer);
 	}
 	
 	public static void deleteTopic(Topic to) throws SQLException {
@@ -83,6 +102,8 @@ public class KnowledgeController {
 		}
 		DAOAnswer.delete(a);
 	}
+
+
 
 		
 }

@@ -2,15 +2,17 @@ package model.graph;
 
 import model.business.knowledge.Knowledge;
 
+/**
+ * This class represents an edge of the graph
+ */
 public class Edge {
 
 	private String id;
 	private String label;
-	// TODO: el origen puede ser un Topic o una Proposal
-	private Object source;
+	private Knowledge source;
 	private Knowledge destination;
 	
-	public Edge(String id, String label, Object source, Knowledge destination) {
+	public Edge(String id, String label, Knowledge source, Knowledge destination) {
 		this.id = id;
 		this.label = label;
 		this.source = source;

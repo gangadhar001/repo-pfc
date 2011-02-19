@@ -5,12 +5,12 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+/**
+ * This class represents an Address
+ */
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Address implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2427789923156077868L;
 	
 	private int id;

@@ -1,5 +1,8 @@
 package model.business.knowledge;
 
+/**
+ * This class represents all the actions that can be done in the system
+ */
 public class IActions {
 
 	public final static String SIGNOUT = "SignOut"; 

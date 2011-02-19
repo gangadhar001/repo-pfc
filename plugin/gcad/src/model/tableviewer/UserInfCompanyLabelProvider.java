@@ -1,6 +1,5 @@
 package model.tableviewer;
 
-
 import gcad.Activator;
 import model.business.knowledge.User;
 
@@ -14,15 +13,16 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 
-
+/**
+ * This class represents a label provider for the table. It allows to get the text or set 
+ * an image for a cell
+ */
 public class UserInfCompanyLabelProvider extends CellLabelProvider {
 	
-
 	public static final int BUTTON_WIDTH = 27;
 	public static final int BUTTON_HEIGHT = 25;
 	private Image image = Activator.getImageDescriptor("resources/images/lupa.png").createImage();
 	private TableViewer viewer;
-	
 	
 	public UserInfCompanyLabelProvider (TableViewer viewer) {
 		this.viewer = viewer;
@@ -33,6 +33,11 @@ public class UserInfCompanyLabelProvider extends CellLabelProvider {
 		return u.getCompany().getName() + ", " + u.getCompany().getAddress().getCountry();
 	}
 		
+	/**
+	 * This method embed a button in a table cell
+	 * @param element
+	 * @return
+	 */
 	public Image getImage(Object element) {
 		Shell shell = new Shell(viewer.getControl().getShell(),SWT.NO_TRIM);
 	    Button button = new Button(shell,SWT.PUSH);						
@@ -62,6 +67,4 @@ public class UserInfCompanyLabelProvider extends CellLabelProvider {
 		Image image = getImage(element);
 		cell.setImage(image);
 	}
-
-
 }

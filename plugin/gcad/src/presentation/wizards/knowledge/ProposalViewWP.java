@@ -1,10 +1,13 @@
 package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
+import model.business.knowledge.Knowledge;
+import model.business.knowledge.Proposal;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -28,8 +31,9 @@ public class ProposalViewWP extends AbstractKnowledgeWP {
 		Composite container = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
-		layout.verticalSpacing = 9;
+		layout.verticalSpacing = 1;
 		container.setLayout(layout);
+		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
 		super.createControl(container);
 		
@@ -60,6 +64,16 @@ public class ProposalViewWP extends AbstractKnowledgeWP {
 		}
 		if (valid) 
 			super.updateStatus(null);
+	}
+	
+	public void fillData(Knowledge k) {
+		if (k!=null) {
+			super.fillData(k);
+			if (k instanceof Proposal) {
+				categoryCb.select(((Proposal)k).getCategory().ordinal());
+				wizardChanged();
+			}
+		}
 	}
 	
 	public String getItemCategory() {

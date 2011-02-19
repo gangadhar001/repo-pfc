@@ -6,6 +6,10 @@ import model.business.knowledge.Topic;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 
+/**
+ * This class represents a content provider for the graph. It is used to return the nodes 
+ * that are connected to other
+ */
 public class NodeContentProvider extends ArrayContentProvider implements IGraphEntityContentProvider {
 
 	@Override

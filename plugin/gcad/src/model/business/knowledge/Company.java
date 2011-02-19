@@ -6,12 +6,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * This class represents a Company
+ */
+
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Company implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 807895690685697488L;
 	
 	private int id;

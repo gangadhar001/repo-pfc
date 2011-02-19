@@ -22,12 +22,12 @@ public class NewAnswerMenuWC extends AbstractNewKnowledgeWC {
 	 */
 	public boolean performFinish() {
 		NewAnswerMenuWP page = (NewAnswerMenuWP) super.getPage();
-		String nameText = page.getNameText();
+		String title = page.getTitleText();
 		String descriptionText = page.getDescriptionText();
 		int indeParentProposal = page.getItemCbProposals();
 		Proposal parentProposal = (Proposal) page.getProposals().get(indeParentProposal);
 		// TODO: añadir argumento
-		Answer newAnswer = new Answer(nameText, descriptionText, new Date(), " ");
+		Answer newAnswer = new Answer(title, descriptionText, new Date(), "Pro");
 			
 		return runNewAnswer(newAnswer, parentProposal);
 	}
