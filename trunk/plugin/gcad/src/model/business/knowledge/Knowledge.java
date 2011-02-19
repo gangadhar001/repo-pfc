@@ -8,21 +8,17 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * This class represents the knowledge to manage, which can be a Proposal or an Answer.
- * Composite Pattern is applied 
+ * This class represents the knowledge to manage, which can be a Topic, a Proposal or an Answer. 
  */
-
 @XmlAccessorType( XmlAccessType.FIELD )
 public abstract class Knowledge implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7039151251262020404L;
 	
 	protected int id;
 	protected String title;
 	protected Date date;
+	protected String description;
 	@XmlElement protected User user;
 		
 	public Knowledge() {
@@ -55,6 +51,14 @@ public abstract class Knowledge implements Serializable {
 	
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+		
+	public void setDescription(String description) {
+		this.description = description;
 	}
 		
 	public User getUser() {

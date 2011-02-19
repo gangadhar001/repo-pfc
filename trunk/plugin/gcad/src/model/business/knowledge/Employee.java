@@ -8,14 +8,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 
 /**
- * This class represents an Employee
+ * This class represents an Employee of a Company
  */
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Employee extends User implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -9206473778252947612L;
 
 	public Employee () {

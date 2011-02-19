@@ -9,14 +9,16 @@ import model.business.knowledge.Topic;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ * This class represents a label provider for the graph. It allows to get the text or set 
+ * an image for a node
+ */
 public class GraphLabelProvider extends LabelProvider {
 	
 	public String getText(Object element) {
 		String text = "";
 		if (element instanceof Knowledge)
 			text = ((Knowledge)element).getTitle();
-		else if (element instanceof Edge)
-			text = ((Edge)element).getLabel();
 		return text;
 	}
 	

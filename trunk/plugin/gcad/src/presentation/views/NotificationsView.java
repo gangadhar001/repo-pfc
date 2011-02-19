@@ -32,8 +32,12 @@ import presentation.IPresentation;
 import presentation.utils.Dialogs;
 import presentation.utils.TableConstructor;
 
-// TODO: referencia: http://www.vogella.de/articles/EclipseJFaceTable/article.html
+//TODO: Referencia: http://www.vogella.de/articles/EclipseJFaceTable/article.html
 
+/**
+ * This class represents a label provider for the table. It allows to get the text or set 
+ * an image for a cell
+ */
 public class NotificationsView extends AbstractView implements IPresentation {
 
 	private static TableViewer tableViewer;

@@ -32,22 +32,9 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 
 	@Override
 	public void createControl(Composite parent) {
-		//container = new Composite(parent, SWT.NULL);
 		container = parent;
-		commonControls();
-	}
-	
-	/**
-	 * This method creates and initialized common controls between the new proposal wizard pages
-	 */
-	private void commonControls () {	
 		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
-		
-//		GridLayout layout = new GridLayout();
-//		layout.numColumns = 2;
-//		layout.verticalSpacing = 9;
-//		container.setLayout(layout);		
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		GridData gd = new GridData(GridData.FILL_BOTH);
 		
 		Label nameLabel = new Label(container, SWT.NULL);
 		titleText = new Text(container, SWT.BORDER | SWT.SINGLE);
@@ -95,7 +82,7 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 	protected void wizardChanged() {
 		valid = true;
 		
-		// The name text can't be empty
+		// The title text can't be empty
 		if (titleText.getText().length() == 0) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.NameProposalEmpty"));
 			valid = false;
@@ -117,7 +104,7 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 		
 	}
 
-	public String getNameText() {
+	public String getTitleText() {
 		return titleText.getText();
 	}
 

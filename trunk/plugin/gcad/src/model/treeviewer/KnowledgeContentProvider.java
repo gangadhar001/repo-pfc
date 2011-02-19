@@ -1,6 +1,5 @@
 package model.treeviewer;
 
-
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
@@ -8,6 +7,10 @@ import model.business.knowledge.TopicWrapper;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+/**
+ * This class represents a content provider for the tree. It is used to return the children 
+ * that belongs to a parent
+ */
 public class KnowledgeContentProvider implements ITreeContentProvider{
 
 	private static Object[] NO_ELEMENT = new Object[0];

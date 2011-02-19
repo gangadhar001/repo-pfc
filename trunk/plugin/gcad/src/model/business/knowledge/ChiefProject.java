@@ -6,12 +6,13 @@ import java.util.HashSet;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+/**
+ * This class represents a Chief Project
+ */
+
 @XmlAccessorType( XmlAccessType.FIELD )
 public class ChiefProject extends User implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2298009369141533960L;
 
 	public ChiefProject () {

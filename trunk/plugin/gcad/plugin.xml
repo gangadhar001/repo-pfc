@@ -143,6 +143,7 @@
             commandId="gcad.command.newAnswer">
       </handler>
       <handler
+            class="presentation.handlers.ModifyAnswerHandler"
             commandId="gcad.command.modifyAnswer">
       </handler>
       <handler

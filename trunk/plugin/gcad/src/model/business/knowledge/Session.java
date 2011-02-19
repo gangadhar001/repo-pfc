@@ -1,5 +1,8 @@
 package model.business.knowledge;
 
+/**
+ * This class represents a Session for one user
+ */
 public class Session implements ISession {
 	
 	private long idSesion;

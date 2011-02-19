@@ -13,7 +13,7 @@ import presentation.wizards.knowledge.NewProposalMenuWP;
 public class ModifyProposalMenuWC extends AbstractModifyKnowledgeWC {
 
 	public ModifyProposalMenuWC(String wizardTitle) {
-		//super(wizardTitle);
+		super(wizardTitle);
 	}
 
 	@Override

@@ -10,13 +10,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-
+/**
+ * This class represents a Topic
+ */
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Topic extends Knowledge implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -485599952417592267L;
 	
 	@XmlElement( name = "Proposal" )

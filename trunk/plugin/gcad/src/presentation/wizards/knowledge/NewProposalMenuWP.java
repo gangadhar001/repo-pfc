@@ -6,12 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.business.control.Controller;
+import model.business.knowledge.Knowledge;
+import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -33,7 +34,7 @@ public class NewProposalMenuWP extends ProposalViewWP {
 	}
 
 	@Override
-	public void createControl(Composite parent) {		
+	public void createControl(Composite parent) {				
 		super.createControl(parent);
 
 		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
@@ -84,7 +85,31 @@ public class NewProposalMenuWP extends ProposalViewWP {
 		if (valid) 
 			super.updateStatus(null);
 	}
+	
+	public void fillData(Knowledge k) {
+		if (k!=null) {
+			super.fillData(k);
+			if (k instanceof Proposal) {
+				int index = searchTopicIndex((Proposal)k);
+				if (index!=-1) {
+					cbTopics.select(index);
+				}
+			}
+		}
+	}
 
+	private int searchTopicIndex(Proposal p) {
+		boolean found = false;
+		int result = -1;
+		for (int i=0; i<topics.size() && !found; i++) {
+			if (topics.get(i).getProposals().contains(p)) {
+				found = true;
+				result = i;
+			}
+		}
+		return result;
+	}
+	
 	public int getItemCbTopics() {
 		return cbTopics.getSelectionIndex();
 	}

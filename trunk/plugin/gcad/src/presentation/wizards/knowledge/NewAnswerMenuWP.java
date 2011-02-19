@@ -11,7 +11,6 @@ import model.business.knowledge.Proposal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -21,10 +20,9 @@ import exceptions.NoProposalsException;
 /**
  * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
  */
-public class NewAnswerMenuWP extends AbstractKnowledgeWP {
+public class NewAnswerMenuWP extends AnswerViewWP {
 	
-	private Combo cbProposals;
-	
+	private Combo cbProposals;	
 	private ArrayList<Proposal> proposals;
 
 	public NewAnswerMenuWP(String pageName) {
@@ -34,17 +32,11 @@ public class NewAnswerMenuWP extends AbstractKnowledgeWP {
 	}
 
 	@Override
-	public void createControl(Composite parent) {
-		Composite container = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		layout.verticalSpacing = 9;
-		container.setLayout(layout);	
-		
-		super.createControl(container);
+	public void createControl(Composite parent) {		
+		super.createControl(parent);
 	
-		Label categoryLabel = new Label(container, SWT.NONE);
-		cbProposals = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
+		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
+		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
 			proposals = Controller.getInstance().getProposals();
@@ -76,7 +68,7 @@ public class NewAnswerMenuWP extends AbstractKnowledgeWP {
 				
 			}
 		});
-		container.layout();
+		getContainerParent().layout();
 		wizardChanged();
 	}
 	

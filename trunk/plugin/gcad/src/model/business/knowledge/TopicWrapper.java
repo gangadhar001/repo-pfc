@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * This class represents a set of Topics for one Project
+ */
 @XmlRootElement (name = "Topics" )
 @XmlAccessorType( XmlAccessType.FIELD )
 public class TopicWrapper {

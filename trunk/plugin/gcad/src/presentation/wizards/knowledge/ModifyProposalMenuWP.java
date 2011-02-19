@@ -17,7 +17,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 
 import exceptions.NoProposalsException;
 
@@ -37,18 +36,20 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 	@Override
 	public void createControl(Composite parent) {		
 		Composite container = new Composite(parent, SWT.NONE);
-		container.setLayout(new GridLayout());
-
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
+		layout.verticalSpacing = 1;
+		container.setLayout(layout);
+		container.setLayoutData(new GridData(GridData.FILL_BOTH));
+		this.parent = container;
 		Group groupLogin = new Group(container, SWT.NONE);
 		groupLogin.setLayout(new GridLayout(2,false));
 		groupLogin.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		groupLogin.setText("Login information");
-
-		this.parent = container;
 		
-		Label categoryLabel = new Label(groupLogin, SWT.NULL);
+		Label proposalsLabel = new Label(groupLogin, SWT.NULL);
 		cbProposals = new Combo(groupLogin, SWT.DROP_DOWN | SWT.READ_ONLY);
-		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
+		proposalsLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
 			proposals = Controller.getInstance().getProposals();
 			if (proposals.size() == 0)

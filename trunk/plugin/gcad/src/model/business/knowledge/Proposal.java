@@ -13,18 +13,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 /**
  * This class represents a Proposal
  */
-
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Proposal extends Knowledge implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -404860160279086681L;
-
-	private String description;
-	private Categories category;
 	
+	private Categories category;	
 	// A proposal may have answers
 	@XmlElement( name = "Answer" )
     private Set<Answer> answers = new HashSet<Answer>();
@@ -39,15 +33,7 @@ public class Proposal extends Knowledge implements Serializable {
 		this.description = description;
 		this.category = category;
 	}
-    
-    public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
+    	
 	public Set<Answer> getAnswers() {
 		return answers;
 	}

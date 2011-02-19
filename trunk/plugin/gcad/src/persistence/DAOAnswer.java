@@ -7,24 +7,14 @@ import model.business.knowledge.Proposal;
 import persistence.communications.DBConnectionManager;
 
 /**
- * This class allows to query and insert answers into database
+ * This class allows to query and modify answers from the database
  */
 public class DAOAnswer {
-	
-	private static final String ANSWER_TABLE = "answers";
-	
-	private static final String COL_ID = "id";
-	private static final String COL_NAME = "name";
-	private static final String COL_DESCRIPTION = "description";
-	private static final String COL_DATE = "date";
-	private static final String COL_ARGUMENT = "argument";
-	private static final String COL_EMPLOYEE_ID = "employeeId";
-	private static final String COL_PROPOSAL_ID = "proposalId";
 	
 	/** 
 	 * This method returns all the answers associated with a proposal
 	 */
-//	public static ArrayList<Answer> queryAnswersFromProposal (int proposalId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+//	TODO: public static ArrayList<Answer> queryAnswersFromProposal (int proposalId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 //		SQLCommand command;
 //		ResultSet data;
 //		AbstractKnowledge answer;
@@ -52,19 +42,29 @@ public class DAOAnswer {
 	public static void insert(Answer answer, int proposalId) throws SQLException {
 		try {
 			DBConnectionManager.initTransaction();
-			// TODO: necesario hacer esto para que Hibernate actualice correctamente las claves ajenas y referencias
+			// It's necessary to query first the parent proposal of the answer, in order to Hibernate
+			// can update all the references all foreign key properly.
 			Proposal aux = DAOProposal.queryProposal(proposalId);
 			aux.add(answer);
-			DBConnectionManager.insert(answer);
+			Answer a = (Answer)DBConnectionManager.insert(answer);
+			// Set the new id
+			answer.setId(a.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
 		
 	}
+	
+	public static void update(Answer answer) throws SQLException {
+		try {
+			DBConnectionManager.initTransaction();
+			DBConnectionManager.update(answer.clone());
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
 
 	public static void delete(Answer a) throws SQLException {
-		// Modificamos la base de datos (automáticamente se
-		// borran los datos adicionales si el usuario es médico)
 		try {
 			DBConnectionManager.initTransaction();
 			DBConnectionManager.delete(a);

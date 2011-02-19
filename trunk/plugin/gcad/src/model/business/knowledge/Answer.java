@@ -12,12 +12,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Answer extends Knowledge implements Serializable{
 			
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1238919159476139631L;
 	
-	private String description;
+	// TODO: cambiarlo por una enumeracion {Pro, Contra}
 	private String argument;
 	
 	public Answer () {
@@ -29,14 +26,6 @@ public class Answer extends Knowledge implements Serializable{
 		this.description = description;
 		this.argument = argument;
 		
-	}
-	
-	 public String getDescription() {
-		return description;
-	}
-		
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getArgument() {
