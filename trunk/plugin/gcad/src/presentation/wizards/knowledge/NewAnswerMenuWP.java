@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.business.control.Controller;
+import model.business.knowledge.Answer;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 
 import org.eclipse.swt.SWT;
@@ -35,9 +37,9 @@ public class NewAnswerMenuWP extends AnswerViewWP {
 	public void createControl(Composite parent) {		
 		super.createControl(parent);
 	
-		Label categoryLabel = new Label(getContainerParent(), SWT.NONE);
+		Label proposalsLabel = new Label(getContainerParent(), SWT.NONE);
 		cbProposals = new Combo(getContainerParent(), SWT.DROP_DOWN | SWT.READ_ONLY);
-		categoryLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
+		proposalsLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
 			proposals = Controller.getInstance().getProposals();
 			if (proposals.size() == 0)
@@ -82,6 +84,30 @@ public class NewAnswerMenuWP extends AnswerViewWP {
 		}
 		if (valid) 
 			super.updateStatus(null);
+	}
+	
+	protected void fillData(Knowledge k) {
+		if (k!=null) {
+			super.fillData(k);
+			if (k instanceof Answer) {
+				int index = searchProposalIndex((Answer)k);
+				if (index!=-1) {
+					cbProposals.select(index);
+				}
+			}
+		}
+	}
+	
+	private int searchProposalIndex(Answer a) {
+		boolean found = false;
+		int result = -1;
+		for (int i=0; i<proposals.size() && !found; i++) {
+			if (proposals.get(i).getAnswers().contains(a)) {
+				found = true;
+				result = i;
+			}
+		}
+		return result;
 	}
 
 	public int getItemCbProposals() {

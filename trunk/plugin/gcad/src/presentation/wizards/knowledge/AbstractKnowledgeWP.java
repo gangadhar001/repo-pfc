@@ -36,9 +36,9 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		
-		Label nameLabel = new Label(container, SWT.NULL);
+		Label titleLabel = new Label(container, SWT.NULL);
 		titleText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		nameLabel.setText(BundleInternationalization.getString("NameLabel")+":");	
+		titleLabel.setText(BundleInternationalization.getString("TitleLabel")+":");	
 		titleText.setLayoutData(gd);
 		// Listener to validate the name
 		titleText.addModifyListener(new ModifyListener() {
@@ -65,7 +65,7 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 
 	}
 	
-	public void fillData(Knowledge k) {
+	protected void fillData(Knowledge k) {
 		if (k!=null) {
 			titleText.setText(k.getTitle());
 			if (k instanceof Proposal)
@@ -84,13 +84,13 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 		
 		// The title text can't be empty
 		if (titleText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.NameProposalEmpty"));
+			updateStatus(BundleInternationalization.getString("ErrorMessage.TitleEmpty"));
 			valid = false;
 		}
 		
 		// The description text can't be empty
 		if (valid && descriptionText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionProposalEmpty"));
+			updateStatus(BundleInternationalization.getString("ErrorMessage.DescriptionEmpty"));
 			valid = false;
 		}
 		
@@ -120,8 +120,4 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 		return valid;
 	}
 	
-	
-
-
-
 }

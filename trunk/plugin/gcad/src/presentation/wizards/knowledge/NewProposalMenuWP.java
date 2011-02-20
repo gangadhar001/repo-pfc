@@ -86,7 +86,7 @@ public class NewProposalMenuWP extends ProposalViewWP {
 			super.updateStatus(null);
 	}
 	
-	public void fillData(Knowledge k) {
+	protected void fillData(Knowledge k) {
 		if (k!=null) {
 			super.fillData(k);
 			if (k instanceof Proposal) {

@@ -25,12 +25,14 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 	private Combo cbProposals;
 	private Composite parent;
 	private ArrayList<Proposal> proposals;
-	private Group groupProposalContent;
+	private Group groupContent;
+	private Proposal oldProposal;
 	
-	public ModifyProposalMenuWP(String pageName) {
+	public ModifyProposalMenuWP(String pageName, Proposal proposal) {
 		super(pageName);
-//		setTitle(BundleInternationalization.getString("NewAnswerWizardPageTitle"));
-//		setDescription(BundleInternationalization.getString("NewAnswerWizardPageDescription"));
+		setTitle(BundleInternationalization.getString("ModifyProposalWizardPageTitle"));
+		setDescription(BundleInternationalization.getString("ModifyProposalWizardPageDescription"));
+		this.oldProposal = proposal;
 	}
 	
 	@Override
@@ -42,13 +44,13 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 		container.setLayout(layout);
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 		this.parent = container;
-		Group groupLogin = new Group(container, SWT.NONE);
-		groupLogin.setLayout(new GridLayout(2,false));
-		groupLogin.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		groupLogin.setText("Login information");
+		Group groupProposals = new Group(container, SWT.NONE);
+		groupProposals.setLayout(new GridLayout(2,false));
+		groupProposals.setLayoutData(new GridData(GridData.FILL_BOTH));
+		groupProposals.setText(BundleInternationalization.getString("GroupProposals"));
 		
-		Label proposalsLabel = new Label(groupLogin, SWT.NULL);
-		cbProposals = new Combo(groupLogin, SWT.DROP_DOWN | SWT.READ_ONLY);
+		Label proposalsLabel = new Label(groupProposals, SWT.NULL);
+		cbProposals = new Combo(groupProposals, SWT.DROP_DOWN | SWT.READ_ONLY);
 		proposalsLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
 		try {
 			proposals = Controller.getInstance().getProposals();
@@ -87,15 +89,16 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 	
 	private void fillDataProposal() {
 		if (cbProposals!= null && cbProposals.getSelectionIndex()!=-1) {
-			Proposal p = proposals.get(cbProposals.getSelectionIndex());			
-
-			if (groupProposalContent != null)
-				groupProposalContent.dispose();			
-			groupProposalContent = new Group(parent, SWT.NONE);
-			groupProposalContent.setLayout(new GridLayout(2,false));
-			groupProposalContent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			groupProposalContent.setText("Proposal Content");
-			super.createControl(groupProposalContent);
+			Proposal p = proposals.get(cbProposals.getSelectionIndex());
+			// Clear group
+			if (groupContent != null)
+				groupContent.dispose();
+			
+			groupContent = new Group(parent, SWT.NONE);
+			groupContent.setLayout(new GridLayout(2,false));
+			groupContent.setLayoutData(new GridData(GridData.FILL_BOTH));
+			groupContent.setText(BundleInternationalization.getString("GroupProposalContent"));
+			super.createControl(groupContent);
 			super.fillData(p);
 			parent.layout();
 		}
@@ -103,7 +106,6 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 	
 	protected void wizardChanged(){
 		boolean valid = isValid();
-		// Must select a parent proposals
 		if (cbProposals!= null && valid && cbProposals.getSelectionIndex()==-1) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.ProposalParentNotSelected"));
 			valid = false;
@@ -119,7 +121,6 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 
 	public ArrayList<Proposal> getProposals() {
 		return proposals;
-	}
-	
+	}	
 
 }

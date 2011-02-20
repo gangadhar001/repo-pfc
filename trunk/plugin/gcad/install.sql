@@ -1,4 +1,4 @@
-﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -123,6 +123,7 @@ DROP TABLE IF EXISTS `dbgcad`.`knowledge` ;
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`knowledge` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(255) NOT NULL ,
+  `description` TEXT NOT NULL ,
   `date` DATETIME NOT NULL ,
   `userId` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -167,7 +168,6 @@ DROP TABLE IF EXISTS `dbgcad`.`proposals` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `description` TEXT NOT NULL ,
   `category` ENUM('Analysis', 'Design') NOT NULL ,
   `topicId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
@@ -193,7 +193,6 @@ DROP TABLE IF EXISTS `dbgcad`.`answers` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `description` TEXT NOT NULL ,
   `argument` ENUM('Pro', 'Contra') NOT NULL ,
   `proposalId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
@@ -238,6 +237,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`notifications` (
 ENGINE = InnoDB;
 
 
+;
 CREATE USER `gcad` IDENTIFIED BY 'gcad';
 
 grant ALL on TABLE `dbgcad`.`addresses` to gcad;
@@ -314,16 +314,16 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('1', 'Patrones', '2011-01-22', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('2', 'Frameworks', '2011-01-21', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('3', 'Proposal 1', '2011-01-23', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('4', 'Proposal 2', '2011-01-31', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('5', 'Proposal 3', '2011-02-01', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('6', 'Proposal 4', '2011-02-23', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('7', 'Answer 1', '2011-03-01', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('8', 'Answer 2', '2011-04-01', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('9', 'Answer 3', '2011-03-31', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `date`, `userId`) VALUES ('10', 'Answer 4', '2011-03-12', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('1', 'Patrones', 'Tema para agrupar decisiones acerca de patrones', '2011-01-22', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('2', 'Frameworks', 'Tema para agrupar decisiones acerca de frameworks a utilizar', '2011-01-21', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('3', 'Proposal 1', 'Proposal 1', '2011-01-23', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('4', 'Proposal 2', 'Proposal 2', '2011-01-31', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('5', 'Proposal 3', 'Proposal 3', '2011-02-01', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('6', 'Proposal 4', 'Proposal 4', '2011-02-23', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('7', 'Answer 1', 'Answer 1', '2011-03-01', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('8', 'Answer 2', 'Answer 2', '2011-04-01', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('9', 'Answer 3', 'Answer 3', '2011-03-31', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('10', 'Answer 4', 'Answer 4', '2011-03-12', '3');
 
 COMMIT;
 
@@ -342,10 +342,10 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`proposals` (`id`, `description`, `category`, `topicId`) VALUES ('3', 'p1', 'Analysis', '1');
-INSERT INTO `dbgcad`.`proposals` (`id`, `description`, `category`, `topicId`) VALUES ('4', 'p2', 'Design', '1');
-INSERT INTO `dbgcad`.`proposals` (`id`, `description`, `category`, `topicId`) VALUES ('5', 'p3', 'Analysis', '2');
-INSERT INTO `dbgcad`.`proposals` (`id`, `description`, `category`, `topicId`) VALUES ('6', 'p4', 'Analysis', '2');
+INSERT INTO `dbgcad`.`proposals` (`id`, `category`, `topicId`) VALUES ('3', 'Analysis', '1');
+INSERT INTO `dbgcad`.`proposals` (`id`, `category`, `topicId`) VALUES ('4', 'Design', '1');
+INSERT INTO `dbgcad`.`proposals` (`id`, `category`, `topicId`) VALUES ('5', 'Analysis', '2');
+INSERT INTO `dbgcad`.`proposals` (`id`, `category`, `topicId`) VALUES ('6', 'Analysis', '2');
 
 COMMIT;
 
@@ -354,10 +354,10 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`answers` (`id`, `description`, `argument`, `proposalId`) VALUES ('7', 'a1', 'Pro', '3');
-INSERT INTO `dbgcad`.`answers` (`id`, `description`, `argument`, `proposalId`) VALUES ('8', 'a2', 'Contra', '4');
-INSERT INTO `dbgcad`.`answers` (`id`, `description`, `argument`, `proposalId`) VALUES ('9', 'a3', 'Pro', '4');
-INSERT INTO `dbgcad`.`answers` (`id`, `description`, `argument`, `proposalId`) VALUES ('10', 'a4', 'Pro', '5');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('7', 'Pro', '3');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('8', 'Contra', '4');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('9', 'Pro', '4');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('10', 'Pro', '5');
 
 COMMIT;
 

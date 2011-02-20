@@ -1,6 +1,7 @@
 package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
+import model.business.knowledge.Categories;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 
@@ -40,13 +41,14 @@ public class ProposalViewWP extends AbstractKnowledgeWP {
 		Label categoryLabel = new Label(container, SWT.NONE);
 		categoryCb = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		categoryLabel.setText(BundleInternationalization.getString("CategoryLabel")+":");
-		categoryCb.setItems(new String[] { "Analysis", "Design" });
-		categoryCb.addSelectionListener(new SelectionAdapter() {
-			
+		String [] items = new String[Categories.values().length];
+		for (int i=0; i<Categories.values().length; i++) 
+			items[i] = Categories.values()[i].name();		
+		categoryCb.setItems(items);
+		categoryCb.addSelectionListener(new SelectionAdapter() {			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				wizardChanged();
-				
 			}
 		});
 		container.layout();
@@ -66,7 +68,7 @@ public class ProposalViewWP extends AbstractKnowledgeWP {
 			super.updateStatus(null);
 	}
 	
-	public void fillData(Knowledge k) {
+	protected void fillData(Knowledge k) {
 		if (k!=null) {
 			super.fillData(k);
 			if (k instanceof Proposal) {

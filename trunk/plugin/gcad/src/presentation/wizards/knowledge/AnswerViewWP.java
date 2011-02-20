@@ -39,7 +39,7 @@ public class AnswerViewWP extends AbstractKnowledgeWP {
 		
 		Label argumentLabel = new Label(container, SWT.NULL);
 		argumentText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		argumentLabel.setText(BundleInternationalization.getString("DescriptionLabel")+":");
+		argumentLabel.setText(BundleInternationalization.getString("ArgumentLabel")+":");
 		argumentText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		// Listener to validate the description 
 		argumentText.addModifyListener(new ModifyListener() {
@@ -55,17 +55,15 @@ public class AnswerViewWP extends AbstractKnowledgeWP {
 	protected void wizardChanged(){
 		super.wizardChanged();
 		boolean valid = isValid();
-		// Must select a category
-		// The name text can't be empty
 		if (valid && argumentText.getText().length() == 0) {
-			updateStatus(BundleInternationalization.getString("ErrorMessage.NameProposalEmpty"));
+			updateStatus(BundleInternationalization.getString("ErrorMessage.ArgumentEmpty"));
 			valid = false;
 		}
 		if (valid) 
 			super.updateStatus(null);
 	}
 	
-	public void fillData(Knowledge k) {
+	protected void fillData(Knowledge k) {
 		if (k!=null) {
 			super.fillData(k);
 			if (k instanceof Answer) {

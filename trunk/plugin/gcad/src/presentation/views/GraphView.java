@@ -315,5 +315,11 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 		
 	}
 
+	@Override
+	protected void modifyKnowledge() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

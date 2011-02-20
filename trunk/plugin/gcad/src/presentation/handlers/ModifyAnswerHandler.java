@@ -22,7 +22,7 @@ public class ModifyAnswerHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		AbstractModifyKnowledgeWC wizard = new ModifyAnswerMenuWC(BundleInternationalization.getString("NewProposalWizard"));
-		wizard.addPages(new ModifyAnswerMenuWP(BundleInternationalization.getString("NewProposalWizardPageTitle")));
+		wizard.addPages(new ModifyAnswerMenuWP(BundleInternationalization.getString("NewProposalWizardPageTitle"), null));
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         dialog.create();
         dialog.open();

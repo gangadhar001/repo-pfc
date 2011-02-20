@@ -10,8 +10,6 @@ import model.business.control.Controller;
 import model.business.control.PresentationController;
 import model.business.knowledge.IActions;
 import model.business.knowledge.Knowledge;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.treeviewer.KnowledgeContentProvider;
 import model.treeviewer.KnowledgeLabelProvider;
@@ -30,66 +28,76 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import presentation.IPresentation;
+import presentation.KMPerspective;
 import presentation.utils.Dialogs;
 
 /**
- * This class represents the Proposals view, where the different proposals, answers and actions over them are shown
+ * This class represents the Hierarchical view of knowledge, where the different topics, proposals and answers
+ * are shown in a tree
  */
 public class HierarchicalView extends KnowledgeView implements IPresentation {
 	
-	private TreeViewer treeViewer;
-		
+	private TreeViewer treeViewer;		
 	private Action doubleClickAction;	
-	
-	private TopicWrapper topicWrapper;
-	
+	private TopicWrapper topicWrapper;	
 	private Object selectedItem;
-
 	private UserInfView userView;
 	
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		addDoubleClickAction();
-		// Se inicializa la raíz del árbol
 		topicWrapper = new TopicWrapper();
-		// TODO: se añade a la lista de observados
+		// This view is added to the observer, in order to update it when a change is produced
 		PresentationController.attachObserver(this);
-		// TODO: se refresca la vista segun este logueado o no 
 		updateState(Controller.getInstance().isLogged());
 	}
 		
 	private void addDoubleClickAction() {
 		doubleClickAction = new Action() {
 			public void run() {
-				selection = treeViewer.getSelection();
+				setSelection();
 				selectedItem = ((IStructuredSelection)selection).getFirstElement();
-				// Al seleccionar un conocimiento, se muestra el usuario que lo ha producido, en su vista correspondiente
+				// When a knowledge is selected, all its information is shown in another view
+				refreshInfView();
+				
+				// Add new knowledge to the element selected
 				try {
-					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
-					userView.refresh((Knowledge)selectedItem);
-				} catch (PartInitException e) {
+					createKnowledge(selectedItem);
+				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				
-				// TODO: si es un topic, se añade una propuesta. Si es una propuesta, se añade una respuesta
-				if (selectedItem instanceof Topic) {
-					addProposal((Topic)selectedItem);
-				}
-				else if (selectedItem instanceof Proposal) {
-					addAnswer((Proposal)selectedItem);
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		};
 	}
 	
+	/*** Method used to show in another view all the information about a knowledge that has been selected ***/
+	private void refreshInfView(){
+		try {
+			userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(KMPerspective.USER_INF_VIEW_ID);
+			userView.refresh((Knowledge)selectedItem);
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/*** Method used to add new knowledge ***/
 	protected void addKnowledge() {
-		Object objectSelected = null;
 		setSelection();
 		if (selection!=null) {
-			objectSelected = ((IStructuredSelection)selection).getFirstElement();
+			selectedItem = ((IStructuredSelection)selection).getFirstElement();
 			try {
-				super.createKnowledge(objectSelected);
+				createKnowledge(selectedItem);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -104,29 +112,33 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 				e.printStackTrace();
 			}
 		}
-		// TODO: si no se selecciona nada, se añade un topic
+		// If any element is not selected, can be add a topic
 		else {
 			addTopic();
 		}
 	}	
 	
-	protected void deleteKnowledge() {
-		Object objectSelected = null;
+	protected void modifyKnowledge() {
 		setSelection();
 		if (selection!=null) {
-			if (Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmDelete"), BundleInternationalization.getString("Message.ConfirmDelete"))) { 
-				objectSelected = ((IStructuredSelection)selection).getFirstElement();
-				super.removeKnowledge(objectSelected);
-			}
-		}
-		else {
-			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "Debes seleccionar un elemento");	
+			selectedItem = ((IStructuredSelection)selection).getFirstElement();
+			modifyKnowledge(selectedItem);
 		}
 	}
 	
-	protected void setSelection() {
-		selection = treeViewer.getSelection();
-	}
+	/*** Method used to delete knowledge ***/
+	protected void deleteKnowledge() {
+		setSelection();
+		if (selection!=null) {
+			if (Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmDelete"), BundleInternationalization.getString("Message.ConfirmDelete"))) { 
+				selectedItem = ((IStructuredSelection)selection).getFirstElement();
+				removeKnowledge(selectedItem);
+			}
+		}
+		else {
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), BundleInternationalization.getString("SelectItemMandatory"));	
+		}
+	}	
 	
 	// Listener for Double Click Action
 	private void hookDoubleClickAction() {
@@ -138,60 +150,21 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 	}
 	
 	private void hookSelectionListener() {
-		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-	
+		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {	
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				setSelection();
-				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				try {
-					// Al seleccionar un conocimiento, se muestra el usuario que lo ha producido, en su vista correspondiente
-					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
-					userView.refresh((Knowledge)obj);
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				}
-			
+				selectedItem = ((IStructuredSelection)selection).getFirstElement();
+				refreshInfView();				
+			}			
 		});
-	}
-
-	@Override
-	public void setFocus() {
-		if (treeViewer!=null)
-			treeViewer.getControl().setFocus();
 	}
 		
 	private void makeTree() {
 		try {
-			// TODO: cambiar el id del proyecto
-			topicWrapper = Controller.getInstance().getTopicsWrapper();
-			//ArrayList<Topic> topics = KnowledgeController.getKnowledgeTreeProject(2);
-						
-			/*Topic t1 = new Topic("Tema 1");
-			Topic t2 = new Topic("Tema 2");
-			
-			Proposal p1 = new Proposal("P1", "D1", new Date(), Categories.Analysis, 0);
-			Proposal p2 = new Proposal("P2", "D2", new Date(), Categories.Design, 1);
-			Proposal p3 = new Proposal("P3", "D3", new Date(), Categories.Analysis, 0);
-			
-			Answer a1 = new Answer("A1", "A1", new Date());
-			Answer a2 = new Answer("A2", "A2", new Date());
-			
-			p1.add(a1);
-			p1.add(a2);
-			
-			t1.add(p1);
-			t1.add(p2);
-			t2.add(p3);
-			
-			TopicWrapper t = new TopicWrapper();
-			t.add(t1);
-			t.add(t2);*/
 			cleanComposite();
 			
+			topicWrapper = Controller.getInstance().getTopicsWrapper();			
 			treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE);
 			treeViewer.setContentProvider(new KnowledgeContentProvider());
 			treeViewer.setLabelProvider(new KnowledgeLabelProvider());
@@ -218,14 +191,10 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 		}
 
 	}
-	
-	/*public Proposal getProposalSelected() {
-		return proposalSelected;
-	}*/
 
 	@Override
 	public void updateState(boolean connected) {
-		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
+		// If the user is not logged yet, the tree is cleaned
 		if (!connected) {
 			cleanComposite();
 			disableActions();
@@ -233,10 +202,9 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 			refreshComposite();
 		}
 		
-		// Si esta logueado y esta vista es visible, se crea el arbol
 		else if (visible) {
 			makeTree();
-			// Se habilitan las acciones segun los permisos
+			// The actions are enabled according to user role permissions
 			if (actionsAllowed.contains(IActions.NEW_PROPOSAL) || actionsAllowed.contains(IActions.NEW_ANSWER))
 				addAction.setEnabled(true);
 			if (actionsAllowed.contains(IActions.DELETE_PROPOSAL) || actionsAllowed.contains(IActions.DELETE_ANSWER))
@@ -249,9 +217,7 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 		actionsAllowed = (ArrayList<String>) actionsName;		
 	}
 			
-	protected void cleanComposite () {
-		// Clean composite parent. 
-		// TODO: controlar si no hay nada en el composite	
+	protected void cleanComposite () {	
 		if (parent.getChildren().length > 0) {
 			// Clean label
 			if (errorLabel != null) {
@@ -265,6 +231,16 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 				topicWrapper = new TopicWrapper();
 			}
 		}
+	}
+	
+	@Override
+	public void setFocus() {
+		if (treeViewer!=null)
+			treeViewer.getControl().setFocus();
+	}
+	
+	protected void setSelection() {
+		selection = treeViewer.getSelection();
 	}
 	
 	protected void disableActions() {

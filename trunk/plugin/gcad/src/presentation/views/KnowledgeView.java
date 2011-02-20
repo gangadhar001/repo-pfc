@@ -19,13 +19,21 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 
+import presentation.wizards.control.knowledge.ModifyAnswerMenuWC;
+import presentation.wizards.control.knowledge.ModifyProposalMenuWC;
+import presentation.wizards.control.knowledge.ModifyTopicWC;
 import presentation.wizards.control.knowledge.NewAnswerViewWC;
 import presentation.wizards.control.knowledge.NewProposalViewWC;
 import presentation.wizards.control.knowledge.NewTopicWC;
 import presentation.wizards.knowledge.AnswerViewWP;
+import presentation.wizards.knowledge.ModifyAnswerMenuWP;
+import presentation.wizards.knowledge.ModifyProposalMenuWP;
 import presentation.wizards.knowledge.ProposalViewWP;
+import presentation.wizards.knowledge.TopicWP;
 
-
+/** This class represents an abstract class for the views that shown the available knowledge, in a tree
+ * or in a graph
+ */
 public abstract class KnowledgeView extends AbstractView {	
 	
 	protected Action addAction;
@@ -41,9 +49,6 @@ public abstract class KnowledgeView extends AbstractView {
 		actionsAllowed = new ArrayList<String>();
 	}
 	
-	/**
-	 * TODO: This method handles the double click action.
-	 */
 	protected void makeActions() {
 		addAction = new Action(BundleInternationalization.getString("Actions.Add")) {
             public void run() { 
@@ -52,6 +57,13 @@ public abstract class KnowledgeView extends AbstractView {
 		};
 		addAction.setImageDescriptor(Activator.getImageDescriptor("resources/images/add.png"));
 
+		editAction = new Action(BundleInternationalization.getString("Actions.Edit")) {
+			public void run() {
+				modifyKnowledge();
+			}
+		};
+		editAction.setImageDescriptor(Activator.getImageDescriptor("resources/images/edit.png"));
+		
 		deleteAction = new Action(BundleInternationalization.getString("Actions.Delete")) {
 			public void run() {
 				deleteKnowledge();
@@ -66,25 +78,58 @@ public abstract class KnowledgeView extends AbstractView {
 	protected void createToolbar() {
         IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
         mgr.add(addAction);
+        mgr.add(editAction);
         mgr.add(deleteAction);
     }
     
 	protected abstract void addKnowledge();	
+	protected abstract void modifyKnowledge();
 	protected abstract void deleteKnowledge();
 
 	protected void createKnowledge(Object obj) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if (obj instanceof Topic) {
-			Topic t = Controller.getInstance().getTopicsWrapper().getTopic((Topic)obj);
-			addProposal(t);
+			//Topic t = Controller.getInstance().getTopicsWrapper().getTopic((Topic)obj);
+			addProposal((Topic)obj);
 		}
 		else if (obj instanceof Proposal) {
 			addAnswer((Proposal)obj);				
 		}
 		else {
-			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "No se puede añadir nuevo conocimiento a una respuesta");
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), BundleInternationalization.getString("NotAddKnowledgeToAnswer"));
 		}
 	}
 	
+	protected void modifyKnowledge(Object obj) {
+		if (obj instanceof Topic) {
+			//Topic t = Controller.getInstance().getTopicsWrapper().getTopic((Topic)obj);
+			modifyTopic((Topic)obj);
+		}
+		else if (obj instanceof Proposal) {
+			modifyProposal((Proposal)obj);				
+		}
+		else if (obj instanceof Answer) {
+			modifyAnswer((Answer)obj);
+		}
+	}
+	
+	private void modifyAnswer(Answer answer) {
+		ModifyAnswerMenuWC wizardModifyAnswerController = new ModifyAnswerMenuWC(BundleInternationalization.getString("ModifyAnswerWizard"));
+		wizardModifyAnswerController.addPages(new ModifyAnswerMenuWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), answer));
+		showWizardDialog(wizardModifyAnswerController);			
+	}
+
+	private void modifyProposal(Proposal proposal) {
+		ModifyProposalMenuWC wizardModifyProposalController = new ModifyProposalMenuWC(BundleInternationalization.getString("ModifyAnswerWizard"));
+		wizardModifyProposalController.addPages(new ModifyProposalMenuWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), proposal));
+		showWizardDialog(wizardModifyProposalController);		
+	}
+
+	private void modifyTopic(Topic topic) {
+		ModifyTopicWC wizardModifyTopicController = new ModifyTopicWC(BundleInternationalization.getString("ModifyAnswerWizard"));
+		wizardModifyTopicController.addPages(new TopicWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), topic));
+		showWizardDialog(wizardModifyTopicController);			
+	}
+
 	protected void removeKnowledge(Object obj) {
 		try {
 			if (obj instanceof Topic)

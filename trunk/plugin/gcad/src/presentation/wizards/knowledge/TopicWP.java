@@ -3,6 +3,8 @@ package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
 
+import model.business.knowledge.Topic;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -13,7 +15,7 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class TopicWP extends AbstractKnowledgeWP {
 		
-	public TopicWP(String pageName) {
+	public TopicWP(String pageName, Topic topic) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("NewTopicWizardPageTitle"));
 		setDescription(BundleInternationalization.getString("NewTopicWizardPageDescription"));
