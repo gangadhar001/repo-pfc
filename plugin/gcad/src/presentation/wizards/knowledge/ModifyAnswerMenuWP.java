@@ -21,17 +21,18 @@ import org.eclipse.swt.widgets.Label;
 import exceptions.NoProposalsException;
 
 public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
-
 		
 		private Combo cbAnswers;
 		private Composite parent;
 		private ArrayList<Answer> answers;
-		private Group groupAnswerContent;
+		private Group groupAnswerData;
+		private Answer oldAnswer;
 		
-		public ModifyAnswerMenuWP(String pageName) {
+		public ModifyAnswerMenuWP(String pageName, Answer oldAnswer) {
 			super(pageName);
-//			setTitle(BundleInternationalization.getString("NewAnswerWizardPageTitle"));
-//			setDescription(BundleInternationalization.getString("NewAnswerWizardPageDescription"));
+			setTitle(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"));
+			setDescription(BundleInternationalization.getString("ModifyAnswerWizardPageDescription"));
+			this.oldAnswer = oldAnswer;
 		}
 		
 		@Override
@@ -43,20 +44,21 @@ public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
 			container.setLayout(layout);
 			container.setLayoutData(new GridData(GridData.FILL_BOTH));
 			this.parent = container;
-			Group groupLogin = new Group(container, SWT.NONE);
-			groupLogin.setLayout(new GridLayout(2,false));
-			groupLogin.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			groupLogin.setText("Login information");
+			Group groupAnswers = new Group(container, SWT.NONE);
+			groupAnswers.setLayout(new GridLayout(2,false));
+			groupAnswers.setLayoutData(new GridData(GridData.FILL_BOTH));
+			groupAnswers.setText(BundleInternationalization.getString("GroupAnswers"));
 			
-			Label answersLabel = new Label(groupLogin, SWT.NULL);
-			cbAnswers = new Combo(groupLogin, SWT.DROP_DOWN | SWT.READ_ONLY);
-			answersLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
+			Label answersLabel = new Label(groupAnswers, SWT.NULL);
+			cbAnswers = new Combo(groupAnswers, SWT.DROP_DOWN | SWT.READ_ONLY);
+			answersLabel.setText(BundleInternationalization.getString("AnswerLabel")+":");
 			try {
 				answers = Controller.getInstance().getAnswers();
 				if (answers.size() == 0)
 					throw new NoProposalsException();
-				for (int i=0; i<answers.size(); i++)
-					cbAnswers.add(answers.get(i).getTitle()); 
+				if (oldAnswer != null)
+					for (int i=0; i<answers.size(); i++)
+						cbAnswers.add(answers.get(i).getTitle()); 
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -78,10 +80,17 @@ public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					fillDataProposal();
-					wizardChanged();
-					
+					wizardChanged();					
 				}
 			});
+			
+			// If old answer is not null, it is selected in the combobox and the rest of fields are filled
+			if (oldAnswer != null) {
+				cbAnswers.select(answers.indexOf(oldAnswer));
+				cbAnswers.setEnabled(false);
+				fillDataProposal();
+			}
+			
 			wizardChanged();
 			setControl(container);
 		}
@@ -89,14 +98,15 @@ public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
 		private void fillDataProposal() {
 			if (cbAnswers!= null && cbAnswers.getSelectionIndex()!=-1) {
 				Answer a = answers.get(cbAnswers.getSelectionIndex());			
-
-				if (groupAnswerContent != null)
-					groupAnswerContent.dispose();			
-				groupAnswerContent = new Group(parent, SWT.NONE);
-				groupAnswerContent.setLayout(new GridLayout(2,false));
-				groupAnswerContent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-				groupAnswerContent.setText("Proposal Content");
-				super.createControl(groupAnswerContent);
+				// Clear group
+				if (groupAnswerData != null)
+					groupAnswerData.dispose();	
+				
+				groupAnswerData = new Group(parent, SWT.NONE);
+				groupAnswerData.setLayout(new GridLayout(2,false));
+				groupAnswerData.setLayoutData(new GridData(GridData.FILL_BOTH));
+				groupAnswerData.setText(BundleInternationalization.getString("GroupAnswerContent"));
+				super.createControl(groupAnswerData);
 				super.fillData(a);
 				parent.layout();
 			}
@@ -104,9 +114,8 @@ public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
 		
 		protected void wizardChanged(){
 			boolean valid = isValid();
-			// Must select a parent proposals
 			if (cbAnswers!= null && valid && cbAnswers.getSelectionIndex()==-1) {
-				updateStatus(BundleInternationalization.getString("ErrorMessage.ProposalParentNotSelected"));
+				updateStatus(BundleInternationalization.getString("ErrorMessage.AnswerNotSelected"));
 				valid = false;
 			}
 			if (valid) { 

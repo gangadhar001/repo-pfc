@@ -16,58 +16,14 @@ public class DAOProposal {
 	
 	private static final String PROPOSAL_CLASS = "Proposal";
 	
-	private static final String COL_ID = "id";
-	private static final String COL_NAME = "name";
-	private static final String COL_DESCRIPTION = "description";
-	private static final String COL_DATE = "date";
-	private static final String COL_CATEGORY = "category";
-	private static final String COL_EMPLOYEE_ID = "employeeId";
-	private static final String COL_TOPIC_ID = "topicId";
+//	private static final String COL_ID = "id";
+//	private static final String COL_NAME = "name";
+//	private static final String COL_DESCRIPTION = "description";
+//	private static final String COL_DATE = "date";
+//	private static final String COL_CATEGORY = "category";
+//	private static final String COL_EMPLOYEE_ID = "employeeId";
+//	private static final String COL_TOPIC_ID = "topicId";
 	
-	/** 
-	 * This method returns all proposals and answers hierarchy of a project, keeping the tree hierarchy.
-	 */
-	@SuppressWarnings("unchecked")
-//	public static ArrayList<Proposal> queryProposalsTopic(int topicId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {	
-//		HibernateQuery query;
-//		List<?> data;
-//		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-//		
-//		query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where " + COL_TOPIC_ID + " = ?", topicId);
-//		data = DBConnectionManager.query(query);
-//		
-//		// If data are not obtained, it is because there are no proposals for this project
-//		if(data.size() > 0) {
-//			proposals = (ArrayList<Proposal>) data;
-//			
-//		}
-//		
-//		return proposals;
-//	}
-	
-	/*private static ArrayList<Proposal> getProposals(ResultSet data) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-		ArrayList<Answer> answers;
-		Proposal proposal;
-		
-		do {
-			proposal = new Proposal();
-			proposal.setId(data.getInt(COL_ID));
-			proposal.setTitle(data.getString(COL_NAME));
-			proposal.setDescription(data.getString(COL_DESCRIPTION));
-			proposal.setDate(new Date(data.getTimestamp(COL_DATE).getTime()));
-			proposal.setCategory(Categories.valueOf(data.getString(COL_CATEGORY)));
-			// Set answers of this proposal
-			answers = PFAnswer.queryAnswersFromProposal(proposal.getId());
-			for (Answer a: answers) {
-				proposal.add(a);
-			}
-			proposals.add(proposal);
-		} while(data.next());
-		data.close();
-		
-		return proposals;
-	}*/
 	
 	public static Proposal queryProposal(int id) throws SQLException {
 		HibernateQuery query;
@@ -85,13 +41,11 @@ public class DAOProposal {
 		return result;
 	}
 	
-	public static void insert(Proposal proposal, int idParent) throws SQLException {
-		// Modificamos la base de datos y copiamos los ids asignados
-		Proposal newProposal;
-		
+	public static void insert(Proposal proposal, int idParent) throws SQLException {		
 		try {
 			DBConnectionManager.initTransaction();
-			// TODO: necesario hacer esto para que Hibernate actualice correctamente las claves ajenas y referencias
+			// It's necessary to query first the parent topic of the answer, in order to Hibernate
+			// can update all the references and foreign key properly.
 			Topic aux = DAOTopic.queryTopic(idParent);
 			aux.add(proposal);
 			DBConnectionManager.insert(proposal);
@@ -101,9 +55,16 @@ public class DAOProposal {
 
 	}
 	
+	public static void update(Proposal p) throws SQLException {
+		try {
+			DBConnectionManager.initTransaction();
+			DBConnectionManager.update(p.clone());
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
+	
 	public static void delete(Proposal pro) throws SQLException {
-		// Modificamos la base de datos (automáticamente se
-		// borran los datos adicionales si el usuario es médico)
 		try {
 			DBConnectionManager.initTransaction();
 			DBConnectionManager.delete(pro);

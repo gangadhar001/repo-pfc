@@ -49,19 +49,19 @@ public class Answer extends Knowledge implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
+		boolean result = false;
 		if (this == obj)
-			return true;
+			result = true;
 		if (obj == null)
-			return false;
+			result = false;
 		if (getClass() != obj.getClass())
-			return false;
-		Answer other = (Answer) obj;
-		if (argument == null) {
-			if (other.argument != null)
-				return false;
-		} else if (!argument.equals(other.argument))
-			return false;
-		return true;
+			result = false;
+		if (obj instanceof Answer) {
+			Answer other = (Answer) obj;
+			result = (title.equals(other.getTitle()) && argument.equals(other.getArgument()) &&
+					description.equals(other.getDescription()) && date.equals(other.getDate()));
+		}
+		return result;
 	}	
 	
 	public Object clone () {

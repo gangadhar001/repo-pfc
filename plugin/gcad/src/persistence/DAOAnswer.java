@@ -43,12 +43,10 @@ public class DAOAnswer {
 		try {
 			DBConnectionManager.initTransaction();
 			// It's necessary to query first the parent proposal of the answer, in order to Hibernate
-			// can update all the references all foreign key properly.
+			// can update all the references and foreign key properly.
 			Proposal aux = DAOProposal.queryProposal(proposalId);
 			aux.add(answer);
-			Answer a = (Answer)DBConnectionManager.insert(answer);
-			// Set the new id
-			answer.setId(a.getId());
+			DBConnectionManager.insert(answer);
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}

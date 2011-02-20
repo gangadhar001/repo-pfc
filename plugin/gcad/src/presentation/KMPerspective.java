@@ -9,10 +9,10 @@ import org.eclipse.ui.IPerspectiveFactory;
  */
 public class KMPerspective implements IPerspectiveFactory {
 	
-	private static final String HIERARCHICAL_KNOWLEDGE_VIEW_ID = "gcad.view.HierarchicalKnowledge";
-	private static final String GRAPH_KNOWLEDGE_VIEW_ID = "gcad.view.GraphKnowledge";
-	private static final String USER_INF_VIEW_ID = "gcad.view.UserInformation";
-	private static final String NOTIFICATION_VIEW_ID = "gcad.view.notifications";
+	public static final String HIERARCHICAL_KNOWLEDGE_VIEW_ID = "gcad.view.HierarchicalKnowledge";
+	public static final String GRAPH_KNOWLEDGE_VIEW_ID = "gcad.view.GraphKnowledge";
+	public static final String USER_INF_VIEW_ID = "gcad.view.UserInformation";
+	public static final String NOTIFICATION_VIEW_ID = "gcad.view.notifications";
 		
 	@Override
 	public void createInitialLayout(IPageLayout layout) {

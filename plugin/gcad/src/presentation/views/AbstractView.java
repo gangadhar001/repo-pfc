@@ -7,6 +7,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
+/**
+ * This class represents an abstract class for the different views
+ * 
+ */
 public abstract class AbstractView extends ViewPart {
 	
 protected Label errorLabel;

@@ -48,7 +48,7 @@ public class Controller {
 		return instance;
 	}
 	
-	/*** Métodos para controlar el login y signout ***/
+	/*** Methods used to manage login and signout ***/
 	public void login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		session = SessionController.login(user, pass);
 	}
@@ -63,10 +63,11 @@ public class Controller {
 		DBConnectionManager.addConnection(new DBConnection(ip, Integer.parseInt(port), "dbgcad"));
 	}
 	
-	/*** Metodos para añadir nuevo conocimiento ***/
+	/*** Methods used to add new Knowledge ***/
 	public void addTopic (Topic topic) throws SQLException {
 		boolean found = false;
 		Project project = null;
+		// Search te current project
 		for (Iterator<Project> i = session.getUser().getProjects().iterator(); i.hasNext() && !found; ) {
 			project = (Project)i.next();
 			if (project.getId() == session.getCurrentActiveProject()) {
@@ -84,13 +85,20 @@ public class Controller {
 		KnowledgeController.addAnswer(session.getUser(), a, parent);
 	}
 	
-	/*** Métodos para actualizar conocimiento 
-	 * @throws SQLException ***/
+	/*** Methods used to modify Knowledge ***/
+	public void updateTopic(Topic topic) throws SQLException {
+		//KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
+	}
+	
+	public void updateProposal(Proposal proposal) throws SQLException {
+		//KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
+	}
+	
 	public void updateAnswer(Answer answer, Proposal parent) throws SQLException {
 		KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
 	}
 		
-	/*** Métodos para eliminar conocimiento ***/
+	/*** Methods used to delete Knowledge ***/
 	public void deleteTopic(Topic to) throws SQLException {
 		KnowledgeController.deleteTopic(to);
 		notifyKnowledgeRemoved(to);
@@ -106,7 +114,7 @@ public class Controller {
 		notifyKnowledgeRemoved(a);
 	}
 	
-	/*** Métodos para controlar las notificaciones ***/
+	/*** Methods used to manage notifications ***/
 	public void addNotification(Notification notification) throws SQLException {
 		NotificationController.deleteNotification(notification);
 	}
@@ -119,7 +127,7 @@ public class Controller {
 		return NotificationController.getNotifications(session.getCurrentActiveProject());
 	}
 	
-	/*** Métodos auxiliares ***/
+	/*** Auxiliary methods ***/
 	public ArrayList<Proposal> getProposals() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
 		return KnowledgeController.getProposals();
 	}
@@ -128,17 +136,17 @@ public class Controller {
 		return KnowledgeController.getAnswers();
 	}
 	
-	public ArrayList<Project> getProjectsUser() {
-		// TODO: return los proyectos del usuario de la sesion
-		// return ProjectController.getProjectsUser(session.getUser().getId());
-		return null;
-	}	
+//	public ArrayList<Project> getProjectsUser() {
+//		// TODO: return los proyectos del usuario de la sesion
+//		// return ProjectController.getProjectsUser(session.getUser().getId());
+//		return null;
+//	}	
 	
 	public TopicWrapper getTopicsWrapper() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		return KnowledgeController.getTopicsWrapper();
 	}
 		
-	/*** Metodos para la notificacion del observador ***/
+	/*** Methods used to manage the UI observer ***/
 	public void notifyLogin () {
 		PresentationController.notifyConnection(true);
 	}
@@ -233,8 +241,7 @@ public class Controller {
 					commandStateService.setMenuItemVisible(false, act);
 				}
 					
-			}
-			
+			}			
 		    PresentationController.notifyActionsAllowed(actionsName);
 	    }
 	    

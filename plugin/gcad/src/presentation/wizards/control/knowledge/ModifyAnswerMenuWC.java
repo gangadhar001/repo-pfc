@@ -7,7 +7,7 @@ import model.business.knowledge.Proposal;
 import presentation.wizards.knowledge.ModifyAnswerMenuWP;
 
 public class ModifyAnswerMenuWC extends AbstractModifyKnowledgeWC {
-
+	
 	public ModifyAnswerMenuWC(String wizardTitle) {
 		super(wizardTitle);
 	}

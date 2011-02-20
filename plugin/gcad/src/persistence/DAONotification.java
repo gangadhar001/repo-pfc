@@ -28,6 +28,24 @@ public class DAONotification {
 		}
 		return result;
 	}
+	
+	public static void insert(Notification n) throws SQLException {
+		try {
+			DBConnectionManager.initTransaction();
+			DBConnectionManager.insert(n);
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
+	
+	public static void update(Notification n) throws SQLException {
+		try {
+			DBConnectionManager.initTransaction();
+			DBConnectionManager.update(n.clone());
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
 
 	public static void delete(Notification n) throws SQLException {
 		try {

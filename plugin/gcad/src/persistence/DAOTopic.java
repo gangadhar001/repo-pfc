@@ -19,14 +19,12 @@ public class DAOTopic {
 		List<?> data;
 		Topic result = null;
 
-			query = new HibernateQuery("From " + TOPIC_CLASS + " Where id = ?", id);
-			data = DBConnectionManager.query(query);
-	
-			if(data.size() > 0) {
-				result= (Topic) data.get(0);
-				// Borramos los objetos leídos de la caché
-				
-			}
+		query = new HibernateQuery("From " + TOPIC_CLASS + " Where id = ?", id);
+		data = DBConnectionManager.query(query);
+
+		if(data.size() > 0) {
+			result= (Topic) data.get(0);			
+		}
 		return result;
 	}
 	
@@ -47,40 +45,25 @@ public class DAOTopic {
 		return result;
 	}
 	
-	/*private static ArrayList<Topic> getTopics(ResultSet data) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		ArrayList<Topic> topics = new ArrayList<Topic>();
-		ArrayList<Proposal> proposals;
-		Topic topic;
-		
-		do {
-			 topic = new Topic();
-             topic.setId(data.getInt(COL_ID));
-             topic.setTitle(data.getString(COL_NAME));
-             // TODO: set el project del topic
-             // Set proposals of this topic
-             proposals = PFProposal.queryProposalsTopic(topic.getId());
-             topic.setProposals(proposals);
-             topics.add(topic);
-		} while(data.next());
-		data.close();
-		
-		return topics;
-	}*/
-	
 	public static void insert (Topic topic) throws SQLException {		
-		// Modificamos la base de datos y copiamos los ids asignados
 		try {
 			DBConnectionManager.initTransaction();
 			DBConnectionManager.insert(topic);
-			//topic.setId(newTopic.getId());
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
+	
+	public static void update (Topic topic) throws SQLException {		
+		try {
+			DBConnectionManager.initTransaction();
+			DBConnectionManager.update(topic.clone());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
 	}
 
 	public static void delete(Topic topic) throws SQLException {
-		// Modificamos la base de datos (automáticamente se
-		// borran los datos adicionales si el usuario es médico)
 		try {
 			DBConnectionManager.initTransaction();
 			DBConnectionManager.delete(topic);
