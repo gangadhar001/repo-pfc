@@ -88,7 +88,6 @@ public abstract class KnowledgeView extends AbstractView {
 
 	protected void createKnowledge(Object obj) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if (obj instanceof Topic) {
-			//Topic t = Controller.getInstance().getTopicsWrapper().getTopic((Topic)obj);
 			addProposal((Topic)obj);
 		}
 		else if (obj instanceof Proposal) {
@@ -101,7 +100,6 @@ public abstract class KnowledgeView extends AbstractView {
 	
 	protected void modifyKnowledge(Object obj) {
 		if (obj instanceof Topic) {
-			//Topic t = Controller.getInstance().getTopicsWrapper().getTopic((Topic)obj);
 			modifyTopic((Topic)obj);
 		}
 		else if (obj instanceof Proposal) {
@@ -139,13 +137,12 @@ public abstract class KnowledgeView extends AbstractView {
 			else
 				Controller.getInstance().deleteAnswer((Answer)obj);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		}				
 	}
 	
 	protected void addTopic() {
-		NewTopicWC wizarTopicController = new NewTopicWC();
+		NewTopicWC wizarTopicController = new NewTopicWC(BundleInternationalization.getString("NewTopicWizardPageTitle"));
 		showWizardDialog(wizarTopicController);
 	}
 	

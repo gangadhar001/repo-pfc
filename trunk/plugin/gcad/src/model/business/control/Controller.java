@@ -35,6 +35,9 @@ import exceptions.NonPermissionRole;
 import gcad.IResources;
 import gcad.SourceProvider;
 
+/**
+ * This class represents a controller to centralize all the control of the tool
+ */
 public class Controller {
 
 	private Session session = null;
@@ -77,25 +80,25 @@ public class Controller {
 		KnowledgeController.addTopic(session.getUser(), project , topic);
 	}
 	
-	public void addProposal (Proposal p, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void addProposal (Proposal p, Topic parent) throws SQLException {
 		KnowledgeController.addProposal(session.getUser(), p, parent);
 	}
 	
-	public void addAnwser (Answer a, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void addAnwser (Answer a, Proposal parent) throws SQLException {
 		KnowledgeController.addAnswer(session.getUser(), a, parent);
 	}
 	
 	/*** Methods used to modify Knowledge ***/
-	public void updateTopic(Topic topic) throws SQLException {
-		//KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
+	public void modifyTopic(Topic newTopic, Topic oldTopic) throws SQLException {
+		KnowledgeController.modifyTopic(session.getUser(), newTopic, oldTopic);		
 	}
 	
-	public void updateProposal(Proposal proposal) throws SQLException {
-		//KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
+	public void modifyProposal(Proposal newProposal, Proposal oldProposal, Topic parent) throws SQLException {
+		KnowledgeController.modifyProposal(session.getUser(), newProposal, oldProposal, parent);		
 	}
 	
-	public void updateAnswer(Answer answer, Proposal parent) throws SQLException {
-		KnowledgeController.updateAnswer(session.getUser(), answer, parent);		
+	public void modifyAnswer(Answer newAnswer, Answer oldAnswer, Proposal parent) throws SQLException {
+		KnowledgeController.modifyAnswer(session.getUser(), newAnswer, oldAnswer, parent);		
 	}
 		
 	/*** Methods used to delete Knowledge ***/

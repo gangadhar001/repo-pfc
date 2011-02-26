@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 /**
- * This abstract class represents a New Proposal Wizard Page when it is shown since the "Proposals" view
+ * This class represents a Proposal Wizard Page (to create or modify it)
  */
 public class ProposalViewWP extends AbstractKnowledgeWP {
 	

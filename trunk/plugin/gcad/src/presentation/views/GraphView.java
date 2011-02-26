@@ -54,9 +54,8 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		
-		// TODO: para controlar el resize
-		parent.addControlListener(new ControlAdapter() {
-		
+		// Control the resize event
+		parent.addControlListener(new ControlAdapter() {		
 	        @Override
 	        public void controlResized(final ControlEvent e) {
 	            if (graphViewer!=null)
@@ -64,40 +63,43 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 	        }
 	    });
 		
-		PresentationController.attachObserver(this);
-		// TODO: se refresca la vista segun este logueado o no 
+		// This view is added to the observer, in order to update it when a change is produced
+		PresentationController.attachObserver(this); 
 		updateState(Controller.getInstance().isLogged());
 		
 		
 	}
-    	
-	//TODO: controlar si se selecciona una arista al añadir/eliminar, para mostrar mensaje de error
 	
+	/*** Method used to add new knowledge ***/
 	protected void addKnowledge() {
 		setSelection();
 		if (objectSelected!=null) {
 			try {
 				super.createKnowledge(objectSelected);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			}
 		}
-		// TODO: si no se selecciona nada, se añade un topic
 		else if (!isEdge){
 			addTopic();
 		}
 	}
 	
+	/*** Method used to modify new knowledge ***/
+	protected void modifyKnowledge() {
+		setSelection();
+		if (objectSelected!=null) {
+			modifyKnowledge(objectSelected);
+		}
+	}
+	
+	/*** Method used to delete knowledge ***/
 	protected void deleteKnowledge() {
 		setSelection();
 		if (objectSelected!=null) {
@@ -106,6 +108,7 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 			}
 		}
 		else {
+			// TODO
 			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "Debes seleccionar un elemento");	
 		}		
 	}
@@ -118,32 +121,27 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 		graphViewer.setLabelProvider(new GraphLabelProvider());
 		graphViewer.setInput(deployedGraphNodes());
 		
+		// Control double click in an element
 		graphViewer.addDoubleClickListener(new IDoubleClickListener() {
-
 			@Override
-			public void doubleClick(DoubleClickEvent event) {
-			
+			public void doubleClick(DoubleClickEvent event) {			
 				setSelection();
 				if (objectSelected != null && !isEdge) {
 					if (objectSelected instanceof Topic)
 						addProposal((Topic)objectSelected);
 					else if (objectSelected instanceof Proposal)
 						addAnswer((Proposal)objectSelected);
-				}
-			
+				}			
 				graphViewer.applyLayout();
 				refreshComposite();
 			}
 		});
 
+		// Control click in an element
 		graphViewer.getGraph().addSelectionListener(new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// TODO: se coge el nodo seleccionado. Mirar si hay alguno
-				// seleccionado y no es una arista
 				 setSelection();
-
 			}
 
 			@Override
@@ -160,11 +158,11 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 	}
 	
 	protected void setSelection() {
-		// TODO: si hay algo seleccionado que no sea arista, se toma
 		@SuppressWarnings("rawtypes")
 		List selectionList = graphViewer.getGraph().getSelection();
 		isEdge = false;
 		objectSelected = null;
+		// Take the element selected (no edges, only nodes)
 		if (selectionList.size() > 0) {
 			if (selectionList.get(0) instanceof GraphNode) {
 				objectSelected = ((GraphNode) selectionList.get(0)).getData();
@@ -172,8 +170,8 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
 					userView.refresh((Knowledge)objectSelected);
 				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// TODO:
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "Debes seleccionar un elemento");
 				}
 			}
 			else
@@ -194,17 +192,13 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		}
 		return graphNodes;
 		
@@ -245,7 +239,7 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 
 	@Override
 	public void updateState(boolean connected) {
-		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
+		// If the user is not logged yet, the tree is cleaned
 		if (!connected) {
 			cleanComposite();
 			disableActions();
@@ -253,10 +247,10 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 			refreshComposite();
 		}
 		
-		// Si esta logueado y esta vista es visible, se crea el arbol
 		else if (visible) {
 			showGraph();
-			// Se habilitan las acciones segun los permisos
+			// The actions are enabled according to user role permissions
+			// TODO: añadir las acciones de editar y luego controlar si se puede de verdad (quizar solo se puede añadir una respuesta pero no un topic)
 			if (actionsAllowed.contains(IActions.NEW_PROPOSAL) || actionsAllowed.contains(IActions.NEW_ANSWER))
 				addAction.setEnabled(true);
 			if (actionsAllowed.contains(IActions.DELETE_PROPOSAL) || actionsAllowed.contains(IActions.DELETE_ANSWER))
@@ -270,8 +264,7 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 	}
 	
 	protected void cleanComposite () {
-		// Clean composite parent. 
-		// TODO: controlar si no hay nada en el composite	
+		// Clean composite parent. 	
 		if (parent.getChildren().length > 0) {
 			// Clean label
 			if (errorLabel != null) {
@@ -305,7 +298,7 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 
 	@Override
 	public void updateKnowledgeEdited(Knowledge k) {
-		graphViewer.setInput(deployedGraphNodes());
+		graphViewer.setInput(deployedGraphNodes());		
 		
 	}
 
@@ -314,12 +307,5 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 		graphViewer.setInput(deployedGraphNodes());
 		
 	}
-
-	@Override
-	protected void modifyKnowledge() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }

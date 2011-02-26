@@ -16,9 +16,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * This abstract class represents a New Proposal Wizard Page
+ * This abstract class represents a Wizard Page to include common controls of the knowledge classes  
  */
-
 public abstract class AbstractKnowledgeWP extends WizardPage {
 	
 	private Text titleText;
@@ -33,7 +32,6 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 	@Override
 	public void createControl(Composite parent) {
 		container = parent;
-		// TODO: poner FILL_BOTH y ajustar la altura de cada componente
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		
 		Label titleLabel = new Label(container, SWT.NULL);
@@ -65,6 +63,9 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 
 	}
 	
+	/**
+	 * This method is used to fill the data of the wizard page when modify a Knowledge
+	 */
 	protected void fillData(Knowledge k) {
 		if (k!=null) {
 			titleText.setText(k.getTitle());

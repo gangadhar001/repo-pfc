@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import model.business.control.Controller;
 import model.business.knowledge.Proposal;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,6 +21,9 @@ import org.eclipse.swt.widgets.Label;
 
 import exceptions.NoProposalsException;
 
+/**
+ * This class represents a Wizard Page used to modify a Proposal, when it is invoke since the menu
+ */
 public class ModifyProposalMenuWP extends NewProposalMenuWP {
 
 	private Combo cbProposals;
@@ -58,21 +62,16 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 				throw new NoProposalsException();
 			for (int i=0; i<proposals.size(); i++)
 				cbProposals.add(proposals.get(i).getTitle()); 
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (NoProposalsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
+		} catch (SQLException e) {
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		}
 		
 		cbProposals.addSelectionListener(new SelectionAdapter() {
@@ -83,6 +82,16 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 				
 			}
 		});
+		
+		// If old proposal is not null (the wizard is invoke since the Graph or
+		// Hierarchical View), it is selected in the combobox, and the rest of
+		// fields are filled
+		if (oldProposal != null) {
+			cbProposals.select(proposals.indexOf(oldProposal));
+			cbProposals.setEnabled(false);
+			fillDataProposal();
+		}
+		
 		wizardChanged();
 		setControl(container);
 	}

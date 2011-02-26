@@ -12,6 +12,9 @@ import persistence.DAOUser;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 
+/**
+ * This class represents a controller that allows to manage user sessions.
+ */
 public class SessionController {
 
 	// Table that associates the session ID with the Session Object
@@ -49,20 +52,19 @@ public class SessionController {
 			}
 		}
 		
-		// Si el usuario ya tenía una sesion iniciada, se cierra
+		// Close previous opened session
 		if(found) {
 			sessions.remove(openedSession.getId());
 			// TODO: para usar un log ServidorFrontend.getServidor().liberar(sesionAbierta.getId());
 		}
 
-		// Creamos un identificador único para la nueva sesión
+		// Generate unique ID
 		rnd = new Random();
 		rnd.setSeed(System.currentTimeMillis());
 		do {
 			idSesion = Math.abs(rnd.nextLong());
 		} while(sessions.containsKey(idSesion));
 
-		// Creamos la sesión y la guardamos en la tabla de sesiones
 		session = new Session(idSesion, user);
 		sessions.put(idSesion, session);
 		

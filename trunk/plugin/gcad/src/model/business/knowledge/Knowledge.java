@@ -24,8 +24,9 @@ public abstract class Knowledge implements Serializable {
 	public Knowledge() {
 	}
 	
-	public Knowledge(String title, Date date) {
+	public Knowledge(String title, String description, Date date) {
 		this.title = title;
+		this.description = description;
 		this.date = date;
 	}
 	
@@ -70,45 +71,5 @@ public abstract class Knowledge implements Serializable {
 	}
 	
 	public abstract Object clone();
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Knowledge other = (Knowledge) obj;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (id != other.id)
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
 	
 }

@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * This abstract class represents a New Answer Wizard Page when it is shown since the "Proposals" view
+ * This class represents an Answer Wizard Page (to create or modify it)
  */
 public class AnswerViewWP extends AbstractKnowledgeWP {
 	
@@ -41,7 +41,6 @@ public class AnswerViewWP extends AbstractKnowledgeWP {
 		argumentText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		argumentLabel.setText(BundleInternationalization.getString("ArgumentLabel")+":");
 		argumentText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		// Listener to validate the description 
 		argumentText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				wizardChanged();

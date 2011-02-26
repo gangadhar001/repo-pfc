@@ -142,53 +142,21 @@ public class Project implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
+		boolean result = false;
 		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Project other = (Project) obj;
-		if (Double.doubleToLongBits(budget) != Double
-				.doubleToLongBits(other.budget))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (domain == null) {
-			if (other.domain != null)
-				return false;
-		} else if (!domain.equals(other.domain))
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
-		if (estimatedHours != other.estimatedHours)
-			return false;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (progLanguage == null) {
-			if (other.progLanguage != null)
-				return false;
-		} else if (!progLanguage.equals(other.progLanguage))
-			return false;
-		if (quantityLines != other.quantityLines)
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
-		return true;
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof Project) {
+			Project other = (Project) obj;
+			result = (name.equals(other.getName()) && description.equals(other.getDescription()) &&
+					startDate.equals(other.getStartDate()) && endDate.equals(other.getEndDate()) && budget == other.getBudget()
+					&& quantityLines == other.getQuantityLines() && domain.equals(other.getDomain()) && progLanguage.equals(other.getProgLanguage())
+					&& estimatedHours == other.getEstimatedHours());
+			}
+		return result;
 	}	
 	
 	public Object clone() {

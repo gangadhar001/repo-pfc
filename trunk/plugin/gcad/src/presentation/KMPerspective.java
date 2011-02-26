@@ -21,18 +21,12 @@ public class KMPerspective implements IPerspectiveFactory {
                 
         layout.setEditorAreaVisible(false);
         
-        layout.setFixed(false);
-        
-        // Put the "Outline" View on the left 
-        //layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.LEFT, 0.25f, idEditorArea);
+        layout.setFixed(false);        
         
         layout.addView(GRAPH_KNOWLEDGE_VIEW_ID, IPageLayout.LEFT, 0.7f, idEditorArea);
         layout.addView(HIERARCHICAL_KNOWLEDGE_VIEW_ID, IPageLayout.RIGHT, 0.3f, idEditorArea);
         
         IFolderLayout folderBottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.6f, GRAPH_KNOWLEDGE_VIEW_ID);
-        // Add standard "Problems" and "Task List" Views on the bottom
-        //folderBottom.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
-        //folderBottom.addPlaceholder(IPageLayout.ID_TASK_LIST);
         folderBottom.addPlaceholder(USER_INF_VIEW_ID);
         folderBottom.addPlaceholder(NOTIFICATION_VIEW_ID);
 

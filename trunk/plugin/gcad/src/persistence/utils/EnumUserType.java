@@ -1,12 +1,5 @@
 package persistence.utils;
 
-/**
- * TODO: http://www.improvisando.es/?p=76
- *
- * @author Gavin King
- */
-
-
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +11,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.usertype.EnhancedUserType;
 import org.hibernate.usertype.ParameterizedType;
 
+/** This class is used to use a Enum in Hibernate 
+ * 
+ * REFERENCE: http://www.improvisando.es/?p=76
+ */
 public class EnumUserType implements EnhancedUserType, ParameterizedType {
 
    @SuppressWarnings("rawtypes")

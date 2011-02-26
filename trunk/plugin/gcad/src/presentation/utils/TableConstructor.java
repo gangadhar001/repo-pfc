@@ -6,6 +6,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+/**
+ * This class is used to initialize a tableViewer and create its columns 
+ */
 public class TableConstructor {
 
 	public static void initTable (TableViewer viewer, String[] columnTitles, int[] columnBounds) {

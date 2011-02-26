@@ -8,6 +8,9 @@ import model.business.knowledge.Topic;
 import persistence.communications.DBConnectionManager;
 import persistence.utils.HibernateQuery;
 
+/**
+ * This class allows to query and modify topics from the database
+ */
 public class DAOTopic {
 	
 	private static final String TOPIC_CLASS = "Topic";
@@ -39,8 +42,6 @@ public class DAOTopic {
 	
 			if(data.size() > 0) {
 				result = (ArrayList<Topic>) data;
-				// Borramos los objetos leídos de la caché
-				
 			}
 		return result;
 	}

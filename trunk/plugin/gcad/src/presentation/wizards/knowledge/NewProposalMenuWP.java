@@ -10,6 +10,7 @@ import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,7 +21,7 @@ import org.eclipse.swt.widgets.Label;
 import exceptions.NoTopicsException;
 
 /**
- * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
+ * This class represents a New Proposal Wizard Page when it is invoke since the "Knowledge" menu
  */
 public class NewProposalMenuWP extends ProposalViewWP {
 	
@@ -46,21 +47,16 @@ public class NewProposalMenuWP extends ProposalViewWP {
 				throw new NoTopicsException();
 			for (int i=0; i<topics.size(); i++)
 				cbTopics.add(topics.get(i).getTitle()); 
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (NoTopicsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
+		} catch (SQLException e) {
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		}
 		
 		cbTopics.addSelectionListener(new SelectionAdapter() {

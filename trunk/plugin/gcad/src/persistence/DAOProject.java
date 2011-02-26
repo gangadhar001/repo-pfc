@@ -1,11 +1,13 @@
 package persistence;
 
-
 import java.sql.SQLException;
 
 import model.business.knowledge.Project;
 import persistence.communications.DBConnectionManager;
 
+/**
+ * This class allows to query and modify projects from the database
+ */
 public class DAOProject {
 
 //	private static final String PROJECT_TABLE = "projects";

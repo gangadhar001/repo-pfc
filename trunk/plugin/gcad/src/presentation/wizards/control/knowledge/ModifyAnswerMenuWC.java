@@ -6,6 +6,9 @@ import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
 import presentation.wizards.knowledge.ModifyAnswerMenuWP;
 
+/**
+ * This class represents a Wizard Controller to modify an answer when it is invoke since the menu
+ */
 public class ModifyAnswerMenuWC extends AbstractModifyKnowledgeWC {
 	
 	public ModifyAnswerMenuWC(String wizardTitle) {
@@ -17,14 +20,14 @@ public class ModifyAnswerMenuWC extends AbstractModifyKnowledgeWC {
 		ModifyAnswerMenuWP page = (ModifyAnswerMenuWP) super.getPage();
 		String title = page.getTitleText();
 		String description = page.getDescriptionText();
-		Proposal parentProposal = (Proposal) page.getProposals().get(page.getItemCbProposals());
-		// Set the answer id with the id of the old answer
+		Proposal newParentProposal = (Proposal) page.getProposals().get(page.getItemCbProposals());
 		Answer oldAnswer = (Answer) page.getAnswers().get(page.getItemCbAnswers());
 		// TODO: añadir argumento
-		Answer answer = new Answer(title, description, new Date(), "Pro");
-		answer.setId(oldAnswer.getId());
+		Answer newAnswer = new Answer(title, description, new Date(), "Pro");
+		// Set the answer id with the id of the old answer
+		newAnswer.setId(oldAnswer.getId());
 			
-		return runModifyAnswer(answer, parentProposal);
+		return runModifyAnswer(newAnswer, oldAnswer, newParentProposal);
 	}
 
 }

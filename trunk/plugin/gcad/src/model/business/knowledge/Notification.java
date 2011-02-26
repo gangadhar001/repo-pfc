@@ -66,5 +66,21 @@ public class Notification implements Serializable{
 		n.setProject((Project)n.getProject().clone());
 		return n;
 	}
+	
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if (this == obj)
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof Notification) {
+			Notification other = (Notification) obj;
+			result = (knowledge.equals(other.getKnowledge()) && state.equals(other.getState()) &&
+					project.equals(other.getProject()));
+		}
+		return result;
+	}
 
 }

@@ -22,8 +22,7 @@ public class Answer extends Knowledge implements Serializable{
 	}
 	
 	public Answer(String title, String description, Date date, String argument) {
-		super(title, date);
-		this.description = description;
+		super(title, description, date);
 		this.argument = argument;
 		
 	}
@@ -52,14 +51,14 @@ public class Answer extends Knowledge implements Serializable{
 		boolean result = false;
 		if (this == obj)
 			result = true;
-		if (obj == null)
+		else if (obj == null)
 			result = false;
-		if (getClass() != obj.getClass())
+		else if (getClass() != obj.getClass())
 			result = false;
-		if (obj instanceof Answer) {
+		else if (obj instanceof Answer) {
 			Answer other = (Answer) obj;
-			result = (title.equals(other.getTitle()) && argument.equals(other.getArgument()) &&
-					description.equals(other.getDescription()) && date.equals(other.getDate()));
+			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
+					description.equals(other.getDescription()) && user.equals(other.getUser()) && argument.equals(other.getArgument()));
 		}
 		return result;
 	}	

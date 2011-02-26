@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import model.business.control.Controller;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -24,29 +25,12 @@ public class LoginWizardDialog extends WizardDialog {
 		this.newWizard = newWizard;
 	}
 	
-	// TODO: cuando se pulsa next, se conecta con la base de datos y se pasa la informacion a la otra pagina
+	// When push "Next" button, connect to database and show next page
 	@Override
-	protected void nextPressed() {
- 		/*HibernateUtil.setDatabaseURL("127.0.0.1");
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		// CONSULTA
-
-		
-		TopicWrapper t = new TopicWrapper();
-		t.setTopics((ArrayList<Topic>) session.createQuery("From Topic where Id=2").list());
-		User u = (ChiefProject)(session.createQuery("From User where Id=2").list()).get(0);
-		Topic lo = t.getTopics().get(0);
-		Proposal p = new Proposal("title3", "description", new Date(), Categories.Design, 0);
-		p.setUser(u);
-		lo.add(p);
-		session.save(p);
-		session.getTransaction().commit();
-		session.close();*/
-		
+	protected void nextPressed() {		
 		if (newWizard instanceof LoginWizardController) {
 			LoginWizardPage page = ((LoginWizardController) newWizard).getPage();
-			// Tomar los datos de la primera pagina
+
 			String userName = page.getLoginText();
 			String passText = page.getPassText();
 			String IPText = page.getIPText();
@@ -55,29 +39,21 @@ public class LoginWizardDialog extends WizardDialog {
 				doNext(userName, passText, IPText, portText);
 				super.nextPressed();
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (IncorrectEmployeeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			} catch (NonExistentRole e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(getShell(), "Error", e.getMessage());
 			}
 		}
 	}
@@ -87,8 +63,7 @@ public class LoginWizardDialog extends WizardDialog {
 	 */
 	private void doNext(String user, String pass, String IP, String port) throws CoreException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, IncorrectEmployeeException, NonExistentRole {				
 		// Create and initialize a new database connection
-		Controller.getInstance().initDBConnection(IP, port);
-		
+		Controller.getInstance().initDBConnection(IP, port);		
 		// Login
 		Controller.getInstance().login(user,pass);		
 	}

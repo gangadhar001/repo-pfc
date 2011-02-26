@@ -24,11 +24,6 @@ public class DBConnectionManager {
 	}
 
 	public static void initTransaction() throws SQLException {
-		// Iniciamos una transacción que puede estar formada
-		// por más de una operación sobre la base de datos
-
-		// Iniciamos una transacción que puede estar formada
-		// por más de una operación sobre la base de datos
 		if (connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}
@@ -48,7 +43,6 @@ public class DBConnectionManager {
 		SQLException excepcion;
 		boolean error;
 
-		// Intentamos finalizar la última transacción iniciada
 		if (connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}
@@ -76,8 +70,6 @@ public class DBConnectionManager {
 	public static List<?> query(HibernateQuery query) throws SQLException {
 		List<?> data;
 
-		// TODO: Para hacer una consulta utilizamos sólo la primera conexión
-
 		if (connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}
@@ -96,8 +88,6 @@ public class DBConnectionManager {
 	public static Object insert(Object object) throws SQLException {
 		Object copia;
 
-		// Insertamos el objeto en todas las conexiones, y nos quedamos
-		// con la copia devuelta por la primera conexión
 		if (connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}
@@ -121,7 +111,6 @@ public class DBConnectionManager {
 	}
 
 	public static void update(Object objeto) throws SQLException {
-		// Actualizamos el objeto en todas las conexiones
 		if (connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}
@@ -138,7 +127,6 @@ public class DBConnectionManager {
 	}
 
 	public static void delete(Object objeto) throws SQLException {
-		// Eliminamos el objeto en todas las conexiones
 		if (connections.size() == 0) {
 			throw new SQLException("La lista de conexiones está vacía.");
 		}

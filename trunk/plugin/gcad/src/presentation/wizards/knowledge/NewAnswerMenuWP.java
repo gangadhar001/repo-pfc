@@ -10,6 +10,7 @@ import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Proposal;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,7 +21,7 @@ import org.eclipse.swt.widgets.Label;
 import exceptions.NoProposalsException;
 
 /**
- * This abstract class represents a New Proposal Wizard Page when it is shown since the "Knowledge" menu
+ * This class represents a New Answer Wizard Page when it is invoke since the "Knowledge" menu
  */
 public class NewAnswerMenuWP extends AnswerViewWP {
 	
@@ -46,21 +47,16 @@ public class NewAnswerMenuWP extends AnswerViewWP {
 				throw new NoProposalsException();
 			for (int i=0; i<proposals.size(); i++)
 				cbProposals.add(proposals.get(i).getTitle()); 
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (NoProposalsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
+		} catch (SQLException e) {
+			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		}
 		
 		cbProposals.addSelectionListener(new SelectionAdapter() {
@@ -77,7 +73,7 @@ public class NewAnswerMenuWP extends AnswerViewWP {
 	protected void wizardChanged(){
 		super.wizardChanged();
 		boolean valid = isValid();
-		// Must select a parent proposals
+		// Must select a parent proposal
 		if (cbProposals!= null && valid && cbProposals.getSelectionIndex()==-1) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.ProposalParentNotSelected"));
 			valid = false;

@@ -23,14 +23,11 @@ public class Proposal extends Knowledge implements Serializable {
 	@XmlElement( name = "Answer" )
     private Set<Answer> answers = new HashSet<Answer>();
 		
-    public Proposal () {
-		
+    public Proposal () {		
 	}
-
     
     public Proposal(String title, String description, Date date, Categories category) {
-		super(title, date);
-		this.description = description;
+		super(title, description, date);
 		this.category = category;
 	}
     	
@@ -78,25 +75,21 @@ public class Proposal extends Knowledge implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
+		boolean result = false;
 		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Proposal other = (Proposal) obj;
-		if (answers == null) {
-			if (other.answers != null)
-				return false;
-		} else if (!answers.equals(other.answers))
-			return false;
-		if (category == null) {
-			if (other.category != null)
-				return false;
-		} else if (!category.equals(other.category))
-			return false;
-		return true;
-	}
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof Proposal) {
+			Proposal other = (Proposal) obj;
+			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
+					description.equals(other.getDescription()) && user.equals(other.getUser()) && answers.equals(other.getAnswers()) 
+					&& category.equals(other.getCategory()));
+			}
+		return result;
+	}	
 	
 	public Object clone () {
 		Proposal p;

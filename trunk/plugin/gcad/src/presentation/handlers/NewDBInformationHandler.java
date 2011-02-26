@@ -8,6 +8,7 @@ import org.eclipse.ui.PlatformUI;
 
 import presentation.wizards.control.NewProjectWizardController;
 
+// TODO: renombrar para crear proyecto
 public class NewDBInformationHandler extends AbstractHandler {
 
 	@Override

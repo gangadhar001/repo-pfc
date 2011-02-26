@@ -4,6 +4,10 @@ import java.util.List;
 
 import model.business.knowledge.Knowledge;
 
+/**
+ * Interface that must implement the UI view classes in order to be updated 
+ * by the observer
+ */
 public interface IPresentation {
 
 	public void updateState(boolean connected);

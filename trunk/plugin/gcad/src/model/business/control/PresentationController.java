@@ -6,6 +6,9 @@ import java.util.List;
 import model.business.knowledge.Knowledge;
 import presentation.IPresentation;
 
+/**
+ * This class represents an observer pattern
+ */
 public class PresentationController {
 
 	private static ArrayList<IPresentation> observers = new ArrayList<IPresentation>();
@@ -13,9 +16,8 @@ public class PresentationController {
 	
 	public static void attachObserver(IPresentation observer) {
 		observers.add(observer);
-		//TODO: cada vez que se añade una vista al observador, se le actualizan los permisos 
-		// Esto se hace para que si una vista se abre despues de haber hecho login, tenga las acciones
-		// oportunas configuradas
+		// Each time you add a view to the observer, update the permissions. 
+		// This is done so that if a view is opened after making login, the view has the allowed actions well configured
 		observer.updateActions(actions);
 	}
 	

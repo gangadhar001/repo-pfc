@@ -26,7 +26,10 @@ import presentation.IPresentation;
 import presentation.utils.TableConstructor;
 import presentation.utils.TableDialog;
 
-
+/**
+ * This class represents a view where the information about a knowledge and its author is shown
+ */
+// TODO: renombrar clase
 public class UserInfView extends AbstractView implements IPresentation{
 	
 	private TableViewer tableViewer;
@@ -36,9 +39,8 @@ public class UserInfView extends AbstractView implements IPresentation{
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);	
 		users = new ArrayList<User>(); 
-		// TODO: se añade a la lista de observados
-		PresentationController.attachObserver(this);
-		// TODO: se refresca la vista segun este logueado o no 
+		// This view is added to the observer, in order to update it when a change is produced
+		PresentationController.attachObserver(this); 
 		updateState(Controller.getInstance().isLogged());
 		
 	}
@@ -104,15 +106,13 @@ public class UserInfView extends AbstractView implements IPresentation{
 	
 	@Override
 	public void updateState(boolean connected) {
-		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
+		// If the user is not logged yet, the tree is cleaned
 		if (!connected) {
 			cleanComposite();
-			//disableActions();
 			setErrorLabel(BundleInternationalization.getString("ErrorMessage.NotConnected"));
 			refreshComposite();
 		}
-		
-		// Si esta logueado y esta vista es visible, se crea el arbol
+
 		else if (visible) {
 			makeTable();
 		}		
@@ -148,8 +148,7 @@ public class UserInfView extends AbstractView implements IPresentation{
 				
 				@Override
 				public void mouseDown(MouseEvent e) {
-					// Se comprueba si se ha pinchado dentro del boton, para 
-					// mostrar el dialogo
+					// Check that user has pushed the button
 					int leftLimit =  bounds[0] + bounds[1] + bounds[2];
 					int rightLimit =  leftLimit + UserInfCompanyLabelProvider.BUTTON_WIDTH;
 					int upperLimit = table.getItemHeight();
@@ -166,7 +165,6 @@ public class UserInfView extends AbstractView implements IPresentation{
 
 			refreshComposite();
 			
-			//setFocus();
 			//TODO: PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
 		// If it is no possible connect to database, shows a error message
 		} catch (Exception e) {
@@ -177,6 +175,7 @@ public class UserInfView extends AbstractView implements IPresentation{
 	}
 	
 	// This will create the columns for the table
+	// TODO: añadir columnas para la info. del conocimiento
 	private void createColumns(String[] titles, int[] bounds) {
 
 		// First column is for the notification state (read/unread)
@@ -224,7 +223,6 @@ public class UserInfView extends AbstractView implements IPresentation{
 	
 	protected void cleanComposite () {
 		// Clean composite parent. 
-		// TODO: controlar si no hay nada en el composite	
 		if (parent.getChildren().length > 0) {
 			// Clean label
 			if (errorLabel != null) {
@@ -260,7 +258,6 @@ public class UserInfView extends AbstractView implements IPresentation{
 
 	@Override
 	public void updateKnowledgeAdded(Knowledge k) { }
-		
 
 	@Override
 	public void updateKnowledgeEdited(Knowledge k) { }

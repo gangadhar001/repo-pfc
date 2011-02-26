@@ -133,11 +133,10 @@ public abstract class User implements Serializable {
 	public String toString() {
 		StringBuffer result = new StringBuffer();
 		Project p;
-		result.append("Employee:\n");
+		result.append("User:\n");
 		result.append("      " + nif + "\n");
 		result.append("      " + name + "\n");
 		result.append("      " + surname + "\n");
-		result.append("      " + UserRole.Employee.toString() + "\n");
 		result.append("      " + email + "\n");
 		result.append("      " + telephone + "\n");
 		result.append("      " + company + "\n");
@@ -151,61 +150,20 @@ public abstract class User implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
+		boolean result = false;
 		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (company == null) {
-			if (other.company != null)
-				return false;
-		} else if (!company.equals(other.company))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (id != other.id)
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (nif == null) {
-			if (other.nif != null)
-				return false;
-		} else if (!nif.equals(other.nif))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (projects == null) {
-			if (other.projects != null)
-				return false;
-		} else if (!projects.equals(other.projects))
-			return false;
-		if (surname == null) {
-			if (other.surname != null)
-				return false;
-		} else if (!surname.equals(other.surname))
-			return false;
-		if (telephone == null) {
-			if (other.telephone != null)
-				return false;
-		} else if (!telephone.equals(other.telephone))
-			return false;
-		return true;
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof User) {
+			User other = (User) obj;
+			result = (nif.equals(other.getNif()) && name.equals(other.getName()) &&
+					surname.equals(other.getSurname()) && email.equals(other.getEmail()) && telephone.equals(other.getTelephone()) 
+					&& company.equals(other.getCompany()) && projects.equals(other.getProjects()));
+			}
+		return result;
 	}
 	
 	public abstract Object clone();

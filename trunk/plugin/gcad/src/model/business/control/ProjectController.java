@@ -6,7 +6,9 @@ import persistence.DAOProject;
 
 import model.business.knowledge.Project;
 
-
+/**
+ * This class represents a controller that allows to manage projects.
+ */
 public class ProjectController {
 
 	// TODO: traducir
