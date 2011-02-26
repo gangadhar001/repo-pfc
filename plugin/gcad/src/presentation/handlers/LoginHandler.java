@@ -16,14 +16,17 @@ import presentation.utils.Dialogs;
 import presentation.utils.LoginWizardDialog;
 import presentation.wizards.control.login.LoginWizardController;
 
-
+/** 
+ * This class handles the "Login" command from the "Session" menu. 
+ * It is used to show the login wizard 
+ */
 public class LoginHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		//TODO: al iniciar sesión, si ya se está conectado, se pregunta si desea iniciar de nuevo
 		boolean logged = Controller.getInstance().isLogged();
 		boolean result = false;
+		// If the user is already logged, show a dialog to confirm to open a new session
 		if (logged) {
 			result =Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmNewLogin"), BundleInternationalization.getString("Message.ConfirmLogin")); 
 			if (result) {

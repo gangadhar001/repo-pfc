@@ -6,7 +6,6 @@ import java.util.HashSet;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-
 /**
  * This class represents an Employee of a Company
  */

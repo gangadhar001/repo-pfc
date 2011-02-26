@@ -11,7 +11,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * This abstract class represents a DB Connection Wizard Page
+ * This class represents a Topic Wizard Page (to create or modify it)
  */
 public class TopicWP extends AbstractKnowledgeWP {
 		
@@ -29,7 +29,7 @@ public class TopicWP extends AbstractKnowledgeWP {
 		layout.verticalSpacing = 9;
 		container.setLayout(layout);				
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
+		super.createControl(container);
 		container.layout();
 		wizardChanged();
 	}

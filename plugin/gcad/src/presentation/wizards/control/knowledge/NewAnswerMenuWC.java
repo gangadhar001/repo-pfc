@@ -15,11 +15,7 @@ public class NewAnswerMenuWC extends AbstractNewKnowledgeWC {
 		super(wizardTitle);
 	}
 	
-	/**
-	 * This method is called when 'Finish' button is pressed in
-	 * the wizard. We will create an operation and run it
-	 * using wizard as execution context.
-	 */
+	@Override
 	public boolean performFinish() {
 		NewAnswerMenuWP page = (NewAnswerMenuWP) super.getPage();
 		String title = page.getTitleText();

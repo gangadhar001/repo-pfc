@@ -42,16 +42,19 @@ public class Session implements ISession {
 		this.currentActiveProject = currentActiveProject;
 	}
 
-	public boolean equals(Object o) {
-		Session u;
-		boolean dev;
-		
-		dev = false;
-		if(o != null && o instanceof Session) {
-			u = (Session)o;
-			dev = idSesion == u.getId() && user.equals(u.getUser());
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if (this == obj)
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof Session) {
+			Session other = (Session) obj;
+			result = (idSesion == other.getId() && currentActiveProject == other.getCurrentActiveProject() && user.equals(other.getUser()));
 		}
-		return dev;
+		return result;
 	}
 
 

@@ -8,7 +8,7 @@ import model.business.knowledge.Topic;
 import presentation.wizards.knowledge.NewProposalMenuWP;
 
 /**
- * This abstract class represents a New Proposal Wizard when it is shown since the "Knowledge" menu
+ * This abstract class represents a New Proposal Wizard when it is invoke since the "Knowledge" menu
  */
 public class NewProposalMenuWC extends AbstractNewKnowledgeWC {
 
@@ -16,19 +16,15 @@ public class NewProposalMenuWC extends AbstractNewKnowledgeWC {
 		super(wizardTitle);
 	}
 	
-	/**
-	 * This method is called when 'Finish' button is pressed in
-	 * the wizard. We will create an operation and run it
-	 * using wizard as execution context.
-	 */
+	@Override
 	public boolean performFinish() {
 		NewProposalMenuWP page = (NewProposalMenuWP) super.getPage();
-		String nameText = page.getNameText();
-		String descriptionText = page.getDescriptionText();
+		String title = page.getTitleText();
+		String description = page.getDescriptionText();
 		String category = page.getItemCategory();
 		int indeParentTopic = page.getItemCbTopics();
 		Topic parentTopic = (Topic) page.getTopics().get(indeParentTopic);
-		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category));
+		Proposal newProposal = new Proposal(title, description, new Date(), Categories.valueOf(category));
 			
 		return runNewProposal(newProposal, parentTopic);
 	}

@@ -8,6 +8,9 @@ import model.business.knowledge.Notification;
 import persistence.communications.DBConnectionManager;
 import persistence.utils.HibernateQuery;
 
+/**
+ * This class allows to query and modify notifications from the database
+ */
 public class DAONotification {
 
 	private static final String NOTIFICATION_CLASS = "Notification";
@@ -22,9 +25,7 @@ public class DAONotification {
 		List<?> data = DBConnectionManager.query(query);
 
 		if(data.size() > 0) {
-			result = (ArrayList<Notification>) data;
-			// Borramos los objetos leídos de la caché
-			
+			result = (ArrayList<Notification>) data;			
 		}
 		return result;
 	}

@@ -45,9 +45,6 @@ public class HibernateSessionFactory {
 	/**
 	 * Returns the ThreadLocal Session instance.  Lazy initialize
 	 * the <code>SessionFactory</code> if needed.
-	 *
-	 *  @return Session
-	 *  @throws HibernateException
 	 */
 	public static Session getSession() throws HibernateException {
 		Session session = (Session) threadLocal.get();
@@ -86,8 +83,6 @@ public class HibernateSessionFactory {
 
 	/**
 	 *  Close the single hibernate session instance.
-	 *
-	 *  @throws HibernateException
 	 */
 	public static void closeSession() throws HibernateException {
 		Session session = (Session) threadLocal.get();

@@ -8,9 +8,8 @@ import model.business.knowledge.Topic;
 import persistence.communications.DBConnectionManager;
 import persistence.utils.HibernateQuery;
 
-
 /**
- * This class allows to query and insert proposals into database
+ * This class allows to query and modify proposals from the database
  */
 public class DAOProposal {
 	

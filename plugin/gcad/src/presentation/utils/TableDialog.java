@@ -16,6 +16,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * This class is used to show the company information in a dialog, using a tableViewer
+ */
 public class TableDialog extends Dialog {
 
 	private Company company;
@@ -69,7 +72,7 @@ public class TableDialog extends Dialog {
 	// This will create the columns for the table
 	private void createColumns(String[] titles, int[] bounds) {
 
-		// First column is for the notification state (read/unread)
+		// First column is for the company cif
 		TableViewerColumn col = TableConstructor.createTableViewerColumn(tableViewer, titles[0], bounds[0]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -79,7 +82,7 @@ public class TableDialog extends Dialog {
 			}
 		});
 
-		// Second column is for the type of the new knowledge
+		// Second column is for the company name
 		col = TableConstructor.createTableViewerColumn(tableViewer, titles[1], bounds[1]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -89,7 +92,7 @@ public class TableDialog extends Dialog {
 			}
 		});
 
-		// Third column is for the title of the new knowledge
+		// Third column is for the company information
 		col = TableConstructor.createTableViewerColumn(tableViewer, titles[2], bounds[2]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -100,7 +103,7 @@ public class TableDialog extends Dialog {
 			
 		});
 
-		// Fourth column is for the date of the new knowledge
+		// Fourth column is for the company street
 		col = TableConstructor.createTableViewerColumn(tableViewer, titles[3], bounds[3]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -111,6 +114,7 @@ public class TableDialog extends Dialog {
 			
 		});
 		
+		// Fifth column is for the company city
 		col = TableConstructor.createTableViewerColumn(tableViewer, titles[4], bounds[4]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -121,6 +125,7 @@ public class TableDialog extends Dialog {
 			
 		});
 		
+		// Sixth column is for the company address zip
 		col = TableConstructor.createTableViewerColumn(tableViewer, titles[5], bounds[5]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -131,6 +136,7 @@ public class TableDialog extends Dialog {
 			
 		});
 		
+		// Seventh column is for the company country
 		col = TableConstructor.createTableViewerColumn(tableViewer, titles[6], bounds[6]);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override

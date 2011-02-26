@@ -14,15 +14,15 @@ import presentation.wizards.control.knowledge.ModifyProposalMenuWC;
 import presentation.wizards.knowledge.ModifyProposalMenuWP;
 
 /** 
- * This class handles the "New Proposal" command from the "Knowledge" menu. 
- * It is used to show the new proposal wizard 
+ * This class handles the "Modify Proposal" command from the "Knowledge" menu. 
+ * It is used to show the modify Proposal wizard 
  */
 public class ModifyProposalHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		AbstractModifyKnowledgeWC wizard = new ModifyProposalMenuWC(BundleInternationalization.getString("NewProposalWizard"));
-		wizard.addPages(new ModifyProposalMenuWP(BundleInternationalization.getString("NewProposalWizardPageTitle"), null));
+		AbstractModifyKnowledgeWC wizard = new ModifyProposalMenuWC(BundleInternationalization.getString("ModifyProposalWizard"));
+		wizard.addPages(new ModifyProposalMenuWP(BundleInternationalization.getString("ModifyProposalWizardPageTitle"), null));
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         dialog.create();
         dialog.open();

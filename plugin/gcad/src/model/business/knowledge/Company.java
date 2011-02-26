@@ -84,36 +84,19 @@ public class Company implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
+		boolean result = false;
 		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Company other = (Company) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (cif == null) {
-			if (other.cif != null)
-				return false;
-		} else if (!cif.equals(other.cif))
-			return false;
-		if (id != other.id)
-			return false;
-		if (information == null) {
-			if (other.information != null)
-				return false;
-		} else if (!information.equals(other.information))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof Company) {
+			Company other = (Company) obj;
+			result = (cif.equals(other.getCif()) && name.equals(other.getName()) &&
+					information.equals(other.getInformation()) && address.equals(other.getAddress()));
+		}
+		return result;
 	}	
 	
 	public Object clone() {

@@ -7,38 +7,35 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- * Clase abstracta que representa una consulta o modificación sobre una
- * base de datos.
+ * This abstract class represents a query from a database
  */
 public class HibernateQuery implements Serializable {
 
 	private static final long serialVersionUID = 8743373028825629890L;
 
-	protected String sentencia;
-	protected Object[] parametros;
+	protected String sentence;
+	protected Object[] params;
 	
-	public HibernateQuery(String sentencia, Object... parametros) {
-		this.sentencia = sentencia;
-		this.parametros = parametros;
+	public HibernateQuery(String sentence, Object... params) {
+		this.sentence = sentence;
+		this.params = params;
 	}
 
-	public String getSentencia() {
-		return sentencia;
+	public String getSentence() {
+		return sentence;
 	}
 
-	public Object[] getParametros() {
-		return parametros;
+	public Object[] getParams() {
+		return params;
 	}
 	
-	public Query crearQuery(Session sesion) throws HibernateException {
+	public Query createQuery(Session session) throws HibernateException {
 		Query consulta;
 		int i;
 		
-		// TODO: Devolvemos una consulta para la
-		// sesión de Hibernate especificada
-		consulta = sesion.createQuery(sentencia);
-		for(i = 0; i < parametros.length; i++) {
-			consulta.setParameter(i, parametros[i]);
+		consulta = session.createQuery(sentence);
+		for(i = 0; i < params.length; i++) {
+			consulta.setParameter(i, params[i]);
 		}
 		return consulta;
 	}

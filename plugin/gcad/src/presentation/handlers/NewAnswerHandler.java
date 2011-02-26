@@ -14,8 +14,8 @@ import presentation.wizards.control.knowledge.NewAnswerMenuWC;
 import presentation.wizards.knowledge.NewAnswerMenuWP;
 
 /** 
- * This class handles the "New Proposal" command from the "Knowledge" menu. 
- * It is used to show the new proposal wizard 
+ * This class handles the "New Answer" command from the "Knowledge" menu. 
+ * It is used to show the new answer wizard 
  */
 public class NewAnswerHandler extends AbstractHandler {
 

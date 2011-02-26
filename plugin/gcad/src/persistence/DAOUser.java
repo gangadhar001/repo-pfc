@@ -9,6 +9,9 @@ import persistence.utils.HibernateQuery;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 
+/**
+ * This class allows to query users from the database
+ */
 public class DAOUser {
 
 	private static final String USER_CLASS = "User";

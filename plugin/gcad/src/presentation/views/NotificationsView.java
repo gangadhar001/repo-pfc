@@ -32,11 +32,9 @@ import presentation.IPresentation;
 import presentation.utils.Dialogs;
 import presentation.utils.TableConstructor;
 
-//TODO: Referencia: http://www.vogella.de/articles/EclipseJFaceTable/article.html
-
 /**
- * This class represents a label provider for the table. It allows to get the text or set 
- * an image for a cell
+ * This class represents a view where the notifications are shown in a TableViewer 
+ * (Reference: http://www.vogella.de/articles/EclipseJFaceTable/article.html)
  */
 public class NotificationsView extends AbstractView implements IPresentation {
 
@@ -49,11 +47,9 @@ public class NotificationsView extends AbstractView implements IPresentation {
 		makeActions();
 		createToolbar();
 		notifications = new ArrayList<Notification>();
-		// TODO: se añade a la lista de observados
-		PresentationController.attachObserver(this);
-		// TODO: se refresca la vista segun este logueado o no 
-		updateState(Controller.getInstance().isLogged());
-		
+		// This view is added to the observer, in order to update it when a change is produced
+		PresentationController.attachObserver(this); 
+		updateState(Controller.getInstance().isLogged());		
 	}
 	
 	protected void makeActions() {
@@ -68,18 +64,19 @@ public class NotificationsView extends AbstractView implements IPresentation {
 	private void deleteNotification() {
 		Object objectSelected = null;
 		setSelection();
+		// When the user wants to delete a notification, show a dialog to confirm it
 		if (selection!=null) {
 			if (Dialogs.showConfirmationMessage(BundleInternationalization.getString("Title.ConfirmDelete"), BundleInternationalization.getString("Message.ConfirmDelete"))) { 
 				objectSelected = ((IStructuredSelection)selection).getFirstElement();
 				try {
 					Controller.getInstance().removeNotification((Notification)objectSelected);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 				}
 			}
 		}
 		else {
+			// TODO
 			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "Error", "Debes seleccionar un elemento");	
 		}
 	}
@@ -100,7 +97,7 @@ public class NotificationsView extends AbstractView implements IPresentation {
 	
 	@Override
 	public void updateState(boolean connected) {
-		// Si no está conectado a la base de datos, se limpia el arbol y se establece la etiqueta de mensaje
+		// If the user is not logged yet, the tree is cleaned
 		if (!connected) {
 			cleanComposite();
 			disableActions();
@@ -108,7 +105,6 @@ public class NotificationsView extends AbstractView implements IPresentation {
 			refreshComposite();
 		}
 		
-		// Si esta logueado y esta vista es visible, se crea el arbol
 		else if (visible) {
 			makeTable();
 			deleteAction.setEnabled(true);
@@ -117,7 +113,6 @@ public class NotificationsView extends AbstractView implements IPresentation {
 
 	private void makeTable() {
 		try {
-			// TODO: cambiar el id del proyecto
 			notifications = Controller.getInstance().getNotifications();	
 			
 			cleanComposite();			
@@ -142,8 +137,7 @@ public class NotificationsView extends AbstractView implements IPresentation {
 			hookSelectionListener();
 			
 			refreshComposite();
-			
-			//setFocus();
+
 			//TODO: PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
 		// If it is no possible connect to database, shows a error message
 		} catch (Exception e) {
@@ -157,6 +151,7 @@ public class NotificationsView extends AbstractView implements IPresentation {
 
 		TableViewerColumn col = TableConstructor.createTableViewerColumn(tableViewer, titles[0], bounds[0]);
 		
+		// First column is for the notification state
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -205,11 +200,13 @@ public class NotificationsView extends AbstractView implements IPresentation {
 		});
 	}
 	
+	// Control the selecion of a row
 	private void hookSelectionListener() {
 		tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				setSelection();
+				// TODO: marcar como leida
 			}
 		});
 	}
@@ -219,8 +216,7 @@ public class NotificationsView extends AbstractView implements IPresentation {
 	}
 
 	protected void cleanComposite () {
-		// Clean composite parent. 
-		// TODO: controlar si no hay nada en el composite	
+		// Clean composite parent. 	
 		if (parent.getChildren().length > 0) {
 			// Clean label
 			if (errorLabel != null) {

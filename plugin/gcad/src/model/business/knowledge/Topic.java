@@ -26,10 +26,9 @@ public class Topic extends Knowledge implements Serializable {
 		
 	}
 
-	public Topic(String title, Date creationDate) {
-		super(title, creationDate);
+	public Topic(String title, String description, Date creationDate) {
+		super(title, description, creationDate);
 	}
-
 	
 	public int getId() {
 		return id;
@@ -100,42 +99,26 @@ public class Topic extends Knowledge implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
+		boolean result = false;
 		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Topic other = (Topic) obj;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (id != other.id)
-			return false;
-		if (project == null) {
-			if (other.project != null)
-				return false;
-		} else if (!project.equals(other.project))
-			return false;
-		if (proposals == null) {
-			if (other.proposals != null)
-				return false;
-		} else if (!proposals.equals(other.proposals))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
+			result = true;
+		else if (obj == null)
+			result = false;
+		else if (getClass() != obj.getClass())
+			result = false;
+		else if (obj instanceof Topic) {
+			Topic other = (Topic) obj;
+			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
+					description.equals(other.getDescription()) && user.equals(other.getUser()) && proposals.equals(other.getProposals()) 
+					&& project.equals(other.getProject()));
+			}
+		return result;
 	}
 	
 	public Object clone () {
 		Topic t;
 		HashSet<Proposal> proposals = new HashSet<Proposal>();
-		t = new Topic(getTitle(), getCreationDate());
+		t = new Topic(getTitle(), getDescription(), getCreationDate());
 		t.setId(getId());
 		t.setProject((Project)getProject().clone());
 		for (Proposal p: getProposals())

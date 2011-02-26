@@ -27,11 +27,10 @@ public class NewProposalViewWC extends AbstractNewKnowledgeWC {
 	 */
 	public boolean performFinish() {
 		ProposalViewWP page = (ProposalViewWP) super.getPage();
-		String nameText = page.getNameText();
-		String descriptionText = page.getDescriptionText();
-		String category = page.getItemCategory();
-		
-		Proposal newProposal = new Proposal(nameText, descriptionText, new Date(), Categories.valueOf(category));
+		String title = page.getTitleText();
+		String description = page.getDescriptionText();
+		String category = page.getItemCategory();		
+		Proposal newProposal = new Proposal(title, description, new Date(), Categories.valueOf(category));
 		
 		return runNewProposal(newProposal, topicSelected);
 	}

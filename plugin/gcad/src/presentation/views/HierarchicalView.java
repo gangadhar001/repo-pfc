@@ -64,17 +64,13 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 				try {
 					createKnowledge(selectedItem);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 				}
 			}
 		};
@@ -86,8 +82,7 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 			userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(KMPerspective.USER_INF_VIEW_ID);
 			userView.refresh((Knowledge)selectedItem);
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		}
 	}
 	
@@ -99,17 +94,13 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 			try {
 				createKnowledge(selectedItem);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 			}
 		}
 		// If any element is not selected, can be add a topic
@@ -118,6 +109,7 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 		}
 	}	
 	
+	/*** Method used to modify new knowledge ***/
 	protected void modifyKnowledge() {
 		setSelection();
 		if (selection!=null) {
@@ -174,20 +166,16 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 			
 			refreshComposite();
 			
-			//setFocus();
 			//TODO: PlatformUI.getWorkbench().getHelpSystem().setHelp(treeViewer.getControl(), "Proposals Tree");
 		// If it is no possible connect to database, shows a error message
 		} catch (SQLException e) {			
 			setErrorLabel(e.getLocalizedMessage());
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
 		}
 
 	}
@@ -205,6 +193,7 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 		else if (visible) {
 			makeTree();
 			// The actions are enabled according to user role permissions
+			// TODO: añadir las acciones de editar y luego controlar si se puede de verdad (quizar solo se puede añadir una respuesta pero no un topic)
 			if (actionsAllowed.contains(IActions.NEW_PROPOSAL) || actionsAllowed.contains(IActions.NEW_ANSWER))
 				addAction.setEnabled(true);
 			if (actionsAllowed.contains(IActions.DELETE_PROPOSAL) || actionsAllowed.contains(IActions.DELETE_ANSWER))

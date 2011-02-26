@@ -55,6 +55,9 @@ public class KnowledgeController {
 		return answers;
 	}
 
+	/**
+	 * Methods used to add new knowledge
+	 */
 	public static void addTopic(User u, Project p, Topic topic) throws SQLException {
 		topic.setUser(u);
 		topic.setProject(p);
@@ -63,22 +66,65 @@ public class KnowledgeController {
 		
 	}
 	
-	public static void addProposal(User u, Proposal proposal, Topic parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void addProposal(User u, Proposal proposal, Topic parent) throws SQLException {
 		proposal.setUser(u);
 		parent.add(proposal);
 		DAOProposal.insert(proposal, parent.getId());
 	}
 	
-	public static void addAnswer(User u, Answer answer, Proposal parent) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void addAnswer(User u, Answer answer, Proposal parent) throws SQLException {
 		answer.setUser(u);
 		parent.add(answer);
 		DAOAnswer.insert(answer, parent.getId());
 	}
 	
-	public static void updateAnswer(User user, Answer answer, Proposal parent) throws SQLException {
-		answer.setUser(user);
-		parent.remove(answer);
-		DAOAnswer.update(answer);
+	/**
+	 * Methods used to modify knowledge
+	 */
+	public static void modifyProposal(User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException {
+		newProposal.setUser(user);
+		// If the new parent is different from the previous one, the old proposal is removed
+		Topic t = findParentProposal(oldProposal);
+		if (t!=null && !t.equals(newParent)) {		
+			t.getProposals().remove(oldProposal);
+			newParent.add(newProposal);
+			DAOProposal.delete(oldProposal);
+			DAOProposal.insert(newProposal, newParent.getId());
+		}
+		else {
+			newParent.remove(oldProposal);
+			newParent.add(newProposal);
+			DAOProposal.update(newProposal);
+		}
+	}
+	
+	public static void modifyAnswer(User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException {
+		newAnswer.setUser(user);
+		// If the new parent is different from the previous one, the old answer is removed
+		Proposal p = findParentAnswer(oldAnswer);
+		if (p!=null && !p.equals(newParent)) {		
+			p.getAnswers().remove(oldAnswer);
+			newParent.add(newAnswer);
+			DAOAnswer.delete(oldAnswer);
+			DAOAnswer.insert(newAnswer, newParent.getId());
+		}
+		else {
+			newParent.remove(oldAnswer);
+			newParent.add(newAnswer);
+			DAOAnswer.update(newAnswer);
+		}
+	}
+	
+	public static void modifyTopic(User user, Topic newTopic, Topic oldTopic) throws SQLException {
+		newTopic.setUser(user);
+		// Copy proposal list and project to new Topic
+		newTopic.setProposals(oldTopic.getProposals());
+		newTopic.setProject(oldTopic.getProject());
+		// Remove old topic
+		topicWrapper.remove(oldTopic);
+		// Add new answer to proposal
+		topicWrapper.add(newTopic);
+		DAOTopic.update(newTopic);
 	}
 	
 	public static void deleteTopic(Topic to) throws SQLException {
@@ -87,23 +133,35 @@ public class KnowledgeController {
 	}
 	
 	public static void deleteProposal(Proposal p) throws SQLException {
-		for(Topic t: topicWrapper.getTopics()){
-			if (t.getProposals().contains(p))
-				t.getProposals().remove(p);
-		}
+		Topic t = findParentProposal(p);
+		if (t!=null)
+			t.getProposals().remove(p);
 		DAOProposal.delete(p);
 	}
 
 	public static void deleteAnswer(Answer a) throws SQLException {
-		for(Topic t: topicWrapper.getTopics()){
-			for (Proposal p: t.getProposals())
-				if (p.getAnswers().contains(a))
-					p.getAnswers().remove(a);
-		}
+		Proposal p = findParentAnswer(a);
+		if (p!=null)
+			p.getAnswers().remove(a);
 		DAOAnswer.delete(a);
 	}
 
-
-
-		
+	private static Proposal findParentAnswer(Answer a) {
+		Proposal result = null;
+		for(Topic t: topicWrapper.getTopics()){
+			for (Proposal p: t.getProposals())
+				if (p.getAnswers().contains(a))
+					result = p;
+		}
+		return result;
+	}
+	
+	private static Topic findParentProposal(Proposal p) {
+		Topic result = null;	
+		for(Topic t: topicWrapper.getTopics()){
+			if (t.getProposals().contains(p))
+				result = t;
+		}
+		return result;
+	}		
 }

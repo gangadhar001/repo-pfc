@@ -16,6 +16,8 @@ public class DBConnection implements IDBConnection {
 	private String ip;
 	private int port;
 	private String schema;
+	private String user;
+	private String password;
 	
 	public DBConnection() {
 	}
@@ -59,7 +61,7 @@ public class DBConnection implements IDBConnection {
 		
 		try {
 			HibernateSessionFactory.getSession().beginTransaction();
-			datosLeidos = query.crearQuery(HibernateSessionFactory.getSession()).list();
+			datosLeidos = query.createQuery(HibernateSessionFactory.getSession()).list();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
