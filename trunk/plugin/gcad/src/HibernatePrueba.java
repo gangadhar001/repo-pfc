@@ -1,25 +1,3 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.xml.bind.JAXBException;
-
-import model.business.knowledge.Address;
-import model.business.knowledge.Categories;
-import model.business.knowledge.ChiefProject;
-import model.business.knowledge.Company;
-import model.business.knowledge.Employee;
-import model.business.knowledge.Project;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
-import model.business.knowledge.TopicWrapper;
-import model.business.knowledge.User;
-
-import org.hibernate.classic.Session;
-
-import persistence.XMLAgent;
 
 
 public class HibernatePrueba {

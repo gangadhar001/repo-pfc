@@ -18,7 +18,7 @@
    </category>
    <view
          category="gcad.category.view.userInformation"
-         class="presentation.views.UserInfView"
+         class="presentation.views.InformationView"
          id="gcad.view.UserInformation"
          name="%view.user"
          restorable="true">
@@ -123,6 +123,11 @@
             id="gcad.command.signout"
             name="%command.signout">
       </command>
+      <command
+            categoryId="gcad.category.menu.knowledge"
+            id="gcad.command.modifyTopic"
+            name="%command.modifyTopic">
+      </command>
 </extension>
    
 <extension
@@ -164,6 +169,10 @@
       <handler
             class="presentation.handlers.SignoutHandler"
             commandId="gcad.command.signout">
+      </handler>
+      <handler
+            class="presentation.handlers.ModifyTopicHandler"
+            commandId="gcad.command.modifyProposal">
       </handler>
 </extension>
      

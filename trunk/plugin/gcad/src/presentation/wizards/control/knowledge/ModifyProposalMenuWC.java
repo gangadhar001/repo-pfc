@@ -5,7 +5,7 @@ import java.util.Date;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
-import presentation.wizards.knowledge.ModifyProposalMenuWP;
+import presentation.wizards.knowledge.ModifyProposalWP;
 
 /**
  * This class represents a Wizard Controller to modify a proposal when it is invoke since the menu
@@ -18,7 +18,7 @@ public class ModifyProposalMenuWC extends AbstractModifyKnowledgeWC {
 
 	@Override
 	public boolean performFinish() {
-		ModifyProposalMenuWP page = (ModifyProposalMenuWP) super.getPage();
+		ModifyProposalWP page = (ModifyProposalWP) super.getPage();
 		String title = page.getTitleText();
 		String description = page.getDescriptionText();
 		String category = page.getItemCategory();

@@ -4,10 +4,10 @@ package presentation.wizards.control.knowledge;
 import java.util.Date;
 
 import model.business.knowledge.Topic;
-import presentation.wizards.knowledge.TopicWP;
+import presentation.wizards.knowledge.TopicViewWP;
 
 /**
- * This class allows to login
+ * This abstract class represents a New Topic Wizard Controller when it is shown since a view
  */
 public class NewTopicWC extends AbstractNewKnowledgeWC {
 	
@@ -17,7 +17,7 @@ public class NewTopicWC extends AbstractNewKnowledgeWC {
 
 	@Override
 	public boolean performFinish() {
-		TopicWP page = (TopicWP) super.getPage();
+		TopicViewWP page = (TopicViewWP) super.getPage();
 		String title = page.getTitleText();
 		String descriptionText = page.getDescriptionText();
 		final Topic topic = new Topic(title, descriptionText, new Date());

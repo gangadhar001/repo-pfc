@@ -9,24 +9,25 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
-import presentation.wizards.control.knowledge.AbstractNewKnowledgeWC;
-import presentation.wizards.control.knowledge.NewTopicWC;
-import presentation.wizards.knowledge.TopicViewWP;
+import presentation.wizards.control.knowledge.AbstractModifyKnowledgeWC;
+import presentation.wizards.control.knowledge.ModifyTopicMenuWC;
+import presentation.wizards.knowledge.ModifyTopicWP;
 
 /** 
- * This class handles the "New Topic" command from the "Knowledge" menu. 
- * It is used to show the new topic wizard 
+ * This class handles the "Modify Topic" command from the "Knowledge" menu. 
+ * It is used to show the modify Topic wizard 
  */
-public class NewTopicHandler extends AbstractHandler {
+public class ModifyTopicHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		AbstractNewKnowledgeWC wizard = new NewTopicWC(BundleInternationalization.getString("NewTopicWizard"));
-		wizard.addPages(new TopicViewWP(BundleInternationalization.getString("NewTopicWizardPageTitle")));
+		AbstractModifyKnowledgeWC wizard = new ModifyTopicMenuWC(BundleInternationalization.getString("ModifyTopicWizard"));
+		wizard.addPages(new ModifyTopicWP(BundleInternationalization.getString("ModifyTopicWizardPageTitle"), null));
         WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), wizard);
         dialog.create();
         dialog.open();
         return null;
+
 	}
 
 }

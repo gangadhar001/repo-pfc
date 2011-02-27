@@ -10,6 +10,7 @@
 			<generator class="native" />
 		</id>
 		<property name="title" column="title" type="string" not-null="true" />
+		<property name="description" column="description" type="string" not-null="true" />
 		<property name="date" column="date" type="timestamp" not-null="true" />
 		<many-to-one name="user" column="userId" not-null="true" class="User" lazy="false" />
 		
@@ -24,7 +25,6 @@
     	
     	<joined-subclass name="Proposal" table="proposals">
 			<key column="id"/>
-			<property name="description" column="description" type="string" not-null="true" />
         	<property name="category" column="category" not-null="true" >
 				<type name="persistence.utils.EnumUserType">  
 					<param name="enumClassName"> 
@@ -40,7 +40,6 @@
     	
     	<joined-subclass name="Answer" table="answers">
 			<key column="id"/>
-			<property name="description" column="description" type="string" not-null="true" />
 			<property name="argument" column="argument" type="string" not-null="true" />
     	</joined-subclass>
 		

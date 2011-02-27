@@ -7,7 +7,7 @@ import model.business.knowledge.Proposal;
 import presentation.wizards.knowledge.NewAnswerMenuWP;
 
 /**
- * This abstract class represents a New Proposal Wizard when it is shown since the "Knowledge" menu
+ * This abstract class represents a New Proposal Wizard Controller when it is shown since the "Knowledge" menu
  */
 public class NewAnswerMenuWC extends AbstractNewKnowledgeWC {
 

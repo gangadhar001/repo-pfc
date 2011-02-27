@@ -60,7 +60,7 @@ public abstract class AbstractModifyKnowledgeWC extends Wizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			MessageDialog.openError(getShell(), BundleInternationalization.getString("Error"), realException.getMessage());
 			return false;
 		}
 		return true;
@@ -91,7 +91,37 @@ public abstract class AbstractModifyKnowledgeWC extends Wizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			MessageDialog.openError(getShell(), BundleInternationalization.getString("Error"), realException.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * This method is used to modify a topic
+	 */
+	protected boolean runModifyTopic(final Topic newTopic, final Topic oldTopic) {
+		
+		IRunnableWithProgress op = new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) throws InvocationTargetException {
+				try {
+					doFinish(monitor, newTopic, oldTopic);					
+				} catch (SQLException e) {
+					// It is only possible to throw this exception type, because of it's a new thread
+					throw new InvocationTargetException(e);
+				} finally {
+					monitor.done();
+				}
+			}
+		};
+		try {
+			getContainer().run(true, false, op);
+			Controller.getInstance().notifyKnowledgeChanged(newTopic);
+		} catch (InterruptedException e) {
+			return false;
+		} catch (InvocationTargetException e) {
+			Throwable realException = e.getTargetException();
+			MessageDialog.openError(getShell(), BundleInternationalization.getString("Error"), realException.getMessage());
 			return false;
 		}
 		return true;
@@ -124,6 +154,21 @@ public abstract class AbstractModifyKnowledgeWC extends Wizard {
 		monitor.worked(10);
 
 		Controller.getInstance().modifyAnswer(newAnswer, oldAnswer, proposalSelected);
+		monitor.worked(10);
+		
+	}
+	
+	/**
+	 * The worker method. It will modify a topic
+	 */
+	protected void doFinish(IProgressMonitor monitor, Topic newTopic, Topic oldTopic) throws SQLException {		
+		monitor.beginTask(BundleInternationalization.getString("ModifyAnswerMonitorMessage"), 50);
+		
+		monitor.worked(10);
+		monitor.setTaskName(BundleInternationalization.getString("ModifyAnswerMonitorMessage"));
+		monitor.worked(10);
+
+		Controller.getInstance().modifyTopic(newTopic, oldTopic);
 		monitor.worked(10);
 		
 	}

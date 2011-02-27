@@ -24,7 +24,7 @@ import exceptions.NoAnswersException;
 /**
  * This class represents a Wizard Page used to modify an Answer, when it is invoke since the menu
  */
-public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
+public class ModifyAnswerWP extends NewAnswerMenuWP {
 
 	private Combo cbAnswers;
 	private Composite parent;
@@ -32,7 +32,7 @@ public class ModifyAnswerMenuWP extends NewAnswerMenuWP {
 	private Group groupAnswerData;
 	private Answer oldAnswer;
 
-	public ModifyAnswerMenuWP(String pageName, Answer oldAnswer) {
+	public ModifyAnswerWP(String pageName, Answer oldAnswer) {
 		super(pageName);
 		setTitle(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"));
 		setDescription(BundleInternationalization.getString("ModifyAnswerWizardPageDescription"));

@@ -2,9 +2,7 @@ package presentation.wizards.knowledge;
 
 import internationalization.BundleInternationalization;
 
-import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
-import model.business.knowledge.Proposal;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -69,10 +67,7 @@ public abstract class AbstractKnowledgeWP extends WizardPage {
 	protected void fillData(Knowledge k) {
 		if (k!=null) {
 			titleText.setText(k.getTitle());
-			if (k instanceof Proposal)
-				descriptionText.setText(((Proposal)k).getDescription());
-			if (k instanceof Answer)
-				descriptionText.setText(((Answer)k).getDescription());
+			descriptionText.setText(k.getDescription());
 			wizardChanged();
 		}
 	}
