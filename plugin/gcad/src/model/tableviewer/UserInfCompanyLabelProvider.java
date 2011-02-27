@@ -1,7 +1,7 @@
 package model.tableviewer;
 
 import gcad.Activator;
-import model.business.knowledge.User;
+import model.business.knowledge.Knowledge;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -29,14 +29,12 @@ public class UserInfCompanyLabelProvider extends CellLabelProvider {
 	}
 
 	public String getText(Object element) {
-		User u = (User) element;				
-		return u.getCompany().getName() + ", " + u.getCompany().getAddress().getCountry();
+		Knowledge r = (Knowledge) element;				
+		return r.getUser().getCompany().getName() + ", " + r.getUser().getCompany().getAddress().getCountry();
 	}
 		
 	/**
 	 * This method embed a button in a table cell
-	 * @param element
-	 * @return
 	 */
 	public Image getImage(Object element) {
 		Shell shell = new Shell(viewer.getControl().getShell(),SWT.NO_TRIM);

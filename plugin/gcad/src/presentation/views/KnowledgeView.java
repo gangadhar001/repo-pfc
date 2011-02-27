@@ -19,17 +19,17 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 
-import presentation.wizards.control.knowledge.ModifyAnswerMenuWC;
-import presentation.wizards.control.knowledge.ModifyProposalMenuWC;
-import presentation.wizards.control.knowledge.ModifyTopicWC;
+import presentation.wizards.control.knowledge.ModifyAnswerViewWC;
+import presentation.wizards.control.knowledge.ModifyProposalViewWC;
+import presentation.wizards.control.knowledge.ModifyTopicViewWC;
 import presentation.wizards.control.knowledge.NewAnswerViewWC;
 import presentation.wizards.control.knowledge.NewProposalViewWC;
 import presentation.wizards.control.knowledge.NewTopicWC;
 import presentation.wizards.knowledge.AnswerViewWP;
-import presentation.wizards.knowledge.ModifyAnswerMenuWP;
-import presentation.wizards.knowledge.ModifyProposalMenuWP;
+import presentation.wizards.knowledge.ModifyAnswerWP;
+import presentation.wizards.knowledge.ModifyProposalWP;
+import presentation.wizards.knowledge.ModifyTopicWP;
 import presentation.wizards.knowledge.ProposalViewWP;
-import presentation.wizards.knowledge.TopicWP;
 
 /** This class represents an abstract class for the views that shown the available knowledge, in a tree
  * or in a graph
@@ -111,20 +111,20 @@ public abstract class KnowledgeView extends AbstractView {
 	}
 	
 	private void modifyAnswer(Answer answer) {
-		ModifyAnswerMenuWC wizardModifyAnswerController = new ModifyAnswerMenuWC(BundleInternationalization.getString("ModifyAnswerWizard"));
-		wizardModifyAnswerController.addPages(new ModifyAnswerMenuWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), answer));
+		ModifyAnswerViewWC wizardModifyAnswerController = new ModifyAnswerViewWC(BundleInternationalization.getString("ModifyAnswerWizard"), answer);
+		wizardModifyAnswerController.addPages(new ModifyAnswerWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), answer));
 		showWizardDialog(wizardModifyAnswerController);			
 	}
 
 	private void modifyProposal(Proposal proposal) {
-		ModifyProposalMenuWC wizardModifyProposalController = new ModifyProposalMenuWC(BundleInternationalization.getString("ModifyAnswerWizard"));
-		wizardModifyProposalController.addPages(new ModifyProposalMenuWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), proposal));
+		ModifyProposalViewWC wizardModifyProposalController = new ModifyProposalViewWC(BundleInternationalization.getString("ModifyAnswerWizard"), proposal);
+		wizardModifyProposalController.addPages(new ModifyProposalWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), proposal));
 		showWizardDialog(wizardModifyProposalController);		
 	}
 
 	private void modifyTopic(Topic topic) {
-		ModifyTopicWC wizardModifyTopicController = new ModifyTopicWC(BundleInternationalization.getString("ModifyAnswerWizard"));
-		wizardModifyTopicController.addPages(new TopicWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), topic));
+		ModifyTopicViewWC wizardModifyTopicController = new ModifyTopicViewWC(BundleInternationalization.getString("ModifyAnswerWizard"), topic);
+		wizardModifyTopicController.addPages(new ModifyTopicWP(BundleInternationalization.getString("ModifyAnswerWizardPageTitle"), topic));
 		showWizardDialog(wizardModifyTopicController);			
 	}
 

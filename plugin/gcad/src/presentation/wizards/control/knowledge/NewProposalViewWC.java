@@ -9,7 +9,7 @@ import model.business.knowledge.Topic;
 import presentation.wizards.knowledge.ProposalViewWP;
 
 /**
- * This abstract class represents a New Proposal Wizard when it is shown since the "Proposals" view
+ * This abstract class represents a New Proposal Wizard Controller when it is shown since a view
  */
 public class NewProposalViewWC extends AbstractNewKnowledgeWC {
 

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.business.control.Controller;
-import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -19,24 +19,24 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
-import exceptions.NoProposalsException;
+import exceptions.NoTopicsException;
 
 /**
- * This class represents a Wizard Page used to modify a Proposal, when it is invoke since the menu
+ * This class represents a Wizard Page used to modify a Topic, when it is invoke since the menu
  */
-public class ModifyProposalMenuWP extends NewProposalMenuWP {
+public class ModifyTopicWP extends TopicViewWP {
 
-	private Combo cbProposals;
 	private Composite parent;
-	private ArrayList<Proposal> proposals;
 	private Group groupContent;
-	private Proposal oldProposal;
+	private Combo cbTopics;
+	private ArrayList<Topic> topics;
+	private Topic oldTopic;
 	
-	public ModifyProposalMenuWP(String pageName, Proposal proposal) {
+	public ModifyTopicWP(String pageName, Topic topic) {
 		super(pageName);
-		setTitle(BundleInternationalization.getString("ModifyProposalWizardPageTitle"));
-		setDescription(BundleInternationalization.getString("ModifyProposalWizardPageDescription"));
-		this.oldProposal = proposal;
+		setTitle(BundleInternationalization.getString("ModifyTopicWizardPageTitle"));
+		setDescription(BundleInternationalization.getString("ModifyTopicWizardPageDescription"));
+		this.oldTopic = topic;
 	}
 	
 	@Override
@@ -48,57 +48,57 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 		container.setLayout(layout);
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 		this.parent = container;
-		Group groupProposals = new Group(container, SWT.NONE);
-		groupProposals.setLayout(new GridLayout(2,false));
-		groupProposals.setLayoutData(new GridData(GridData.FILL_BOTH));
-		groupProposals.setText(BundleInternationalization.getString("GroupProposals"));
+		Group groupTopics = new Group(container, SWT.NONE);
+		groupTopics.setLayout(new GridLayout(2,false));
+		groupTopics.setLayoutData(new GridData(GridData.FILL_BOTH));
+		groupTopics.setText(BundleInternationalization.getString("GroupProposals"));
 		
-		Label proposalsLabel = new Label(groupProposals, SWT.NULL);
-		cbProposals = new Combo(groupProposals, SWT.DROP_DOWN | SWT.READ_ONLY);
-		proposalsLabel.setText(BundleInternationalization.getString("ProposalLabel")+":");
+		Label topicsLabel = new Label(groupTopics, SWT.NULL);
+		cbTopics = new Combo(groupTopics, SWT.DROP_DOWN | SWT.READ_ONLY);
+		topicsLabel.setText(BundleInternationalization.getString("TopicLabel")+":");
 		try {
-			proposals = Controller.getInstance().getProposals();
-			if (proposals.size() == 0)
-				throw new NoProposalsException();
-			for (int i=0; i<proposals.size(); i++)
-				cbProposals.add(proposals.get(i).getTitle()); 
+			topics = Controller.getInstance().getTopicsWrapper().getTopics();
+			if (topics.size() == 0)
+				throw new NoTopicsException();
+			for (int i=0; i<topics.size(); i++)
+				cbTopics.add(topics.get(i).getTitle()); 
 		} catch (InstantiationException e) {
 			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (IllegalAccessException e) {
 			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (ClassNotFoundException e) {
 			MessageDialog.openError(getShell(), "Error", e.getMessage());
-		} catch (NoProposalsException e) {
+		} catch (NoTopicsException e) {
 			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		} catch (SQLException e) {
 			MessageDialog.openError(getShell(), "Error", e.getMessage());
 		}
 		
-		cbProposals.addSelectionListener(new SelectionAdapter() {
+		cbTopics.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				fillDataProposal();
+				fillDataTopic();
 				wizardChanged();
 				
 			}
 		});
 		
-		// If old proposal is not null (the wizard is invoke since the Graph or
+		// If old topic is not null (the wizard is invoke since the Graph or
 		// Hierarchical View), it is selected in the combobox, and the rest of
 		// fields are filled
-		if (oldProposal != null) {
-			cbProposals.select(proposals.indexOf(oldProposal));
-			cbProposals.setEnabled(false);
-			fillDataProposal();
+		if (oldTopic != null) {
+			cbTopics.select(topics.indexOf(oldTopic));
+			cbTopics.setEnabled(false);
+			fillDataTopic();
 		}
 		
 		wizardChanged();
 		setControl(container);
 	}
 	
-	private void fillDataProposal() {
-		if (cbProposals!= null && cbProposals.getSelectionIndex()!=-1) {
-			Proposal p = proposals.get(cbProposals.getSelectionIndex());
+	private void fillDataTopic() {
+		if (cbTopics!= null && cbTopics.getSelectionIndex()!=-1) {
+			Topic t = topics.get(cbTopics.getSelectionIndex());
 			// Clear group
 			if (groupContent != null)
 				groupContent.dispose();
@@ -108,14 +108,14 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 			groupContent.setLayoutData(new GridData(GridData.FILL_BOTH));
 			groupContent.setText(BundleInternationalization.getString("GroupProposalContent"));
 			super.createControl(groupContent);
-			super.fillData(p);
+			super.fillData(t);
 			parent.layout();
 		}
 	}
 	
 	protected void wizardChanged(){
 		boolean valid = isValid();
-		if (cbProposals!= null && valid && cbProposals.getSelectionIndex()==-1) {
+		if (cbTopics!= null && valid && cbTopics.getSelectionIndex()==-1) {
 			updateStatus(BundleInternationalization.getString("ErrorMessage.ProposalParentNotSelected"));
 			valid = false;
 		}
@@ -124,12 +124,12 @@ public class ModifyProposalMenuWP extends NewProposalMenuWP {
 		}
 	}
 
-	public int getItemCbProposals() {
-		return cbProposals.getSelectionIndex();
+	public int getItemCbTopic() {
+		return cbTopics.getSelectionIndex();
 	}
 
-	public ArrayList<Proposal> getProposals() {
-		return proposals;
+	public ArrayList<Topic> getTopics() {
+		return topics;
 	}	
 
 }

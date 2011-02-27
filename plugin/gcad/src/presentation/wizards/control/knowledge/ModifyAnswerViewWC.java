@@ -4,7 +4,7 @@ import java.util.Date;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
-import presentation.wizards.knowledge.ModifyAnswerMenuWP;
+import presentation.wizards.knowledge.ModifyAnswerWP;
 
 /**
  * This class represents a Wizard Controller to modify an answer when it is invoke since a view
@@ -20,7 +20,7 @@ public class ModifyAnswerViewWC extends AbstractModifyKnowledgeWC {
 
 	@Override
 	public boolean performFinish() {
-		ModifyAnswerMenuWP page = (ModifyAnswerMenuWP) super.getPage();
+		ModifyAnswerWP page = (ModifyAnswerWP) super.getPage();
 		String title = page.getTitleText();
 		String description = page.getDescriptionText();
 		Proposal newParentProposal = (Proposal) page.getProposals().get(page.getItemCbProposals());

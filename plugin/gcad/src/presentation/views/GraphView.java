@@ -47,7 +47,7 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 	
 	private Object objectSelected;
 	
-	private UserInfView userView;
+	private InformationView userView;
 	
 	
 	@Override
@@ -167,7 +167,7 @@ public class GraphView extends KnowledgeView implements IPresentation, IZoomable
 			if (selectionList.get(0) instanceof GraphNode) {
 				objectSelected = ((GraphNode) selectionList.get(0)).getData();
 				try {
-					userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
+					userView = (InformationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("gcad.view.UserInformation");
 					userView.refresh((Knowledge)objectSelected);
 				} catch (PartInitException e) {
 					// TODO:

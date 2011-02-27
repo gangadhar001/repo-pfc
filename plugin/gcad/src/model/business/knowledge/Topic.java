@@ -117,7 +117,7 @@ public class Topic extends Knowledge implements Serializable {
 	
 	public Object clone () {
 		Topic t;
-		HashSet<Proposal> proposals = new HashSet<Proposal>();
+		Set<Proposal> proposals = new HashSet<Proposal>();
 		t = new Topic(getTitle(), getDescription(), getCreationDate());
 		t.setId(getId());
 		t.setProject((Project)getProject().clone());

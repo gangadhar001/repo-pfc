@@ -64,7 +64,7 @@ public abstract class AbstractNewKnowledgeWC extends Wizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			MessageDialog.openError(getShell(), BundleInternationalization.getString("Error"), realException.getMessage());
 			return false;
 		}
 		return true;
@@ -94,7 +94,7 @@ public abstract class AbstractNewKnowledgeWC extends Wizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			MessageDialog.openError(getShell(), BundleInternationalization.getString("Error"), realException.getMessage());
 			return false;
 		}
 		return true;
@@ -124,7 +124,7 @@ public abstract class AbstractNewKnowledgeWC extends Wizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			MessageDialog.openError(getShell(), BundleInternationalization.getString("Error"), realException.getMessage());
 			return false;
 		}
 		return true;
@@ -161,7 +161,7 @@ public abstract class AbstractNewKnowledgeWC extends Wizard {
 	}
 	
 	/**
-	 * The worker method. It will log in the user and create the database connection
+	 * The worker method. It will create and insert in the database a new topic
 	 */
 	private void doFinish(IProgressMonitor monitor, Topic topic) throws SQLException {		
 		monitor.beginTask(BundleInternationalization.getString("TopicMonitorMessage"), 50);

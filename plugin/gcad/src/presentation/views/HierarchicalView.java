@@ -41,7 +41,7 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 	private Action doubleClickAction;	
 	private TopicWrapper topicWrapper;	
 	private Object selectedItem;
-	private UserInfView userView;
+	private InformationView userView;
 	
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
@@ -79,7 +79,7 @@ public class HierarchicalView extends KnowledgeView implements IPresentation {
 	/*** Method used to show in another view all the information about a knowledge that has been selected ***/
 	private void refreshInfView(){
 		try {
-			userView = (UserInfView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(KMPerspective.USER_INF_VIEW_ID);
+			userView = (InformationView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(KMPerspective.USER_INF_VIEW_ID);
 			userView.refresh((Knowledge)selectedItem);
 		} catch (PartInitException e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), BundleInternationalization.getString("Error"), e.getMessage());
