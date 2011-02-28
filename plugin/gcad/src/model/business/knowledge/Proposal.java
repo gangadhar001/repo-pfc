@@ -99,7 +99,7 @@ public class Proposal extends Knowledge implements Serializable {
 		p.setUser((User)getUser().clone());
 		for (Answer a: getAnswers())
 			answers.add((Answer)a.clone());
-		setAnswers(answers);
+		p.setAnswers(answers);
 		return p;
 	}	
 	
