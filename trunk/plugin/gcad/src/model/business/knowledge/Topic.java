@@ -121,6 +121,7 @@ public class Topic extends Knowledge implements Serializable {
 		t = new Topic(getTitle(), getDescription(), getCreationDate());
 		t.setId(getId());
 		t.setProject((Project)getProject().clone());
+		t.setUser((User)getUser().clone());
 		for (Proposal p: getProposals())
 			proposals.add((Proposal)p.clone());
 		t.setProposals(proposals);

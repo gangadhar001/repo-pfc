@@ -81,15 +81,37 @@ public class KnowledgeController {
 	/**
 	 * Methods used to modify knowledge
 	 */
+	
+	public static void modifyTopic(User user, Topic newTopic, Topic oldTopic) throws SQLException {
+		
+		newTopic.setUser(user);
+		// Copy proposal list and project to new Topic
+		newTopic.setProposals(oldTopic.getProposals());
+		newTopic.setProject(oldTopic.getProject());
+		// Remove old topic
+		int index = topicWrapper.getTopics().indexOf(oldTopic);
+		topicWrapper.remove(oldTopic);
+		// Add new answer to proposal
+		topicWrapper.getTopics().add(index, newTopic);
+		DAOTopic.update(newTopic);
+	}
+	
 	public static void modifyProposal(User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException {
 		newProposal.setUser(user);
+				
 		// If the new parent is different from the previous one, the old proposal is removed
 		Topic t = findParentProposal(oldProposal);
-		if (t!=null && !t.equals(newParent)) {		
+		if (t!=null && !t.equals(newParent)) {	
 			t.getProposals().remove(oldProposal);
-			newParent.add(newProposal);
-			DAOProposal.delete(oldProposal);
+			// Delete the old proposal from old topic (it deletes the answers too)
+			DAOProposal.delete((Proposal)oldProposal.clone());
 			DAOProposal.insert(newProposal, newParent.getId());
+			// Insert answers from old Proposal
+			for (Answer a: oldProposal.getAnswers())
+				DAOAnswer.insert(a, newProposal.getId());
+			newProposal.setAnswers(oldProposal.getAnswers());
+			newParent.add(newProposal);
+			
 		}
 		else {
 			newParent.remove(oldProposal);
@@ -113,18 +135,6 @@ public class KnowledgeController {
 			newParent.add(newAnswer);
 			DAOAnswer.update(newAnswer);
 		}
-	}
-	
-	public static void modifyTopic(User user, Topic newTopic, Topic oldTopic) throws SQLException {
-		newTopic.setUser(user);
-		// Copy proposal list and project to new Topic
-		newTopic.setProposals(oldTopic.getProposals());
-		newTopic.setProject(oldTopic.getProject());
-		// Remove old topic
-		topicWrapper.remove(oldTopic);
-		// Add new answer to proposal
-		topicWrapper.add(newTopic);
-		DAOTopic.update(newTopic);
 	}
 	
 	public static void deleteTopic(Topic to) throws SQLException {
