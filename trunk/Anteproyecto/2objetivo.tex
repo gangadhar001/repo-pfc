@@ -65,7 +65,7 @@ El Razonamiento Basado en Casos (Case-Based Reasoning, CBR en adelante) puede de
 
 A diferencia de otras técnicas y algoritmos de Inteligencia Artificial, como pueden ser Razonamiento Basado en Reglas o Algoritmos Genéticos, CBR no se considera como una tecnología, sino más bien como una metodología, que indica cómo resolver problemas a partir de soluciones previas almacenadas en el sistema, pero sin detallar una tecnología concreta \cite{watson1998cbr}. Por tanto, un sistema CBR se define por lo que hace, pero no cómo se hace o se implementa.
 
-Conceptualmente, un el CBR se describe como un ciclo (ver Figura \ref{fig:CBRCycle} ) con cuatro grandes etapas \cite{lopez2005retrieval} \cite{watson1998cbr}:
+Conceptualmente, el CBR se describe como un ciclo (ver Figura \ref{fig:CBRCycle} ) con cuatro grandes etapas \cite{lopez2005retrieval} \cite{watson1998cbr}:
 
 \begin{milista}
 \item \textbf{Recuperación (Retrieve)} de casos similares al problema planteado.
@@ -74,12 +74,14 @@ Conceptualmente, un el CBR se describe como un ciclo (ver Figura \ref{fig:CBRCyc
 \item \textbf{Retención (Retain)} de la nueva solución, pasando a formar un nuevo caso.
 \end{milista}
 
-\imagenBorde{CBRCycle}{0.5}{CBR Cycle}{fig:CBRCycle}
+\imagenBorde{CBRCycle}{0.5}{Ciclo del CBR}{fig:CBRCycle}
 
 
-Estas cuatro etapas son las que constituyen la metodología del CBR. Así, para solucionar un nuevo problema, primero se debe obtener una descripción de éste, midiendo la similitud del nuevo problema con otros problemas previos almacenados en el sistema. A continuación, se recuperan las soluciones de estos problemas similares y se reutiliza la solución de uno de estos casos, adaptándola si es necesario. Para terminar, este nuevo problema, junto a la solución encontrada, se almacena en el sistema, formando un nuevo caso. Uno de los puntos críticos es la función de similitud que se va a utilizar para buscar problemas similares a uno dado. Por ejemplo, un problema se podría describir como una serie de atributos (o características) que pueden ser cuantificadas con un ``peso'' numérico, obteniendo un vector numérico, y utilizar como función de similitud la distancia Euclídea entre los vectores que representan cada problema. 
+Estas cuatro etapas son las que constituyen la metodología del CBR. Así, para solucionar un nuevo problema, primero se debe obtener una descripción de éste, midiendo la similitud del nuevo problema con otros problemas previos almacenados en el sistema. A continuación, se recuperan las soluciones de estos problemas similares y se reutiliza la solución de uno de estos casos, adaptándola si es necesario. Para terminar, este nuevo problema, junto a la solución encontrada, se almacena en el sistema, formando un nuevo caso. 
 
-Para terminar, el ciclo que se ha visto anteriormente encaja perfectamente con un sistema de Gestión del Conocimiento, pues en este tipo de sistemas también existen fases de recuperación, reutilizacion y almacenamiento, en este caso de conocimiento. 
+Uno de los puntos críticos es la función de similitud que se va a utilizar para buscar problemas similares a uno dado. Por ejemplo, un problema se podría describir como una serie de atributos (o características) que pueden ser cuantificadas con un ``peso'' numérico, obteniendo un vector numérico, y utilizar como función de similitud la distancia Euclídea entre los vectores que representan cada problema. 
+
+Para terminar, el ciclo que se ha visto anteriormente encaja perfectamente con un sistema de Gestión del Conocimiento, pues en este tipo de sistemas también existen fases de recuperación, reutilización y almacenamiento, en este caso de conocimiento. 
 
 
 
