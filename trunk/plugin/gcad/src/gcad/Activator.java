@@ -13,15 +13,15 @@ public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "gcad";
+	public static String currentLanguage;
 
 	// The shared instance
 	private static Activator plugin;
-
 	
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public Activator() {	
 	}
 
 	/*
@@ -29,9 +29,9 @@ public class Activator extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {		
-		super.start(context);
-		plugin = this;
-			
+		super.start(context);	
+		plugin = this;			
+		currentLanguage = System.getProperty("osgi.nl");
 	}
 
 	/*

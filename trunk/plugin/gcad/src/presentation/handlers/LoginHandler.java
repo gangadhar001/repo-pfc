@@ -44,8 +44,8 @@ public class LoginHandler extends AbstractHandler {
 			dialog.create();
 			dialog.open();
 		}
+		
 		return null;
-
 	}
 
 
