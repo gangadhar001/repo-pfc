@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
+<?eclipse version="3.6"?>
 <plugin>
 
 <extension 
@@ -128,6 +128,20 @@
             id="gcad.command.modifyTopic"
             name="%command.modifyTopic">
       </command>
+      <command
+            categoryId="gcad.category.menu.options"
+            id="gcad.command.options.language"
+            name="%command.language">
+      </command>
+      <category
+            id="gcad.category.menu.options"
+            name="%category.menu.options">
+      </category>
+      <command
+            categoryId="gcad.category.menu.options"
+            id="gcad.command.options.about"
+            name="%command.about">
+      </command>
 </extension>
    
 <extension
@@ -174,6 +188,10 @@
             class="presentation.handlers.ModifyTopicHandler"
             commandId="gcad.command.modifyProposal">
       </handler>
+      <handler
+            class="presentation.handlers.ChooseLanguageHandler"
+            commandId="gcad.command.options.language">
+      </handler>
 </extension>
      
 <extension
@@ -185,7 +203,8 @@
                id="gcad.menus.knowledgeMenu">
             <command
                   commandId="gcad.command.newProposal"
-                  id="gcad.menus.newProposal">
+                  id="gcad.menus.newProposal"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -198,7 +217,8 @@
             </command>
             <command
                   commandId="gcad.command.modifyProposal"
-                  id="gcad.menus.modifyProposal">
+                  id="gcad.menus.modifyProposal"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -211,7 +231,8 @@
             </command>
             <command
                   commandId="gcad.command.deleteProposal"
-                  id="gcad.menus.deleteProposal">
+                  id="gcad.menus.deleteProposal"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -223,11 +244,13 @@
                </visibleWhen>
             </command>
             <separator
-                  name="gcad.separator1">
+                  name="gcad.separator1"
+                  visible="true">
             </separator>
             <command
                   commandId="gcad.command.newAnswer"
-                  id="gcad.menus.newAnswer">
+                  id="gcad.menus.newAnswer"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -240,7 +263,8 @@
             </command>
             <command
                   commandId="gcad.command.modifyAnswer"
-                  id="gcad.menus.modifyAnswer">
+                  id="gcad.menus.modifyAnswer"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -253,7 +277,8 @@
             </command>
             <command
                   commandId="gcad.command.deleteAnswer"
-                  id="gcad.menus.deleteAnswer">
+                  id="gcad.menus.deleteAnswer"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -265,7 +290,8 @@
                </visibleWhen>
             </command>
             <separator
-                  name="gcad.separator1">
+                  name="gcad.separator1"
+                  visible="true">
             </separator>
             <command
                   commandId="gcad.command.newTopic"
@@ -287,7 +313,8 @@
                label="%category.menu.DBInformation">
             <command
                   commandId="gcad.command.insertDBInformation"
-                  id="gcad.menus.newDBInformation">
+                  id="gcad.menus.newDBInformation"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -304,14 +331,17 @@
                label="%category.menu.session">
             <command
                   commandId="gcad.command.login"
-                  id="gcad.menus.login">
+                  id="gcad.menus.login"
+                  style="push">
             </command>
             <separator
-                  name="gcad.separator2">
+                  name="gcad.separator2"
+                  visible="true">
             </separator>
             <command
                   commandId="gcad.command.signout"
-                  id="gcad.menus.signOut">
+                  id="gcad.menus.signOut"
+                  style="push">
                <visibleWhen
                      checkEnabled="false">
                   <with
@@ -321,6 +351,24 @@
                      </equals>
                   </with>
                </visibleWhen>
+            </command>
+         </menu>
+         <menu
+               id="gcad.menus.options"
+               label="%category.menu.options">
+            <command
+                  commandId="gcad.command.options.language"
+                  id="gcad.menus.options"
+                  style="push">
+            </command>
+            <separator
+                  name="gcad.separator1"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="gcad.command.options.about"
+                  id="gcad.menus.options"
+                  style="push">
             </command>
          </menu>
      </menuContribution>

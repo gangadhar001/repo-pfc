@@ -12,6 +12,7 @@ import model.business.knowledge.Answer;
 import model.business.knowledge.IActions;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
@@ -264,6 +265,10 @@ public class Controller {
 	public void setCurrentProject(int id) {
 		session.setCurrentActiveProject(id);
 		
+	}
+
+	public ArrayList<Language> getLanguages() throws ConfigurationException {
+		return LanguagesController.getLanguages();
 	}
 
 }

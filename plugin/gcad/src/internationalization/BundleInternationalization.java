@@ -1,5 +1,7 @@
 package internationalization;
 
+import gcad.Activator;
+
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -10,9 +12,11 @@ public class BundleInternationalization {
 
     public static String getString(String key) {
 	    try {
-	            // It indicates the package which contains the "properties" file where it defines the names to be internationalized
-	            ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("internationalization.application");
-	            return RESOURCE_BUNDLE.getString(key);
+	    	// Retrieve the current plug-in language  
+	    	String languageCode = Activator.currentLanguage;
+	    	// It indicates the package which contains the "properties" file where it defines the names to be internationalized
+	        ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("internationalization.application_"+languageCode);
+	        return RESOURCE_BUNDLE.getString(key);
 	    } catch (MissingResourceException e) {
 	            return '!' + key + '!';
 	    }
