@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<Profiles>
+	<Profile>
+		<name>Default</name>
+		<Actions>
+			<name>SignOut</name>
+			<name>NewProposal</name>
+			<name>NewAnswer</name>
+			<name>ModifyProposal</name>
+			<name>DeleteProposal</name>
+			<name>ModifyAnswer</name>
+			<name>DeleteAnswer</name>
+		</Actions>
+	</Profile>
+	<Profile>
+		<name>Chief</name>			
+		<Actions>
+			<name>NewProject</name>			
+			<name>NewTopic</name>
+		</Actions>
+	</Profile>	
+</Profiles>
