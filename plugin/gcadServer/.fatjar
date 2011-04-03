@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sat Apr 02 19:42:59 CEST 2011
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=gcadServer_stubs.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<po|gcadServer>~.svn/;<po|gcadServer>~communication/~.svn/;<po|gcadServer>~communication/~ClientProxy$HiloCerrarSesion.class;<po|gcadServer>~communication/~ClientProxy$HiloCerrarSesionEliminacion.class;<po|gcadServer>~communication/~ClientProxy$HiloServidorInaccesible.class;<po|gcadServer>~communication/~ClientProxy.class;<po|gcadServer>~communication/~DBConnection.class;<po|gcadServer>~communication/~DBConnectionManager.class;<po|gcadServer>~communication/~ExportedServer.class;<po|gcadServer>~communication/~IDBConnection.class;<po|gcadServer>~communication/~ServerConfiguration.class;<po|gcadServer>~exceptions/~.svn/;<po|gcadServer>~gcadServer/;<po|gcadServer>~internationalization/~.svn/;<po|gcadServer>~internationalization/~server_en_US.properties;<po|gcadServer>~internationalization/~server_es_ES.properties;<po|gcadServer>~model/~.svn/;<po|gcadServer>~model/~business/~.svn/;<po|gcadServer>~model/~business/~control/;<po|gcadServer>~persistence/;<po|gcadServer>~presentation/;<po|gcadServer>~hibernate.cfg.xml;<jar|HibernatePlugin_1.0.0.jar>;<jar|MySQLPlugin_1.0.0.jar>;<jar|com.cloudgarden.layout.jar>
+includes=

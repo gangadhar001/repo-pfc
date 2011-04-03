@@ -2,6 +2,7 @@ package model.business.control;
 
 import internationalization.BundleInternationalization;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,16 +24,20 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 
+import communication.ClientProxy;
 import communication.DBConnectionManager;
+import communication.IClient;
 import communication.IServer;
 
 import exceptions.IncorrectEmployeeException;
 import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 /**
  * This class implements the facade of the server.
+ * TODO: todos los metodos lanzan la remoteException
  */
 public class Server implements IServer {
 
@@ -48,14 +53,55 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to manage login and signout ***/
-	public void login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole {
+	public ISession login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		session = SessionController.login(user, pass);
+		return session;
 	}
 	
-	public void signout() throws SQLException {
-		SessionController.signout(session);
+	public void signout(long sessionID) throws SQLException, NotLoggedException {
+		SessionController.signout(sessionID);
+		// Remove registered client
+		ClientsController.detach(sessionID);
 		DBConnectionManager.clear();
 		session = null;
+	}
+	
+	public void disconnectClients() throws RemoteException {
+		ClientsController.disconnectClients();
+		SessionController.disconnectClients();
+	}
+	
+	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException {
+		String login;
+		Session session;
+		ClientProxy clientProxy;
+		
+		//TODO:
+		if (client == null)
+			throw new NullPointerException("El cliente que se quiere registrar no puede ser nulo.");
+		
+		// Check if the session is valid
+		session = SessionController.getSessions().get(sessionID);
+		if(session == null) {
+			throw new NotLoggedException();
+		}
+//		try {
+		clientProxy = new ClientProxy();
+		clientProxy.associate(client);
+		ClientsController.attach(sessionID, clientProxy);
+//			login = GestorSesiones.getSesion(idSesion).getUsuario().getLogin();
+//			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.TIPO_INFO, "Registrado el cliente con id de sesión " + idSesion + ".");
+//			GestorConexionesLog.actualizarClientesEscuchando(GestorSesiones.getClientes().size());
+//		} catch(SesionNoIniciadaException snie) {
+//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "Error al comprobar la sesión con id " + idSesion + " para registrar un cliente en el sistema: " + snie.getLocalizedMessage());
+//			throw snie;
+//		} catch(NullPointerException npe) {
+//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "Error al intentar registrar un cliente con datos no válidos: " + npe.getLocalizedMessage());
+//			throw npe;
+//		} catch(Exception e) {
+//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "Error inesperado mientras se registraba un cliente en el sistema: " + e.toString());
+//			throw e;
+//		}
 	}
 
 //	public void initDBConnection(String ip, String port) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
@@ -66,7 +112,7 @@ public class Server implements IServer {
 	public void addTopic (Topic topic) throws SQLException {
 		boolean found = false;
 		Project project = null;
-		// Search te current project
+		// Search the current project
 		for (Iterator<Project> i = session.getUser().getProjects().iterator(); i.hasNext() && !found; ) {
 			project = (Project)i.next();
 			if (project.getId() == session.getCurrentActiveProject()) {
@@ -112,6 +158,11 @@ public class Server implements IServer {
 //		KnowledgeController.deleteAnswer(a);	
 //		notifyKnowledgeRemoved(a);
 //	}
+	
+	/*** Methods to manage projects ***/
+	public void createProject (Project p) throws RemoteException, SQLException {
+		ProjectController.createProject(p);
+	}
 	
 	/*** Methods used to manage notifications ***/
 	public void addNotification(Notification notification) throws SQLException {
@@ -248,9 +299,9 @@ public class Server implements IServer {
 	    }
 	}
 	
-	public boolean isLogged () {
-		return session != null;
-	}
+//	public boolean isLogged () {
+//		return session != null;
+//	}
 
 	public ISession getSession() {
 		return session;
@@ -263,6 +314,24 @@ public class Server implements IServer {
 
 	public ArrayList<Language> getLanguages() throws ConfigurationException {
 		return LanguagesController.getLanguages();
+	}
+
+	@Override
+	public void deleteTopic(Topic to) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteProposal(Proposal p) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAnswer(Answer a) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

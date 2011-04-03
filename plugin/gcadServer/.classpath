@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="lib/MySQLPlugin_1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/CommonsConfigurationPlugin_1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/com.cloudgarden.layout.jar"/>
+	<classpathentry kind="lib" path="/gcad/lib/plugins/gcad_1.0.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

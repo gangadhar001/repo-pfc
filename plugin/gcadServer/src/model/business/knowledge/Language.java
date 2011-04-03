@@ -1,6 +1,8 @@
 package model.business.knowledge;
 
-public class Language {
+import java.io.Serializable;
+
+public class Language implements Serializable {
 
 	private String name;
 	private String code;
