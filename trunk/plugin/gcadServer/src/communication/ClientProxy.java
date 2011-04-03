@@ -1,30 +1,23 @@
 package communication;
 
 import java.rmi.RemoteException;
+import java.util.List;
+
+import model.business.knowledge.Knowledge;
 
 /**
  * TODO: cambiar
- * Proxy used to connect with clients
+ * Proxy used to connect with clients and request operation from that client
  */
 public class ClientProxy implements IClient {
 
 	private IClient cliente;
 	
-	public void asociar(IClient cliente) {
-		// Este proxy no se conecta a un objeto remoto con 'Naming.lookup' porque
-		// el objeto remoto ya lo proporciona el cliente al llamar a 'registrar'
+	public void associate(IClient cliente) {
 		this.cliente = cliente;
 	}
 
-	// Métodos del cliente
-
-	public void actualizarVentanas(int operacion, Object dato) throws RemoteException {
-		Thread hilo;
-		
-		// Lanzamos la operación en otro hilo para no detener el servidor
-		hilo = new Thread(new HiloActualizarVentanas(cliente, operacion, dato));
-		hilo.start();
-	}
+	
 	
 	public void cerrarSesion() throws RemoteException {
 		Thread hilo;
@@ -92,30 +85,6 @@ public class ClientProxy implements IClient {
 		
 	}
 
-	/**
-	 * Hilo utilizado para lanzar la operación actualizarVentanas en un cliente.
-	 */
-	private class HiloActualizarVentanas implements Runnable {
-	
-		private IClient cliente;
-		private int operacion;
-		private Object dato;
-		
-		public HiloActualizarVentanas(IClient cliente, int operacion, Object dato) {
-			this.cliente = cliente;
-			this.operacion = operacion;
-			this.dato = dato;
-		}
-		
-		public void run() {
-			try {
-				cliente.actualizarVentanas(operacion, dato);
-			} catch(Exception e) {
-				// Aquí no se puede manejar la excepción
-			}
-		}
-		
-	}
 	
 	/**
 	 * Hilo utilizado para lanzar la operación servidorInaccesible en un cliente.
@@ -135,6 +104,37 @@ public class ClientProxy implements IClient {
 				// Aquí no se puede manejar la excepción
 			}
 		}
+		
+	}
+
+	@Override
+	public void notifyActionsAllowed(List<String> actionsName)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyConnection(boolean connected) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyKnowledgeEdited(Knowledge k) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
+		// TODO Auto-generated method stub
 		
 	}
 

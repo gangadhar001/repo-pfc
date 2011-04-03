@@ -1,5 +1,6 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement (name = "Topics" )
 @XmlAccessorType( XmlAccessType.FIELD )
-public class TopicWrapper {
+public class TopicWrapper implements Serializable {
 	
 	@XmlElement( name = "Topic" )
 	private ArrayList<Topic> topics = new ArrayList<Topic>();;

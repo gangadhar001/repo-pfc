@@ -62,6 +62,7 @@ public class ServerController {
 		databaseConnection.setSchema(configuration.getDBSchema());
 		databaseConnection.setUser(configuration.getDBUser());
 		databaseConnection.setPassword(configuration.getDBPassword());
+		
 		ok = databaseConnection.testConexion();
 		if(!ok) {
 			throw new SQLException(BundleInternationalization.getString("TestDBConnection_Exception"));
@@ -110,7 +111,7 @@ public class ServerController {
 		
 		// TODO: Notificamos a los clientes que el servidor ha sido desconectado
 		try {
-			SessionController.desconectarClientes();
+			SessionController.disconnectClients();
 		} catch(RemoteException e) {
 		}
 		

@@ -31,7 +31,7 @@ public class DAOUser {
 		if(data.size() == 0) {
 			throw new IncorrectEmployeeException("El nombre de usuario o contraseña introducidos no son válidos.");
 		} else {
-			user = (User) data.get(0);				
+			user = (User) ((User)(data.get(0))).clone();			
 		}
 		return user;
 	}

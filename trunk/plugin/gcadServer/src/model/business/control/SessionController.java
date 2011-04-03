@@ -6,12 +6,15 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Random;
 
+import communication.IClient;
+
 import model.business.knowledge.ISession;
 import model.business.knowledge.Session;
 import model.business.knowledge.User;
 import persistence.DAOUser;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
+import exceptions.NotLoggedException;
 
 /**
  * This class represents a controller that allows to manage user sessions.
@@ -55,6 +58,14 @@ public class SessionController {
 		
 		// Close previous opened session
 		if(found) {
+			IClient client = ClientsController.getClient(openedSession.getId());
+			if (client != null)
+				try {
+					// Forzamos a que el cliente antiguo salga del sistema
+					client.cerrarSesion();
+				} catch(RemoteException e) {
+					// Ignoramos la excepción
+				}
 			sessions.remove(openedSession.getId());
 			// TODO: para usar un log ServidorFrontend.getServidor().liberar(sesionAbierta.getId());
 		}
@@ -77,12 +88,20 @@ public class SessionController {
 		return sessions;
 	}
 
-	public static void signout(ISession session) {
-		sessions.remove(session.getId());		
+	public static void signout(long sessionID) throws NotLoggedException {
+		Session session;
+		
+		// Comprobamos si la sesión es válida
+		session = sessions.get(sessionID);
+		if(session == null) {
+			throw new NotLoggedException();
+		}
+
+		// Quitamos la sesión y el cliente
+		sessions.remove(sessionID);
 	}
 
-	public static void desconectarClientes() throws RemoteException {
-		ClientsController.disconnectClients();
+	public static void disconnectClients() throws RemoteException {
 		sessions = new Hashtable<Long, Session>();
 		
 	}

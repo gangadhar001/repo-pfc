@@ -1,9 +1,11 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
+
 /**
  * This class represents a Session for one user
  */
-public class Session implements ISession {
+public class Session implements ISession, Serializable{
 	
 	private long idSesion;
 	private int currentActiveProject;

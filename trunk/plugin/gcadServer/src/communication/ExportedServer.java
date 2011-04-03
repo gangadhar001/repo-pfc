@@ -10,9 +10,14 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import model.business.control.Server;
 import model.business.knowledge.Answer;
+import model.business.knowledge.ISession;
+import model.business.knowledge.Notification;
+import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
@@ -20,22 +25,22 @@ import model.business.knowledge.TopicWrapper;
 import org.apache.commons.configuration.ConfigurationException;
 
 import exceptions.IncorrectEmployeeException;
+import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 /**
  * Class that exports the server instance to be used by clients to execute operations from the server facade (interface)
  */
 public class ExportedServer extends UnicastRemoteObject implements IServer {
-
-	private static final String NAME_SERVER = "gcadServer";
 	
 	private static final long serialVersionUID = 7735848879217866237L;
 	
 	private IServer server;
 	private boolean register;
 	
-	private static ExportedServer instancia;
+	private static ExportedServer instance;
 
 	protected ExportedServer() throws RemoteException {
 		super();
@@ -44,10 +49,10 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 	
 	public static ExportedServer getServer() throws RemoteException {
-		if(instancia == null) {
-			instancia = new ExportedServer();
+		if(instance == null) {
+			instance = new ExportedServer();
 		}
-		return instancia;
+		return instance;
 	}
 	
     public void activate(String serverIP, int serverPort) throws MalformedURLException, RemoteException {
@@ -87,16 +92,22 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 
     /*** Methods from server facade ***/
 	@Override
-	public void login(String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole, RemoteException {
-		server.login(user, pass);
+	public ISession login(String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole, RemoteException {
+		return server.login(user, pass);
 		
 	}
 
 	@Override
-	public void signout() throws SQLException, RemoteException {
-		server.signout();
+	public void signout(long sessionID) throws SQLException, RemoteException, NotLoggedException {
+		server.signout(sessionID);
 		
 	}
+	
+	@Override
+	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException {
+		server.register(sessionID, client);		
+	}
+    
 
 	@Override
 	public void addTopic(Topic topic) throws RemoteException, SQLException {
@@ -138,9 +149,68 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public void notifyActionAllowed() throws RemoteException, ConfigurationException, NonPermissionRole {
-		server.notifyActionAllowed();		
+	public void setCurrentProject(int idProject)  throws RemoteException {
+		server.setCurrentProject(idProject);
+		
 	}
-    
+
+	@Override
+	public void deleteTopic(Topic to) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteProposal(Proposal p) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAnswer(Answer a) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createProject(Project p) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addNotification(Notification notification)  throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeNotification(Notification notification)
+	 throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Notification> getNotifications()  throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Proposal> getProposals()  throws RemoteException, SQLException,
+			InstantiationException, IllegalAccessException,
+			ClassNotFoundException, NoProposalsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Answer> getAnswers()  throws RemoteException, SQLException,
+			InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
   	
 }
