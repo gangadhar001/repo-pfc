@@ -89,6 +89,7 @@ public class Server implements IServer {
 		clientProxy = new ClientProxy();
 		clientProxy.associate(client);
 		ClientsController.attach(sessionID, clientProxy);
+		ClientsController.notifyConnection(true);
 //			login = GestorSesiones.getSesion(idSesion).getUsuario().getLogin();
 //			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.TIPO_INFO, "Registrado el cliente con id de sesión " + idSesion + ".");
 //			GestorConexionesLog.actualizarClientesEscuchando(GestorSesiones.getClientes().size());

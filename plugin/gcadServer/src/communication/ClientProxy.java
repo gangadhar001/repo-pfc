@@ -116,9 +116,32 @@ public class ClientProxy implements IClient {
 
 	@Override
 	public void notifyConnection(boolean connected) throws RemoteException {
-		// TODO Auto-generated method stub
+Thread hilo;
 		
+		// Lanzamos la operación en otro hilo para no detener el servidor
+		hilo = new Thread(new notifyConnectionHilo(cliente, true));
+		hilo.start();
 	}
+
+private class notifyConnectionHilo implements Runnable {
+	
+	private IClient cliente;
+	private boolean conn;
+	
+	public notifyConnectionHilo(IClient cliente, boolean conn) {
+		this.cliente = cliente;
+		this.conn = conn;
+	}
+	
+	public void run() {
+		try {
+			cliente.notifyConnection(conn);
+		} catch(Exception e) {
+			// Aquí no se puede manejar la excepción
+		}
+	}
+	
+}
 
 	@Override
 	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
