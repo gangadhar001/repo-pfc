@@ -5,6 +5,7 @@ import internationalization.ApplicationInternationalization;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -85,6 +86,7 @@ public class JFMain extends SingleFrameApplication {
     private JPanel contentPanel;
     
     private BufferedImage image;
+    private ArrayList<String> groupsShown = new ArrayList<String>();
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -237,7 +239,7 @@ public class JFMain extends SingleFrameApplication {
         
         // Get available operations for the logged user
         try {
-			ArrayList<Operation> operations = ClientController.getInstance().getAvailableOperations();
+			List<Operation> operations = ClientController.getInstance().getAvailableOperations();
 	        // Configure available options
 	        configureActions(operations);
 	        
@@ -252,124 +254,75 @@ public class JFMain extends SingleFrameApplication {
     }
     
     // This method is used to configure the actions tab with the available operations
-    private void configureActions(ArrayList<Operation> operations) {
-//		int nOperations = operations.size() + 1;
-//		GridLayout layout = new GridLayout();
-//		layout.setColumns(3);
-//		if (nOperations % 3 == 0)
-//			layout.setRows(nOperations/3);
-//		else
-//			layout.setRows(nOperations/3 + 1);
-//		
-//		layout.setHgap(10);
-//		layout.setHgap(10);
-//		
-//		panelActions.setLayout(layout);
-//		
-//		for (String s : operations.keySet()) {
-//			try {
-//				image = GraphicsUtilities.loadCompatibleImage(getClass()
-//						.getResource(GraphicsUtilities.IMAGES_PATH + s + ".png"));
-//
-//				JPanel panel = new JPanel();
-//
-//				JButton button = new JButton();
-//				button.setContentAreaFilled(false);
-//				button.setFocusPainted(false);
-//				button.setBorderPainted(true);
-//				
-//				button.setIcon(new ImageIcon(image));
-//				panel.add(button);
-//				button.addMouseListener(new MouseAdapter() {
-//					public void mouseExited(MouseEvent evt) {
-//						buttonMouseExited(evt);
-//						decreaseImageBrightness((JButton) evt.getSource(),
-//								image);
-//					}
-//
-//					public void mouseEntered(MouseEvent evt) {
-//						buttonMouseEntered(evt);
-//						increaseImageBrightness((JButton) evt.getSource(),
-//								image);
-//					}
-//				});
-//				
-//				JLabel label = new JLabel();
-//				label.setText("Show " + s + " view");
-//				panel.add(label);
-//				panelActions.add(panel);
-//			} catch (IOException e) {
-//				JOptionPane.showMessageDialog(getMainFrame(),
-//						e.getLocalizedMessage(),
-//						ApplicationInternationalization.getString("Error"),
-//						JOptionPane.ERROR_MESSAGE);
-//			}
-//		}
-//		
-//		try {
-//			image = GraphicsUtilities.loadCompatibleImage(getClass()
-//					.getResource(GraphicsUtilities.IMAGES_PATH + "logout.png"));
-//
-//			JPanel panel = new JPanel();
-//
-//			JButton button = new JButton();
-//			button.setContentAreaFilled(false);
-//			button.setFocusPainted(false);
-//			button.setBorderPainted(true);
-//
-//			button.setIcon(new ImageIcon(image));
-//			panel.add(button);
-//			button.addMouseListener(new MouseAdapter() {
-//				public void mouseExited(MouseEvent evt) {
-//					buttonMouseExited(evt);
-//					decreaseImageBrightness((JButton) evt.getSource(), image);
-//				}
-//
-//				public void mouseEntered(MouseEvent evt) {
-//					buttonMouseEntered(evt);
-//					increaseImageBrightness((JButton) evt.getSource(), image);
-//				}
-//			});
-//
-//			JLabel label = new JLabel();
-//			label.setText("Logout");
-//			panel.add(label);
-//			panelActions.add(panel);
-//		} catch (IOException e) {
-//			JOptionPane.showMessageDialog(getMainFrame(),
-//					e.getLocalizedMessage(),
-//					ApplicationInternationalization.getString("Error"),
-//					JOptionPane.ERROR_MESSAGE);
-//		}
+    private void configureActions(List<Operation> operations) {
+    	
+		int nOperations = operations.size() + 1;
+		GridLayout layout = new GridLayout();
+		layout.setColumns(3);
+		if (nOperations % 3 == 0)
+			layout.setRows(nOperations/3);
+		else
+			layout.setRows(nOperations/3 + 1);
+		
+		layout.setHgap(10);
+		layout.setHgap(10);
+		
+		panelActions.setLayout(layout);
+		
+		for (Operation o : operations) {
+			if (!groupsShown.contains(o.getGroup()))
+			try {
+				createComponent(o);
+				groupsShown.add(o.getGroup());
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		// Finally, load the "Logout" action.
+		Operation op = new Operation("Logout", "", null);
+		try {
+			createComponent(op);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
 	}    
     
-    public static void increaseImageBrightness(JButton c, BufferedImage image) {
-        float[] factors = new float[] {
-            1.15f, 1.15f, 1.15f, 1.15f
-        };
-        float[] offsets = new float[] {
-            0.0f, 0.0f, 0.0f, 0.0f
-        };
-        RescaleOp op = new RescaleOp(factors, offsets, null);
-        BufferedImage brighter = op.filter(image, null);
-        c.setIcon(new ImageIcon(brighter));
-    }
+    private void createComponent(Operation o) throws IOException {
+    	// Load the group image of the operation
+		image = GraphicsUtilities.loadCompatibleImage(o.getGroup() + ".png");
+		JPanel panel = new JPanel();
+		
+		JButton button = new JButton();
+		// Set the group name
+		button.setName(o.getGroup());
+		button.setContentAreaFilled(false);
+		button.setFocusPainted(false);
+		button.setBorderPainted(true);				
+		button.setIcon(new ImageIcon(image));
+		// Save button icon
+		GraphicsUtilities.addImageButton(button.getName(), image);
+		panel.add(button);
+		button.addMouseListener(new MouseAdapter() {
+			public void mouseExited(MouseEvent evt) {
+				getMainFrame().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
+				GraphicsUtilities.decreaseImageBrightness((JButton) evt.getSource());
+			}
 
-    public static void decreaseImageBrightness(JButton c, BufferedImage image) {
-        c.setIcon(new ImageIcon(image));
-    }
+			public void mouseEntered(MouseEvent evt) {
+				getMainFrame().setCursor(new Cursor(Cursor.HAND_CURSOR));
+				GraphicsUtilities.increaseImageBrightness((JButton) evt.getSource());
+			}
+		});
+		
+		JLabel label = new JLabel();
+		label.setText("Show " + o.getGroup() + " view");
+		panel.add(label);
+		panelActions.add(panel);
+    }    
     
 	@Action 
     public void newTab (){
     	int index = tabPanel.getTabCount();
     }
-	
-	private void buttonMouseEntered(MouseEvent evt) {
-		getMainFrame().setCursor(new Cursor(Cursor.HAND_CURSOR));  
-	}
-	
-	private void buttonMouseExited(MouseEvent evt) {
-		getMainFrame().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
-	}
-
 }

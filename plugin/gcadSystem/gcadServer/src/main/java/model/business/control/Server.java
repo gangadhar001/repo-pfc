@@ -295,14 +295,14 @@ public class Server implements IServer {
 						// If there aren't any subgroups, take operations
 						if (subgroupsName.size() == 0) {
 							operationsName = configFile.getList("Profile("+i+").Group("+j+").Operations.name");
-							op = new Operation(groupsName.get(i), "", operationsName);
+							op = new Operation(groupsName.get(j), "", operationsName);
 							result.add(op);
 						}
 						else {
 							// If there are subgroups, take operations for each one
 							for (int k=0; k<subgroupsName.size(); k++) {
 								operationsName = configFile.getList("Profile("+i+").Group("+j+").Subgroup("+k+").Operations.name");
-								op = new Operation(groupsName.get(i), "", operationsName);
+								op = new Operation(groupsName.get(j), subgroupsName.get(k), operationsName);
 								result.add(op);
 							}		
 						}
