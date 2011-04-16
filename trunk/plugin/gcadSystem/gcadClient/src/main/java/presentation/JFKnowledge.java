@@ -1,13 +1,20 @@
 package presentation;
+import bussiness.control.ClientController;
+
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
 import internationalization.ApplicationInternationalization;
 
+import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -19,6 +26,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import javax.swing.WindowConstants;
+
+import model.business.knowledge.Operation;
+
 import org.jdesktop.application.Application;
 import javax.swing.SwingUtilities;
 
@@ -44,7 +54,11 @@ public class JFKnowledge extends javax.swing.JFrame {
 	private JScrollPane jScrollPane1;
 	private JButton jButton1;
 	private JPanel mainPanel;
-
+	private BufferedImage image;
+	// HashTable used to save the available operations for each knowledge subgroup (Proposal, Topic, Answer).
+	// This hashTable will be used in order to build dynamically the UI
+	private Hashtable<String, List<String>> actionsKnowledge = new Hashtable<String, List<String>>();
+	
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
@@ -90,15 +104,15 @@ public class JFKnowledge extends javax.swing.JFrame {
 				{
 					panelActions = new JPanel();
 					jScrollPane1.setViewportView(panelActions);
-					GridLayout panelActionsLayout = new GridLayout(5, 1);
-					panelActionsLayout.setHgap(5);
-					panelActionsLayout.setVgap(5);
-					panelActionsLayout.setColumns(1);
-					panelActionsLayout.setRows(5);
-					panelActions.setLayout(panelActionsLayout);
-					panelActions.setPreferredSize(new java.awt.Dimension(187, 508));
+					panelActions.setPreferredSize(new java.awt.Dimension(196, 326));
 				}
 			}
+			
+			List<Operation> operations = ClientController.getInstance().getAvailableOperations();
+			// Retrieve and store the subgroups of Knowledge group and its actions
+			setKnowledgeActions(operations);
+			// Create the actions panel
+			createKnowledgePanel(operations);
 			pack();
 			this.setSize(704, 379);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
@@ -108,96 +122,65 @@ public class JFKnowledge extends javax.swing.JFrame {
 		}
 	}
 	
-	// This method is used to configure the available knowledge actions
-    private void createKnowledgePanel(Hashtable<String, List<String>> actions) {
-	int nOperations = actions.size() + 1;
-	GridLayout layout = new GridLayout();
-	layout.setColumns(3);
-	if (nOperations % 3 == 0)
-		layout.setRows(nOperations/3);
-	else
-		layout.setRows(nOperations/3 + 1);
-	
-	layout.setHgap(10);
-	layout.setHgap(10);
-	
-	panelActions.setLayout(layout);
-	
-	for (String s : actions.keySet()) {
-		try {
-			image = GraphicsUtilities.loadCompatibleImage(getClass()
-					.getResource(GraphicsUtilities.IMAGES_PATH + s + ".png"));
+	private void setKnowledgeActions(List<Operation> operations) {
+		for(Operation o: operations) {
+			if (o.getGroup().equals("Knowledge"))
+				actionsKnowledge.put(o.getSubgroup(), o.getOperations());
+		}
+	}
 
+	// This method is used to configure the available knowledge operations
+    private void createKnowledgePanel(List<Operation> operations) {
+    	// Set layout
+    	GridLayout layout = new GridLayout();
+    	layout.setRows(actionsKnowledge.size());
+    	layout.setColumns(1);
+    	
+    	layout.setHgap(10);
+		layout.setHgap(10);
+		
+		panelActions.setLayout(layout);
+    	try {
+			createPanelActions();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}		
+    }
+    
+	private void createPanelActions() throws IOException {
+		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
+		for (String s: subgroups) {
+	    	// Load the subgroup image of the operation
+			image = GraphicsUtilities.loadCompatibleImage(s + ".png");
 			JPanel panel = new JPanel();
-
+			
 			JButton button = new JButton();
+			// Set the subgroup name
+			button.setName(s);
 			button.setContentAreaFilled(false);
 			button.setFocusPainted(false);
-			button.setBorderPainted(true);
-			
+			button.setBorderPainted(true);				
 			button.setIcon(new ImageIcon(image));
+			// Save button icon
+			GraphicsUtilities.addImageButton(button.getName(), image);
 			panel.add(button);
 			button.addMouseListener(new MouseAdapter() {
 				public void mouseExited(MouseEvent evt) {
-					buttonMouseExited(evt);
-					decreaseImageBrightness((JButton) evt.getSource(),
-							image);
+					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
+					GraphicsUtilities.decreaseImageBrightness((JButton) evt.getSource());
 				}
-
+	
 				public void mouseEntered(MouseEvent evt) {
-					buttonMouseEntered(evt);
-					increaseImageBrightness((JButton) evt.getSource(),
-							image);
+					setCursor(new Cursor(Cursor.HAND_CURSOR));  
+					GraphicsUtilities.increaseImageBrightness((JButton) evt.getSource());
 				}
 			});
 			
 			JLabel label = new JLabel();
-			label.setText("Show " + s + " view");
+			label.setText(s);
 			panel.add(label);
 			panelActions.add(panel);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(getMainFrame(),
-					e.getLocalizedMessage(),
-					ApplicationInternationalization.getString("Error"),
-					JOptionPane.ERROR_MESSAGE);
 		}
-	}
-	
-	try {
-		image = GraphicsUtilities.loadCompatibleImage(getClass()
-				.getResource(GraphicsUtilities.IMAGES_PATH + "logout.png"));
-
-		JPanel panel = new JPanel();
-
-		JButton button = new JButton();
-		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setBorderPainted(true);
-
-		button.setIcon(new ImageIcon(image));
-		panel.add(button);
-		button.addMouseListener(new MouseAdapter() {
-			public void mouseExited(MouseEvent evt) {
-				buttonMouseExited(evt);
-				decreaseImageBrightness((JButton) evt.getSource(), image);
-			}
-
-			public void mouseEntered(MouseEvent evt) {
-				buttonMouseEntered(evt);
-				increaseImageBrightness((JButton) evt.getSource(), image);
-			}
-		});
-
-		JLabel label = new JLabel();
-		label.setText("Logout");
-		panel.add(label);
-		panelActions.add(panel);
-	} catch (IOException e) {
-		JOptionPane.showMessageDialog(getMainFrame(),
-				e.getLocalizedMessage(),
-				ApplicationInternationalization.getString("Error"),
-				JOptionPane.ERROR_MESSAGE);
-	}
-}    
+    }    
 
 }

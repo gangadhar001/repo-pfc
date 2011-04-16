@@ -3,6 +3,7 @@ package presentation;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.Raster;
+import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.awt.GraphicsConfiguration;
 import java.awt.Transparency;
@@ -13,8 +14,11 @@ import java.awt.RenderingHints;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Hashtable;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 // REFERENCE: http://filthyrichclients.org/
 
@@ -47,6 +51,10 @@ import javax.swing.ImageIcon;
 public class GraphicsUtilities {
     
 	public static final String IMAGES_PATH = "images/";
+	// HashTable used to save the original icons from buttons, before highlight them. 
+	// Uses little memory because they are small icons
+	private static Hashtable<String, BufferedImage> images = new Hashtable<String, BufferedImage>();
+	
 	
 	private GraphicsUtilities() {
     }
@@ -171,9 +179,9 @@ public class GraphicsUtilities {
      *   specified width and height
      * @throws java.io.IOException if the image cannot be read or loaded
      */
-    public static BufferedImage loadCompatibleImage(URL resource)
+    public static BufferedImage loadCompatibleImage(String name)
             throws IOException {
-        BufferedImage image = ImageIO.read(resource);
+        BufferedImage image = ImageIO.read(GraphicsUtilities.class.getClassLoader().getResource(IMAGES_PATH + name));
         return toCompatibleImage(image);
     }
 
@@ -535,6 +543,33 @@ public class GraphicsUtilities {
     }
 
 	public static ImageIcon loadIcon(String name) throws MalformedURLException, IOException {
-		return new ImageIcon(loadCompatibleImage(GraphicsUtilities.class.getClassLoader().getResource(IMAGES_PATH + name)));
-	}    
+		return new ImageIcon(loadCompatibleImage(name));
+	}   
+	
+	/*** Methods used to increase/decrease the brightness of an image ***/
+	public static void increaseImageBrightness(JButton c) {
+        float[] factors = new float[] {
+            1.15f, 1.15f, 1.15f, 1.15f
+        };
+        float[] offsets = new float[] {
+            0.0f, 0.0f, 0.0f, 0.0f
+        };
+        RescaleOp op = new RescaleOp(factors, offsets, null);
+        BufferedImage brighter = op.filter(images.get(c.getName()), null);
+        c.setIcon(new ImageIcon(brighter));
+    }
+
+    public static void decreaseImageBrightness(JButton c) {
+        c.setIcon(new ImageIcon(images.get(c.getName())));
+    }
+    
+    public static void addImageButton(String buttonName, BufferedImage image) {
+    	if (!images.containsKey(buttonName))
+    		images.put(buttonName, image);
+    	else {
+    		images.remove(buttonName);
+    		images.put(buttonName, image);
+    	}
+    }
+    
 }
