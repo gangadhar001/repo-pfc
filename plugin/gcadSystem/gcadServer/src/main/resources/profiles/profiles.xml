@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<Profiles>
+	<Profile name="Default">
+		<Group name="Knowledge">
+			<Subgroup name="Proposal">
+				<Operations>
+					<name>Add</name>
+					<name>Modify</name>
+					<name>Delete</name>
+				</Operations>
+			</Subgroup>
+			<Subgroup name="Answer">
+				<Operations>
+					<name>Add</name>
+					<name>Modify</name>
+					<name>Delete</name>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group name="Notifications">
+			<Operations>
+				<name>DeleteNotification</name>
+			</Operations>
+		</Group>
+	</Profile>
+	<Profile name="Chief">
+		<Group name="Knowledge">
+			<Subgroup name="Topic">
+				<Operations>
+					<name>Add</name>
+					<name>Modify</name>
+					<name>Delete</name>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group name="Project">
+			<Operations>
+				<name>Add</name>
+			</Operations>
+		</Group>
+		<Group name="Statistics">
+			<Operations>
+				<name>Add</name>
+				<name>Save</name>
+			</Operations>
+		</Group>
+	</Profile>	
+</Profiles>
