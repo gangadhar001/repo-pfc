@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="model.business.knowledge">
+	<class name="Knowledge" table="knowledge">
+		<id name="id" column="id" type="int">
+			<generator class="native" />
+		</id>
+		<property name="title" column="title" type="string" not-null="true" />
+		<property name="description" column="description" type="string" not-null="true" />
+		<property name="date" column="date" type="timestamp" not-null="true" />
+		<many-to-one name="user" column="userId" not-null="true" class="User" lazy="false" />
+		
+		<joined-subclass name="Topic" table="topics">
+			<key column="id"/>
+        	<many-to-one name="project" column="projectId" not-null="true" class="Project" lazy="false" />
+        	<set name="proposals" table="proposals" lazy="false" cascade="all" >
+				<key column="topicId" unique="true" not-null="true" />
+				<one-to-many class="Proposal" />
+			</set>
+    	</joined-subclass>
+    	
+    	<joined-subclass name="Proposal" table="proposals">
+			<key column="id"/>
+        	<property name="category" column="category" not-null="true" >
+				<type name="persistence.utils.EnumUserType">  
+					<param name="enumClassName"> 
+						model.business.knowledge.Categories
+					</param> 
+				</type>
+			</property>
+			<set name="answers" table="answers" lazy="false" cascade="all">
+				<key column="proposalId" unique="true" not-null="true"/>
+				<one-to-many class="Answer" />
+			</set>
+    	</joined-subclass>
+    	
+    	<joined-subclass name="Answer" table="answers">
+			<key column="id"/>
+			<property name="argument" column="argument" type="string" not-null="true" />
+    	</joined-subclass>
+		
+	</class>
+	
+</hibernate-mapping>
