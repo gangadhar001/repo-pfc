@@ -1,6 +1,9 @@
 package persistence;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import persistence.utils.HibernateQuery;
 
 import communication.DBConnectionManager;
 
@@ -12,36 +15,102 @@ import model.business.knowledge.Proposal;
  */
 public class DAOAnswer {
 	
+	private static final String PROPOSAL_CLASS = "Proposal";
+	private static final String ANSWER_CLASS = "Proposal";
+	
 	public static void insert(Answer answer, int proposalId) throws SQLException {
-		try {
-			DBConnectionManager.initTransaction();
+		HibernateQuery query;
+		List<?> data;
+		Proposal aux = null;
+		Answer a;
+		try {			
 			// It's necessary to query first the parent proposal of the answer, in order to Hibernate
 			// can update all the references and foreign key properly.
-			Proposal aux = DAOProposal.queryProposal(proposalId);
-			aux.add(answer);
-			DBConnectionManager.insert(answer);
+			query = new HibernateQuery("From " + PROPOSAL_CLASS + " Where id = ?", proposalId);
+			data = DBConnectionManager.query(query);
+
+			if(data.size() > 0) {
+				aux = (Proposal) data.get(0);			
+			}
+			// Set the topic parent to the proposal
+			a = (Answer)answer.clone();
+			DBConnectionManager.initTransaction();
+			aux.add(a);
+			Answer newAnswer = (Answer) DBConnectionManager.insert(a);
+			// Set new id
+			answer.setId(newAnswer.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
 		}
 		
 	}
 	
 	public static void update(Answer answer) throws SQLException {
+		// Get the answer stores in database and update that reference 
+		HibernateQuery query;
+		List<?> data;
+		Answer old = null;
+		
 		try {
-			DBConnectionManager.initTransaction();
-			DBConnectionManager.update(answer.clone());
+			query = new HibernateQuery("From " + ANSWER_CLASS + " Where id = ?", answer.getId());
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				old = (Answer)data.get(0);									
+			}
+			
+			DBConnectionManager.initTransaction();	
+			
+			old.setArgument(answer.getArgument());
+			old.setDate(answer.getDate());
+			old.setDescription(answer.getDescription());
+			old.setTitle(answer.getTitle());
+			old.setUser(answer.getUser());			
+
+			DBConnectionManager.update(old);
 		} finally {
 			DBConnectionManager.finishTransaction();
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
 		}
 	}
 
 	public static void delete(Answer a) throws SQLException {
 		try {
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.delete(a);
+			// Get the answer stores in database and delete that reference 
+			DBConnectionManager.delete(queryAnswer(a.getId()));
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
+	}
+
+	private static Answer queryAnswer(int id) throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		Answer answer = null;
+	
+		query = new HibernateQuery("From " + ANSWER_CLASS + " Where id = ?", id);
+		data = DBConnectionManager.query(query);
+
+		if(data.size() > 0) {
+			answer = (Answer) ((Answer)data.get(0)).clone();									
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+		
+		return answer;
 	}
 	
 

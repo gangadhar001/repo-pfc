@@ -84,12 +84,18 @@ public class Proposal extends Knowledge implements Serializable {
 			result = false;
 		else if (obj instanceof Proposal) {
 			Proposal other = (Proposal) obj;
-			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
-					description.equals(other.getDescription()) && user.equals(other.getUser()) && answers.equals(other.getAnswers()) 
-					&& category.equals(other.getCategory()));
-			}
+//			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
+//					description.equals(other.getDescription()) && user.equals(other.getUser()) && answers.equals(other.getAnswers()) 
+//					&& category.equals(other.getCategory()));
+//			}
+			result = (id == other.getId());
+		}
 		return result;
 	}	
+	
+	public int hashCode() {
+		return id;
+	}
 	
 	public Object clone () {
 		Proposal p;

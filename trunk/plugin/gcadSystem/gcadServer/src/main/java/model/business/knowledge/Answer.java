@@ -57,11 +57,16 @@ public class Answer extends Knowledge implements Serializable{
 			result = false;
 		else if (obj instanceof Answer) {
 			Answer other = (Answer) obj;
-			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
-					description.equals(other.getDescription()) && user.equals(other.getUser()) && argument.equals(other.getArgument()));
+//			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
+//					description.equals(other.getDescription()) && user.equals(other.getUser()) && argument.equals(other.getArgument()));
+			result = (id == other.getId());
 		}
 		return result;
 	}	
+	
+	public int hashCode() {
+		return id;
+	}
 	
 	public Object clone () {
 		Answer a;

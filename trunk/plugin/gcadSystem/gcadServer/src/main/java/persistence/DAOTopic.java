@@ -6,6 +6,7 @@ import java.util.List;
 
 import communication.DBConnectionManager;
 
+import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import persistence.utils.HibernateQuery;
 
@@ -27,12 +28,17 @@ public class DAOTopic {
 		data = DBConnectionManager.query(query);
 
 		if(data.size() > 0) {
-			result= (Topic) data.get(0);			
+			result = (Topic) ((Topic) data.get(0)).clone();			
 		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+		
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static ArrayList<Topic> queryTopicsProject(int projectId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		HibernateQuery query;
 		List<?> data;
@@ -42,33 +48,68 @@ public class DAOTopic {
 			data = DBConnectionManager.query(query);
 	
 			if(data.size() > 0) {
-				result = (ArrayList<Topic>) data;
+				for(Object o: data) {
+					result.add((Topic)((Topic)o).clone());
+				}
 			}
+			
+			// Clear cache
+			for(Object object : data) {
+				DBConnectionManager.clearCache(object);
+			}
+			
 		return result;
 	}
 	
 	public static void insert (Topic topic) throws SQLException {		
 		try {
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.insert(topic);
+			Topic insertedTopic = (Topic) DBConnectionManager.insert(topic.clone());
+			// Set the id
+			topic.setId(insertedTopic.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
 	}
 	
 	public static void update (Topic topic) throws SQLException {		
+		// Get the proposal stores in database and update that reference 
+		HibernateQuery query;
+		List<?> data;
+		Topic old = null;
+		
 		try {
-			DBConnectionManager.initTransaction();
-			DBConnectionManager.update(topic.clone());
+			query = new HibernateQuery("From " + TOPIC_CLASS + " Where id = ?", topic.getId());
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				old = (Topic)data.get(0);									
+			}
+			
+			DBConnectionManager.initTransaction();	
+			
+			old.setDate(topic.getDate());
+			old.setProject(topic.getProject());
+			old.setDescription(topic.getDescription());
+			old.setTitle(topic.getTitle());
+			old.setUser(topic.getUser());
+			old.setProposals(topic.getProposals());
+
+			DBConnectionManager.update(old);
 		} finally {
 			DBConnectionManager.finishTransaction();
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
 		}
 	}
 
 	public static void delete(Topic topic) throws SQLException {
 		try {
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.delete(topic);
+			DBConnectionManager.delete(queryTopic(topic.getId()));
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}

@@ -13,6 +13,7 @@ public class Operation implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3186547952710912418L;
+	
 	private String group;
 	// In some cases, this value doesn't appear
 	private String subgroup;

@@ -3,9 +3,12 @@ package presentation;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -36,6 +39,7 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
 import bussiness.control.ClientController;
+import bussiness.control.OperationsUtilities;
 
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
@@ -95,6 +99,15 @@ public class JFMain extends SingleFrameApplication {
     @Override
     protected void startup() {
     	{
+    		
+    		// TODO: Temporal
+    		try {
+				ClientController.getInstance().setCurrentProject(2);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
 	    	getMainFrame().setSize(923, 528);
     	}
         {
@@ -174,67 +187,7 @@ public class JFMain extends SingleFrameApplication {
                 }
             }
         }
-        menuBar = new JMenuBar();
-        {
-            fileMenu = new JMenu();
-            menuBar.add(fileMenu);
-            fileMenu.setName("fileMenu");
-        {
-                jMenuItem1 = new JMenuItem();
-                fileMenu.add(jMenuItem1);
-            }
-            {
-                jMenuItem2 = new JMenuItem();
-                fileMenu.add(jMenuItem2);
-                jMenuItem2.setAction(getAppActionMap().get("open"));
-            }
-            {
-                jMenuItem3 = new JMenuItem();
-                fileMenu.add(jMenuItem3);
-                jMenuItem3.setAction(getAppActionMap().get("save"));
-            }
-        }
-        {
-            editMenu = new JMenu();
-            menuBar.add(editMenu);
-            editMenu.setName("editMenu");
-        {
-                jMenuItem4 = new JMenuItem();
-                editMenu.add(jMenuItem4);
-                jMenuItem4.setAction(getAppActionMap().get("copy"));
-            }
-            {
-                jMenuItem5 = new JMenuItem();
-                editMenu.add(jMenuItem5);
-                jMenuItem5.setAction(getAppActionMap().get("cut"));
-            }
-            {
-                jMenuItem6 = new JMenuItem();
-                editMenu.add(jMenuItem6);
-                jMenuItem6.setAction(getAppActionMap().get("paste"));
-            }
-            {
-                jMenuItem7 = new JMenuItem();
-                editMenu.add(jMenuItem7);
-                jMenuItem7.setAction(getAppActionMap().get("delete"));
-            }
-        }
-        {
-        	menuOption = new JMenu();
-        	menuBar.add(menuOption);
-        	menuOption.setName("menuOption");
-        }
-        {
-        	menuHelp = new JMenu();
-        	menuBar.add(menuHelp);
-        	menuHelp.setName("menuHelp");
-        	{
-        		menuItemAbout = new JMenuItem();
-        		menuHelp.add(menuItemAbout);
-        		menuItemAbout.setName("menuItemAbout");
-        	}
-        }
-        
+        menuBar = new JMenuBar();        
         getMainFrame().setJMenuBar(menuBar);
         
         // Get available operations for the logged user
@@ -242,6 +195,8 @@ public class JFMain extends SingleFrameApplication {
 			List<Operation> operations = ClientController.getInstance().getAvailableOperations();
 	        // Configure available options
 	        configureActions(operations);
+	        // Configure menus
+	        configureMenu(operations);
 	        
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -253,10 +208,58 @@ public class JFMain extends SingleFrameApplication {
         show(topPanel);
     }
     
-    // This method is used to configure the actions tab with the available operations
+    private void configureMenu(List<Operation> operations) {
+    	groupsShown = new ArrayList<String>();
+    	
+    	for(Operation o: operations) {
+    		// Add menu entry eith the namem of the operation group
+    		if (!groupsShown.contains(o.getGroup())){
+    			JMenu menu = new JMenu();
+    			menu.setName("menu_"+o.getGroup());
+    			menu.setText(o.getGroup());
+    			groupsShown.add(o.getGroup());
+    			List<String> menuItemsName = OperationsUtilities.getSubgroupsId(operations, o.getGroup());
+    			// If there are subgroups, add menu items to manage each subgroup
+    			if (menuItemsName.size() > 0){
+	    			for (String s: menuItemsName){
+	    				if (!s.equals("")){
+	    					JMenuItem item = new JMenuItem();
+	    					item.setName("mitem_"+s);
+	    					item.setAction(getAppActionMap().get(item.getName()));
+	    					item.setText("Manage "+s);
+	    					menu.add(item);
+	    				}
+	    			}
+	    			menuBar.add(menu);
+    			}
+    			// If there aren't subgroups, add the operation directly
+    			else {
+    				for (String s: OperationsUtilities.getOperationsGroupId(operations, o.getGroup())) {
+	    				JMenuItem item = new JMenuItem();
+						item.setName("mitem_"+s);
+						item.setText(s);
+						menu.add(item);
+    				}
+    				menuBar.add(menu);
+    			} 			
+    		}
+    	}
+    	// Finally, add "Help" menu
+    	menuHelp = new JMenu();
+    	menuBar.add(menuHelp);
+    	menuHelp.setName("menuHelp");
+    	{
+    		menuItemAbout = new JMenuItem();
+    		menuHelp.add(menuItemAbout);
+    		menuItemAbout.setName("menuItemAbout");
+    	}
+    }
+
+	// This method is used to configure the actions tab with the available operations
     private void configureActions(List<Operation> operations) {
     	
 		int nOperations = operations.size() + 1;
+		groupsShown = new ArrayList<String>();
 		GridLayout layout = new GridLayout();
 		layout.setColumns(3);
 		if (nOperations % 3 == 0)
@@ -294,11 +297,14 @@ public class JFMain extends SingleFrameApplication {
 		JPanel panel = new JPanel();
 		
 		JButton button = new JButton();
-		// Set the group name
-		button.setName(o.getGroup());
+		// Set the group id as the name of the button
+		button.setName("btn_"+o.getGroup());
 		button.setContentAreaFilled(false);
 		button.setFocusPainted(false);
-		button.setBorderPainted(true);				
+		button.setBorderPainted(true);	
+		// Set the corresponding action for the name of the button
+		button.setAction(getAppActionMap().get(button.getName()));
+		button.setText("");		
 		button.setIcon(new ImageIcon(image));
 		// Save button icon
 		GraphicsUtilities.addImageButton(button.getName(), image);
@@ -315,14 +321,103 @@ public class JFMain extends SingleFrameApplication {
 			}
 		});
 		
+		button.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Clean selection from other buttons
+				for (Component c: panelActions.getComponents())
+					if (c instanceof JPanel) 
+						((JButton)(((JPanel)c).getComponent(0))).setContentAreaFilled(false);
+				JButton buttonPressed = ((JButton)e.getSource()); 
+				buttonPressed.setContentAreaFilled(true);				
+			}
+		});
+		
 		JLabel label = new JLabel();
 		label.setText("Show " + o.getGroup() + " view");
 		panel.add(label);
 		panelActions.add(panel);
     }    
     
-	@Action 
-    public void newTab (){
-    	int index = tabPanel.getTabCount();
+    /*** Actions used in menu items ***/
+	@Action
+    public void mitem_Proposal() {
+    	JFKnowledge frameKnowledge = new JFKnowledge("Proposal");
+    	frameKnowledge.setLocationRelativeTo(getMainFrame());
+    	frameKnowledge.setVisible(true);
     }
+    
+    @Action
+    public void mitem_Answer() {
+    	
+    }
+    
+    @Action
+    public void mitem_Topic() {
+    	
+    }
+    
+    /*** Actions used in buttons of the main tab ***/
+    @Action
+    public void btn_Knowledge() {
+    	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
+    	int index = tabPanel.getTabCount();
+    	
+    	JPanel panelKnowledge = new JPanel();
+    	AnchorLayout panelKnowledgeLayout = new AnchorLayout();
+    	panelKnowledge.setLayout(panelKnowledgeLayout);
+		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
+		tabPanel.setSelectedIndex(index);
+		panelKnowledge.setBounds(0, 0, 907, 415);
+    	
+    }
+    
+    @Action
+    public void btn_Notifications() {
+    	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
+    	if (!existsTab(ApplicationInternationalization.getString("tabNotification"))) {
+	    	int index = tabPanel.getTabCount();
+	    	
+	    	JPanel panelKnowledge = new JPanel();
+	    	AnchorLayout panelKnowledgeLayout = new AnchorLayout();
+	    	panelKnowledge.setLayout(panelKnowledgeLayout);
+			tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
+			tabPanel.setSelectedIndex(index);
+			panelKnowledge.setBounds(0, 0, 907, 415);
+    	}
+    	else {
+    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
+    	}
+    }
+    
+	@Action
+    public void btn_Statistics() {
+    	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
+    	int index = tabPanel.getTabCount();
+    	
+    	JPanel panelKnowledge = new JPanel();
+    	AnchorLayout panelKnowledgeLayout = new AnchorLayout();
+    	panelKnowledge.setLayout(panelKnowledgeLayout);
+		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
+		tabPanel.setSelectedIndex(index);
+		panelKnowledge.setBounds(0, 0, 907, 415);
+    }
+    
+    private boolean existsTab(String title) {
+    	boolean found = false;
+    	for(int i=0; i<tabPanel.getTabCount() && !found; i++) {
+    		if (tabPanel.getTitleAt(i).equals(title))
+    			found=true;
+    	}
+    	return found;
+    }
+    
+    private int getIndexTab(String title) {
+    	int result = -1;
+    	for(int i=0; i<tabPanel.getTabCount() && result==-1; i++) {
+    		if (tabPanel.getTitleAt(i).equals(title))
+    			result=i;
+    	}
+    	return result;
+	}
 }

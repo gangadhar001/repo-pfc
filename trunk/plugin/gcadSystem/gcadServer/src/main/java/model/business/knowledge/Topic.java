@@ -45,7 +45,6 @@ public class Topic extends Knowledge implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 	
 	public Set<Proposal> getProposals() {
 		return proposals;
@@ -63,21 +62,16 @@ public class Topic extends Knowledge implements Serializable {
 		this.project = project;
 	}
 
-	
-	public Date getCreationDate() {
-		return date;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.date = creationDate;
-	}
 
 	public void add(Proposal proposal) {
 		proposals.add(proposal);
 	}
 	
 	public void remove(Proposal proposal) {
-		proposals.remove(proposal);
+//		// In order to avoid problems of references, check explicit if the proposals are equals
+//		for (Proposal p: proposals)
+//			if (proposal.equals(p))
+				proposals.remove(proposal);
 	}	
 	
 	public String toString() {
@@ -108,17 +102,22 @@ public class Topic extends Knowledge implements Serializable {
 			result = false;
 		else if (obj instanceof Topic) {
 			Topic other = (Topic) obj;
-			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
-					description.equals(other.getDescription()) && user.equals(other.getUser()) && proposals.equals(other.getProposals()) 
-					&& project.equals(other.getProject()));
+//			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
+//					description.equals(other.getDescription()) && user.equals(other.getUser()) && proposals.equals(other.getProposals()) 
+//					&& project.equals(other.getProject()));
+			result = (id == other.getId());
 			}
 		return result;
+	}
+	
+	public int hashCode() {
+		return id;
 	}
 	
 	public Object clone () {
 		Topic t;
 		Set<Proposal> proposals = new HashSet<Proposal>();
-		t = new Topic(getTitle(), getDescription(), getCreationDate());
+		t = new Topic(getTitle(), getDescription(), getDate());
 		t.setId(getId());
 		t.setProject((Project)getProject().clone());
 		t.setUser((User)getUser().clone());

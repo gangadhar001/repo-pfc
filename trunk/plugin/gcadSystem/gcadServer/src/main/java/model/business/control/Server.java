@@ -187,7 +187,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Auxiliary methods ***/
-	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
+	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		return KnowledgeController.getProposals(sessionId);
 	}
 	
@@ -288,20 +288,20 @@ public class Server implements IServer {
 				// If this profile belongs to the given role, reads its content
 				if (profiles.contains(profilesName.get(i))) {
 					// Reads groups
-					groupsName = configFile.getList("Profile("+i+").Group[@name]");
+					groupsName = configFile.getList("Profile("+i+").Group[@id]");
 					// For each group, read subgroup
 					for (int j=0; j<groupsName.size(); j++){
-						subgroupsName = configFile.getList("Profile("+i+").Group("+j+").Subgroup[@name]");
+						subgroupsName = configFile.getList("Profile("+i+").Group("+j+").Subgroup[@id]");
 						// If there aren't any subgroups, take operations
 						if (subgroupsName.size() == 0) {
-							operationsName = configFile.getList("Profile("+i+").Group("+j+").Operations.name");
+							operationsName = configFile.getList("Profile("+i+").Group("+j+").Operations.id");
 							op = new Operation(groupsName.get(j), "", operationsName);
 							result.add(op);
 						}
 						else {
 							// If there are subgroups, take operations for each one
 							for (int k=0; k<subgroupsName.size(); k++) {
-								operationsName = configFile.getList("Profile("+i+").Group("+j+").Subgroup("+k+").Operations.name");
+								operationsName = configFile.getList("Profile("+i+").Group("+j+").Subgroup("+k+").Operations.id");
 								op = new Operation(groupsName.get(j), subgroupsName.get(k), operationsName);
 								result.add(op);
 							}		
@@ -404,7 +404,7 @@ public class Server implements IServer {
 
 	@Override
 	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException {
-		// TODO Auto-generated method stub
+		KnowledgeController.deleteProposal(sessionId, p);
 		
 	}
 

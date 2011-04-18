@@ -33,6 +33,12 @@ public class DAOUser {
 		} else {
 			user = (User) ((User)(data.get(0))).clone();			
 		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+		
 		return user;
 	}
 }

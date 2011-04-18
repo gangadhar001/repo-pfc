@@ -135,4 +135,18 @@ public class DBConnectionManager {
 		}
 	}
 
+	public static void clearCache(Object object) throws SQLException {
+		if (connections.size() == 0) {
+			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+		}
+		for (IDBConnection conexion : connections) {
+			try {
+				conexion.clearCache(object);
+			} catch (Exception ex) {
+
+				throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+			}
+		}		
+	}
+
 }
