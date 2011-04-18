@@ -237,6 +237,8 @@ public class JFLogin extends SingleFrameApplication {
     			logoPanel.setPreferredSize(new java.awt.Dimension(310, 61));
     		}
     	}
+    	
+    	getMainFrame().getRootPane().setDefaultButton(btnLogin);
         show(topPanel);
     }
     

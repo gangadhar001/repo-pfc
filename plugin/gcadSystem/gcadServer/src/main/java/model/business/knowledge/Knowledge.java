@@ -72,4 +72,6 @@ public abstract class Knowledge implements Serializable {
 	
 	public abstract Object clone();
 	
+	public abstract boolean equals(Object o);
+	
 }

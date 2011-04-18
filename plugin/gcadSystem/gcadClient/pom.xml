@@ -83,7 +83,12 @@
                 <type>jar</type>
                 <scope>test</scope>
         </dependency>
-        
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate</artifactId>
+        	<type>jar</type>
+        	<version>3.2.7.ga</version>
+        </dependency>
         <dependency>
                 <groupId>jgoodies</groupId>
                 <artifactId>forms</artifactId>

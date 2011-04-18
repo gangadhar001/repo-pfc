@@ -29,5 +29,7 @@ public interface IDBConnection extends Remote {
 	public void rollback() throws RemoteException, SQLException;
 	
 	public void deleteCache(Object object) throws RemoteException, SQLException;
+
+	public void clearCache(Object object) throws SQLException;
 		
 }

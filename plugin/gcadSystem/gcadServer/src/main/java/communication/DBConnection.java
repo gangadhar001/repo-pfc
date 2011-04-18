@@ -182,4 +182,14 @@ public class DBConnection implements IDBConnection {
 		}
 		return ok;
 	}
+
+	@Override
+	public void clearCache(Object object) throws SQLException {
+		try {
+			HibernateSessionFactory.getSession().evict(object);
+		} catch(HibernateException ex) {
+			throw new SQLException(ex.getLocalizedMessage(), ex);
+		}
+		
+	}
 }

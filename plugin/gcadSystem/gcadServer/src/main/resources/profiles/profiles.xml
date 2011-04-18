@@ -2,47 +2,47 @@
  
 <Profiles>
 	<Profile name="Default">
-		<Group name="Knowledge">
-			<Subgroup name="Proposal">
+		<Group id="Knowledge">
+			<Subgroup id="Proposal">
 				<Operations>
-					<name>Add</name>
-					<name>Modify</name>
-					<name>Delete</name>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
 				</Operations>
 			</Subgroup>
-			<Subgroup name="Answer">
+			<Subgroup id="Answer">
 				<Operations>
-					<name>Add</name>
-					<name>Modify</name>
-					<name>Delete</name>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group name="Notifications">
+		<Group id="Notifications">
 			<Operations>
-				<name>DeleteNotification</name>
+				<id>DeleteNotification</id>
 			</Operations>
 		</Group>
 	</Profile>
 	<Profile name="Chief">
-		<Group name="Knowledge">
-			<Subgroup name="Topic">
+		<Group id="Knowledge">
+			<Subgroup id="Topic">
 				<Operations>
-					<name>Add</name>
-					<name>Modify</name>
-					<name>Delete</name>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group name="Project">
+		<Group id="Project">
 			<Operations>
-				<name>Add</name>
+				<id>Add</id>
 			</Operations>
 		</Group>
-		<Group name="Statistics">
+		<Group id="Statistics">
 			<Operations>
-				<name>Add</name>
-				<name>Save</name>
+				<id>Add</id>
+				<id>Save</id>
 			</Operations>
 		</Group>
 	</Profile>	

@@ -77,10 +77,15 @@ public class Notification implements Serializable{
 			result = false;
 		else if (obj instanceof Notification) {
 			Notification other = (Notification) obj;
-			result = (knowledge.equals(other.getKnowledge()) && state.equals(other.getState()) &&
-					project.equals(other.getProject()));
+//			result = (knowledge.equals(other.getKnowledge()) && state.equals(other.getState()) &&
+//					project.equals(other.getProject()));
+			result = (id == other.getId());
 		}
 		return result;
+	}
+	
+	public int hashCode() {
+		return id;
 	}
 
 }

@@ -151,13 +151,19 @@ public class Project implements Serializable {
 			result = false;
 		else if (obj instanceof Project) {
 			Project other = (Project) obj;
-			result = (name.equals(other.getName()) && description.equals(other.getDescription()) &&
-					startDate.equals(other.getStartDate()) && endDate.equals(other.getEndDate()) && budget == other.getBudget()
-					&& quantityLines == other.getQuantityLines() && domain.equals(other.getDomain()) && progLanguage.equals(other.getProgLanguage())
-					&& estimatedHours == other.getEstimatedHours());
+//			result = (name.equals(other.getName()) && description.equals(other.getDescription()) &&
+//					startDate.equals(other.getStartDate()) && endDate.equals(other.getEndDate()) && budget == other.getBudget()
+//					&& quantityLines == other.getQuantityLines() && domain.equals(other.getDomain()) && progLanguage.equals(other.getProgLanguage())
+//					&& estimatedHours == other.getEstimatedHours());
+			result = (id == other.getId());
 			}
+		
 		return result;
 	}	
+	
+	public int hashCode() {
+		return id;
+	}
 	
 	public Object clone() {
 		Project p;

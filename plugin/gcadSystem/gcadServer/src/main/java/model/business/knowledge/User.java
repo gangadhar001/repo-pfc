@@ -159,13 +159,11 @@ public abstract class User implements Serializable {
 			result = false;
 		else if (obj instanceof User) {
 			User other = (User) obj;
-			result = (nif.equals(other.getNif()) && name.equals(other.getName()) &&
-					surname.equals(other.getSurname()) && email.equals(other.getEmail()) && telephone.equals(other.getTelephone()) 
-					&& company.equals(other.getCompany()) && projects.equals(other.getProjects()));
+			result = (nif.equals(other.getNif()));
 			}
 		return result;
 	}
-	
+		
 	public abstract Object clone();
 	
 }

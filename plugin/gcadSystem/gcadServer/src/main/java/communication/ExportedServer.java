@@ -165,7 +165,7 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException {
-		// TODO Auto-generated method stub
+		server.deleteProposal(sessionId, p);
 		
 	}
 
@@ -204,8 +204,7 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	public ArrayList<Proposal> getProposals(long sessionId)  throws RemoteException, SQLException,
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoProposalsException {
-		// TODO Auto-generated method stub
-		return null;
+		return server.getProposals(sessionId);
 	}
 
 	@Override
