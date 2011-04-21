@@ -50,7 +50,7 @@ public class JPTopicInfo extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(null);
-			this.setPreferredSize(new java.awt.Dimension(405, 166));
+			this.setPreferredSize(new java.awt.Dimension(431, 174));
 			this.setSize(439, 317);
 			{
 				panelTopicInfo = new JPanel();
@@ -58,6 +58,8 @@ public class JPTopicInfo extends javax.swing.JPanel {
 				panelTopicInfo.setBorder(BorderFactory.createTitledBorder("Topic Info"));
 				panelTopicInfo.setLayout(null);
 				panelTopicInfo.setBounds(0, 0, 405, 137);
+				panelTopicInfo.setSize(431, 174);
+				panelTopicInfo.setPreferredSize(new java.awt.Dimension(431, 174));
 				{
 					txtDescription = new JTextPane();
 					panelTopicInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));

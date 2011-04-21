@@ -49,19 +49,21 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -1064240066762280491L;
-	private JTabbedPane tabPanelProposal;
-	private JPanel panelModifyProposal;
+	private JTabbedPane tabPanelAnswer;
+	private JPanel panelModifyAnswer;
+	private JPAnswerInfo panelAnswerInfoModify;
+	private JComboBox cbAnswers;
+	private JLabel lblAnswerModify;
+	private JPAnswerInfo panelAnswerInfoAdd;
 	private JButton btnSaveModify;
-	private JButton btnCanelModify;
+	private JButton btnCancelModify;
 	private JComboBox cbProposals;
-	private JPProposalInfo proposalInfoModify;
 	private JLabel lblProposals;
-	private JPProposalInfo proposalInfoAdd;
-	private JButton btnCancel;
-	private JButton btnSaveProposal;
-	private JComboBox cbTopics;
-	private JLabel lblTopic;
-	private JPanel panelAddProposal;
+	private JButton btnCancelAdd;
+	private JButton btnSaveAnswer;
+	private JComboBox cbProposalsAdd;
+	private JLabel lblProposal;
+	private JPanel panelAddAnswer;
 	private ArrayList<Topic> topics;
 	private ArrayList<Proposal> proposals;
 
@@ -72,97 +74,109 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(434, 293));
+			this.setPreferredSize(new java.awt.Dimension(460, 288));
 			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(438, 317);
+			this.setSize(460, 288);
 			{
-				tabPanelProposal = new JTabbedPane();
-				this.add(tabPanelProposal, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-				tabPanelProposal.setPreferredSize(new java.awt.Dimension(438, 317));
+				tabPanelAnswer = new JTabbedPane();
+				this.add(tabPanelAnswer, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				tabPanelAnswer.setPreferredSize(new java.awt.Dimension(438, 317));
 				{
-					panelAddProposal = new JPanel();
-					tabPanelProposal.addTab("Add Proposal", null, panelAddProposal, null);
-					panelAddProposal.setLayout(null);
-					panelAddProposal.setPreferredSize(new java.awt.Dimension(429, 264));
-					panelAddProposal.setSize(439, 317);
-					panelAddProposal.setName("panelAddProposals");
+					panelAddAnswer = new JPanel();
+					tabPanelAnswer.addTab("Add Answer", null, panelAddAnswer, null);
+					panelAddAnswer.setLayout(null);
+					panelAddAnswer.setPreferredSize(new java.awt.Dimension(429, 264));
+					panelAddAnswer.setSize(439, 317);
+					panelAddAnswer.setName("panelAddProposals");
 					{
-						proposalInfoAdd = new JPProposalInfo();
-						panelAddProposal.add(proposalInfoAdd, new AnchorConstraint(143,973,769,28,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
-						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(409, 181));
-						proposalInfoAdd.setLayout(null);
-						proposalInfoAdd.setBounds(12, 41, 409, 181);
+						btnCancelAdd = new JButton();
+						panelAddAnswer.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+						btnCancelAdd.setName("btnCancelAdd");
+						btnCancelAdd.setBounds(376, 227, 67, 25);
 					}
 					{
-						btnCancel = new JButton();
-						panelAddProposal.add(btnCancel, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						btnCancel.setName("btnCancel");
-						btnCancel.setBounds(348, 227, 67, 25);
-					}
-					{
-						btnSaveProposal = new JButton();
-						panelAddProposal.add(btnSaveProposal, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						btnSaveProposal.setName("btnSaveProposal");
-						btnSaveProposal.setBounds(269, 228, 68, 24);
-						btnSaveProposal.addActionListener(new ActionListener() {
+						btnSaveAnswer = new JButton();
+						panelAddAnswer.add(btnSaveAnswer, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+						btnSaveAnswer.setName("btnSaveAnswer");
+						btnSaveAnswer.setBounds(297, 228, 68, 24);
+						btnSaveAnswer.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								btnSaveProposalActionPerformed(evt);
+								btnSaveAnswerActionPerformed(evt);
 							}
 						});
 					}
 					{
-						cbTopics = new JComboBox();
-						panelAddProposal.add(cbTopics, new AnchorConstraint(32,726,112,285,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
-						cbTopics.setBounds(134, 9, 191, 23);
+						cbProposalsAdd = new JComboBox();
+						panelAddAnswer.add(cbProposalsAdd, new AnchorConstraint(32,726,112,285,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
+						cbProposalsAdd.setBounds(134, 9, 191, 23);
 						setItemsComboTopics();
 					}
 					{
-						lblTopic = new JLabel();
-						panelAddProposal.add(lblTopic, new AnchorConstraint(43,243,102,28,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
-						lblTopic.setPreferredSize(new java.awt.Dimension(93, 17));
-						lblTopic.setName("lblTopic");
-						lblTopic.setBounds(12, 12, 93, 17);
+						lblProposal = new JLabel();
+						panelAddAnswer.add(lblProposal, new AnchorConstraint(43,243,102,28,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
+						lblProposal.setName("lblProposal");
+						lblProposal.setBounds(12, 12, 110, 17);
+					}
+					{
+						panelAnswerInfoAdd = new JPAnswerInfo();
+						panelAddAnswer.add(panelAnswerInfoAdd);
+						panelAnswerInfoAdd.setBounds(12, 44, 431, 172);
 					}
 				}
 				{
-					panelModifyProposal = new JPanel();
-					tabPanelProposal.addTab("Modify Proposal", null, panelModifyProposal, null);
-					panelModifyProposal.setName("panelModifyProposal");
-					panelModifyProposal.setLayout(null);
+					panelModifyAnswer = new JPanel();
+					tabPanelAnswer.addTab("Modify Answer", null, panelModifyAnswer, null);
+					panelModifyAnswer.setName("panelModifyAnswer");
+					panelModifyAnswer.setLayout(null);
 					{
 						lblProposals = new JLabel();
-						panelModifyProposal.add(lblProposals);
+						panelModifyAnswer.add(lblProposals);
 						lblProposals.setBounds(12, 12, 109, 16);
 						lblProposals.setName("lblProposals");
 					}
 					{
-						proposalInfoModify = new JPProposalInfo();
-						panelModifyProposal.add(proposalInfoModify);
-						proposalInfoModify.setBounds(12, 41, 409, 181);
-					}
-					{
 						cbProposals = new JComboBox();
-						panelModifyProposal.add(cbProposals);
-						cbProposals.setBounds(134, 9, 191, 23);
+						panelModifyAnswer.add(cbProposals);
+						cbProposals.setBounds(110, 9, 136, 23);
 						setItemsComboProposals();
 					}
 					{
-						btnCanelModify = new JButton();
-						panelModifyProposal.add(btnCanelModify);
-						btnCanelModify.setBounds(348, 227, 67, 25);
-						btnCanelModify.setName("btnCanelModify");
+						btnCancelModify = new JButton();
+						panelModifyAnswer.add(btnCancelModify);
+						btnCancelModify.setBounds(376, 227, 67, 25);
+						btnCancelModify.setName("btnCancelModify");
 					}
 					{
 						btnSaveModify = new JButton();
-						panelModifyProposal.add(btnSaveModify);
-						btnSaveModify.setBounds(269, 228, 68, 24);
+						panelModifyAnswer.add(btnSaveModify);
+						btnSaveModify.setBounds(297, 228, 68, 24);
 						btnSaveModify.setName("btnSaveModify");
 						btnSaveModify.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnSaveModifyActionPerformed(evt);
 							}
 						});
+					}
+					{
+						lblAnswerModify = new JLabel();
+						panelModifyAnswer.add(lblAnswerModify);
+						lblAnswerModify.setBounds(258, 12, 49, 17);
+						lblAnswerModify.setName("lblAnswerModify");
+					}
+					{
+						ComboBoxModel cbAnswersModel = 
+							new DefaultComboBoxModel(
+									new String[] { "Item One", "Item Two" });
+						cbAnswers = new JComboBox();
+						panelModifyAnswer.add(cbAnswers);
+						cbAnswers.setModel(cbAnswersModel);
+						cbAnswers.setBounds(307, 9, 136, 23);
+					}
+					{
+						panelAnswerInfoModify = new JPAnswerInfo();
+						panelModifyAnswer.add(panelAnswerInfoModify);
+						panelAnswerInfoModify.setBounds(12, 44, 431, 172);
 					}
 				}
 			}
@@ -171,9 +185,9 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			// Hide tabs not available 
 			List<String> operationsId = OperationsUtilities.getAllOperationsId(ClientController.getInstance().getAvailableOperations());
 			if (!operationsId.contains("Add"))
-				tabPanelProposal.remove(panelAddProposal);
+				tabPanelAnswer.remove(panelAddAnswer);
 			if (!operationsId.contains("Modify"))
-				tabPanelProposal.remove(panelModifyProposal);
+				tabPanelAnswer.remove(panelModifyAnswer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -186,7 +200,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			if (topics.size() == 0)
 				;
 			for (int i=0; i<topics.size(); i++)
-				cbTopics.insertItemAt(topics.get(i).getTitle(), i); 
+				cbProposalsAdd.insertItemAt(topics.get(i).getTitle(), i); 
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -235,33 +249,33 @@ public class JPManageAnswer extends javax.swing.JPanel {
 		}	
 	}
 	
-	private void btnSaveProposalActionPerformed(ActionEvent evt) {
-		Proposal pro = new Proposal(proposalInfoAdd.getProposalTitle(), proposalInfoAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
-		try {
-			ClientController.getInstance().addProposal(pro, topics.get(cbTopics.getSelectedIndex()));
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private void btnSaveAnswerActionPerformed(ActionEvent evt) {
+//		Proposal pro = new Proposal(proposalAnswerAdd.getProposalTitle(), proposalAnswerAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
+//		try {
+//			ClientController.getInstance().addProposal(pro, topics.get(cbProposalsAdd.getSelectedIndex()));
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	private void btnSaveModifyActionPerformed(ActionEvent evt) {
-		Proposal newPro = new Proposal(proposalInfoModify.getProposalTitle(), proposalInfoModify.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoModify.getProposalCategory()));
-		try {
-			// TODO: se necesita el topic, porque una propuesta no almacena su padre topic
-			
-			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbProposals.getSelectedIndex()), topics.get(cbTopics.getSelectedIndex()));
-//			ClientController.getInstance().deleteProposal(proposals.get(cbProposals.getSelectedIndex()));
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Proposal newPro = new Proposal(proposalAnswerModify.getProposalTitle(), proposalAnswerModify.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoModify.getProposalCategory()));
+//		try {
+//			// TODO: se necesita el topic, porque una propuesta no almacena su padre topic
+//			
+//			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbProposals.getSelectedIndex()), topics.get(cbProposalsAdd.getSelectedIndex()));
+////			ClientController.getInstance().deleteProposal(proposals.get(cbProposals.getSelectedIndex()));
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 }

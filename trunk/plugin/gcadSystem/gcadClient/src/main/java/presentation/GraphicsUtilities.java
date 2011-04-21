@@ -1,6 +1,7 @@
 package presentation;
 
 import java.awt.image.BufferedImage;
+
 import java.awt.image.ColorModel;
 import java.awt.image.Raster;
 import java.awt.image.RescaleOp;

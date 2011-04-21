@@ -52,14 +52,16 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(null);
-			this.setPreferredSize(new java.awt.Dimension(405, 166));
-			this.setSize(439, 317);
+			this.setPreferredSize(new java.awt.Dimension(431, 174));
+			this.setSize(405, 166);
 			{
 				panelProposalInfo = new JPanel();
 				this.add(panelProposalInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				panelProposalInfo.setBorder(BorderFactory.createTitledBorder("Proposal Info"));
 				panelProposalInfo.setLayout(null);
 				panelProposalInfo.setBounds(0, 0, 405, 166);
+				panelProposalInfo.setPreferredSize(new java.awt.Dimension(431, 174));
+				panelProposalInfo.setSize(431, 174);
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
