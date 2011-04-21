@@ -51,13 +51,15 @@ public class JPManageProposal extends javax.swing.JPanel {
 	private static final long serialVersionUID = -1064240066762280491L;
 	private JTabbedPane tabPanelProposal;
 	private JPanel panelModifyProposal;
-	private JButton btnSaveModify;
-	private JButton btnCanelModify;
-	private JComboBox cbProposals;
-	private JPProposalInfo proposalInfoModify;
+	private JLabel lblTopicModify;
+	private JComboBox cbTopicsModify;
 	private JLabel lblProposals;
+	private JComboBox cbProposals;
 	private JPProposalInfo proposalInfoAdd;
-	private JButton btnCancel;
+	private JButton btnSaveModify;
+	private JButton btnCancelModify;
+	private JPProposalInfo proposalInfoModify;
+	private JButton btnCancelAdd;
 	private JButton btnSaveProposal;
 	private JComboBox cbTopics;
 	private JLabel lblTopic;
@@ -72,10 +74,10 @@ public class JPManageProposal extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(438, 298));
+			this.setPreferredSize(new java.awt.Dimension(460, 288));
 			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(438, 317);
+			this.setSize(460, 288);
 			{
 				tabPanelProposal = new JTabbedPane();
 				this.add(tabPanelProposal, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
@@ -88,23 +90,16 @@ public class JPManageProposal extends javax.swing.JPanel {
 					panelAddProposal.setSize(439, 317);
 					panelAddProposal.setName("panelAddProposals");
 					{
-						proposalInfoAdd = new JPProposalInfo();
-						panelAddProposal.add(proposalInfoAdd, new AnchorConstraint(143,973,769,28,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
-						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(409, 181));
-						proposalInfoAdd.setLayout(null);
-						proposalInfoAdd.setBounds(12, 41, 409, 181);
-					}
-					{
-						btnCancel = new JButton();
-						panelAddProposal.add(btnCancel, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						btnCancel.setName("btnCancel");
-						btnCancel.setBounds(348, 234, 67, 25);
+						btnCancelAdd = new JButton();
+						panelAddProposal.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+						btnCancelAdd.setName("btnCancelAdd");
+						btnCancelAdd.setBounds(376, 227, 67, 25);
 					}
 					{
 						btnSaveProposal = new JButton();
 						panelAddProposal.add(btnSaveProposal, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnSaveProposal.setName("btnSaveProposal");
-						btnSaveProposal.setBounds(269, 235, 68, 24);
+						btnSaveProposal.setBounds(297, 228, 68, 24);
 						btnSaveProposal.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnSaveProposalActionPerformed(evt);
@@ -124,6 +119,12 @@ public class JPManageProposal extends javax.swing.JPanel {
 						lblTopic.setName("lblTopic");
 						lblTopic.setBounds(12, 12, 93, 17);
 					}
+					{
+						proposalInfoAdd = new JPProposalInfo();
+						panelAddProposal.add(proposalInfoAdd);
+						proposalInfoAdd.setBounds(12, 44, 431, 172);
+						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(431, 172));
+					}
 				}
 				{
 					panelModifyProposal = new JPanel();
@@ -131,38 +132,56 @@ public class JPManageProposal extends javax.swing.JPanel {
 					panelModifyProposal.setName("panelModifyProposal");
 					panelModifyProposal.setLayout(null);
 					{
-						lblProposals = new JLabel();
-						panelModifyProposal.add(lblProposals);
-						lblProposals.setBounds(12, 12, 109, 16);
-						lblProposals.setName("lblProposals");
-					}
-					{
 						proposalInfoModify = new JPProposalInfo();
 						panelModifyProposal.add(proposalInfoModify);
-						proposalInfoModify.setBounds(12, 41, 409, 181);
+						proposalInfoModify.setBounds(12, 44, 431, 172);
 					}
 					{
-						cbProposals = new JComboBox();
-						panelModifyProposal.add(cbProposals);
-						cbProposals.setBounds(134, 9, 191, 23);
-						setItemsComboProposals();
-					}
-					{
-						btnCanelModify = new JButton();
-						panelModifyProposal.add(btnCanelModify);
-						btnCanelModify.setBounds(348, 234, 67, 25);
-						btnCanelModify.setName("btnCanelModify");
+						btnCancelModify = new JButton();
+						panelModifyProposal.add(btnCancelModify);
+						btnCancelModify.setBounds(376, 227, 67, 25);
+						btnCancelModify.setName("btnCancelModify");
 					}
 					{
 						btnSaveModify = new JButton();
 						panelModifyProposal.add(btnSaveModify);
-						btnSaveModify.setBounds(269, 235, 68, 24);
+						btnSaveModify.setBounds(297, 228, 68, 24);
 						btnSaveModify.setName("btnSaveModify");
 						btnSaveModify.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnSaveModifyActionPerformed(evt);
 							}
 						});
+					}
+					{
+						ComboBoxModel cbAnswersModel = 
+							new DefaultComboBoxModel(
+									new String[] { "Item One", "Item Two" });
+						cbProposals = new JComboBox();
+						panelModifyProposal.add(cbProposals);
+						cbProposals.setModel(cbAnswersModel);
+						cbProposals.setBounds(307, 9, 136, 23);
+					}
+					{
+						lblProposals = new JLabel();
+						panelModifyProposal.add(lblProposals);
+						lblProposals.setName("lblProposals");
+						lblProposals.setBounds(258, 12, 49, 17);
+					}
+					{
+						ComboBoxModel cbProposalsModel = 
+							new DefaultComboBoxModel(
+									new String[] { "Item One", "Item Two" });
+						cbTopicsModify = new JComboBox();
+						panelModifyProposal.add(cbTopicsModify);
+						cbTopicsModify.setModel(cbProposalsModel);
+						cbTopicsModify.setBounds(110, 9, 136, 23);
+					}
+					{
+						lblTopicModify = new JLabel();
+						panelModifyProposal.add(lblTopicModify);
+						lblTopicModify.setName("lblTopicModify");
+						lblTopicModify.setBounds(12, 12, 109, 16);
 					}
 				}
 			}
@@ -212,7 +231,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 			if (proposals.size() == 0)
 				;
 			for (int i=0; i<proposals.size(); i++)
-				cbProposals.insertItemAt(proposals.get(i).getTitle(), i); 
+				cbTopicsModify.insertItemAt(proposals.get(i).getTitle(), i); 
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,8 +272,8 @@ public class JPManageProposal extends javax.swing.JPanel {
 		try {
 			// TODO: se necesita el topic, porque una propuesta no almacena su padre topic
 			
-			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbProposals.getSelectedIndex()), topics.get(cbTopics.getSelectedIndex()));
-//			ClientController.getInstance().deleteProposal(proposals.get(cbProposals.getSelectedIndex()));
+			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbTopicsModify.getSelectedIndex()), topics.get(cbTopics.getSelectedIndex()));
+//			ClientController.getInstance().deleteProposal(proposals.get(cbTopicsModify.getSelectedIndex()));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

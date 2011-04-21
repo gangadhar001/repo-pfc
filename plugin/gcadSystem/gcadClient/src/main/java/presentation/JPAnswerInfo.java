@@ -34,7 +34,7 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	 */
 	private static final long serialVersionUID = 7654096440940167508L;
 	private JPanel panelAnswerInfo;
-	private JComboBox cbCategories;
+	private JComboBox cbArgument;
 	private JLabel lblCategoryAnswer;
 	private JLabel lblAnswerTitle;
 	private JLabel lblDescriptionAnswer;
@@ -56,22 +56,23 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(null);
-			this.setPreferredSize(new java.awt.Dimension(405, 166));
-			this.setSize(439, 317);
+			this.setPreferredSize(new java.awt.Dimension(431, 174));
+			this.setSize(405, 166);
 			{
 				panelAnswerInfo = new JPanel();
 				this.add(panelAnswerInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				panelAnswerInfo.setBorder(BorderFactory.createTitledBorder("Answer Info"));
 				panelAnswerInfo.setLayout(null);
-				panelAnswerInfo.setBounds(0, 0, 405, 166);
+				panelAnswerInfo.setBounds(0, 0, 431, 174);
+				panelAnswerInfo.setPreferredSize(new java.awt.Dimension(431, 174));
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
 								new String[] { "Analysis", "Design" });
-					cbCategories = new JComboBox();
-					panelAnswerInfo.add(cbCategories, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					cbCategories.setModel(cbCategoriesModel);
-					cbCategories.setBounds(122, 135, 184, 23);
+					cbArgument = new JComboBox();
+					panelAnswerInfo.add(cbArgument, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+					cbArgument.setModel(cbCategoriesModel);
+					cbArgument.setBounds(122, 135, 184, 23);
 				}
 				{
 					lblCategoryAnswer = new JLabel();
@@ -117,7 +118,7 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	}
 	
 	public String getAnswerCategory() {
-		return cbCategories.getSelectedItem().toString();
+		return cbArgument.getSelectedItem().toString();
 	}
 
 }

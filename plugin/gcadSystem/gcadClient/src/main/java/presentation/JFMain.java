@@ -5,6 +5,7 @@ import internationalization.ApplicationInternationalization;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,11 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.TableColumnModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import model.business.knowledge.Operation;
 
@@ -384,6 +390,21 @@ public class JFMain extends SingleFrameApplication {
 			tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
 			tabPanel.setSelectedIndex(index);
 			panelKnowledge.setBounds(0, 0, 907, 415);
+			JPanel panel = new JPanel();
+			NotificationsTable table = new NotificationsTable();
+			table.setShowHorizontalLines(false);
+			table.setShowVerticalLines(false);
+			table.setFillsViewportHeight(true);
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			table.setIntercellSpacing(new Dimension(0, 0));
+			DefaultTableModel model = new DefaultTableModel(10, 3);
+			table.setModel(model);
+			table.bound();
+			panel.add(table);
+			table.setPreferredSize(new java.awt.Dimension(626, 323));
+			panel.setBounds(0, 0, 907, 415);
+			panelKnowledge.add(panel);
+	        
     	}
     	else {
     		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
