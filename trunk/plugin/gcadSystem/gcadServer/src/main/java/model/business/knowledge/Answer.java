@@ -37,6 +37,10 @@ public class Answer extends Knowledge implements Serializable{
 
 	@Override
 	public String toString() {
+		return title;
+	}
+	
+	public String getInfo() {
 		StringBuffer result = new StringBuffer();
 		result.append("Answer:\n");
 		result.append("      " + title + "\n");

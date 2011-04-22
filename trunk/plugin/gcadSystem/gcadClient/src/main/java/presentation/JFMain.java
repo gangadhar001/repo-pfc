@@ -54,7 +54,10 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.swingx.util.MailTransportProxy;
 
+import presentation.customComponents.JPDetailsCompany;
+import presentation.customComponents.JPDetailsCompanyGlassPanel;
 import presentation.dataVisualization.NotificationsTable;
+import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.utils.GraphicsUtilities;
 
@@ -111,6 +114,8 @@ public class JFMain extends SingleFrameApplication {
     
     private BufferedImage image;
     private ArrayList<String> groupsShown = new ArrayList<String>();
+	private JPDetailsCompany panelDetailsCompany;
+	private JPDetailsCompanyGlassPanel view;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -118,21 +123,30 @@ public class JFMain extends SingleFrameApplication {
 
     @Override
     protected void startup() {
-    	{
-    		
-    		// TODO: Temporal
-    		try {
+    	{    		
+		// TODO: Temporal
+		try {
+			{
+    			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
+    			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
     			{
-	    			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
-	    			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
+
+					panelDetailsCompany = new JPDetailsCompany(this);
+					
+    				view = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
+    				getMainFrame().setGlassPane(view);
+    				
+    				
+    				
     			}
-				ClientController.getInstance().setCurrentProject(2);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-    		
-	    	getMainFrame().setSize(902, 402);
+			ClientController.getInstance().setCurrentProject(2);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    	getMainFrame().setSize(902, 402);
     	}
         {
             topPanel = new JPanel();
@@ -236,6 +250,9 @@ public class JFMain extends SingleFrameApplication {
 		} catch (NonPermissionRole e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+		// Set glass panel, in order to show the company details dialog
+
+		getMainFrame().setGlassPane(view);
 		
         // Show the main frame
         show(topPanel);
@@ -396,8 +413,8 @@ public class JFMain extends SingleFrameApplication {
     	// Create a new tab in order to store the different Knowledge views
     	int index = tabPanel.getTabCount();
 
-//		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
-//		tabPanel.setSelectedIndex(index);
+		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, new panelKnowledgeView(this), null, index);
+		tabPanel.setSelectedIndex(index);
 
     }
     
@@ -436,5 +453,16 @@ public class JFMain extends SingleFrameApplication {
     			result=i;
     	}
     	return result;
+	}
+    
+    public void fadeIn() {
+
+		view.fadeIn();
+	}
+
+	public void fadeOut() {
+		
+		view.fadeOut();
+		
 	}
 }

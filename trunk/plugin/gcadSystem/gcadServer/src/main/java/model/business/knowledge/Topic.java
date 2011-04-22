@@ -75,6 +75,10 @@ public class Topic extends Knowledge implements Serializable {
 	}	
 	
 	public String toString() {
+		return title;
+	}
+	
+	public String getInfo() {
 		StringBuffer result = new StringBuffer();
 		Proposal p;
 		result.append("Topic:\n");
@@ -89,7 +93,6 @@ public class Topic extends Knowledge implements Serializable {
 		}	
 		return result.toString();
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
