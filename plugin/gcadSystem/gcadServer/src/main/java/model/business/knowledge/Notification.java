@@ -61,9 +61,9 @@ public class Notification implements Serializable{
 	public Object clone() {
 		Notification n;
 		n = new Notification((Knowledge)getKnowledge().clone());
-		n.setId(n.getId());
-		n.setState(n.getState());
-		n.setProject((Project)n.getProject().clone());
+		n.setId(getId());
+		n.setState(getState());
+		n.setProject((Project)getProject().clone());
 		return n;
 	}
 	

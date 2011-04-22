@@ -1,23 +1,20 @@
-package presentation;
+package presentation.dataVisualization;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.util.Date;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import presentation.utils.DateUtilities;
+import presentation.utils.DateRenderer;
 
-public class NotificationsTable extends JTable {
+public class CustomTable extends JTable {
 
 	/**
 	 * 
@@ -27,28 +24,14 @@ public class NotificationsTable extends JTable {
 	private boolean showDifferentColors = false;
 	private Color STRIPED_COLOR = new Color(237, 242, 249);
 	
-	public NotificationsTable() {
-		setName("notificationsTable");		
+	public CustomTable() {
+		super();
 	}
 	
 	public boolean isCellEditable(int row, int column) {
 		return false;
 	}
-	
-	void bound() {
-		getTableHeader().setFont(getFont().deriveFont(getFont().getSize() + 3f));
-		setRowHeight(30);
-		TableColumnModel cm = getColumnModel();
-        cm.getColumn(0).setMaxWidth(24);
-        cm.getColumn(1).setPreferredWidth(400);
-        cm.getColumn(1).setMaxWidth(400);
-        cm.getColumn(0).setHeaderValue("");
-        cm.getColumn(1).setHeaderValue("Subject");
-        cm.getColumn(2).setHeaderValue("Date");
-        // Convert date to a custom format
-        cm.getColumn(2).setCellRenderer(new DateRenderer());
-	}
-	
+		
 	// Method use to display a custom table, with diferent colors.
 	protected void paintComponent(Graphics g) {
 		Rectangle rec = g.getClipBounds();
@@ -102,18 +85,5 @@ public class NotificationsTable extends JTable {
 
 	protected void setStripedTable() {
 		repaint();		
-	}
-
-
-	private static class DateRenderer extends DefaultTableCellRenderer {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 582215961691417214L;
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			return super.getTableCellRendererComponent(table, DateUtilities.convert((Date)value), isSelected, hasFocus, row, column);
-			
-		}
 	}
 }

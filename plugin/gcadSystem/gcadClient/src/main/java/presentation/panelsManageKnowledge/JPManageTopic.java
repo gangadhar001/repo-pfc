@@ -1,4 +1,4 @@
-package presentation;
+package presentation.panelsManageKnowledge;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;

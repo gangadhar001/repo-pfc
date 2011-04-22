@@ -196,8 +196,7 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public ArrayList<Notification> getNotifications(long sessionId)  throws RemoteException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return server.getNotifications(sessionId);
 	}
 
 	@Override
