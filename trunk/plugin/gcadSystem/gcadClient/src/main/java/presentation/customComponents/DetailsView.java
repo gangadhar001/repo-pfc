@@ -1,4 +1,4 @@
-package presentation;
+package presentation.customComponents;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -21,6 +21,8 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.image.GaussianBlurFilter;
+
+import presentation.utils.GraphicsUtilities;
 
 public class DetailsView extends JXPanel  implements ActionListener {
     private DetailPanel detailPanel;

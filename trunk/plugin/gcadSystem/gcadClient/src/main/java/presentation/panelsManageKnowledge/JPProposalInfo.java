@@ -1,4 +1,4 @@
-package presentation;
+package presentation.panelsManageKnowledge;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 

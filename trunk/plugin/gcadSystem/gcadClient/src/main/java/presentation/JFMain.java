@@ -6,8 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -29,20 +32,31 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import model.business.knowledge.Operation;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.jdesktop.swingx.util.MailTransportProxy;
+
+import presentation.dataVisualization.NotificationsTable;
+import presentation.panelsActions.panelNotificationsView;
+import presentation.utils.GraphicsUtilities;
 
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -71,11 +85,11 @@ import exceptions.NonPermissionRole;
 public class JFMain extends SingleFrameApplication {
     private JMenuBar menuBar;
     private JPanel panelActions;
+    private JLabel lblStatus;
     private JTabbedPane tabPanel;
     private JMenuItem menuItemAbout;
     private JMenu menuHelp;
     private JMenu menuOption;
-    private JLabel lblStatus;
     private JPanel statusPanel;
     private JPanel topPanel;
     private JMenuItem jMenuItem7;
@@ -108,13 +122,17 @@ public class JFMain extends SingleFrameApplication {
     		
     		// TODO: Temporal
     		try {
+    			{
+	    			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
+	    			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
+    			}
 				ClientController.getInstance().setCurrentProject(2);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     		
-	    	getMainFrame().setSize(923, 528);
+	    	getMainFrame().setSize(902, 402);
     	}
         {
             topPanel = new JPanel();
@@ -123,13 +141,18 @@ public class JFMain extends SingleFrameApplication {
             topPanel.setPreferredSize(new java.awt.Dimension(500, 300));
             {
                 contentPanel = new JPanel();
-                AnchorLayout contentPanelLayout = new AnchorLayout();
+                GridBagLayout contentPanelLayout = new GridBagLayout();
+                contentPanelLayout.rowWeights = new double[] {0.1, 0.1};
+                contentPanelLayout.rowHeights = new int[] {7, 7};
+                contentPanelLayout.columnWeights = new double[] {0.1};
+                contentPanelLayout.columnWidths = new int[] {7};
                 contentPanel.setLayout(contentPanelLayout);
                 topPanel.add(contentPanel, BorderLayout.CENTER);
+                contentPanel.setPreferredSize(new java.awt.Dimension(886, 211));
                 {
                 	tabPanel = new JTabbedPane();
                 	
-                	contentPanel.add(tabPanel, new AnchorConstraint(1, 1000, 940, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+                	contentPanel.add(tabPanel, new GridBagConstraints(0, 0, 1, 2, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 2, 28, 0), 0, 0));
                 	tabPanel.setPreferredSize(new java.awt.Dimension(907, 415));
                 	{
                 		panelActions = new JPanel();
@@ -141,18 +164,22 @@ public class JFMain extends SingleFrameApplication {
                 		tabPanel.addTab(ApplicationInternationalization.getString("tabActions"), null, panelActions, null);
                 		panelActions.setBounds(0, 0, 907, 415);
                 		panelActions.setName("panelActions");
+                		panelActions.setPreferredSize(new java.awt.Dimension(902, 402));
                 	}
                 }
                 {
                 	statusPanel = new JPanel();
-                	AnchorLayout statusPanelLayout = new AnchorLayout();
+                	GridBagLayout statusPanelLayout = new GridBagLayout();
+                	statusPanelLayout.rowWeights = new double[] {0.1};
+                	statusPanelLayout.rowHeights = new int[] {7};
+                	statusPanelLayout.columnWeights = new double[] {0.1};
+                	statusPanelLayout.columnWidths = new int[] {7};
                 	statusPanel.setLayout(statusPanelLayout);
-                	contentPanel.add(statusPanel, new AnchorConstraint(953, 1000, 1001, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+                	contentPanel.add(statusPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTH, GridBagConstraints.BOTH, new Insets(280, 0, 0, 0), 0, 0));
                 	statusPanel.setPreferredSize(new java.awt.Dimension(907, 21));
                 	{
                 		lblStatus = new JLabel();
-                		statusPanel.add(lblStatus, new AnchorConstraint(0, 742, 785, 6, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-                		lblStatus.setPreferredSize(new java.awt.Dimension(160, 16));
+                		statusPanel.add(lblStatus, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 4, 0, 0), 0, 0));
                 		lblStatus.setName("lblStatus");
                 	}
                 }
@@ -218,7 +245,7 @@ public class JFMain extends SingleFrameApplication {
     	groupsShown = new ArrayList<String>();
     	
     	for(Operation o: operations) {
-    		// Add menu entry eith the namem of the operation group
+    		// Add menu entry with the name of the operation group
     		if (!groupsShown.contains(o.getGroup())){
     			JMenu menu = new JMenu();
     			menu.setName("menu_"+o.getGroup());
@@ -366,62 +393,31 @@ public class JFMain extends SingleFrameApplication {
     /*** Actions used in buttons of the main tab ***/
     @Action
     public void btn_Knowledge() {
-    	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
+    	// Create a new tab in order to store the different Knowledge views
     	int index = tabPanel.getTabCount();
-    	
-    	JPanel panelKnowledge = new JPanel();
-    	AnchorLayout panelKnowledgeLayout = new AnchorLayout();
-    	panelKnowledge.setLayout(panelKnowledgeLayout);
-		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
-		tabPanel.setSelectedIndex(index);
-		panelKnowledge.setBounds(0, 0, 907, 415);
-    	
+
+//		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
+//		tabPanel.setSelectedIndex(index);
+
     }
     
     @Action
     public void btn_Notifications() {
-    	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
-    	if (!existsTab(ApplicationInternationalization.getString("tabNotification"))) {
-	    	int index = tabPanel.getTabCount();
-	    	
-	    	JPanel panelKnowledge = new JPanel();
-	    	AnchorLayout panelKnowledgeLayout = new AnchorLayout();
-	    	panelKnowledge.setLayout(panelKnowledgeLayout);
-			tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
-			tabPanel.setSelectedIndex(index);
-			panelKnowledge.setBounds(0, 0, 907, 415);
-			JPanel panel = new JPanel();
-			NotificationsTable table = new NotificationsTable();
-			table.setShowHorizontalLines(false);
-			table.setShowVerticalLines(false);
-			table.setFillsViewportHeight(true);
-			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			table.setIntercellSpacing(new Dimension(0, 0));
-			DefaultTableModel model = new DefaultTableModel(10, 3);
-			table.setModel(model);
-			table.bound();
-			panel.add(table);
-			table.setPreferredSize(new java.awt.Dimension(626, 323));
-			panel.setBounds(0, 0, 907, 415);
-			panelKnowledge.add(panel);
-	        
-    	}
-    	else {
-    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
-    	}
+    	int index = tabPanel.getTabCount();
+    	
+    	// Create a new tab in order to show the Notification view 
+    	tabPanel.insertTab(ApplicationInternationalization.getString("tabNotification"), null, new panelNotificationsView(), null, index);
+//    	tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
+    	tabPanel.setSelectedIndex(index);
     }
     
 	@Action
     public void btn_Statistics() {
     	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
     	int index = tabPanel.getTabCount();
-    	
-    	JPanel panelKnowledge = new JPanel();
-    	AnchorLayout panelKnowledgeLayout = new AnchorLayout();
-    	panelKnowledge.setLayout(panelKnowledgeLayout);
-		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
-		tabPanel.setSelectedIndex(index);
-		panelKnowledge.setBounds(0, 0, 907, 415);
+
+//		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
+//		tabPanel.setSelectedIndex(index);
     }
     
     private boolean existsTab(String title) {

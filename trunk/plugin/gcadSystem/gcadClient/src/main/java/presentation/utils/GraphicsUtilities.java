@@ -1,4 +1,4 @@
-package presentation;
+package presentation.utils;
 
 import java.awt.image.BufferedImage;
 
@@ -14,7 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Hashtable;
 
 import javax.imageio.ImageIO;

@@ -1,4 +1,4 @@
-package presentation;
+package presentation.customComponents;
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
@@ -20,6 +20,8 @@ import org.jdesktop.swingx.graphics.ShadowRenderer;
 
 
 import org.jdesktop.swingx.JXPanel;
+
+import presentation.utils.GraphicsUtilities;
 
 public class DetailPanel extends JXPanel {
 	
