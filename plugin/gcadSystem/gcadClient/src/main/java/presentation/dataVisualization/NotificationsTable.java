@@ -3,7 +3,7 @@ package presentation.dataVisualization;
 import javax.swing.table.TableColumnModel;
 
 import presentation.utils.DateRenderer;
-import presentation.utils.ImageCellRenderer;
+import presentation.utils.ImageTableNotificationCellRenderer;
 
 public class NotificationsTable extends CustomTable {
 
@@ -23,7 +23,7 @@ public class NotificationsTable extends CustomTable {
         cm.getColumn(0).setMaxWidth(24);
         cm.getColumn(0).setHeaderValue("");
         cm.getColumn(1).setHeaderValue("Type");
-        cm.getColumn(1).setCellRenderer(new ImageCellRenderer());
+        cm.getColumn(1).setCellRenderer(new ImageTableNotificationCellRenderer());
         cm.getColumn(2).setHeaderValue("Title");
         cm.getColumn(3).setHeaderValue("Date");
         // Convert date to a custom format

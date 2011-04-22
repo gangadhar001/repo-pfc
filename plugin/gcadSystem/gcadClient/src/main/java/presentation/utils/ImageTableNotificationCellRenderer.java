@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 // REFERENCE: http://stackoverflow.com/questions/1291948/adding-an-icon-to-jtable-by-overriding-defaulttablecellrenderer
 
-public class ImageCellRenderer extends DefaultTableCellRenderer {
+public class ImageTableNotificationCellRenderer extends DefaultTableCellRenderer {
 	/**
 	 * 
 	 */
@@ -29,7 +29,7 @@ public class ImageCellRenderer extends DefaultTableCellRenderer {
                 label.setIcon(null);
 	        }else{
 	                label.setIcon(icon);
-	                label.setText("");
+	                label.setText(knowledgeType);
 	        }
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

@@ -40,6 +40,10 @@ public class TopicWrapper implements Serializable {
 	}	
 	
 	public String toString() {
+		return "Knowledge";
+	}
+	
+	public String getInfo() {
 		StringBuffer result = new StringBuffer();
 		result.append("Topics:\n");
 		for (Topic t: topics ) {

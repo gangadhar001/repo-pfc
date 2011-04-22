@@ -58,7 +58,11 @@ public class Proposal extends Knowledge implements Serializable {
 	}
 	
 	@Override
-	public String toString () {
+	public String toString() {
+		return title;
+	}	
+	
+	public String getInfo () {
 		StringBuffer result = new StringBuffer();
 		Answer a;
 		result.append("Proposal:\n");
