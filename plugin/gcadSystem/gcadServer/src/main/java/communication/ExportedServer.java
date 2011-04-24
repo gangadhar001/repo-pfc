@@ -146,6 +146,14 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 		
 	}
 
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return server.findParentAnswer(sessionId, a);
+	}
+	
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return server.findParentProposal(sessionId, p);
+	}		
+	
 	@Override
 	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		return server.getTopicsWrapper(sessionId);

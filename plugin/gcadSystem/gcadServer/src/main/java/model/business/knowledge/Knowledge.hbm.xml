@@ -17,7 +17,7 @@
 		<joined-subclass name="Topic" table="topics">
 			<key column="id"/>
         	<many-to-one name="project" column="projectId" not-null="true" class="Project" lazy="false" />
-        	<set name="proposals" table="proposals" cascade="all-delete-orphan" >
+        	<set name="proposals" table="proposals" cascade="all" >
 				<key column="topicId" unique="true" not-null="true" />
 				<one-to-many class="Proposal" />
 			</set>
@@ -32,7 +32,7 @@
 					</param> 
 				</type>
 			</property>
-			<set name="answers" table="answers" cascade="all-delete-orphan">
+			<set name="answers" table="answers" cascade="all">
 				<key column="proposalId" unique="true" not-null="true"/>
 				<one-to-many class="Answer" />
 			</set>

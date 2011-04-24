@@ -98,10 +98,10 @@ public class KnowledgeController {
 		topicWrapper.getTopics().add(index, newTopic);		
 	}
 	
-	public static void modifyProposal(User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException {
+	public static void modifyProposal(long sessionId, User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException {
 		newProposal.setUser(user);				
 		// If the new parent is different from the previous one, the old proposal is removed
-		Topic t = findParentProposal(oldProposal);
+		Topic t = findParentProposal(sessionId, oldProposal);
 		if (t!=null && !t.equals(newParent)) {	
 			t.remove(oldProposal);
 			// Delete the old proposal from old topic (it deletes the answers too)
@@ -122,10 +122,10 @@ public class KnowledgeController {
 		}
 	}
 	
-	public static void modifyAnswer(User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException {
+	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException {
 		newAnswer.setUser(user);
 		// If the new parent is different from the previous one, the old answer is removed
-		Proposal p = findParentAnswer(oldAnswer);
+		Proposal p = findParentAnswer(sessionId, oldAnswer);
 		if (p!=null && !p.equals(newParent)) {		
 			p.getAnswers().remove(oldAnswer);
 			DAOAnswer.delete(oldAnswer);
@@ -146,20 +146,20 @@ public class KnowledgeController {
 	}
 	
 	public static void deleteProposal(long sessionId, Proposal p) throws SQLException {
-		Topic t = findParentProposal(p);
+		Topic t = findParentProposal(sessionId, p);
 		if (t!=null)
 			t.getProposals().remove(p);
 		DAOProposal.delete(p);
 	}
 
-	public static void deleteAnswer(Answer a) throws SQLException {
-		Proposal p = findParentAnswer(a);
+	public static void deleteAnswer(long sessionId, Answer a) throws SQLException {
+		Proposal p = findParentAnswer(sessionId, a);
 		if (p!=null)
 			p.getAnswers().remove(a);
 		DAOAnswer.delete(a);
 	}
 
-	private static Proposal findParentAnswer(Answer a) {
+	public static Proposal findParentAnswer(long sessionId, Answer a) {
 		Proposal result = null;
 		for(Topic t: topicWrapper.getTopics()){
 			for (Proposal p: t.getProposals())
@@ -169,7 +169,7 @@ public class KnowledgeController {
 		return result;
 	}
 	
-	private static Topic findParentProposal(Proposal p) {
+	public static Topic findParentProposal(long sessionId, Proposal p) {
 		Topic result = null;	
 		for(Topic t: topicWrapper.getTopics()) {
 			if (t.getProposals().contains(p))

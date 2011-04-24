@@ -49,7 +49,7 @@ import com.cloudgarden.layout.AnchorConstraint;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class JFKnowledge extends javax.swing.JFrame {
+public class JFKnowledge extends javax.swing.JDialog {
 	/**
 	 * 
 	 */

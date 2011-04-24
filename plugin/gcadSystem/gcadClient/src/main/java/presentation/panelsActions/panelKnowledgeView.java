@@ -183,7 +183,9 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		panelGraph.repaint();
 	}
 	
-	private void showTree() {					
+	private void showTree() {	
+		panelTree.removeAll();
+		
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Knowledge");
 		TreeContentProvider.setContentRootNode(root, topicWrapper);
 		treeModel = new DefaultTreeModel(root);
@@ -202,6 +204,8 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			}
 		});
 		scrollTree.setViewportView(tree);
+		
+		panelTree.add(scrollTree, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
 	}
 	
 	private void showUserInfo() {
@@ -229,7 +233,6 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				panelTree.setLayout(panelTreeLayout);
 				{
 					scrollTree = new JScrollPane();
-					panelTree.add(scrollTree, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
 					scrollTree.setPreferredSize(new java.awt.Dimension(61, 18));
 					
 				}
@@ -350,9 +353,11 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		if (knowledgeSelectedTree != null) {
 			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
 			fKnowledge.setLocationRelativeTo(this);
+			fKnowledge.setModal(true);
 			fKnowledge.setVisible(true);
 			TreePath parentPath = tree.getSelectionPath();
-			treeModel.reload();
+//			treeModel.reload();
+			showTree();
 			tree.scrollPathToVisible(parentPath);
 //			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
 //			 Topic t = new Topic("title", "desc", new Date());
