@@ -143,12 +143,12 @@ public class Server implements IServer {
 	
 	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws SQLException {
 		Session session = SessionController.getSession(sessionId);
-		KnowledgeController.modifyProposal(session.getUser(), newProposal, oldProposal, parent);		
+		KnowledgeController.modifyProposal(sessionId, session.getUser(), newProposal, oldProposal, parent);		
 	}
 	
 	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws SQLException {
 		Session session = SessionController.getSession(sessionId);
-		KnowledgeController.modifyAnswer(session.getUser(), newAnswer, oldAnswer, parent);		
+		KnowledgeController.modifyAnswer(sessionId, session.getUser(), newAnswer, oldAnswer, parent);		
 	}
 		
 	/*** Methods used to delete Knowledge ***/
@@ -168,7 +168,7 @@ public class Server implements IServer {
 //	}
 	
 	/*** Methods to manage projects ***/
-	public void createProject (long sessionId, Project p) throws RemoteException, SQLException {
+	public void createProject (long sessionId, Project p) throws SQLException {
 		ProjectController.createProject(p);
 	}
 	
@@ -194,6 +194,14 @@ public class Server implements IServer {
 	public ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		return KnowledgeController.getAnswers(sessionId);
 	}
+	
+	public Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return KnowledgeController.findParentAnswer(sessionId, a);
+	}
+	
+	public Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		return KnowledgeController.findParentProposal(sessionId, p);
+	}		
 	
 //	public ArrayList<Project> getProjectsUser() {
 //		// TODO: return los proyectos del usuario de la sesion
@@ -241,28 +249,21 @@ public class Server implements IServer {
 		List<String> profilesName;	
 		
 		List<HierarchicalConfiguration> profilesConfiguration;
-//		List<HierarchicalConfiguration> groupsConfigurations;
-//		List<HierarchicalConfiguration> actionsConfigurations;
-//		
 		int index;
-//		String profile; 
+
 		try {
 		// Take the role of the logged user
 		UserRole role = UserRole.values()[session.getRole()];
 		// Load XML Roles file
 	    configFile = new XMLConfiguration(IResources.XML_PROFILES_PATH+"profiles-role.xml");
 	    // Use XPath expressions
-//	    configFile.setExpressionEngine(new XPathExpressionEngine());
 	    
-//	    // Take defined roles in that XML file (returns a list)
+	    // Take defined roles in that XML file (returns a list)
 	    rolesName = configFile.getList("Role[@name]");		    		
 	    // Check it the user role that is logged exists in that list
 	    if (rolesName.contains(role.toString())) {
-	    // Take the profiles of that role
+	    	// Take the profiles of that role
 	    	index = rolesName.indexOf(role.toString());
-//	    List<HierarchicalConfiguration> nodes = configFile.configurationsAt("//Roles/Role[@name='"+role.name()+"']");
-//	    for (HierarchicalConfiguration subNode : nodes)
-//	    	profiles.add(subNode.getString("Profile/name"));
 	    	profilesConfiguration = configFile.configurationsAt("Role("+index+").Profile");
 	    	profiles = new ArrayList<String>();		    
 	    	for(Iterator<HierarchicalConfiguration> it = profilesConfiguration.iterator(); it.hasNext();)
@@ -272,13 +273,10 @@ public class Server implements IServer {
 		        String profileName = sub.getString("name");
 		        profiles.add(profileName);
 		    }		    
-//		if (profiles.size() != 0){
 			// Load operations XML
 			configFile = new XMLConfiguration(IResources.XML_PROFILES_PATH+"profiles.xml");
 			profilesName = configFile.getList("Profile[@name]");
-//			groupsConfigurations = new ArrayList<HierarchicalConfiguration>();
-//			actionsConfigurations = new ArrayList<HierarchicalConfiguration>();
-//	
+	
 			// For each profile, take groups, subgroups and operations and create an "Operation" object
 			List<String> groupsName;
 			List<String> subgroupsName;
@@ -308,67 +306,7 @@ public class Server implements IServer {
 						}
 					}					
 				}
-			}
-//				if (profilesName.contains(profile)) {
-//					index = profilesName.indexOf(profile);
-//					groupsConfigurations.addAll(config.configurationsAt("Profile("+index+").Group"));
-				
-			
-//			for (int i=0; i<profiles.size(); i++) {
-//				profile = profiles.get(i);
-//				// Take the actions corresponding to the profiles that was read previously
-//				if (profilesName.contains(profile)) {
-//					index = profilesName.indexOf(profile);
-//					actionsConfigurations.addAll(config.configurationsAt("Profile("+index+").Actions"));
-//				}
-//			}
-	
-			
-			
-			
-//			for(Iterator<HierarchicalConfiguration> it = groupsConfigurations.iterator(); it.hasNext();)
-//			    {
-//					actionsName = new ArrayList<String>();	
-//					actionsConfigurations.clear();
-//				
-//			        HierarchicalConfiguration subGroup = it.next();
-//			        actionsConfigurations.addAll(subGroup.configurationsAt("Actions"));	
-//			        
-//					for(Iterator<HierarchicalConfiguration> itAct = actionsConfigurations.iterator(); itAct.hasNext();)
-//				    {
-//					
-//				        HierarchicalConfiguration subAct = itAct.next();
-//				        actionsName.addAll(subAct.getList("name"));
-//				        if (!result.contains(subGroup.getString("name")))
-//				        	result.put(subGroup.getString("name"), actionsName);
-//				        else
-//				        	result.get(subGroup.getString("name")).addAll(actionsName);
-//				        
-//				    }
-//					
-//					
-//			    }
-			
-			
-			
-			// TODO: hacer esto al llamar al login, desde el plugin. Enabled/disabled actions from the menus
-//			ISourceProviderService sourceProviderService = (ISourceProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ISourceProviderService.class);
-//			SourceProvider commandStateService = null;
-//			for (String act: IActions.actions) {
-//				// Enable action
-//				if (actionsName.contains(act)) {
-//					commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(act);
-//					commandStateService.setMenuItemVisible(true, act);
-//				}
-//				// Disable
-//				else {
-//					commandStateService = (SourceProvider) sourceProviderService.getSourceProvider(act);
-//					commandStateService.setMenuItemVisible(false, act);
-//				}
-//					
-//			}			
-//	    }
-	    
+			}	    
 	    } else {
 	    	throw new NonPermissionRole(BundleInternationalization.getString("Exception.NonPermissionRole") + role.toString());
 	    }
@@ -379,14 +317,6 @@ public class Server implements IServer {
 	    return result;
 	}
 	
-//	public boolean isLogged () {
-//		return session != null;
-//	}
-
-//	public ISession getSession(long sessionId) {
-//		return SessionController.getSession(sessionId);
-//	}
-
 	public void setCurrentProject(long sessionId, int id) {
 		SessionController.getSession(sessionId).setCurrentActiveProject(id);
 		

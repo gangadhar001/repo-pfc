@@ -80,6 +80,9 @@ public interface IServer extends Remote {
 	
 	public ArrayList<Answer> getAnswers(long sessionId)  throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException ;
 	
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException ;
+	
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException ;
 //	public ArrayList<Project> getProjectsUser() {
 //		// TODO: return los proyectos del usuario de la sesion
 //		// return ProjectController.getProjectsUser(session.getUser().getId());

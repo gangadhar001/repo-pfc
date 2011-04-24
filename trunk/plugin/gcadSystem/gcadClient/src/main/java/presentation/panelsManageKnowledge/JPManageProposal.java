@@ -124,7 +124,6 @@ public class JPManageProposal extends javax.swing.JPanel {
 						cbTopics = new JComboBox();
 						panelAddProposal.add(cbTopics, new AnchorConstraint(32,726,112,285,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
 						cbTopics.setBounds(134, 9, 191, 23);
-						setItemsComboTopics();
 					}
 					{
 						lblTopic = new JLabel();
@@ -168,28 +167,22 @@ public class JPManageProposal extends javax.swing.JPanel {
 						});
 					}
 					{
-						ComboBoxModel cbAnswersModel = 
-							new DefaultComboBoxModel(
-									new String[] { "Item One", "Item Two" });
+						
 						cbProposals = new JComboBox();
 						panelModifyProposal.add(cbProposals);
-						cbProposals.setModel(cbAnswersModel);
 						cbProposals.setBounds(307, 9, 136, 23);
+						
 					}
 					{
 						lblProposals = new JLabel();
 						panelModifyProposal.add(lblProposals);
 						lblProposals.setName("lblProposals");
-						lblProposals.setBounds(256, 12, 69, 17);
+						lblProposals.setBounds(251, 12, 69, 17);
 					}
 					{
-						ComboBoxModel cbProposalsModel = 
-							new DefaultComboBoxModel(
-									new String[] { "Item One", "Item Two" });
 						cbTopicsModify = new JComboBox();
 						panelModifyProposal.add(cbTopicsModify);
-						cbTopicsModify.setModel(cbProposalsModel);
-						cbTopicsModify.setBounds(110, 9, 136, 23);
+						cbTopicsModify.setBounds(96, 9, 136, 22);
 					}
 					{
 						lblTopicModify = new JLabel();
@@ -200,6 +193,9 @@ public class JPManageProposal extends javax.swing.JPanel {
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+			
+			setItemsComboTopics();
+			setItemsComboProposals();
 			
 			// Hide tabs not available 
 			List<String> operationsId = OperationsUtilities.getAllOperationsId(ClientController.getInstance().getAvailableOperations());
@@ -216,8 +212,35 @@ public class JPManageProposal extends javax.swing.JPanel {
 	}
 
 	private void fillData() {
-		if (operationToDo.equals("Modify"))
-			proposalInfoModify.fillData((Proposal)data);
+		// Fill fields with the received proposal
+		if (operationToDo.equals("Modify")) {
+			Proposal p = (Proposal)data;
+			proposalInfoModify.fillData(p);
+			try {
+				Topic t = ClientController.getInstance().findParentProposal(p);
+				cbTopicsModify.setSelectedItem(t.getTitle());
+				cbTopicsModify.setEnabled(false);
+				
+				cbProposals.setSelectedItem(p.getTitle());
+				cbProposals.setEnabled(false);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	private void setItemsComboTopics() {
@@ -226,8 +249,10 @@ public class JPManageProposal extends javax.swing.JPanel {
 			topics = ClientController.getInstance().getTopicsWrapper().getTopics();
 			if (topics.size() == 0)
 				;
-			for (int i=0; i<topics.size(); i++)
-				cbTopics.insertItemAt(topics.get(i).getTitle(), i); 
+			for (int i=0; i<topics.size(); i++) {
+				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
+				cbTopicsModify.insertItemAt(topics.get(i).getTitle(), i);
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,7 +278,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 			if (proposals.size() == 0)
 				;
 			for (int i=0; i<proposals.size(); i++)
-				cbTopicsModify.insertItemAt(proposals.get(i).getTitle(), i); 
+				cbProposals.insertItemAt(proposals.get(i).getTitle(), i); 
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -294,7 +319,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 		try {
 			// TODO: se necesita el topic, porque una propuesta no almacena su padre topic
 			
-			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbTopicsModify.getSelectedIndex()), topics.get(cbTopics.getSelectedIndex()));
+			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbProposals.getSelectedIndex()), topics.get(cbTopicsModify.getSelectedIndex()));
 //			ClientController.getInstance().deleteProposal(proposals.get(cbTopicsModify.getSelectedIndex()));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block

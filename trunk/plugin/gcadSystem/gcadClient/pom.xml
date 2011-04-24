@@ -104,12 +104,6 @@
        <version>0.9.1</version>
 	</dependency>        
 	
-	<dependency>
-       <groupId>es.uclm.esi.server</groupId>
-       <artifactId>serverStub</artifactId>
-       <version>1.0</version>
-       <type>jar</type>
-	</dependency>        
 	
         <dependency>
                 <groupId>net.java.dev.appframework</groupId>
