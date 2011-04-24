@@ -9,6 +9,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 import javax.swing.WindowConstants;
+
+import model.business.knowledge.Proposal;
+
 import org.jdesktop.application.Application;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -116,6 +119,12 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	
 	public String getProposalCategory() {
 		return cbCategories.getSelectedItem().toString();
+	}
+
+	public void fillData(Proposal data) {
+		txtTitle.setText(data.getTitle());
+		txtDescription.setText(data.getDescription());
+		cbCategories.setSelectedItem(data.getCategory().toString());		
 	}
 
 }

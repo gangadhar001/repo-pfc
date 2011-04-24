@@ -4,36 +4,56 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import model.business.knowledge.Answer;
+import model.business.knowledge.Categories;
 import model.business.knowledge.Knowledge;
-import model.business.knowledge.Notification;
+import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
+import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.view.mxGraph;
+
+import presentation.JFKnowledge;
 import presentation.JFMain;
-import presentation.customComponents.JPDetailsCompany;
-import presentation.customComponents.JPDetailsCompanyGlassPanel;
-import presentation.dataVisualization.KnowledgeTree;
+import presentation.customComponents.DropShadowPanel;
+import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
+import presentation.utils.ImageTreeCellRenderer;
 import bussiness.control.ClientController;
+
 
 
 /**
@@ -53,8 +73,8 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 3144486182937579912L;
-	private ArrayList<Notification> notifications;
 	private JPanel panel;
+	private JScrollPane scrollGraph;
 	private JScrollPane scrollTable;
 	private JScrollPane scrollTree;
 	private UserInfTable userInfTable;
@@ -64,49 +84,25 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JPanel panelTree;
 	protected int rowSelected;
 	private TopicWrapper topicWrapper;
-	private KnowledgeTree tree;
-	protected Knowledge knowledgeSelected;
+	private JTree tree;
+	protected Knowledge knowledgeSelectedTree;
 	protected int column;
 	protected int row;
 	private JFMain parent;
-	private JPDetailsCompany panelDetailsCompany;
-	private JPDetailsCompanyGlassPanel view;
+	protected DefaultMutableTreeNode parentSelected;
+	private DefaultTreeModel treeModel;
+	private mxGraph graph;
+	private Object parentGraph;
 	
 	public panelKnowledgeView(JFMain parent) {
 		super();
 		this.parent = parent;
-		// Get notifications for the actual project
-		try {
-			notifications = ClientController.getInstance().getNotifications();			
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		rowSelected = -1;
-		initGUI();
-		showTree();
-	}
-	
-	private void showTree() {
 		try {
-			topicWrapper = ClientController.getInstance().getTopicsWrapper();		
-			tree = new KnowledgeTree(topicWrapper);
-			scrollTree.setViewportView(tree);
-			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-			tree.setPreferredSize(new java.awt.Dimension(184, 390));
-			tree.addTreeSelectionListener(new TreeSelectionListener() {				
-			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				// Get selected element in the tree
-				if (!(e.getPath().getLastPathComponent() instanceof TopicWrapper)) {
-					knowledgeSelected = (Knowledge) e.getPath().getLastPathComponent();
-					showUserInfo();
-				}
-			}
-		});
+			topicWrapper = ClientController.getInstance().getTopicsWrapper();
+			initGUI();
+			showTree();
+			showGraph();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,13 +121,95 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		}		
 	}
 	
-	private void showUserInfo() {
-		userInfTable.setValueAt(knowledgeSelected.getUser().getName(), 0, 1);
-		userInfTable.setValueAt(knowledgeSelected.getUser().getSurname(), 0, 2);
-		userInfTable.setValueAt(knowledgeSelected.getUser().getEmail(), 0, 3);
-		String company = knowledgeSelected.getUser().getCompany().getName() + ", " + knowledgeSelected.getUser().getCompany().getAddress().getCountry();
-		userInfTable.setValueAt(company, 0, 4);
+	private void showGraph() {
+		panelGraph.removeAll();
+		graph = new mxGraph();
+		parentGraph = graph.getDefaultParent();		
+		graph.getModel().beginUpdate();
 		
+		for (Topic t: topicWrapper.getTopics()) {
+			Object vertexTopic = graph.insertVertex(parentGraph, null, t.getTitle(), 100, 30, 80, 30);
+			graph.getModel().setStyle(vertexTopic,  mxConstants.STYLE_ROUNDED);
+			for (Proposal p: t.getProposals()) {
+				Object vertexProposal = graph.insertVertex(parentGraph, null, p.getTitle(), 100, 50, 80, 30, mxConstants.STYLE_ROUNDED);
+				graph.insertEdge(parentGraph, null, "", vertexTopic, vertexProposal);
+				for (Answer a : p.getAnswers()) {
+					Object vertexAnswer = graph.insertVertex(parentGraph, null, a.getTitle(), 100, 100, 80, 30, mxConstants.STYLE_ROUNDED);
+					graph.insertEdge(parentGraph, null, "", vertexProposal, vertexAnswer );
+				}
+			}
+		}
+		
+		mxHierarchicalLayout layout = new mxHierarchicalLayout(graph, SwingConstants.WEST);
+		layout.setFineTuning(true);
+		layout.setInterRankCellSpacing(230.5);
+		layout.setIntraCellSpacing(95.5);
+		layout.setUseBoundingBox(false);
+		layout.setResizeParent(true);
+		
+		
+		layout.execute(graph.getDefaultParent());
+		
+		graph.setAllowDanglingEdges(false);
+		graph.setAllowLoops(false);
+		graph.setCellsEditable(false);
+		graph.setEdgeLabelsMovable(false);
+		graph.setCellsDisconnectable(false);
+		graph.setCellsBendable(false);
+		
+		graph.getModel().endUpdate();
+		
+		final mxGraphComponent graphComponent = new mxGraphComponent(graph);	
+		graphComponent.setBorder(null);
+		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
+		{								
+			public void mousePressed(MouseEvent e)
+			{
+				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+				graph.setSelectionCell(cell);				
+				if (cell != null)
+				{			
+					topicWrapper.getTopics().get(0).add(new Proposal("adsfasf", "", new Date(), Categories.Analysis));
+					showGraph();
+				}
+			}
+		});
+		graphComponent.setAntiAlias(true);
+		graphComponent.setEnabled(false);
+			
+		panelGraph.add(graphComponent, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 13, 5), 0, 0));
+		
+		panelGraph.validate();
+		panelGraph.repaint();
+	}
+	
+	private void showTree() {					
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Knowledge");
+		TreeContentProvider.setContentRootNode(root, topicWrapper);
+		treeModel = new DefaultTreeModel(root);
+		tree = new JTree(treeModel);
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.setCellRenderer(new ImageTreeCellRenderer());
+		tree.addTreeSelectionListener(new TreeSelectionListener() {				
+			@Override
+			public void valueChanged(TreeSelectionEvent e) {
+				// Get selected element in the tree
+				Object val = ((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject();
+				if (!(val instanceof TopicWrapper)) {
+					knowledgeSelectedTree = (Knowledge) val;
+					showUserInfo();
+				}
+			}
+		});
+		scrollTree.setViewportView(tree);
+	}
+	
+	private void showUserInfo() {
+		userInfTable.setValueAt(knowledgeSelectedTree.getUser().getName(), 0, 1);
+		userInfTable.setValueAt(knowledgeSelectedTree.getUser().getSurname(), 0, 2);
+		userInfTable.setValueAt(knowledgeSelectedTree.getUser().getEmail(), 0, 3);
+		String company = knowledgeSelectedTree.getUser().getCompany().getName() + ", " + knowledgeSelectedTree.getUser().getCompany().getAddress().getCountry();
+		userInfTable.setValueAt(company, 0, 4);		
 	}
 
 	private void initGUI() {
@@ -151,7 +229,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				panelTree.setLayout(panelTreeLayout);
 				{
 					scrollTree = new JScrollPane();
-					panelTree.add(scrollTree, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+					panelTree.add(scrollTree, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
 					scrollTree.setPreferredSize(new java.awt.Dimension(61, 18));
 					
 				}
@@ -164,15 +242,21 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			{
 				panel = new JPanel();
 				GridBagLayout panelLayout = new GridBagLayout();
-				this.add(panel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+				this.add(panel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 10), 0, 0));
 				panelLayout.rowWeights = new double[] {1.0, 0.25};
 				panelLayout.rowHeights = new int[] {7, 7};
 				panelLayout.columnWeights = new double[] {0.1};
 				panelLayout.columnWidths = new int[] {7};
 				panel.setLayout(panelLayout);
 				{
-					panelGraph = new JPanel();
+					panelGraph = new DropShadowPanel();
+					GridBagLayout panelGraphLayout = new GridBagLayout();
 					panel.add(panelGraph, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 0, 0));
+					panelGraphLayout.rowWeights = new double[] {0.1};
+					panelGraphLayout.rowHeights = new int[] {7};
+					panelGraphLayout.columnWeights = new double[] {0.1};
+					panelGraphLayout.columnWidths = new int[] {7};
+					panelGraph.setLayout(panelGraphLayout);
 				}
 				{
 					panelTable = new JPanel();
@@ -185,12 +269,12 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					panelTable.setLayout(panelTableLayout);
 					{
 						lblUserInf = new JLabel();
-						panelTable.add(lblUserInf, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.BOTH, new Insets(0, 5, 0, 0), 0, 0));
+						panelTable.add(lblUserInf, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.BOTH, new Insets(0, 5, 3, 0), 0, 0));
 						lblUserInf.setName("lblUserInf");
 					}
 					{
 						scrollTable = new JScrollPane();
-						panelTable.add(scrollTable, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(3, 5, 0, 0), 0, 0));
+						panelTable.add(scrollTable, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 5, 0, 0), 0, 0));
 						{
 							
 							userInfTable = new UserInfTable();
@@ -213,13 +297,14 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 									// If make click over the image, show the company details
 									int colClick = userInfTable.getColumnModel().getColumnIndexAtX(e.getX());
 									int rowClick = userInfTable.rowAtPoint(e.getPoint());
-									if (rowClick == 0 && colClick == 4 && knowledgeSelected != null) {
+									if (rowClick == 0 && colClick == 4 && knowledgeSelectedTree != null) {
 										TableColumnModel cm = userInfTable.getColumnModel();
 										int leftLimit =  cm.getColumn(0).getWidth() + cm.getColumn(1).getWidth() + cm.getColumn(2).getWidth() + cm.getColumn(3).getWidth();
 										int rightLimit =  leftLimit + 10;
 										// Show dialog with company details
-										if (e.getX() >= leftLimit && e.getX() <= rightLimit) { ;
-											parent.fadeIn();
+										if (e.getX() >= leftLimit && e.getX() <= rightLimit) { 
+											System.out.println("Entra");
+											parent.fadeIn(knowledgeSelectedTree.getUser().getCompany());
 										}	
 									}
 								}
@@ -242,6 +327,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			}
 			updateBorder(scrollTree);
 			updateBorder(scrollTable);
+//			updateBorder(scrollGraph);
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -249,31 +335,31 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		}
 	}
 	
-//	 protected void showDetailRow() {
-//		Notification n = notifications.get(rowSelected);
-//		StringBuilder details = new StringBuilder();
-//		details.append("Conocimiento añadido en: ");
-//		details.append(DateUtilities.convert(n.getKnowledge().getDate()));
-//		details.append("\n");
-//		details.append("Autor: ");
-//		details.append(n.getKnowledge().getUser().getName());
-//		details.append(" : ");
-//		details.append(n.getKnowledge().getUser().getCompany().toString());
-//		details.append("\n");
-//		details.append("Descripción del conocimiento: ");
-//		details.append(n.getKnowledge().getDescription());
-//		details.append("\n");
-//		
-//		txtDetails.setText(details.toString());
-//		txtDetails.setCaretPosition(txtDetails.getText().length());
-//	}
-
 	private void updateBorder(JComponent comp) {
 		 comp.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(Color.BLACK, 9, 0.5f, 12, false, false, true, true), comp.getBorder()));
 //	        } else {
 //	            CompoundBorder border = (CompoundBorder)comp.getBorder();
 //	            comp.setBorder(border.getInsideBorder());
 //	        }
-	    }
+	}
 
+	/*** Methods used to add or modify knowledge ***/
+	public void add() {
+		// TODO: si no hay nada seleccionado, se abre el Frame de conocimiento
+		// If an item is selected, show the knowledge window filled with data
+		if (knowledgeSelectedTree != null) {
+			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
+			fKnowledge.setLocationRelativeTo(this);
+			fKnowledge.setVisible(true);
+			TreePath parentPath = tree.getSelectionPath();
+			treeModel.reload();
+			tree.scrollPathToVisible(parentPath);
+//			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
+//			 Topic t = new Topic("title", "desc", new Date());
+//			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
+//			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
+//			tree.scrollPathToVisible(new TreePath(child.getPath()));
+		}
+		
+	}
 }

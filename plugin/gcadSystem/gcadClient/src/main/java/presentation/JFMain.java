@@ -24,6 +24,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.ActionMap;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -38,6 +39,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -47,6 +49,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import model.business.knowledge.Company;
 import model.business.knowledge.Operation;
 
 import org.jdesktop.application.Action;
@@ -54,6 +57,7 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.swingx.util.MailTransportProxy;
 
+import presentation.customComponents.CustomToolBar;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
 import presentation.dataVisualization.NotificationsTable;
@@ -105,9 +109,6 @@ public class JFMain extends SingleFrameApplication {
     private JMenuItem jMenuItem1;
     private JMenu fileMenu;
     private JSeparator jSeparator;
-    private JButton saveButton;
-    private JButton openButton;
-    private JButton newButton;
     private JToolBar toolBar;
     private JPanel toolBarPanel;
     private JPanel contentPanel;
@@ -116,6 +117,7 @@ public class JFMain extends SingleFrameApplication {
     private ArrayList<String> groupsShown = new ArrayList<String>();
 	private JPDetailsCompany panelDetailsCompany;
 	private JPDetailsCompanyGlassPanel view;
+	private panelKnowledgeView panelKnowledge;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -124,22 +126,16 @@ public class JFMain extends SingleFrameApplication {
     @Override
     protected void startup() {
     	{    		
-		// TODO: Temporal
-		try {
-			{
-    			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
-    			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
-    			{
-
-					panelDetailsCompany = new JPDetailsCompany(this);
-					
-    				view = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
-    				getMainFrame().setGlassPane(view);
-    				
-    				
-    				
-    			}
-			}
+    	// Set glass panel
+		try {			
+			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
+			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
+			{	
+				panelDetailsCompany = new JPDetailsCompany(this);				
+				view = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
+				getMainFrame().setGlassPane(view);
+			}			
+			// TODO: Temporal
 			ClientController.getInstance().setCurrentProject(2);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -204,29 +200,9 @@ public class JFMain extends SingleFrameApplication {
                 BorderLayout jPanel1Layout = new BorderLayout();
                 toolBarPanel.setLayout(jPanel1Layout);
                 {
-                    toolBar = new JToolBar();
+                    toolBar = new CustomToolBar();
                     toolBarPanel.add(toolBar, BorderLayout.CENTER);
-                    {
-                        newButton = new JButton();
-                        toolBar.add(newButton);
-                        newButton.setName("newButton");
-                        newButton.setFocusable(false);
-                        newButton.setAction(getAppActionMap().get("newTab"));
-                    }
-                    {
-                        openButton = new JButton();
-                        toolBar.add(openButton);
-                        openButton.setAction(getAppActionMap().get("open"));
-                        openButton.setName("openButton");
-                        openButton.setFocusable(false);
-                    }
-                    {
-                        saveButton = new JButton();
-                        toolBar.add(saveButton);
-                        saveButton.setAction(getAppActionMap().get("save"));
-                        saveButton.setName("saveButton");
-                        saveButton.setFocusable(false);
-                    }
+                    toolBar.setPreferredSize(new java.awt.Dimension(886, 37));
                 }
                 {
                     jSeparator = new JSeparator();
@@ -250,9 +226,9 @@ public class JFMain extends SingleFrameApplication {
 		} catch (NonPermissionRole e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
-		// Set glass panel, in order to show the company details dialog
-
-		getMainFrame().setGlassPane(view);
+		
+		// Create toolbar buttons
+		toolBar.add(createToolbarButton("Add"));
 		
         // Show the main frame
         show(topPanel);
@@ -389,10 +365,22 @@ public class JFMain extends SingleFrameApplication {
 		panelActions.add(panel);
     }    
     
+    private JButton createToolbarButton(String text) {
+    	JButton button = new JButton();
+    	button.setText(text);
+    	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
+    	button.setFocusPainted(false);
+    	button.setHorizontalTextPosition(SwingConstants.CENTER);
+    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	button.setRequestFocusEnabled(false);
+    	button.setAction(getAppActionMap().get("add_knowledge"));
+    	return button;
+    }
+    
     /*** Actions used in menu items ***/
 	@Action
     public void mitem_Proposal() {
-    	JFKnowledge frameKnowledge = new JFKnowledge("Proposal");
+    	JFKnowledge frameKnowledge = new JFKnowledge("Proposal", null, null);
     	frameKnowledge.setLocationRelativeTo(getMainFrame());
     	frameKnowledge.setVisible(true);
     }
@@ -405,7 +393,7 @@ public class JFMain extends SingleFrameApplication {
     @Action
     public void mitem_Topic() {
     	
-    }
+    }    
     
     /*** Actions used in buttons of the main tab ***/
     @Action
@@ -413,7 +401,8 @@ public class JFMain extends SingleFrameApplication {
     	// Create a new tab in order to store the different Knowledge views
     	int index = tabPanel.getTabCount();
 
-		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, new panelKnowledgeView(this), null, index);
+    	panelKnowledge = new panelKnowledgeView(this);
+		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
 		tabPanel.setSelectedIndex(index);
 
     }
@@ -436,6 +425,15 @@ public class JFMain extends SingleFrameApplication {
 //		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
 //		tabPanel.setSelectedIndex(index);
     }
+	
+	/*** Actions for toolbar buttons ***/
+	@Action
+	public void add_knowledge() {
+		if (panelKnowledge != null)
+			panelKnowledge.add();
+		// TODO: si no, se abre el frame de conocimiento
+	}
+	
     
     private boolean existsTab(String title) {
     	boolean found = false;
@@ -455,14 +453,13 @@ public class JFMain extends SingleFrameApplication {
     	return result;
 	}
     
-    public void fadeIn() {
+    public void fadeIn(Company c) {
 
-		view.fadeIn();
+		view.fadeIn(c);
 	}
 
 	public void fadeOut() {
 		
-		view.fadeOut();
-		
+		view.fadeOut();		
 	}
 }

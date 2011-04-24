@@ -21,6 +21,8 @@ import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Application;
 
+import presentation.JFKnowledge;
+
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
@@ -29,6 +31,7 @@ import com.cloudgarden.layout.AnchorLayout;
 
 import exceptions.NoProposalsException;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -66,9 +69,20 @@ public class JPManageProposal extends javax.swing.JPanel {
 	private JPanel panelAddProposal;
 	private ArrayList<Topic> topics;
 	private ArrayList<Proposal> proposals;
+	
+	private Object data;
+	private String operationToDo;
 
 	public JPManageProposal() {
 		super();
+		data = null;
+		initGUI();
+	}
+	
+	public JPManageProposal(Object data, String operationToDo) {
+		super();
+		this.data = data;
+		this.operationToDo = operationToDo;
 		initGUI();
 	}
 	
@@ -166,7 +180,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 						lblProposals = new JLabel();
 						panelModifyProposal.add(lblProposals);
 						lblProposals.setName("lblProposals");
-						lblProposals.setBounds(258, 12, 49, 17);
+						lblProposals.setBounds(256, 12, 69, 17);
 					}
 					{
 						ComboBoxModel cbProposalsModel = 
@@ -193,9 +207,17 @@ public class JPManageProposal extends javax.swing.JPanel {
 				tabPanelProposal.remove(panelAddProposal);
 			if (!operationsId.contains("Modify"))
 				tabPanelProposal.remove(panelModifyProposal);
+			// If this panel is invoked by knowledge view, with an item already selected, fill the data
+			if (data != null)
+				fillData();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void fillData() {
+		if (operationToDo.equals("Modify"))
+			proposalInfoModify.fillData((Proposal)data);
 	}
 
 	private void setItemsComboTopics() {
