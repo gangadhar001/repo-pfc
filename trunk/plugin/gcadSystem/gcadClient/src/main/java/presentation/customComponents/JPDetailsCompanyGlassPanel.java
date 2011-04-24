@@ -9,10 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+
+import model.business.knowledge.Company;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
@@ -38,7 +39,7 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
         this.detailPanel.setAlpha(0.0f);
         add(panel);
         
-        // Should also disable key events...
+        // Disable key events...
         addMouseListener(new MouseAdapter() { });
     }
 
@@ -82,14 +83,17 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 	    repaint();
 	}
 	
-	public void fadeIn() {
+	public void fadeIn(Company c) {
+		// Set the company details in the dialog
+		this.detailPanel.setCompanyDetails(c);
+		
 	    createBlur();
 	
 	    setVisible(true);
 	    SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	            Animator animator = PropertySetter.createAnimator(
-	                500, detailPanel, "alpha", 1.0f);
+	                1000, detailPanel, "alpha", 1.0f);
 	            animator.setAcceleration(0.2f);
 	            animator.setDeceleration(0.3f);
 	            animator.addTarget(
@@ -118,9 +122,9 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 	
 	public void actionPerformed(ActionEvent e) {
 	    ++value;
-	    if (value == 500) {
-	    	timer.stop();
+	    if (value == 80) {
 	    	setVisible(false);
+	    	timer.stop();
 	    	value=0;
 	    }
 	}

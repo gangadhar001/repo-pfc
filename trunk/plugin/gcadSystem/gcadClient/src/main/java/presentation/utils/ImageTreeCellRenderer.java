@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 
 import javax.swing.Icon;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import model.business.knowledge.Answer;
@@ -22,18 +23,19 @@ public class ImageTreeCellRenderer extends DefaultTreeCellRenderer {
 		super.getTreeCellRendererComponent(tree, value, isSelected, expanded, leaf, row, hasFocus);
 		
 		Icon icon = null;
+		Object val = ((DefaultMutableTreeNode)value).getUserObject();
 		try {
-			if (value instanceof Topic) {				
+			if (val instanceof Topic) {				
 				icon = GraphicsUtilities.loadIcon("Topic.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
-			if (value instanceof Proposal) {				
+			if (val instanceof Proposal) {				
 				icon = GraphicsUtilities.loadIcon("Proposal.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
-			if (value instanceof Answer) {				
+			if (val instanceof Answer) {				
 				icon = GraphicsUtilities.loadIcon("answer.png");
 				if(icon != null)
 	                setIcon(icon);

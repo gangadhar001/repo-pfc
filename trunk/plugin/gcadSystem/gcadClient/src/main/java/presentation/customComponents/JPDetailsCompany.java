@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.business.knowledge.Company;
+
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.graphics.ShadowRenderer;
 
@@ -75,7 +77,7 @@ public class JPDetailsCompany extends JXPanel {
 				this.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 				lblTitle.setName("lblTitle");
 				lblTitle.setText("Title");
-				lblTitle.setBounds(208, 51, 23, 16);
+				lblTitle.setBounds(152, 51, 226, 16);
 			}
 			{
 				panelInfo = new JPanel();
@@ -147,11 +149,12 @@ public class JPDetailsCompany extends JXPanel {
 				btnOK.setPreferredSize(new java.awt.Dimension(40, 23));
 				btnOK.setBounds(285, 270, 128, 23);
 				btnOK.setText("OK");
+				btnOK.setDoubleBuffered(true);
 				btnOK.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						parent.fadeOut();
-						
+						btnOK.setEnabled(false);
 					}
 				});
 			}
@@ -219,5 +222,12 @@ public class JPDetailsCompany extends JXPanel {
 		    int yOffset = (shadow.getHeight() - h) / 2;
 		    g2.drawImage(shadow, x - xOffset, y - yOffset, null);
 		}
+	}
+
+	public void setCompanyDetails(Company c) {
+		btnOK.setEnabled(true);
+		
+		lblTitle.setText("Title :" + c.getName());
+		
 	}
 }

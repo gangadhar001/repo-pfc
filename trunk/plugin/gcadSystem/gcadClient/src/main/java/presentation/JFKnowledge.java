@@ -13,6 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -20,6 +22,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
@@ -59,13 +62,20 @@ public class JFKnowledge extends javax.swing.JFrame {
 	// This HashTable will be used in order to build dynamically the UI
 	private Hashtable<String, List<String>> actionsKnowledge = new Hashtable<String, List<String>>();
 	
+	// This variables are used when this frame is invoked by the knowledge view, when
+	// an element and operation are selected.
 	private String subgroupSelected;
+	private Object data;
+	private String operationToDo;
 	
-	public JFKnowledge(String subgroupSelected) {
+	public JFKnowledge(String subgroupSelected, Object data, String operationToDo) {
 		super();
 		this.subgroupSelected = subgroupSelected;
+		// Store the object to update, or the parent object of the element to insert.
+		this.data = data;
+		this.operationToDo = operationToDo;
 		initGUI();
-	}
+	}		
 	
 	private void initGUI() {
 		this.setTitle(ApplicationInternationalization.getString("titleJFKnowledge"));
@@ -123,28 +133,13 @@ public class JFKnowledge extends javax.swing.JFrame {
 				actionsKnowledge.put(o.getSubgroup(), o.getOperations());
 		}
 	}
-
-	// This method is used to configure the available knowledge operations
-//    private void createKnowledgePanel() {
-//    	// Set layout
-//    	GridLayout layout = new GridLayout();
-//    	layout.setRows(panelActions.getHeight()/100);
-//    	layout.setColumns(1);
-//		
-//		panelActions.setLayout(layout);
-//    	try {
-//			createPanelActions();
-//		} catch (IOException e) {
-//			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-//		}		
-//    }
     
 	private void createPanelActions() throws IOException {
 		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
 		for (final String subgroup: subgroups) {
 	    	// Load the subgroup image of the operation
 			image = GraphicsUtilities.loadCompatibleImage(subgroup + ".png");
-			
+			// Create button
 			JButton button = new JButton();
 			button.setSize(new Dimension(100, 100));
 			button.setPreferredSize(button.getSize());
@@ -182,7 +177,16 @@ public class JFKnowledge extends javax.swing.JFrame {
 								((JButton)c).setContentAreaFilled(false);
 						// Set the corresponding panel on the main panel
 						mainPanel.removeAll();
-						Component component = (Component) (Class.forName("presentation.JPManage"+subgroup)).newInstance();
+						Component component = null;
+						if (data != null) {
+							// Use constructor of the corresponding panel, in order to pass the data to the constructor
+							// This is reflection
+							@SuppressWarnings("rawtypes")
+							Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {Object.class, String.class});
+							component = (Component) c.newInstance(new Object [] {data, operationToDo});
+						}
+						else 
+							component = (Component) Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).newInstance();
 						mainPanel.add(component);
 						mainPanel.validate();
 						mainPanel.repaint();
@@ -197,15 +201,28 @@ public class JFKnowledge extends javax.swing.JFrame {
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+					} catch (SecurityException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (NoSuchMethodException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalArgumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}					
 				}
 			});				
 			
 			panelActions.add(button);
 			
-			// Simulate button click that corresponds with the action selected by user
-			if (subgroup.equals(subgroupSelected))
+			// Simulate button click that corresponds with the action selected by user.
+			// If it is null, no default action
+			if (subgroupSelected != null && subgroup.equals(subgroupSelected))
 				button.doClick();
 		}
-    }    
+    }   
 }
