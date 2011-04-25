@@ -111,7 +111,7 @@ public class Server implements IServer {
 //	}
 	
 	/*** Methods used to add new Knowledge ***/
-	public void addTopic (long sessionId, Topic topic) throws SQLException {
+	public void addTopic (long sessionId, Topic topic) throws SQLException, NonPermissionRole {
 		boolean found = false;
 		Project project = null;
 		Session session = SessionController.getSession(sessionId);
@@ -122,50 +122,53 @@ public class Server implements IServer {
 				found = true;
 			}		
 		}	
-		KnowledgeController.addTopic(session.getUser(), project , topic);
+		KnowledgeController.addTopic(sessionId, session.getUser(), project , topic);
 	}
 	
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws SQLException {
+	public void addProposal (long sessionId, Proposal p, Topic parent) throws SQLException, NonPermissionRole {
 		Session session = SessionController.getSession(sessionId);
-		KnowledgeController.addProposal(session.getUser(), p, parent);
+		KnowledgeController.addProposal(sessionId, session.getUser(), p, parent);
 	}
 	
-	public void addAnwser (long sessionId, Answer a, Proposal parent) throws SQLException {
+	public void addAnwser (long sessionId, Answer a, Proposal parent) throws SQLException, NonPermissionRole {
 		Session session = SessionController.getSession(sessionId);
-		KnowledgeController.addAnswer(session.getUser(), a, parent);
+		KnowledgeController.addAnswer(sessionId, session.getUser(), a, parent);
 	}
 	
 	/*** Methods used to modify Knowledge ***/
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws SQLException {
+	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRole {
 		Session session = SessionController.getSession(sessionId);
-		KnowledgeController.modifyTopic(session.getUser(), newTopic, oldTopic);		
+		KnowledgeController.modifyTopic(sessionId, session.getUser(), newTopic, oldTopic);		
 	}
 	
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws SQLException {
+	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.modifyProposal(sessionId, session.getUser(), newProposal, oldProposal, parent);		
 	}
 	
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws SQLException {
+	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.modifyAnswer(sessionId, session.getUser(), newAnswer, oldAnswer, parent);		
 	}
 		
 	/*** Methods used to delete Knowledge ***/
-//	public void deleteTopic(Topic to) throws SQLException {
-//		KnowledgeController.deleteTopic(to);
-//		notifyKnowledgeRemoved(to);
-//	}
-//	
-//	public void deleteProposal(Proposal p) throws SQLException {
-//		KnowledgeController.deleteProposal(p);
-//		notifyKnowledgeRemoved(p);
-//	}
-//
-//	public void deleteAnswer (Answer a) throws SQLException {
-//		KnowledgeController.deleteAnswer(a);	
-//		notifyKnowledgeRemoved(a);
-//	}
+	@Override
+	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole {
+		KnowledgeController.deleteTopic(sessionId, to);
+		
+	}
+
+	@Override
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole {
+		KnowledgeController.deleteProposal(sessionId, p);
+		
+	}
+
+	@Override
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole {
+		KnowledgeController.deleteAnswer(sessionId, a);
+		
+	}
 	
 	/*** Methods to manage projects ***/
 	public void createProject (long sessionId, Project p) throws SQLException {
@@ -186,20 +189,21 @@ public class Server implements IServer {
 		return NotificationController.getNotifications(session.getCurrentActiveProject());
 	}
 	
-	/*** Auxiliary methods ***/
-	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	/*** Auxiliary methods 
+	 * @throws NonPermissionRole ***/
+	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
 		return KnowledgeController.getProposals(sessionId);
 	}
 	
-	public ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
 		return KnowledgeController.getAnswers(sessionId);
 	}
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
 		return KnowledgeController.findParentAnswer(sessionId, a);
 	}
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
 		return KnowledgeController.findParentProposal(sessionId, p);
 	}		
 	
@@ -209,7 +213,7 @@ public class Server implements IServer {
 //		return null;
 //	}	
 	
-	public TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
 		return KnowledgeController.getTopicsWrapper(sessionId);
 	}
 		
@@ -239,7 +243,7 @@ public class Server implements IServer {
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole {
-		return SessionController.getAvaiableOperations(sessionId);
+		return SessionController.getAvailableOperations(sessionId);
 	}
 	
 	public void setCurrentProject(long sessionId, int id) {
@@ -249,24 +253,6 @@ public class Server implements IServer {
 
 	public ArrayList<Language> getLanguages() throws ConfigurationException {
 		return LanguagesController.getLanguages();
-	}
-
-	@Override
-	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException {
-		KnowledgeController.deleteProposal(sessionId, p);
-		
-	}
-
-	@Override
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

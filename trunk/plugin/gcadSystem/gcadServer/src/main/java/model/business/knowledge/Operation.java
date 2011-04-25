@@ -1,6 +1,7 @@
 package model.business.knowledge;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -23,6 +24,14 @@ public class Operation implements Serializable {
 		this.group = group;
 		this.subgroup = subgroup;
 		this.operations = operationsName;
+	}
+
+	public Operation(String group, String subgroup, String op) {
+		this.operations = new ArrayList<String>();
+		this.group = group;
+		this.subgroup = subgroup;
+		this.operations.add(op);
+		
 	}
 
 	public String getGroup() {

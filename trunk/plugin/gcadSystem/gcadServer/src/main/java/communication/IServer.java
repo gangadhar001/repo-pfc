@@ -45,25 +45,25 @@ public interface IServer extends Remote {
 //	}
 //	
 	/*** Methods used to add new Knowledge ***/
-	public void addTopic (long sessionId, Topic topic) throws RemoteException,  SQLException;
+	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRole;
 	
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException,  SQLException;
+	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRole;
 	
-	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException,  SQLException;
+	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRole;
 	
 	/*** Methods used to modify Knowledge ***/
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException;
+	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRole;
 	
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException,  SQLException;
+	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException,  SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException;
 	
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException,  SQLException;
+	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException,  SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException;
 		
 	/*** Methods used to delete Knowledge ***/
-	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException;
+	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole;
 	
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException;
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole;
 
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException;
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole;
 	
 	
 	public void createProject(long sessionId, Project p) throws RemoteException, SQLException;
@@ -76,13 +76,13 @@ public interface IServer extends Remote {
 	public ArrayList<Notification> getNotifications(long sessionId)  throws RemoteException, SQLException;
 	
 	/*** Auxiliary methods ***/
-	public ArrayList<Proposal> getProposals(long sessionId)  throws RemoteException,  SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException ;
+	public ArrayList<Proposal> getProposals(long sessionId)  throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole;
 	
-	public ArrayList<Answer> getAnswers(long sessionId)  throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException ;
+	public ArrayList<Answer> getAnswers(long sessionId)  throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole;
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException ;
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole;
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException ;
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole;
 //	public ArrayList<Project> getProjectsUser() {
 //		// TODO: return los proyectos del usuario de la sesion
 //		// return ProjectController.getProjectsUser(session.getUser().getId());
@@ -92,7 +92,7 @@ public interface IServer extends Remote {
 	/*** Auxiliary methods ***/
 	public void setCurrentProject(long sessionId, int idProject)  throws RemoteException;
 	
-	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException,  SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException;
+	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole;
 	
 	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole;
 		
