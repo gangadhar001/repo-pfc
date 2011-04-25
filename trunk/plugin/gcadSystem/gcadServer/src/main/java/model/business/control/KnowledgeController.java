@@ -17,16 +17,17 @@ import persistence.DAOTopic;
  * This class represents a controller that allows to manage knowledge.
  */
 public class KnowledgeController {
-	
-	private static TopicWrapper topicWrapper;
-	
+		
 	public static TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// This method access to database only the first time, when "topicWrapper" is not initialized.
-		if (topicWrapper == null) {
-			topicWrapper = new TopicWrapper();
-			for (Topic t: DAOTopic.queryTopicsProject(SessionController.getSession(sessionId).getCurrentActiveProject()))
-				topicWrapper.add(t);
-		}
+		//if (topicWrapper == null) {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Topic, Operation.Get));
+
+		topicWrapper = new TopicWrapper();
+		for (Topic t: DAOTopic.queryTopicsProject(SessionController.getSession(sessionId).getCurrentActiveProject()))
+			topicWrapper.add(t);
+		//}
 		return topicWrapper;
 	}
 	
@@ -34,6 +35,9 @@ public class KnowledgeController {
 	 * This method returns all existing proposals from a project 
 	 */
 	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Proposal, Operation.Get));
+
 		ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 		for (Topic t: getTopicsWrapper(sessionId).getTopics()) {
 			proposals.addAll(t.getProposals());
@@ -45,6 +49,9 @@ public class KnowledgeController {
 	 * This method returns all existing answers from a project
 	 */
 	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Answer, Operation.Get));
+
 		ArrayList<Answer> answers = new ArrayList<Answer>();
 		for (Topic t: getTopicsWrapper(sessionId).getTopics()) {
 			for (Proposal p: t.getProposals()) {
@@ -58,16 +65,22 @@ public class KnowledgeController {
 	 * Methods used to add new knowledge
 	 */
 	public static void addTopic(User u, Project p, Topic topic) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Topic, Operation.Add));
+
 		// Set the user and project of the topic
 		topic.setUser(u);
 		topic.setProject(p);
 		// Add new topic
 		DAOTopic.insert(topic);
-		topicWrapper.add(topic);
+		//topicWrapper.add(topic);
 		
 	}
 	
 	public static void addProposal(User u, Proposal proposal, Topic parent) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Proposal, Operation.Add));
+
 		// Set the user of the proposal
 		proposal.setUser(u);
 		DAOProposal.insert(proposal, parent.getId());
@@ -75,6 +88,9 @@ public class KnowledgeController {
 	}
 	
 	public static void addAnswer(User u, Answer answer, Proposal parent) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Answer, Operation.Add));
+
 		// Set the user of the proposal
 		answer.setUser(u);
 		DAOAnswer.insert(answer, parent.getId());
@@ -84,21 +100,27 @@ public class KnowledgeController {
 	/**
 	 * Methods used to modify knowledge
 	 */	
-	public static void modifyTopic(User user, Topic newTopic, Topic oldTopic) throws SQLException {		
+	public static void modifyTopic(User user, Topic newTopic, Topic oldTopic) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Topic, Operation.Modify));
+
 		newTopic.setUser(user);
-		// Copy proposal list and project to new Topic
-		newTopic.setProposals(oldTopic.getProposals());
-		newTopic.setProject(oldTopic.getProject());
-		newTopic.setId(oldTopic.getId());
-		// Remove old topic
-		int index = topicWrapper.getTopics().indexOf(oldTopic);
-		topicWrapper.remove(oldTopic);
+		//// Copy proposal list and project to new Topic
+		//newTopic.setProposals(oldTopic.getProposals());
+		//newTopic.setProject(oldTopic.getProject());
+		//newTopic.setId(oldTopic.getId());
+		//// Remove old topic
+		//int index = topicWrapper.getTopics().indexOf(oldTopic);
+		//topicWrapper.remove(oldTopic);
 		// Add new topic
 		DAOTopic.update(newTopic);
-		topicWrapper.getTopics().add(index, newTopic);		
+		//topicWrapper.getTopics().add(index, newTopic);		
 	}
 	
 	public static void modifyProposal(long sessionId, User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Proposal, Operation.Modify));
+
 		newProposal.setUser(user);				
 		// If the new parent is different from the previous one, the old proposal is removed
 		Topic t = findParentProposal(sessionId, oldProposal);
@@ -123,6 +145,9 @@ public class KnowledgeController {
 	}
 	
 	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Answer, Operation.Modify));
+
 		newAnswer.setUser(user);
 		// If the new parent is different from the previous one, the old answer is removed
 		Proposal p = findParentAnswer(sessionId, oldAnswer);
@@ -141,27 +166,36 @@ public class KnowledgeController {
 	}
 	
 	public static void deleteTopic(Topic to) throws SQLException {
-		topicWrapper.remove(to);
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Topic, Operation.Delete));
+
+		//getTopicsWrapper(sessionId).remove(to);
 		DAOTopic.delete(to);
 	}
 	
 	public static void deleteProposal(long sessionId, Proposal p) throws SQLException {
-		Topic t = findParentProposal(sessionId, p);
-		if (t!=null)
-			t.getProposals().remove(p);
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Proposal, Operation.Delete));
+
+		//Topic t = findParentProposal(sessionId, p);
+		//if (t!=null)
+		//    t.getProposals().remove(p);
 		DAOProposal.delete(p);
 	}
 
 	public static void deleteAnswer(long sessionId, Answer a) throws SQLException {
-		Proposal p = findParentAnswer(sessionId, a);
-		if (p!=null)
-			p.getAnswers().remove(a);
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge, Subgroups.Answer, Operation.Delete));
+
+		//Proposal p = findParentAnswer(sessionId, a);
+		//if (p!=null)
+		//    p.getAnswers().remove(a);
 		DAOAnswer.delete(a);
 	}
 
 	public static Proposal findParentAnswer(long sessionId, Answer a) {
 		Proposal result = null;
-		for(Topic t: topicWrapper.getTopics()){
+		for(Topic t: getTopicsWrapper(sessionId).getTopics()){
 			for (Proposal p: t.getProposals())
 				if (p.getAnswers().contains(a))
 					result = p;
@@ -171,7 +205,7 @@ public class KnowledgeController {
 	
 	public static Topic findParentProposal(long sessionId, Proposal p) {
 		Topic result = null;	
-		for(Topic t: topicWrapper.getTopics()) {
+		for(Topic t: getTopicsWrapper(sessionId).getTopics()) {
 			if (t.getProposals().contains(p))
 				result = t;
 		}
