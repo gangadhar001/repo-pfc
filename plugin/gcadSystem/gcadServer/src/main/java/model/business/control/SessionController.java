@@ -1,20 +1,36 @@
 package model.business.control;
 
+import internationalization.BundleInternationalization;
+
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.commons.configuration.XMLConfiguration;
 
 import communication.IClient;
 
+import model.business.knowledge.Groups;
+import model.business.knowledge.IResources;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Operation;
+import model.business.knowledge.Operations;
 import model.business.knowledge.Session;
+import model.business.knowledge.Subgroups;
 import model.business.knowledge.User;
+import model.business.knowledge.UserRole;
 import persistence.DAOUser;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
+import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
 
 /**
@@ -113,10 +129,11 @@ public class SessionController {
 		return sessions.get(sessionId);
 	}
 
-	public static ArrayList<Operation> getAvailableOperations(long sessionId)
+	@SuppressWarnings("unchecked")
+	public static ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole
 	{
 		// Retrieve the available operations from profile file.
-		ArrayList<Operation> operations = new ArrayList<Operation>();
+		ArrayList<Operation> result = new ArrayList<Operation>();
 
 		Session session = SessionController.getSession(sessionId);
 
@@ -207,28 +224,28 @@ public class SessionController {
 	}
 
 	// Method used for other managers to check the permissions of a user
-	public static void checkPermission(long sessionId, Operation operation) 
+	public static void checkPermission(long sessionId, Operation operation) throws NonPermissionRole 
 	{
 		ArrayList<Operation> operations;
 		Session session;
 
 		// Check if the session is valid
 		session = SessionController.getSession(sessionId);
-		if (session == null)
+		if (session == null) ;
 		{
 			// TODO:
-			throw new SesionInvalidaException("El identificador de la sesión es inválido.");
+//			throw new InvalidS("El identificador de la sesión es inválido.");
 		}
 
 		// Get the list of operations available to the user, defined in the profiles role file
-		operation = getAvailableOperations(sessionId);
+		operations = getAvailableOperations(sessionId);
 		// Append operations common for all roles
-		operation.addAll(getCommonOperations());
+		operations.addAll(getCommonOperations());
 
 		// Check if you have permission to perform operation
-		if (!checkOperation(operations, operation))
+		if (!checkOperation(operations, operation)) ;
 			// TODO:
-			throw new ;
+//			throw new ;
 	}
 
 	// Method used to retrieve common operations for all users. It is done only the first time.
@@ -237,11 +254,9 @@ public class SessionController {
 		if (commonOperations == null)
 		{
 			commonOperations = new ArrayList<Operation>();
-			commonOperations.add(new Operation(Groups.Knowldege, Subgroups.Topic, Operation.Get));
-			commonOperations.add(new Operation(Groups.Knowldege, Subgroups.Proposal, Operation.Get));
-			commonOperations.add(new Operation(Groups.Knowldege, Subgroups.Answer, Operation.Get));
-			commonOperations.add(new Operation(Groups.Knowldege, Subgroups.Topic, Operation.Get)); 
-			commonOperations.add(new Operation(Groups.Knowldege, Subgroups.Topic, Operation.Get));
+			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Get.name()));
+			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
+			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Get.name()));
 		}
 		return commonOperations;
 	}
@@ -254,7 +269,7 @@ public class SessionController {
 		boolean result = false;
 		for (Operation op: operations) 
 		{
-			result = (op.getGroup().Equals(operation.getGroup()) && op.getSubgroup().Equals(operation.getSubgroup()));
+			result = (op.getGroup().equals(operation.getGroup()) && op.getSubgroup().equals(operation.getSubgroup()));
 			if (result)
 			{
 				result = (op.getOperations().contains(operation.getOperations().get(0)));
