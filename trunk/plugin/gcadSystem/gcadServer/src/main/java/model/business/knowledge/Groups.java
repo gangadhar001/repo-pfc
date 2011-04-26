@@ -1,6 +1,6 @@
 package model.business.knowledge;
 
 public enum Groups {
-	Knowledge
+	Knowledge, Notification, Project
 
 }

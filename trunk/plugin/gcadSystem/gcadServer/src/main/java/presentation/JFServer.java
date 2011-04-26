@@ -35,6 +35,7 @@ import model.business.control.ServerController;
 import presentation.auxiliary.Dialogos;
 import presentation.auxiliary.IVentanaEstado;
 import presentation.auxiliary.CloseWindowListener;
+import presentation.auxiliary.IWindowState;
 
 
 import java.util.EventObject;
@@ -55,7 +56,7 @@ import java.util.EventObject;
 /**
  * Main Server UI Window
  */
-public class JFServer extends javax.swing.JFrame implements IVentanaEstado {	
+public class JFServer extends javax.swing.JFrame implements IWindowState {	
 	{
 		//Set Look & Feel
 		try {
@@ -90,6 +91,8 @@ public class JFServer extends javax.swing.JFrame implements IVentanaEstado {
 	private JMenu mnuFile;
 	private JMenu mnuHelp;
 	private JMenu mnuOption;
+
+	private int clientsNumber;
 	
 	public JFServer(ServerController controlador) {
 		super();
@@ -461,21 +464,22 @@ public class JFServer extends javax.swing.JFrame implements IVentanaEstado {
 		txtLog.setCaretPosition(txtLog.getDocument().getLength());
 	}
 
+	public String getMessages() {
+		return txtLog.getText();
+	}
 	
+	public void updateConnectedClients(int clientsNumber) {
+		this.clientsNumber = clientsNumber;
+		if(clientsNumber == 1) {
+			lblConnectedClients.setText(clientsNumber + " cliente conectado.");
+		} else {
+			lblConnectedClients.setText(clientsNumber + " clientes conectados.");
+		}
+	}
 	
-//	public void actualizarClientesEscuchando(int numeroClientes) {
-//		this.clientsNumber = numeroClientes;
-//		if(numeroClientes == 1) {
-//			lblConnectedClients.setText(numeroClientes + " cliente conectado.");
-//		} else {
-//			lblConnectedClients.setText(numeroClientes + " clientes conectados.");
-//		}
-//	}
-//	
-//	public int getClientesEscuchando() {
-//		return clientsNumber;
-//	}
-//	
+	public int getClientesEscuchando() {
+		return clientsNumber;
+	}
 	//$hide<<$
 	
 }

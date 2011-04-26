@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="/gcadClient/lib/jdom.jar"/>
 	<classpathentry kind="lib" path="/gcadClient/lib/saxpath.jar"/>
 	<classpathentry kind="lib" path="/gcadClient/lib/xalan.jar"/>
+	<classpathentry kind="lib" path="/gcadClient/lib/swingx-ws.jar"/>
+	<classpathentry kind="lib" path="/gcadClient/lib/swingx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
