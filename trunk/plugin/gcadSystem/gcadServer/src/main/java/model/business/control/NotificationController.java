@@ -13,10 +13,16 @@ import model.business.knowledge.Notification;
 public class NotificationController {
 
 	public static ArrayList<Notification> getNotifications(int currentActiveProject) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Notification.name(), Subgroups.Notification.name(), Operations.Get.name()));
+
 		return DAONotification.queryNotificationsProject(currentActiveProject);
 	}
 
 	public static void deleteNotification(Notification notification) throws SQLException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Notification.name(), Subgroups.Notification.name(), Operations.Delete.name()));
+
 		DAONotification.delete(notification);
 	}
 

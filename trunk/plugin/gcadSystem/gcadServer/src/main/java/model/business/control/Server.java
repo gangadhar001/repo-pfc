@@ -56,15 +56,50 @@ public class Server implements IServer {
 	
 	/*** Methods used to manage login and signout ***/
 	public ISession login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole {
-		return SessionController.login(user, pass);
+		ISession session;
+		try {
+			session = SessionController.login(user, pass);
+			LogManager.putMessage(IMessageLog.READ, "User '" + user + "' logged.");
+		} catch(SQLException se) {
+			LogManager.putMessage(IMessageLog.READ, "Error SQL mientras se autenticaba el usuario '" + user + "': " + se.getLocalizedMessage());
+			throw se;
+		} catch(IncorrectEmployeeException iee) {
+			LogManager.putMessage(IMessageLog.READ, "Error al recuperar el usuario '" + user + "' que se estaba autenticando: " + iee.getLocalizedMessage());
+			throw iee;
+		} catch(NonExistentRole ner) {
+			LogManager.putMessage(IMessageLog.READ, "Error al recuperar los permisos del usuario '" + user + "': " + ner.getLocalizedMessage());
+			throw ner;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageLog.READ, "Error inesperado mientras se autenticaba un usuario: " + e.toString());
+			throw e;
+		}
+		return session;
 		
 	}
 	
 	public void signout(long sessionID) throws SQLException, NotLoggedException {
-		SessionController.signout(sessionID);
-		// Remove registered client
-		ClientsController.detach(sessionID);
-		DBConnectionManager.clear();
+		String login = "";
+		try {
+			// Liberamos la sesión del cliente
+			if(SessionController.getSession(sessionID) != null)
+				login = SessionController.getSession(sessionID).getUser().getLogin();
+			SessionController.signout(sessionID);
+			// Remove registered client
+			ClientsController.detach(sessionID);
+			DBConnectionManager.clear();
+			LogManager.putMessage(IMessageLog.INFO, "Liberado el cliente con id de sesión " + sessionID + ".");
+			LogManager.putMessage(IMessageLog.INFO, "Usuario '" + login + "' desconectado.");
+			LogManager.updateConnectedClients(SessionController.getClients().size());
+		} catch(SQLException se) {
+			LogManager.putMessage(IMessageLog.INFO, "Error SQL mientras se desconectaba el usuario '" + login + "': " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageLog.INFO, "Error al comprobar la sesión con id " + sessionID + " para liberar un cliente en el sistema: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageLog.INFO, "Error inesperado mientras se liberaba un cliente en el sistema: " + e.toString());
+			throw e;
+		}
 	}
 	
 	public void disconnectClients() throws RemoteException {
@@ -76,39 +111,29 @@ public class Server implements IServer {
 		String login;
 		Session session;
 		ClientProxy clientProxy;
-		
-		//TODO:
-		if (client == null)
-			throw new NullPointerException("El cliente que se quiere registrar no puede ser nulo.");
-		
+			
 		// Check if the session is valid
 		session = SessionController.getSessions().get(sessionID);
 		if(session == null) {
 			throw new NotLoggedException();
 		}
-//		try {
-		clientProxy = new ClientProxy();
-		clientProxy.associate(client);
-		ClientsController.attach(sessionID, clientProxy);
-		ClientsController.notifyConnection(true);
-//			login = GestorSesiones.getSesion(idSesion).getUsuario().getLogin();
-//			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.TIPO_INFO, "Registrado el cliente con id de sesión " + idSesion + ".");
-//			GestorConexionesLog.actualizarClientesEscuchando(GestorSesiones.getClientes().size());
-//		} catch(SesionNoIniciadaException snie) {
-//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "Error al comprobar la sesión con id " + idSesion + " para registrar un cliente en el sistema: " + snie.getLocalizedMessage());
-//			throw snie;
-//		} catch(NullPointerException npe) {
-//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "Error al intentar registrar un cliente con datos no válidos: " + npe.getLocalizedMessage());
-//			throw npe;
-//		} catch(Exception e) {
-//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "Error inesperado mientras se registraba un cliente en el sistema: " + e.toString());
-//			throw e;
-//		}
+		try {
+			clientProxy = new ClientProxy();
+			clientProxy.associate(client);
+			ClientsController.attach(sessionID, clientProxy);
+			// TODO:
+			//ClientsController.notifyConnection(true);
+			login = SessionController.getSession(sessionID).getUser().getLogin();
+			LogManager.putMessage(login, IMessageLog.INFO, "Registrado el cliente con id de sesión " + sessionID + ".");
+			ogManager.updateConnectedClients(SessionController.getClients().size());
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageLog.INFO, "Error al comprobar la sesión con id " + sessionID + " para registrar un cliente en el sistema: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageLog.INFO, "Error inesperado mientras se registraba un cliente en el sistema: " + e.toString());
+			throw e;
+		}
 	}
-
-//	public void initDBConnection(String ip, String port) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-//		DBConnectionManager.addConnection(new DBConnection(ip, Integer.parseInt(port), "dbgcad"));
-//	}
 	
 	/*** Methods used to add new Knowledge ***/
 	public void addTopic (long sessionId, Topic topic) throws SQLException, NonPermissionRole {
