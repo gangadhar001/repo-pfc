@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Groups;
@@ -24,7 +25,7 @@ import persistence.DAOTopic;
  */
 public class KnowledgeController {
 		
-	public static TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public static TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		// This method access to database only the first time, when "topicWrapper" is not initialized.
 		//if (topicWrapper == null) {
 		// Check if have permission to perform the operation
@@ -39,8 +40,9 @@ public class KnowledgeController {
 	
 	/**
 	 * This method returns all existing proposals from a project 
+	 * @throws NotLoggedException 
 	 */
-	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
 
@@ -53,8 +55,9 @@ public class KnowledgeController {
 	
 	/**
 	 * This method returns all existing answers from a project
+	 * @throws NotLoggedException 
 	 */
-	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Get.name()));
 
@@ -69,8 +72,9 @@ public class KnowledgeController {
 
 	/**
 	 * Methods used to add new knowledge
+	 * @throws NotLoggedException 
 	 */
-	public static void addTopic(long sessionId, User u, Project p, Topic topic) throws SQLException, NonPermissionRole {
+	public static void addTopic(long sessionId, User u, Project p, Topic topic) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Add.name()));
 
@@ -83,7 +87,7 @@ public class KnowledgeController {
 		
 	}
 	
-	public static void addProposal(long sessionId, User u, Proposal proposal, Topic parent) throws SQLException, NonPermissionRole {
+	public static void addProposal(long sessionId, User u, Proposal proposal, Topic parent) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Add.name()));
 
@@ -93,7 +97,7 @@ public class KnowledgeController {
 		parent.add(proposal);
 	}
 	
-	public static void addAnswer(long sessionId, User u, Answer answer, Proposal parent) throws SQLException, NonPermissionRole {
+	public static void addAnswer(long sessionId, User u, Answer answer, Proposal parent) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Add.name()));
 
@@ -105,8 +109,9 @@ public class KnowledgeController {
 	
 	/**
 	 * Methods used to modify knowledge
+	 * @throws NotLoggedException 
 	 */	
-	public static void modifyTopic(long sessionId, User user, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRole {
+	public static void modifyTopic(long sessionId, User user, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Modify.name()));
 
@@ -123,7 +128,7 @@ public class KnowledgeController {
 		//topicWrapper.getTopics().add(index, newTopic);		
 	}
 	
-	public static void modifyProposal(long sessionId, User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void modifyProposal(long sessionId, User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Modify.name()));
 
@@ -150,7 +155,7 @@ public class KnowledgeController {
 		}
 	}
 	
-	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Modify.name()));
 
@@ -171,7 +176,7 @@ public class KnowledgeController {
 		}
 	}
 	
-	public static void deleteTopic(long sessionId, Topic to) throws SQLException, NonPermissionRole {
+	public static void deleteTopic(long sessionId, Topic to) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Delete.name()));
 
@@ -179,7 +184,7 @@ public class KnowledgeController {
 		DAOTopic.delete(to);
 	}
 	
-	public static void deleteProposal(long sessionId, Proposal p) throws SQLException, NonPermissionRole {
+	public static void deleteProposal(long sessionId, Proposal p) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Delete.name()));
 
@@ -189,7 +194,7 @@ public class KnowledgeController {
 		DAOProposal.delete(p);
 	}
 
-	public static void deleteAnswer(long sessionId, Answer a) throws SQLException, NonPermissionRole {
+	public static void deleteAnswer(long sessionId, Answer a) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Delete.name()));
 
@@ -199,7 +204,7 @@ public class KnowledgeController {
 		DAOAnswer.delete(a);
 	}
 
-	public static Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public static Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		Proposal result = null;
 		for(Topic t: getTopicsWrapper(sessionId).getTopics()){
 			for (Proposal p: t.getProposals())
@@ -209,7 +214,7 @@ public class KnowledgeController {
 		return result;
 	}
 	
-	public static Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public static Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		Topic result = null;	
 		for(Topic t: getTopicsWrapper(sessionId).getTopics()) {
 			if (t.getProposals().contains(p))

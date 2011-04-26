@@ -125,12 +125,16 @@ public class SessionController {
 		
 	}
 
-	public static Session getSession(long sessionId) {
-		return sessions.get(sessionId);
+	public static Session getSession(long sessionId) throws NotLoggedException {
+		Session session = sessions.get(sessionId);
+		if (session == null)
+			// TODO: 
+			throw new NotLoggedException();
+		return session;
 	}
 
 	@SuppressWarnings("unchecked")
-	public static ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole
+	public static ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole, NotLoggedException
 	{
 		// Retrieve the available operations from profile file.
 		ArrayList<Operation> result = new ArrayList<Operation>();
@@ -224,7 +228,7 @@ public class SessionController {
 	}
 
 	// Method used for other managers to check the permissions of a user
-	public static void checkPermission(long sessionId, Operation operation) throws NonPermissionRole 
+	public static void checkPermission(long sessionId, Operation operation) throws NonPermissionRole, NotLoggedException 
 	{
 		ArrayList<Operation> operations;
 		Session session;

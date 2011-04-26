@@ -8,6 +8,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+import model.business.knowledge.IMessageTypeLog;
+
 import presentation.JFServer;
 
 import communication.ServerConfiguration;
@@ -27,6 +29,8 @@ public class ServerController {
 	private JFServer serverWindowUI;
 	private String serverIP;
 	private boolean isServerActivate;
+	private WindowsLogManager log;
+	private DBLogManager logDB;
 
 	public ServerController() {
 		serverInstanceExported = null;
@@ -54,6 +58,7 @@ public class ServerController {
 		System.setProperty("java.rmi.server.hostname", serverIP);
 
 		DBConnectionManager.clear();
+		LogManager.clearConnections();
 		
 		// Create databse connection
 		databaseConnection = new DBConnection();
@@ -69,14 +74,12 @@ public class ServerController {
 		}
 		DBConnectionManager.addConnection(databaseConnection);
 		
-		// Añadimos las conexiones que mostrarán los mensaje del servidor
-		// en su ventana principal y los guardará en la base de datos
-//		logFrontend = new ConexionLogVentana();
-//		logFrontend.ponerVentana(ventana);
-//		logBD = new ConexionLogBD();
-//		GestorConexionesLog.ponerConexion(logFrontend);
-//		GestorConexionesLog.ponerConexion(logBD);
-		
+		// Add the connections which will display the message from the server in its main window and will save them into the database
+		log = new WindowsLogManager();
+		log.putWindow(serverWindowUI);
+		logDB = new DBLogManager();
+		LogManager.putConnection(log);
+		LogManager.putConnection(logDB);		
 		
 		// Create server instance and start it in "listen" mode.
 		try {
@@ -85,14 +88,9 @@ public class ServerController {
 		} catch(RemoteException e) {
 			throw new RemoteException(BundleInternationalization.getString("ServerController_ActivateServer_Error") + serverIP + ":" + String.valueOf(configuration.getServerPort()) + ".");
 		}
-		
-//		// Mostramos un mensaje indicando que el servidor está activo
-//		if(configuracion.isRespaldoActivado()) {
-//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "=== Servidor iniciado ===");
-//		} else {
-//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "=== Servidor iniciado (servidor de respaldo deshabilitado) ===");
-//		}
-//		GestorConexionesLog.actualizarClientesEscuchando(0);
+	
+		LogManager.putMessage(IMessageTypeLog.INFO, "=== Servidor iniciado ===");	
+		LogManager.updateConnectedClients(0);
 		
 		isServerActivate = true;
 	}

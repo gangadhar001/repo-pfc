@@ -1,7 +1,9 @@
+package geoposition;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -14,10 +16,11 @@ import org.jdom.xpath.XPath;
 public class PruebaMaps {
 
 	
-	public static void getCoordinates() {
+	public static ArrayList<String> getCoordinates() {
 		String baseUrl = "http://where.yahooapis.com/geocode"; 
 		URL url;
-		String request = baseUrl + "?q=paloma,ciudad+real,spain&appid=";//appid
+		String request = baseUrl + "?q=paloma,ciudad+real,spain&appid=1";//appid
+		ArrayList<String> result = new ArrayList<String>();
 		try {
 			url = new URL(request);
 			// Connect and get response stream from Web Service
@@ -31,7 +34,8 @@ public class PruebaMaps {
 			String latitude = ((Element) XPath.selectSingleNode(doc, "//ResultSet/Result/latitude")).getContent(0).getValue();
 			String longitude = ((Element) XPath.selectSingleNode(doc, "//ResultSet/Result/longitude")).getContent(0).getValue();		
 			in.close();
-			System.out.println("Error " + status + " Found " +found + " Latitude " + latitude + " Longitude " + longitude);
+			System.out.println("Error " + status + " Found " +found + " Latitude " + latitude + " Longitude " + longitude);			
+			result.add(latitude); result.add(longitude);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,7 +46,7 @@ public class PruebaMaps {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return result;
 	}
 	
 	/**

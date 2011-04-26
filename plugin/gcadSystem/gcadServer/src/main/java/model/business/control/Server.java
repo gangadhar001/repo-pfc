@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import model.business.knowledge.Answer;
+import model.business.knowledge.IMessageTypeLog;
 import model.business.knowledge.IResources;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Language;
@@ -55,29 +56,29 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to manage login and signout ***/
-	public ISession login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole {
+	public ISession login (String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole, RemoteException, Exception {
 		ISession session;
 		try {
 			session = SessionController.login(user, pass);
-			LogManager.putMessage(IMessageLog.READ, "User '" + user + "' logged.");
+			LogManager.putMessage(IMessageTypeLog.READ, "User '" + user + "' logged.");
 		} catch(SQLException se) {
-			LogManager.putMessage(IMessageLog.READ, "Error SQL mientras se autenticaba el usuario '" + user + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.READ, "Error SQL mientras se autenticaba el usuario '" + user + "': " + se.getLocalizedMessage());
 			throw se;
 		} catch(IncorrectEmployeeException iee) {
-			LogManager.putMessage(IMessageLog.READ, "Error al recuperar el usuario '" + user + "' que se estaba autenticando: " + iee.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.READ, "Error al recuperar el usuario '" + user + "' que se estaba autenticando: " + iee.getLocalizedMessage());
 			throw iee;
 		} catch(NonExistentRole ner) {
-			LogManager.putMessage(IMessageLog.READ, "Error al recuperar los permisos del usuario '" + user + "': " + ner.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.READ, "Error al recuperar los permisos del usuario '" + user + "': " + ner.getLocalizedMessage());
 			throw ner;
 		} catch(Exception e) {
-			LogManager.putMessage(IMessageLog.READ, "Error inesperado mientras se autenticaba un usuario: " + e.toString());
+			LogManager.putMessage(IMessageTypeLog.READ, "Error inesperado mientras se autenticaba un usuario: " + e.toString());
 			throw e;
 		}
 		return session;
 		
 	}
 	
-	public void signout(long sessionID) throws SQLException, NotLoggedException {
+	public void signout(long sessionID) throws SQLException, NotLoggedException, RemoteException, Exception {
 		String login = "";
 		try {
 			// Liberamos la sesión del cliente
@@ -87,17 +88,17 @@ public class Server implements IServer {
 			// Remove registered client
 			ClientsController.detach(sessionID);
 			DBConnectionManager.clear();
-			LogManager.putMessage(IMessageLog.INFO, "Liberado el cliente con id de sesión " + sessionID + ".");
-			LogManager.putMessage(IMessageLog.INFO, "Usuario '" + login + "' desconectado.");
-			LogManager.updateConnectedClients(SessionController.getClients().size());
+			LogManager.putMessage(IMessageTypeLog.INFO, "Liberado el cliente con id de sesión " + sessionID + ".");
+			LogManager.putMessage(IMessageTypeLog.INFO, "Usuario '" + login + "' desconectado.");
+			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			LogManager.putMessage(IMessageLog.INFO, "Error SQL mientras se desconectaba el usuario '" + login + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.INFO, "Error SQL mientras se desconectaba el usuario '" + login + "': " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageLog.INFO, "Error al comprobar la sesión con id " + sessionID + " para liberar un cliente en el sistema: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.INFO, "Error al comprobar la sesión con id " + sessionID + " para liberar un cliente en el sistema: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(Exception e) {
-			LogManager.putMessage(IMessageLog.INFO, "Error inesperado mientras se liberaba un cliente en el sistema: " + e.toString());
+			LogManager.putMessage(IMessageTypeLog.INFO, "Error inesperado mientras se liberaba un cliente en el sistema: " + e.toString());
 			throw e;
 		}
 	}
@@ -107,7 +108,7 @@ public class Server implements IServer {
 		SessionController.disconnectClients();
 	}
 	
-	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException {
+	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException, SQLException, Exception {
 		String login;
 		Session session;
 		ClientProxy clientProxy;
@@ -124,19 +125,19 @@ public class Server implements IServer {
 			// TODO:
 			//ClientsController.notifyConnection(true);
 			login = SessionController.getSession(sessionID).getUser().getLogin();
-			LogManager.putMessage(login, IMessageLog.INFO, "Registrado el cliente con id de sesión " + sessionID + ".");
-			ogManager.updateConnectedClients(SessionController.getClients().size());
+			LogManager.putMessage(login, IMessageTypeLog.INFO, "Registrado el cliente con id de sesión " + sessionID + ".");
+			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageLog.INFO, "Error al comprobar la sesión con id " + sessionID + " para registrar un cliente en el sistema: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.INFO, "Error al comprobar la sesión con id " + sessionID + " para registrar un cliente en el sistema: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(Exception e) {
-			LogManager.putMessage(IMessageLog.INFO, "Error inesperado mientras se registraba un cliente en el sistema: " + e.toString());
+			LogManager.putMessage(IMessageTypeLog.INFO, "Error inesperado mientras se registraba un cliente en el sistema: " + e.toString());
 			throw e;
 		}
 	}
 	
-	/*** Methods used to add new Knowledge ***/
-	public void addTopic (long sessionId, Topic topic) throws SQLException, NonPermissionRole {
+	/*** Methods used to add new Knowledge  ***/
+	public void addTopic (long sessionId, Topic topic) throws SQLException, NonPermissionRole, NotLoggedException {
 		boolean found = false;
 		Project project = null;
 		Session session = SessionController.getSession(sessionId);
@@ -150,85 +151,85 @@ public class Server implements IServer {
 		KnowledgeController.addTopic(sessionId, session.getUser(), project , topic);
 	}
 	
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws SQLException, NonPermissionRole {
+	public void addProposal (long sessionId, Proposal p, Topic parent) throws SQLException, NonPermissionRole, NotLoggedException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.addProposal(sessionId, session.getUser(), p, parent);
 	}
 	
-	public void addAnwser (long sessionId, Answer a, Proposal parent) throws SQLException, NonPermissionRole {
+	public void addAnwser (long sessionId, Answer a, Proposal parent) throws SQLException, NonPermissionRole, NotLoggedException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.addAnswer(sessionId, session.getUser(), a, parent);
 	}
 	
 	/*** Methods used to modify Knowledge ***/
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRole {
+	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRole, NotLoggedException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.modifyTopic(sessionId, session.getUser(), newTopic, oldTopic);		
 	}
 	
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.modifyProposal(sessionId, session.getUser(), newProposal, oldProposal, parent);		
 	}
 	
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException {
 		Session session = SessionController.getSession(sessionId);
 		KnowledgeController.modifyAnswer(sessionId, session.getUser(), newAnswer, oldAnswer, parent);		
 	}
 		
-	/*** Methods used to delete Knowledge ***/
+	/*** Methods used to delete Knowledge 
+	 * @throws NotLoggedException ***/
 	@Override
-	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole {
+	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException {
 		KnowledgeController.deleteTopic(sessionId, to);
 		
 	}
 
 	@Override
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole {
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException {
 		KnowledgeController.deleteProposal(sessionId, p);
 		
 	}
 
 	@Override
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole {
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException {
 		KnowledgeController.deleteAnswer(sessionId, a);
 		
 	}
 	
 	/*** Methods to manage projects ***/
-	public void createProject (long sessionId, Project p) throws SQLException {
-		ProjectController.createProject(p);
+	public void createProject (long sessionId, Project p) throws SQLException, NonPermissionRole, NotLoggedException {
+		ProjectController.createProject(sessionId, p);
 	}
 	
 	/*** Methods used to manage notifications ***/
-	public void addNotification(long sessionId, Notification notification) throws SQLException {
-		NotificationController.deleteNotification(notification);
-	}
+//	public void addNotification(long sessionId, Notification notification) throws SQLException, NonPermissionRole {
+//		NotificationController.addNotification(notification);
+//	}
 	
-	public void removeNotification(long sessionId, Notification notification) throws SQLException {
-		NotificationController.deleteNotification(notification);
+	public void removeNotification(long sessionId, Notification notification) throws SQLException, NonPermissionRole, NotLoggedException {
+		NotificationController.deleteNotification(sessionId, notification);
 	}
 
-	public ArrayList<Notification> getNotifications(long sessionId) throws SQLException {
+	public ArrayList<Notification> getNotifications(long sessionId) throws SQLException, NonPermissionRole, NotLoggedException {
 		Session session = SessionController.getSession(sessionId);
-		return NotificationController.getNotifications(session.getCurrentActiveProject());
+		return NotificationController.getNotifications(session.getCurrentActiveProject(), 0);
 	}
 	
-	/*** Auxiliary methods 
-	 * @throws NonPermissionRole ***/
-	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	/*** Auxiliary methods  ***/
+	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		return KnowledgeController.getProposals(sessionId);
 	}
 	
-	public ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		return KnowledgeController.getAnswers(sessionId);
 	}
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		return KnowledgeController.findParentAnswer(sessionId, a);
 	}
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		return KnowledgeController.findParentProposal(sessionId, p);
 	}		
 	
@@ -238,7 +239,7 @@ public class Server implements IServer {
 //		return null;
 //	}	
 	
-	public TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole {
+	public TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		return KnowledgeController.getTopicsWrapper(sessionId);
 	}
 		
@@ -266,12 +267,11 @@ public class Server implements IServer {
 	/**
 	 * This method reads the profiles available for a user role from a XML file.
 	 */
-	@SuppressWarnings("unchecked")
-	public ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole {
+	public ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole, NotLoggedException {
 		return SessionController.getAvailableOperations(sessionId);
 	}
 	
-	public void setCurrentProject(long sessionId, int id) {
+	public void setCurrentProject(long sessionId, int id) throws NotLoggedException {
 		SessionController.getSession(sessionId).setCurrentActiveProject(id);
 		
 	}

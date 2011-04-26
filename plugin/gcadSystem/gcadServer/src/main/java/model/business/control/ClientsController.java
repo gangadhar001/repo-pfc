@@ -80,6 +80,10 @@ public class ClientsController {
 	public static IClient getClient(long id) {
 		return clients.get(id);
 	}
+	
+	public static int getClients() {
+		return clients.size();
+	}
 
 }
 
