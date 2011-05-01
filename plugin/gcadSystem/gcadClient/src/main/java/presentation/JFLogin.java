@@ -109,7 +109,7 @@ public class JFLogin extends SingleFrameApplication {
     	{
 	    	getMainFrame().setSize(350, 301);
 	    	getMainFrame().setResizable(false);
-	    	getMainFrame().setTitle(ApplicationInternationalization.getString("title"));
+	    	getMainFrame().setTitle(ApplicationInternationalization.getString("titleLogin"));
     	}
     	
     	BorderLayout mainFrameLayout = new BorderLayout();
@@ -137,8 +137,8 @@ public class JFLogin extends SingleFrameApplication {
     			topPanel.add(btnCancel, new AnchorConstraint(804, 26, 17, 790, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
     			btnCancel.setPreferredSize(new java.awt.Dimension(74, 24));
     			btnCancel.setName("btnCancel");
-    			btnLogin.setText(ApplicationInternationalization.getString("CancelButton"));
     			btnCancel.setAction(getAppActionMap().get("cancelAction"));
+    			btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
     		}
     		{
     			serverPanel = new JPanel();
@@ -149,7 +149,7 @@ public class JFLogin extends SingleFrameApplication {
     			serverPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupServer")));
     			{
     				txtServerPort = new JTextField();
-    				txtServerPort.setInputVerifier(new PortValidator(getMainFrame(), txtServerPort, "El puerto debe contener solo numeros en el rango x-x"));
+    				txtServerPort.setInputVerifier(new PortValidator(getMainFrame(), txtServerPort, ApplicationInternationalization.getString("loginValidatePort") + "[1 - 65535]"));
     				serverPanel.add(txtServerPort, new AnchorConstraint(61, 6, 638, 295, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
     				txtServerPort.setPreferredSize(new java.awt.Dimension(207, 20));
     				txtServerPort.setName("txtServerPort");
@@ -163,7 +163,7 @@ public class JFLogin extends SingleFrameApplication {
     			}
     			{
     				txtServerIP = new JTextField();
-    				txtServerIP.setInputVerifier(new IPValidator(getMainFrame(), txtServerIP, "La IP no puede ser vacia o no tiene el formato adecuado"));
+    				txtServerIP.setInputVerifier(new IPValidator(getMainFrame(), txtServerIP, ApplicationInternationalization.getString("loginValidateIP")));
     				serverPanel.add(txtServerIP, new AnchorConstraint(33, 6, 361, 295, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
     				txtServerIP.setPreferredSize(new java.awt.Dimension(207, 20));
     			}
@@ -203,14 +203,15 @@ public class JFLogin extends SingleFrameApplication {
     			userDataPanel.setPreferredSize(new java.awt.Dimension(326, 97));
     			userDataPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupUser")));
     			{
+    				//TODO: validar Password
     				txtPass = new JPasswordField();
-    				txtPass.setInputVerifier(new NotEmptyValidator(getMainFrame(), txtPass, "Field cannot be null."));
+    				txtPass.setInputVerifier(new NotEmptyValidator(getMainFrame(), txtPass, ApplicationInternationalization.getString("loginValidateEmpty")));
     				userDataPanel.add(txtPass, new AnchorConstraint(561, 983, 809, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
     				txtPass.setPreferredSize(new java.awt.Dimension(206, 24));    				
     			}
     			{
     				txtUserName = new JTextField();
-    				txtUserName.setInputVerifier(new UserNameValidator(getMainFrame(), txtUserName, "User name must contain alfanumeric characters"));
+    				txtUserName.setInputVerifier(new UserNameValidator(getMainFrame(), txtUserName, ApplicationInternationalization.getString("loginValidateUser")));
     				userDataPanel.add(txtUserName, new AnchorConstraint(283, 983, 500, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
     				txtUserName.setPreferredSize(new java.awt.Dimension(206, 21));
     				txtUserName.setName("txtUserName");
@@ -327,7 +328,7 @@ public class JFLogin extends SingleFrameApplication {
 		try {
 			getMainFrame().setEnabled(false);
 			// Simulates long task
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 			// Login
 			ClientController.getInstance().initClient(ip, port, user, pass);
 			glassPane.stop();

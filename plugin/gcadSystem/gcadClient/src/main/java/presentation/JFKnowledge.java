@@ -22,12 +22,14 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
+import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
+import model.business.knowledge.Subgroups;
 
 import org.jdesktop.application.Application;
 
@@ -67,6 +69,14 @@ public class JFKnowledge extends javax.swing.JDialog {
 	private String subgroupSelected;
 	private Object data;
 	private String operationToDo;
+	
+	public JFKnowledge () {
+		super();
+		this.subgroupSelected = null;
+		data = null;
+		this.operationToDo = null;
+		initGUI();
+	}
 	
 	public JFKnowledge(String subgroupSelected, Object data, String operationToDo) {
 		super();
@@ -129,100 +139,95 @@ public class JFKnowledge extends javax.swing.JDialog {
 
 	private void setKnowledgeActions(List<Operation> operations) {
 		for(Operation o: operations) {
-			if (o.getGroup().equals("Knowledge"))
+			if (o.getGroup().equals(Groups.Knowledge.name()))
 				actionsKnowledge.put(o.getSubgroup(), o.getOperations());
 		}
 	}
     
+	@SuppressWarnings("rawtypes")
 	private void createPanelActions() throws IOException {
 		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
 		for (final String subgroup: subgroups) {
-	    	// Load the subgroup image of the operation
-			image = ImagesUtilities.loadCompatibleImage(subgroup + ".png");
-			// Create button
-			JButton button = new JButton();
-			button.setSize(new Dimension(100, 100));
-			button.setPreferredSize(button.getSize());
-			// Set the subgroup id as name of the button
-			button.setName("btn_"+subgroup);
-			button.setText(subgroup);
-			button.setIcon(new ImageIcon(image));
-			button.setHorizontalTextPosition(JButton.CENTER);
-			button.setVerticalTextPosition(JButton.BOTTOM);
-			button.setContentAreaFilled(false);
-			button.setFocusPainted(false);
-			button.setBorderPainted(true);					
-			// Save button icon
-			ImagesUtilities.addImageButton(button.getName(), image);
-			button.addMouseListener(new MouseAdapter() {
-				public void mouseExited(MouseEvent evt) {
-					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
-					ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
-				}
-	
-				public void mouseEntered(MouseEvent evt) {
-					setCursor(new Cursor(Cursor.HAND_CURSOR));  
-					ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
-				}
-			});
-			
-			// Set the corresponding action for the name of the button
-			button.addActionListener(new ActionListener() {		
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						// Clean selection from other buttons
-						for (Component c: panelActions.getComponents())
-							if (c instanceof JButton) 
-								((JButton)c).setContentAreaFilled(false);
-						// Set the corresponding panel on the main panel
-						mainPanel.removeAll();
-						Component component = null;
-						if (data != null) {
-							// Use constructor of the corresponding panel, in order to pass the data to the constructor
-							// This is reflection
-							@SuppressWarnings("rawtypes")
-							Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {Object.class, String.class});
-							component = (Component) c.newInstance(new Object [] {data, operationToDo});
-						}
-						else 
-							component = (Component) Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).newInstance();
-						mainPanel.add(component);
-						mainPanel.validate();
-						mainPanel.repaint();
-						JButton buttonPressed = ((JButton)e.getSource()); 
-						buttonPressed.setContentAreaFilled(true);
-					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (SecurityException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (NoSuchMethodException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IllegalArgumentException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (InvocationTargetException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}					
-				}
-			});				
-			
-			panelActions.add(button);
-			
-			// Simulate button click that corresponds with the action selected by user.
-			// If it is null, no default action
-			if (subgroupSelected != null && subgroup.equals(subgroupSelected))
-				button.doClick();
+			if (!subgroup.equals(Subgroups.PDFGeneration.name())) {
+		    	// Load the subgroup image of the operation
+				image = ImagesUtilities.loadCompatibleImage(subgroup + ".png");
+				// Create button
+				JButton button = new JButton();
+				button.setSize(new Dimension(100, 100));
+				button.setPreferredSize(button.getSize());
+				// Set the subgroup id as name of the button
+				button.setName("btn_"+subgroup);
+				button.setText(subgroup);
+				button.setIcon(new ImageIcon(image));
+				button.setHorizontalTextPosition(JButton.CENTER);
+				button.setVerticalTextPosition(JButton.BOTTOM);
+				button.setContentAreaFilled(false);
+				button.setFocusPainted(false);
+				button.setBorderPainted(true);					
+				// Save button icon
+				ImagesUtilities.addImageButton(button.getName(), image);
+				button.addMouseListener(new MouseAdapter() {
+					public void mouseExited(MouseEvent evt) {
+						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
+						ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
+					}
+		
+					public void mouseEntered(MouseEvent evt) {
+						setCursor(new Cursor(Cursor.HAND_CURSOR));  
+						ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
+					}
+				});
+				
+				// Set the corresponding action for the name of the button
+				button.addActionListener(new ActionListener() {		
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try {
+							// Clean selection from other buttons
+							for (Component c: panelActions.getComponents())
+								if (c instanceof JButton) 
+									((JButton)c).setContentAreaFilled(false);
+							// Set the corresponding panel on the main panel
+							mainPanel.removeAll();
+							Component component = null;
+							if (data != null) {
+								// Use constructor of the corresponding panel, in order to pass the data to the constructor
+								// This is reflection
+								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {Object.class, String.class});
+								component = (Component) c.newInstance(new Object [] {data, operationToDo});
+							}
+							else 
+								component = (Component) Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).newInstance();
+							mainPanel.add(component);
+							mainPanel.validate();
+							mainPanel.repaint();
+							JButton buttonPressed = ((JButton)e.getSource()); 
+							buttonPressed.setContentAreaFilled(true);
+						} catch (InstantiationException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						} catch (IllegalAccessException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						} catch (ClassNotFoundException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						} catch (SecurityException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						} catch (NoSuchMethodException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						} catch (IllegalArgumentException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						} catch (InvocationTargetException e1) {
+							JOptionPane.showMessageDialog(null, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						}					
+					}
+				});				
+				
+				panelActions.add(button);
+				
+				// Simulate button click that corresponds with the action selected by user.
+				// If it is null, no default action
+				if (subgroupSelected != null && subgroup.equals(subgroupSelected))
+					button.doClick();
+			}
 		}
     }   
 }

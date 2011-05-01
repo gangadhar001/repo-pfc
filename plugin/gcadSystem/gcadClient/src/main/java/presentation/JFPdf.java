@@ -1,4 +1,6 @@
 package presentation;
+import internationalization.ApplicationInternationalization;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,6 +19,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -117,8 +120,7 @@ public class JFPdf extends JDialog {
 		
 	public JFPdf() {
 		super();
-		initGUI();
-		
+		initGUI();		
 		initTree();
 	}
 	
@@ -164,6 +166,7 @@ public class JFPdf extends JDialog {
 			thisLayout.rowHeights = new int[] {7, 1, 7};
 			thisLayout.columnWeights = new double[] {0.1};
 			thisLayout.columnWidths = new int[] {7};
+			setTitle(ApplicationInternationalization.getString("TitleJFPdf"));
 			getContentPane().setLayout(thisLayout);
 			{
 				panelData = new JPanel();
@@ -174,16 +177,18 @@ public class JFPdf extends JDialog {
 				panelDataLayout.rowWeights = new double[] {0.05, 0.05};
 				getContentPane().add(panelData, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 0, 5), 0, 0));
 				panelData.setLayout(panelDataLayout);
-				panelData.setBorder(BorderFactory.createTitledBorder("Meta-Data"));
+				panelData.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupMetaData")));
 				{
 					lblTitle = new JLabel();
 					panelData.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 					lblTitle.setName("lblTitle");
+					lblTitle.setText(ApplicationInternationalization.getString("lblTitlePdf"));
 				}
 				{
 					lblSubject = new JLabel();
 					panelData.add(lblSubject, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 					lblSubject.setName("lblSubject");
+					lblSubject.setText(ApplicationInternationalization.getString("lblSubjectPdf"));
 				}
 				{
 					txtTitle = new JTextField();
@@ -220,11 +225,13 @@ public class JFPdf extends JDialog {
 						lblHeader = new JLabel();
 						panelContent.add(lblHeader, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
 						lblHeader.setName("lblHeader");
+						lblHeader.setText(ApplicationInternationalization.getString("lblHeaderPdf"));
 					}
 					{
 						lblFoot = new JLabel();
 						panelContent.add(lblFoot, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
 						lblFoot.setName("lblFoot");
+						lblFoot.setText(ApplicationInternationalization.getString("lblFootPdf"));
 					}
 					{
 						chkHeader = new JCheckBox();
@@ -244,11 +251,13 @@ public class JFPdf extends JDialog {
 						btnBrowseHeader = new JButton();
 						panelContent.add(btnBrowseHeader, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 						btnBrowseHeader.setName("btnBrowseHeader");
+						btnBrowseHeader.setText(ApplicationInternationalization.getString("btnBrowse"));
 					}
 					{
 						btnBrowseFoot = new JButton();
 						panelContent.add(btnBrowseFoot, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 						btnBrowseFoot.setName("btnBrowseFoot");
+						btnBrowseFoot.setText(ApplicationInternationalization.getString("btnBrowse"));
 					}
 					{
 						chkFoot = new JCheckBox();
@@ -324,12 +333,15 @@ public class JFPdf extends JDialog {
 					btnSave.setSize(50, 23);
 					btnSave.setAction(getAppActionMap().get("save"));
 					btnSave.setPreferredSize(new java.awt.Dimension(50, 23));
+					btnSave.setText(ApplicationInternationalization.getString("btnSave"));
 				}
 				{
 					btnCancel = new JButton();
 					panelButtons.add(btnCancel, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 					btnCancel.setName("btnCancel");
 					btnCancel.setPreferredSize(new java.awt.Dimension(50, 23));
+					btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
+					
 				}
 			}
 			pack();
@@ -349,7 +361,7 @@ public class JFPdf extends JDialog {
     	button.setVerticalTextPosition(SwingConstants.BOTTOM);
     	button.setRequestFocusEnabled(false);
     	button.setAction(getAppActionMap().get("add_"+text));
-    	button.setText(text);
+    	button.setText(ApplicationInternationalization.getString(text));
     	button.setIcon(ImagesUtilities.loadIcon(text+".png"));
     	return button;	    
 	}
@@ -362,7 +374,7 @@ public class JFPdf extends JDialog {
 	public void save() {
 		try {
 			Document doc = new Document();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo PDF","pdf","PDF");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(ApplicationInternationalization.getString("PDFFile"), "pdf", "PDF");
 			JFileChooser fileChooser = new JFileChooser();       
 			fileChooser.setFileFilter(filter);
 			int result = fileChooser.showSaveDialog(this);
@@ -374,11 +386,9 @@ public class JFPdf extends JDialog {
 				doc.close();
 	        }
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -391,6 +401,9 @@ public class JFPdf extends JDialog {
 			DefaultMutableTreeNode child = new DefaultMutableTreeNode(s);
 			treeModel.insertNodeInto(child, selectedNode, selectedNode.getChildCount());
 			treePDF.scrollPathToVisible(new TreePath(child.getPath()));
+		}
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("SectionParentIncorrect"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
@@ -407,6 +420,9 @@ public class JFPdf extends JDialog {
 			treeModel.insertNodeInto(child, selectedNode, selectedNode.getChildCount());
 			treePDF.scrollPathToVisible(new TreePath(child.getPath()));
 		}
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("TitleParentIncorrect"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	@Action
@@ -418,15 +434,19 @@ public class JFPdf extends JDialog {
 			treeModel.insertNodeInto(child, selectedNode, selectedNode.getChildCount());
 			treePDF.scrollPathToVisible(new TreePath(child.getPath()));
 		}		
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("TextParentIncorrect"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	private void txtContentFocusLost(FocusEvent evt) {
 		// When text area lost the focus, set the content to the selected node
 		setContent();
 	}
-	 private void setContent() {
+	 
+	private void setContent() {
 		 if (selectedNode != null && (selectedNode.getUserObject() instanceof Text || selectedNode.getUserObject() instanceof Title)) 
 			 ((PDFElement)selectedNode.getUserObject()).setContent(txtContent.getText());
-	 }
+	}
 
 }

@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -58,6 +59,7 @@ import model.business.knowledge.Subgroups;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.jdesktop.swingx.JXCollapsiblePane.Orientation;
 import org.jdesktop.swingx.util.MailTransportProxy;
 
 import presentation.customComponents.CustomToolBar;
@@ -102,7 +104,6 @@ public class JFMain extends SingleFrameApplication {
     private JMenu menuHelp;
     private JMenu menuOption;
     private JPanel statusPanel;
-    private JPanel topPanel;
     private JMenuItem jMenuItem7;
     private JMenuItem jMenuItem6;
     private JMenuItem jMenuItem5;
@@ -112,11 +113,9 @@ public class JFMain extends SingleFrameApplication {
     private JMenuItem jMenuItem2;
     private JMenuItem jMenuItem1;
     private JMenu fileMenu;
-    private JSeparator jSeparator;
     private JToolBar toolBar;
     private JPanel toolBarPanel;
-    private JPanel contentPanel;
-    
+
     private BufferedImage image;
     // Groups of operations already show in the UI
     private ArrayList<String> groupsShown = new ArrayList<String>();
@@ -129,6 +128,8 @@ public class JFMain extends SingleFrameApplication {
 	private JMenu menuFile;
 	private JMenuItem menuFileExit;
 	private JMenu menuTools;
+	private panelNotificationsView panelNotifications;
+	private List<Operation> operations;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -136,10 +137,9 @@ public class JFMain extends SingleFrameApplication {
 
     @Override
     protected void startup() {
-    	{    		
 		try {			
-			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
-			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
+			getMainFrame().setPreferredSize(new java.awt.Dimension(1067, 625));
+			getMainFrame().setMinimumSize(new java.awt.Dimension(1067, 625));
 			{	
 				// Set glass panel
 				panelDetailsCompany = new JPDetailsCompany(this);				
@@ -148,114 +148,93 @@ public class JFMain extends SingleFrameApplication {
 			}			
 			// TODO: Temporal
 			ClientController.getInstance().setCurrentProject(2);
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		}
-		
-    	getMainFrame().setSize(902, 402);
-    	}
-        {
-            topPanel = new JPanel();
-            BorderLayout panelLayout = new BorderLayout();
-            topPanel.setLayout(panelLayout);
-            topPanel.setPreferredSize(new java.awt.Dimension(500, 300));
-            {
-                contentPanel = new JPanel();
-                GridBagLayout contentPanelLayout = new GridBagLayout();
-                contentPanelLayout.rowWeights = new double[] {0.1, 0.1};
-                contentPanelLayout.rowHeights = new int[] {7, 7};
-                contentPanelLayout.columnWeights = new double[] {0.1};
-                contentPanelLayout.columnWidths = new int[] {7};
-                contentPanel.setLayout(contentPanelLayout);
-                topPanel.add(contentPanel, BorderLayout.CENTER);
-                contentPanel.setPreferredSize(new java.awt.Dimension(886, 211));
-                {
-                	tabPanel = new JTabbedPane();
-                	
-                	contentPanel.add(tabPanel, new GridBagConstraints(0, 0, 1, 2, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 2, 28, 0), 0, 0));
-                	tabPanel.setPreferredSize(new java.awt.Dimension(907, 415));
-                	{
-                		panelActions = new JPanel();
-                		GridLayout panelActionsLayout = new GridLayout(1, 1);
-                		panelActionsLayout.setHgap(5);
-                		panelActionsLayout.setVgap(5);
-                		panelActionsLayout.setColumns(1);
-                		panelActions.setLayout(panelActionsLayout);
-                		tabPanel.addTab(ApplicationInternationalization.getString("tabActions"), null, panelActions, null);
-                		panelActions.setBounds(0, 0, 907, 415);
-                		panelActions.setName("panelActions");
-                		panelActions.setPreferredSize(new java.awt.Dimension(902, 402));
-                	}
-                }
-                {
-                	statusPanel = new JPanel();
-                	GridBagLayout statusPanelLayout = new GridBagLayout();
-                	statusPanelLayout.rowWeights = new double[] {0.1};
-                	statusPanelLayout.rowHeights = new int[] {7};
-                	statusPanelLayout.columnWeights = new double[] {0.1};
-                	statusPanelLayout.columnWidths = new int[] {7};
-                	statusPanel.setLayout(statusPanelLayout);
-                	contentPanel.add(statusPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTH, GridBagConstraints.BOTH, new Insets(280, 0, 0, 0), 0, 0));
-                	statusPanel.setPreferredSize(new java.awt.Dimension(907, 21));
-                	{
-                		lblStatus = new JLabel();
-                		statusPanel.add(lblStatus, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 4, 0, 0), 0, 0));
-                		lblStatus.setName("lblStatus");
-                	}
-                }
-            }
-            {
-                toolBarPanel = new JPanel();
-                topPanel.add(toolBarPanel, BorderLayout.NORTH);
-                BorderLayout jPanel1Layout = new BorderLayout();
-                toolBarPanel.setLayout(jPanel1Layout);
-                {
-                    toolBar = new CustomToolBar();
-                    toolBarPanel.add(toolBar, BorderLayout.CENTER);
-                    toolBar.setPreferredSize(new java.awt.Dimension(886, 37));
-                }
-                {
-                    jSeparator = new JSeparator();
-                    toolBarPanel.add(jSeparator, BorderLayout.SOUTH);
-                }
-            }
-        }
-        menuBar = new JMenuBar();        
-        getMainFrame().setJMenuBar(menuBar);
-        
-        // Get available operations for the logged user
-        try {
-			List<Operation> operations = ClientController.getInstance().getAvailableOperations();
-	        // Configure available groups of actions
-	        configureActions(operations);
-	        // Configure menus
-	        configureMenu(operations);
+			
+			GridBagLayout mainFrameLayout = new GridBagLayout();
+			getMainFrame().setTitle(ApplicationInternationalization.getString("titleMain"));
+			mainFrameLayout.rowWeights = new double[] {0.01, 0.8, 0.05};
+			mainFrameLayout.rowHeights = new int[] {7, 7, 7};
+			mainFrameLayout.columnWeights = new double[] {0.1};
+			mainFrameLayout.columnWidths = new int[] {7};
+			getMainFrame().getContentPane().setLayout(mainFrameLayout);
+			{
+				statusPanel = new JPanel();
+				getMainFrame().getContentPane().add(statusPanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+				GridBagLayout statusPanelLayout = new GridBagLayout();
+				statusPanelLayout.rowWeights = new double[] {0.1};
+				statusPanelLayout.rowHeights = new int[] {7};
+				statusPanelLayout.columnWeights = new double[] {0.1};
+				statusPanelLayout.columnWidths = new int[] {7};
+				statusPanel.setLayout(statusPanelLayout);
+				statusPanel.setPreferredSize(new java.awt.Dimension(907, 21));
+				{
+					lblStatus = new JLabel();
+					statusPanel.add(lblStatus, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.VERTICAL, new Insets(0, 4, 0, 0), 0, 0));
+					lblStatus.setName("lblStatus");
+					lblStatus.setText(ApplicationInternationalization.getString("lblSatusBar"));
+				}
+			}
+			{
+				tabPanel = new JTabbedPane();
+				getMainFrame().getContentPane().add(tabPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+				tabPanel.setName("tabPanel");
+				tabPanel.setPreferredSize(new java.awt.Dimension(907, 415));
+				{
+					panelActions = new JPanel();
+					GridLayout panelActionsLayout = new GridLayout(1, 1);
+					panelActionsLayout.setHgap(5);
+					panelActionsLayout.setVgap(5);
+					panelActionsLayout.setColumns(1);
+					panelActions.setLayout(panelActionsLayout);
+					tabPanel.addTab(ApplicationInternationalization.getString("tabActions"), null, panelActions, null);
+					panelActions.setBounds(0, 0, 907, 415);
+					panelActions.setName("panelActions");
+					panelActions.setPreferredSize(new java.awt.Dimension(902, 402));
+				}
+			}
+			{
+				toolBarPanel = new JPanel();
+				getMainFrame().getContentPane().add(toolBarPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+				BorderLayout jPanel1Layout = new BorderLayout();
+				toolBarPanel.setLayout(jPanel1Layout);
+				{
+					toolBar = new CustomToolBar();
+					toolBarPanel.add(toolBar, BorderLayout.CENTER);
+					toolBar.setPreferredSize(new java.awt.Dimension(958, 50));
+					toolBar.setSize(958, 50);
+				}
+			}
+			
+	    	getMainFrame().setSize(1067, 625);
+	        menuBar = new JMenuBar();        
+	        getMainFrame().setJMenuBar(menuBar);
 	        
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+	        // Get available operations for the logged user
+			operations = ClientController.getInstance().getAvailableOperations();
+	        // Configure available groups of actions
+	        configureActions();
+	        // Configure menus
+	        configureMenu();			
+		
+			createCommonToolbar();
+			
+	        // Show the main frame
+	        show(getMainFrame());     
+	        
+    	} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
-	
-		createCommonToolbar();
-		
-        // Show the main frame
-        show(topPanel);        
     }
 
 	// This method is used to configure the main actions tab with the available groups of operations
-    private void configureActions(List<Operation> operations) {
+    private void configureActions() {
     	
 		int nOperations = operations.size() + 1;
 		groupsShown = new ArrayList<String>();
+		// Layout used in main tab
 		GridLayout layout = new GridLayout();
 		layout.setColumns(3);
 		if (nOperations % 3 == 0)
@@ -273,6 +252,7 @@ public class JFMain extends SingleFrameApplication {
 			try {
 				createComponent(o);
 				groupsShown.add(o.getGroup());
+				
 				toolbarActions.add(o.getGroup());
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -291,65 +271,56 @@ public class JFMain extends SingleFrameApplication {
 	}    
     
 	// Method used to configure menus, according with the available user operations.
-    private void configureMenu(List<Operation> operations) {
+    private void configureMenu() {
     	groupsShown = new ArrayList<String>();
     	
     	// First, add "File" Menu 
     	menuFile = new JMenu();
     	menuBar.add(menuFile);
     	menuFile.setName("menuFile");
+    	menuFile.setText(ApplicationInternationalization.getString("menuFile"));
     	{
     		menuFileExit = new JMenuItem();
     		menuFile.add(menuFileExit);
     		menuFileExit.setName("menuFileExit");
+    		menuFileExit.setText(ApplicationInternationalization.getString("menuItemExit"));
     	}
     	
     	// Add "Tools" menu
     	menuTools = new JMenu();
     	menuBar.add(menuTools);
     	menuTools.setName("menuTools");
+    	menuTools.setText(ApplicationInternationalization.getString("menuTools"));
+    	
     	// Add menu items to "Tools" menu. Each menu item is a group of operations
-
-    	for(Operation o: operations) {
-    		// Add menu entry with the name of the operation group
-    		JMenuItem item = new JMenuItem();
-			item.setName("mitem_manage"+o.getGroup());
-			item.setAction(getAppActionMap().get(item.getName()));
-			item.setText("Manage "+o.getGroup());
-			menuTools.add(item);
-			
-			toolbarActions.add(item.getText());
-    		
-//    		if (!groupsShown.contains(o.getGroup())){
-//    			JMenu menu = new JMenu();
-//    			menu.setName("menu_"+o.getGroup());
-//    			menu.setText(o.getGroup());
-//    			groupsShown.add(o.getGroup());
-//    			List<String> menuItemsName = OperationsUtilities.getSubgroupsId(operations, o.getGroup());
-//    			// If there are subgroups, add menu items to manage each subgroup
-//    			if (menuItemsName.size() > 0){
-//	    			for (String s: menuItemsName){
-//	    				if (!s.equals("")){
-//	    					JMenuItem item = new JMenuItem();
-//	    					item.setName("mitem_"+s);
-//	    					item.setAction(getAppActionMap().get(item.getName()));
-//	    					item.setText("Manage "+s);
-//	    					menu.add(item);
-//	    				}
-//	    			}
-//	    			menuBar.add(menu);
-//    			}
-//    			// If there aren't subgroups, add the operation directly
-//    			else {
-//    				for (String s: OperationsUtilities.getOperationsGroupId(operations, o.getGroup())) {
-//	    				JMenuItem item = new JMenuItem();
-//						item.setName("mitem_"+s);
-//						item.setText(s);
-//						menu.add(item);
-//    				}
-//    				menuBar.add(menu);
-//    			} 			
-//    		}
+    	for(String s: OperationsUtilities.getSubgroupsId(operations, Groups.Knowledge.name())) {
+    		// Add "Tool" menu entry used to manage PDF Generation or Knowledge
+    		if (s.equals(Subgroups.Proposal.name()) || s.equals(Subgroups.Answer.name()) || s.equals(Subgroups.Topic.name())) {
+    			if (!groupsShown.contains("manage"+Groups.Knowledge.name())) {
+		    		JMenuItem item = new JMenuItem();
+					item.setName("menuItem_manage"+Groups.Knowledge.name());
+					item.setAction(getAppActionMap().get(item.getName()));
+					item.setText(ApplicationInternationalization.getString("manage"+Groups.Knowledge.name()));
+					menuTools.add(item);
+					
+					toolbarActions.add("Manage" + Groups.Knowledge.name());
+					
+					groupsShown.add("manage"+Groups.Knowledge.name());
+    			}
+    		}
+    		else if (s.equals(Subgroups.PDFGeneration.name())) {
+    			if (!groupsShown.contains("manage"+Groups.PDFGeneration.name())) {
+    				JMenuItem item = new JMenuItem();
+					item.setName("menuItem_manage"+Groups.PDFGeneration.name());
+					item.setAction(getAppActionMap().get(item.getName()));
+					item.setText(ApplicationInternationalization.getString("manage"+Groups.PDFGeneration.name()));
+					menuTools.add(item);
+					
+					toolbarActions.add("Manage" + Groups.Knowledge.name());
+					
+					groupsShown.add("manage"+Groups.PDFGeneration.name());
+    			}
+    		}
     	}
     	
     	toolbarActions.add("Separator");
@@ -358,31 +329,35 @@ public class JFMain extends SingleFrameApplication {
     	menuHelp = new JMenu();
     	menuBar.add(menuHelp);
     	menuHelp.setName("menuHelp");
+    	menuHelp.setText(ApplicationInternationalization.getString("menuHelp"));
     	{
     		menuItemAbout = new JMenuItem();
     		menuHelp.add(menuItemAbout);
     		menuItemAbout.setName("menuItemAbout");
+    		menuItemAbout.setText(ApplicationInternationalization.getString("menuItemAbout"));
     	}
     }
     
     private void createComponent(Operation o) throws IOException {
     	// Load the group image of the operation
-		image = ImagesUtilities.loadCompatibleImage(o.getGroup() + ".png");
-		JPanel panel = new JPanel();
+		image = ImagesUtilities.loadCompatibleImage("Groups/" + o.getGroup() + ".png");	
 		
 		JButton button = new JButton();
 		// Set the group id as the name of the button
 		button.setName("btn_"+o.getGroup());
 		button.setContentAreaFilled(false);
-		button.setFocusPainted(false);
-		button.setBorderPainted(true);	
+		button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
+    	button.setFocusPainted(false);
+    	button.setHorizontalTextPosition(SwingConstants.CENTER);
+    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	button.setRequestFocusEnabled(false);
 		// Set the corresponding action for the name of the button
-		button.setAction(getAppActionMap().get(button.getName()));
-		button.setText("");		
+		button.setAction(getAppActionMap().get(o.getGroup()));
+		button.setText(ApplicationInternationalization.getString("toolbar"+o.getGroup()));		
 		button.setIcon(new ImageIcon(image));
+		button.setToolTipText(ApplicationInternationalization.getString("toolbar"+o.getGroup()+"Tooltip"));
 		// Save button icon
 		ImagesUtilities.addImageButton(button.getName(), image);
-		panel.add(button);
 		
 		button.addMouseListener(new MouseAdapter() {
 			public void mouseExited(MouseEvent evt) {
@@ -403,51 +378,64 @@ public class JFMain extends SingleFrameApplication {
 				for (Component c: panelActions.getComponents())
 					if (c instanceof JPanel) 
 						((JButton)(((JPanel)c).getComponent(0))).setContentAreaFilled(false);
-				JButton buttonPressed = ((JButton)e.getSource()); 
-				buttonPressed.setContentAreaFilled(true);				
+//				JButton buttonPressed = ((JButton)e.getSource()); 
+//				buttonPressed.setContentAreaFilled(true);				
 			}
 		});
-		
-		JLabel label = new JLabel();
-		label.setText("Show " + o.getGroup() + " view");
-		panel.add(label);
-		panelActions.add(panel);
+	
+		panelActions.add(button);
     }    
     
-    private JButton createToolbarButton(String text) {
+    // Method used to show in the toolbar the common buttons for all tabs
+    private void createCommonToolbar() throws MalformedURLException, IOException {
+    	// Clear toolbar
+		toolBar.removeAll();
+		// Add common buttons
+		for (String id: toolbarActions) {
+			if (id.equals("Separator"))
+				toolBar.addSeparator();
+			else {
+				toolBar.add(createToolbarButton(id));
+			}
+		}
+	}
+    
+    private JButton createToolbarButton(String id) throws MalformedURLException, IOException {
     	JButton button = new JButton();
-    	button.setText(text);
     	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
     	button.setFocusPainted(false);
     	button.setHorizontalTextPosition(SwingConstants.CENTER);
     	button.setVerticalTextPosition(SwingConstants.BOTTOM);
     	button.setRequestFocusEnabled(false);
-    	button.setAction(getAppActionMap().get("add_Knowledge"));
+    	button.setAction(getAppActionMap().get(id));
+    	button.setText(ApplicationInternationalization.getString("toolbar"+id));
+    	button.setToolTipText(ApplicationInternationalization.getString("toolbar"+id+"Tooltip"));
+    	button.setIcon(ImagesUtilities.loadIcon("Toolbars/" + id + ".png"));
     	return button;
     }
     
-    /*** Actions used in menu items ***/
+    /*** Actions used to manage knowledge and PDF ***/
 	@Action
-    public void mitem_Proposal() {
-    	JFKnowledge frameKnowledge = new JFKnowledge("Proposal", null, null);
+    public void menuItem_manageKnowledge() {
+		// Invoke JFKnowledge without arguments (no operation, no data)
+    	JFKnowledge frameKnowledge = new JFKnowledge();
     	frameKnowledge.setLocationRelativeTo(getMainFrame());
+    	frameKnowledge.setModal(true);
     	frameKnowledge.setVisible(true);
     }
+	
+	@Action
+	public void menuItem_managePDFGeneration() {
+		JFPdf framePDF = new JFPdf();
+		framePDF.setLocationRelativeTo(getMainFrame());
+		framePDF.setModal(true);
+		framePDF.setVisible(true);
+	}
     
+    /*** Actions used in buttons of the main tab and toolbar. Used to show different views  ***/
     @Action
-    public void mitem_Answer() {
-    	
-    }
-    
-    @Action
-    public void mitem_Topic() {
-    	
-    }    
-    
-    /*** Actions used in buttons of the main tab ***/
-    @Action
-    public void btn_Knowledge() {
-    	// Create a new tab in order to store the different Knowledge views
+    public void Knowledge() throws MalformedURLException, IOException {
+    	// Create a new tab in order to store the Knowledge view
     	int index = tabPanel.getTabCount();
 
     	if (!existsTab(ApplicationInternationalization.getString("tabKnowledge"))) {
@@ -458,21 +446,43 @@ public class JFMain extends SingleFrameApplication {
     	else {
     		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabKnowledge")));
     	}
+    	createToolbarKnowledgeView();
 
     }
     
-    @Action
-    public void btn_Notifications() {
+    // Method to add specific button for knowledge to the toolbar
+    private void createToolbarKnowledgeView() throws MalformedURLException, IOException {
+    	toolBar.removeAll();
+		createCommonToolbar();
+		toolBar.addSeparator();
+		// Includes operation "add", "modify", and "delete", if the user has permissions
+		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
+		if (availableOps.contains(Operations.Add.name()))
+			toolBar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Modify.name()))
+			toolBar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Delete.name()))
+			toolBar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
+		
+	}
+
+	@Action
+    public void Notifications() {
     	int index = tabPanel.getTabCount();
     	
     	// Create a new tab in order to show the Notification view 
-    	tabPanel.insertTab(ApplicationInternationalization.getString("tabNotification"), null, new panelNotificationsView(), null, index);
-//    	tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
-    	tabPanel.setSelectedIndex(index);
+    	if (!existsTab(ApplicationInternationalization.getString("tabNotification"))) {
+    		panelNotifications = new panelNotificationsView();
+	    	tabPanel.insertTab(ApplicationInternationalization.getString("tabNotification"), null, panelNotifications, null, index);
+	    	tabPanel.setSelectedIndex(index);
+    	}
+    	else {
+    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
+    	}
     }
     
 	@Action
-    public void btn_Statistics() {
+    public void Statistics() {
     	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
     	int index = tabPanel.getTabCount();
 
@@ -480,9 +490,10 @@ public class JFMain extends SingleFrameApplication {
 //		tabPanel.setSelectedIndex(index);
     }
 	
-	/*** Actions for toolbar buttons ***/
+	/*** Actions for specific toolbar buttons.
+	 * The actions are used in a specific tab ***/
 	@Action
-	public void add_knowledge() {
+	public void AddKnowledge() {
 		if (panelKnowledge != null)
 			panelKnowledge.operationAdd();
 	}

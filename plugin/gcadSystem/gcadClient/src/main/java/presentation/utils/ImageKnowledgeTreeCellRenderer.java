@@ -26,17 +26,17 @@ public class ImageKnowledgeTreeCellRenderer extends DefaultTreeCellRenderer {
 		Object val = ((DefaultMutableTreeNode)value).getUserObject();
 		try {
 			if (val instanceof Topic) {				
-				icon = ImagesUtilities.loadIcon("Topic.png");
+				icon = ImagesUtilities.loadIcon("Trees/Topic.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			if (val instanceof Proposal) {				
-				icon = ImagesUtilities.loadIcon("Proposal.png");
+				icon = ImagesUtilities.loadIcon("Trees/Proposal.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			if (val instanceof Answer) {				
-				icon = ImagesUtilities.loadIcon("answer.png");
+				icon = ImagesUtilities.loadIcon("Trees/Answer.png");
 				if(icon != null)
 	                setIcon(icon);
 			}

@@ -321,7 +321,7 @@ public class Server implements IServer {
 
 	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		Session session = SessionController.getSession(sessionId);
-		return NotificationController.getNotifications(session.getCurrentActiveProject(), 0);
+		return NotificationController.getNotifications(sessionId, session.getCurrentActiveProject());
 	}
 	
 	/*** Auxiliary methods  ***/

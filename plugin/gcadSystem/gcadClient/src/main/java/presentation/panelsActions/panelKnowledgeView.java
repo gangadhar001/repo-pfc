@@ -363,24 +363,21 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	public void operationAdd() {
 		// TODO: si no hay nada seleccionado, se abre el Frame de conocimiento
 		// If an item is selected, show the knowledge window filled with data
-//		if (knowledgeSelectedTree != null) {
-//			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
-//			fKnowledge.setLocationRelativeTo(this);
-//			fKnowledge.setModal(true);
-//			fKnowledge.setVisible(true);
-//			TreePath parentPath = tree.getSelectionPath();
-////			treeModel.reload();
+		if (knowledgeSelectedTree != null) {
+			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
+			fKnowledge.setLocationRelativeTo(this);
+			fKnowledge.setModal(true);
+			fKnowledge.setVisible(true);
+			TreePath parentPath = tree.getSelectionPath();
+//			treeModel.reload();
 //			showTree();
-//			tree.scrollPathToVisible(parentPath);
-////			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
-////			 Topic t = new Topic("title", "desc", new Date());
-////			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
-////			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
-////			tree.scrollPathToVisible(new TreePath(child.getPath()));
-//		}
-		
-		JFPdf p = new JFPdf();
-		p.setVisible(true);
+			tree.scrollPathToVisible(parentPath);
+//			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
+//			 Topic t = new Topic("title", "desc", new Date());
+//			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
+//			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
+//			tree.scrollPathToVisible(new TreePath(child.getPath()));
+		}
 		
 	}
 }
