@@ -28,7 +28,7 @@ import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
 
 import presentation.customComponents.InfiniteProgressPanel;
-import presentation.utils.GraphicsUtilities;
+import presentation.utils.ImagesUtilities;
 import presentation.utils.validation.IPValidator;
 import presentation.utils.validation.NotEmptyValidator;
 import presentation.utils.validation.PortValidator;
@@ -180,7 +180,7 @@ public class JFLogin extends SingleFrameApplication {
     			{
     				btnExpand = new JButton();
     				try {
-						btnExpand.setIcon(GraphicsUtilities.loadIcon("Expand_Vertical.png"));
+						btnExpand.setIcon(ImagesUtilities.loadIcon("Expand_Vertical.png"));
     				} catch (MalformedURLException e) {
     					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
     				} catch (IOException e) {
@@ -258,7 +258,7 @@ public class JFLogin extends SingleFrameApplication {
     		getMainFrame().setSize(getMainFrame().getWidth(), getMainFrame().getHeight() +HEIGHT);    		
     		setServerOptionVisible(true);
     		try {
-				buttonIcon = GraphicsUtilities.loadIcon("Contract_Vertical.png");
+				buttonIcon = ImagesUtilities.loadIcon("Contract_Vertical.png");
 				btnExpand.setIcon(buttonIcon);
 	    		isServerPanelExpanded = true;
 			} catch (MalformedURLException e) {
@@ -272,7 +272,7 @@ public class JFLogin extends SingleFrameApplication {
     		getMainFrame().setSize(getMainFrame().getWidth(), getMainFrame().getHeight() -HEIGHT);    		
     		setServerOptionVisible(false);
     		try {
-				buttonIcon = GraphicsUtilities.loadIcon("Expand_Vertical.png");
+				buttonIcon = ImagesUtilities.loadIcon("Expand_Vertical.png");
 				btnExpand.setIcon(buttonIcon);
 	    		isServerPanelExpanded = false;
 			} catch (MalformedURLException e) {

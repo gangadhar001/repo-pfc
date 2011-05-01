@@ -44,129 +44,123 @@ public class ProxyServer implements IServer {
 	
 	/*** Methods from server facade ***/
 	@Override
-	public ISession login(String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole, RemoteException {
+	public ISession login(String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole, RemoteException, Exception {
 		return server.login(user, pass);
 		
 	}
 
 	@Override
-	public void signout(long sessionID) throws SQLException, RemoteException, NotLoggedException{
+	public void signout(long sessionID) throws SQLException, RemoteException, NotLoggedException, Exception {
 		server.signout(sessionID);
 		
 	}
 
 	@Override
-	public void addTopic(long sessionId, Topic topic) throws RemoteException, SQLException {
+	public void addTopic(long sessionId, Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		server.addTopic(sessionId, topic);
 		
 	}
 
 	@Override
-	public void addProposal(long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException {
+	public void addProposal(long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		server.addProposal(sessionId, p, parent);
 		
 	}
 
 	@Override
-	public void addAnwser(long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException {
+	public void addAnwser(long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		server.addAnwser(sessionId, a, parent);
 		
 	}
 
 	@Override
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException {
+	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		server.modifyTopic(sessionId, newTopic, oldTopic);
 	}
 
 	@Override
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException {
+	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		server.modifyProposal(sessionId, newProposal, oldProposal, parent);		
 	}
 
 	@Override
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException {
+	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		server.modifyAnswer(sessionId, newAnswer, oldAnswer, parent);
 		
 	}
 
-	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		return server.findParentAnswer(sessionId, a);
 	}
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		return server.findParentProposal(sessionId, p);
 	}
 	
 	@Override
-	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
 		return server.getTopicsWrapper(sessionId);
 	}
 
-
 	@Override
-	public void addNotification(long sessionId, Notification notification) throws RemoteException, SQLException {
-		server.addNotification(sessionId, notification);		
-	}
-
-	@Override
-	public void createProject(long sessionId, Project project) throws RemoteException, SQLException {
+	public void createProject(long sessionId, Project project) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		server.createProject(sessionId, project);
 		
 	}
 
 	@Override
-	public void deleteAnswer(long sessionId, Answer answer) throws RemoteException, SQLException {
+	public void deleteAnswer(long sessionId, Answer answer) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		server.deleteAnswer(sessionId, answer);
 		
 	}
 
 	@Override
-	public void deleteProposal(long sessionId, Proposal proposal) throws RemoteException, SQLException {
+	public void deleteProposal(long sessionId, Proposal proposal) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		server.deleteProposal(sessionId, proposal);
 		
 	}
 
 	@Override
-	public void deleteTopic(long sessionId, Topic t) throws RemoteException, SQLException {
+	public void deleteTopic(long sessionId, Topic t) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		server.deleteTopic(sessionId, t);
 		
 	}
 
 	@Override
-	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		return server.getAnswers(sessionId);
 	}
 
 	@Override
-	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException {
+	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		return server.getNotifications(sessionId);
 	}
 
 	@Override
-	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoProposalsException {
+	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		return server.getProposals(sessionId);
 	}
 
 	@Override
-	public void register(long idSession, IClient client) throws RemoteException, NotLoggedException {
+	public void register(long idSession, IClient client) throws RemoteException, SQLException, NotLoggedException, Exception{
 		server.register(idSession, client);
 		
 	}
 
 	@Override
-	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException {
+	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 		server.removeNotification(sessionId, notification);
 		
 	}
 
 	@Override
-	public void setCurrentProject(long sessionId, int projectId) throws RemoteException {
+	public void setCurrentProject(long sessionId, int projectId) throws RemoteException, NotLoggedException, Exception{
 		server.setCurrentProject(sessionId, projectId);
 		
 	}
 
 	@Override
-	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole {
+	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
 			return server.getAvailableOperations(sessionId);
 
 	}

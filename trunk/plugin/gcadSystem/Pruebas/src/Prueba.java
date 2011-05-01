@@ -6,12 +6,14 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -36,7 +38,14 @@ public class Prueba {
 	                mipdf.addTitle("Titulo"); // se añade el titulo
 	                mipdf.addAuthor("Autor"); // se añade el autor del documento
 	                mipdf.addSubject("Asunto"); //se añade el asunto del documento
-	                mipdf.add(new Paragraph("esto es un párrafo del PDF")); // se añade el contendio del PDF
+	                //mipdf.add(new Paragraph("esto es un párrafo del PDF")); // se añade el contendio del PDF
+	                
+	                Chapter s= new Chapter(new Paragraph("Seccion 1"), 1);
+	                Section a = s.addSection("");
+	                a.setTitle(new Paragraph("Hola"));
+	                mipdf.add(s);
+	                
+	              
 	                
 	              //mipdf.add(Tabla_Simple());
 		             mipdf.add(Tabla_compleja());
@@ -139,8 +148,12 @@ public class Prueba {
 	         }
 	    
 	public static void main(String[] args) {
-		crear_PDF();
-
+//		crear_PDF();
+		StringBuffer ad = new StringBuffer();
+		ad.append("asadasfsfsadsadsa,dsadsadsadsad+sadsa,das+");
+		if (ad.toString().endsWith("+"))
+			ad = ad.replace(ad.length() - 1, ad.length(), "");
+		System.out.println("Valor: " + ad.toString());
 	}
 
 }

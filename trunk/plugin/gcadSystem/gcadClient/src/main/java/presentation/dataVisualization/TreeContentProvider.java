@@ -8,8 +8,7 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 
 /**
- * This class represents a content provider for the tree. It is used to return the children 
- * that belongs to a parent
+ * This class represents a content provider for the knowledge tree. It used to create the tree from topics collection
  */
 public class TreeContentProvider {
 	

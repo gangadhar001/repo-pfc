@@ -48,7 +48,7 @@ import javax.swing.JButton;
  *
  * @author Romain Guy <romain.guy@mac.com>
  */
-public class GraphicsUtilities {
+public class ImagesUtilities {
     
 	public static final String IMAGES_PATH = "images/";
 	// HashTable used to save the original icons from buttons, before highlight them. 
@@ -56,7 +56,7 @@ public class GraphicsUtilities {
 	private static Hashtable<String, BufferedImage> images = new Hashtable<String, BufferedImage>();
 	
 	
-	private GraphicsUtilities() {
+	private ImagesUtilities() {
     }
 
     // Returns the graphics configuration for the primary screen
@@ -181,7 +181,7 @@ public class GraphicsUtilities {
      */
     public static BufferedImage loadCompatibleImage(String name)
             throws IOException {
-        BufferedImage image = ImageIO.read(GraphicsUtilities.class.getClassLoader().getResource(IMAGES_PATH + name));
+        BufferedImage image = ImageIO.read(ImagesUtilities.class.getClassLoader().getResource(IMAGES_PATH + name));
         return toCompatibleImage(image);
     }
 

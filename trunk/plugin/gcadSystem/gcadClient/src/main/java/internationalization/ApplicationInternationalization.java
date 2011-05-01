@@ -14,7 +14,7 @@ public class ApplicationInternationalization {
 	    	// TODO: Retrieve the current language  
 	    	String languageCode = "es_ES";
 	    	// It indicates the package which contains the "properties" file where it defines the names to be internationalized
-	        ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("internationalization.app");
+	        ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("internationalization.app_" + languageCode);
 	        return RESOURCE_BUNDLE.getString(key);
 	    } catch (MissingResourceException e) {
 	            return '!' + key + '!';

@@ -23,7 +23,7 @@ public class ImageTableUserCellRenderer extends DefaultTableCellRenderer {
         Icon icon;
 		try {
 			if (column == 4 && value != null) {
-				icon = GraphicsUtilities.loadIcon("lens.png");
+				icon = ImagesUtilities.loadIcon("lens.png");
 				if(icon == null){
 	                label.setText(value.toString());
 	                label.setIcon(null);

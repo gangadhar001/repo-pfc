@@ -22,6 +22,9 @@ import model.business.knowledge.Notification;
 
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
+
+import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 import presentation.customComponents.DropShadowPanel;
 
 import presentation.dataVisualization.NotificationsTable;
@@ -72,6 +75,15 @@ public class panelNotificationsView extends javax.swing.JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -13,7 +13,7 @@ import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 
-public class ImageTreeCellRenderer extends DefaultTreeCellRenderer {
+public class ImageKnowledgeTreeCellRenderer extends DefaultTreeCellRenderer {
 	/**
 	 * 
 	 */
@@ -26,17 +26,17 @@ public class ImageTreeCellRenderer extends DefaultTreeCellRenderer {
 		Object val = ((DefaultMutableTreeNode)value).getUserObject();
 		try {
 			if (val instanceof Topic) {				
-				icon = GraphicsUtilities.loadIcon("Topic.png");
+				icon = ImagesUtilities.loadIcon("Topic.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			if (val instanceof Proposal) {				
-				icon = GraphicsUtilities.loadIcon("Proposal.png");
+				icon = ImagesUtilities.loadIcon("Proposal.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			if (val instanceof Answer) {				
-				icon = GraphicsUtilities.loadIcon("answer.png");
+				icon = ImagesUtilities.loadIcon("answer.png");
 				if(icon != null)
 	                setIcon(icon);
 			}

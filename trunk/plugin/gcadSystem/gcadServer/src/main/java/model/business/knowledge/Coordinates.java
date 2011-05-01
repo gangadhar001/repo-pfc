@@ -1,10 +1,16 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
+
 /**
  *  This class represents a geographic coordinate
  */
-public class Coordinates {
+public class Coordinates implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6381219307484976295L;
 	private String latitude;
 	private String longitude;
 	

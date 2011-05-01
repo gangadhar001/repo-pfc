@@ -50,7 +50,10 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import model.business.knowledge.Company;
+import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
+import model.business.knowledge.Operations;
+import model.business.knowledge.Subgroups;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -63,7 +66,7 @@ import presentation.customComponents.JPDetailsCompanyGlassPanel;
 import presentation.dataVisualization.NotificationsTable;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
-import presentation.utils.GraphicsUtilities;
+import presentation.utils.ImagesUtilities;
 
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -72,6 +75,7 @@ import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
 import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 
 /**
@@ -114,10 +118,17 @@ public class JFMain extends SingleFrameApplication {
     private JPanel contentPanel;
     
     private BufferedImage image;
+    // Groups of operations already show in the UI
     private ArrayList<String> groupsShown = new ArrayList<String>();
+    // List of common actions used in toolbar
+    private ArrayList<String> toolbarActions = new ArrayList<String>();
+    
 	private JPDetailsCompany panelDetailsCompany;
 	private JPDetailsCompanyGlassPanel view;
 	private panelKnowledgeView panelKnowledge;
+	private JMenu menuFile;
+	private JMenuItem menuFileExit;
+	private JMenu menuTools;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -126,11 +137,11 @@ public class JFMain extends SingleFrameApplication {
     @Override
     protected void startup() {
     	{    		
-    	// Set glass panel
 		try {			
 			getMainFrame().setPreferredSize(new java.awt.Dimension(902, 402));
 			getMainFrame().setMinimumSize(new java.awt.Dimension(902, 402));
 			{	
+				// Set glass panel
 				panelDetailsCompany = new JPDetailsCompany(this);				
 				view = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
 				getMainFrame().setGlassPane(view);
@@ -138,8 +149,11 @@ public class JFMain extends SingleFrameApplication {
 			// TODO: Temporal
 			ClientController.getInstance().setCurrentProject(2);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 		
     	getMainFrame().setSize(902, 402);
@@ -216,7 +230,7 @@ public class JFMain extends SingleFrameApplication {
         // Get available operations for the logged user
         try {
 			List<Operation> operations = ClientController.getInstance().getAvailableOperations();
-	        // Configure available options
+	        // Configure available groups of actions
 	        configureActions(operations);
 	        // Configure menus
 	        configureMenu(operations);
@@ -225,63 +239,19 @@ public class JFMain extends SingleFrameApplication {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRole e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
-		
-		// Create toolbar buttons
-		toolBar.add(createToolbarButton("Add"));
+	
+		createCommonToolbar();
 		
         // Show the main frame
-        show(topPanel);
-    }
-    
-    private void configureMenu(List<Operation> operations) {
-    	groupsShown = new ArrayList<String>();
-    	
-    	for(Operation o: operations) {
-    		// Add menu entry with the name of the operation group
-    		if (!groupsShown.contains(o.getGroup())){
-    			JMenu menu = new JMenu();
-    			menu.setName("menu_"+o.getGroup());
-    			menu.setText(o.getGroup());
-    			groupsShown.add(o.getGroup());
-    			List<String> menuItemsName = OperationsUtilities.getSubgroupsId(operations, o.getGroup());
-    			// If there are subgroups, add menu items to manage each subgroup
-    			if (menuItemsName.size() > 0){
-	    			for (String s: menuItemsName){
-	    				if (!s.equals("")){
-	    					JMenuItem item = new JMenuItem();
-	    					item.setName("mitem_"+s);
-	    					item.setAction(getAppActionMap().get(item.getName()));
-	    					item.setText("Manage "+s);
-	    					menu.add(item);
-	    				}
-	    			}
-	    			menuBar.add(menu);
-    			}
-    			// If there aren't subgroups, add the operation directly
-    			else {
-    				for (String s: OperationsUtilities.getOperationsGroupId(operations, o.getGroup())) {
-	    				JMenuItem item = new JMenuItem();
-						item.setName("mitem_"+s);
-						item.setText(s);
-						menu.add(item);
-    				}
-    				menuBar.add(menu);
-    			} 			
-    		}
-    	}
-    	// Finally, add "Help" menu
-    	menuHelp = new JMenu();
-    	menuBar.add(menuHelp);
-    	menuHelp.setName("menuHelp");
-    	{
-    		menuItemAbout = new JMenuItem();
-    		menuHelp.add(menuItemAbout);
-    		menuItemAbout.setName("menuItemAbout");
-    	}
+        show(topPanel);        
     }
 
-	// This method is used to configure the actions tab with the available operations
+	// This method is used to configure the main actions tab with the available groups of operations
     private void configureActions(List<Operation> operations) {
     	
 		int nOperations = operations.size() + 1;
@@ -303,13 +273,16 @@ public class JFMain extends SingleFrameApplication {
 			try {
 				createComponent(o);
 				groupsShown.add(o.getGroup());
+				toolbarActions.add(o.getGroup());
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
+		toolbarActions.add("Separator");
+		
 		// Finally, load the "Logout" action.
-		Operation op = new Operation("Logout", "", null);
+		Operation op = new Operation(Groups.Logout.name(), Subgroups.Logout.name(), Operations.Logout.name());
 		try {
 			createComponent(op);
 		} catch (IOException e) {
@@ -317,9 +290,84 @@ public class JFMain extends SingleFrameApplication {
 		}
 	}    
     
+	// Method used to configure menus, according with the available user operations.
+    private void configureMenu(List<Operation> operations) {
+    	groupsShown = new ArrayList<String>();
+    	
+    	// First, add "File" Menu 
+    	menuFile = new JMenu();
+    	menuBar.add(menuFile);
+    	menuFile.setName("menuFile");
+    	{
+    		menuFileExit = new JMenuItem();
+    		menuFile.add(menuFileExit);
+    		menuFileExit.setName("menuFileExit");
+    	}
+    	
+    	// Add "Tools" menu
+    	menuTools = new JMenu();
+    	menuBar.add(menuTools);
+    	menuTools.setName("menuTools");
+    	// Add menu items to "Tools" menu. Each menu item is a group of operations
+
+    	for(Operation o: operations) {
+    		// Add menu entry with the name of the operation group
+    		JMenuItem item = new JMenuItem();
+			item.setName("mitem_manage"+o.getGroup());
+			item.setAction(getAppActionMap().get(item.getName()));
+			item.setText("Manage "+o.getGroup());
+			menuTools.add(item);
+			
+			toolbarActions.add(item.getText());
+    		
+//    		if (!groupsShown.contains(o.getGroup())){
+//    			JMenu menu = new JMenu();
+//    			menu.setName("menu_"+o.getGroup());
+//    			menu.setText(o.getGroup());
+//    			groupsShown.add(o.getGroup());
+//    			List<String> menuItemsName = OperationsUtilities.getSubgroupsId(operations, o.getGroup());
+//    			// If there are subgroups, add menu items to manage each subgroup
+//    			if (menuItemsName.size() > 0){
+//	    			for (String s: menuItemsName){
+//	    				if (!s.equals("")){
+//	    					JMenuItem item = new JMenuItem();
+//	    					item.setName("mitem_"+s);
+//	    					item.setAction(getAppActionMap().get(item.getName()));
+//	    					item.setText("Manage "+s);
+//	    					menu.add(item);
+//	    				}
+//	    			}
+//	    			menuBar.add(menu);
+//    			}
+//    			// If there aren't subgroups, add the operation directly
+//    			else {
+//    				for (String s: OperationsUtilities.getOperationsGroupId(operations, o.getGroup())) {
+//	    				JMenuItem item = new JMenuItem();
+//						item.setName("mitem_"+s);
+//						item.setText(s);
+//						menu.add(item);
+//    				}
+//    				menuBar.add(menu);
+//    			} 			
+//    		}
+    	}
+    	
+    	toolbarActions.add("Separator");
+    	
+    	// Finally, add "Help" menu
+    	menuHelp = new JMenu();
+    	menuBar.add(menuHelp);
+    	menuHelp.setName("menuHelp");
+    	{
+    		menuItemAbout = new JMenuItem();
+    		menuHelp.add(menuItemAbout);
+    		menuItemAbout.setName("menuItemAbout");
+    	}
+    }
+    
     private void createComponent(Operation o) throws IOException {
     	// Load the group image of the operation
-		image = GraphicsUtilities.loadCompatibleImage(o.getGroup() + ".png");
+		image = ImagesUtilities.loadCompatibleImage(o.getGroup() + ".png");
 		JPanel panel = new JPanel();
 		
 		JButton button = new JButton();
@@ -333,17 +381,18 @@ public class JFMain extends SingleFrameApplication {
 		button.setText("");		
 		button.setIcon(new ImageIcon(image));
 		// Save button icon
-		GraphicsUtilities.addImageButton(button.getName(), image);
+		ImagesUtilities.addImageButton(button.getName(), image);
 		panel.add(button);
+		
 		button.addMouseListener(new MouseAdapter() {
 			public void mouseExited(MouseEvent evt) {
 				getMainFrame().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
-				GraphicsUtilities.decreaseImageBrightness((JButton) evt.getSource());
+				ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
 			}
 
 			public void mouseEntered(MouseEvent evt) {
 				getMainFrame().setCursor(new Cursor(Cursor.HAND_CURSOR));
-				GraphicsUtilities.increaseImageBrightness((JButton) evt.getSource());
+				ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
 			}
 		});
 		
@@ -373,7 +422,7 @@ public class JFMain extends SingleFrameApplication {
     	button.setHorizontalTextPosition(SwingConstants.CENTER);
     	button.setVerticalTextPosition(SwingConstants.BOTTOM);
     	button.setRequestFocusEnabled(false);
-    	button.setAction(getAppActionMap().get("add_knowledge"));
+    	button.setAction(getAppActionMap().get("add_Knowledge"));
     	return button;
     }
     
@@ -401,9 +450,14 @@ public class JFMain extends SingleFrameApplication {
     	// Create a new tab in order to store the different Knowledge views
     	int index = tabPanel.getTabCount();
 
-    	panelKnowledge = new panelKnowledgeView(this);
-		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
-		tabPanel.setSelectedIndex(index);
+    	if (!existsTab(ApplicationInternationalization.getString("tabKnowledge"))) {
+    		panelKnowledge = new panelKnowledgeView(this);
+    		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
+    		tabPanel.setSelectedIndex(index);
+    	}
+    	else {
+    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabKnowledge")));
+    	}
 
     }
     
@@ -430,8 +484,7 @@ public class JFMain extends SingleFrameApplication {
 	@Action
 	public void add_knowledge() {
 		if (panelKnowledge != null)
-			panelKnowledge.add();
-		// TODO: si no, se abre el frame de conocimiento
+			panelKnowledge.operationAdd();
 	}
 	
     
@@ -453,13 +506,12 @@ public class JFMain extends SingleFrameApplication {
     	return result;
 	}
     
+    // Methods used to show and hide the glass panel, with "fade" effect
     public void fadeIn(Company c) {
-
 		view.fadeIn(c);
-	}
+		}
 
-	public void fadeOut() {
-		
+	public void fadeOut() {		
 		view.fadeOut();		
 	}
 }
