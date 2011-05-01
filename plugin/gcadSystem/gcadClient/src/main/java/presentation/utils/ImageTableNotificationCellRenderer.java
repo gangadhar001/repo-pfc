@@ -23,7 +23,7 @@ public class ImageTableNotificationCellRenderer extends DefaultTableCellRenderer
         String knowledgeType = (String)value;
         Icon icon;
 		try {
-			icon = GraphicsUtilities.loadIcon(knowledgeType+".png");
+			icon = ImagesUtilities.loadIcon(knowledgeType+".png");
 			if(icon == null){
                 label.setText(knowledgeType);
                 label.setIcon(null);

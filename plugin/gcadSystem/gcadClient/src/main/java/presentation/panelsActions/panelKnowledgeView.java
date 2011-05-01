@@ -46,12 +46,16 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 
+import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
+
 import presentation.JFKnowledge;
 import presentation.JFMain;
+import presentation.JFPdf;
 import presentation.customComponents.DropShadowPanel;
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
-import presentation.utils.ImageTreeCellRenderer;
+import presentation.utils.ImageKnowledgeTreeCellRenderer;
 import bussiness.control.ClientController;
 
 
@@ -116,6 +120,15 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
@@ -191,7 +204,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		tree.setCellRenderer(new ImageTreeCellRenderer());
+		tree.setCellRenderer(new ImageKnowledgeTreeCellRenderer());
 		tree.addTreeSelectionListener(new TreeSelectionListener() {				
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
@@ -347,24 +360,27 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	}
 
 	/*** Methods used to add or modify knowledge ***/
-	public void add() {
+	public void operationAdd() {
 		// TODO: si no hay nada seleccionado, se abre el Frame de conocimiento
 		// If an item is selected, show the knowledge window filled with data
-		if (knowledgeSelectedTree != null) {
-			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
-			fKnowledge.setLocationRelativeTo(this);
-			fKnowledge.setModal(true);
-			fKnowledge.setVisible(true);
-			TreePath parentPath = tree.getSelectionPath();
-//			treeModel.reload();
-			showTree();
-			tree.scrollPathToVisible(parentPath);
-//			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
-//			 Topic t = new Topic("title", "desc", new Date());
-//			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
-//			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
-//			tree.scrollPathToVisible(new TreePath(child.getPath()));
-		}
+//		if (knowledgeSelectedTree != null) {
+//			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
+//			fKnowledge.setLocationRelativeTo(this);
+//			fKnowledge.setModal(true);
+//			fKnowledge.setVisible(true);
+//			TreePath parentPath = tree.getSelectionPath();
+////			treeModel.reload();
+//			showTree();
+//			tree.scrollPathToVisible(parentPath);
+////			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
+////			 Topic t = new Topic("title", "desc", new Date());
+////			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
+////			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
+////			tree.scrollPathToVisible(new TreePath(child.getPath()));
+//		}
+		
+		JFPdf p = new JFPdf();
+		p.setVisible(true);
 		
 	}
 }

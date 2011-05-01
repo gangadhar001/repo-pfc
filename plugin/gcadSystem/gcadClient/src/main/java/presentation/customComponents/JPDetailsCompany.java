@@ -1,8 +1,8 @@
 package presentation.customComponents;
+
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -12,22 +12,34 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.swing.JButton;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.business.control.GeoCoder;
 import model.business.knowledge.Company;
+import model.business.knowledge.Coordinates;
 
+import org.jdesktop.swingx.JXMapKit;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.graphics.ShadowRenderer;
+import org.jdesktop.swingx.mapviewer.GeoPosition;
+import org.jdesktop.swingx.mapviewer.Waypoint;
+import org.jdesktop.swingx.mapviewer.WaypointPainter;
 
 import presentation.JFMain;
-import presentation.utils.GraphicsUtilities;
+import presentation.utils.ImagesUtilities;
 
 import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
+
+import exceptions.AddressNotFound;
+import exceptions.WSResponseError;
+
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -58,7 +70,10 @@ public class JPDetailsCompany extends JXPanel {
 	private JLabel lblNameCompany;
 	private JPanel panelImageCompany;
 	private JPanel panelDetailsCompany;
-	private JPanel panelInfo;	
+	private JPanel panelInfo;
+	private JXMapKit jXMapKit;
+	private Company company;
+	private GeoPosition position;	
 
 	/**
 	* Auto-generated main method to display this 
@@ -70,30 +85,25 @@ public class JPDetailsCompany extends JXPanel {
         this.parent = frame;
 
 		try {
-			this.setPreferredSize(new java.awt.Dimension(468, 343));
+			this.setPreferredSize(new java.awt.Dimension(586, 343));
 			this.setLayout(null);
 			{
 				lblTitle = new JLabel();
 				this.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 				lblTitle.setName("lblTitle");
 				lblTitle.setText("Title");
-				lblTitle.setBounds(152, 51, 226, 16);
+				lblTitle.setBounds(189, 12, 226, 20);
 			}
 			{
 				panelInfo = new JPanel();
-				GridBagLayout panelInfoLayout = new GridBagLayout();
 				this.add(panelInfo);
-				panelInfoLayout.rowWeights = new double[] {0.1};
-				panelInfoLayout.rowHeights = new int[] {7};
-				panelInfoLayout.columnWeights = new double[] {0.3, 0.5};
-				panelInfoLayout.columnWidths = new int[] {7, 7};
-				panelInfo.setLayout(panelInfoLayout);
+				panelInfo.setLayout(null);
 				panelInfo.setBounds(40, 73, 468, 195);
 				panelInfo.setName("panelInfo");
 				{
 					panelDetailsCompany = new JPanel();
 					panelDetailsCompany.setLayout(null);
-					panelInfo.add(panelDetailsCompany, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+					panelInfo.add(panelDetailsCompany, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 					panelDetailsCompany.setName("panelDetailsCompany");
 					{
 						lblCountry = new JLabel();
@@ -138,16 +148,26 @@ public class JPDetailsCompany extends JXPanel {
 				}
 				{
 					panelImageCompany = new JPanel();
+					panelImageCompany.setLayout(null);
 					panelInfo.add(panelImageCompany, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 					panelImageCompany.setName("panelImageCompany");
+					
+					// Show the map
+					jXMapKit = new JXMapKit();
+					jXMapKit.setDefaultProvider(org.jdesktop.swingx.JXMapKit.DefaultProviders.OpenStreetMaps);
+			        jXMapKit.setDataProviderCreditShown(true);
+			        jXMapKit.setAutoscrolls(true);
+			        jXMapKit.setZoomButtonsVisible(false);
+				       
+			        panelImageCompany.add(jXMapKit, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+			        jXMapKit.setBounds(0, 0, 255, 195);
 				}
 			}
 			{
 				btnOK = new JButton();
 				this.add(btnOK, new GridBagConstraints(-1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 330, 0, 10), 0, 0));
 				btnOK.setName("btnOK");
-				btnOK.setPreferredSize(new java.awt.Dimension(40, 23));
-				btnOK.setBounds(285, 270, 128, 23);
+				btnOK.setBounds(442, 292, 66, 23);
 				btnOK.setText("OK");
 				btnOK.setDoubleBuffered(true);
 				btnOK.addActionListener(new ActionListener() {
@@ -160,15 +180,19 @@ public class JPDetailsCompany extends JXPanel {
 			}
 			
 			panelInfo.setOpaque(false);
+			panelInfo.setBounds(40, 73, 668, 195);
 			panelDetailsCompany.setOpaque(false);
+			panelDetailsCompany.setBounds(0, 0, 206, 195);
 			panelImageCompany.setOpaque(false);
-			panelImageCompany.setLayout(null);
+			panelImageCompany.setBounds(226, 0, 341, 195);
+			btnOK.setBounds(457, 282, 66, 23);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// Custom paint method used to paint a rounded border and change background color of the panel
 	@Override
 	public void paintComponent(Graphics g) {
 	    int x = 34;
@@ -182,16 +206,18 @@ public class JPDetailsCompany extends JXPanel {
 	    Graphics2D g2 = (Graphics2D) g.create();
 	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-	    g2.setColor(new Color(0, 0, 0, 100));
+	    // Cyan color for background
+	    g2.setColor(new Color(161, 255, 207, 120));
 	    g2.fillRoundRect(x, y, w, h, arc, arc);
 
 	    g2.setStroke(new BasicStroke(3f));
-	    g2.setColor(Color.WHITE);
+	    g2.setColor(Color.BLUE);
 	    g2.drawRoundRect(x, y, w, h, arc, arc); 
 
 	    g2.dispose();
 	}
 
+	// Method used to paint shadow around the panel 
 	@Override
 	public void setBounds(int x, int y, int width, int height) {
 	    super.setBounds(x, y, width, height);
@@ -201,7 +227,7 @@ public class JPDetailsCompany extends JXPanel {
 	    int arc = 30;
 	    int shadowSize = 20;
 	    
-	    shadow = GraphicsUtilities.createCompatibleTranslucentImage(w, h);
+	    shadow = ImagesUtilities.createCompatibleTranslucentImage(w, h);
 	    Graphics2D g2 = shadow.createGraphics();
 	    g2.setColor(Color.WHITE);
 	    g2.fillRoundRect(0, 0, w, h, arc, arc);
@@ -225,9 +251,60 @@ public class JPDetailsCompany extends JXPanel {
 	}
 
 	public void setCompanyDetails(Company c) {
-		btnOK.setEnabled(true);
+		btnOK.setEnabled(true);		
+		this.company = c;
+		setDetailsCompany();
+		setPosition();
+	}
+
+	private void setDetailsCompany() {
+		lblCif.setText("CIF: " + company.getCif());
+		lblNameCompany.setText("Name: " + company.getName());
+		lblCountry.setText("Country: " + company.getAddress().getCountry());
+		lblZip.setText("ZIP: " + company.getAddress().getZip());
+		lblAddress.setText("Address: " + company.getAddress().getStreet() + ", " + company.getAddress().getCity());
 		
-		lblTitle.setText("Title :" + c.getName());
+	}
+
+	private void setPosition() {
+		Coordinates coor;
+		try {
+			coor = GeoCoder.getGeoCoordinates(company.getAddress());
+		
+        double latitude = Double.parseDouble(coor.getLatitude());
+        double longitude = Double.parseDouble(coor.getLongitude());			        
+        position = new GeoPosition(latitude, longitude);
+        jXMapKit.setAddressLocation(position);    
+        
+        Set<Waypoint> waypoints = new HashSet<Waypoint>();
+        waypoints.add(new Waypoint(latitude, longitude));			        
+
+        WaypointPainter painter = new WaypointPainter();
+        painter.setWaypoints(waypoints);
+//	        painter.setRenderer(new WaypointRenderer() {
+//	            public boolean paintWaypoint(Graphics2D g, JXMapViewer map, Waypoint wp) {
+//	                g.setColor(Color.RED);
+//	                g.drawLine(-5,-5,+5,+5);
+//	                g.drawLine(-5,+5,+5,-5);
+//	                return true;
+//	            }
+//	        });
+        
+        jXMapKit.getMainMap().setOverlayPainter(painter);
+        jXMapKit.getMainMap().setZoom(2);
+        jXMapKit.setAddressLocationShown(true);
+        jXMapKit.setCenterPosition(position);
+        jXMapKit.setDataProviderCreditShown(true);
+		} catch (AddressNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (WSResponseError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

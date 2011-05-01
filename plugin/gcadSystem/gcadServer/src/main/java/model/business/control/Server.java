@@ -140,7 +140,7 @@ public class Server implements IServer {
 	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		boolean found = false;
 		Project project = null;
-		String login;
+		String login = "";
 		try{
 			Session session = SessionController.getSession(sessionId);
 			// Search the current project
@@ -151,18 +151,18 @@ public class Server implements IServer {
 				}		
 			}	
 			KnowledgeController.addTopic(sessionId, session.getUser(), project , topic);
-			login = SessionController.getSession(sessionID).getUser().getLogin();
+			login = SessionController.getSession(sessionId).getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Añadido un nuevo Topic con título " + topic.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.CREATE, "Error SQL mientras se intentaba añadir el Topic con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error SQL mientras se intentaba añadir el Topic con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionID + " para añadir un nuevo topic: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionId + " para añadir un nuevo topic: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRole npr) {
-			LogManager.putMessage(login, ITiposMensajeLog.CREATE, "Error al intentar realizar una operación no permitida al añadir un nuevo Topic: " + npr.getLocalizedMessage());
-			throw oie;
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error al intentar realizar una operación no permitida al añadir un nuevo Topic: " + npr.getLocalizedMessage());
+			throw npr;
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, "Error inesperado mientras se intentaba añadir un nuevo Topic: " + e.toString());
 			throw e;
@@ -170,22 +170,22 @@ public class Server implements IServer {
 	}
 	
 	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		String login;
+		String login ="";
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.addProposal(sessionId, session.getUser(), p, parent);
-			login = SessionController.getSession(sessionID).getUser().getLogin();
+			login = SessionController.getSession(sessionId).getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Añadida una nueva Proposal con título " + p.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.CREATE, "Error SQL mientras se intentaba añadir la Proposal con título " + p.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error SQL mientras se intentaba añadir la Proposal con título " + p.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionID + " para añadir una nueva Proposal: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionId + " para añadir una nueva Proposal: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRole npr) {
-			LogManager.putMessage(login, ITiposMensajeLog.CREATE, "Error al intentar realizar una operación no permitida al añadir una nueva Proposal: " + npr.getLocalizedMessage());
-			throw oie;
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error al intentar realizar una operación no permitida al añadir una nueva Proposal: " + npr.getLocalizedMessage());
+			throw npr;
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, "Error inesperado mientras se intentaba añadir una nueva Proposal: " + e.toString());
 			throw e;
@@ -193,22 +193,22 @@ public class Server implements IServer {
 	}
 	
 	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		String login;
+		String login = "";
 		try{
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.addAnswer(sessionId, session.getUser(), a, parent);
-			login = SessionController.getSession(sessionID).getUser().getLogin();
+			login = SessionController.getSession(sessionId).getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Añadida una nueva Answer con título " + a.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.CREATE, "Error SQL mientras se intentaba añadir la Answer con título " + a.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error SQL mientras se intentaba añadir la Answer con título " + a.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionID + " para añadir una nueva Answer: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionId + " para añadir una nueva Answer: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRole npr) {
-			LogManager.putMessage(login, ITiposMensajeLog.CREATE, "Error al intentar realizar una operación no permitida al añadir una nueva Answer: " + npr.getLocalizedMessage());
-			throw oie;
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error al intentar realizar una operación no permitida al añadir una nueva Answer: " + npr.getLocalizedMessage());
+			throw npr;
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, "Error inesperado mientras se intentaba añadir una nueva Answer: " + e.toString());
 			throw e;
@@ -217,22 +217,22 @@ public class Server implements IServer {
 	
 	/*** Methods used to modify Knowledge ***/
 	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		String login;
+		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.modifyTopic(sessionId, session.getUser(), newTopic, oldTopic);		
-			login = SessionController.getSession(sessionID).getUser().getLogin();
+			login = SessionController.getSession(sessionId).getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Modificado el Topic con título " + oldTopic.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.UPDATE, "Error SQL mientras se intentaba modificar el Topic con título " + oldTopic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Error SQL mientras se intentaba modificar el Topic con título " + oldTopic.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error al comprobar la sesión con id " + sessionID + " para modificar un Topic: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error al comprobar la sesión con id " + sessionId + " para modificar un Topic: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRole npr) {
-			LogManager.putMessage(login, ITiposMensajeLog.UPDATE, "Error al intentar realizar una operación no permitida al modificar un Topic: " + npr.getLocalizedMessage());
-			throw oie;
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Error al intentar realizar una operación no permitida al modificar un Topic: " + npr.getLocalizedMessage());
+			throw npr;
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error inesperado mientras se intentaba modificar un Topic: " + e.toString());
 			throw e;
@@ -240,22 +240,22 @@ public class Server implements IServer {
 	}
 	
 	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		String login;
+		String login ="";
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.modifyProposal(sessionId, session.getUser(), newProposal, oldProposal, parent);		
-			login = SessionController.getSession(sessionID).getUser().getLogin();
+			login = SessionController.getSession(sessionId).getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Modificada la Proposal con título " + oldProposal.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.UPDATE, "Error SQL mientras se intentaba modificar la Proposal con título " + oldProposal.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Error SQL mientras se intentaba modificar la Proposal con título " + oldProposal.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error al comprobar la sesión con id " + sessionID + " para modificar una Proposal: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error al comprobar la sesión con id " + sessionId + " para modificar una Proposal: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRole npr) {
-			LogManager.putMessage(login, ITiposMensajeLog.UPDATE, "Error al intentar realizar una operación no permitida al modificar una Proposal: " + npr.getLocalizedMessage());
-			throw oie;
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Error al intentar realizar una operación no permitida al modificar una Proposal: " + npr.getLocalizedMessage());
+			throw npr;
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error inesperado mientras se intentaba modificar una Proposal: " + e.toString());
 			throw e;
@@ -263,22 +263,22 @@ public class Server implements IServer {
 	}
 	
 	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		String login;
+		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.modifyAnswer(sessionId, session.getUser(), newAnswer, oldAnswer, parent);		
-			login = SessionController.getSession(sessionID).getUser().getLogin();
+			login = SessionController.getSession(sessionId).getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Modificado la Answer con título " + oldAnswer.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			GestorConexionesLog.ponerMensaje(login, ITiposMensajeLog.UPDATE, "Error SQL mientras se intentaba modificar la Answer con título " + oldAnswer.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Error SQL mientras se intentaba modificar la Answer con título " + oldAnswer.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error al comprobar la sesión con id " + sessionID + " para modificar una Answer: " + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error al comprobar la sesión con id " + sessionId + " para modificar una Answer: " + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRole npr) {
-			LogManager.putMessage(login, ITiposMensajeLog.UPDATE, "Error al intentar realizar una operación no permitida al modificar una Answer: " + npr.getLocalizedMessage());
-			throw oie;
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Error al intentar realizar una operación no permitida al modificar una Answer: " + npr.getLocalizedMessage());
+			throw npr;
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, "Error inesperado mientras se intentaba modificar una Answer: " + e.toString());
 			throw e;
@@ -288,25 +288,25 @@ public class Server implements IServer {
 	/*** Methods used to delete Knowledge 
 	 * @throws NotLoggedException ***/
 	@Override
-	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException {
+	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		KnowledgeController.deleteTopic(sessionId, to);
 		
 	}
 
 	@Override
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException {
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		KnowledgeController.deleteProposal(sessionId, p);
 		
 	}
 
 	@Override
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException {
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		KnowledgeController.deleteAnswer(sessionId, a);
 		
 	}
 	
 	/*** Methods to manage projects ***/
-	public void createProject (long sessionId, Project p) throws SQLException, NonPermissionRole, NotLoggedException {
+	public void createProject (long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		ProjectController.createProject(sessionId, p);
 	}
 	
@@ -315,29 +315,29 @@ public class Server implements IServer {
 //		NotificationController.addNotification(notification);
 //	}
 	
-	public void removeNotification(long sessionId, Notification notification) throws SQLException, NonPermissionRole, NotLoggedException {
+	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		NotificationController.deleteNotification(sessionId, notification);
 	}
 
-	public ArrayList<Notification> getNotifications(long sessionId) throws SQLException, NonPermissionRole, NotLoggedException {
+	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		Session session = SessionController.getSession(sessionId);
 		return NotificationController.getNotifications(session.getCurrentActiveProject(), 0);
 	}
 	
 	/*** Auxiliary methods  ***/
-	public ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
+	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.getProposals(sessionId);
 	}
 	
-	public ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
+	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.getAnswers(sessionId);
 	}
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.findParentAnswer(sessionId, a);
 	}
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.findParentProposal(sessionId, p);
 	}		
 	
@@ -347,7 +347,7 @@ public class Server implements IServer {
 //		return null;
 //	}	
 	
-	public TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
+	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.getTopicsWrapper(sessionId);
 	}
 		
@@ -375,11 +375,11 @@ public class Server implements IServer {
 	/**
 	 * This method reads the profiles available for a user role from a XML file.
 	 */
-	public ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole, NotLoggedException {
+	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException {
 		return SessionController.getAvailableOperations(sessionId);
 	}
 	
-	public void setCurrentProject(long sessionId, int id) throws NotLoggedException {
+	public void setCurrentProject(long sessionId, int id) throws RemoteException, NotLoggedException, Exception {
 		SessionController.getSession(sessionId).setCurrentActiveProject(id);
 		
 	}

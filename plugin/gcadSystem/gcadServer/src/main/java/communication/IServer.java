@@ -40,49 +40,46 @@ public interface IServer extends Remote {
 
 	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException, SQLException, Exception;
 		
-//	public void initDBConnection(String ip, String port) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-//		DBConnectionManager.addConnection(new DBConnection(ip, Integer.parseInt(port), "dbgcad"));
-//	}
-//	
 	/*** Methods used to add new Knowledge ***/
-	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	/*** Methods used to modify Knowledge  ***/
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	/*** Methods used to modify Knowledge  
+	 * @throws Exception ***/
+	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException,  SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException;
+	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException;
+	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 		
 	/*** Methods used to delete Knowledge ***/
-	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
 	
-	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 		
 	/*** Methods used to manage notifications ***/
 //	public void addNotification(long sessionId, Notification notification)  throws RemoteException, SQLException ;
 	
-	public void removeNotification(long sessionId, Notification notification)  throws RemoteException, SQLException, NonPermissionRole, NotLoggedException ;
+	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 
-	public ArrayList<Notification> getNotifications(long sessionId)  throws RemoteException, SQLException, NonPermissionRole, NotLoggedException;
+	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
 	/*** Auxiliary methods ***/
-	public ArrayList<Proposal> getProposals(long sessionId)  throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException;
+	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public ArrayList<Answer> getAnswers(long sessionId)  throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException;
+	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException;
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException;
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 //	public ArrayList<Project> getProjectsUser() {
 //		// TODO: return los proyectos del usuario de la sesion
 //		// return ProjectController.getProjectsUser(session.getUser().getId());
@@ -90,11 +87,11 @@ public interface IServer extends Remote {
 //	}	
 	
 	/*** Auxiliary methods ***/
-	public void setCurrentProject(long sessionId, int idProject)  throws RemoteException, NotLoggedException;
+	public void setCurrentProject(long sessionId, int idProject) throws RemoteException, NotLoggedException, Exception;
 	
-	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException;
+	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException;
+	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, Exception;
 		
 	/*** Methods used to manage the UI observer ***/
 //	public void notifyLogin () {

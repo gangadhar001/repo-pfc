@@ -128,13 +128,6 @@
         	<type>jar</type>
         	<scope>compile</scope>
         </dependency>
-         <dependency>
-         	<groupId>org.swinglabs</groupId>
-         	<artifactId>swingx-ws</artifactId>
-         	<version>1.0</version>
-         	<type>jar</type>
-         	<scope>compile</scope>
-         </dependency>
   </dependencies>
   <dependencyManagement>
         <dependencies>

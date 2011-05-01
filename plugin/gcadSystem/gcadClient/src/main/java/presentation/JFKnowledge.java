@@ -31,7 +31,7 @@ import model.business.knowledge.Operation;
 
 import org.jdesktop.application.Application;
 
-import presentation.utils.GraphicsUtilities;
+import presentation.utils.ImagesUtilities;
 import bussiness.control.ClientController;
 
 import com.cloudgarden.layout.AnchorConstraint;
@@ -138,7 +138,7 @@ public class JFKnowledge extends javax.swing.JDialog {
 		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
 		for (final String subgroup: subgroups) {
 	    	// Load the subgroup image of the operation
-			image = GraphicsUtilities.loadCompatibleImage(subgroup + ".png");
+			image = ImagesUtilities.loadCompatibleImage(subgroup + ".png");
 			// Create button
 			JButton button = new JButton();
 			button.setSize(new Dimension(100, 100));
@@ -153,16 +153,16 @@ public class JFKnowledge extends javax.swing.JDialog {
 			button.setFocusPainted(false);
 			button.setBorderPainted(true);					
 			// Save button icon
-			GraphicsUtilities.addImageButton(button.getName(), image);
+			ImagesUtilities.addImageButton(button.getName(), image);
 			button.addMouseListener(new MouseAdapter() {
 				public void mouseExited(MouseEvent evt) {
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
-					GraphicsUtilities.decreaseImageBrightness((JButton) evt.getSource());
+					ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
 				}
 	
 				public void mouseEntered(MouseEvent evt) {
 					setCursor(new Cursor(Cursor.HAND_CURSOR));  
-					GraphicsUtilities.increaseImageBrightness((JButton) evt.getSource());
+					ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
 				}
 			});
 			

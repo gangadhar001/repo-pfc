@@ -20,7 +20,7 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.image.GaussianBlurFilter;
 
-import presentation.utils.GraphicsUtilities;
+import presentation.utils.ImagesUtilities;
 
 public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListener {
     /**
@@ -39,13 +39,13 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
         this.detailPanel.setAlpha(0.0f);
         add(panel);
         
-        // Disable key events...
+        // Disable key events
         addMouseListener(new MouseAdapter() { });
     }
 
 	private void createBlur() {
 	    JRootPane root = SwingUtilities.getRootPane(this);
-	    blurBuffer = GraphicsUtilities.createCompatibleImage(
+	    blurBuffer = ImagesUtilities.createCompatibleImage(
 	        getWidth(), getHeight());
 	    Graphics2D g2 = blurBuffer.createGraphics();
 	    root.paint(g2);
@@ -53,7 +53,7 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 	
 	    backBuffer = blurBuffer;
 	
-	    blurBuffer = GraphicsUtilities.createThumbnailFast(
+	    blurBuffer = ImagesUtilities.createThumbnailFast(
 	        blurBuffer, getWidth() / 2);
 	    blurBuffer = new GaussianBlurFilter(5).filter(blurBuffer, null);
 	}
