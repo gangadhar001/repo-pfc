@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -42,8 +44,15 @@ import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxICell;
 import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.swing.util.mxCellOverlay;
+import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxPoint;
+import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
 
 import exceptions.NonPermissionRole;
@@ -53,9 +62,11 @@ import presentation.JFKnowledge;
 import presentation.JFMain;
 import presentation.JFPdf;
 import presentation.customComponents.DropShadowPanel;
+import presentation.dataVisualization.CustomGraph;
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
+import presentation.utils.ImagesUtilities;
 import bussiness.control.ClientController;
 
 
@@ -77,8 +88,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 3144486182937579912L;
+	
+	private static final double VERTEX_WIDTH = 120;
+	
 	private JPanel panel;
-	private JScrollPane scrollGraph;
 	private JScrollPane scrollTable;
 	private JScrollPane scrollTree;
 	private UserInfTable userInfTable;
@@ -136,23 +149,34 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	
 	private void showGraph() {
 		panelGraph.removeAll();
-		graph = new mxGraph();
-		parentGraph = graph.getDefaultParent();		
+		// Create custom graph
+		final mxGraphComponent graphComponent = new mxGraphComponent(new CustomGraph().getGraph());	
+		graph = graphComponent.getGraph();
+		parentGraph = graph.getDefaultParent();
 		graph.getModel().beginUpdate();
-		
+		String url;
+		String style = "HandleFillColor=#000000;whiteSpace=wrap;overflow=hidden;align=center;strokeColor=#000000;rounded;shape=label;image=";
+		// Add nodes and edges
 		for (Topic t: topicWrapper.getTopics()) {
-			Object vertexTopic = graph.insertVertex(parentGraph, null, t.getTitle(), 100, 30, 80, 30);
-			graph.getModel().setStyle(vertexTopic,  mxConstants.STYLE_ROUNDED);
+			
+			url = this.getClass().getClassLoader().getResource("images/Topic.png").toString();			
+			mxCell vertexTopic = (mxCell) graph.insertVertex(parentGraph, null, t, 100, 30, 80, 30, style + url);
+			vertexTopic.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
 			for (Proposal p: t.getProposals()) {
-				Object vertexProposal = graph.insertVertex(parentGraph, null, p.getTitle(), 100, 50, 80, 30, mxConstants.STYLE_ROUNDED);
+				url = this.getClass().getClassLoader().getResource("images/Proposal.png").toString();
+				mxCell vertexProposal = (mxCell) graph.insertVertex(parentGraph, null, p, 100, 50, 80, 30, style + url);
+				vertexProposal.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
 				graph.insertEdge(parentGraph, null, "", vertexTopic, vertexProposal);
 				for (Answer a : p.getAnswers()) {
-					Object vertexAnswer = graph.insertVertex(parentGraph, null, a.getTitle(), 100, 100, 80, 30, mxConstants.STYLE_ROUNDED);
+					url = this.getClass().getClassLoader().getResource("images/Trees/answer.png").toString();
+					mxCell vertexAnswer = (mxCell) graph.insertVertex(parentGraph, null, a, 100, 100, 80, 30, style + url);
+					vertexAnswer.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
 					graph.insertEdge(parentGraph, null, "", vertexProposal, vertexAnswer );
 				}
 			}
 		}
 		
+				
 		mxHierarchicalLayout layout = new mxHierarchicalLayout(graph, SwingConstants.WEST);
 		layout.setFineTuning(true);
 		layout.setInterRankCellSpacing(230.5);
@@ -172,8 +196,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		
 		graph.getModel().endUpdate();
 		
-		final mxGraphComponent graphComponent = new mxGraphComponent(graph);	
-		graphComponent.setBorder(null);
+		graphComponent.setBorder(null);		
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{								
 			public void mousePressed(MouseEvent e)
@@ -181,17 +204,19 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
 				graph.setSelectionCell(cell);				
 				if (cell != null)
-				{			
-					topicWrapper.getTopics().get(0).add(new Proposal("adsfasf", "", new Date(), Categories.Analysis));
+				{
+					Knowledge k = (Knowledge) ((mxCell)cell).getValue(); 
+//					topicWrapper.getTopics().get(0).add(new Proposal("adsfasf", "", new Date(), Categories.Analysis));
 					showGraph();
 				}
 			}
 		});
 		graphComponent.setAntiAlias(true);
-		graphComponent.setEnabled(false);
-			
+		graphComponent.setEnabled(true);
+		graphComponent.setOpaque(false);
+		graphComponent.setToolTips(true);
 		panelGraph.add(graphComponent, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 13, 5), 0, 0));
-		
+
 		panelGraph.validate();
 		panelGraph.repaint();
 	}
@@ -268,11 +293,11 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					panelGraph = new DropShadowPanel();
 					GridBagLayout panelGraphLayout = new GridBagLayout();
 					panel.add(panelGraph, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 0, 0));
+					panelGraph.setLayout(panelGraphLayout);
 					panelGraphLayout.rowWeights = new double[] {0.1};
 					panelGraphLayout.rowHeights = new int[] {7};
 					panelGraphLayout.columnWeights = new double[] {0.1};
 					panelGraphLayout.columnWidths = new int[] {7};
-					panelGraph.setLayout(panelGraphLayout);
 				}
 				{
 					panelTable = new JPanel();
