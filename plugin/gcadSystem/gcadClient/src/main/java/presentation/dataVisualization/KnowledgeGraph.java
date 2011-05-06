@@ -9,11 +9,11 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-public class CustomGraph {
+public class KnowledgeGraph {
 
 	private mxGraph graph;
 
-	public CustomGraph () {	
+	public KnowledgeGraph () {	
 		graph = new mxGraph() {
 			
 			// Cannot edit cells

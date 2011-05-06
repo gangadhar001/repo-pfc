@@ -101,6 +101,9 @@ public class panelNotificationsView extends javax.swing.JPanel {
 			notificationsTable.setValueAt(n.getKnowledge().getTitle(), i, 2);
 			notificationsTable.setValueAt(n.getKnowledge().getDate(), i, 3);
 			notificationsTable.setValueAt(n.getKnowledge().getUser().getName(), i, 4);
+			// If the notification state is "unread", colorize the row
+			if (notifications.get(i).getState().equals("Unread"))
+				notificationsTable.addRowToColorize(i);
 		}
 	}
 
@@ -134,10 +137,11 @@ public class panelNotificationsView extends javax.swing.JPanel {
 					notificationsTable.bound();
 					notificationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 						
-						// When select a row, show the details
+						// When select a row, show the details and mark this notification as "read"
 						@Override
 						public void valueChanged(ListSelectionEvent e) {
 							rowSelected = notificationsTable.getSelectedRow();
+							notificationsTable.deleteRowToColorize(rowSelected);
 							showDetailRow();
 						}
 					});
