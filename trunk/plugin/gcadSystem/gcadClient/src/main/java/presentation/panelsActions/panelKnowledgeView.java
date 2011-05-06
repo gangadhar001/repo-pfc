@@ -62,7 +62,7 @@ import presentation.JFKnowledge;
 import presentation.JFMain;
 import presentation.JFPdf;
 import presentation.customComponents.DropShadowPanel;
-import presentation.dataVisualization.CustomGraph;
+import presentation.dataVisualization.KnowledgeGraph;
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
@@ -150,7 +150,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private void showGraph() {
 		panelGraph.removeAll();
 		// Create custom graph
-		final mxGraphComponent graphComponent = new mxGraphComponent(new CustomGraph().getGraph());	
+		final mxGraphComponent graphComponent = new mxGraphComponent(new KnowledgeGraph().getGraph());	
 		graph = graphComponent.getGraph();
 		parentGraph = graph.getDefaultParent();
 		graph.getModel().beginUpdate();

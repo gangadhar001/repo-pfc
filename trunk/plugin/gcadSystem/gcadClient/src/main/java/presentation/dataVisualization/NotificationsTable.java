@@ -30,7 +30,5 @@ public class NotificationsTable extends CustomTable {
         cm.getColumn(3).setCellRenderer(new DateRenderer());
         cm.getColumn(4).setHeaderValue("Author");
 	}	
-	
-	
 
 }
