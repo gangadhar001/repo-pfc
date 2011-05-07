@@ -289,25 +289,99 @@ public class Server implements IServer {
 	 * @throws NotLoggedException ***/
 	@Override
 	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		KnowledgeController.deleteTopic(sessionId, to);
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			KnowledgeController.deleteTopic(sessionId, to);
+			login = SessionController.getSession(sessionId).getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado el Topic con título " + oldAnswer.getTitle() + ".");
+			LogManager.updateConnectedClients(ClientsController.getClients());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar el Topic con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar un topic: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRole npr) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error al intentar realizar una operación no permitida al eliminar un Topic: " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error inesperado mientras se intentaba eliminar un Topic: " + e.toString());
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		KnowledgeController.deleteProposal(sessionId, p);
-		
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			KnowledgeController.deleteProposal(sessionId, p);
+			login = SessionController.getSession(sessionId).getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la Proposal con título " + oldAnswer.getTitle() + ".");
+			LogManager.updateConnectedClients(ClientsController.getClients());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la Proposal con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar una Proposal: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRole npr) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error al intentar realizar una operación no permitida al eliminar una Proposal: " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error inesperado mientras se intentaba eliminar una Proposal: " + e.toString());
+			throw e;
+		}
 	}
 
 	@Override
 	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		KnowledgeController.deleteAnswer(sessionId, a);
-		
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			KnowledgeController.deleteAnswer(sessionId, a);
+			login = SessionController.getSession(sessionId).getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la Answer con título " + oldAnswer.getTitle() + ".");
+			LogManager.updateConnectedClients(ClientsController.getClients());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la Answer con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar una Answer: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRole npr) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error al intentar realizar una operación no permitida al eliminar una Answer: " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error inesperado mientras se intentaba eliminar una Answer: " + e.toString());
+			throw e;
+		}		
 	}
 	
 	/*** Methods to manage projects ***/
 	public void createProject (long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		ProjectController.createProject(sessionId, p);
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			ProjectController.createProject(sessionId, p);
+			login = SessionController.getSession(sessionId).getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Creado el proyecto con título " + oldAnswer.getTitle() + ".");
+			LogManager.updateConnectedClients(ClientsController.getClients());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error SQL mientras se intentaba crear el proyecto con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionId + " para crear un proyecto: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRole npr) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error al intentar realizar una operación no permitida al crear un proyecto: " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageTypeLog.CREATE, "Error inesperado mientras se intentaba crear un proyecto: " + e.toString());
+			throw e;
+		}	
 	}
 	
 	/*** Methods used to manage notifications ***/
@@ -316,7 +390,27 @@ public class Server implements IServer {
 //	}
 	
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		NotificationController.deleteNotification(sessionId, notification);
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			NotificationController.deleteNotification(sessionId, notification);
+			login = SessionController.getSession(sessionId).getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la notificación con título " + oldAnswer.getTitle() + ".");
+			LogManager.updateConnectedClients(ClientsController.getClients());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la notificación con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar una notificación: " + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRole npr) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error al intentar realizar una operación no permitida al eliminar una notificación: " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageTypeLog.DELETE, "Error inesperado mientras se intentaba eliminar una notificación: " + e.toString());
+			throw e;
+		}	
+		
 	}
 
 	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
