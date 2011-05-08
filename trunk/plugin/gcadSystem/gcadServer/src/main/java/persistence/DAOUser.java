@@ -1,10 +1,13 @@
 package persistence;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import communication.DBConnectionManager;
 
+import model.business.knowledge.Knowledge;
+import model.business.knowledge.Project;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
 import exceptions.IncorrectEmployeeException;
@@ -40,5 +43,32 @@ public class DAOUser {
 		}
 		
 		return user;
+	}
+	
+	public static List<User> getUsersProject(Project p) throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		List<User> result = new ArrayList<User>();
+
+		// TODO: cambiar con el id del proyecto
+		query = new HibernateQuery("from " + USER_CLASS + " u Join u.projects p where p.id = 2");
+		data = DBConnectionManager.query(query);
+
+		if(data.size() > 0) {
+			for(Object o: data) {
+				// The query returns a list where each position
+				// is composed of two elements: [user, project]
+				Object[] res = (Object[]) o;
+				result.add((User) ((User)res[0]).clone());
+			}
+				
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+		
+		return result;
 	}
 }

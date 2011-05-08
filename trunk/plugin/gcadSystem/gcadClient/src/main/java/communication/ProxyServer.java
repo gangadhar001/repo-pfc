@@ -6,12 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-
-
-import communication.IClient;
-import communication.IServer;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
@@ -21,8 +16,8 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
+import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
@@ -155,15 +150,27 @@ public class ProxyServer implements IServer {
 
 	@Override
 	public void setCurrentProject(long sessionId, int projectId) throws RemoteException, NotLoggedException, Exception{
-		server.setCurrentProject(sessionId, projectId);
-		
+		server.setCurrentProject(sessionId, projectId);		
 	}
 
 	@Override
 	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
-			return server.getAvailableOperations(sessionId);
-
+		return server.getAvailableOperations(sessionId);
 	}
 
+	@Override
+	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception {
+		return server.getProjects(sessionId); 
+	}
+
+	@Override
+	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return server.getTopicsWrapper(sessionId, p);
+	}
+
+	@Override
+	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return server.getUsersProject(sessionId, p);
+	}
 
 }
