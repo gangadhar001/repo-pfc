@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -69,12 +70,14 @@ public class JFKnowledge extends javax.swing.JDialog {
 	private String subgroupSelected;
 	private Object data;
 	private String operationToDo;
+	private JDialog dialog;
 	
 	public JFKnowledge () {
 		super();
 		this.subgroupSelected = null;
 		data = null;
 		this.operationToDo = null;
+		dialog = this;
 		initGUI();
 	}
 	
@@ -84,6 +87,7 @@ public class JFKnowledge extends javax.swing.JDialog {
 		// Store the object to update, or the parent object of the element to insert.
 		this.data = data;
 		this.operationToDo = operationToDo;
+		dialog = this;
 		initGUI();
 	}		
 	
@@ -193,11 +197,15 @@ public class JFKnowledge extends javax.swing.JDialog {
 							if (data != null) {
 								// Use constructor of the corresponding panel, in order to pass the data to the constructor
 								// This is reflection
-								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {Object.class, String.class});
-								component = (Component) c.newInstance(new Object [] {data, operationToDo});
+								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {JDialog.class, Object.class, String.class});
+								component = (Component) c.newInstance(new Object [] {dialog, data, operationToDo});
 							}
-							else 
-								component = (Component) Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).newInstance();
+							else {
+								// Pass this dialog to the children panels
+								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {JDialog.class});
+								component = (Component) c.newInstance(new Object [] {dialog});
+							}
+							
 							mainPanel.add(component);
 							mainPanel.validate();
 							mainPanel.repaint();

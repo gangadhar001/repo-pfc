@@ -1,20 +1,24 @@
 package presentation.panelsManageKnowledge;
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
 
-import java.awt.Dimension;
+import internationalization.ApplicationInternationalization;
+
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-
-import javax.swing.WindowConstants;
-import org.jdesktop.application.Application;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+
+import model.business.knowledge.Answer;
+
+import org.jdesktop.application.Application;
+
+import presentation.utils.validation.NotEmptyValidator;
+
+import com.cloudgarden.layout.AnchorConstraint;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -35,21 +39,16 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	private static final long serialVersionUID = 7654096440940167508L;
 	private JPanel panelAnswerInfo;
 	private JComboBox cbArgument;
-	private JLabel lblCategoryAnswer;
+	private JLabel lblArgumentAnswer;
 	private JLabel lblAnswerTitle;
 	private JLabel lblDescriptionAnswer;
 	private JTextField txtTitle;
-	private JTextPane txtDescription;
-
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-	}
+	private JTextArea txtDescription;
+	private JDialog parentD;
 	
-	public JPAnswerInfo() {
+	public JPAnswerInfo(JDialog parent) {
 		super();
+		this.parentD = parent;
 		initGUI();
 	}
 	
@@ -68,25 +67,28 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
-								new String[] { "Analysis", "Design" });
+								new String[] { "Pro", "Contra" });
 					cbArgument = new JComboBox();
 					panelAnswerInfo.add(cbArgument, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					cbArgument.setModel(cbCategoriesModel);
 					cbArgument.setBounds(122, 135, 184, 23);
 				}
 				{
-					lblCategoryAnswer = new JLabel();
-					panelAnswerInfo.add(lblCategoryAnswer, new AnchorConstraint(628, 255, 683, 28, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-					lblCategoryAnswer.setName("lblCategoryProposal");
-					lblCategoryAnswer.setBounds(12, 139, 104, 15);
+					lblArgumentAnswer = new JLabel();
+					panelAnswerInfo.add(lblArgumentAnswer, new AnchorConstraint(628, 255, 683, 28, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					lblArgumentAnswer.setName("lblCategoryProposal");
+					lblArgumentAnswer.setBounds(12, 139, 104, 15);
+					lblArgumentAnswer.setText(ApplicationInternationalization.getString("lblArgumentAnswer"));
 				}
 				{
-					txtDescription = new JTextPane();
+					txtDescription = new JTextArea();
+					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelAnswerInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtDescription.setBounds(122, 58, 270, 65);
 				}
 				{
 					txtTitle = new JTextField();
+					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, "FallO" + ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelAnswerInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtTitle.setBounds(122, 23, 270, 23);
 				}
@@ -95,12 +97,15 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 					panelAnswerInfo.add(lblDescriptionAnswer, new AnchorConstraint(268, 255, 323, 28, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					lblDescriptionAnswer.setName("lblDescriptionProposal");
 					lblDescriptionAnswer.setBounds(12, 58, 98, 16);
+					lblDescriptionAnswer.setText(ApplicationInternationalization.getString("lblDescriptionAnswer"));
+					
 				}
 				{
 					lblAnswerTitle = new JLabel();
 					panelAnswerInfo.add(lblAnswerTitle, new AnchorConstraint(88, 255, 134, 28, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					lblAnswerTitle.setName("lblProposalTitle");
 					lblAnswerTitle.setBounds(12, 23, 98, 16);
+					lblAnswerTitle.setText(ApplicationInternationalization.getString("lblAnswerTitle"));
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
@@ -117,8 +122,14 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 		return txtDescription.getText().trim();
 	}
 	
-	public String getAnswerCategory() {
+	public String getAnswerArgument() {
 		return cbArgument.getSelectedItem().toString();
+	}
+
+	public void fillData(Answer data) {
+		txtTitle.setText(data.getTitle());
+		txtDescription.setText(data.getDescription());
+		cbArgument.setSelectedItem(data.getArgument().toString());		
 	}
 
 }

@@ -44,15 +44,15 @@ public class JFPruebaEstadisiticas extends javax.swing.JFrame {
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFPruebaEstadisiticas inst = new JFPruebaEstadisiticas();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				JFPruebaEstadisiticas inst = new JFPruebaEstadisiticas();
+//				inst.setLocationRelativeTo(null);
+//				inst.setVisible(true);
+//			}
+//		});
+//	}
 
 	private List<Project> projects;
 	private TopicWrapper tw;

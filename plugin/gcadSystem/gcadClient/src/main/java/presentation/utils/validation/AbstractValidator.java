@@ -42,7 +42,7 @@ public abstract class AbstractValidator extends InputVerifier implements KeyList
         popup = new JDialog(parent);
         initComponents();
     }
-	
+    
     /**
      * @param parent A JFrame that implements the ValidationCapable interface.
      * @param c The JComponent to be validated.
@@ -55,8 +55,8 @@ public abstract class AbstractValidator extends InputVerifier implements KeyList
         popup = new JDialog(parent);
         initComponents();
     }
-	
-    /**
+
+	/**
      * Implement the actual validation logic in this method. The method should
      * return false if data is invalid and true if it is valid. It is also possible
      * to set the popup message text with setMessage() before returning, and thus
