@@ -11,9 +11,7 @@ import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Vector;
 
 import model.business.control.Server;
 import model.business.knowledge.Answer;
@@ -24,11 +22,8 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
-
-import org.apache.commons.configuration.ConfigurationException;
-
+import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
@@ -159,6 +154,10 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 		return server.getTopicsWrapper(sessionId);
 	}
 
+	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return server.getTopicsWrapper(sessionId, p);
+	}
+	
 	@Override
 	public void setCurrentProject(long sessionId, int idProject) throws RemoteException, NotLoggedException, Exception {
 		server.setCurrentProject(sessionId, idProject);
@@ -221,4 +220,11 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 		return server.getAvailableOperations(sessionId);
 	}
   	
+	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception {
+		return server.getProjects(sessionId);
+	}
+	
+	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return server.getUsersProject(sessionId, p);
+	}
 }

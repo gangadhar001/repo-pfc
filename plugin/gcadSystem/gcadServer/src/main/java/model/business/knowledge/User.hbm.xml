@@ -26,8 +26,8 @@
 		</subclass>
 		<subclass name="ChiefProject" discriminator-value="1" >
 			<set name="projects" table="usersProjects" cascade="all" lazy="false">
-			<key column="idUser" unique="true" not-null="true" />
-			<many-to-many class="Project" column="idProject" />
+				<key column="idUser" unique="true" not-null="true" />
+				<many-to-many class="Project" column="idProject" />
 			</set>
 		</subclass>
 		

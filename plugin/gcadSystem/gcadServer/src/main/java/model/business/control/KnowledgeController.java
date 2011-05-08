@@ -3,9 +3,6 @@ package model.business.control;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import exceptions.NonPermissionRole;
-import exceptions.NotLoggedException;
-
 import model.business.knowledge.Answer;
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
@@ -19,28 +16,38 @@ import model.business.knowledge.User;
 import persistence.DAOAnswer;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
+import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 /**
  * This class represents a controller that allows to manage knowledge.
  */
 public class KnowledgeController {
 		
+	// Method used to get all the hierarchy of knowledge of the current project
 	public static TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
-		// This method access to database only the first time, when "topicWrapper" is not initialized.
-		//if (topicWrapper == null) {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Get.name()));
 
 		TopicWrapper topicWrapper = new TopicWrapper();
 		for (Topic t: DAOTopic.queryTopicsProject(SessionController.getSession(sessionId).getCurrentActiveProject()))
 			topicWrapper.add(t);
-		//}
+		return topicWrapper;
+	}
+	
+	// Method used to get all the hierarchy of knowledge of a specific project
+	public static TopicWrapper getTopicsWrapper(long sessionId, Project p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Get.name()));
+
+		TopicWrapper topicWrapper = new TopicWrapper();
+		for (Topic t: DAOTopic.queryTopicsProject(p.getId()))
+			topicWrapper.add(t);
 		return topicWrapper;
 	}
 	
 	/**
-	 * This method returns all existing proposals from a project 
-	 * @throws NotLoggedException 
+	 * This method returns all existing proposals from current project 
 	 */
 	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
@@ -54,8 +61,7 @@ public class KnowledgeController {
 	}
 	
 	/**
-	 * This method returns all existing answers from a project
-	 * @throws NotLoggedException 
+	 * This method returns all existing answers from current project
 	 */
 	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
@@ -72,7 +78,6 @@ public class KnowledgeController {
 
 	/**
 	 * Methods used to add new knowledge
-	 * @throws NotLoggedException 
 	 */
 	public static void addTopic(long sessionId, User u, Project p, Topic topic) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation

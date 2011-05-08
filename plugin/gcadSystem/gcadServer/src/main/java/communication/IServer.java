@@ -4,7 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import model.business.knowledge.Answer;
@@ -15,11 +14,8 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
-
-import org.apache.commons.configuration.ConfigurationException;
-
+import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
@@ -27,7 +23,6 @@ import exceptions.NotLoggedException;
 /**
  * Remote interface that is used by the client applications, in order to request operations to the server.
  * This is the server Facade
- *
  */
 public interface IServer extends Remote {
 	
@@ -47,8 +42,7 @@ public interface IServer extends Remote {
 	
 	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
-	/*** Methods used to modify Knowledge  
-	 * @throws Exception ***/
+	/*** Methods used to modify Knowledge  ***/
 	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
 	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
@@ -80,18 +74,19 @@ public interface IServer extends Remote {
 	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
 	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
-//	public ArrayList<Project> getProjectsUser() {
-//		// TODO: return los proyectos del usuario de la sesion
-//		// return ProjectController.getProjectsUser(session.getUser().getId());
-//		return null;
-//	}	
 	
 	/*** Auxiliary methods ***/
 	public void setCurrentProject(long sessionId, int idProject) throws RemoteException, NotLoggedException, Exception;
 	
 	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
+	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
+	
 	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, Exception;
+	
+	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception;
+	
+	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 		
 	/*** Methods used to manage the UI observer ***/
 //	public void notifyLogin () {

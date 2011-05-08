@@ -1,7 +1,5 @@
 package model.business.control;
 
-import internationalization.BundleInternationalization;
-
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +8,6 @@ import java.util.List;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.IMessageTypeLog;
-import model.business.knowledge.IResources;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
@@ -20,12 +17,9 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Session;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
-import model.business.knowledge.UserRole;
+import model.business.knowledge.User;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.HierarchicalConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
 
 import communication.ClientProxy;
 import communication.DBConnectionManager;
@@ -33,7 +27,6 @@ import communication.IClient;
 import communication.IServer;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NoProposalsException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
@@ -151,7 +144,7 @@ public class Server implements IServer {
 				}		
 			}	
 			KnowledgeController.addTopic(sessionId, session.getUser(), project , topic);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
+			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Añadido un nuevo Topic con título " + topic.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
@@ -174,7 +167,7 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.addProposal(sessionId, session.getUser(), p, parent);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
+			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Añadida una nueva Proposal con título " + p.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
@@ -197,7 +190,7 @@ public class Server implements IServer {
 		try{
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.addAnswer(sessionId, session.getUser(), a, parent);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
+			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Añadida una nueva Answer con título " + a.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
@@ -221,7 +214,7 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.modifyTopic(sessionId, session.getUser(), newTopic, oldTopic);		
-			login = SessionController.getSession(sessionId).getUser().getLogin();
+			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Modificado el Topic con título " + oldTopic.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
@@ -244,7 +237,7 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.modifyProposal(sessionId, session.getUser(), newProposal, oldProposal, parent);		
-			login = SessionController.getSession(sessionId).getUser().getLogin();
+			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Modificada la Proposal con título " + oldProposal.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
@@ -267,7 +260,7 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.modifyAnswer(sessionId, session.getUser(), newAnswer, oldAnswer, parent);		
-			login = SessionController.getSession(sessionId).getUser().getLogin();
+			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, "Modificado la Answer con título " + oldAnswer.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
@@ -293,11 +286,11 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.deleteTopic(sessionId, to);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado el Topic con título " + oldAnswer.getTitle() + ".");
+			login = session.getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado el Topic con título " + to.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar el Topic con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar el Topic con título " + to.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar un topic: " + nte.getLocalizedMessage());
@@ -318,11 +311,11 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.deleteProposal(sessionId, p);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la Proposal con título " + oldAnswer.getTitle() + ".");
+			login = session.getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la Proposal con título " + p.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la Proposal con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la Proposal con título " + p.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar una Proposal: " + nte.getLocalizedMessage());
@@ -342,11 +335,11 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			KnowledgeController.deleteAnswer(sessionId, a);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la Answer con título " + oldAnswer.getTitle() + ".");
+			login = session.getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la Answer con título " + a.getTitle() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la Answer con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la Answer con título " + a.getTitle() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar una Answer: " + nte.getLocalizedMessage());
@@ -366,11 +359,11 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			ProjectController.createProject(sessionId, p);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
-			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Creado el proyecto con título " + oldAnswer.getTitle() + ".");
+			login = session.getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Creado el proyecto con título " + p.getName() + ".");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error SQL mientras se intentaba crear el proyecto con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, "Error SQL mientras se intentaba crear el proyecto con título " + p.getName() + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, "Error al comprobar la sesión con id " + sessionId + " para crear un proyecto: " + nte.getLocalizedMessage());
@@ -394,11 +387,11 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			NotificationController.deleteNotification(sessionId, notification);
-			login = SessionController.getSession(sessionId).getUser().getLogin();
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la notificación con título " + oldAnswer.getTitle() + ".");
+			login = session.getUser().getLogin();
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Eliminado la notificación con título .");
 			LogManager.updateConnectedClients(ClientsController.getClients());
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la notificación con título " + topic.getTitle() + ": " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, "Error SQL mientras se intentaba eliminar la notificación con título: " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, "Error al comprobar la sesión con id " + sessionId + " para eliminar una notificación: " + nte.getLocalizedMessage());
@@ -443,6 +436,18 @@ public class Server implements IServer {
 	
 	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.getTopicsWrapper(sessionId);
+	}
+	
+	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return KnowledgeController.getTopicsWrapper(sessionId, p);
+	}
+	
+	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception{
+		return ProjectController.getProjects(sessionId);
+	}
+	
+	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return ProjectController.getUsersProject(sessionId, p);
 	}
 		
 	/*** Methods used to manage the UI observer ***/

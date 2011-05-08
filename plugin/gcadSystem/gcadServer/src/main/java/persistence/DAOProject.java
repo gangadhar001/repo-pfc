@@ -1,6 +1,10 @@
 package persistence;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import persistence.utils.HibernateQuery;
 
 import communication.DBConnectionManager;
 
@@ -11,7 +15,7 @@ import model.business.knowledge.Project;
  */
 public class DAOProject {
 
-//	private static final String PROJECT_TABLE = "projects";
+	private static final String PROJECT_CLASS = "Project";
 //	
 //	private static final String COL_ID = "id";
 //	private static final String COL_NAME = "name";
@@ -32,5 +36,29 @@ public class DAOProject {
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
+	}
+
+	public static List<Project> getProjects() throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		List<Project> result = new ArrayList<Project>();
+
+		// TODO: cambiar con el id del proyecto
+		query = new HibernateQuery("from " + PROJECT_CLASS);
+		data = DBConnectionManager.query(query);
+
+		if(data.size() > 0) {
+			for(Object o: data) {
+				result.add((Project) ((Project)o).clone());
+			}
+				
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+		
+		return result;
 	}
 }
