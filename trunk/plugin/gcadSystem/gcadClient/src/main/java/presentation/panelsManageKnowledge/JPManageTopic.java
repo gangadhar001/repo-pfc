@@ -1,24 +1,24 @@
 package presentation.panelsManageKnowledge;
+
+import internationalization.ApplicationInternationalization;
+
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.WindowConstants;
 
-import model.business.knowledge.Categories;
-import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 
+import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import bussiness.control.ClientController;
@@ -27,10 +27,8 @@ import bussiness.control.OperationsUtilities;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
-import exceptions.NoProposalsException;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -56,13 +54,30 @@ public class JPManageTopic extends javax.swing.JPanel {
 	private JButton btnCancelModify;
 	private JButton btnCancelAdd;
 	private JButton btnSaveTopic;
+	private JComboBox cbTopics;
+	private JLabel lblTopics;
 	private JPTopicInfo panelTopicInfoModify;
 	private JPanel panelAddTopic;
 	private ArrayList<Topic> topics;
-	private ArrayList<Proposal> proposals;
+	private JDialog parentD;
+	private Object data;
+	private String operationToDo;
 
-	public JPManageTopic() {
+	public JPManageTopic(JDialog parent) {
 		super();
+		this.parentD = parent;
+		data = null;
+		initGUI();
+	}
+	
+	private ActionMap getAppActionMap() {
+        return Application.getInstance().getContext().getActionMap(this);
+    }
+	
+	public JPManageTopic(JDialog parent, Object data, String operationToDo) {
+		super();
+		this.data = data;
+		this.operationToDo = operationToDo;
 		initGUI();
 	}
 	
@@ -88,20 +103,19 @@ public class JPManageTopic extends javax.swing.JPanel {
 						panelAddTopic.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnCancelAdd.setName("btnCancelAdd");
 						btnCancelAdd.setBounds(376, 217, 67, 25);
+						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
+						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));						
 					}
 					{
 						btnSaveTopic = new JButton();
 						panelAddTopic.add(btnSaveTopic, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnSaveTopic.setName("btnSaveTopic");
 						btnSaveTopic.setBounds(297, 217, 68, 24);
-						btnSaveTopic.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								btnSaveTopicActionPerformed(evt);
-							}
-						});
+						btnSaveTopic.setAction(getAppActionMap().get("Save"));
+						btnSaveTopic.setText(ApplicationInternationalization.getString("btnSave"));
 					}
 					{
-						panelTopicInfoAdd = new JPTopicInfo();
+						panelTopicInfoAdd = new JPTopicInfo(parentD);
 						panelAddTopic.add(panelTopicInfoAdd);
 						panelTopicInfoAdd.setBounds(12, 12, 431, 174);
 					}
@@ -116,26 +130,39 @@ public class JPManageTopic extends javax.swing.JPanel {
 						panelModifyTopic.add(btnCancelModify);
 						btnCancelModify.setBounds(376, 217, 67, 25);
 						btnCancelModify.setName("btnCancelModify");
+						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
+						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));
 					}
 					{
 						btnSaveModify = new JButton();
 						panelModifyTopic.add(btnSaveModify);
 						btnSaveModify.setBounds(297, 217, 68, 24);
 						btnSaveModify.setName("btnSaveModify");
-						btnSaveModify.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								btnSaveModifyActionPerformed(evt);
-							}
-						});
+						btnSaveModify.setAction(getAppActionMap().get("Modify"));
+						btnSaveModify.setText(ApplicationInternationalization.getString("btnModify"));
 					}
 					{
-						panelTopicInfoModify = new JPTopicInfo();
+						panelTopicInfoModify = new JPTopicInfo(parentD);
 						panelModifyTopic.add(panelTopicInfoModify);
-						panelTopicInfoModify.setBounds(12, 12, 431, 174);
+						panelTopicInfoModify.setBounds(12, 41, 433, 165);
+					}
+					{
+						lblTopics = new JLabel();
+						panelModifyTopic.add(lblTopics);
+						lblTopics.setBounds(12, 12, 49, 16);
+						lblTopics.setName("lblTopics");
+						lblTopics.setText(ApplicationInternationalization.getString("lblTopics"));
+					}
+					{
+						cbTopics = new JComboBox();
+						panelModifyTopic.add(cbTopics);
+						cbTopics.setBounds(73, 9, 161, 23);
 					}
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+			
+			setItemsComboTopics();
 			
 			// Hide tabs not available 
 			List<String> operationsId = OperationsUtilities.getAllOperationsId(ClientController.getInstance().getAvailableOperations());
@@ -143,40 +170,94 @@ public class JPManageTopic extends javax.swing.JPanel {
 				tabPanelTopic.remove(panelAddTopic);
 			if (!operationsId.contains("Modify"))
 				tabPanelTopic.remove(panelModifyTopic);
+			
+			// If this panel is invoked by knowledge view, with an item already selected, fill the data
+			if (data != null)
+				fillData();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 	
+	private void setItemsComboTopics() {
+		// Get topics
+		try {
+			topics = ClientController.getInstance().getTopicsWrapper().getTopics();
+			if (topics.size() == 0)
+				;
+			for (int i=0; i<topics.size(); i++) {
+				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
+			}
 	
-	private void btnSaveTopicActionPerformed(ActionEvent evt) {
-//		Proposal pro = new Proposal(proposalInfoAdd.getProposalTitle(), proposalInfoAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
-//		try {
-//			ClientController.getInstance().addProposal(pro, topics.get(cbTopics.getSelectedIndex()));
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
 	}
 	
-	private void btnSaveModifyActionPerformed(ActionEvent evt) {
-//		Proposal newPro = new Proposal(proposalInfoModify.getProposalTitle(), proposalInfoModify.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoModify.getProposalCategory()));
-//		try {
-//			// TODO: se necesita el topic, porque una propuesta no almacena su padre topic
-//			
-//			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbTopicsModify.getSelectedIndex()), topics.get(cbTopics.getSelectedIndex()));
-////			ClientController.getInstance().deleteProposal(proposals.get(cbTopicsModify.getSelectedIndex()));
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	private void fillData() {
+		// Fill fields with the received topic
+		if (operationToDo.equals("Modify")) {
+			Topic t = (Topic)data;
+			panelTopicInfoModify.fillData(t);
+		}		
+	}
+	
+	/*** Actions for buttons ***/
+	@Action
+	public void Cancel () {
+		parentD.dispose();
+	}	
+	
+	@Action
+	public void Save() {
+		Topic newTopic = new Topic(panelTopicInfoAdd.getTopicTitle(), panelTopicInfoAdd.getTopicDescription(), new Date());
+		try {
+			// Create and insert new Topic
+			ClientController.getInstance().addTopic(newTopic);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Action
+	public void Modify() {
+		Topic newTopic = new Topic(panelTopicInfoAdd.getTopicTitle(), panelTopicInfoAdd.getTopicDescription(), new Date());
+		try {
+			// Modify the old Topic
+			ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

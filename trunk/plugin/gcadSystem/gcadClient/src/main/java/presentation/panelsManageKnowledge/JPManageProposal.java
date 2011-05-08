@@ -1,27 +1,29 @@
 package presentation.panelsManageKnowledge;
+
+import internationalization.ApplicationInternationalization;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.WindowConstants;
 
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 
+import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
-
-import presentation.JFKnowledge;
 
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -29,13 +31,8 @@ import bussiness.control.OperationsUtilities;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
-import exceptions.NoProposalsException;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
-
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -70,23 +67,29 @@ public class JPManageProposal extends javax.swing.JPanel {
 	private JLabel lblTopic;
 	private JPanel panelAddProposal;
 	private ArrayList<Topic> topics;
-	private ArrayList<Proposal> proposals;
+	private Proposal[] proposals;
 	
 	private Object data;
 	private String operationToDo;
+	private JDialog parentD;
 
-	public JPManageProposal() {
+	public JPManageProposal(JDialog parent) {
 		super();
+		this.parentD = parent;
 		data = null;
 		initGUI();
 	}
 	
-	public JPManageProposal(Object data, String operationToDo) {
+	public JPManageProposal(JDialog parent, Object data, String operationToDo) {
 		super();
 		this.data = data;
 		this.operationToDo = operationToDo;
 		initGUI();
 	}
+	
+	private ActionMap getAppActionMap() {
+        return Application.getInstance().getContext().getActionMap(this);
+    }
 	
 	private void initGUI() {
 		try {
@@ -110,32 +113,32 @@ public class JPManageProposal extends javax.swing.JPanel {
 						panelAddProposal.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnCancelAdd.setName("btnCancelAdd");
 						btnCancelAdd.setBounds(376, 227, 67, 25);
+						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
+						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));
+						
 					}
 					{
 						btnSaveProposal = new JButton();
 						panelAddProposal.add(btnSaveProposal, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnSaveProposal.setName("btnSaveProposal");
 						btnSaveProposal.setBounds(297, 228, 68, 24);
-						btnSaveProposal.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								btnSaveProposalActionPerformed(evt);
-							}
-						});
+						btnSaveProposal.setAction(getAppActionMap().get("Save"));
+						btnSaveProposal.setText(ApplicationInternationalization.getString("btnSave"));
 					}
 					{
 						cbTopics = new JComboBox();
 						panelAddProposal.add(cbTopics, new AnchorConstraint(32,726,112,285,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
-						cbTopics.setBounds(134, 9, 191, 23);
+						cbTopics.setBounds(61, 9, 195, 22);
 					}
 					{
 						lblTopic = new JLabel();
 						panelAddProposal.add(lblTopic, new AnchorConstraint(43,243,102,28,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
-						lblTopic.setPreferredSize(new java.awt.Dimension(93, 17));
 						lblTopic.setName("lblTopic");
-						lblTopic.setBounds(12, 12, 93, 17);
+						lblTopic.setBounds(12, 12, 49, 17);
+						lblTopic.setText(ApplicationInternationalization.getString("lblTopic"));
 					}
 					{
-						proposalInfoAdd = new JPProposalInfo();
+						proposalInfoAdd = new JPProposalInfo(parentD);
 						panelAddProposal.add(proposalInfoAdd);
 						proposalInfoAdd.setBounds(12, 44, 431, 172);
 						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(431, 172));
@@ -147,7 +150,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 					panelModifyProposal.setName("panelModifyProposal");
 					panelModifyProposal.setLayout(null);
 					{
-						proposalInfoModify = new JPProposalInfo();
+						proposalInfoModify = new JPProposalInfo(parentD);
 						panelModifyProposal.add(proposalInfoModify);
 						proposalInfoModify.setBounds(12, 44, 431, 172);
 					}
@@ -156,17 +159,16 @@ public class JPManageProposal extends javax.swing.JPanel {
 						panelModifyProposal.add(btnCancelModify);
 						btnCancelModify.setBounds(376, 227, 67, 25);
 						btnCancelModify.setName("btnCancelModify");
+						btnCancelModify.setAction(getAppActionMap().get("Cancel"));
+						btnCancelModify.setText(ApplicationInternationalization.getString("CancelButton"));
 					}
 					{
 						btnSaveModify = new JButton();
 						panelModifyProposal.add(btnSaveModify);
 						btnSaveModify.setBounds(297, 228, 68, 24);
 						btnSaveModify.setName("btnSaveModify");
-						btnSaveModify.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								btnSaveModifyActionPerformed(evt);
-							}
-						});
+						btnSaveModify.setAction(getAppActionMap().get("Modify"));
+						btnSaveModify.setText(ApplicationInternationalization.getString("btnSave"));
 					}
 					{
 						
@@ -179,18 +181,25 @@ public class JPManageProposal extends javax.swing.JPanel {
 						lblProposals = new JLabel();
 						panelModifyProposal.add(lblProposals);
 						lblProposals.setName("lblProposals");
-						lblProposals.setBounds(251, 12, 69, 17);
+						lblProposals.setBounds(241, 12, 67, 17);
+						lblProposals.setText(ApplicationInternationalization.getString("lblProposal"));
 					}
 					{
 						cbTopicsModify = new JComboBox();
 						panelModifyProposal.add(cbTopicsModify);
-						cbTopicsModify.setBounds(96, 9, 136, 22);
+						cbTopicsModify.setBounds(59, 9, 140, 22);
+						cbTopicsModify.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								cbTopicsModifyActionPerformed(evt);
+							}
+						});
 					}
 					{
 						lblTopicModify = new JLabel();
 						panelModifyProposal.add(lblTopicModify);
 						lblTopicModify.setName("lblTopicModify");
-						lblTopicModify.setBounds(12, 12, 109, 16);
+						lblTopicModify.setBounds(12, 12, 47, 16);
+						lblTopicModify.setText(ApplicationInternationalization.getString("lblTopic"));
 					}
 				}
 			}
@@ -205,6 +214,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 				tabPanelProposal.remove(panelAddProposal);
 			if (!operationsId.contains("Modify"))
 				tabPanelProposal.remove(panelModifyProposal);
+			
 			// If this panel is invoked by knowledge view, with an item already selected, fill the data
 			if (data != null)
 				fillData();
@@ -225,25 +235,14 @@ public class JPManageProposal extends javax.swing.JPanel {
 				
 				cbProposals.setSelectedItem(p.getTitle());
 				cbProposals.setEnabled(false);
+			
+			} catch (NonPermissionRole e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (NotLoggedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NonPermissionRole e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -264,76 +263,49 @@ public class JPManageProposal extends javax.swing.JPanel {
 				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
 				cbTopicsModify.insertItemAt(topics.get(i).getTitle(), i);
 			}
+	
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotLoggedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}			
 	}
 	
 	private void setItemsComboProposals() {
-		// Get proposals
-		try {
-			proposals = ClientController.getInstance().getProposals();
-			if (proposals.size() == 0)
-				;
-			for (int i=0; i<proposals.size(); i++)
-				cbProposals.insertItemAt(proposals.get(i).getTitle(), i); 
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		catch (NoProposalsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		for (int i=0; i<proposals.length; i++)
+			cbProposals.insertItemAt(proposals[i].getTitle(), i); 
+	
 	}
 	
-	private void btnSaveProposalActionPerformed(ActionEvent evt) {
-		Proposal pro = new Proposal(proposalInfoAdd.getProposalTitle(), proposalInfoAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
+	// When select a topic, fill the "Proposals" combobox
+	private void cbTopicsModifyActionPerformed(ActionEvent evt) {
+		if (cbTopicsModify.getSelectedIndex() != -1) {
+			Topic t = topics.get(cbTopicsModify.getSelectedIndex());
+			proposals = (Proposal[]) t.getProposals().toArray();
+			setItemsComboProposals();			
+		}
+	}
+	
+	/*** Actions for buttons ***/
+	@Action
+	public void Cancel () {
+		parentD.dispose();
+	}	
+	
+	@Action
+	public void Save() {
+		Proposal newPro = new Proposal(proposalInfoAdd.getProposalTitle(), proposalInfoAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
 		try {
-			ClientController.getInstance().addProposal(pro, topics.get(cbTopics.getSelectedIndex()));
+			// Create and insert new Proposal
+			ClientController.getInstance().addProposal(newPro, topics.get(cbTopics.getSelectedIndex()));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -352,13 +324,12 @@ public class JPManageProposal extends javax.swing.JPanel {
 		}
 	}
 	
-	private void btnSaveModifyActionPerformed(ActionEvent evt) {
+	@Action
+	public void Modify() {
 		Proposal newPro = new Proposal(proposalInfoModify.getProposalTitle(), proposalInfoModify.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoModify.getProposalCategory()));
 		try {
-			// TODO: se necesita el topic, porque una propuesta no almacena su padre topic
-			
-			ClientController.getInstance().modifyProposal(newPro, proposals.get(cbProposals.getSelectedIndex()), topics.get(cbTopicsModify.getSelectedIndex()));
-//			ClientController.getInstance().deleteProposal(proposals.get(cbTopicsModify.getSelectedIndex()));
+			// Modify the old Proposal
+			ClientController.getInstance().modifyProposal(newPro, proposals[cbProposals.getSelectedIndex()], topics.get(cbTopicsModify.getSelectedIndex()));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

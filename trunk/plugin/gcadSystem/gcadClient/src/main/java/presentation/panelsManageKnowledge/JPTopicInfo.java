@@ -1,20 +1,21 @@
 package presentation.panelsManageKnowledge;
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
 
-import java.awt.Dimension;
+import internationalization.ApplicationInternationalization;
+
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
-import javax.swing.WindowConstants;
-import org.jdesktop.application.Application;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+
+import model.business.knowledge.Topic;
+
+import org.jdesktop.application.Application;
+
+import presentation.utils.validation.NotEmptyValidator;
+
+import com.cloudgarden.layout.AnchorConstraint;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -29,21 +30,20 @@ import javax.swing.JTextPane;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class JPTopicInfo extends javax.swing.JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -429329559937627955L;
 	private JPanel panelTopicInfo;
+	private JTextArea txtDescription;
 	private JLabel lblTopicTitle;
 	private JLabel lblDescriptionTopic;
 	private JTextField txtTitle;
-	private JTextPane txtDescription;
-
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-	}
+	private JDialog parentD;
 	
-	public JPTopicInfo() {
+	public JPTopicInfo(JDialog parent) {
 		super();
+		this.parentD = parent;
 		initGUI();
 	}
 	
@@ -61,12 +61,14 @@ public class JPTopicInfo extends javax.swing.JPanel {
 				panelTopicInfo.setSize(431, 174);
 				panelTopicInfo.setPreferredSize(new java.awt.Dimension(431, 174));
 				{
-					txtDescription = new JTextPane();
-					panelTopicInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtDescription.setBounds(122, 58, 270, 65);
+					txtDescription = new JTextArea();
+					panelTopicInfo.add(txtDescription);
+					txtDescription.setBounds(122, 56, 269, 105);
+					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					txtTitle = new JTextField();
+					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelTopicInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtTitle.setBounds(122, 23, 270, 23);
 				}
@@ -75,12 +77,14 @@ public class JPTopicInfo extends javax.swing.JPanel {
 					panelTopicInfo.add(lblDescriptionTopic, new AnchorConstraint(268, 255, 323, 28, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					lblDescriptionTopic.setName("lblDescriptionTopic");
 					lblDescriptionTopic.setBounds(12, 58, 98, 16);
+					lblDescriptionTopic.setText(ApplicationInternationalization.getString("lblDescriptionTopic"));
 				}
 				{
 					lblTopicTitle = new JLabel();
 					panelTopicInfo.add(lblTopicTitle, new AnchorConstraint(88, 255, 134, 28, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					lblTopicTitle.setName("lblTopicTitle");
 					lblTopicTitle.setBounds(12, 23, 98, 16);
+					lblTopicTitle.setText(ApplicationInternationalization.getString("lblTitleTopic"));
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
@@ -95,6 +99,12 @@ public class JPTopicInfo extends javax.swing.JPanel {
 	
 	public String getTopicDescription() {
 		return txtDescription.getText().trim();
+	}
+
+	public void fillData(Topic data) {
+		txtTitle.setText(data.getTitle());
+		txtDescription.setText(data.getDescription());
+		
 	}
 
 }

@@ -5,23 +5,19 @@ import internationalization.ApplicationInternationalization;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -34,21 +30,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JToolBar;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.TableColumnModelListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
@@ -59,24 +43,15 @@ import model.business.knowledge.Subgroups;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jdesktop.swingx.JXCollapsiblePane.Orientation;
-import org.jdesktop.swingx.util.MailTransportProxy;
 
 import presentation.customComponents.CustomToolBar;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
-import presentation.dataVisualization.NotificationsTable;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.utils.ImagesUtilities;
-
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
-
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
-
-import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
 
 
@@ -102,17 +77,7 @@ public class JFMain extends SingleFrameApplication {
     private JTabbedPane tabPanel;
     private JMenuItem menuItemAbout;
     private JMenu menuHelp;
-    private JMenu menuOption;
     private JPanel statusPanel;
-    private JMenuItem jMenuItem7;
-    private JMenuItem jMenuItem6;
-    private JMenuItem jMenuItem5;
-    private JMenuItem jMenuItem4;
-    private JMenu editMenu;
-    private JMenuItem jMenuItem3;
-    private JMenuItem jMenuItem2;
-    private JMenuItem jMenuItem1;
-    private JMenu fileMenu;
     private JToolBar toolBar;
     private JPanel toolBarPanel;
 
@@ -376,10 +341,9 @@ public class JFMain extends SingleFrameApplication {
 			public void actionPerformed(ActionEvent e) {
 				// Clean selection from other buttons
 				for (Component c: panelActions.getComponents())
-					if (c instanceof JPanel) 
-						((JButton)(((JPanel)c).getComponent(0))).setContentAreaFilled(false);
-//				JButton buttonPressed = ((JButton)e.getSource()); 
-//				buttonPressed.setContentAreaFilled(true);				
+					((JButton)c).setContentAreaFilled(false);
+				JButton buttonPressed = ((JButton)e.getSource()); 
+				buttonPressed.setContentAreaFilled(true);				
 			}
 		});
 	
@@ -411,6 +375,7 @@ public class JFMain extends SingleFrameApplication {
     	button.setText(ApplicationInternationalization.getString("toolbar"+id));
     	button.setToolTipText(ApplicationInternationalization.getString("toolbar"+id+"Tooltip"));
     	button.setIcon(ImagesUtilities.loadIcon("Toolbars/" + id + ".png"));
+    	button.setContentAreaFilled(false);
     	return button;
     }
     

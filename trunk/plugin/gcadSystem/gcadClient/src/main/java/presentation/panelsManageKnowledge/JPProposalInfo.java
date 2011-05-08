@@ -1,23 +1,24 @@
 package presentation.panelsManageKnowledge;
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
 
-import java.awt.Dimension;
+import internationalization.ApplicationInternationalization;
+
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-
-import javax.swing.WindowConstants;
-
-import model.business.knowledge.Proposal;
-
-import org.jdesktop.application.Application;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
+import model.business.knowledge.Proposal;
+
+import org.jdesktop.application.Application;
+
+import presentation.utils.validation.NotEmptyValidator;
+
+import com.cloudgarden.layout.AnchorConstraint;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -32,6 +33,10 @@ import javax.swing.JTextPane;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class JPProposalInfo extends javax.swing.JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1078493997822345023L;
 	private JPanel panelProposalInfo;
 	private JComboBox cbCategories;
 	private JLabel lblCategoryProposal;
@@ -39,16 +44,11 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	private JLabel lblDescriptionProposal;
 	private JTextField txtTitle;
 	private JTextPane txtDescription;
-
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-	}
+	private JDialog parentD;
 	
-	public JPProposalInfo() {
+	public JPProposalInfo(JDialog parent) {
 		super();
+		this.parentD = parent;
 		initGUI();
 	}
 	
@@ -79,28 +79,33 @@ public class JPProposalInfo extends javax.swing.JPanel {
 					panelProposalInfo.add(lblCategoryProposal, new AnchorConstraint(628, 255, 683, 28, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					lblCategoryProposal.setName("lblCategoryProposal");
 					lblCategoryProposal.setBounds(12, 139, 104, 15);
+					lblCategoryProposal.setText(ApplicationInternationalization.getString("lblCategoryAnswer"));
 				}
 				{
 					txtDescription = new JTextPane();
 					panelProposalInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtDescription.setBounds(122, 58, 270, 65);
+					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					txtTitle = new JTextField();
 					panelProposalInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtTitle.setBounds(122, 23, 270, 23);
+					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					lblDescriptionProposal = new JLabel();
 					panelProposalInfo.add(lblDescriptionProposal, new AnchorConstraint(268, 255, 323, 28, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					lblDescriptionProposal.setName("lblDescriptionProposal");
 					lblDescriptionProposal.setBounds(12, 58, 98, 16);
+					lblDescriptionProposal.setText(ApplicationInternationalization.getString("lblDescriptionProposal"));
 				}
 				{
 					lblProposalTitle = new JLabel();
 					panelProposalInfo.add(lblProposalTitle, new AnchorConstraint(88, 255, 134, 28, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					lblProposalTitle.setName("lblProposalTitle");
 					lblProposalTitle.setBounds(12, 23, 98, 16);
+					lblProposalTitle.setText(ApplicationInternationalization.getString("lblProposalTitle"));
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
