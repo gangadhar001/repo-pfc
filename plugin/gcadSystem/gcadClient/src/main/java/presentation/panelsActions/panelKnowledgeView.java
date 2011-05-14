@@ -58,9 +58,9 @@ import com.mxgraph.view.mxGraph;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
 
-import presentation.JFKnowledge;
+import presentation.JDKnowledge;
 import presentation.JFMain;
-import presentation.JFPdf;
+import presentation.JDPdf;
 import presentation.customComponents.DropShadowPanel;
 import presentation.dataVisualization.KnowledgeGraph;
 import presentation.dataVisualization.TreeContentProvider;
@@ -389,7 +389,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		// TODO: si no hay nada seleccionado, se abre el Frame de conocimiento
 		// If an item is selected, show the knowledge window filled with data
 		if (knowledgeSelectedTree != null) {
-			JFKnowledge fKnowledge = new JFKnowledge("Proposal", knowledgeSelectedTree, "Modify");
+			JDKnowledge fKnowledge = new JDKnowledge("Proposal", knowledgeSelectedTree, "Modify");
 			fKnowledge.setLocationRelativeTo(this);
 			fKnowledge.setModal(true);
 			fKnowledge.setVisible(true);

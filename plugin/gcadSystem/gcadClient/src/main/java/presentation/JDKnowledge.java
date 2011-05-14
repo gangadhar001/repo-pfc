@@ -52,7 +52,7 @@ import com.cloudgarden.layout.AnchorConstraint;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class JFKnowledge extends javax.swing.JDialog {
+public class JDKnowledge extends javax.swing.JDialog {
 	/**
 	 * 
 	 */
@@ -72,7 +72,7 @@ public class JFKnowledge extends javax.swing.JDialog {
 	private String operationToDo;
 	private JDialog dialog;
 	
-	public JFKnowledge () {
+	public JDKnowledge () {
 		super();
 		this.subgroupSelected = null;
 		data = null;
@@ -81,7 +81,7 @@ public class JFKnowledge extends javax.swing.JDialog {
 		initGUI();
 	}
 	
-	public JFKnowledge(String subgroupSelected, Object data, String operationToDo) {
+	public JDKnowledge(String subgroupSelected, Object data, String operationToDo) {
 		super();
 		this.subgroupSelected = subgroupSelected;
 		// Store the object to update, or the parent object of the element to insert.
