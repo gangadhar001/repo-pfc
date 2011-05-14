@@ -383,7 +383,7 @@ public class JFMain extends SingleFrameApplication {
 	@Action
     public void menuItem_manageKnowledge() {
 		// Invoke JFKnowledge without arguments (no operation, no data)
-    	JFKnowledge frameKnowledge = new JFKnowledge();
+    	JDKnowledge frameKnowledge = new JDKnowledge();
     	frameKnowledge.setLocationRelativeTo(getMainFrame());
     	frameKnowledge.setModal(true);
     	frameKnowledge.setVisible(true);
@@ -391,7 +391,7 @@ public class JFMain extends SingleFrameApplication {
 	
 	@Action
 	public void menuItem_managePDFGeneration() {
-		JFPdf framePDF = new JFPdf();
+		JDPdf framePDF = new JDPdf();
 		framePDF.setLocationRelativeTo(getMainFrame());
 		framePDF.setModal(true);
 		framePDF.setVisible(true);

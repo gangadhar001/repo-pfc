@@ -74,7 +74,7 @@ import javax.swing.tree.TreeSelectionModel;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class JFPdf extends JDialog {
+public class JDPdf extends JDialog {
 	/**
 	 * 
 	 */
@@ -118,7 +118,7 @@ public class JFPdf extends JDialog {
 	* Auto-generated main method to display this JFrame
 	*/
 		
-	public JFPdf() {
+	public JDPdf() {
 		super();
 		initGUI();		
 		initTree();
