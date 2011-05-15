@@ -24,12 +24,6 @@
 		<name>number_decisions_per_project</name>
 		<desc>number_decisions_per_project_desc</desc>
 	</Chart>
-	<Chart type="pie">
-		<id>pie_number_decisions_per_project</id>
-		<icon>images/chartPie.png</icon>
-		<name>percentage_decisions_per_project</name>
-		<desc>percentage_decisions_per_project_desc</desc>
-	</Chart>
 	<Chart type="bars">
 		<id>bar_number_developers_per_project</id>
 		<icon>images/chartBars.png</icon>
