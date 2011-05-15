@@ -9,6 +9,7 @@ import persistence.utils.HibernateQuery;
 import communication.DBConnectionManager;
 
 import model.business.knowledge.Project;
+import model.business.knowledge.User;
 
 /**
  * This class allows to query and modify projects from the database
@@ -61,4 +62,5 @@ public class DAOProject {
 		
 		return result;
 	}
+	
 }

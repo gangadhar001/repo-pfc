@@ -130,7 +130,11 @@ public abstract class User implements Serializable {
 	}
 
 	@Override
-	public String toString() {
+	public String toString () {
+		return name + " " + surname;
+	}
+	
+	public String getInfo() {
 		StringBuffer result = new StringBuffer();
 		Project p;
 		result.append("User:\n");

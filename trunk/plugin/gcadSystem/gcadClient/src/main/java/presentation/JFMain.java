@@ -431,6 +431,7 @@ public class JFMain extends SingleFrameApplication {
 		
 	}
 
+    /*** Actions used to show different tabs***/ 
 	@Action
     public void Notifications() {
     	int index = tabPanel.getTabCount();
@@ -450,13 +451,16 @@ public class JFMain extends SingleFrameApplication {
     public void Statistics() {
     	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
     	int index = tabPanel.getTabCount();
-
+    	// TODO: prueba
+    	JDStatistics sta = new JDStatistics(getMainFrame());
+    	sta.setModal(true);
+    	sta.setVisible(true);
+    	
 //		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
 //		tabPanel.setSelectedIndex(index);
     }
 	
-	/*** Actions for specific toolbar buttons.
-	 * The actions are used in a specific tab ***/
+	/*** Actions for specific toolbar buttons. This actions are used when an specific tab is shown ***/
 	@Action
 	public void AddKnowledge() {
 		if (panelKnowledge != null)

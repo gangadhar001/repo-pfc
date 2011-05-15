@@ -51,7 +51,7 @@ public class DAOUser {
 		List<User> result = new ArrayList<User>();
 
 		// TODO: cambiar con el id del proyecto
-		query = new HibernateQuery("from " + USER_CLASS + " u Join u.projects p where p.id = 2");
+		query = new HibernateQuery("from " + USER_CLASS + " u Join u.projects p where p.id = ?", p.getId());
 		data = DBConnectionManager.query(query);
 
 		if(data.size() > 0) {

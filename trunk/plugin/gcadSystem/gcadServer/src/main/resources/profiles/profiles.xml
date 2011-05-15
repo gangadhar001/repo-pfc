@@ -46,8 +46,7 @@
 		</Group>
 		<Group id="Statistics">
 			<Operations>
-				<id>Add</id>
-				<id>Save</id>
+				<id>Generate</id>
 			</Operations>
 		</Group>
 	</Profile>	

@@ -126,6 +126,10 @@ public class Project implements Serializable {
 	
 	@Override
 	public String toString() {
+		return name;
+	}
+	
+	public String getInfo() {
 		StringBuffer result = new StringBuffer();
 		result.append("Project:\n");		
 		result.append("      " + name + "\n");
