@@ -1,12 +1,19 @@
 package bussiness.control;
 
 import java.awt.Color;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import model.business.knowledge.Knowledge;
+import model.business.knowledge.Project;
+import model.business.knowledge.Table;
 import model.business.knowledge.Text;
 import model.business.knowledge.Title;
+import model.business.knowledge.TopicWrapper;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
@@ -17,6 +24,11 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
+import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 /**
  * Class used to generate a PDF document from the user-entered configuration
@@ -24,21 +36,21 @@ import com.itextpdf.text.Section;
 public class PDFComposer {
 	
 	@SuppressWarnings("rawtypes")
-	public static void composePDF (Document doc, DefaultMutableTreeNode root) throws DocumentException {
+	public static void composePDF (Document doc, DefaultMutableTreeNode root, Project pro) throws DocumentException {
 		Enumeration children = root.children();
 		int count = 1;
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
 			if (child.getUserObject() instanceof model.business.knowledge.Section) {
 				Chapter ch = new Chapter(count);
-				generateContent(ch, child);
+				generateContent(ch, child, pro);
 				doc.add(ch);
 			}
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) {
+	private static void generateContent(Element el, DefaultMutableTreeNode parentNode, Project pro) {
 		Enumeration children = parentNode.children();
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
@@ -61,17 +73,98 @@ public class PDFComposer {
 			if (child.getUserObject() instanceof model.business.knowledge.Section) {
 				if (el instanceof Chapter) {
 					Section s = ((Chapter)el).addSection(4f, "");
-					generateContent(s, child);
+					generateContent(s, child , pro);
 				}
 				else if (el instanceof Section) {
 					Section s = ((Section)el).addSection(4f, "");
-					generateContent(s, child);
+					generateContent(s, child, pro);
 				}
 			}
-//			if (child.getUserObject() instanceof Table) {
-//				
-//			}
+			if (child.getUserObject() instanceof Table) {
+				PdfPTable table = createTable(pro);
+				if (el instanceof Chapter) 
+					((Chapter)el).add(table);
+				else if (el instanceof Section)
+					((Section)el).add(table);
+			}
 		}
+	}
+
+	private static PdfPTable createTable(Project p) {
+		PdfPTable table = new PdfPTable(5);
+		createHeader(table);
+		Font f = FontFactory.getFont(FontFactory.HELVETICA, 22f, Font.BOLD, new BaseColor(Color.BLACK));
+		Paragraph par = new Paragraph("HISTORIC DECISIONS" ,f);		
+		PdfPCell header = new PdfPCell(par);
+		header.setColspan(5);
+		header.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(header);
+		// Take knowledge from project
+		TopicWrapper tw;
+		try {
+			tw = ClientController.getInstance().getTopicsWrapper(p);
+			List<Knowledge> knowledge = ClientController.getInstance().getKnowledgeProject(tw);
+			for(Knowledge k: knowledge) {
+				PdfPCell cell = new PdfPCell(new Paragraph(k.getTitle()));
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Paragraph(k.getTitle()));
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Paragraph(k.getDescription()));
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Paragraph(k.getDate().toLocaleString()));
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Paragraph(k.getUser().getName() + ", " + k.getUser().getSurname()));
+				table.addCell(cell);
+				
+//				cell = new PdfPCell(new Paragraph(k.getUser().getName() + ", " + k.getUser().getSurname()));
+//				table.addCell(cell);
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();		}
+		
+		return table;
+	}
+
+	private static void createHeader(PdfPTable table) {
+		Font f = FontFactory.getFont(FontFactory.HELVETICA, 22f, Font.BOLD, new BaseColor(Color.BLACK));
+		Paragraph par = new Paragraph("HISTORIC DECISIONS" ,f);		
+		PdfPCell header = new PdfPCell(par);
+		header.setColspan(5);
+		header.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(header);
+			
+		PdfPCell cell1 = new PdfPCell(new Paragraph("Title"));
+		table.addCell(cell1);
+		
+		PdfPCell cell2 = new PdfPCell(new Paragraph("Description"));
+		table.addCell(cell2);
+		
+		PdfPCell cell3 = new PdfPCell(new Paragraph("Date"));
+		table.addCell(cell3);
+		
+		PdfPCell cell4 = new PdfPCell(new Paragraph("Open by"));
+		table.addCell(cell4);
+		
+		PdfPCell cell5 = new PdfPCell(new Paragraph("Approved"));
+		table.addCell(cell5);
+		
 	}
 
 }
