@@ -235,7 +235,7 @@ public class JDPdf extends JDialog {
 					}
 					{
 						chkHeader = new JCheckBox();
-						panelContent.add(chkHeader, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 90, 0, 0), 0, 0));
+						panelContent.add(chkHeader, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 122, 0, 0), 0, 0));
 					}
 					{
 						txtPathHeader = new JTextField();
@@ -261,7 +261,7 @@ public class JDPdf extends JDialog {
 					}
 					{
 						chkFoot = new JCheckBox();
-						panelContent.add(chkFoot, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 90, 0, 0), 0, 0));
+						panelContent.add(chkFoot, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 122, 0, 0), 0, 0));
 					}
 				}
 				{
@@ -345,7 +345,7 @@ public class JDPdf extends JDialog {
 				}
 			}
 			pack();
-			this.setSize(399, 586);
+			this.setSize(454, 586);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 		    //add your error handling code here

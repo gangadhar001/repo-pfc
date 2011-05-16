@@ -132,7 +132,7 @@ public class StatisticsGenerator {
 		// Get knowledge from project
 		TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(pro);
 		// Get knowledge from user
-		List<Knowledge> knowledgeUser = getKnowledgeUser(tw, u);  
+		List<Knowledge> knowledgeUser = ClientController.getInstance().getKnowledgeUser(tw, u);  
 		if (isAnnually) {
 			// Get years
 			years = DateUtilities.getYearsBetweenDates(pro.getStartDate(), pro.getEndDate());
@@ -163,7 +163,7 @@ public class StatisticsGenerator {
 		Hashtable<Integer, List<Integer>> months;
 		// Get knowledge from project
 		TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(pro);
-		List<Knowledge> knowledgeProject = getKnowledgeProject(tw);  
+		List<Knowledge> knowledgeProject = ClientController.getInstance().getKnowledgeProject(tw);  
 		if (isAnnually) {
 			// Get years
 			years = DateUtilities.getYearsBetweenDates(pro.getStartDate(), pro.getEndDate());
@@ -187,6 +187,7 @@ public class StatisticsGenerator {
 		return dataset;
 	}
 	
+	// Create dataset for the chart of participation of each user on the project
 	public AbstractDataset createDatasetProjectParticipation(Project pro, boolean percentage) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		AbstractDataset dataset = null;
 		if (percentage)
@@ -196,13 +197,13 @@ public class StatisticsGenerator {
 		
 		// Get knowledge from project
 		TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(pro);
-		List<Knowledge> knowledgeProject = getKnowledgeProject(tw);
+		List<Knowledge> knowledgeProject = ClientController.getInstance().getKnowledgeProject(tw);
 		int knowledgeProjectCount = knowledgeProject.size();
 		// Get users that participate on that project
 		List<User> users = ClientController.getInstance().getUsersProject(pro);
 		for (User u: users) {
 			// Get knowledge from each user
-			List<Knowledge> knowledgeUser = getKnowledgeUser(tw, u);  
+			List<Knowledge> knowledgeUser = ClientController.getInstance().getKnowledgeUser(tw, u);  
 			int knowledgeUserCount = knowledgeUser.size();
 			double value = (knowledgeUserCount * 100.0 / knowledgeProjectCount);
 			if (percentage)
@@ -213,6 +214,7 @@ public class StatisticsGenerator {
 		return dataset;
 	}
 	
+	// Create dataset for the chart of number of knowledge made on each project for that user
 	public AbstractDataset createDatasetKnowledgeDeveloper(User u, boolean percentage) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception {
 		AbstractDataset dataset = null;
 		if (percentage)
@@ -229,7 +231,7 @@ public class StatisticsGenerator {
 		for (Project p: projects) {
 			// Get knowledge from user on each project
 			TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(p);
-			List<Knowledge> knowledgeUser = getKnowledgeUser(tw, u);  
+			List<Knowledge> knowledgeUser = ClientController.getInstance().getKnowledgeUser(tw, u);  
 			knowledgeUserCount = knowledgeUser.size();
 			parcial_counts.add(knowledgeUserCount);
 			totalCount += knowledgeUserCount;
@@ -246,6 +248,7 @@ public class StatisticsGenerator {
 		return dataset;
 	}
 	
+	// Create dataset for the chart of number of resources on each project
 	public DefaultCategoryDataset createDatasetResourcesProject(String resource) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		int totalResources = 0;
@@ -256,7 +259,7 @@ public class StatisticsGenerator {
 			TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(p);
 			if (resource.equals("knowledge")) {
 				// Get knowledge from each project
-				List<Knowledge> knowledgeProject = getKnowledgeProject(tw);
+				List<Knowledge> knowledgeProject = ClientController.getInstance().getKnowledgeProject(tw);
 				totalResources = knowledgeProject.size();
 			}
 			else if (resource.equals("developers")) {
@@ -271,39 +274,6 @@ public class StatisticsGenerator {
 	}
 	
 	/*** Auxiliary methods used to generate datasets ***/
-	// Get knowledge from an user on a project
-	private List<Knowledge> getKnowledgeUser(TopicWrapper tw, User u) {
-		List<Knowledge> result = new ArrayList<Knowledge>();
-		for (Topic t: tw.getTopics()){
-			if (t.getUser().equals(u))
-				result.add(t);
-			for (Proposal p: t.getProposals()){
-				if (p.getUser().equals(u))
-					result.add(p);
-				for (Answer a: p.getAnswers()) {
-					if (a.getUser().equals(u))
-						result.add(a);
-				}
-			}
-		}
-		return result;
-	}
-	
-	// Get knowledge from a project
-	private List<Knowledge> getKnowledgeProject(TopicWrapper tw) {
-		List<Knowledge> result = new ArrayList<Knowledge>();
-		for (Topic t: tw.getTopics()){
-				result.add(t);
-			for (Proposal p: t.getProposals()){
-					result.add(p);
-				for (Answer a: p.getAnswers()) {
-						result.add(a);
-				}
-			}
-		}
-		return result;
-	}
-
 	// Get number of decisions of that user on that project on that year
 	private Number countDecisionYear(List<Knowledge> knowledge, int year) {
 		int cont = 0;		

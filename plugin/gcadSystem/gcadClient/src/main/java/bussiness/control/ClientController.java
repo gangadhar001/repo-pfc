@@ -120,6 +120,41 @@ public class ClientController {
 		Application.launch(JFLogin.class, args);		
 	}
 	
+	
+	// Get knowledge from an user on a project
+	public List<Knowledge> getKnowledgeUser(TopicWrapper tw, User u) {
+		List<Knowledge> result = new ArrayList<Knowledge>();
+		for (Topic t: tw.getTopics()){
+			if (t.getUser().equals(u))
+				result.add(t);
+			for (Proposal p: t.getProposals()){
+				if (p.getUser().equals(u))
+					result.add(p);
+				for (Answer a: p.getAnswers()) {
+					if (a.getUser().equals(u))
+						result.add(a);
+				}
+			}
+		}
+		return result;
+	}
+	
+	// Get knowledge from a project
+	public List<Knowledge> getKnowledgeProject(TopicWrapper tw) {
+		List<Knowledge> result = new ArrayList<Knowledge>();
+		for (Topic t: tw.getTopics()){
+				result.add(t);
+			for (Proposal p: t.getProposals()){
+					result.add(p);
+				for (Answer a: p.getAnswers()) {
+						result.add(a);
+				}
+			}
+		}
+		return result;
+	}
+
+	
 	/*** Methods to make requests to the server ***/
 	public void addAnwser(Answer arg0, Proposal arg1) throws RemoteException,
 			SQLException {
