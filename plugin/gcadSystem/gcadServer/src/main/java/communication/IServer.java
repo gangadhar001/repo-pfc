@@ -87,6 +87,8 @@ public interface IServer extends Remote {
 	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception;
 	
 	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
+
+	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
 		
 	/*** Methods used to manage the UI observer ***/
 //	public void notifyLogin () {

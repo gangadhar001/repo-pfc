@@ -11,13 +11,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,32 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-
 import javax.swing.WindowConstants;
-
-import model.business.knowledge.Knowledge;
-import model.business.knowledge.PDFDocument;
-import model.business.knowledge.Section;
-import model.business.knowledge.Text;
-import model.business.knowledge.Title;
-import model.business.knowledge.PDFElement;
-import model.business.knowledge.TopicWrapper;
-
-import org.jdesktop.application.Action;
-import org.jdesktop.application.Application;
-import org.jdesktop.application.SingleFrameApplication;
-
-import bussiness.control.PDFComposer;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import presentation.utils.ImagesUtilities;
-import presentation.utils.ImageKnowledgeTreeCellRenderer;
-import presentation.utils.ImagePDFTreeCellRenderer;
-
-import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -60,6 +39,28 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
+import model.business.knowledge.PDFDocument;
+import model.business.knowledge.PDFElement;
+import model.business.knowledge.Project;
+import model.business.knowledge.Section;
+import model.business.knowledge.Table;
+import model.business.knowledge.Text;
+import model.business.knowledge.Title;
+
+import org.jdesktop.application.Action;
+import org.jdesktop.application.Application;
+
+import presentation.utils.ImagePDFTreeCellRenderer;
+import presentation.utils.ImagesUtilities;
+import bussiness.control.ClientController;
+import bussiness.control.PDFComposer;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import exceptions.NotLoggedException;
 
 
 /**
@@ -112,18 +113,43 @@ public class JDPdf extends JDialog {
 	private String headerImagePath;
 	private String footImagePath;
 	private DefaultTreeModel treeModel;
+	private List<Project> projects;
+	private JComboBox cbProjects;
+	private JButton btnDelete;
 	
 	
 	/**
-	* Auto-generated main method to display this JFrame
+	* Auto-generated main method to display this Dialog
 	*/
 		
-	public JDPdf() {
-		super();
-		initGUI();		
+	// TODO: controalr esta excepcion si no se genra nada en el PDF:  java.io.IOException: The document has no pages.
+	// TODO: al borrar un nodo del arbol, limpiar su txtArea/combo
+	// TODO: tema de imagenes
+	public JDPdf(JFrame frame) {
+		super(frame);
+		setTitle(ApplicationInternationalization.getString("PDFDialog_Title"));
+		initGUI();	
+		// Get projects from user logged
+		fillComboProjects();
 		initTree();
 	}
 	
+	private void fillComboProjects() {
+		try {
+			projects = ClientController.getInstance().getProjectsFromCurrentUser();
+			for(Project p : projects)
+				cbProjects.addItem(p);
+			cbProjects.setSelectedIndex(-1);
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}		
+	}
+
+	// Create tree with the PDF document as root 
 	private void initTree() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(new PDFDocument());
 		treeModel = new DefaultTreeModel(root);
@@ -133,20 +159,33 @@ public class JDPdf extends JDialog {
 		treePDF.addTreeSelectionListener(new TreeSelectionListener() {				
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				// Set the content of the previous element
+				// Set the content of the previous selected element
 				setContent();
 				// Get selected element in the tree
 				selectedNode = ((DefaultMutableTreeNode)e.getPath().getLastPathComponent());
 				// Enable text area if selected node is Title o Text
 				if (selectedNode.getUserObject() instanceof Text || selectedNode.getUserObject() instanceof Title) {
+					txtContent.setVisible(true);
+					cbProjects.setVisible(false);
 					txtContent.setEditable(true);
 					txtContent.setText(((PDFElement)selectedNode.getUserObject()).getContent());
 					txtContent.setCaretPosition(txtContent.getText().length());
 				}
 				else {
+					txtContent.setVisible(false);
 					txtContent.setText("");
 					txtContent.setCaretPosition(0);
 					txtContent.setEditable(false);
+				}
+				// Enable combobox of projects if selected node is Table
+				if (selectedNode.getUserObject() instanceof Table) {
+					txtContent.setVisible(false);
+					cbProjects.setVisible(true);
+					cbProjects.setSelectedItem(Integer.parseInt(((PDFElement)selectedNode.getUserObject()).getContent()));
+				}
+				else {
+					cbProjects.setVisible(false);
+					cbProjects.setSelectedIndex(-1);
 				}
 			}
 		});
@@ -294,11 +333,15 @@ public class JDPdf extends JDialog {
 							btnText = createButtonToolbar("Text");
 							toolPDF.add(btnText);
 						}
-						// TODO:
-//						{
-//							btnTable = createButtonToolbar("Table");
-//							toolPDF.add(btnTable);
-//						}
+						{
+							btnTable = createButtonToolbar("Table");
+							toolPDF.add(btnTable);
+						}
+						{
+							toolPDF.addSeparator();
+							btnDelete = createButtonToolbar("Delete");
+							toolPDF.add(btnDelete);
+						}
 					}
 					{
 						txtContent = new JTextArea();
@@ -307,6 +350,17 @@ public class JDPdf extends JDialog {
 						txtContent.addFocusListener(new FocusAdapter() {
 							public void focusLost(FocusEvent evt) {
 								txtContentFocusLost(evt);
+							}
+						});
+					}
+					{
+						cbProjects = new JComboBox();
+						cbProjects.setVisible(false);
+						panelTree.add(cbProjects, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(27, 0, 0, 0), 0, 0));
+						cbProjects.setName("cbProjects");
+						cbProjects.addFocusListener(new FocusAdapter() {
+							public void focusLost(FocusEvent evt) {
+								cbProjectsFocusLost(evt);
 							}
 						});
 					}
@@ -360,9 +414,9 @@ public class JDPdf extends JDialog {
     	button.setHorizontalTextPosition(SwingConstants.CENTER);
     	button.setVerticalTextPosition(SwingConstants.BOTTOM);
     	button.setRequestFocusEnabled(false);
-    	button.setAction(getAppActionMap().get("add_"+text));
+    	button.setAction(getAppActionMap().get(text));
     	button.setText(ApplicationInternationalization.getString(text));
-    	button.setIcon(ImagesUtilities.loadIcon(text+".png"));
+//    	button.setIcon(ImagesUtilities.loadIcon(text+".png"));
     	return button;	    
 	}
 	
@@ -378,11 +432,11 @@ public class JDPdf extends JDialog {
 			JFileChooser fileChooser = new JFileChooser();       
 			fileChooser.setFileFilter(filter);
 			int result = fileChooser.showSaveDialog(this);
-			if ( result == JFileChooser.APPROVE_OPTION ) {
+			if (result == JFileChooser.APPROVE_OPTION ) {
 				File path = fileChooser.getSelectedFile().getAbsoluteFile();
 	            PdfWriter.getInstance(doc, new FileOutputStream(path + ".pdf"));
 				doc.open();
-				PDFComposer.composePDF(doc, (DefaultMutableTreeNode) treePDF.getModel().getRoot());
+				PDFComposer.composePDF(doc, (DefaultMutableTreeNode) treePDF.getModel().getRoot(), projects);
 				doc.close();
 	        }
 		} catch (DocumentException e) {
@@ -392,9 +446,9 @@ public class JDPdf extends JDialog {
 		}
 	}
 	
-	/*** Actions used to add new elements to the tree ***/
+	/*** Actions availables in toolbar ***/
 	@Action
-	public void add_Section () {
+	public void Section () {
 		// A section can only be inserted as a child of another section or the document
 		if (selectedNode != null && (selectedNode.getUserObject() instanceof Section || selectedNode.getUserObject() instanceof PDFDocument)) {
 			Section s = new Section();
@@ -408,11 +462,21 @@ public class JDPdf extends JDialog {
 	}
 	
 	@Action
-	public void add_Table () {		
+	public void Table () {
+		// A table can only be inserted as a child of a section
+		if (selectedNode != null && selectedNode.getUserObject() instanceof Section) {
+			Table t = new Table();
+			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
+			treeModel.insertNodeInto(child, selectedNode, selectedNode.getChildCount());
+			treePDF.scrollPathToVisible(new TreePath(child.getPath()));
+		}
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("TableParentIncorrect"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	@Action
-	public void add_Title () {
+	public void Title () {
 		// Title can only be inserted as a child of a section, and it must be the first element
 		if (selectedNode != null && selectedNode.getUserObject() instanceof Section && selectedNode.isLeaf()) {
 			Title t = new Title();
@@ -426,7 +490,7 @@ public class JDPdf extends JDialog {
 	}
 	
 	@Action
-	public void add_Text () {
+	public void Text () {
 		// Text can only be inserted as a child of a section
 		if (selectedNode != null && selectedNode.getUserObject() instanceof Section) {
 			Text t = new Text();
@@ -439,14 +503,33 @@ public class JDPdf extends JDialog {
 		}
 	}
 	
+	@Action
+	public void Delete() {
+		if (selectedNode != null) {
+			treeModel.removeNodeFromParent(selectedNode);
+			// TODO: si es nulo, mostrar mensaje de que esa accion (cualquiera) solo se puede hacer con un nodo seleccionado.
+			
+			// TODO: el root no se puede borrar
+		}
+	}
+	
 	private void txtContentFocusLost(FocusEvent evt) {
 		// When text area lost the focus, set the content to the selected node
+		setContent();
+	}
+	
+	private void cbProjectsFocusLost(FocusEvent evt) {
+		// When combobox lost the focus, set the content to the selected node
 		setContent();
 	}
 	 
 	private void setContent() {
 		 if (selectedNode != null && (selectedNode.getUserObject() instanceof Text || selectedNode.getUserObject() instanceof Title)) 
 			 ((PDFElement)selectedNode.getUserObject()).setContent(txtContent.getText());
+		 else if (selectedNode != null && selectedNode.getUserObject() instanceof Table)
+			 // Save the index of the selected project
+			 ((PDFElement)selectedNode.getUserObject()).setContent(String.valueOf(cbProjects.getSelectedIndex()));
+			 
 	}
 
 }

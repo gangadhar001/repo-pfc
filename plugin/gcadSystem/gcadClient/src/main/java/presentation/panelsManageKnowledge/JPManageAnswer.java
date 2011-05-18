@@ -193,6 +193,11 @@ public class JPManageAnswer extends javax.swing.JPanel {
 						cbAnswers = new JComboBox();
 						panelModifyAnswer.add(cbAnswers);
 						cbAnswers.setBounds(307, 9, 136, 23);
+						cbAnswers.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								cbAnswersActionPerformed(evt);
+							}
+						});
 					}
 					{
 						panelAnswerInfoModify = new JPAnswerInfo(parentD);
@@ -220,7 +225,11 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			e.printStackTrace();
 		}
 	}
-
+	
+	private void cbAnswersActionPerformed(ActionEvent evt) {
+		panelAnswerInfoModify.fillData(answers[cbAnswers.getSelectedIndex()]);
+	}
+	
 	private void fillData() {
 		// Fill fields with the received answer
 		if (operationToDo.equals("Modify")) {
@@ -256,8 +265,8 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			if (proposals.size() == 0)
 				;
 			for (int i=0; i<proposals.size(); i++) {
-				cbProposalsAdd.insertItemAt(topics.get(i).getTitle(), i); 
-				cbProposals.insertItemAt(topics.get(i).getTitle(), i);
+				cbProposalsAdd.insertItemAt(proposals.get(i).getTitle(), i); 
+				cbProposals.insertItemAt(proposals.get(i).getTitle(), i);
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -275,15 +284,20 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	}
 	
 	private void setItemsComboAnswers() {
-		for (int i=0; i<answers.length; i++)
-			cbAnswers.insertItemAt(answers[i].getTitle(), i); 
+		if (answers != null) {
+			for (int i=0; i<answers.length; i++)
+				cbAnswers.insertItemAt(answers[i].getTitle(), i);
+		}
 	}
 	
 	// When select a proposal, fill the "Answers" combobox
 	private void cbProposalsActionPerformed(ActionEvent evt) {
 		if (cbProposals.getSelectedIndex() != -1) {
 			Proposal p = proposals.get(cbProposals.getSelectedIndex());
-			answers = (Answer[]) p.getAnswers().toArray();
+			Object[] aux = p.getAnswers().toArray();
+			answers = new Answer[aux.length];
+			for (int i = 0; i<aux.length; i++)
+				answers[i] = (Answer) aux[i];
 			setItemsComboAnswers();			
 		}
 	}

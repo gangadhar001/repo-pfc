@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.IMessageTypeLog;
@@ -485,6 +486,15 @@ public class Server implements IServer {
 
 	public ArrayList<Language> getLanguages() throws ConfigurationException {
 		return LanguagesController.getLanguages();
+	}
+
+	@Override
+	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception {
+		List<Project> result = new ArrayList<Project>();
+		Set<Project> projects = SessionController.getSessions().get(sessionId).getUser().getProjects();
+		for (Project p : projects)
+			result.add(p);
+		return result;
 	}
 
 }

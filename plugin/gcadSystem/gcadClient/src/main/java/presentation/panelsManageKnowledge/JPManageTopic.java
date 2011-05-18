@@ -1,6 +1,8 @@
 package presentation.panelsManageKnowledge;
 
 import internationalization.ApplicationInternationalization;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -157,6 +159,11 @@ public class JPManageTopic extends javax.swing.JPanel {
 						cbTopics = new JComboBox();
 						panelModifyTopic.add(cbTopics);
 						cbTopics.setBounds(73, 9, 161, 23);
+						cbTopics.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								cbTopicsActionPerformed(evt);
+							}
+						});
 					}
 				}
 			}
@@ -179,11 +186,16 @@ public class JPManageTopic extends javax.swing.JPanel {
 		}
 	}
 	
+	private void cbTopicsActionPerformed(ActionEvent evt) {
+		panelTopicInfoModify.fillData(topics.get(cbTopics.getSelectedIndex()));
+	}
+	
 	private void setItemsComboTopics() {
 		// Get topics
 		try {
 			topics = ClientController.getInstance().getTopicsWrapper().getTopics();
 			if (topics.size() == 0)
+				//TODO
 				;
 			for (int i=0; i<topics.size(); i++) {
 				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
