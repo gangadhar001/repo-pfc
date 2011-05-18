@@ -227,4 +227,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return server.getUsersProject(sessionId, p);
 	}
+	
+	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception {
+		return server.getProjectsFromCurrentUser(sessionId);
+	}	
 }

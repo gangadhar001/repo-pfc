@@ -35,22 +35,25 @@ import exceptions.NotLoggedException;
  */
 public class PDFComposer {
 	
+	private static List<Project> projects = null;
+	
 	@SuppressWarnings("rawtypes")
-	public static void composePDF (Document doc, DefaultMutableTreeNode root, Project pro) throws DocumentException {
+	public static void composePDF (Document doc, DefaultMutableTreeNode root, List<Project> pro) throws DocumentException {
+		projects = pro;
 		Enumeration children = root.children();
 		int count = 1;
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
 			if (child.getUserObject() instanceof model.business.knowledge.Section) {
 				Chapter ch = new Chapter(count);
-				generateContent(ch, child, pro);
+				generateContent(ch, child);
 				doc.add(ch);
 			}
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static void generateContent(Element el, DefaultMutableTreeNode parentNode, Project pro) {
+	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) {
 		Enumeration children = parentNode.children();
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
@@ -73,15 +76,15 @@ public class PDFComposer {
 			if (child.getUserObject() instanceof model.business.knowledge.Section) {
 				if (el instanceof Chapter) {
 					Section s = ((Chapter)el).addSection(4f, "");
-					generateContent(s, child , pro);
+					generateContent(s, child );
 				}
 				else if (el instanceof Section) {
 					Section s = ((Section)el).addSection(4f, "");
-					generateContent(s, child, pro);
+					generateContent(s, child);
 				}
 			}
 			if (child.getUserObject() instanceof Table) {
-				PdfPTable table = createTable(pro);
+				PdfPTable table = createTable(projects.get(Integer.parseInt(((Table)child.getUserObject()).getContent())));
 				if (el instanceof Chapter) 
 					((Chapter)el).add(table);
 				else if (el instanceof Section)
@@ -93,12 +96,6 @@ public class PDFComposer {
 	private static PdfPTable createTable(Project p) {
 		PdfPTable table = new PdfPTable(5);
 		createHeader(table);
-		Font f = FontFactory.getFont(FontFactory.HELVETICA, 22f, Font.BOLD, new BaseColor(Color.BLACK));
-		Paragraph par = new Paragraph("HISTORIC DECISIONS" ,f);		
-		PdfPCell header = new PdfPCell(par);
-		header.setColspan(5);
-		header.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(header);
 		// Take knowledge from project
 		TopicWrapper tw;
 		try {

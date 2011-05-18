@@ -27,22 +27,22 @@ public class ImagePDFTreeCellRenderer extends DefaultTreeCellRenderer {
 		Object val = ((DefaultMutableTreeNode)value).getUserObject();
 		try {
 			if (val instanceof PDFDocument) {				
-				icon = ImagesUtilities.loadIcon("pdf_ico.png");
+				icon = ImagesUtilities.loadIcon("Trees/pdf_ico.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			else if (val instanceof Text) {				
-				icon = ImagesUtilities.loadIcon("Text.png");
+				icon = ImagesUtilities.loadIcon("Trees/Text.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			else if (val instanceof Title) {				
-				icon = ImagesUtilities.loadIcon("Title.png");
+				icon = ImagesUtilities.loadIcon("Trees/Title.png");
 				if(icon != null)
 	                setIcon(icon);
 			}
 			else if (val instanceof Section) {				
-				icon = ImagesUtilities.loadIcon("Section.png");
+				icon = ImagesUtilities.loadIcon("Trees/Section.png");
 				if(icon != null)
 	                setIcon(icon);
 			}

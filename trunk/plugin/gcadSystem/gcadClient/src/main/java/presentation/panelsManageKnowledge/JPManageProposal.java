@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import model.business.knowledge.Answer;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -175,7 +176,12 @@ public class JPManageProposal extends javax.swing.JPanel {
 						cbProposals = new JComboBox();
 						panelModifyProposal.add(cbProposals);
 						cbProposals.setBounds(307, 9, 136, 23);
-						
+						cbProposals.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								cbProposalsActionPerformed(evt);
+							}
+						});
+
 					}
 					{
 						lblProposals = new JLabel();
@@ -223,6 +229,10 @@ public class JPManageProposal extends javax.swing.JPanel {
 		}
 	}
 
+	private void cbProposalsActionPerformed(ActionEvent evt) {
+		proposalInfoModify.fillData(proposals[cbProposals.getSelectedIndex()]);
+	}
+	
 	private void fillData() {
 		// Fill fields with the received proposal
 		if (operationToDo.equals("Modify")) {
@@ -249,8 +259,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		
+		}		
 	}
 
 	private void setItemsComboTopics() {
@@ -280,16 +289,21 @@ public class JPManageProposal extends javax.swing.JPanel {
 	}
 	
 	private void setItemsComboProposals() {
-		for (int i=0; i<proposals.length; i++)
-			cbProposals.insertItemAt(proposals[i].getTitle(), i); 
+		if (proposals != null) {
+			for (int i=0; i<proposals.length; i++)
+				cbProposals.insertItemAt(proposals[i].getTitle(), i); 
+		}
 	
 	}
 	
 	// When select a topic, fill the "Proposals" combobox
 	private void cbTopicsModifyActionPerformed(ActionEvent evt) {
-		if (cbTopicsModify.getSelectedIndex() != -1) {
+		if (cbTopicsModify.getSelectedIndex() != -1) {	
 			Topic t = topics.get(cbTopicsModify.getSelectedIndex());
-			proposals = (Proposal[]) t.getProposals().toArray();
+			Object[] aux =  t.getProposals().toArray();
+			proposals = new Proposal[aux.length];
+			for (int i = 0; i<aux.length; i++)
+				proposals[i] = (Proposal) aux[i];
 			setItemsComboProposals();			
 		}
 	}

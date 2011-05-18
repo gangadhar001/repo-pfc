@@ -291,6 +291,10 @@ public class ClientController {
 
 	public List<User> getUsersProject(Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return server.getUsersProject(session.getId(), p);
+	}
+
+	public List<Project> getProjectsFromCurrentUser() throws RemoteException, NotLoggedException, Exception {
+		return server.getProjectsFromCurrentUser(session.getId());
 	}	
 
 	

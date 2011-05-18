@@ -391,7 +391,7 @@ public class JFMain extends SingleFrameApplication {
 	
 	@Action
 	public void menuItem_managePDFGeneration() {
-		JDPdf framePDF = new JDPdf();
+		JDPdf framePDF = new JDPdf(getMainFrame());
 		framePDF.setLocationRelativeTo(getMainFrame());
 		framePDF.setModal(true);
 		framePDF.setVisible(true);
