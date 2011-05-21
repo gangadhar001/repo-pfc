@@ -114,7 +114,6 @@ public class KnowledgeController {
 	
 	/**
 	 * Methods used to modify knowledge
-	 * @throws NotLoggedException 
 	 */	
 	public static void modifyTopic(long sessionId, User user, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation

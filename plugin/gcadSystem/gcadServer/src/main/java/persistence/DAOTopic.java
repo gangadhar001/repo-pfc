@@ -6,7 +6,6 @@ import java.util.List;
 
 import communication.DBConnectionManager;
 
-import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import persistence.utils.HibernateQuery;
 

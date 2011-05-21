@@ -1,13 +1,13 @@
 package exceptions;
 
-import internationalization.BundleInternationalization;
+import internationalization.AppInternationalization;
 
 public class InvalidPasswordException extends Exception {
 
 	private static final long serialVersionUID = -1166896376103239365L;
 
 	public InvalidPasswordException() {
-		super(BundleInternationalization.getString("InvalidPassword_Exception"));
+		super(AppInternationalization.getString("InvalidPassword_Exception"));
 	}
 	
 	public InvalidPasswordException(String message) {

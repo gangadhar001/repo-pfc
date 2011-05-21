@@ -59,9 +59,7 @@ public interface IServer extends Remote {
 	
 	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 		
-	/*** Methods used to manage notifications ***/
-//	public void addNotification(long sessionId, Notification notification)  throws RemoteException, SQLException ;
-	
+	/*** Methods used to manage notifications ***/	
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 
 	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;

@@ -25,8 +25,10 @@ import java.util.HashMap;
 public class AnchorLayout implements LayoutManager2 {
 
 	private int preferredWidth, preferredHeight, minHeight, minWidth;
-	private HashMap<Component, Object> constraintMap = new HashMap<Component, Object>();
+	private HashMap constraintMap = new HashMap();
 	private boolean sizesCalculated = false;
+	private Container container;
+
 	public AnchorLayout() {
 		super();
 	}
@@ -111,7 +113,8 @@ public class AnchorLayout implements LayoutManager2 {
 	 * @see org.eclipse.swt.widgets.Layout#layout(org.eclipse.swt.widgets.Composite, boolean)
 	 */
 	public void layoutContainer(Container container) {
-	    Component children[] = container.getComponents();
+	    this.container = container;
+		Component children[] = container.getComponents();
 		Rectangle rect = container.getBounds();
 		int width = rect.width;
 		int height = rect.height;

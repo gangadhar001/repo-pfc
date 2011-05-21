@@ -1,13 +1,13 @@
 package exceptions;
 
-import internationalization.BundleInternationalization;
+import internationalization.AppInternationalization;
 
 public class NoAnswersException extends Exception {
 
 	private static final long serialVersionUID = -1922112666647136171L;
 
 	public NoAnswersException() {
-		BundleInternationalization.getString("Exception.NoAnswersException");
+		AppInternationalization.getString("Exception.NoAnswersException");
 	}
 	
 }

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import presentation.JFServer;
 import presentation.auxiliary.IWindowState;
 
 import communication.IConnectionLog;

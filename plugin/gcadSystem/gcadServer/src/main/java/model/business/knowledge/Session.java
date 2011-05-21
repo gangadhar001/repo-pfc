@@ -7,6 +7,10 @@ import java.io.Serializable;
  */
 public class Session implements ISession, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1987681435226028780L;
 	private long idSesion;
 	private int currentActiveProject;
 	private User user;

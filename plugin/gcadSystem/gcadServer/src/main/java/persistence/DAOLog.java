@@ -10,7 +10,7 @@ import model.business.knowledge.LogEntry;
 import persistence.utils.HibernateQuery;
 
 /**
- * This class allows to query and modify topics from the database
+ * This class allows to insert logs entry into database
  */
 public class DAOLog {
 	

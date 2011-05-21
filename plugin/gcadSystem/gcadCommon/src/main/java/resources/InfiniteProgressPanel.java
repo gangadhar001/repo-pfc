@@ -1,4 +1,4 @@
-package presentation.customComponents;
+package resources;
 
 import java.awt.Color;
 import java.awt.Font;

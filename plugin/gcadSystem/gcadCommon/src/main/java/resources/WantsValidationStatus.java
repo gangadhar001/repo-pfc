@@ -1,4 +1,4 @@
-package presentation.utils.validation;
+package resources;
 
 public interface WantsValidationStatus {
     void validateFailed();  // Called when a component has failed validation.

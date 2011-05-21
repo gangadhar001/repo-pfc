@@ -1,4 +1,4 @@
-package presentation.utils.validation;
+package resources;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;

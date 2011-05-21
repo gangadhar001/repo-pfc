@@ -6,7 +6,6 @@ import java.util.List;
 
 import communication.DBConnectionManager;
 
-import model.business.knowledge.Knowledge;
 import model.business.knowledge.Project;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
@@ -50,7 +49,6 @@ public class DAOUser {
 		List<?> data;
 		List<User> result = new ArrayList<User>();
 
-		// TODO: cambiar con el id del proyecto
 		query = new HibernateQuery("from " + USER_CLASS + " u Join u.projects p where p.id = ?", p.getId());
 		data = DBConnectionManager.query(query);
 
@@ -60,8 +58,7 @@ public class DAOUser {
 				// is composed of two elements: [user, project]
 				Object[] res = (Object[]) o;
 				result.add((User) ((User)res[0]).clone());
-			}
-				
+			}				
 		}
 		
 		// Clear cache

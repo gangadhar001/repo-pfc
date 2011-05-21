@@ -1,7 +1,7 @@
 package presentation;
 
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
+import internationalization.AppInternationalization;
+
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,9 @@ import java.net.URISyntaxException;
 import java.util.EventObject;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
@@ -21,8 +23,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import org.jdesktop.application.Application;
 
-import presentation.auxiliary.Dialogos;
 import presentation.auxiliary.CloseWindowListener;
 
 
@@ -38,22 +40,13 @@ import presentation.auxiliary.CloseWindowListener;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
+
 /**
- * TODO: Ventana 'Acerca de' del servidor front-end.
+ * About Window
  */
-public class JFAbout extends javax.swing.JFrame {
-
+public class JDAbout extends javax.swing.JDialog {
 	private static final long serialVersionUID = -4903915570854306815L;
-
-	{
-		//Set Look & Feel
-		try {
-			javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch(Exception e) {
-			Dialogos.showErrorDialog(null, "Error", e.getMessage());
-		}
-	}
-
+	
 	private EventListenerList listenerList;
 	private JButton btnAceptar;
 	private JPanel jPanel1;
@@ -61,8 +54,8 @@ public class JFAbout extends javax.swing.JFrame {
 	private JLabel lblTitulo;
 	private JTextPane txtAcercaDe;
 	
-	public JFAbout() {
-		super();
+	public JDAbout(JFrame frame) {
+		super(frame);
 		initGUI();
 		listenerList = new EventListenerList();
 	}
@@ -70,38 +63,38 @@ public class JFAbout extends javax.swing.JFrame {
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			AnchorLayout thisLayout = new AnchorLayout();
-			getContentPane().setLayout(thisLayout);
+			getContentPane().setLayout(null);
 			this.setTitle("Acerca del Servidor Front-End (SSCA)");
 			{
 				jPanel1 = new JPanel();
-				AnchorLayout jPanel1Layout = new AnchorLayout();
-				getContentPane().add(jPanel1, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-				jPanel1.setPreferredSize(new java.awt.Dimension(394, 275));
-				jPanel1.setLayout(jPanel1Layout);
+				getContentPane().add(jPanel1);
+				jPanel1.setLayout(null);
+				jPanel1.setBounds(0, 0, 414, 272);
 				{
 					lblTitulo2 = new JLabel();
-					jPanel1.add(lblTitulo2, new AnchorConstraint(36, 15, 210, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+					jPanel1.add(lblTitulo2);
 					lblTitulo2.setText("Servidor Front-End");
 					lblTitulo2.setPreferredSize(new java.awt.Dimension(389, 26));
 					lblTitulo2.setFont(new java.awt.Font("Tahoma",1,20));
 					lblTitulo2.setOpaque(false);
 					lblTitulo2.setFocusable(false);
 					lblTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
+					lblTitulo2.setBounds(12, 5, 389, 26);
 				}
 				{
 					lblTitulo = new JLabel();
-					jPanel1.add(lblTitulo, new AnchorConstraint(12, 10, 241, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+					jPanel1.add(lblTitulo);
 					lblTitulo.setText("Sistema de Salud de Comunidades Autónomas");
 					lblTitulo.setPreferredSize(new java.awt.Dimension(394, 19));
 					lblTitulo.setOpaque(false);
 					lblTitulo.setFont(new java.awt.Font("Tahoma",1,14));
 					lblTitulo.setFocusable(false);
 					lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+					lblTitulo.setBounds(10, 36, 394, 19);
 				}
 				{
 					txtAcercaDe = new JTextPane();
-					jPanel1.add(txtAcercaDe, new AnchorConstraint(266, 965, 827, 26, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jPanel1.add(txtAcercaDe);
 					txtAcercaDe.setPreferredSize(new java.awt.Dimension(370, 155));
 					txtAcercaDe.setOpaque(false);
 					txtAcercaDe.setContentType("text/html");
@@ -109,6 +102,7 @@ public class JFAbout extends javax.swing.JFrame {
 					txtAcercaDe.setEditable(false);
 					txtAcercaDe.setFocusable(false);
 					txtAcercaDe.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+					txtAcercaDe.setBounds(22, 60, 370, 155);
 					txtAcercaDe.addHyperlinkListener(new HyperlinkListener() {
 						public void hyperlinkUpdate(HyperlinkEvent evt) {
 							txtAcercaDeHyperlinkUpdate(evt);
@@ -117,10 +111,10 @@ public class JFAbout extends javax.swing.JFrame {
 				}
 				{
 					btnAceptar = new JButton();
-					jPanel1.add(btnAceptar, new AnchorConstraint(866, 14, 12, 753, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+					jPanel1.add(btnAceptar);
 					btnAceptar.setText("Aceptar");
-					btnAceptar.setPreferredSize(new java.awt.Dimension(83, 25));
 					btnAceptar.setName("btnAceptar");
+					btnAceptar.setBounds(309, 236, 83, 25);
 					btnAceptar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							btnAceptarActionPerformed(evt);
@@ -138,8 +132,9 @@ public class JFAbout extends javax.swing.JFrame {
 				}
 			});
 			pack();
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
-			Dialogos.showErrorDialog(this, "Error", e.getMessage());
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -150,9 +145,9 @@ public class JFAbout extends javax.swing.JFrame {
 			try {
 				Desktop.getDesktop().browse(evt.getURL().toURI());
 			} catch(IOException e) {
-				Dialogos.showErrorDialog(this, "Error", e.getLocalizedMessage());
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch(URISyntaxException e) {
-				Dialogos.showErrorDialog(this, "Error", e.getLocalizedMessage());
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

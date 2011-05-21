@@ -7,7 +7,6 @@ import java.util.List;
 import communication.DBConnectionManager;
 
 import model.business.knowledge.Notification;
-import model.business.knowledge.Proposal;
 import persistence.utils.HibernateQuery;
 
 /**

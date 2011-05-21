@@ -1,6 +1,6 @@
 package model.business.control;
 
-import internationalization.BundleInternationalization;
+import internationalization.AppInternationalization;
 
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
@@ -70,7 +70,7 @@ public class ServerController {
 		
 		ok = databaseConnection.testConexion();
 		if(!ok) {
-			throw new SQLException(BundleInternationalization.getString("TestDBConnection_Exception"));
+			throw new SQLException(AppInternationalization.getString("TestDBConnection_Exception"));
 		}
 		DBConnectionManager.addConnection(databaseConnection);
 		
@@ -86,7 +86,7 @@ public class ServerController {
 			serverInstanceExported = ExportedServer.getServer();
 			serverInstanceExported.activate(serverIP, configuration.getServerPort());
 		} catch(RemoteException e) {
-			throw new RemoteException(BundleInternationalization.getString("ServerController_ActivateServer_Error") + serverIP + ":" + String.valueOf(configuration.getServerPort()) + ".");
+			throw new RemoteException(AppInternationalization.getString("ServerController_ActivateServer_Error") + serverIP + ":" + String.valueOf(configuration.getServerPort()) + ".");
 		}
 	
 		LogManager.putMessage(IMessageTypeLog.INFO, "=== Servidor iniciado ===");	
@@ -100,21 +100,19 @@ public class ServerController {
 		// even if do not have access to clients who had registered (eg, because the network is down), 
 		// the database server has stopped or changed the IP of server
 		
-		// Generamos un mensaje indicando que el servidor está inactivo
-//		try {
-//			GestorConexionesLog.ponerMensaje(ITiposMensajeLog.TIPO_INFO, "=== Servidor detenido ===");
-//		} catch(RemoteException e) {
-//		} catch(SQLException e) {
-//		}
+		try {
+			LogManager.putMessage(IMessageTypeLog.INFO, "=== Servidor detenido ===");
+		} catch(RemoteException e) {
+		} catch(SQLException e) {
+		}
 		
-		// TODO: Notificamos a los clientes que el servidor ha sido desconectado
+		// Notify to clients that the server has been disconnected
 		try {
 			SessionController.disconnectClients();
 		} catch(RemoteException e) {
 		}
 		
-		DBConnectionManager.clear();	
-		
+		DBConnectionManager.clear();		
 		isServerActivate = false;
 	}
 	
@@ -130,8 +128,8 @@ public class ServerController {
 		return serverIP;
 	}
 	
-//	public int getNumeroClientesConectados() {
-//		return GestorSesiones.getClientes().size();
-//	}
+	public int getNumberConnectedClients() {
+		return ClientsController.getClients();
+	}
 
 }

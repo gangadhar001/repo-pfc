@@ -1,6 +1,6 @@
 package communication;
 
-import internationalization.BundleInternationalization;
+import internationalization.AppInternationalization;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ public class DBConnectionManager {
 
 	public static void initTransaction() throws SQLException {
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		for (IDBConnection conexion : connections) {
 			try {
 				conexion.initTransaction();
 			} catch (Exception ex) {
 
-				throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 			}
 		}
 	}
@@ -44,7 +44,7 @@ public class DBConnectionManager {
 		boolean error;
 
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		error = false;
 		excepcion = null;
@@ -58,7 +58,7 @@ public class DBConnectionManager {
 				}
 				error = true;
 
-				excepcion = new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+				excepcion = new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 
 			}
 		}
@@ -71,14 +71,14 @@ public class DBConnectionManager {
 		List<?> data;
 
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 
 		try {
 			data = connections.get(0).query(query);
 		} catch (Exception ex) {
 
-			throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+			throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 
 		}
 		return data;
@@ -88,7 +88,7 @@ public class DBConnectionManager {
 		Object copy;
 
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		copy = null;
 		for (IDBConnection conexion : connections) {
@@ -100,7 +100,7 @@ public class DBConnectionManager {
 				}
 			} catch (Exception ex) {
 
-				throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 			}
 		}
 
@@ -109,42 +109,42 @@ public class DBConnectionManager {
 
 	public static void update(Object objeto) throws SQLException {
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		for (IDBConnection conexion : connections) {
 			try {
 				conexion.update(objeto);
 			} catch (Exception ex) {
 
-				throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 			}
 		}
 	}
 
 	public static void delete(Object objeto) throws SQLException {
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		for (IDBConnection conexion : connections) {
 			try {
 				conexion.delete(objeto);
 			} catch (Exception ex) {
 
-				throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 			}
 		}
 	}
 
 	public static void clearCache(Object object) throws SQLException {
 		if (connections.size() == 0) {
-			throw new SQLException(BundleInternationalization.getString("EmptyConnections_Exception"));
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		for (IDBConnection conexion : connections) {
 			try {
 				conexion.clearCache(object);
 			} catch (Exception ex) {
 
-				throw new SQLException(BundleInternationalization.getString("ErrorDB_Exception"), ex);
+				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 			}
 		}		
 	}

@@ -166,8 +166,7 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		// TODO Auto-generated method stub
-		
+		server.deleteTopic(sessionId, to);		
 	}
 
 	@Override
@@ -178,26 +177,18 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		// TODO Auto-generated method stub
-		
+		server.deleteAnswer(sessionId, a);		
 	}
 
 	@Override
 	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		// TODO Auto-generated method stub
+		server.createProject(sessionId, p);
 		
 	}
 
-
-//	public void addNotification(long sessionId, Notification notification)  throws RemoteException, SQLException {
-		// TODO Auto-generated method stub
-		
-//	}
-
 	@Override
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		// TODO Auto-generated method stub
-		
+		server.removeNotification(sessionId, notification);		
 	}
 
 	@Override

@@ -11,7 +11,7 @@
 	
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-		 <property name="connection.url">jdbc:mysql://localhost:3306/dbgcad</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/dbgcad</property>
         <property name="connection.password">gcad</property>
         <property name="connection.username">gcad</property>
 		<property name="connection.pool_size">1</property>		
@@ -29,7 +29,8 @@
 		<mapping resource="model/business/knowledge/Project.hbm.xml" />
 		<mapping resource="model/business/knowledge/User.hbm.xml" />		
 		<mapping resource="model/business/knowledge/Knowledge.hbm.xml" />
-		<mapping resource="model/business/knowledge/Notification.hbm.xml" />		
+		<mapping resource="model/business/knowledge/Notification.hbm.xml" />
+		<mapping resource="model/business/knowledge/LogEntry.hbm.xml" />		
 		
 	</session-factory>
 	

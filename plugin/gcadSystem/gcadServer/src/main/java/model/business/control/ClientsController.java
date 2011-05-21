@@ -1,9 +1,7 @@
 package model.business.control;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 import model.business.knowledge.Knowledge;
 import communication.IClient;
@@ -14,7 +12,6 @@ import communication.IClient;
 public class ClientsController {
 
 	private static Hashtable<Long, IClient> clients = new Hashtable<Long, IClient>();
-	private static List<String> actions = new ArrayList<String>();
 	
 	public static void disconnectClients() throws RemoteException {
 		try {
