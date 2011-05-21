@@ -1,6 +1,6 @@
 package model.business.knowledge;
 
 public enum Operations {
-	Get, Add, Modify, Delete, Logout, Create
+	Get, Add, Modify, Delete, Logout, Generate
 
 }

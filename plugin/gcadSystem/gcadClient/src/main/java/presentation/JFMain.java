@@ -33,6 +33,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
@@ -43,12 +45,15 @@ import model.business.knowledge.Subgroups;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.jfree.chart.ChartPanel;
 
 import presentation.customComponents.CustomToolBar;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
+import presentation.dataVisualization.InternalFStatistics;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
+import presentation.panelsActions.panelStatisticsView;
 import presentation.utils.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -88,13 +93,14 @@ public class JFMain extends SingleFrameApplication {
     private ArrayList<String> toolbarActions = new ArrayList<String>();
     
 	private JPDetailsCompany panelDetailsCompany;
-	private JPDetailsCompanyGlassPanel view;
+	private JPDetailsCompanyGlassPanel companyDetailGlassPanel;
 	private panelKnowledgeView panelKnowledge;
 	private JMenu menuFile;
 	private JMenuItem menuFileExit;
 	private JMenu menuTools;
 	private panelNotificationsView panelNotifications;
 	private List<Operation> operations;
+	private panelStatisticsView panelStatistics;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -108,8 +114,8 @@ public class JFMain extends SingleFrameApplication {
 			{	
 				// Set glass panel
 				panelDetailsCompany = new JPDetailsCompany(this);				
-				view = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
-				getMainFrame().setGlassPane(view);
+				companyDetailGlassPanel = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
+				getMainFrame().setGlassPane(companyDetailGlassPanel);
 			}			
 			// TODO: Temporal
 			ClientController.getInstance().setCurrentProject(2);
@@ -143,6 +149,11 @@ public class JFMain extends SingleFrameApplication {
 				getMainFrame().getContentPane().add(tabPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 				tabPanel.setName("tabPanel");
 				tabPanel.setPreferredSize(new java.awt.Dimension(907, 415));
+				tabPanel.addChangeListener(new ChangeListener() {
+					public void stateChanged(ChangeEvent evt) {
+						tabPanelStateChanged(evt);
+					}
+				});
 				{
 					panelActions = new JPanel();
 					GridLayout panelActionsLayout = new GridLayout(1, 1);
@@ -196,8 +207,9 @@ public class JFMain extends SingleFrameApplication {
 
 	// This method is used to configure the main actions tab with the available groups of operations
     private void configureActions() {
+    	List<String> groupsActions = OperationsUtilities.getAllGroups(operations);
     	
-		int nOperations = operations.size() + 1;
+		int nOperations = groupsActions.size() + 1;
 		groupsShown = new ArrayList<String>();
 		// Layout used in main tab
 		GridLayout layout = new GridLayout();
@@ -212,13 +224,14 @@ public class JFMain extends SingleFrameApplication {
 		
 		panelActions.setLayout(layout);
 		
-		for (Operation o : operations) {
-			if (!groupsShown.contains(o.getGroup()))
+		for (String group : groupsActions) {
+			if (!groupsShown.contains(group))
 			try {
-				createComponent(o);
-				groupsShown.add(o.getGroup());
-				
-				toolbarActions.add(o.getGroup());
+				createComponent(group);
+				groupsShown.add(group);	
+				// In the toolbar, add operations that correspond to actions used to show a view of the tool
+				if (group.equals(Groups.Knowledge.name()) || group.equals(Groups.Statistics.name()) || group.equals(Groups.Notifications.name()))
+					toolbarActions.add(group);
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
@@ -227,9 +240,8 @@ public class JFMain extends SingleFrameApplication {
 		toolbarActions.add("Separator");
 		
 		// Finally, load the "Logout" action.
-		Operation op = new Operation(Groups.Logout.name(), Subgroups.Logout.name(), Operations.Logout.name());
 		try {
-			createComponent(op);
+			createComponent(Groups.Logout.name());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
@@ -239,7 +251,7 @@ public class JFMain extends SingleFrameApplication {
     private void configureMenu() {
     	groupsShown = new ArrayList<String>();
     	
-    	// First, add "File" Menu 
+    	// First of all, add "File" Menu 
     	menuFile = new JMenu();
     	menuBar.add(menuFile);
     	menuFile.setName("menuFile");
@@ -257,35 +269,9 @@ public class JFMain extends SingleFrameApplication {
     	menuTools.setName("menuTools");
     	menuTools.setText(ApplicationInternationalization.getString("menuTools"));
     	
-    	// Add menu items to "Tools" menu. Each menu item is a group of operations
-    	for(String s: OperationsUtilities.getSubgroupsId(operations, Groups.Knowledge.name())) {
-    		// Add "Tool" menu entry used to manage PDF Generation or Knowledge
-    		if (s.equals(Subgroups.Proposal.name()) || s.equals(Subgroups.Answer.name()) || s.equals(Subgroups.Topic.name())) {
-    			if (!groupsShown.contains("manage"+Groups.Knowledge.name())) {
-		    		JMenuItem item = new JMenuItem();
-					item.setName("menuItem_manage"+Groups.Knowledge.name());
-					item.setAction(getAppActionMap().get(item.getName()));
-					item.setText(ApplicationInternationalization.getString("manage"+Groups.Knowledge.name()));
-					menuTools.add(item);
-					
-					toolbarActions.add("Manage" + Groups.Knowledge.name());
-					
-					groupsShown.add("manage"+Groups.Knowledge.name());
-    			}
-    		}
-    		else if (s.equals(Subgroups.PDFGeneration.name())) {
-    			if (!groupsShown.contains("manage"+Groups.PDFGeneration.name())) {
-    				JMenuItem item = new JMenuItem();
-					item.setName("menuItem_manage"+Groups.PDFGeneration.name());
-					item.setAction(getAppActionMap().get(item.getName()));
-					item.setText(ApplicationInternationalization.getString("manage"+Groups.PDFGeneration.name()));
-					menuTools.add(item);
-					
-					toolbarActions.add("Manage" + Groups.Knowledge.name());
-					
-					groupsShown.add("manage"+Groups.PDFGeneration.name());
-    			}
-    		}
+    	// Add menu items to "Tools" menu. Each menu item is a group of operations    	
+    	for(String group : OperationsUtilities.getAllGroups(operations)) {
+	    	createToolMenuItem(group);    		
     	}
     	
     	toolbarActions.add("Separator");
@@ -303,13 +289,26 @@ public class JFMain extends SingleFrameApplication {
     	}
     }
     
-    private void createComponent(Operation o) throws IOException {
+    private void createToolMenuItem(String groupName) {
+    	if (!groupName.equals(Groups.Notifications.name())) {
+	    	JMenuItem item = new JMenuItem();
+			item.setName("manage"+groupName);
+			item.setAction(getAppActionMap().get(item.getName()));
+			item.setText(ApplicationInternationalization.getString("manage"+groupName));
+			menuTools.add(item);
+			toolbarActions.add("Manage"+groupName);
+			// TODO: esta es la lista que controla las operaciones mostradas en la pestaña principal
+			groupsShown.add("manage"+groupName);
+    	}
+    }
+    
+    private void createComponent(String group) throws IOException {
     	// Load the group image of the operation
-		image = ImagesUtilities.loadCompatibleImage("Groups/" + o.getGroup() + ".png");	
+		image = ImagesUtilities.loadCompatibleImage("Groups/" + group + ".png");	
 		
 		JButton button = new JButton();
 		// Set the group id as the name of the button
-		button.setName("btn_"+o.getGroup());
+		button.setName("btn_"+group);
 		button.setContentAreaFilled(false);
 		button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
     	button.setFocusPainted(false);
@@ -317,10 +316,10 @@ public class JFMain extends SingleFrameApplication {
     	button.setVerticalTextPosition(SwingConstants.BOTTOM);
     	button.setRequestFocusEnabled(false);
 		// Set the corresponding action for the name of the button
-		button.setAction(getAppActionMap().get(o.getGroup()));
-		button.setText(ApplicationInternationalization.getString("toolbar"+o.getGroup()));		
+		button.setAction(getAppActionMap().get(group));
+		button.setText(ApplicationInternationalization.getString("toolbar"+group));		
 		button.setIcon(new ImageIcon(image));
-		button.setToolTipText(ApplicationInternationalization.getString("toolbar"+o.getGroup()+"Tooltip"));
+		button.setToolTipText(ApplicationInternationalization.getString("toolbar"+group+"Tooltip"));
 		// Save button icon
 		ImagesUtilities.addImageButton(button.getName(), image);
 		
@@ -374,14 +373,14 @@ public class JFMain extends SingleFrameApplication {
     	button.setAction(getAppActionMap().get(id));
     	button.setText(ApplicationInternationalization.getString("toolbar"+id));
     	button.setToolTipText(ApplicationInternationalization.getString("toolbar"+id+"Tooltip"));
-    	button.setIcon(ImagesUtilities.loadIcon("Toolbars/" + id + ".png"));
+//    	button.setIcon(ImagesUtilities.loadIcon("Toolbars/" + id + ".png"));
     	button.setContentAreaFilled(false);
     	return button;
     }
     
-    /*** Actions used to manage knowledge and PDF ***/
+    /*** Actions used to manage actions for menu items ***/
 	@Action
-    public void menuItem_manageKnowledge() {
+    public void manageKnowledge() {
 		// Invoke JFKnowledge without arguments (no operation, no data)
     	JDKnowledge frameKnowledge = new JDKnowledge();
     	frameKnowledge.setLocationRelativeTo(getMainFrame());
@@ -390,14 +389,37 @@ public class JFMain extends SingleFrameApplication {
     }
 	
 	@Action
-	public void menuItem_managePDFGeneration() {
+	public void managePDFGeneration() {
 		JDPdf framePDF = new JDPdf(getMainFrame());
 		framePDF.setLocationRelativeTo(getMainFrame());
 		framePDF.setModal(true);
 		framePDF.setVisible(true);
 	}
+	
+	@Action
+	public void manageStatistics() {
+		JDStatistics frameStatistics = new JDStatistics(getMainFrame());
+		frameStatistics.setLocationRelativeTo(getMainFrame());
+		frameStatistics.setModal(true);
+		frameStatistics.setVisible(true);
+		// Take the generated chart and show it in the view of statistics
+		ChartPanel chartPanel = frameStatistics.getChartPanel();
+		try {
+			Statistics();
+			InternalFStatistics internalFrameStatistic = new InternalFStatistics();
+			internalFrameStatistic.addChartPanel(chartPanel);
+			panelStatistics.addStatistic(internalFrameStatistic);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
     
-    /*** Actions used in buttons of the main tab and toolbar. Used to show different views  ***/
+    /*** Actions used in buttons of the main tab and toolbar, used to show different views  ***/
     @Action
     public void Knowledge() throws MalformedURLException, IOException {
     	// Create a new tab in order to store the Knowledge view
@@ -407,31 +429,13 @@ public class JFMain extends SingleFrameApplication {
     		panelKnowledge = new panelKnowledgeView(this);
     		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
     		tabPanel.setSelectedIndex(index);
+        	createToolbarKnowledgeView();
     	}
     	else {
     		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabKnowledge")));
     	}
-    	createToolbarKnowledgeView();
-
     }
     
-    // Method to add specific button for knowledge to the toolbar
-    private void createToolbarKnowledgeView() throws MalformedURLException, IOException {
-    	toolBar.removeAll();
-		createCommonToolbar();
-		toolBar.addSeparator();
-		// Includes operation "add", "modify", and "delete", if the user has permissions
-		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
-		if (availableOps.contains(Operations.Add.name()))
-			toolBar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
-		if (availableOps.contains(Operations.Modify.name()))
-			toolBar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
-		if (availableOps.contains(Operations.Delete.name()))
-			toolBar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
-		
-	}
-
-    /*** Actions used to show different tabs***/ 
 	@Action
     public void Notifications() {
     	int index = tabPanel.getTabCount();
@@ -448,17 +452,46 @@ public class JFMain extends SingleFrameApplication {
     }
     
 	@Action
-    public void Statistics() {
-    	// Create a new tab in order to store the different Knowledge views (JInternalFrame)
+    public void Statistics() throws MalformedURLException, IOException {
+    	// Create a new tab in order to store the different Statistics frames (JInternalFrame)
     	int index = tabPanel.getTabCount();
-    	// TODO: prueba
-    	JDStatistics sta = new JDStatistics(getMainFrame());
-    	sta.setModal(true);
-    	sta.setVisible(true);
     	
-//		tabPanel.insertTab(ApplicationInternationalization.getString("tabKnowledge"), null, panelKnowledge, null, index);
-//		tabPanel.setSelectedIndex(index);
+    	if (!existsTab(ApplicationInternationalization.getString("tabStatistics"))) {
+    		panelStatistics = new panelStatisticsView();
+	    	tabPanel.insertTab(ApplicationInternationalization.getString("tabStatistics"), null, panelStatistics, null, index);
+	    	tabPanel.setSelectedIndex(index);
+	    	createToolbarStatisticsView();
+    	}
+    	else {
+    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabStatistics")));
+    	}
     }
+	
+	// Method to add specific button for knowledge view to the toolbar
+    private void createToolbarKnowledgeView() throws MalformedURLException, IOException {
+    	toolBar.removeAll();
+		createCommonToolbar();
+		// Includes operation "add", "modify", and "delete", if the user has permissions
+		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
+		if (availableOps.contains(Operations.Add.name()))
+			toolBar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Modify.name()))
+			toolBar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Delete.name()))
+			toolBar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
+		
+	}
+    
+    // Method to add specific button for Statistics view to the toolbar
+    private void createToolbarStatisticsView() throws MalformedURLException, IOException {
+    	toolBar.removeAll();
+		createCommonToolbar();
+		// Includes operation "generate", if the user has permissions
+		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
+		if (availableOps.contains(Operations.Generate.name()))
+			toolBar.add(createToolbarButton(Operations.Generate.name()+Groups.Statistics.name()));
+		
+	}
 	
 	/*** Actions for specific toolbar buttons. This actions are used when an specific tab is shown ***/
 	@Action
@@ -467,6 +500,10 @@ public class JFMain extends SingleFrameApplication {
 			panelKnowledge.operationAdd();
 	}
 	
+	@Action
+	public void GenerateStatistics() {
+		
+	}	
     
     private boolean existsTab(String title) {
     	boolean found = false;
@@ -488,10 +525,31 @@ public class JFMain extends SingleFrameApplication {
     
     // Methods used to show and hide the glass panel, with "fade" effect
     public void fadeIn(Company c) {
-		view.fadeIn(c);
-		}
+		companyDetailGlassPanel.fadeIn(c);
+	}
 
 	public void fadeOut() {		
-		view.fadeOut();		
+		companyDetailGlassPanel.fadeOut();		
+	}
+	
+	private void tabPanelStateChanged(ChangeEvent evt) {
+		try {
+			JTabbedPane pane = (JTabbedPane)evt.getSource();
+			int index = pane.getSelectedIndex();
+			createCommonToolbar();
+			if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabStatistics")))
+				createToolbarStatisticsView();
+			else if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
+				createToolbarKnowledgeView();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+ 		
+		 
 	}
 }

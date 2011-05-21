@@ -215,7 +215,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 			setItemsComboProposals();
 			
 			// Hide tabs not available 
-			List<String> operationsId = OperationsUtilities.getAllOperationsId(ClientController.getInstance().getAvailableOperations());
+			List<String> operationsId = OperationsUtilities.getAllOperations(ClientController.getInstance().getAvailableOperations());
 			if (!operationsId.contains("Add"))
 				tabPanelProposal.remove(panelAddProposal);
 			if (!operationsId.contains("Modify"))

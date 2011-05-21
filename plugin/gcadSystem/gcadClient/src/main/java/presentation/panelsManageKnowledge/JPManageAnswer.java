@@ -212,7 +212,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			setItemsComboAnswers();
 			
 			// Hide tabs not available 
-			List<String> operationsId = OperationsUtilities.getAllOperationsId(ClientController.getInstance().getAvailableOperations());
+			List<String> operationsId = OperationsUtilities.getAllOperations(ClientController.getInstance().getAvailableOperations());
 			if (!operationsId.contains("Add"))
 				tabPanelAnswer.remove(panelAddAnswer);
 			if (!operationsId.contains("Modify"))

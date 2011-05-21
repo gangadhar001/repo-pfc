@@ -17,11 +17,11 @@
 					<id>Delete</id>
 				</Operations>
 			</Subgroup>
-			<Subgroup id="PDFGeneration">
-				<Operations>
-					<id>Create</id>
-				</Operations>
-			</Subgroup>
+		</Group>
+		<Group id="PDFGeneration">
+			<Operations>
+				<id>Generate</id>
+			</Operations>
 		</Group>
 		<Group id="Notifications">
 			<Operations>

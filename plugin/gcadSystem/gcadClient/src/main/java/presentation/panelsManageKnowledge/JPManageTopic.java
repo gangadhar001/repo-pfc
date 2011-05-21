@@ -172,7 +172,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 			setItemsComboTopics();
 			
 			// Hide tabs not available 
-			List<String> operationsId = OperationsUtilities.getAllOperationsId(ClientController.getInstance().getAvailableOperations());
+			List<String> operationsId = OperationsUtilities.getAllOperations(ClientController.getInstance().getAvailableOperations());
 			if (!operationsId.contains("Add"))
 				tabPanelTopic.remove(panelAddTopic);
 			if (!operationsId.contains("Modify"))
