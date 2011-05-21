@@ -97,6 +97,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	private boolean historical;
 	private String resource;
 	private JFrame frame;
+	private ChartPanel chartPanel;
 	
 	// This class is used to store the id, name and description of a chart.
 	private class ChartInfo {
@@ -608,12 +609,13 @@ public class JDStatistics extends javax.swing.JDialog {
 					chart = generateBarChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
 				}
 			}
-			panelConfiguration.removeAll();
-			final ChartPanel chartPanel = new ChartPanel(chart);
-			panelConfiguration.add(chartPanel);
-			chartPanel.setBounds(0, 0, 323, 239);
-			panelConfiguration.validate();
-			panelConfiguration.repaint();
+//			panelConfiguration.removeAll();
+			chartPanel = new ChartPanel(chart);
+			this.dispose();
+//			panelConfiguration.add(chartPanel);
+//			chartPanel.setBounds(0, 0, 323, 239);
+//			panelConfiguration.validate();
+//			panelConfiguration.repaint();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -664,5 +666,9 @@ public class JDStatistics extends javax.swing.JDialog {
 				false // URLs?
 			);
 		return chart;
+	}
+
+	public ChartPanel getChartPanel() {
+		return chartPanel;
 	}
 }

@@ -23,6 +23,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -72,19 +73,18 @@ public class JDKnowledge extends javax.swing.JDialog {
 	private String operationToDo;
 	private JDialog dialog;
 	
-	public JDKnowledge () {
+	public JDKnowledge() {
 		super();
 		this.subgroupSelected = null;
-		data = null;
 		this.operationToDo = null;
 		dialog = this;
+		data = null;
 		initGUI();
 	}
 	
 	public JDKnowledge(String subgroupSelected, Object data, String operationToDo) {
 		super();
 		this.subgroupSelected = subgroupSelected;
-		// Store the object to update, or the parent object of the element to insert.
 		this.data = data;
 		this.operationToDo = operationToDo;
 		dialog = this;

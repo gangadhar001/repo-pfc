@@ -23,10 +23,18 @@ public class OperationsUtilities {
 		return result;
 	}
 
-	public static List<String> getAllOperationsId(List<Operation> operations) {
+	public static List<String> getAllOperations(List<Operation> operations) {
 		List<String> result = new ArrayList<String>();
 		for(Operation o: operations)
 			result.addAll(o.getOperations());
+		return result;
+	}
+	
+	public static List<String> getAllGroups(List<Operation> operations) {
+		List<String> result = new ArrayList<String>();
+		for(Operation o: operations)
+			if (!result.contains(o.getGroup()))
+				result.add(o.getGroup());
 		return result;
 	}
 }
