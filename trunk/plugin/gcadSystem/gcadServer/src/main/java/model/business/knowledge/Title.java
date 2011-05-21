@@ -1,7 +1,5 @@
 package model.business.knowledge;
 
-import java.awt.Font;
-
 public class Title extends PDFElement {
 
 	/**

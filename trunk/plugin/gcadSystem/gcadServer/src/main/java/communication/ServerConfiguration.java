@@ -6,17 +6,20 @@ package communication;
 public class ServerConfiguration {
 
 	private String DBIp;
+	private int DBPort;
 	private String DBSchema;
 	private String DBUser;
 	private String DBPassword;
-	private int DBPort;
 	
 	private int serverPort;
 	
 	public ServerConfiguration() {
 		DBIp = "127.0.0.1";
 		DBPort = 3306;
-		serverPort = 2995;
+		DBSchema = "bdgcad";
+		DBUser = "gcad";
+		DBPassword = "gcad";
+		serverPort = 2995;		
 	} 	
 	
 	public ServerConfiguration(String dBIp, String dBSchema, String dBUser, String dBPassword, int dBPort, int serverPort) {

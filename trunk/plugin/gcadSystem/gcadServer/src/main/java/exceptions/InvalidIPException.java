@@ -1,13 +1,13 @@
 package exceptions;
 
-import internationalization.BundleInternationalization;
+import internationalization.AppInternationalization;
 
 public class InvalidIPException extends Exception {
 
 	private static final long serialVersionUID = -1166896376103239365L;
 
 	public InvalidIPException() {
-		super(BundleInternationalization.getString("InvalidIP_Exception"));
+		super(AppInternationalization.getString("InvalidIP_Exception"));
 	}
 	
 	public InvalidIPException(String message) {

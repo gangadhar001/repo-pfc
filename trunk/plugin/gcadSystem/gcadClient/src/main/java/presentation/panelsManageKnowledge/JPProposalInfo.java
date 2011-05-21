@@ -16,7 +16,7 @@ import model.business.knowledge.Proposal;
 
 import org.jdesktop.application.Application;
 
-import presentation.utils.validation.NotEmptyValidator;
+import resources.NotEmptyValidator;
 
 import com.cloudgarden.layout.AnchorConstraint;
 

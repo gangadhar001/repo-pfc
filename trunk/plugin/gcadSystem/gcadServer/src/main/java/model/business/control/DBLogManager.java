@@ -2,6 +2,10 @@ package model.business.control;
 
 import java.sql.SQLException;
 
+import model.business.knowledge.LogEntry;
+
+import persistence.DAOLog;
+
 import communication.IConnectionLog;
 
 
@@ -13,20 +17,14 @@ public class DBLogManager implements IConnectionLog {
 	public DBLogManager() {
 	}
 	
-	// Métodos del log del servidor
-	
 	public void putMessage(String messageType, String message) throws SQLException {
-//		EntradaLog entrada;
-//		
-//		entrada = new EntradaLog(null, tipoMensaje, mensaje);
-//		FPEntradaLog.insertar(entrada);
+		LogEntry entry = new LogEntry(null, messageType, message);
+		DAOLog.insert(entry);
 	}
 	
 	public void putMessage(String user, String messageType, String message) throws SQLException {
-//		EntradaLog entrada;
-//		
-//		entrada = new EntradaLog(usuario, tipoMensaje, mensaje);
-//		FPEntradaLog.insertar(entrada);
+		LogEntry entry = new LogEntry(user, messageType, message);
+		DAOLog.insert(entry);
 	}
 
 	@Override

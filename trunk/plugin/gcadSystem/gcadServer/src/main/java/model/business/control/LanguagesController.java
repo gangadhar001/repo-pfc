@@ -10,7 +10,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 
 /** 
- * This class represents a controller to retrieve available languages and update the current language of the tool
+ * TODO: This class represents a controller to retrieve available languages and update the current language of the tool
  */
 public class LanguagesController {
 

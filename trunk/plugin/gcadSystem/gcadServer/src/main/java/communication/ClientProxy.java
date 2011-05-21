@@ -11,13 +11,15 @@ import model.business.knowledge.Knowledge;
  */
 public class ClientProxy implements IClient {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8805121423986535150L;
 	private IClient cliente;
 	
 	public void associate(IClient cliente) {
 		this.cliente = cliente;
-	}
-
-	
+	}	
 	
 	public void cerrarSesion() throws RemoteException {
 		Thread hilo;

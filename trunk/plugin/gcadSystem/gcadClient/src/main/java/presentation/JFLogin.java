@@ -27,16 +27,17 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
 
-import presentation.customComponents.InfiniteProgressPanel;
-import presentation.utils.ImagesUtilities;
-import presentation.utils.validation.IPValidator;
-import presentation.utils.validation.NotEmptyValidator;
-import presentation.utils.validation.PortValidator;
-import presentation.utils.validation.UserNameValidator;
-import bussiness.control.ClientController;
-
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
+
+import presentation.utils.ImagesUtilities;
+import resources.IPValidator;
+import resources.InfiniteProgressPanel;
+import resources.NotEmptyValidator;
+import resources.PortValidator;
+import resources.UserNameValidator;
+import bussiness.control.ClientController;
+
 import communication.CommunicationsUtilities;
 
 import exceptions.IncorrectEmployeeException;
@@ -103,7 +104,7 @@ public class JFLogin extends SingleFrameApplication {
              public void willExit(EventObject event) {} 
          }); 
     	
-    	this.glassPane = new InfiniteProgressPanel();
+    	this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
     	getMainFrame().setGlassPane(glassPane);
     	
     	{

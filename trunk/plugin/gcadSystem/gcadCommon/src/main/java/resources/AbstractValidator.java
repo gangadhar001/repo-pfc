@@ -1,4 +1,4 @@
-package presentation.utils.validation;
+package resources;
 
 import java.awt.*;
 import java.awt.event.*;

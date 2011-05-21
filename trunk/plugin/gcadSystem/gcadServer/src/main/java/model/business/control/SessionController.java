@@ -1,6 +1,6 @@
 package model.business.control;
 
-import internationalization.BundleInternationalization;
+import internationalization.AppInternationalization;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -19,8 +19,6 @@ import communication.IClient;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.IResources;
-import model.business.knowledge.ISession;
-import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Session;
@@ -86,7 +84,7 @@ public class SessionController {
 					// Ignoramos la excepción
 				}
 			sessions.remove(openedSession.getId());
-			// TODO: para usar un log ServidorFrontend.getServidor().liberar(sesionAbierta.getId());
+			ClientsController.detach(openedSession.getId());
 		}
 
 		// Generate unique ID
@@ -110,25 +108,21 @@ public class SessionController {
 	public static void signout(long sessionID) throws NotLoggedException {
 		Session session;
 		
-		// Comprobamos si la sesión es válida
 		session = sessions.get(sessionID);
 		if(session == null) {
 			throw new NotLoggedException();
 		}
-
-		// Quitamos la sesión y el cliente
+		
 		sessions.remove(sessionID);
 	}
 
 	public static void disconnectClients() throws RemoteException {
-		sessions = new Hashtable<Long, Session>();
-		
+		sessions = new Hashtable<Long, Session>();		
 	}
 
 	public static Session getSession(long sessionId) throws NotLoggedException {
 		Session session = sessions.get(sessionId);
 		if (session == null)
-			// TODO: 
 			throw new NotLoggedException();
 		return session;
 	}
@@ -216,13 +210,12 @@ public class SessionController {
 			}
 			else
 			{
-				throw new NonPermissionRole(BundleInternationalization.getString("Exception.NonPermissionRole") + role.toString());
+				throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole") + role.toString());
 			}
 		}
 		catch (ConfigurationException e)
 		{
-			// TODO: cambiar
-			throw new NonPermissionRole(BundleInternationalization.getString("Exception.NonPermissionRole"));
+			throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole"));
 		}
 		return result;
 	}
@@ -235,10 +228,9 @@ public class SessionController {
 
 		// Check if the session is valid
 		session = SessionController.getSession(sessionId);
-		if (session == null) ;
+		if (session == null)
 		{
-			// TODO:
-//			throw new InvalidS("El identificador de la sesión es inválido.");
+			throw new NotLoggedException();
 		}
 
 		// Get the list of operations available to the user, defined in the profiles role file
@@ -248,8 +240,7 @@ public class SessionController {
 
 		// Check if you have permission to perform operation
 		if (!checkOperation(operations, operation)) ;
-			// TODO:
-//			throw new ;
+		throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole"));
 	}
 
 	// Method used to retrieve common operations for all users. It is done only the first time.

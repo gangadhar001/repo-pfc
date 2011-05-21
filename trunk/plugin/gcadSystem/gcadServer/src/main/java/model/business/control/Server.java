@@ -34,11 +34,8 @@ import exceptions.NotLoggedException;
 
 /**
  * This class implements the facade of the server.
- * TODO: todos los metodos lanzan la remoteException
  */
 public class Server implements IServer {
-
-//	private Session session = null;
 
 	private static Server instance = null;
 		
@@ -75,7 +72,6 @@ public class Server implements IServer {
 	public void signout(long sessionID) throws RemoteException, SQLException, NotLoggedException, Exception {
 		String login = "";
 		try {
-			// Liberamos la sesión del cliente
 			if(SessionController.getSession(sessionID) != null)
 				login = SessionController.getSession(sessionID).getUser().getLogin();
 			SessionController.signout(sessionID);
@@ -428,13 +424,7 @@ public class Server implements IServer {
 	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.findParentProposal(sessionId, p);
 	}		
-	
-//	public ArrayList<Project> getProjectsUser() {
-//		// TODO: return los proyectos del usuario de la sesion
-//		// return ProjectController.getProjectsUser(session.getUser().getId());
-//		return null;
-//	}	
-	
+		
 	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return KnowledgeController.getTopicsWrapper(sessionId);
 	}
@@ -449,6 +439,24 @@ public class Server implements IServer {
 	
 	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return ProjectController.getUsersProject(sessionId, p);
+	}
+	
+	public void setCurrentProject(long sessionId, int id) throws RemoteException, NotLoggedException, Exception {
+		SessionController.getSession(sessionId).setCurrentActiveProject(id);
+		
+	}
+	
+	public ArrayList<Language> getLanguages() throws ConfigurationException {
+		return LanguagesController.getLanguages();
+	}
+
+	@Override
+	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception {
+		List<Project> result = new ArrayList<Project>();
+		Set<Project> projects = SessionController.getSessions().get(sessionId).getUser().getProjects();
+		for (Project p : projects)
+			result.add(p);
+		return result;
 	}
 		
 	/*** Methods used to manage the UI observer ***/
@@ -479,22 +487,6 @@ public class Server implements IServer {
 		return SessionController.getAvailableOperations(sessionId);
 	}
 	
-	public void setCurrentProject(long sessionId, int id) throws RemoteException, NotLoggedException, Exception {
-		SessionController.getSession(sessionId).setCurrentActiveProject(id);
-		
-	}
 
-	public ArrayList<Language> getLanguages() throws ConfigurationException {
-		return LanguagesController.getLanguages();
-	}
-
-	@Override
-	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception {
-		List<Project> result = new ArrayList<Project>();
-		Set<Project> projects = SessionController.getSessions().get(sessionId).getUser().getProjects();
-		for (Project p : projects)
-			result.add(p);
-		return result;
-	}
 
 }

@@ -1,5 +1,7 @@
 package model.business.control;
 
+import internationalization.AppInternationalization;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -26,7 +28,7 @@ public class GeoCoder {
 	// Yahoo! Web Service base url
 	private static final String BASE_URL =  "http://where.yahooapis.com/geocode";
 			
-	public static Coordinates getGeoCoordinates(Address address) throws AddressNotFound, WSResponseError, IOException {
+	public static Coordinates getGeoCoordinates(Address address) throws AddressNotFound, WSResponseError, IOException, JDOMException {
 		URL url;
 		Coordinates coor = null;
 		StringBuffer ad = new StringBuffer();
@@ -45,24 +47,18 @@ public class GeoCoder {
 		SAXBuilder builder = new SAXBuilder();
 		// Uses JDOM and XPath in order to parser Xml
 		Document doc;
-		try {
-			doc = builder.build(in);
-			// Get values from XML using XPath
-			String status = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Error")).getContent(0).getValue();
-			if (status.equals(0))
-				throw new WSResponseError();
-			String found = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Found")).getContent(0).getValue();
-			if (found.equals(0))
-				throw new AddressNotFound();
-			String latitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/latitude")).getContent(0).getValue();
-			String longitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/longitude")).getContent(0).getValue();		
-			in.close();
-			coor = new Coordinates(latitude, longitude);
-		} catch (JDOMException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		doc = builder.build(in);
+		// Get values from XML using XPath
+		String status = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Error")).getContent(0).getValue();
+		if (status.equals(0))
+			throw new WSResponseError();
+		String found = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Found")).getContent(0).getValue();
+		if (found.equals(0))
+			throw new AddressNotFound(AppInternationalization.getString("AddressNotFoundException"));
+		String latitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/latitude")).getContent(0).getValue();
+		String longitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/longitude")).getContent(0).getValue();		
+		in.close();
+		coor = new Coordinates(latitude, longitude);		
 		return coor;
 	}
 	

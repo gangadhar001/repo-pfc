@@ -38,8 +38,6 @@ import org.jdesktop.application.Application;
 import presentation.utils.ImagesUtilities;
 import bussiness.control.ClientController;
 
-import com.cloudgarden.layout.AnchorConstraint;
-
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -106,12 +104,12 @@ public class JDKnowledge extends javax.swing.JDialog {
 			{
 				mainPanel = new JPanel();
 				mainPanel.setLayout(null);
-				getContentPane().add(mainPanel, new AnchorConstraint(0, 0, 0, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				getContentPane().add(mainPanel);
 				mainPanel.setBounds(190, 12, 439, 327);
 			}
 			{
 				jScrollPane1 = new JScrollPane();
-				getContentPane().add(jScrollPane1, new AnchorConstraint(12,462,978,21,AnchorConstraint.ANCHOR_ABS,AnchorConstraint.ANCHOR_ABS,AnchorConstraint.ANCHOR_NONE,AnchorConstraint.ANCHOR_NONE));
+				getContentPane().add(jScrollPane1);
 				jScrollPane1.setBounds(12, 12, 166, 327);
 				{
 					panelActions = new JPanel();

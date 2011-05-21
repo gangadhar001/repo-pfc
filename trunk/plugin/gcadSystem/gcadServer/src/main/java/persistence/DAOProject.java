@@ -9,7 +9,6 @@ import persistence.utils.HibernateQuery;
 import communication.DBConnectionManager;
 
 import model.business.knowledge.Project;
-import model.business.knowledge.User;
 
 /**
  * This class allows to query and modify projects from the database
@@ -44,15 +43,13 @@ public class DAOProject {
 		List<?> data;
 		List<Project> result = new ArrayList<Project>();
 
-		// TODO: cambiar con el id del proyecto
 		query = new HibernateQuery("from " + PROJECT_CLASS);
 		data = DBConnectionManager.query(query);
 
 		if(data.size() > 0) {
 			for(Object o: data) {
 				result.add((Project) ((Project)o).clone());
-			}
-				
+			}				
 		}
 		
 		// Clear cache
