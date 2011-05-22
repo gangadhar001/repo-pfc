@@ -202,6 +202,7 @@ public class JFMain extends SingleFrameApplication {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
     }
 
@@ -351,16 +352,18 @@ public class JFMain extends SingleFrameApplication {
     
     // Method used to show in the toolbar the common buttons for all tabs
     private void createCommonToolbar() throws MalformedURLException, IOException {
-    	// Clear toolbar
-		toolBar.removeAll();
-		// Add common buttons
-		for (String id: toolbarActions) {
-			if (id.equals("Separator"))
-				toolBar.addSeparator();
-			else {
-				toolBar.add(createToolbarButton(id));
+    	if (toolBar != null) {
+	    	// Clear toolbar
+			toolBar.removeAll();
+			// Add common buttons
+			for (String id: toolbarActions) {
+				if (id.equals("Separator"))
+					toolBar.addSeparator();
+				else {
+					toolBar.add(createToolbarButton(id));
+				}
 			}
-		}
+    	}
 	}
     
     private JButton createToolbarButton(String id) throws MalformedURLException, IOException {

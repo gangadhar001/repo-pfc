@@ -239,8 +239,8 @@ public class SessionController {
 		operations.addAll(getCommonOperations());
 
 		// Check if you have permission to perform operation
-		if (!checkOperation(operations, operation)) ;
-		throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole"));
+		if (!checkOperation(operations, operation))
+			throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole"));
 	}
 
 	// Method used to retrieve common operations for all users. It is done only the first time.
@@ -252,6 +252,7 @@ public class SessionController {
 			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Get.name()));
 			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
 			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Get.name()));
+			commonOperations.add(new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Get.name()));
 		}
 		return commonOperations;
 	}
