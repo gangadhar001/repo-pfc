@@ -27,10 +27,11 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
 
+import presentation.utils.ImagesUtilities;
+
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
-import resources.ImagesUtilities;
 import resources.IPValidator;
 import resources.InfiniteProgressPanel;
 import resources.NotEmptyValidator;

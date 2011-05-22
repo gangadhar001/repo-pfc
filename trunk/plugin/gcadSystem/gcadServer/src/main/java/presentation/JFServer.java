@@ -1,4 +1,5 @@
 package presentation;
+
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
@@ -6,13 +7,14 @@ import communication.ServerConfiguration;
 import internationalization.AppInternationalization;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
@@ -20,6 +22,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -41,7 +44,7 @@ import org.jdesktop.application.Application;
 
 import presentation.auxiliary.CloseWindowListener;
 import presentation.auxiliary.IWindowState;
-import resources.ImagesUtilities;
+import presentation.auxiliary.ImagesUtilities;
 import resources.InfiniteProgressPanel;
 
 import java.util.EventObject;
@@ -77,7 +80,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	private JLabel lblStatusBar;
 	private JButton btnDisconnectToolbar;
 	private JLabel lblConnectedClients;
-	private JButton btnConnectToolbar;
 	private JMenuBar mnbMenus;
 	private JTextArea txtLog;
 	private JMenuItem mniAbout;
@@ -98,6 +100,10 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	private JButton btnConnect;
 
 	private boolean ok;
+
+	private BufferedImage image;
+
+	private JButton btnConnectToolbar;
 	
 	{
 		 //Set Look & Feel
@@ -179,7 +185,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					btnConnect.setPreferredSize(new java.awt.Dimension(99, 25));
 					btnConnect.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
-							btnConnecActionPerformed(evt);
+							btnConnectActionPerformed(evt);
 						}
 					});
 				}
@@ -194,13 +200,14 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				{
 					toolbar = new JToolBar();
 					pnlPanel.add(toolbar, new AnchorConstraint(1, 982, 71, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+					
 					{
 						btnConnectToolbar = new JButton();
 						toolbar.add(btnConnectToolbar);
 						configureToolbarButton(btnConnectToolbar, "connect");
 						btnConnectToolbar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								btnConnecActionPerformed(evt);
+								btnConnectActionPerformed(evt);
 							}
 						});
 					}
@@ -319,26 +326,46 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				}
 			}
 
-			toolbar.setPreferredSize(new java.awt.Dimension(539, 32));
+			toolbar.setPreferredSize(new java.awt.Dimension(539, 50));
+			getRootPane().setDefaultButton(btnConnect);
 
 			pack();
 			this.setSize(565, 527);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch(Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
 	//$hide>>$
 	
 	private JButton configureToolbarButton(JButton button, String action) throws MalformedURLException, IOException {
-//	    	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
-//	    	button.setFocusPainted(false);
-	    	button.setSize(32, 32);
+	    	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
+	    	button.setFocusPainted(true);
 	    	button.setHorizontalTextPosition(SwingConstants.CENTER);
+	    	button.setName(action);
 	    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    	button.setRequestFocusEnabled(false);
 	    	button.setToolTipText(AppInternationalization.getString("toolbar"+action+"Tooltip"));
-	    	button.setIcon(ImagesUtilities.loadIcon("toolbar/" + action + ".png"));
+	    	image = ImagesUtilities.loadCompatibleImage("toolbar/" + action + ".png");
+	    	button.setIcon(new ImageIcon(image));
+	    	button.setRolloverEnabled(true);
+	    	// Save button icon
+			ImagesUtilities.addImageButton(button.getName(), image);
+	    	button.addMouseListener(new MouseAdapter() {
+				public void mouseExited(MouseEvent evt) {
+//					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
+					ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
+				}
+
+				public void mouseEntered(MouseEvent evt) {
+//					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
+				}
+			});
+	    	
+	    	button.setSize(25, 50);
+	    	
 //	    	button.setContentAreaFilled(false);
 	    	return button;
 	    }
@@ -380,7 +407,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		frmConfiguration.dispose();
 	}
 	
-	private void btnConnecActionPerformed(ActionEvent evt) {
+	private void btnConnectActionPerformed(ActionEvent evt) {
 		activateServer();
 	}
 	

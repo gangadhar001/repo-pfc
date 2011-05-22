@@ -12,7 +12,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
-import resources.ImagesUtilities;
 
 public class ImageKnowledgeTreeCellRenderer extends DefaultTreeCellRenderer {
 	/**
