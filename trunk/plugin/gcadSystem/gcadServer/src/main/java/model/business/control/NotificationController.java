@@ -21,14 +21,14 @@ public class NotificationController {
 
 	public static ArrayList<Notification> getNotifications(long sessionId, int currentActiveProject) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
-		SessionController.checkPermission(sessionId, new Operation(Groups.Notifications.name(), Subgroups.Notification.name(), Operations.Get.name()));
+		SessionController.checkPermission(sessionId, new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Get.name()));
 
 		return DAONotification.queryNotificationsProject(currentActiveProject);
 	}
 
 	public static void deleteNotification(long sessionId, Notification notification) throws SQLException, NonPermissionRole, NotLoggedException {
 		// Check if have permission to perform the operation
-		SessionController.checkPermission(sessionId, new Operation(Groups.Notifications.name(), Subgroups.Notification.name(), Operations.Delete.name()));
+		SessionController.checkPermission(sessionId, new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Delete.name()));
 		
 		DAONotification.delete(notification);
 	}
