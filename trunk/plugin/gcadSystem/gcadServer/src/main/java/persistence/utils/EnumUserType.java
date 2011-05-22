@@ -1,5 +1,7 @@
 package persistence.utils;
 
+import internationalization.AppInternationalization;
+
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +28,7 @@ public class EnumUserType implements EnhancedUserType, ParameterizedType {
       try {
          enumClass = (Class<Enum>) Class.forName(enumClassName);
       } catch (ClassNotFoundException cnfe) {
-         throw new HibernateException("Enum class not found", cnfe);
+         throw new HibernateException(AppInternationalization.getString("HibernateEnum_Exception"), cnfe);
       }
    }
 

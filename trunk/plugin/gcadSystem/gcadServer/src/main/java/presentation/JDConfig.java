@@ -130,14 +130,14 @@ public class JDConfig extends javax.swing.JDialog {
 						txtDBPort.setName("txtPuertoBDPrincipal");
 						txtDBPort.setBounds(100, 51, 108, 20);
 						txtDBPort.setSize(144, 20);
-						txtDBPort.setInputVerifier(new PortValidator(frame, txtDBPort, AppInternationalization.getString("loginValidatePort") + "[1 - 65535]"));
+						txtDBPort.setInputVerifier(new PortValidator(frame, txtDBPort, AppInternationalization.getString("ValidatePort") + "[1 - 65535]"));
 					}
 					{
 						txtDBIP = new JTextField();
 						pnlDB.add(txtDBIP);
 						txtDBIP.setName("txtIPBDPrincipal");
 						txtDBIP.setBounds(100, 22, 144, 20);
-						txtDBIP.setInputVerifier(new IPValidator(frame, txtDBIP, AppInternationalization.getString("loginValidateIP")));
+						txtDBIP.setInputVerifier(new IPValidator(frame, txtDBIP, AppInternationalization.getString("ValidateIP")));
 					}
 					{
 						lblDBPort = new JLabel();
@@ -168,14 +168,14 @@ public class JDConfig extends javax.swing.JDialog {
 						pnlDB.add(txtSchema);
 						txtSchema.setBounds(100, 85, 108, 20);
 						txtSchema.setSize(144, 20);
-						txtSchema.setInputVerifier(new NotEmptyValidator(this, txtSchema, AppInternationalization.getString("loginValidateIP")));
+						txtSchema.setInputVerifier(new NotEmptyValidator(this, txtSchema, AppInternationalization.getString("ValidateEmpty")));
 					}
 					{
 						txtUsername = new JTextField();
 						pnlDB.add(txtUsername);
 						txtUsername.setBounds(100, 116, 108, 20);
 						txtUsername.setSize(144, 20);
-						txtUsername.setInputVerifier(new NotEmptyValidator(this, txtUsername, AppInternationalization.getString("loginValidateIP")));
+						txtUsername.setInputVerifier(new NotEmptyValidator(this, txtUsername, AppInternationalization.getString("ValidateEmpty")));
 					}
 					{
 						lblPassword = new JLabel();
@@ -188,7 +188,7 @@ public class JDConfig extends javax.swing.JDialog {
 						pnlDB.add(txtPassword);
 						txtPassword.setBounds(100, 150, 108, 20);
 						txtPassword.setSize(144, 20);
-						txtPassword.setInputVerifier(new NotEmptyValidator(this, txtPassword, AppInternationalization.getString("loginValidateIP")));
+						txtPassword.setInputVerifier(new NotEmptyValidator(this, txtPassword, AppInternationalization.getString("ValidateEmpty")));
 					}
 				}
 				{
