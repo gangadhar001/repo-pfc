@@ -1,5 +1,6 @@
 package presentation.utils;
 
+import resources.ImagesUtilities;
 import java.awt.Component;
 import java.io.IOException;
 import java.net.MalformedURLException;

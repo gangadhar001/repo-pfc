@@ -54,7 +54,7 @@ import presentation.dataVisualization.InternalFStatistics;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelStatisticsView;
-import presentation.utils.ImagesUtilities;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 import exceptions.NotLoggedException;

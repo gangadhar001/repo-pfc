@@ -54,7 +54,7 @@ public class GeoCoder {
 			throw new WSResponseError();
 		String found = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Found")).getContent(0).getValue();
 		if (found.equals(0))
-			throw new AddressNotFound(AppInternationalization.getString("AddressNotFoundException"));
+			throw new AddressNotFound(AppInternationalization.getString("AddressNotFound_Exception"));
 		String latitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/latitude")).getContent(0).getValue();
 		String longitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/longitude")).getContent(0).getValue();		
 		in.close();

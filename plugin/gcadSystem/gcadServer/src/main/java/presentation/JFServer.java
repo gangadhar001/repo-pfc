@@ -1,4 +1,6 @@
 package presentation;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 
 import communication.ServerConfiguration;
 import internationalization.AppInternationalization;
@@ -11,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
@@ -38,6 +41,7 @@ import org.jdesktop.application.Application;
 
 import presentation.auxiliary.CloseWindowListener;
 import presentation.auxiliary.IWindowState;
+import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
 
 import java.util.EventObject;
@@ -71,12 +75,12 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	private JPanel pnlPanel;
 	private JScrollPane scpPanelLog;
 	private JLabel lblStatusBar;
-	private JButton btnDisconnect;
+	private JButton btnDisconnectToolbar;
 	private JLabel lblConnectedClients;
-	private JButton btnConnect;
+	private JButton btnConnectToolbar;
 	private JMenuBar mnbMenus;
 	private JTextArea txtLog;
-	private JMenuItem mniAcercaDe;
+	private JMenuItem mniAbout;
 	private JMenuItem mniConfigure;
 	private JMenuItem mniExit;
 	private JSeparator sepSeparator;
@@ -89,6 +93,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	private int clientsNumber;
 	
 	private InfiniteProgressPanel glassPane;
+	private JButton btnConfigure;
+	private JButton btnDisconnect;
+	private JButton btnConnect;
 
 	private boolean ok;
 	
@@ -116,30 +123,26 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    	
 			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			this.setTitle(AppInternationalization.getString("JFServer_Title"));
-			this.setPreferredSize(new java.awt.Dimension(506, 409));
+			this.setPreferredSize(new java.awt.Dimension(565, 527));
 			this.setMinimumSize(new java.awt.Dimension(500, 300));
 			setLocationRelativeTo(null);
 			{
 				pnlPanel = new JPanel();
+				AnchorLayout pnlPanelLayout = new AnchorLayout();
 				getContentPane().add(pnlPanel, BorderLayout.CENTER);
-				GridBagLayout pnlPanelLayout = new GridBagLayout();
-				pnlPanelLayout.rowWeights = new double[] {0.1, 0.1, 0.1, 0.1, 0.1};
-				pnlPanelLayout.rowHeights = new int[] {7, 7, 7, 7, 7};
-				pnlPanelLayout.columnWeights = new double[] {0.1};
-				pnlPanelLayout.columnWidths = new int[] {7};
 				pnlPanel.setLayout(pnlPanelLayout);
 				pnlPanel.setPreferredSize(new java.awt.Dimension(542, 327));
 				{
 					lblConnectedClients = new JLabel();
-					pnlPanel.add(lblConnectedClients, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(9, 5, 0, 0), 0, 0));
+					pnlPanel.add(lblConnectedClients, new AnchorConstraint(889, 228, 36, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 					lblConnectedClients.setText(AppInternationalization.getString("ConnectedClients_label"));
 					lblConnectedClients.setName("lblClientesConectados");
-					lblConnectedClients.setPreferredSize(new java.awt.Dimension(145, 16));
+					lblConnectedClients.setPreferredSize(new java.awt.Dimension(115, 16));
 				}
 				{
 					scpPanelLog = new JScrollPane();
-					pnlPanel.add(scpPanelLog, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 5, 0, 5), 0, 0));
-					scpPanelLog.setPreferredSize(new java.awt.Dimension(541, 241));
+					pnlPanel.add(scpPanelLog, new AnchorConstraint(80, 982, 774, 9, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+					scpPanelLog.setPreferredSize(new java.awt.Dimension(530, 282));
 					scpPanelLog.setMinimumSize(new java.awt.Dimension(346, 155));
 					{
 						txtLog = new JTextArea();
@@ -151,18 +154,17 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				}
 				{
 					lblStatusBar = new JLabel();
-					pnlPanel.add(lblStatusBar, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 7, 0), 0, 0));
+					pnlPanel.add(lblStatusBar, new AnchorConstraint(941, 314, 12, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 					lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label"));
-					lblStatusBar.setName("lblBarraEstado");
-					lblStatusBar.setPreferredSize(new java.awt.Dimension(288, 14));
+					lblStatusBar.setPreferredSize(new java.awt.Dimension(162, 16));
 				}
 				{
 					btnDisconnect = new JButton();
-					pnlPanel.add(btnDisconnect, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+					pnlPanel.add(btnDisconnect, new AnchorConstraint(795, 10, 853, 795, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					btnDisconnect.setText(AppInternationalization.getString("btn_Disconnect_Text"));
-					btnDisconnect.setPreferredSize(new java.awt.Dimension(116, 30));
 					btnDisconnect.setEnabled(false);
 					btnDisconnect.setName("btnDesconectar");
+					btnDisconnect.setPreferredSize(new java.awt.Dimension(103, 27));
 					btnDisconnect.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							btnDisconnectActionPerformed(evt);
@@ -171,10 +173,10 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				}
 				{
 					btnConnect = new JButton();
-					pnlPanel.add(btnConnect, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 109), 0, 0));
+					pnlPanel.add(btnConnect, new AnchorConstraint(798, 128, 851, 587, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					btnConnect.setText(AppInternationalization.getString("btn_Connect_Text"));
-					btnConnect.setPreferredSize(new java.awt.Dimension(110, 30));
 					btnConnect.setName("btnConectar");
+					btnConnect.setPreferredSize(new java.awt.Dimension(99, 25));
 					btnConnect.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							btnConnecActionPerformed(evt);
@@ -183,19 +185,52 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				}
 				{
 					lblConfigBD = new JLabel();
-					pnlPanel.add(lblConfigBD, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 7, 5), 0, 0));
+					pnlPanel.add(lblConfigBD, new AnchorConstraint(939, 980, 13, 498, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL));
 					lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + "IP XXX.XXX.XXX.XXX, puerto XXXXX");
 					lblConfigBD.setHorizontalAlignment(SwingConstants.TRAILING);
 					lblConfigBD.setName("lblConfigBD");
-					lblConfigBD.setPreferredSize(new java.awt.Dimension(267, 210));
+					lblConfigBD.setPreferredSize(new java.awt.Dimension(265, 16));
 				}
 				{
 					toolbar = new JToolBar();
-					pnlPanel.add(toolbar, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+					pnlPanel.add(toolbar, new AnchorConstraint(1, 982, 71, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+					{
+						btnConnectToolbar = new JButton();
+						toolbar.add(btnConnectToolbar);
+						configureToolbarButton(btnConnectToolbar, "connect");
+						btnConnectToolbar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								btnConnecActionPerformed(evt);
+							}
+						});
+					}
+					{
+						btnDisconnectToolbar = new JButton();
+						toolbar.add(btnDisconnectToolbar);
+						configureToolbarButton(btnDisconnectToolbar, "disconnect");
+						btnDisconnectToolbar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								btnDisconnectActionPerformed(evt);
+							}
+						});
+					}
+					{
+						toolbar.addSeparator();
+						btnConfigure = new JButton();
+						toolbar.add(btnConfigure);
+						configureToolbarButton(btnConfigure, "configure");
+						btnConfigure.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								mniConfigureActionPerformed(evt);
+							}
+						});
+						
+					}
 				}
 				{
 					panelLogo = new JPanel();
-					pnlPanel.add(panelLogo, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+					pnlPanel.add(panelLogo, new AnchorConstraint(32, 982, 172, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+					panelLogo.setPreferredSize(new java.awt.Dimension(529, 48));
 				}
 			}
 			this.addWindowListener(new WindowAdapter() { 
@@ -212,6 +247,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					mnuFile.setText(AppInternationalization.getString("FileMenu_Label"));
 					{
 						mniConnect = new JMenuItem();
+						mniConnect.setIcon(ImagesUtilities.loadIcon("menus/serverConnect.png"));
 						mnuFile.add(mniConnect);
 						mniConnect.setText(AppInternationalization.getString("mniConnect_Label"));
 						mniConnect.addActionListener(new ActionListener() {
@@ -223,6 +259,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					{
 						mniDisconnect = new JMenuItem();
 						mnuFile.add(mniDisconnect);
+						mniDisconnect.setIcon(ImagesUtilities.loadIcon("menus/serverDisconnect.png"));
 						mniDisconnect.setText(AppInternationalization.getString("mniDisconnect_Label"));
 						mniDisconnect.setEnabled(false);
 						mniDisconnect.addActionListener(new ActionListener() {
@@ -238,6 +275,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					{
 						mniExit = new JMenuItem();
 						mnuFile.add(mniExit);
+						mniExit.setIcon(ImagesUtilities.loadIcon("menus/exit.png"));
 						mniExit.setText(AppInternationalization.getString("mniExit_Label"));
 						mniExit.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
@@ -252,6 +290,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					mnuOption.setText(AppInternationalization.getString("mnuOptions_Label"));
 					{
 						mniConfigure = new JMenuItem();
+						mniConfigure.setIcon(ImagesUtilities.loadIcon("menus/configure.png"));
 						mnuOption.add(mniConfigure);
 						mniConfigure.setText(AppInternationalization.getString("mniConfigure_Label"));
 						mniConfigure.setName("mniConfigurar");
@@ -267,10 +306,11 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					mnbMenus.add(mnuHelp);
 					mnuHelp.setText(AppInternationalization.getString("mnuHelp_Label"));
 					{
-						mniAcercaDe = new JMenuItem();
-						mnuHelp.add(mniAcercaDe);
-						mniAcercaDe.setText(AppInternationalization.getString("mniAbout_Label"));
-						mniAcercaDe.addActionListener(new ActionListener() {
+						mniAbout = new JMenuItem();
+						mnuHelp.add(mniAbout);
+						mniAbout.setIcon(ImagesUtilities.loadIcon("menus/about.png"));
+						mniAbout.setText(AppInternationalization.getString("mniAbout_Label"));
+						mniAbout.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								mniAboutActionPerformed(evt);
 							}
@@ -278,15 +318,30 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					}
 				}
 			}
+
+			toolbar.setPreferredSize(new java.awt.Dimension(539, 32));
+
 			pack();
-			this.setSize(506, 409);
+			this.setSize(565, 527);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch(Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
 	//$hide>>$
+	
+	private JButton configureToolbarButton(JButton button, String action) throws MalformedURLException, IOException {
+//	    	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
+//	    	button.setFocusPainted(false);
+	    	button.setSize(32, 32);
+	    	button.setHorizontalTextPosition(SwingConstants.CENTER);
+	    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
+	    	button.setRequestFocusEnabled(false);
+	    	button.setToolTipText(AppInternationalization.getString("toolbar"+action+"Tooltip"));
+	    	button.setIcon(ImagesUtilities.loadIcon("toolbar/" + action + ".png"));
+//	    	button.setContentAreaFilled(false);
+	    	return button;
+	    }
 	
 	private void mniAboutActionPerformed(ActionEvent evt) {
 		frmAbout = new JDAbout(this);
@@ -351,9 +406,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	
 	private void updateState() {
 		if(controller != null && controller.isServerActivate()) {
-			lblStatusBar.setText(AppInternationalization.getString("StatusBarConnect_Label") + controller.getIPServidor() + ":" + String.valueOf(configuration.getServerPort()) + ").");
+			lblStatusBar.setText(AppInternationalization.getString("StatusBarConnect_Label") + "(" + controller.getIPServidor() + ":" + String.valueOf(configuration.getServerPort()) + ").");
 		} else {
-			lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label") + "(" + controller.getIPServidor() + ":" + String.valueOf(configuration.getServerPort()) + ").");
+			lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label"));
 		}
 		lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + configuration.getDBIp() + ":" + String.valueOf(configuration.getDBPort()));
 		}
@@ -383,9 +438,12 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			// Activate server
 			controller.startServer(configuration);
 			// Update UI Window
+			btnConnectToolbar.setEnabled(false);
 			btnConnect.setEnabled(false);
 			mniConnect.setEnabled(false);
 			mniConfigure.setEnabled(false);
+			btnConfigure.setEnabled(false);
+			btnDisconnectToolbar.setEnabled(true);
 			btnDisconnect.setEnabled(true);
 			mniDisconnect.setEnabled(true);
 			updateState();
@@ -427,11 +485,14 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			// Disconnect clients disconnect and stop the server 
 			controller.stopServer(configuration);
 
-			btnDisconnect.setEnabled(false);
-			mniDisconnect.setEnabled(false);
+			btnConnectToolbar.setEnabled(true);
 			btnConnect.setEnabled(true);
 			mniConnect.setEnabled(true);
 			mniConfigure.setEnabled(true);
+			btnConfigure.setEnabled(true);
+			btnDisconnectToolbar.setEnabled(true);
+			btnDisconnect.setEnabled(true);
+			mniDisconnect.setEnabled(true);
 			updateState();
 			ok = true;
 		} catch(SQLException e) {
@@ -451,7 +512,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		if(controller.isServerActivate()) {
 			if(controller.getNumberConnectedClients() > 0) {
 				if(JOptionPane.showConfirmDialog(this, AppInternationalization.getString("CloseServer_Message"), AppInternationalization.getString("Warning_Text"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-//				if(Dialogos.mostrarDialogoPregunta(this, "Aviso", "Si desconecta el servidor front-end se perderá la conexión con los clientes.\n¿Realmente quiere desconectarlo?")) {
 					disableServer();
 				}
 			} else {
@@ -494,9 +554,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	public void updateConnectedClients(int clientsNumber) {
 		this.clientsNumber = clientsNumber;
 		if(clientsNumber == 1) {
-			lblConnectedClients.setText(clientsNumber + " cliente conectado.");
+			lblConnectedClients.setText(clientsNumber + " " + AppInternationalization.getString("Connected_Client"));
 		} else {
-			lblConnectedClients.setText(clientsNumber + " clientes conectados.");
+			lblConnectedClients.setText(clientsNumber + " " + AppInternationalization.getString("Connected_Clients"));
 		}
 	}
 	

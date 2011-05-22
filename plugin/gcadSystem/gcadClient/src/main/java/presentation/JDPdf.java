@@ -52,7 +52,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.utils.ImagePDFTreeCellRenderer;
-import presentation.utils.ImagesUtilities;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.PDFComposer;
 

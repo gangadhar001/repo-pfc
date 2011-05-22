@@ -32,7 +32,7 @@ import org.jdesktop.swingx.mapviewer.Waypoint;
 import org.jdesktop.swingx.mapviewer.WaypointPainter;
 
 import presentation.JFMain;
-import presentation.utils.ImagesUtilities;
+import resources.ImagesUtilities;
 
 import com.cloudgarden.layout.AnchorConstraint;
 

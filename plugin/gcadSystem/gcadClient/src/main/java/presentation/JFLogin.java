@@ -30,7 +30,7 @@ import org.jdesktop.application.SingleFrameApplication;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
-import presentation.utils.ImagesUtilities;
+import resources.ImagesUtilities;
 import resources.IPValidator;
 import resources.InfiniteProgressPanel;
 import resources.NotEmptyValidator;

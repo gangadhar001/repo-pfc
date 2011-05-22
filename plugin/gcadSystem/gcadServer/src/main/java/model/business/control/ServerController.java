@@ -60,7 +60,7 @@ public class ServerController {
 		DBConnectionManager.clear();
 		LogManager.clearConnections();
 		
-		// Create databse connection
+		// Create database connection
 		databaseConnection = new DBConnection();
 		databaseConnection.setIp(configuration.getDBIp());
 		databaseConnection.setPort(configuration.getDBPort());
@@ -89,7 +89,7 @@ public class ServerController {
 			throw new RemoteException(AppInternationalization.getString("ServerController_ActivateServer_Error") + serverIP + ":" + String.valueOf(configuration.getServerPort()) + ".");
 		}
 	
-		LogManager.putMessage(IMessageTypeLog.INFO, "=== Servidor iniciado ===");	
+		LogManager.putMessage(IMessageTypeLog.INFO, AppInternationalization.getString("Server_init_msg"));	
 		LogManager.updateConnectedClients(0);
 		
 		isServerActivate = true;
@@ -101,7 +101,7 @@ public class ServerController {
 		// the database server has stopped or changed the IP of server
 		
 		try {
-			LogManager.putMessage(IMessageTypeLog.INFO, "=== Servidor detenido ===");
+			LogManager.putMessage(IMessageTypeLog.INFO, AppInternationalization.getString("Server_stop_msg"));
 		} catch(RemoteException e) {
 		} catch(SQLException e) {
 		}
