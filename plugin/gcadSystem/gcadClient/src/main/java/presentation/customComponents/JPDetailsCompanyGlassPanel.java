@@ -20,7 +20,7 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.image.GaussianBlurFilter;
 
-import resources.ImagesUtilities;
+import presentation.utils.ImagesUtilities;
 
 public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListener {
     /**

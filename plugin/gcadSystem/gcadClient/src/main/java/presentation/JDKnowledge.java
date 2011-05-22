@@ -35,7 +35,8 @@ import model.business.knowledge.Subgroups;
 
 import org.jdesktop.application.Application;
 
-import resources.ImagesUtilities;
+import presentation.utils.ImagesUtilities;
+
 import bussiness.control.ClientController;
 
 

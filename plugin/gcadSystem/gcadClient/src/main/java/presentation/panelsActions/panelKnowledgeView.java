@@ -66,7 +66,6 @@ import presentation.dataVisualization.KnowledgeGraph;
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
-import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 
 
