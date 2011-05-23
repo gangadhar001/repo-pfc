@@ -555,6 +555,7 @@ public class JDStatistics extends javax.swing.JDialog {
 
 	@Action
 	public void Cancel () {
+		chartPanel = null;
 		this.dispose();
 	}
 	

@@ -263,12 +263,12 @@ public class SessionController {
 	private static boolean checkOperation(ArrayList<Operation> operations, Operation operation)
 	{
 		boolean result = false;
-		for (Operation op: operations) 
+		for (int i = 0; i< operations.size() && !result; i++)
 		{
-			result = (op.getGroup().equals(operation.getGroup()) && op.getSubgroup().equals(operation.getSubgroup()));
+			result = (operations.get(i).getGroup().equals(operation.getGroup()) && operations.get(i).getSubgroup().equals(operation.getSubgroup()));
 			if (result)
 			{
-				result = (op.getOperations().contains(operation.getOperations().get(0)));
+				result = (operations.get(i).getOperations().contains(operation.getOperations().get(0)));
 			}
 		}
 		return result;
