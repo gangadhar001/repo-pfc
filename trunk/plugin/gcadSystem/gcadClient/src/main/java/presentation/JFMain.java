@@ -381,6 +381,77 @@ public class JFMain extends SingleFrameApplication {
     	return button;
     }
     
+    private boolean existsTab(String title) {
+    	boolean found = false;
+    	for(int i=0; i<tabPanel.getTabCount() && !found; i++) {
+    		if (tabPanel.getTitleAt(i).equals(title))
+    			found=true;
+    	}
+    	return found;
+    }
+    
+    private int getIndexTab(String title) {
+    	int result = -1;
+    	for(int i=0; i<tabPanel.getTabCount() && result==-1; i++) {
+    		if (tabPanel.getTitleAt(i).equals(title))
+    			result=i;
+    	}
+    	return result;
+	}
+    
+    // Methods used to show and hide the glass panel, with "fade" effect
+    public void fadeIn(Company c) {
+		companyDetailGlassPanel.fadeIn(c);
+	}
+
+	public void fadeOut() {		
+		companyDetailGlassPanel.fadeOut();		
+	}
+	
+	private void tabPanelStateChanged(ChangeEvent evt) {
+		try {
+			JTabbedPane pane = (JTabbedPane)evt.getSource();
+			int index = pane.getSelectedIndex();
+			createCommonToolbar();
+			if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabStatistics")))
+				createToolbarStatisticsView();
+			else if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
+				createToolbarKnowledgeView();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// Method to add specific button for knowledge view to the toolbar
+    private void createToolbarKnowledgeView() throws MalformedURLException, IOException {
+    	toolBar.removeAll();
+		createCommonToolbar();
+		// Includes operation "add", "modify", and "delete", if the user has permissions
+		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
+		if (availableOps.contains(Operations.Add.name()))
+			toolBar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Modify.name()))
+			toolBar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Delete.name()))
+			toolBar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
+		
+	}
+    
+    // Method to add specific button for Statistics view to the toolbar
+    private void createToolbarStatisticsView() throws MalformedURLException, IOException {
+    	toolBar.removeAll();
+		createCommonToolbar();
+		// Includes operation "generate", if the user has permissions
+		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
+		if (availableOps.contains(Operations.Generate.name()))
+			toolBar.add(createToolbarButton(Operations.Generate.name()+Groups.Statistics.name()));
+		
+	}
+	
     /*** Actions used to manage actions for menu items ***/
 	@Action
     public void manageKnowledge() {
@@ -407,17 +478,19 @@ public class JFMain extends SingleFrameApplication {
 		frameStatistics.setVisible(true);
 		// Take the generated chart and show it in the view of statistics
 		ChartPanel chartPanel = frameStatistics.getChartPanel();
-		try {
-			Statistics();
-			InternalFStatistics internalFrameStatistic = new InternalFStatistics();
-			internalFrameStatistic.addChartPanel(chartPanel);
-			panelStatistics.addStatistic(internalFrameStatistic);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (chartPanel != null) {
+			try {
+				Statistics();
+				InternalFStatistics internalFrameStatistic = new InternalFStatistics();
+				internalFrameStatistic.addChartPanel(chartPanel);
+				panelStatistics.addStatistic(internalFrameStatistic);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -470,32 +543,6 @@ public class JFMain extends SingleFrameApplication {
     	}
     }
 	
-	// Method to add specific button for knowledge view to the toolbar
-    private void createToolbarKnowledgeView() throws MalformedURLException, IOException {
-    	toolBar.removeAll();
-		createCommonToolbar();
-		// Includes operation "add", "modify", and "delete", if the user has permissions
-		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
-		if (availableOps.contains(Operations.Add.name()))
-			toolBar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
-		if (availableOps.contains(Operations.Modify.name()))
-			toolBar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
-		if (availableOps.contains(Operations.Delete.name()))
-			toolBar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
-		
-	}
-    
-    // Method to add specific button for Statistics view to the toolbar
-    private void createToolbarStatisticsView() throws MalformedURLException, IOException {
-    	toolBar.removeAll();
-		createCommonToolbar();
-		// Includes operation "generate", if the user has permissions
-		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
-		if (availableOps.contains(Operations.Generate.name()))
-			toolBar.add(createToolbarButton(Operations.Generate.name()+Groups.Statistics.name()));
-		
-	}
-	
 	/*** Actions for specific toolbar buttons. This actions are used when an specific tab is shown ***/
 	@Action
 	public void AddKnowledge() {
@@ -504,55 +551,13 @@ public class JFMain extends SingleFrameApplication {
 	}
 	
 	@Action
+	public void DeleteKnowledge() {
+		if (panelKnowledge != null)
+			panelKnowledge.operationDelete();
+	}
+	
+	@Action
 	public void GenerateStatistics() {
 		
 	}	
-    
-    private boolean existsTab(String title) {
-    	boolean found = false;
-    	for(int i=0; i<tabPanel.getTabCount() && !found; i++) {
-    		if (tabPanel.getTitleAt(i).equals(title))
-    			found=true;
-    	}
-    	return found;
-    }
-    
-    private int getIndexTab(String title) {
-    	int result = -1;
-    	for(int i=0; i<tabPanel.getTabCount() && result==-1; i++) {
-    		if (tabPanel.getTitleAt(i).equals(title))
-    			result=i;
-    	}
-    	return result;
-	}
-    
-    // Methods used to show and hide the glass panel, with "fade" effect
-    public void fadeIn(Company c) {
-		companyDetailGlassPanel.fadeIn(c);
-	}
-
-	public void fadeOut() {		
-		companyDetailGlassPanel.fadeOut();		
-	}
-	
-	private void tabPanelStateChanged(ChangeEvent evt) {
-		try {
-			JTabbedPane pane = (JTabbedPane)evt.getSource();
-			int index = pane.getSelectedIndex();
-			createCommonToolbar();
-			if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabStatistics")))
-				createToolbarStatisticsView();
-			else if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
-				createToolbarKnowledgeView();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
- 		
-		 
-	}
 }
