@@ -118,6 +118,8 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private Object parentGraph;
 
 	protected Knowledge knowledgeSelectedGraph;
+
+	private JDKnowledge fKnowledge;
 	
 	public panelKnowledgeView(JFMain parent) {
 		super();
@@ -406,45 +408,33 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 //			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
 //			tree.scrollPathToVisible(new TreePath(child.getPath()));
 		}
-		else {
-			operationsKnowledge();
-		}		
+		//TODO: si no está seleccionado, que se invoque desde el tollbar o el menu
+//		else {
+//			operationsKnowledge();
+//		}		
 	}
 	
 	// Show the frame of knowledge, used to add or modify knowledge. This frame will has filled with the knowledge data
 	private void operationsKnowledge(String knowledgeType, Knowledge k, String operation) {
-		JDKnowledge fKnowledge = new JDKnowledge(knowledgeType, k, "Add");
+		fKnowledge = new JDKnowledge(knowledgeType, k, "Add");
 		fKnowledge.setLocationRelativeTo(this);
 		fKnowledge.setModal(true);
 		fKnowledge.setVisible(true);
-		updateKnowledge(operation);
+		// Refresh graph and tree with the new knowledge
+//		updateKnowledge(operation);
 	}
 	
 	private void operationsKnowledge() {
-		JDKnowledge fKnowledge = new JDKnowledge();
+		fKnowledge = new JDKnowledge();
 		fKnowledge.setLocationRelativeTo(this);
 		fKnowledge.setModal(true);
 		fKnowledge.setVisible(true);
-		updateKnowledge("");
+//		updateKnowledge("");
 	}
 	
 	private void updateKnowledge(String operation) {
-//			Knowledge newKnowledge = fKnowledge.getNewKnowledge();
-//			if (newKnowledge != null) {
-//				try {
-//					Statistics();
-//					InternalFStatistics internalFrameStatistic = new InternalFStatistics();
-//					internalFrameStatistic.addChartPanel(chartPanel);
-//					panelStatistics.addStatistic(internalFrameStatistic);
-//				} catch (MalformedURLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
+			// TODO: se lo dice el servidor el nuevo conocimiento
+			
 	}
 
 	public void operationDelete() {
