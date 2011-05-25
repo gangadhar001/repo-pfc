@@ -292,13 +292,14 @@ public class JFLogin extends SingleFrameApplication {
 		final String ip;
 		final String port;
 		// Check if input data is valid
-		if (txtUserName.getText().length() > 0
-				&& txtPass.getPassword().length > 0) {
+		if (txtUserName.getText().length() > 0 && txtPass.getPassword().length > 0) {
 			// If the server panel is not expanded, take the default local IP
 			// and port
 			if (!isServerPanelExpanded) {
 				ip = CommunicationsUtilities.getHostIP();
 				port = DEFAULT_PORT;
+				txtServerIP.setText(ip);
+				txtServerPort.setText(port);
 			} else {
 				ip = txtServerIP.getText();
 				port = txtServerPort.getText();
@@ -334,6 +335,19 @@ public class JFLogin extends SingleFrameApplication {
 			// Login
 			ClientController.getInstance().initClient(ip, port, user, pass);
 			glassPane.stop();
+//			getMainFrame().setEnabled(true);
+//			getMainFrame().requestFocus();
+			ClientController.getInstance().showMainFrame();
+			
+			//TODO: clean panel and show projects of the user
+//			topPanel.removeAll();
+//			panelChooseProject projectpanel = new panelChooseProject();
+//			projectpanel.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
+//			topPanel.add(projectpanel, new AnchorConstraint(1, 978, 826, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+//			projectpanel.setPreferredSize(new java.awt.Dimension(336, 225));
+//			topPanel.validate();
+//			topPanel.repaint();
+			
 		} catch (InterruptedException e) {
 			glassPane.stop();
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -357,6 +371,9 @@ public class JFLogin extends SingleFrameApplication {
 			glassPane.stop();
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
+			glassPane.stop();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
 			glassPane.stop();
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} finally {

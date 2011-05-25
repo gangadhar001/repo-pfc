@@ -23,13 +23,13 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import model.business.knowledge.Groups;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Subgroups;
 
@@ -236,5 +236,10 @@ public class JDKnowledge extends javax.swing.JDialog {
 					button.doClick();
 			}
 		}
-    }   
+    }
+
+	public Knowledge getNewKnowledge() {
+		// TODO Auto-generated method stub
+		return null;
+	}   
 }

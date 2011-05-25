@@ -107,12 +107,14 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-
-		// Close login frame and show main frame
+		
+	}
+	
+	// Close login frame and show main frame	
+	public void showMainFrame() {
 		Application.getInstance(JFLogin.class).getMainFrame().dispose();
 		mainWindowUI = new JFMain();
 		Application.launch(mainWindowUI.getClass(), null);
-		
 	}
 	
 	// Show the login frame
