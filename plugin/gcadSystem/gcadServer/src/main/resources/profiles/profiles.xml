@@ -40,14 +40,19 @@
 			</Subgroup>
 		</Group>
 		<Group id="Project">
-			<Operations>
-				<id>Add</id>
-			</Operations>
+			<Subgroup id="Project">
+				<Operations>
+					<id>Add</id>
+					<id>Get</id>
+				</Operations>
+			</Subgroup>
 		</Group>
 		<Group id="Statistics">
-			<Operations>
-				<id>Generate</id>
-			</Operations>
+			<Subgroup id="Statistics">
+				<Operations>
+					<id>Generate</id>
+				</Operations>
+			</Subgroup>
 		</Group>
 	</Profile>	
 </Profiles>

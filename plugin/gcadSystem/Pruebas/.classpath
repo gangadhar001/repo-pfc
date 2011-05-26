@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="/gcadClient/lib/xalan.jar"/>
 	<classpathentry kind="lib" path="/gcadClient/lib/swingx-ws.jar"/>
 	<classpathentry kind="lib" path="/gcadClient/lib/swingx.jar"/>
+	<classpathentry kind="lib" path="lib/mpxj.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.6-20091214.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

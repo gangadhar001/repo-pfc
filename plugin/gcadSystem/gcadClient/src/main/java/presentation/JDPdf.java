@@ -307,9 +307,9 @@ public class JDPdf extends JDialog {
 					panelTree = new JPanel();
 					GridBagLayout panelTreeLayout = new GridBagLayout();
 					panelTreeLayout.columnWidths = new int[] {7};
-					panelTreeLayout.rowHeights = new int[] {7, 7, 7};
+					panelTreeLayout.rowHeights = new int[] {1, 7, 7};
 					panelTreeLayout.columnWeights = new double[] {0.1};
-					panelTreeLayout.rowWeights = new double[] {0.07, 0.3, 0.2};
+					panelTreeLayout.rowWeights = new double[] {0.06, 0.4, 0.2};
 					mainContainer.add(panelTree, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 5, 0, 5), 0, 0));
 					panelTree.setLayout(panelTreeLayout);
 					{
@@ -318,7 +318,8 @@ public class JDPdf extends JDialog {
 					}
 					{
 						toolPDF = new JToolBar();
-						panelTree.add(toolPDF, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+						panelTree.add(toolPDF, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+						toolPDF.setSize(408, 32);
 						{
 							btnSection = createButtonToolbar("Section");
 							toolPDF.add(btnSection);

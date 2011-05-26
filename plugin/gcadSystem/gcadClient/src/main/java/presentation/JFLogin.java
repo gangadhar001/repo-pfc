@@ -83,6 +83,7 @@ public class JFLogin extends SingleFrameApplication {
 	private static final int HEIGHT = 75;
 	
 	private InfiniteProgressPanel glassPane;
+	private panelChooseProject projectpanel;
 
 	/**
      * Returns the action map used by this application.
@@ -326,6 +327,27 @@ public class JFLogin extends SingleFrameApplication {
     	getMainFrame().dispose();
     }
     
+    @Action
+    public void acceptAction() {
+    	try {
+			ClientController.getInstance().setCurrentProject(projectpanel.getProject());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    @Action
+    public void backwardAction() {
+    	
+    }
+    
     // Method used to make login and show the loading spinner panel
 	private void perform(String user, String pass, String ip, String port) {
 		try {
@@ -335,18 +357,12 @@ public class JFLogin extends SingleFrameApplication {
 			// Login
 			ClientController.getInstance().initClient(ip, port, user, pass);
 			glassPane.stop();
-//			getMainFrame().setEnabled(true);
-//			getMainFrame().requestFocus();
-			ClientController.getInstance().showMainFrame();
+			getMainFrame().setEnabled(true);
+			getMainFrame().requestFocus();
+//			ClientController.getInstance().showMainFrame();
 			
-			//TODO: clean panel and show projects of the user
-//			topPanel.removeAll();
-//			panelChooseProject projectpanel = new panelChooseProject();
-//			projectpanel.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
-//			topPanel.add(projectpanel, new AnchorConstraint(1, 978, 826, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-//			projectpanel.setPreferredSize(new java.awt.Dimension(336, 225));
-//			topPanel.validate();
-//			topPanel.repaint();
+			// Show panel used to choose a project
+			chooseProject();			
 			
 		} catch (InterruptedException e) {
 			glassPane.stop();
@@ -380,5 +396,21 @@ public class JFLogin extends SingleFrameApplication {
 			getMainFrame().setEnabled(true);
 			getMainFrame().requestFocus();
 		}
+	}
+
+	private void chooseProject() throws RemoteException, NotLoggedException, Exception {
+		userDataPanel.removeAll();		
+		projectpanel = new panelChooseProject();
+		projectpanel.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
+		userDataPanel.add(projectpanel, new AnchorConstraint(1, 978, 826, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		projectpanel.setPreferredSize(new java.awt.Dimension(336, 225));
+		topPanel.validate();
+		topPanel.repaint();
+		
+		// Change name and actions of the buttons
+		btnLogin.setAction(getAppActionMap().get("acceptAction"));
+		btnLogin.setText("Aceptar");
+		btnCancel.setAction(getAppActionMap().get("backwaradAction"));
+		btnCancel.setText("Atrás");
 	}   
 }
