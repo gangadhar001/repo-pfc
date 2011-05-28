@@ -1,13 +1,15 @@
 package presentation;
 import internationalization.ApplicationInternationalization;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,6 +36,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -51,13 +54,15 @@ import model.business.knowledge.Title;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import presentation.customComponents.HeaderFooter;
 import presentation.utils.ImagePDFTreeCellRenderer;
-
 import bussiness.control.ClientController;
 import bussiness.control.PDFComposer;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import exceptions.NotLoggedException;
@@ -110,21 +115,20 @@ public class JDPdf extends JDialog {
 	private JPanel panelButtons;
 
 	private DefaultMutableTreeNode selectedNode;
-	private String headerImagePath;
-	private String footImagePath;
+	private JScrollPane jScrollPane1;
+	private String headerImagePath = null;
+	private String footImagePath = null;
 	private DefaultTreeModel treeModel;
 	private List<Project> projects;
 	private JComboBox cbProjects;
 	private JButton btnDelete;
+	private JFileChooser fc;
 	
 	
 	/**
 	* Auto-generated main method to display this Dialog
 	*/
 		
-	// TODO: controalr esta excepcion si no se genra nada en el PDF:  java.io.IOException: The document has no pages.
-	// TODO: al borrar un nodo del arbol, limpiar su txtArea/combo
-	// TODO: tema de imagenes
 	public JDPdf(JFrame frame) {
 		super(frame);
 		setTitle(ApplicationInternationalization.getString("PDFDialog_Title"));
@@ -158,6 +162,7 @@ public class JDPdf extends JDialog {
 		treePDF.setCellRenderer(new ImagePDFTreeCellRenderer());
 		treePDF.addTreeSelectionListener(new TreeSelectionListener() {				
 			@Override
+			// When change the selected item, stores the value of that node
 			public void valueChanged(TreeSelectionEvent e) {
 				// Set the content of the previous selected element
 				setContent();
@@ -171,21 +176,23 @@ public class JDPdf extends JDialog {
 					txtContent.setText(((PDFElement)selectedNode.getUserObject()).getContent());
 					txtContent.setCaretPosition(txtContent.getText().length());
 				}
-				else {
+				 // Enable combobox of projects if selected node is Table
+				else if (selectedNode.getUserObject() instanceof Table) {
 					txtContent.setVisible(false);
+					cbProjects.setVisible(true);
+					cbProjects.setSize(new Dimension(100,35));
+					String content = ((PDFElement)selectedNode.getUserObject()).getContent();
+					if (content == null)
+						cbProjects.setSelectedItem(-1);
+					else
+						cbProjects.setSelectedItem(Integer.parseInt(content));
+				}
+				
+				else {
+					txtContent.setVisible(true);
 					txtContent.setText("");
 					txtContent.setCaretPosition(0);
 					txtContent.setEditable(false);
-				}
-				// Enable combobox of projects if selected node is Table
-				if (selectedNode.getUserObject() instanceof Table) {
-					txtContent.setVisible(false);
-					cbProjects.setVisible(true);
-					cbProjects.setSelectedItem(Integer.parseInt(((PDFElement)selectedNode.getUserObject()).getContent()));
-				}
-				else {
-					cbProjects.setVisible(false);
-					cbProjects.setSelectedIndex(-1);
 				}
 			}
 		});
@@ -199,14 +206,9 @@ public class JDPdf extends JDialog {
 
 	private void initGUI() {
 		try {
-			GridBagLayout thisLayout = new GridBagLayout();
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			thisLayout.rowWeights = new double[] {0.05, 0.5, 0.03};
-			thisLayout.rowHeights = new int[] {7, 1, 7};
-			thisLayout.columnWeights = new double[] {0.1};
-			thisLayout.columnWidths = new int[] {7};
 			setTitle(ApplicationInternationalization.getString("TitleJFPdf"));
-			getContentPane().setLayout(thisLayout);
+			getContentPane().setLayout(null);
 			{
 				panelData = new JPanel();
 				GridBagLayout panelDataLayout = new GridBagLayout();
@@ -217,6 +219,7 @@ public class JDPdf extends JDialog {
 				getContentPane().add(panelData, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 0, 5), 0, 0));
 				panelData.setLayout(panelDataLayout);
 				panelData.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupMetaData")));
+				panelData.setBounds(5, 5, 433, 95);
 				{
 					lblTitle = new JLabel();
 					panelData.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
@@ -251,6 +254,7 @@ public class JDPdf extends JDialog {
 				getContentPane().add(mainContainer, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 0, 5), 0, 0));
 				mainContainer.setLayout(mainContainerLayout);
 				mainContainer.setBorder(BorderFactory.createTitledBorder("Content"));
+				mainContainer.setBounds(5, 105, 433, 445);
 				{
 					panelContent = new JPanel();
 					GridBagLayout panelContentLayout = new GridBagLayout();
@@ -275,6 +279,11 @@ public class JDPdf extends JDialog {
 					{
 						chkHeader = new JCheckBox();
 						panelContent.add(chkHeader, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 122, 0, 0), 0, 0));
+						chkHeader.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								chkHeaderActionPerformed(evt);
+							}
+						});
 					}
 					{
 						txtPathHeader = new JTextField();
@@ -291,35 +300,46 @@ public class JDPdf extends JDialog {
 						panelContent.add(btnBrowseHeader, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 						btnBrowseHeader.setName("btnBrowseHeader");
 						btnBrowseHeader.setText(ApplicationInternationalization.getString("btnBrowse"));
+						btnBrowseHeader.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								btnBrowseHeaderActionPerformed(evt);
+							}
+						});
 					}
 					{
 						btnBrowseFoot = new JButton();
 						panelContent.add(btnBrowseFoot, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 						btnBrowseFoot.setName("btnBrowseFoot");
 						btnBrowseFoot.setText(ApplicationInternationalization.getString("btnBrowse"));
+						btnBrowseFoot.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								btnBrowseFootActionPerformed(evt);
+							}
+						});
 					}
 					{
 						chkFoot = new JCheckBox();
 						panelContent.add(chkFoot, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 122, 0, 0), 0, 0));
+						chkFoot.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								chkFootActionPerformed(evt);
+							}
+						});
 					}
 				}
 				{
 					panelTree = new JPanel();
-					GridBagLayout panelTreeLayout = new GridBagLayout();
-					panelTreeLayout.columnWidths = new int[] {7};
-					panelTreeLayout.rowHeights = new int[] {1, 7, 7};
-					panelTreeLayout.columnWeights = new double[] {0.1};
-					panelTreeLayout.rowWeights = new double[] {0.06, 0.4, 0.2};
 					mainContainer.add(panelTree, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 5, 0, 5), 0, 0));
-					panelTree.setLayout(panelTreeLayout);
+					panelTree.setLayout(null);
 					{
 						scTree = new JScrollPane();
 						panelTree.add(scTree, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+						scTree.setBounds(0, 48, 413, 164);
 					}
 					{
 						toolPDF = new JToolBar();
 						panelTree.add(toolPDF, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-						toolPDF.setSize(408, 32);
+						toolPDF.setBounds(0, 9, 413, 29);
 						{
 							btnSection = createButtonToolbar("Section");
 							toolPDF.add(btnSection);
@@ -345,20 +365,27 @@ public class JDPdf extends JDialog {
 						}
 					}
 					{
-						txtContent = new JTextArea();
-						panelTree.add(txtContent, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(27, 0, 0, 0), 0, 0));
-						txtContent.setName("txtContent");
-						txtContent.addFocusListener(new FocusAdapter() {
-							public void focusLost(FocusEvent evt) {
-								txtContentFocusLost(evt);
-							}
-						});
+						jScrollPane1 = new JScrollPane();
+						panelTree.add(jScrollPane1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(27, 0, 0, 0), 0, 0));
+						jScrollPane1.setBounds(0, 218, 413, 116);
+						{
+							txtContent = new JTextArea();
+							jScrollPane1.setViewportView(txtContent);
+							txtContent.setName("txtContent");
+							txtContent.setBounds(0, 205, 408, 105);
+							txtContent.addFocusListener(new FocusAdapter() {
+								public void focusLost(FocusEvent evt) {
+									txtContentFocusLost(evt);
+								}
+							});
+						}
 					}
 					{
 						cbProjects = new JComboBox();
 						cbProjects.setVisible(false);
 						panelTree.add(cbProjects, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(27, 0, 0, 0), 0, 0));
 						cbProjects.setName("cbProjects");
+						cbProjects.setBounds(0, 218, 413, 30);
 						cbProjects.addFocusListener(new FocusAdapter() {
 							public void focusLost(FocusEvent evt) {
 								cbProjectsFocusLost(evt);
@@ -369,42 +396,38 @@ public class JDPdf extends JDialog {
 						lblContent = new JLabel();
 						panelTree.add(lblContent, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(6, 0, 0, 0), 0, 0));
 						lblContent.setName("lblContent");
+						lblContent.setBounds(0, 0, 0, 0);
 					}
 				}
 			}
 			{
 				panelButtons = new JPanel();
-				GridBagLayout panelButtonsLayout = new GridBagLayout();
-				panelButtonsLayout.columnWidths = new int[] {7, 7};
-				panelButtonsLayout.rowHeights = new int[] {7};
-				panelButtonsLayout.columnWeights = new double[] {0.91, 0.03};
-				panelButtonsLayout.rowWeights = new double[] {0.1};
 				getContentPane().add(panelButtons, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 5, 0, 5), 0, 0));
-				panelButtons.setLayout(panelButtonsLayout);
-				{
-					btnSave = new JButton();
-					panelButtons.add(btnSave, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-					btnSave.setName("btnSave");
-					btnSave.setSize(50, 23);
-					btnSave.setAction(getAppActionMap().get("save"));
-					btnSave.setPreferredSize(new java.awt.Dimension(50, 23));
-					btnSave.setText(ApplicationInternationalization.getString("btnSave"));
-				}
-				{
-					btnCancel = new JButton();
-					panelButtons.add(btnCancel, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-					btnCancel.setName("btnCancel");
-					btnCancel.setPreferredSize(new java.awt.Dimension(50, 23));
-					btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
-					
-				}
+				panelButtons.setLayout(null);
+				panelButtons.setBounds(5, 510, 428, 37);
+			}
+			{
+				btnSave = new JButton();
+				getContentPane().add(btnSave);
+				btnSave.setName("btnSave");
+				btnSave.setAction(getAppActionMap().get("save"));
+				btnSave.setText(ApplicationInternationalization.getString("btnSave"));
+				btnSave.setBounds(252, 559, 86, 25);
+			}
+			{
+				btnCancel = new JButton();
+				getContentPane().add(btnCancel);
+				btnCancel.setName("btnCancel");
+				btnCancel.setAction(getAppActionMap().get("Cancel"));
+				btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
+				btnCancel.setBounds(349, 559, 85, 25);
+				
 			}
 			pack();
-			this.setSize(454, 586);
+			this.setSize(461, 628);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
-		    //add your error handling code here
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -427,26 +450,58 @@ public class JDPdf extends JDialog {
 	
 	@Action
 	public void save() {
+		File path = null;
 		try {
-			Document doc = new Document();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(ApplicationInternationalization.getString("PDFFile"), "pdf", "PDF");
 			JFileChooser fileChooser = new JFileChooser();       
 			fileChooser.setFileFilter(filter);
 			int result = fileChooser.showSaveDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION ) {
-				File path = fileChooser.getSelectedFile().getAbsoluteFile();
-	            PdfWriter.getInstance(doc, new FileOutputStream(path + ".pdf"));
-				doc.open();
+				// Margin of documents
+				float marginTop = 20;
+				float marginBottom = 20;
+				Image headerImage = getImage(headerImagePath);
+				if (headerImage != null)
+					marginTop = headerImage.getHeight() + 20;
+				Image footImage = getImage(footImagePath);
+				if (footImage != null)
+					marginBottom = footImage.getHeight() + 20;
+				
+				Document doc = new Document(PageSize.A4, 20, 20, marginTop, marginBottom);
+				path = fileChooser.getSelectedFile().getAbsoluteFile();
+	            PdfWriter pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path + ".pdf"));
+	            // Event used to add header image and foot image
+	            HeaderFooter event = new HeaderFooter(headerImage, footImage);
+				pdfWriter.setPageEvent(event);				
+	            
+				doc.open();            
 				PDFComposer.composePDF(doc, (DefaultMutableTreeNode) treePDF.getModel().getRoot(), projects);
 				doc.close();
 	        }
+		} catch(IOException e) {
+			if (path != null)
+				path.delete();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);			
 		} catch (DocumentException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (FileNotFoundException e) {
+			if (path != null)
+				path.delete();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
+		} catch(Exception e) {
+			// Remove invalid PDF file
+			if (path != null)
+				path.delete();
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
+	private Image getImage(String path) throws MalformedURLException, IOException, DocumentException {
+		Image result = null;
+		if (path != null)
+			result = Image.getInstance(path);
+		return result;
+		
+	}
+
 	/*** Actions availables in toolbar ***/
 	@Action
 	public void Section () {
@@ -507,11 +562,24 @@ public class JDPdf extends JDialog {
 	@Action
 	public void Delete() {
 		if (selectedNode != null) {
-			treeModel.removeNodeFromParent(selectedNode);
-			// TODO: si es nulo, mostrar mensaje de que esa accion (cualquiera) solo se puede hacer con un nodo seleccionado.
-			
-			// TODO: el root no se puede borrar
+			if (selectedNode.getUserObject() instanceof PDFDocument)
+				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("PDFFrame_RootNode"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+			else { 
+				// Removes the node and its data
+				treeModel.removeNodeFromParent(selectedNode);
+				cbProjects.setSelectedIndex(-1);
+				txtContent.setVisible(true);
+				txtContent.setText("");
+			}
 		}
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("PDFFrame_NotSelectedNode"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	@Action
+	public void Cancel () {
+		this.dispose();
 	}
 	
 	private void txtContentFocusLost(FocusEvent evt) {
@@ -531,6 +599,50 @@ public class JDPdf extends JDialog {
 			 // Save the index of the selected project
 			 ((PDFElement)selectedNode.getUserObject()).setContent(String.valueOf(cbProjects.getSelectedIndex()));
 			 
+	}
+	
+	private void chkHeaderActionPerformed(ActionEvent evt) {
+		txtPathHeader.setEnabled(true);
+		btnBrowseHeader.setEnabled(true);
+	}
+	
+	private void chkFootActionPerformed(ActionEvent evt) {
+		txtPathFoot.setEnabled(true);
+		btnBrowseFoot.setEnabled(true);
+	}
+	
+	private void btnBrowseHeaderActionPerformed(ActionEvent evt) {
+		headerImagePath = getPath(); 		
+	}
+	
+	private String getPath() {
+		String path = null;
+		fc = new JFileChooser();
+		fc.addChoosableFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "Image Files (*.png, *.jpg, *.jpeg, *.bmp, *.tiff, *.tif, *.gif)";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				if (f.isDirectory())
+					return true;
+				return (f.getName().toLowerCase().endsWith("png") || f.getName().toLowerCase().endsWith("jpg") || f.getName().toLowerCase().endsWith("jpeg") 
+						|| f.getName().toLowerCase().endsWith("bmp") || f.getName().toLowerCase().endsWith("tiff") || f.getName().toLowerCase().endsWith("gif") 
+						|| f.getName().toLowerCase().endsWith("tif"));
+			}
+		});
+		int result = fc.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION)
+			path = fc.getSelectedFile().getAbsolutePath();
+		return path;
+	}
+
+	private void btnBrowseFootActionPerformed(ActionEvent evt) {
+		footImagePath = getPath();
+		
 	}
 
 }

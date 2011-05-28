@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.EventObject;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -45,6 +46,7 @@ import model.business.knowledge.Subgroups;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.jdesktop.application.Application.ExitListener;
 import org.jfree.chart.ChartPanel;
 
 import presentation.customComponents.CustomToolBar;
@@ -108,7 +110,17 @@ public class JFMain extends SingleFrameApplication {
 
     @Override
     protected void startup() {
-		try {			
+    	// Listener to confirm exit
+        addExitListener(new ExitListener() {
+             public boolean canExit(EventObject event) {
+                 return JOptionPane.showConfirmDialog(getMainFrame(),
+                         ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION;
+             }
+             public void willExit(EventObject event) {}
+         });
+
+    	
+    	try {			
 			getMainFrame().setPreferredSize(new java.awt.Dimension(1067, 625));
 			getMainFrame().setMinimumSize(new java.awt.Dimension(1067, 625));
 			{	

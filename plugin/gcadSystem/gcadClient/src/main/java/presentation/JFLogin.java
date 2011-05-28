@@ -28,10 +28,6 @@ import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
 
 import presentation.utils.ImagesUtilities;
-
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
-
 import resources.IPValidator;
 import resources.InfiniteProgressPanel;
 import resources.NotEmptyValidator;
@@ -39,6 +35,8 @@ import resources.PortValidator;
 import resources.UserNameValidator;
 import bussiness.control.ClientController;
 
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 import communication.CommunicationsUtilities;
 
 import exceptions.IncorrectEmployeeException;
@@ -95,159 +93,155 @@ public class JFLogin extends SingleFrameApplication {
 	}
 	
     @Override
-    protected void startup() {  
+    protected void startup() {      	
+        this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
+        getMainFrame().setGlassPane(glassPane);
 
-    	// Listener to confirm exit
-    	addExitListener(new ExitListener() { 
-             public boolean canExit(EventObject event) { 
-                 return JOptionPane.showConfirmDialog(getMainFrame(), 
-                         ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION; 
-             }
-             public void willExit(EventObject event) {} 
-         }); 
-    	
-    	this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
-    	getMainFrame().setGlassPane(glassPane);
-    	
-    	{
-	    	getMainFrame().setSize(350, 301);
-	    	getMainFrame().setResizable(false);
-	    	getMainFrame().setTitle(ApplicationInternationalization.getString("titleLogin"));
-    	}
-    	
-    	BorderLayout mainFrameLayout = new BorderLayout();
-    	getMainFrame().getContentPane().setLayout(mainFrameLayout);
-    	getMainFrame().setPreferredSize(new java.awt.Dimension(350, 301));
-    	getMainFrame().setMinimumSize(new java.awt.Dimension(350, 301));
-    	getMainFrame().setMaximumSize(new java.awt.Dimension(0, 0));
+        {
+                getMainFrame().setSize(350, 301);
+                getMainFrame().setResizable(false);
+                getMainFrame().setTitle(ApplicationInternationalization.getString("titleLogin"));
+        }
 
-    	{
-    		topPanel = new JPanel();
-    		getMainFrame().getContentPane().add(topPanel, BorderLayout.CENTER);
-    		AnchorLayout topPanelLayout = new AnchorLayout();
-    		topPanel.setLayout(topPanelLayout);
-    		topPanel.setPreferredSize(new java.awt.Dimension(338, 284));
-    		{
-    			btnLogin = new JButton();
-    			topPanel.add(btnLogin, new AnchorConstraint(804, 110, 17, 578, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-    			btnLogin.setPreferredSize(new java.awt.Dimension(75, 23));
-    			btnLogin.setName("btnLogin");
-    			btnLogin.setAction(getAppActionMap().get("loginAction"));
-    			btnLogin.setText(ApplicationInternationalization.getString("LoginButton"));
-    		}
-    		{
-    			btnCancel = new JButton();
-    			topPanel.add(btnCancel, new AnchorConstraint(804, 26, 17, 790, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-    			btnCancel.setPreferredSize(new java.awt.Dimension(74, 24));
-    			btnCancel.setName("btnCancel");
-    			btnCancel.setAction(getAppActionMap().get("cancelAction"));
-    			btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
-    		}
-    		{
-    			serverPanel = new JPanel();
-    			AnchorLayout jPanel1Layout = new AnchorLayout();
-    			topPanel.add(serverPanel, new AnchorConstraint(186, 975, 575, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
-    			serverPanel.setLayout(jPanel1Layout);
-    			serverPanel.setPreferredSize(new java.awt.Dimension(326, 40));
-    			serverPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupServer")));
-    			{
-    				txtServerPort = new JTextField();
-    				txtServerPort.setInputVerifier(new PortValidator(getMainFrame(), txtServerPort, ApplicationInternationalization.getString("loginValidatePort") + "[1 - 65535]"));
-    				serverPanel.add(txtServerPort, new AnchorConstraint(61, 6, 638, 295, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-    				txtServerPort.setPreferredSize(new java.awt.Dimension(207, 20));
-    				txtServerPort.setName("txtServerPort");
-    			}
-    			{
-    				lblPort = new JLabel();
-    				serverPanel.add(lblPort, new AnchorConstraint(64, 232, 608, 20, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-    				lblPort.setPreferredSize(new java.awt.Dimension(88, 14));
-    				lblPort.setName("lblPort");
-    				lblPort.setText(ApplicationInternationalization.getString("lblPort"));
-    			}
-    			{
-    				txtServerIP = new JTextField();
-    				txtServerIP.setInputVerifier(new IPValidator(getMainFrame(), txtServerIP, ApplicationInternationalization.getString("loginValidateIP")));
-    				serverPanel.add(txtServerIP, new AnchorConstraint(33, 6, 361, 295, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-    				txtServerIP.setPreferredSize(new java.awt.Dimension(207, 20));
-    			}
-    			{
-    				lblIP = new JLabel();
-    				serverPanel.add(lblIP, new AnchorConstraint(34, 245, 361, 6, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
-    				lblIP.setName("lblIP");
-    				lblIP.setPreferredSize(new java.awt.Dimension(75, 19));
-    				lblIP.setText(ApplicationInternationalization.getString("lblIP"));
-    			}
-    			
-    			setServerOptionVisible(false);
-    			
-    			{
-    				btnExpand = new JButton();
-    				try {
-						btnExpand.setIcon(ImagesUtilities.loadIcon("Expand_Vertical.png"));
-    				} catch (MalformedURLException e) {
-    					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-    				} catch (IOException e) {
-    					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-    				}  
-    				serverPanel.add(btnExpand, new AnchorConstraint(20, 6, 7, 934, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-    				btnExpand.setPreferredSize(new java.awt.Dimension(25, 24));
-    				btnExpand.addMouseListener(new MouseAdapter() {
-    					public void mouseClicked(MouseEvent evt) {
-    						btnExpandMouseClicked(evt);
-    					}
-    				});
-    			}
-    		}
-    		{
-    			userDataPanel = new JPanel();
-    			AnchorLayout userDataPanelLayout = new AnchorLayout();
-    			topPanel.add(userDataPanel, new AnchorConstraint(78, 52, 343, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
-    			userDataPanel.setLayout(userDataPanelLayout);
-    			userDataPanel.setPreferredSize(new java.awt.Dimension(326, 97));
-    			userDataPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupUser")));
-    			{
-    				//TODO: validar Password
-    				txtPass = new JPasswordField();
-    				txtPass.setInputVerifier(new NotEmptyValidator(getMainFrame(), txtPass, ApplicationInternationalization.getString("loginValidateEmpty")));
-    				userDataPanel.add(txtPass, new AnchorConstraint(561, 983, 809, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-    				txtPass.setPreferredSize(new java.awt.Dimension(206, 24));    				
-    			}
-    			{
-    				txtUserName = new JTextField();
-    				txtUserName.setInputVerifier(new UserNameValidator(getMainFrame(), txtUserName, ApplicationInternationalization.getString("loginValidateUser")));
-    				userDataPanel.add(txtUserName, new AnchorConstraint(283, 983, 500, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-    				txtUserName.setPreferredSize(new java.awt.Dimension(206, 21));
-    				txtUserName.setName("txtUserName");
-    			}
-    			{
-    				lblPass = new JLabel();
-    				userDataPanel.add(lblPass, new AnchorConstraint(623, 305, 757, 19, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-    				lblPass.setPreferredSize(new java.awt.Dimension(93, 13));
-    				lblPass.setName("lblPass");
-    				lblPass.setText(ApplicationInternationalization.getString("lblPass"));
-    			}
-    			{
-    				lblUserName = new JLabel();
-    				userDataPanel.add(lblUserName, new AnchorConstraint(324, 338, 458, 23, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-    				lblUserName.setPreferredSize(new java.awt.Dimension(103, 13));
-    				lblUserName.setName("lblUserName");
-    				lblUserName.setText(ApplicationInternationalization.getString("lblUser"));
-    			}
-    		}
-    		{
-    			logoPanel = new JPanel();
-    			AnchorLayout logoPanelLayout = new AnchorLayout();
-    			topPanel.add(logoPanel, new AnchorConstraint(11, 975, 293, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
-    			logoPanel.setLayout(logoPanelLayout);
-    			logoPanel.setPreferredSize(new java.awt.Dimension(310, 61));
-    		}
-    	}
-    	
-    	getMainFrame().getRootPane().setDefaultButton(btnLogin);
+        BorderLayout mainFrameLayout = new BorderLayout();
+        getMainFrame().getContentPane().setLayout(mainFrameLayout);
+        getMainFrame().setPreferredSize(new java.awt.Dimension(350, 301));
+        getMainFrame().setMinimumSize(new java.awt.Dimension(350, 301));
+        getMainFrame().setMaximumSize(new java.awt.Dimension(0, 0));
+
+        {
+                topPanel = new JPanel();
+                getMainFrame().getContentPane().add(topPanel, BorderLayout.CENTER);
+                AnchorLayout topPanelLayout = new AnchorLayout();
+                topPanel.setLayout(topPanelLayout);
+                topPanel.setPreferredSize(new java.awt.Dimension(338, 284));
+                createLoginPanel();
+                addButtons();
+        }
+        
         show(topPanel);
     }
     
-    private void setServerOptionVisible (boolean b) {
+    private void addButtons() {
+        btnLogin = new JButton();
+        topPanel.add(btnLogin, new AnchorConstraint(804, 97, 10, 578, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+        btnLogin.setPreferredSize(new java.awt.Dimension(75, 23));
+        btnLogin.setName("btnLogin");
+        btnLogin.setAction(getAppActionMap().get("loginAction"));
+        btnLogin.setText(ApplicationInternationalization.getString("LoginButton"));
+        btnCancel = new JButton();
+        topPanel.add(btnCancel, new AnchorConstraint(804, 8, 9, 790, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+        btnCancel.setPreferredSize(new java.awt.Dimension(74, 24));
+        btnCancel.setName("btnCancel");
+        btnCancel.setAction(getAppActionMap().get("cancelAction"));
+        btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));		
+        
+        btnLogin.setEnabled(true);
+        getMainFrame().getRootPane().setDefaultButton(btnLogin);
+	}
+
+	private void createLoginPanel() {
+	    {
+        serverPanel = new JPanel();
+        AnchorLayout jPanel1Layout = new AnchorLayout();
+        topPanel.add(serverPanel, new AnchorConstraint(186, 975, 575, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+        serverPanel.setLayout(jPanel1Layout);
+        serverPanel.setPreferredSize(new java.awt.Dimension(326, 40));
+        serverPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupServer")));
+        {
+                txtServerPort = new JTextField();
+                txtServerPort.setInputVerifier(new PortValidator(getMainFrame(), txtServerPort, ApplicationInternationalization.getString("loginValidatePort") + "[1 - 65535]"));
+                serverPanel.add(txtServerPort, new AnchorConstraint(61, 6, 638, 295, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+                txtServerPort.setPreferredSize(new java.awt.Dimension(207, 20));
+                txtServerPort.setName("txtServerPort");
+        }
+        {
+                lblPort = new JLabel();
+                serverPanel.add(lblPort, new AnchorConstraint(64, 232, 608, 20, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+                lblPort.setPreferredSize(new java.awt.Dimension(88, 14));
+                lblPort.setName("lblPort");
+                lblPort.setText(ApplicationInternationalization.getString("lblPort"));
+        }
+        {
+                txtServerIP = new JTextField();
+                txtServerIP.setInputVerifier(new IPValidator(getMainFrame(), txtServerIP, ApplicationInternationalization.getString("loginValidateIP")));
+                serverPanel.add(txtServerIP, new AnchorConstraint(33, 6, 361, 295, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+                txtServerIP.setPreferredSize(new java.awt.Dimension(207, 20));
+        }
+        {
+                lblIP = new JLabel();
+                serverPanel.add(lblIP, new AnchorConstraint(34, 245, 361, 6, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+                lblIP.setName("lblIP");
+                lblIP.setPreferredSize(new java.awt.Dimension(75, 19));
+                lblIP.setText(ApplicationInternationalization.getString("lblIP"));
+        }
+
+       			setServerOptionVisible(false);
+
+        {
+                btnExpand = new JButton();
+                try {
+                	btnExpand.setIcon(ImagesUtilities.loadIcon("Expand_Vertical.png"));
+                } catch (MalformedURLException e) {
+                        JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+                } catch (IOException e) {
+                        JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+                }
+                serverPanel.add(btnExpand, new AnchorConstraint(20, 6, 7, 934, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+                btnExpand.setPreferredSize(new java.awt.Dimension(25, 24));
+                btnExpand.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent evt) {
+                                btnExpandMouseClicked(evt);
+                        }
+                });
+        }
+	    }
+	    {
+        userDataPanel = new JPanel();
+        AnchorLayout userDataPanelLayout = new AnchorLayout();
+        topPanel.add(userDataPanel, new AnchorConstraint(78, 52, 343, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+        userDataPanel.setLayout(userDataPanelLayout);
+        userDataPanel.setPreferredSize(new java.awt.Dimension(326, 97));
+        userDataPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupUser")));
+        {
+                //TODO: validar Password
+                txtPass = new JPasswordField();
+                txtPass.setInputVerifier(new NotEmptyValidator(getMainFrame(), txtPass, ApplicationInternationalization.getString("loginValidateEmpty")));
+                userDataPanel.add(txtPass, new AnchorConstraint(561, 983, 809, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+                txtPass.setPreferredSize(new java.awt.Dimension(206, 24));
+        }
+        {
+                txtUserName = new JTextField();
+                txtUserName.setInputVerifier(new UserNameValidator(getMainFrame(), txtUserName, ApplicationInternationalization.getString("loginValidateUser")));
+                userDataPanel.add(txtUserName, new AnchorConstraint(283, 983, 500, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+                txtUserName.setPreferredSize(new java.awt.Dimension(206, 21));
+                txtUserName.setName("txtUserName");
+        }
+        {
+                lblPass = new JLabel();
+                userDataPanel.add(lblPass, new AnchorConstraint(623, 305, 757, 19, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+                lblPass.setPreferredSize(new java.awt.Dimension(93, 13));
+                lblPass.setName("lblPass");
+                lblPass.setText(ApplicationInternationalization.getString("lblPass"));
+        }
+        {
+                lblUserName = new JLabel();
+                userDataPanel.add(lblUserName, new AnchorConstraint(324, 338, 458, 23, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+                lblUserName.setPreferredSize(new java.awt.Dimension(103, 13));
+                lblUserName.setName("lblUserName");
+                lblUserName.setText(ApplicationInternationalization.getString("lblUser"));
+        }
+	    }
+	    {
+        logoPanel = new JPanel();
+        AnchorLayout logoPanelLayout = new AnchorLayout();
+        topPanel.add(logoPanel, new AnchorConstraint(11, 975, 293, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+        logoPanel.setLayout(logoPanelLayout);
+        logoPanel.setPreferredSize(new java.awt.Dimension(310, 61));
+	    }
+	}
+
+	private void setServerOptionVisible (boolean b) {
 		lblIP.setVisible(b);
 		lblPort.setVisible(b);
 		txtServerIP.setVisible(b);
@@ -306,6 +300,8 @@ public class JFLogin extends SingleFrameApplication {
 				port = txtServerPort.getText();
 			}
 
+		
+			btnLogin.setEnabled(false);
 			// Invoke a new thread in order to show the panel with the loading
 			// spinner
 			SwingUtilities.invokeLater(new Runnable() {
@@ -330,22 +326,36 @@ public class JFLogin extends SingleFrameApplication {
     @Action
     public void acceptAction() {
     	try {
-			ClientController.getInstance().setCurrentProject(projectpanel.getProject());
+    		int index = projectpanel.getProjectId();
+    		if (index == -1) {
+    			JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("JFLogin_NotSelectedProject"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+    		}
+    		else {
+    			ClientController.getInstance().setCurrentProject(index);
+    			ClientController.getInstance().showMainFrame();
+    		}
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
     }
     
     @Action
     public void backwardAction() {
-    	
+    	// Clean the panel to choose the project and displays the login panel
+    	topPanel.removeAll();
+    	createLoginPanel();
+    	getMainFrame().setTitle(ApplicationInternationalization.getString("titleLogin"));
+
+		// Change name and actions of the buttons
+		addButtons();
+    	btnCancel.setAction(getAppActionMap().get("cancelAction"));
+    	btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
+    	btnLogin.setAction(getAppActionMap().get("loginAction"));
+    	btnLogin.setText(ApplicationInternationalization.getString("LoginButton"));
     }
     
     // Method used to make login and show the loading spinner panel
@@ -359,38 +369,46 @@ public class JFLogin extends SingleFrameApplication {
 			glassPane.stop();
 			getMainFrame().setEnabled(true);
 			getMainFrame().requestFocus();
-//			ClientController.getInstance().showMainFrame();
 			
 			// Show panel used to choose a project
 			chooseProject();			
 			
 		} catch (InterruptedException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 		catch (RemoteException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (MalformedURLException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotBoundException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (IncorrectEmployeeException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonExistentRole e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			glassPane.stop();
+			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} finally {
 			getMainFrame().setEnabled(true);
@@ -398,19 +416,30 @@ public class JFLogin extends SingleFrameApplication {
 		}
 	}
 
+	// Shows panel used to choose a project
 	private void chooseProject() throws RemoteException, NotLoggedException, Exception {
-		userDataPanel.removeAll();		
-		projectpanel = new panelChooseProject();
-		projectpanel.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
-		userDataPanel.add(projectpanel, new AnchorConstraint(1, 978, 826, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		projectpanel.setPreferredSize(new java.awt.Dimension(336, 225));
-		topPanel.validate();
-		topPanel.repaint();
+		// Clean the login panel and displays the panel to choose the project
+		topPanel.removeAll();
+		getMainFrame().setTitle(ApplicationInternationalization.getString("titleChooseProject"));
 		
+		// Create the panel the first time
+		if (projectpanel == null) {
+			projectpanel = new panelChooseProject();
+		}
+		// TODO: crear un panel aparte para el logo
+//		AnchorLayout logoPanelLayout = new AnchorLayout();
+//		logoPanel.setLayout(logoPanelLayout);
+//		logoPanel.setBounds(6, 8, 332, 53);
+//		projectpanel.add(logoPanel);
+		projectpanel.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
+    	topPanel.add(projectpanel, new AnchorConstraint(1, 998, 836, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+    	projectpanel.setPreferredSize(new java.awt.Dimension(343, 228));
+
 		// Change name and actions of the buttons
+    	addButtons();
 		btnLogin.setAction(getAppActionMap().get("acceptAction"));
-		btnLogin.setText("Aceptar");
-		btnCancel.setAction(getAppActionMap().get("backwaradAction"));
-		btnCancel.setText("Atrás");
+		btnLogin.setText(ApplicationInternationalization.getString("btnAccept"));
+		btnCancel.setAction(getAppActionMap().get("backwardAction"));
+		btnCancel.setText(ApplicationInternationalization.getString("btnBackward"));
 	}   
 }
