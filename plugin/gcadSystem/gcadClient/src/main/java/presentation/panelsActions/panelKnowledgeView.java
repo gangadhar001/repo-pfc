@@ -6,22 +6,15 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,12 +27,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import model.business.knowledge.Answer;
-import model.business.knowledge.Categories;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Proposal;
@@ -49,31 +40,23 @@ import model.business.knowledge.TopicWrapper;
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
-import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.model.mxICell;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.util.mxCellOverlay;
-import com.mxgraph.util.mxCellRenderer;
-import com.mxgraph.util.mxConstants;
-import com.mxgraph.util.mxPoint;
-import com.mxgraph.util.mxRectangle;
-import com.mxgraph.view.mxGraph;
-
-import exceptions.NonPermissionRole;
-import exceptions.NotLoggedException;
-
 import presentation.JDKnowledge;
 import presentation.JFMain;
-import presentation.JDPdf;
 import presentation.customComponents.DropShadowPanel;
-import presentation.dataVisualization.InternalFStatistics;
 import presentation.dataVisualization.KnowledgeGraph;
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
 import bussiness.control.ClientController;
+
+import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.view.mxGraph;
+
+import exceptions.NonPermissionRole;
+import exceptions.NotLoggedException;
 
 
 
@@ -212,7 +195,6 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				if (cell != null)
 				{
 					knowledgeSelectedGraph = (Knowledge) ((mxCell)cell).getValue(); 
-//					topicWrapper.getTopics().get(0).add(new Proposal("adsfasf", "", new Date(), Categories.Analysis));
 					showUserInfo();
 				}
 			}
@@ -379,7 +361,6 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			}
 			updateBorder(scrollTree);
 			updateBorder(scrollTable);
-//			updateBorder(scrollGraph);
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -424,13 +405,13 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 //		updateKnowledge(operation);
 	}
 	
-	private void operationsKnowledge() {
-		fKnowledge = new JDKnowledge();
-		fKnowledge.setLocationRelativeTo(this);
-		fKnowledge.setModal(true);
-		fKnowledge.setVisible(true);
+//	private void operationsKnowledge() {
+//		fKnowledge = new JDKnowledge();
+//		fKnowledge.setLocationRelativeTo(this);
+//		fKnowledge.setModal(true);
+//		fKnowledge.setVisible(true);
 //		updateKnowledge("");
-	}
+//	}
 	
 	private void updateKnowledge(String operation) {
 			// TODO: se lo dice el servidor el nuevo conocimiento
@@ -441,29 +422,34 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
 			try {
-				// TODO:
-//				ClientController.getInstance().deleteProposal((Proposal) k);
-				// Refresh knowledge
-				topicWrapper = ClientController.getInstance().getTopicsWrapper();
-				// Refresh tree and graph
-				deleteKnowledgeFromTree(k);
-				deleteKnowledgeFromGraph(k);			
+				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
+				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+					if (k instanceof Topic)				
+						ClientController.getInstance().deleteTopic((Topic) k);
+					else if (k instanceof Proposal)				
+						ClientController.getInstance().deleteProposal((Proposal) k);
+					else			
+						ClientController.getInstance().deleteAnswer((Answer) k);
+					
+					// Refresh knowledge
+					topicWrapper = ClientController.getInstance().getTopicsWrapper();
+					// Refresh tree and graph
+					deleteKnowledgeFromTree(k);
+					deleteKnowledgeFromGraph(k);
+				}
+				else
+					// TODO: error
+					;
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NonPermissionRole e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		// TODO: error
-		
+		}		
 	}
 	
 	private void deleteKnowledgeFromGraph(Knowledge k) {
@@ -496,10 +482,12 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			// Search the node for the knowledge received 
 			node = findNodeKnowledge((DefaultMutableTreeNode)tree.getModel().getRoot(), k);
 		if (node != null) {
+			DefaultMutableTreeNode aux = (DefaultMutableTreeNode) node.getParent();
 			((DefaultTreeModel)tree.getModel()).removeNodeFromParent(node);
 			((DefaultTreeModel)tree.getModel()).reload();
+			tree.scrollPathToVisible(new TreePath(aux.getPath()));
+			knowledgeSelectedTree = null;
 		}
-		knowledgeSelectedTree = null;
 	}
 
 	// Method used to find a vertex in the graph

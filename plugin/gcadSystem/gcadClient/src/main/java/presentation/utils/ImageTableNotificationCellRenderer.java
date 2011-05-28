@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import resources.ImagesUtilities;
+
 // REFERENCE: http://stackoverflow.com/questions/1291948/adding-an-icon-to-jtable-by-overriding-defaulttablecellrenderer
 
 public class ImageTableNotificationCellRenderer extends DefaultTableCellRenderer {

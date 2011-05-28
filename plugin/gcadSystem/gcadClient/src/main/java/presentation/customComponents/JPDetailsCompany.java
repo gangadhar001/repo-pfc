@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -30,9 +29,10 @@ import org.jdesktop.swingx.graphics.ShadowRenderer;
 import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.jdesktop.swingx.mapviewer.Waypoint;
 import org.jdesktop.swingx.mapviewer.WaypointPainter;
+import org.jdom.JDOMException;
 
 import presentation.JFMain;
-import presentation.utils.ImagesUtilities;
+import resources.ImagesUtilities;
 
 import com.cloudgarden.layout.AnchorConstraint;
 
@@ -302,6 +302,9 @@ public class JPDetailsCompany extends JXPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

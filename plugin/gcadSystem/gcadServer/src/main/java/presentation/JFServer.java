@@ -44,7 +44,7 @@ import org.jdesktop.application.Application;
 
 import presentation.auxiliary.CloseWindowListener;
 import presentation.auxiliary.IWindowState;
-import presentation.auxiliary.ImagesUtilities;
+import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
 
 import java.util.EventObject;

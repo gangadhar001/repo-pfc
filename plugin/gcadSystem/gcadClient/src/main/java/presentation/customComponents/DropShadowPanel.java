@@ -28,7 +28,9 @@ import java.awt.LayoutManager;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
 import javax.swing.JPanel;
+
 import org.jdesktop.swingx.graphics.ShadowRenderer;
  
 /**

@@ -178,4 +178,9 @@ public class ProxyServer implements IServer {
 		return server.getProjectsFromCurrentUser(sessionId);
 	}
 
+	@Override
+	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception {
+		return server.getLoggedUser(sessionId);
+	}
+
 }

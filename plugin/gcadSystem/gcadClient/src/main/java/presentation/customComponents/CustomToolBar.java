@@ -1,7 +1,6 @@
 package presentation.customComponents;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

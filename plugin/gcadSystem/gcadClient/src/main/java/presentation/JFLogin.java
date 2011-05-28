@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.EventObject;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -27,8 +26,8 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
 
-import presentation.utils.ImagesUtilities;
 import resources.IPValidator;
+import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
 import resources.NotEmptyValidator;
 import resources.PortValidator;

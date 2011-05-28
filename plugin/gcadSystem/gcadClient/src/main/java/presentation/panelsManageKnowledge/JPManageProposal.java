@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import model.business.knowledge.Answer;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;

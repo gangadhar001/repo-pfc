@@ -1,17 +1,12 @@
 package presentation.dataVisualization;
-import java.awt.BorderLayout;
-
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Rectangle;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
+
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import javax.swing.WindowConstants;
+
 import org.jdesktop.application.Application;
 import org.jfree.chart.ChartPanel;
 
