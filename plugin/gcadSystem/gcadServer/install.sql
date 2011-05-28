@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -79,6 +79,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`users` (
   `email` TEXT NULL ,
   `telephone` VARCHAR(9) NULL ,
   `companyId` INT NULL DEFAULT -1 ,
+  `seniority` INT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `nif_UNIQUE` (`nif` ASC) ,
   INDEX `fk_user_company` (`companyId` ASC) ,
@@ -236,23 +237,27 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`notifications` (
 ENGINE = InnoDB;
 
 
-;
-CREATE USER `gcad` IDENTIFIED BY 'gcad';
+-- -----------------------------------------------------
+-- Table `dbgcad`.`LogEntry`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`LogEntry` ;
 
-grant ALL on TABLE `dbgcad`.`addresses` to gcad;
-grant ALL on TABLE `dbgcad`.`answers` to gcad;
-grant ALL on TABLE `dbgcad`.`companies` to gcad;
-grant ALL on TABLE `dbgcad`.`projects` to gcad;
-grant ALL on TABLE `dbgcad`.`proposals` to gcad;
-grant ALL on TABLE `dbgcad`.`topics` to gcad;
-grant ALL on TABLE `dbgcad`.`users` to gcad;
-grant ALL on TABLE `dbgcad`.`usersProjects` to gcad;
-grant ALL on TABLE `dbgcad`.`knowledge` to gcad;
-grant ALL on TABLE `dbgcad`.`notifications` to gcad;
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`LogEntry` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `user` VARCHAR(255) NULL ,
+  `date` DATETIME NOT NULL ,
+  `action` ENUM('create', 'read', 'update', 'delete', 'info') NOT NULL ,
+  `message` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_log_user` (`user` ASC) ,
+  CONSTRAINT `fk_log_user`
+    FOREIGN KEY (`user` )
+    REFERENCES `dbgcad`.`users` (`login` )
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 -- -----------------------------------------------------
 -- Data for table `dbgcad`.`projects`
@@ -293,17 +298,17 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('1', '0', '06941082A', 'emp1', 'emp1', 'Juan', 'Lopez', NULL, NULL, '1');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('2', '1', '58123457B', 'emp2', 'emp2', 'Antonio', 'Perez', 'antonio@gmail.com', '913517281', '2');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('3', '0', '01921318C', 'emp3', 'emp3', 'Ana', 'Garcia', NULL, '671234091', '2');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('4', '0', '18451279R', 'emp4', 'emp4', 'Daniel', 'Cruz', NULL, '940127318', '1');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('5', '0', '01778234B', 'emp5', 'emp5', 'Veronica', 'Jimenez', 'vero@hotmail.com', '555914531', '1');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('7', '1', '45697814J', 'emp7', 'emp7', 'Frazer', 'Dixon', 'frad@yahoo.uk', NULL, '2');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('8', '0', '95641258K', 'emp8', 'emp8', 'Rubens', 'Paulo', NULL, '547931689', '2');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('6', '0', '69785642P', 'emp6', 'emp6', 'Vincent', 'Camarillo', 'vincentCamarillo@example.com', '877543788', '2');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('9', '0', '98456789A', 'emp9', 'emp9 ', 'Minerva', 'McClain', 'minerva@comp.us', NULL, '1');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('10', '1', '59612357B', 'emp10', 'emp10', 'Carin', 'Vazquez', 'carin.va@gmail.com', '569453789', '1');
-INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`) VALUES ('11', '1', '23697465L', 'emp11', 'emp11', 'Sophia', 'Irwin', NULL, '555357426', '2');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('1', '0', '06941082A', 'emp1', 'emp1', 'Juan', 'Lopez', NULL, NULL, '1', '4');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('2', '1', '58123457B', 'emp2', 'emp2', 'Antonio', 'Perez', 'antonio@gmail.com', '913517281', '2', '5');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('3', '0', '01921318C', 'emp3', 'emp3', 'Ana', 'Garcia', NULL, '671234091', '2', '1');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('4', '0', '18451279R', 'emp4', 'emp4', 'Daniel', 'Cruz', NULL, '940127318', '1', '2');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('5', '0', '01778234B', 'emp5', 'emp5', 'Veronica', 'Jimenez', 'vero@hotmail.com', '555914531', '1', '2');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('7', '1', '45697814J', 'emp7', 'emp7', 'Frazer', 'Dixon', 'frad@yahoo.uk', NULL, '2', '10');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('8', '0', '95641258K', 'emp8', 'emp8', 'Rubens', 'Paulo', NULL, '547931689', '2', '3');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('6', '0', '69785642P', 'emp6', 'emp6', 'Vincent', 'Camarillo', 'vincentCamarillo@example.com', '877543788', '2', '15');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('9', '0', '98456789A', 'emp9', 'emp9 ', 'Minerva', 'McClain', 'minerva@comp.us', NULL, '1', '12');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('10', '1', '59612357B', 'emp10', 'emp10', 'Carin', 'Vazquez', 'carin.va@gmail.com', '569453789', '1', '11');
+INSERT INTO `dbgcad`.`users` (`id`, `role`, `nif`, `login`, `password`, `name`, `surname`, `email`, `telephone`, `companyId`, `seniority`) VALUES ('11', '1', '23697465L', 'emp11', 'emp11', 'Sophia', 'Irwin', NULL, '555357426', '2', '7');
 
 COMMIT;
 
