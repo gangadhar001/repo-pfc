@@ -1,8 +1,4 @@
 package presentation.panelsActions;
-import bussiness.control.ClientController;
-
-
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -12,33 +8,26 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.WindowConstants;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import model.business.knowledge.Notification;
 
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
+import presentation.dataVisualization.NotificationsTable;
+import presentation.utils.DateUtilities;
+import bussiness.control.ClientController;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
-import presentation.customComponents.DropShadowPanel;
-
-import presentation.dataVisualization.NotificationsTable;
-import presentation.utils.DateRenderer;
-import presentation.utils.DateUtilities;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
 
 
 /**

@@ -1,11 +1,8 @@
 package presentation.dataVisualization;
 
-import javax.swing.AbstractButton;
-
 import model.business.knowledge.Knowledge;
 
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 

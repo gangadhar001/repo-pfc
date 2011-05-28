@@ -13,6 +13,7 @@ import model.business.knowledge.PDFDocument;
 import model.business.knowledge.Section;
 import model.business.knowledge.Text;
 import model.business.knowledge.Title;
+import resources.ImagesUtilities;
 
 public class ImagePDFTreeCellRenderer extends DefaultTreeCellRenderer {
 	/**

@@ -8,11 +8,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
-import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Project;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 

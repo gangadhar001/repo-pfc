@@ -9,11 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdesktop.application.Application;
-
-import presentation.JFLogin;
-import presentation.JFMain;
-
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
@@ -25,10 +20,16 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 
+import org.jdesktop.application.Application;
+
+import presentation.JFLogin;
+import presentation.JFMain;
+
 import communication.CommunicationsUtilities;
 import communication.ExportedClient;
 import communication.IClient;
 import communication.ProxyServer;
+
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentRole;
 import exceptions.NonPermissionRole;
@@ -298,6 +299,10 @@ public class ClientController {
 	public List<Project> getProjectsFromCurrentUser() throws RemoteException, NotLoggedException, Exception {
 		return server.getProjectsFromCurrentUser(session.getId());
 	}	
+	
+	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
+		return server.getLoggedUser(session.getId());
+	}
 
 	
 }

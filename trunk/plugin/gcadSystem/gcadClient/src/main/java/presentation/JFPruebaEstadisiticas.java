@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.WindowConstants;
-import javax.swing.SwingUtilities;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Project;
@@ -21,10 +20,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import bussiness.control.ClientController;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
-
-import bussiness.control.ClientController;
 
 
 /**

@@ -660,6 +660,10 @@ public class Server implements IServer {
 		return operations;
 	}
 		
+	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception{
+		return SessionController.getSession(sessionId).getUser();
+	}
+	
 	/*** Methods used to manage the UI observer ***/
 //	public void notifyLogin () {
 //		ClientsController.notifyConnection(true);

@@ -41,12 +41,10 @@ import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
-import model.business.knowledge.Subgroups;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jdesktop.application.Application.ExitListener;
 import org.jfree.chart.ChartPanel;
 
 import presentation.customComponents.CustomToolBar;
@@ -56,7 +54,7 @@ import presentation.dataVisualization.InternalFStatistics;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelStatisticsView;
-import presentation.utils.ImagesUtilities;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 import exceptions.NotLoggedException;

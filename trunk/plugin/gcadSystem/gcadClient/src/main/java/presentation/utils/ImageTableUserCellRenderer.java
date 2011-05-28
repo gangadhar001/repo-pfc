@@ -1,8 +1,6 @@
 package presentation.utils;
 
 import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -10,6 +8,8 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import resources.ImagesUtilities;
 
 public class ImageTableUserCellRenderer extends DefaultTableCellRenderer {
 	/**

@@ -31,7 +31,6 @@ import model.business.knowledge.User;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
-import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

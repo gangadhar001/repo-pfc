@@ -13,9 +13,8 @@ import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import bussiness.control.Client;
-
 import model.business.knowledge.Knowledge;
+import bussiness.control.Client;
 
 /**
  * Class that exports the client instance to be used by the server, to notify changes.
