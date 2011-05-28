@@ -28,6 +28,7 @@ public abstract class User implements Serializable {
 	protected String surname;
 	protected String email;
 	protected String telephone;
+	protected int seniority;
 	@XmlElement( name = "Project" )
 	private Set<Project> projects = new HashSet<Project>();
 	@XmlElement private Company company;
@@ -127,6 +128,14 @@ public abstract class User implements Serializable {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public int getSeniority() {
+		return seniority;
+	}
+
+	public void setSeniority(int seniority) {
+		this.seniority = seniority;
 	}
 
 	@Override

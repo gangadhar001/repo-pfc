@@ -18,6 +18,7 @@
 		<property name="surname" column="surname" type="string" not-null="true" />
 		<property name="email" column="email" type="string" />
 		<property name="telephone" column="telephone" type="string" />
+		<property name="seniority" column="seniority" type="integer" />
 		<subclass name="Employee" discriminator-value="0" >
 			<set name="projects" table="usersProjects" cascade="all" lazy="false">
 	            <key column="idUser" unique="true" not-null="true" />

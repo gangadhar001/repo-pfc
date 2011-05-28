@@ -174,7 +174,9 @@ public class JFMain extends SingleFrameApplication {
 					tabPanel.addTab(ApplicationInternationalization.getString("tabActions"), null, panelActions, null);
 					panelActions.setBounds(0, 0, 907, 415);
 					panelActions.setName("panelActions");
-					panelActions.setPreferredSize(new java.awt.Dimension(902, 402));
+					panelActions.setPreferredSize(new java.awt.Dimension(1046, 480));
+					panelActions.setSize(1046, 480);
+					panelActions.setMinimumSize(new java.awt.Dimension(1046, 480));
 				}
 			}
 			{
