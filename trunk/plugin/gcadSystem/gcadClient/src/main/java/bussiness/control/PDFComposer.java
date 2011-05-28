@@ -67,7 +67,7 @@ public class PDFComposer {
 			}
 			if (child.getUserObject() instanceof Text) {
 				Font f = FontFactory.getFont(FontFactory.HELVETICA, 12f, Font.NORMAL, new BaseColor(Color.BLACK));
-				Paragraph p = new Paragraph(((Text)child.getUserObject()).getContent(), f);
+				Paragraph p = new Paragraph(((Text)child.getUserObject()).getContent());
 				if (el instanceof Chapter) 
 					((Chapter)el).add(p);
 				else if (el instanceof Section)
