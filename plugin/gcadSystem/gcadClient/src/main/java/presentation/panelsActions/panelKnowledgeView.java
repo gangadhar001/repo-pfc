@@ -1,5 +1,6 @@
 package presentation.panelsActions;
 import internationalization.ApplicationInternationalization;
+import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -48,6 +50,8 @@ import presentation.dataVisualization.TreeContentProvider;
 import presentation.dataVisualization.UserInfTable;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
 import bussiness.control.ClientController;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.model.mxCell;
@@ -81,11 +85,15 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private static final double VERTEX_WIDTH = 120;
 	
 	private JPanel panel;
-	private JScrollPane scrollTable;
+	private JLabel lblRole;
+	private JLabel lblDate;
+	private JLabel lblAuthor;
+	private JPanel pnlUserInfo;
 	private JScrollPane scrollTree;
-	private UserInfTable userInfTable;
-	private JLabel lblUserInf;
-	private JPanel panelTable;
+	private JButton btnDetails;
+	private JPanel pnlCompany;
+	private JScrollPane jScrollPane1;
+	private JLabel lblSeniority;
 	private JPanel panelGraph;
 	private JPanel panelTree;
 	protected int rowSelected;
@@ -231,136 +239,63 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			}
 		});
 		scrollTree.setViewportView(tree);
-		
-		panelTree.add(scrollTree, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
+		tree.setPreferredSize(new java.awt.Dimension(125, 411));
+
+		panelTree.add(scrollTree, new AnchorConstraint(13, 1017, 1007, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 	}
 	
 	// Method used to display information about the selected knowledge
 	private void showUserInfo() {
-		Knowledge k = getSelectedKnowledge();
-		if (k != null) {
-			userInfTable.setValueAt(k.getUser().getName(), 0, 1);
-			userInfTable.setValueAt(k.getUser().getSurname(), 0, 2);
-			userInfTable.setValueAt(k.getUser().getEmail(), 0, 3);
-			String company = k.getUser().getCompany().getName() + ", " + k.getUser().getCompany().getAddress().getCountry();
-			userInfTable.setValueAt(company, 0, 4);
-		}
+//		Knowledge k = getSelectedKnowledge();
+//		if (k != null) {
+//			userInfTable.setValueAt(k.getUser().getName(), 0, 1);
+//			userInfTable.setValueAt(k.getUser().getSurname(), 0, 2);
+//			userInfTable.setValueAt(k.getUser().getEmail(), 0, 3);
+//			String company = k.getUser().getCompany().getName() + ", " + k.getUser().getCompany().getAddress().getCountry();
+//			userInfTable.setValueAt(company, 0, 4);
+//		}
 	}
 
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(902, 402));
+			this.setPreferredSize(new java.awt.Dimension(1046, 480));
 			this.setName("this");
-			GridBagLayout thisLayout = new GridBagLayout();
-			thisLayout.rowWeights = new double[] {0.1};
-			thisLayout.rowHeights = new int[] {7};
-			thisLayout.columnWeights = new double[] {0.5, 0.15};
-			thisLayout.columnWidths = new int[] {7, 7};
+			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(902, 402);
+			this.setSize(1046, 480);
+			this.setMinimumSize(new java.awt.Dimension(1046, 480));
 			{
 				panelTree = new JPanel();
-				GridBagLayout panelTreeLayout = new GridBagLayout();
+				AnchorLayout panelTreeLayout = new AnchorLayout();
 				panelTree.setLayout(panelTreeLayout);
 				{
 					scrollTree = new JScrollPane();
-					scrollTree.setPreferredSize(new java.awt.Dimension(61, 18));
-					
+					scrollTree.setPreferredSize(new java.awt.Dimension(190, 472));
+
 				}
-				this.add(panelTree, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-				panelTreeLayout.rowWeights = new double[] {0.1};
-				panelTreeLayout.rowHeights = new int[] {7};
-				panelTreeLayout.columnWeights = new double[] {0.1};
-				panelTreeLayout.columnWidths = new int[] {7};
+				this.add(getJScrollPane1(), new AnchorConstraint(12, 6, 984, 818, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE));
+				this.add(panelTree, new AnchorConstraint(0, 172, 988, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				panelTree.setPreferredSize(new java.awt.Dimension(180, 474));
 			}
 			{
 				panel = new JPanel();
-				GridBagLayout panelLayout = new GridBagLayout();
-				this.add(panel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 10), 0, 0));
-				panelLayout.rowWeights = new double[] {1.0, 0.25};
-				panelLayout.rowHeights = new int[] {7, 7};
-				panelLayout.columnWeights = new double[] {0.1};
-				panelLayout.columnWidths = new int[] {7};
+				AnchorLayout panelLayout = new AnchorLayout();
+				this.add(panel, new AnchorConstraint(3, 801, 1009, 177, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				panel.setLayout(panelLayout);
+				panel.setPreferredSize(new java.awt.Dimension(661, 481));
 				{
 					panelGraph = new DropShadowPanel();
 					GridBagLayout panelGraphLayout = new GridBagLayout();
-					panel.add(panelGraph, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 10, 0), 0, 0));
+					panel.add(panelGraph, new AnchorConstraint(1, 1000, 1001, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					panelGraph.setLayout(panelGraphLayout);
+					panelGraph.setPreferredSize(new java.awt.Dimension(615, 481));
 					panelGraphLayout.rowWeights = new double[] {0.1};
 					panelGraphLayout.rowHeights = new int[] {7};
 					panelGraphLayout.columnWeights = new double[] {0.1};
 					panelGraphLayout.columnWidths = new int[] {7};
 				}
-				{
-					panelTable = new JPanel();
-					GridBagLayout panelTableLayout = new GridBagLayout();
-					panel.add(panelTable, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-					panelTableLayout.rowWeights = new double[] {0.05, 1.0};
-					panelTableLayout.rowHeights = new int[] {7, 7};
-					panelTableLayout.columnWeights = new double[] {0.1};
-					panelTableLayout.columnWidths = new int[] {7};
-					panelTable.setLayout(panelTableLayout);
-					{
-						lblUserInf = new JLabel();
-						panelTable.add(lblUserInf, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.BOTH, new Insets(0, 5, 3, 0), 0, 0));
-						lblUserInf.setName("lblUserInf");
-					}
-					{
-						scrollTable = new JScrollPane();
-						panelTable.add(scrollTable, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 5, 0, 0), 0, 0));
-						{
-							
-							userInfTable = new UserInfTable();
-							scrollTable.setViewportView(userInfTable);
-							DefaultTableModel model = new DefaultTableModel(1, 5);
-							userInfTable.setModel(model);
-							userInfTable.setShowHorizontalLines(false);
-							userInfTable.setShowVerticalLines(false);
-							userInfTable.setFillsViewportHeight(true);
-							userInfTable.setIntercellSpacing(new Dimension(0,0));
-							userInfTable.setPreferredSize(new java.awt.Dimension(631, 32));
-							userInfTable.bound();							
-							userInfTable.addMouseListener(new MouseListener() {								
-								@Override
-								public void mouseReleased(MouseEvent e) {									
-								}
-								
-								@Override
-								public void mousePressed(MouseEvent e) {
-									// If make click over the image, show the company details
-									int colClick = userInfTable.getColumnModel().getColumnIndexAtX(e.getX());
-									int rowClick = userInfTable.rowAtPoint(e.getPoint());
-									if (rowClick == 0 && colClick == 4 && knowledgeSelectedTree != null) {
-										TableColumnModel cm = userInfTable.getColumnModel();
-										int leftLimit =  cm.getColumn(0).getWidth() + cm.getColumn(1).getWidth() + cm.getColumn(2).getWidth() + cm.getColumn(3).getWidth();
-										int rightLimit =  leftLimit + 10;
-										// Show dialog with company details
-										if (e.getX() >= leftLimit && e.getX() <= rightLimit) { 
-											System.out.println("Entra");
-											parent.fadeIn(knowledgeSelectedTree.getUser().getCompany());
-										}	
-									}
-								}
-								
-								@Override
-								public void mouseExited(MouseEvent e) {
-								}
-								
-								@Override
-								public void mouseEntered(MouseEvent e) {
-								}
-								
-								@Override
-								public void mouseClicked(MouseEvent e) {									
-								}
-							});
-						}
-					}
-				}
 			}
 			updateBorder(scrollTree);
-			updateBorder(scrollTable);
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -537,4 +472,87 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		}
 		return k;
 	}
+	
+	private JPanel getPnlUserInfo() {
+		if(pnlUserInfo == null) {
+			pnlUserInfo = new JPanel();
+			AnchorLayout pnlUserInfoLayout = new AnchorLayout();
+			pnlUserInfo.setLayout(pnlUserInfoLayout);
+			pnlUserInfo.setPreferredSize(new java.awt.Dimension(194, 457));
+			pnlUserInfo.setBorder(BorderFactory.createTitledBorder(""));
+			pnlUserInfo.add(getPnlCompany(), new AnchorConstraint(552, 945, 782, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlUserInfo.add(getLblSeniority(), new AnchorConstraint(493, 523, 526, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlUserInfo.add(getLblRole(), new AnchorConstraint(432, 523, 464, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlUserInfo.add(getLblDate(), new AnchorConstraint(318, 523, 351, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlUserInfo.add(getLblAuthor(), new AnchorConstraint(172, 93, 153, 67, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+		}
+		return pnlUserInfo;
+	}
+	
+	private JLabel getLblAuthor() {
+		if(lblAuthor == null) {
+			lblAuthor = new JLabel();
+			lblAuthor.setPreferredSize(new java.awt.Dimension(89, 15));
+			lblAuthor.setName("lblAuthor");
+		}
+		return lblAuthor;
+	}
+	
+	private JLabel getLblDate() {
+		if(lblDate == null) {
+			lblDate = new JLabel();
+			lblDate.setPreferredSize(new java.awt.Dimension(89, 15));
+			lblDate.setName("lblDate");
+		}
+		return lblDate;
+	}
+	
+	private JLabel getLblRole() {
+		if(lblRole == null) {
+			lblRole = new JLabel();
+			lblRole.setPreferredSize(new java.awt.Dimension(89, 15));
+			lblRole.setName("lblRole");
+		}
+		return lblRole;
+	}
+	
+	private JLabel getLblSeniority() {
+		if(lblSeniority == null) {
+			lblSeniority = new JLabel();
+			lblSeniority.setPreferredSize(new java.awt.Dimension(89, 15));
+			lblSeniority.setName("lblSeniority");
+		}
+		return lblSeniority;
+	}
+
+	private JScrollPane getJScrollPane1() {
+		if(jScrollPane1 == null) {
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setPreferredSize(new java.awt.Dimension(197, 460));
+			jScrollPane1.setViewportView(getPnlUserInfo());
+		}
+		return jScrollPane1;
+	}
+	
+	private JPanel getPnlCompany() {
+		if(pnlCompany == null) {
+			pnlCompany = new JPanel();
+			AnchorLayout pnlCompanyLayout = new AnchorLayout();
+			pnlCompany.setPreferredSize(new java.awt.Dimension(171, 105));
+			pnlCompany.setLayout(pnlCompanyLayout);
+			pnlCompany.setBorder(BorderFactory.createTitledBorder(""));
+			pnlCompany.add(getBtnDetails(), new AnchorConstraint(700, 938, 919, 599, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		}
+		return pnlCompany;
+	}
+	
+	private JButton getBtnDetails() {
+		if(btnDetails == null) {
+			btnDetails = new JButton();
+			btnDetails.setPreferredSize(new java.awt.Dimension(58, 23));
+			btnDetails.setName("btnDetails");
+		}
+		return btnDetails;
+	}
+
 }
