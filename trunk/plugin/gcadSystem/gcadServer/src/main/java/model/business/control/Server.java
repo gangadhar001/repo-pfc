@@ -25,7 +25,6 @@ import model.business.knowledge.User;
 import org.apache.commons.configuration.ConfigurationException;
 
 import communication.ClientProxy;
-import communication.DBConnectionManager;
 import communication.IClient;
 import communication.IServer;
 
@@ -81,7 +80,6 @@ public class Server implements IServer {
 			SessionController.signout(sessionID);
 			// Remove registered client
 			ClientsController.detach(sessionID);
-			DBConnectionManager.clear();
 			LogManager.putMessage(IMessageTypeLog.INFO, AppInternationalization.getString("Signout_msg") + " " + sessionID );
 			LogManager.putMessage(IMessageTypeLog.INFO, AppInternationalization.getString("User_msg") + " '" + login + "' " + AppInternationalization.getString("Logout_msg"));
 			LogManager.updateConnectedClients(ClientsController.getClients());

@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.EventObject;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -25,6 +26,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
+import org.jdesktop.application.Application.ExitListener;
 
 import resources.IPValidator;
 import resources.ImagesUtilities;
@@ -92,7 +94,39 @@ public class JFLogin extends SingleFrameApplication {
 	}
 	
     @Override
-    protected void startup() {      	
+    protected void startup() {    
+    	// Listener to confirm exit
+        addExitListener(new ExitListener() {
+             public boolean canExit(EventObject event) {
+                 return JOptionPane.showConfirmDialog(getMainFrame(),
+                         ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION;
+             }
+             public void willExit(EventObject event) {
+            	 try {
+            		 if (ClientController.getInstance().isLogged())
+            			 // Close session
+            			 ClientController.getInstance().signout();
+            		 // Close and unexport client
+					 ClientController.getInstance().closeController();
+				} catch (RemoteException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (MalformedURLException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NotBoundException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (ClassCastException e) {
+					// Ignore
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NotLoggedException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				}
+				
+             }
+         });
+        
         this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
         getMainFrame().setGlassPane(glassPane);
 
