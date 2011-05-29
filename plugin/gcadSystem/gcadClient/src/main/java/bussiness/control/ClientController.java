@@ -51,6 +51,7 @@ public class ClientController {
 	private List<Operation> availableOperations;
 	private JFMain mainWindowUI;
 	private ISession session;
+	private String clientIP;
 
 	public ClientController() {
 		availableOperations = new ArrayList<Operation>();
@@ -66,7 +67,7 @@ public class ClientController {
 	/*** Method to login and export the client (plug-in) ***/
 	public void initClient(String serverIP, String serverPort, String username, String pass) throws NotBoundException, RemoteException, IncorrectEmployeeException, SQLException, NonExistentRole, MalformedURLException, NotLoggedException {
 		// Get the local host IP
-		String clientIP = CommunicationsUtilities.getHostIP();
+		clientIP = CommunicationsUtilities.getHostIP();
 		
 		// Indicate to RMI that it have to use the given IP as IP of this host in remote communications.
 		// This instruction is necessary because if the computer belongs to more than one network, RMI may take a private IP as the host IP 
@@ -114,7 +115,6 @@ public class ClientController {
 	// Close login frame and show main frame	
 	public void showMainFrame() {
 		Application.getInstance(JFLogin.class).getMainFrame().dispose();
-		mainWindowUI = new JFMain();
 		Application.launch(JFMain.class, null);
 	}
 	
@@ -272,12 +272,13 @@ public class ClientController {
 	}
 
 	public void closeSession() {
-		// TODO Limpiar y volver a la pantalla de login
-		
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.forceCloseSession();
 	}
 
 	public void approachlessServer() {
-		// TODO Auto-generated method stub
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.approachlessServer();
 		
 	}
 
@@ -302,21 +303,22 @@ public class ClientController {
 		// TODO Auto-generated method stub
 		
 	}
+
+	// Close main frame and show login frame
+	public void closeMainFrame() {
+		Application.getInstance(JFMain.class).getMainFrame().dispose();
+		startApplication(null);		
+	}
 	
-	// TODO: desconectar al cerrar aplicacion
-//	public void cerrarControlador() throws RemoteException, MalformedURLException, NotBoundException {
-//		if(cliente != null) {
-//			cliente.desactivar(ipCliente);
-//		}
-//		if(ventanaLogin != null) {
-//			ventanaLogin.setVisible(false);
-//			ventanaLogin.dispose();
-//		}
-//		if(ventanaPrincipal != null) {
-//			ventanaPrincipal.setVisible(false);
-//			ventanaPrincipal.dispose();
-//		}
-//	}
+	// Close controller and application
+	public void closeController() throws RemoteException, MalformedURLException, NotBoundException {
+		if(client != null) {
+			client.disabled(clientIP);
+		}
+			
+		Application.getInstance(JFLogin.class).getMainFrame().dispose();
+		Application.getInstance(JFMain.class).getMainFrame().dispose();
+	}
 
 	
 }

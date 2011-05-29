@@ -16,7 +16,9 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
@@ -42,8 +44,6 @@ import model.business.knowledge.Groups;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -117,7 +117,29 @@ public class JFMain extends SingleFrameApplication {
                  return JOptionPane.showConfirmDialog(getMainFrame(),
                          ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION;
              }
-             public void willExit(EventObject event) {}
+             public void willExit(EventObject event) {
+            	 try {
+            		// Close session
+            		 ClientController.getInstance().signout();
+            		// Close and unexport client
+					ClientController.getInstance().closeController();
+				} catch (RemoteException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (MalformedURLException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NotBoundException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (ClassCastException e) {
+					// Ignore
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NotLoggedException e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				}
+				
+             }
          });
 
     	
@@ -579,7 +601,6 @@ public class JFMain extends SingleFrameApplication {
 	/*** Methods used to update the views with changes made in other client.
 	 * Only refresh the actual and visible view  ***/
 	public void notifyKnowledgeAdded(Knowledge k) {
-		System.out.println("LLEGA ");
 		int index = tabPanel.getSelectedIndex();
 		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
 			panelKnowledge.notifyKnowledgeAdded(k);		
@@ -603,5 +624,20 @@ public class JFMain extends SingleFrameApplication {
 		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
 			panelKnowledge.notifyKnowledgeAdded(k, parentK);	
 		
+	}
+
+	// When closes session, return to the login frame
+	public void forceCloseSession() {
+		//TODO 
+//		JOptionPane.showMessageDialog(getMainFrame(), mensaje, titulo, JOptionPane.WARNING_MESSAGE);
+		ClientController.getInstance().closeMainFrame();
+		
+	}
+
+	// When the server goes offline, then return to the login frame
+	public void approachlessServer() {
+		// TODO:
+//		JOptionPane.showMessageDialog(ventanaPadre, mensaje, titulo, JOptionPane.WARNING_MESSAGE);
+		ClientController.getInstance().closeMainFrame();		
 	}	
 }
