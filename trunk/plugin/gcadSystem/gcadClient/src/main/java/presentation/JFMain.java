@@ -39,8 +39,11 @@ import javax.swing.event.ChangeListener;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
+import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -468,7 +471,7 @@ public class JFMain extends SingleFrameApplication {
 	@Action
     public void manageKnowledge() {
 		// Invoke JFKnowledge without arguments (no operation, no data)
-    	JDKnowledge frameKnowledge = new JDKnowledge();
+    	JDKnowledge frameKnowledge = new JDKnowledge(this);
     	frameKnowledge.setLocationRelativeTo(getMainFrame());
     	frameKnowledge.setModal(true);
     	frameKnowledge.setVisible(true);
@@ -570,6 +573,35 @@ public class JFMain extends SingleFrameApplication {
 	
 	@Action
 	public void GenerateStatistics() {
+		
+	}
+
+	/*** Methods used to update the views with changes made in other client.
+	 * Only refresh the actual and visible view  ***/
+	public void notifyKnowledgeAdded(Knowledge k) {
+		System.out.println("LLEGA ");
+		int index = tabPanel.getSelectedIndex();
+		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
+			panelKnowledge.notifyKnowledgeAdded(k);		
+	}
+
+	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
+		int index = tabPanel.getSelectedIndex();
+		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
+			panelKnowledge.notifyKnowledgeEdited(newK, oldK);				
+	}
+
+	public void notifyKnowledgeRemoved(Knowledge k) {
+		int index = tabPanel.getSelectedIndex();
+		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
+			panelKnowledge.notifyKnowledgeRemoved(k);				
+	}
+
+	/*** Methods used to update the views with local changes ***/
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
+		int index = tabPanel.getSelectedIndex();
+		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
+			panelKnowledge.notifyKnowledgeAdded(k, parentK);	
 		
 	}	
 }

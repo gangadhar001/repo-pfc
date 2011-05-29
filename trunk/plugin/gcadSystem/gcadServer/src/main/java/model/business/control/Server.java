@@ -37,6 +37,8 @@ import exceptions.NotLoggedException;
 /**
  * This class implements the facade of the server.
  */
+
+// TODO: actualizar clientes con nuevo conocimiento
 public class Server implements IServer {
 
 	private static Server instance = null;
@@ -95,11 +97,6 @@ public class Server implements IServer {
 		}
 	}
 	
-	public void disconnectClients() throws RemoteException {
-		ClientsController.disconnectClients();
-		SessionController.disconnectClients();
-	}
-	
 	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException, Exception {
 		String login;
 		Session session;
@@ -112,10 +109,9 @@ public class Server implements IServer {
 				throw new NotLoggedException();
 			}
 			clientProxy = new ClientProxy();
+			// Register client
 			clientProxy.associate(client);
 			ClientsController.attach(sessionID, clientProxy);
-			// TODO:
-			//ClientsController.notifyConnection(true);
 			login = session.getUser().getLogin();
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("Register_msg") + " " + sessionID);
 			LogManager.updateConnectedClients(ClientsController.getClients());
@@ -145,6 +141,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.addTopic(sessionId, session.getUser(), project , topic);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewTopic_msg") + " " + topic.getTitle());
+			ClientsController.notifyKnowledgeAdded(sessionId, topic);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newTopic_msg") + " '" + topic.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -167,6 +164,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.addProposal(sessionId, session.getUser(), p, parent);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewProposal_msg") + " " + p.getTitle());
+			ClientsController.notifyKnowledgeAdded(sessionId, p);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newProposal_msg") + " '" + p.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -189,6 +187,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.addAnswer(sessionId, session.getUser(), a, parent);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewAnswer_msg") + " " + a.getTitle());
+			ClientsController.notifyKnowledgeAdded(sessionId, a);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newAnswer_msg") + " '" + a.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -212,6 +211,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.modifyTopic(sessionId, session.getUser(), newTopic, oldTopic);		
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyTopic_msg") + " " + oldTopic.getTitle());
+			ClientsController.notifyKnowledgeEdited(sessionId, newTopic, oldTopic);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyTopic_msg") + " '" + oldTopic.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -234,6 +234,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.modifyProposal(sessionId, session.getUser(), newProposal, oldProposal, parent);					
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyProposal_msg") + " " + oldProposal.getTitle());
+			ClientsController.notifyKnowledgeEdited(sessionId, newProposal, oldProposal);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyProposal_msg") + " '" + oldProposal.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -256,6 +257,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.modifyAnswer(sessionId, session.getUser(), newAnswer, oldAnswer, parent);		
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyAnswer_msg") + " " + oldAnswer.getTitle());
+			ClientsController.notifyKnowledgeEdited(sessionId, newAnswer, oldAnswer);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyAnswer_msg") + " '" + oldAnswer.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -280,6 +282,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.deleteTopic(sessionId, to);
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteTopic_msg") + " " + to.getTitle());
+			ClientsController.notifyKnowledgeRemoved(sessionId, to);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteTopic_msg") + " '" + to.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -303,6 +306,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.deleteProposal(sessionId, p);
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteProposal_msg") + " " + p.getTitle());
+			ClientsController.notifyKnowledgeRemoved(sessionId, p);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteProposal_msg") + " '" + p.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -327,6 +331,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.deleteAnswer(sessionId, a);
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteAnswer_msg") + " " + a.getTitle());
+			ClientsController.notifyKnowledgeRemoved(sessionId, a);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteAnswer_msg") + " '" + a.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -366,6 +371,30 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to manage notifications ***/	
+	// TODO:
+//	public void addNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+//		String login = "";
+//		try {
+//			Session session = SessionController.getSession(sessionId);
+//			login = session.getUser().getLogin();
+//			NotificationController.addNotification(sessionId, notification);
+//			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteNotification_msg") + " " + notification.getKnowledge().getTitle());
+//			ClientsController.notifiNotificationAvailable(sessionId, n);
+//		} catch(SQLException se) {
+//			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteNotification_msg") + " '" + notification.getKnowledge().getTitle() + "': " + se.getLocalizedMessage());
+//			throw se;
+//		} catch(NotLoggedException nte) {
+//			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteNotification_msg") + nte.getLocalizedMessage());
+//			throw nte;
+//		} catch(NonPermissionRole npr) {
+//			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("NonPermission_DeleteNotification_msg") + " " + npr.getLocalizedMessage());
+//			throw npr;
+//		} catch(Exception e) {
+//			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("Exception_DeleteNotification_msg") + " " + e.toString());
+//			throw e;
+//		}			
+//	}
+	
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		String login = "";
 		try {

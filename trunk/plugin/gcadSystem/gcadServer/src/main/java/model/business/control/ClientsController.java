@@ -4,10 +4,11 @@ import java.rmi.RemoteException;
 import java.util.Hashtable;
 
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Notification;
 import communication.IClient;
 
 /**
- * TODO: esta clase es el observador del servidor. Se registran los clientes (plugin) This class represents an observer pattern
+ * This class represents an observer pattern. It is used to register clients connected to the server
  */
 public class ClientsController {
 
@@ -15,65 +16,53 @@ public class ClientsController {
 	
 	public static void disconnectClients() throws RemoteException {
 		try {
-			// Cerramos todos los clientes que hay conectados al servidor
+			// Close all the clients connected to the server
 			for(Long id : clients.keySet()) {
-				// Notificamos al cliente que el servidor ha sido desconectado
-				clients.get(id).servidorInaccesible();
+				// Notify the clients that the server has been disconnected
+				clients.get(id).approachlessServer();
 			}
 		} finally {
-			// Reseteamos la tabla de sesiones y clientes (lo hacemos aquí,
-			// y no iteración a iteración en el bucle anterior, para evitar
-			// el problema de tablas mutantes)
+			// Clear table
 			clients = new Hashtable<Long, IClient>();
 		}
 	}
 	
 	public static void attach(long sessionID, IClient client) {
 		clients.put(sessionID, client);
-		// Each time you add a view to the observer, update the permissions. 
-		// This is done so that if a view is opened after making login, the view has the allowed actions well configured
-//		observer.updateActions(actions);
 	}
-//	
+
 	public static void detach(long sessionID) {
 		clients.remove(sessionID);
 	}
-//	
-//	public static void detachObservers() {
-//		observers.clear();
-//	}
-//	
-	public static void notifyConnection(boolean connected) throws RemoteException {
-		for(Long id : clients.keySet()) 
-			// Notificamos al cliente que el servidor ha sido desconectado
-			clients.get(id).notifyConnection(connected);
-	}
 		
-	public static void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
+	public static void notifyKnowledgeAdded(long sessionId, Knowledge k) throws RemoteException {
+		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view (if it is necessary)
 		for(Long id : clients.keySet()) 
-			// Notificamos al cliente que el servidor ha sido desconectado
-			clients.get(id).notifyKnowledgeAdded(k);
+			if (id != sessionId)
+				clients.get(id).notifyKnowledgeAdded(k);
 	}
 	
-	public static void notifyKnowledgeEdited(Knowledge k) throws RemoteException {
+	public static void notifyKnowledgeEdited(long sessionId, Knowledge newK, Knowledge oldK) throws RemoteException {
+		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view (if it is necessary)
 		for(Long id : clients.keySet()) 
-			// Notificamos al cliente que el servidor ha sido desconectado
-			clients.get(id).notifyKnowledgeEdited(k);
+			if (id != sessionId)
+				clients.get(id).notifyKnowledgeEdited(newK, oldK);
 	}
 	
-	public static void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
+	public static void notifyKnowledgeRemoved(long sessionId, Knowledge k) throws RemoteException {
+		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view (if it is necessary)
 		for(Long id : clients.keySet()) 
-			// Notificamos al cliente que el servidor ha sido desconectado
-			clients.get(id).notifyKnowledgeRemoved(k);
+			if (id != sessionId)
+				clients.get(id).notifyKnowledgeRemoved(k);
 	}
 	
-//	public static void notifyActionsAllowed(List<String> actionsName) throws RemoteException {
-//		actions = actionsName;
-//		for(Long id : clients.keySet()) 
-//			// Notificamos al cliente que el servidor ha sido desconectado
-//			clients.get(id).notifyActionsAllowed(actionsName);
-//	}
-
+	public static void notifyNotificationAvailable(long sessionId, Notification n) throws RemoteException {
+		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view (if it is necessary)
+		for(Long id : clients.keySet()) 
+			if (id != sessionId)
+				clients.get(id).notifyNotificationAvailable(n);
+	}
+	
 	public static IClient getClient(long id) {
 		return clients.get(id);
 	}

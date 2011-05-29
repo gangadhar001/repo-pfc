@@ -1,9 +1,9 @@
 package bussiness.control;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Notification;
 
 import communication.IClient;
 
@@ -20,44 +20,16 @@ public class Client implements IClient {
 	public Client() {
 	}
 	
-	public ClientController getControlador() {
-		return controller;
-	}
-	
 	public void setController(ClientController controller) {
 		this.controller = controller;
 	}
 	
 	@Override
-	public void cerrarSesion() throws RemoteException {
-		// TODO Auto-generated method stub
+	public void closeSession() throws RemoteException {
+		controller.closeSession();
 
 	}
-
-	@Override
-	public void cerrarSesionEliminacion() throws RemoteException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void servidorInaccesible() throws RemoteException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyActionsAllowed(List<String> actions) throws RemoteException {
-		controller.notifyActionsAllowed(actions);
-		
-	}
-
-	@Override
-	public void notifyConnection(boolean connected) throws RemoteException {
-		controller.notifyConnection(connected);
-		
-	}
-
+	
 	@Override
 	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
 		controller.notifyKnowledgeAdded(k);
@@ -65,8 +37,8 @@ public class Client implements IClient {
 	}
 
 	@Override
-	public void notifyKnowledgeEdited(Knowledge k) throws RemoteException {
-		controller.notifyKnowledgeEdited(k);
+	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) throws RemoteException {
+		controller.notifyKnowledgeEdited(newK, oldK);
 		
 	}
 
@@ -74,6 +46,17 @@ public class Client implements IClient {
 	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
 		controller.notifyKnowledgeRemoved(k);
 		
+	}
+
+	@Override
+	public void approachlessServer() throws RemoteException {
+		controller.approachlessServer();
+		
+	}
+
+	@Override
+	public void notifyNotificationAvailable(Notification n) throws RemoteException {
+		controller.notifyNotificationAvailable(n);		
 	}
 
 }
