@@ -15,13 +15,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import model.business.knowledge.Operations;
 import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
+
+import presentation.JFMain;
 
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -64,24 +68,28 @@ public class JPManageTopic extends javax.swing.JPanel {
 	private JDialog parentD;
 	private Object data;
 	private String operationToDo;
+	private JFMain mainFrame;
 
-	public JPManageTopic(JDialog parent) {
+	public JPManageTopic(JFMain mainframe, JDialog parent) {
 		super();
 		this.parentD = parent;
 		data = null;
+		this.mainFrame = mainframe;
+		initGUI();
+	}
+	
+	public JPManageTopic(JFMain mainframe, JDialog parent, Object data, String operationToDo) {
+		super();
+		this.data = data;
+		this.operationToDo = operationToDo;
+		this.parentD = parent;
+		this.mainFrame = mainframe;
 		initGUI();
 	}
 	
 	private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
     }
-	
-	public JPManageTopic(JDialog parent, Object data, String operationToDo) {
-		super();
-		this.data = data;
-		this.operationToDo = operationToDo;
-		initGUI();
-	}
 	
 	private void initGUI() {
 		try {
@@ -95,7 +103,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 				tabPanelTopic.setPreferredSize(new java.awt.Dimension(438, 317));
 				{
 					panelAddTopic = new JPanel();
-					tabPanelTopic.addTab("Add Topic", null, panelAddTopic, null);
+					tabPanelTopic.addTab(ApplicationInternationalization.getString("tabManageTopic_Add"), null, panelAddTopic, null);
 					panelAddTopic.setLayout(null);
 					panelAddTopic.setPreferredSize(new java.awt.Dimension(439, 317));
 					panelAddTopic.setSize(439, 317);
@@ -124,7 +132,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 				}
 				{
 					panelModifyTopic = new JPanel();
-					tabPanelTopic.addTab("Modify Topic", null, panelModifyTopic, null);
+					tabPanelTopic.addTab(ApplicationInternationalization.getString("tabManageTopic_Modify"), null, panelModifyTopic, null);
 					panelModifyTopic.setName("panelModifyTopic");
 					panelModifyTopic.setLayout(null);
 					{
@@ -173,16 +181,32 @@ public class JPManageTopic extends javax.swing.JPanel {
 			
 			// Hide tabs not available 
 			List<String> operationsId = OperationsUtilities.getAllOperations(ClientController.getInstance().getAvailableOperations());
-			if (!operationsId.contains("Add"))
+			if (!operationsId.contains(Operations.Add.name()))
 				tabPanelTopic.remove(panelAddTopic);
-			if (!operationsId.contains("Modify"))
+			if (!operationsId.contains(Operations.Modify.name()))
 				tabPanelTopic.remove(panelModifyTopic);
 			
 			// If this panel is invoked by knowledge view, with an item already selected, fill the data
-			if (data != null)
+			if (data != null) {
 				fillData();
+				// Disable tabs not used for that operation
+				int indexModify = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Modify"));
+				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Add"));
+				if (operationToDo.equals(Operations.Add.name())) {
+					if (indexModify != -1)
+						tabPanelTopic.getTabComponentAt(indexModify).setEnabled(false);
+					if (indexAdd != -1)
+						tabPanelTopic.setSelectedIndex(indexAdd);
+				}
+				else if (operationToDo.equals(Operations.Modify.name())) {
+					if (indexAdd != -1)
+						tabPanelTopic.getTabComponentAt(indexAdd).setEnabled(false);
+					if (indexModify != -1)
+						tabPanelTopic.setSelectedIndex(indexModify);
+				}
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -195,30 +219,24 @@ public class JPManageTopic extends javax.swing.JPanel {
 		try {
 			topics = ClientController.getInstance().getTopicsWrapper().getTopics();
 			if (topics.size() == 0)
-				//TODO
-				;
+				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("panelManageAnswer_NotTopics"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			for (int i=0; i<topics.size(); i++) {
 				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
-			}
-	
+			}	
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}			
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private void fillData() {
 		// Fill fields with the received topic
-		if (operationToDo.equals("Modify")) {
+		if (operationToDo.equals(Operations.Modify.name())) {
 			Topic t = (Topic)data;
 			panelTopicInfoModify.fillData(t);
 		}		
@@ -236,15 +254,18 @@ public class JPManageTopic extends javax.swing.JPanel {
 		try {
 			// Create and insert new Topic
 			ClientController.getInstance().addTopic(newTopic);
+			// Notify to main frame the new knowledge
+			mainFrame.notifyKnowledgeAdded(newTopic, null);
+		} catch (NonPermissionRole e) {
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -254,22 +275,28 @@ public class JPManageTopic extends javax.swing.JPanel {
 		try {
 			// Modify the old Topic
 			ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// Notify to main frame the new knowledge
+			mainFrame.notifyKnowledgeEdited(newTopic, topics.get(cbTopics.getSelectedIndex()));
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	private int getIndexTab(String title) {
+    	int result = -1;
+    	for(int i=0; i<tabPanelTopic.getTabCount() && result==-1; i++) {
+    		if (tabPanelTopic.getTitleAt(i).equals(title))
+    			result=i;
+    	}
+    	return result;
 	}
 
 }

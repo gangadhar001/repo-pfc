@@ -11,9 +11,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
 
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Notification;
 import bussiness.control.Client;
 
 /**
@@ -102,55 +102,35 @@ public class ExportedClient extends UnicastRemoteObject implements IClient{
     }
 
 	@Override
-	public void servidorInaccesible() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void approachlessServer() throws RemoteException {
+		client.approachlessServer();		
 	}
 
 	@Override
-	public void cerrarSesion() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cerrarSesionEliminacion() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyActionsAllowed(List<String> actionsName)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyConnection(boolean connected) throws RemoteException {
-	}
-
-	@Override
-	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyKnowledgeEdited(Knowledge k) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void closeSession() throws RemoteException {
+		client.closeSession();		
 	}
 
 	@Override
 	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		client.notifyKnowledgeAdded(k);		
 	}
 
+	@Override
+	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) throws RemoteException {
+		client.notifyKnowledgeEdited(newK, oldK);		
+	}
 
+	@Override
+	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
+		client.notifyKnowledgeRemoved(k);		
+	}
 
-	
+	@Override
+	public void notifyNotificationAvailable(Notification n) throws RemoteException {
+		client.notifyNotificationAvailable(n);		
+	}
+    
 
 	
 }

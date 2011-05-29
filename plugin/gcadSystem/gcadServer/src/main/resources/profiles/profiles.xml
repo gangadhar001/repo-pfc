@@ -19,9 +19,11 @@
 			</Subgroup>
 		</Group>
 		<Group id="PDFGeneration">
-			<Operations>
-				<id>Generate</id>
-			</Operations>
+			<Subgroup id="PDFGeneration">
+				<Operations>
+					<id>Generate</id>
+				</Operations>
+			</Subgroup>
 		</Group>
 		<Group id="Notifications">
 			<Operations>

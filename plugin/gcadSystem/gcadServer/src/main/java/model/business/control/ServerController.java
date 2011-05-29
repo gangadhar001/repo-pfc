@@ -44,9 +44,10 @@ public class ServerController {
 		serverWindowUI.setVisible(true);
 	}
 
-	public void hideServerWindowUI() {
-		serverWindowUI.setVisible(false);
-	}
+	// TODO: pruebas
+//	public void hideServerWindowUI() {
+//		serverWindowUI.setVisible(false);
+//	}
 
 	public void startServer(ServerConfiguration configuration) throws RemoteException, MalformedURLException, UnknownHostException, NotBoundException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		serverIP = CommunicationsUtilities.getHostIP();
@@ -109,10 +110,20 @@ public class ServerController {
 		// Notify to clients that the server has been disconnected
 		try {
 			SessionController.disconnectClients();
+			ClientsController.disconnectClients();
 		} catch(RemoteException e) {
 		}
 		
-		DBConnectionManager.clear();		
+		DBConnectionManager.clear();
+		
+		// Disconnect server
+		if(serverInstanceExported != null) {
+			try {
+				serverInstanceExported.deactivate(serverIP, configuration.getServerPort());
+			} catch(RemoteException e) {
+			}
+		}
+		
 		isServerActivate = false;
 	}
 	

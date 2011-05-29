@@ -29,7 +29,6 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import model.business.knowledge.Groups;
-import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Subgroups;
 
@@ -70,22 +69,25 @@ public class JDKnowledge extends javax.swing.JDialog {
 	private Object data;
 	private String operationToDo;
 	private JDialog dialog;
+	private JFMain parentFrame;
 	
-	public JDKnowledge() {
+	public JDKnowledge(JFMain parentFrame) {
 		super();
 		this.subgroupSelected = null;
 		this.operationToDo = null;
 		dialog = this;
 		data = null;
+		this.parentFrame = parentFrame;
 		initGUI();
 	}
 	
-	public JDKnowledge(String subgroupSelected, Object data, String operationToDo) {
+	public JDKnowledge(JFMain parentFrame, String subgroupSelected, Object data, String operationToDo) {
 		super();
 		this.subgroupSelected = subgroupSelected;
 		this.data = data;
 		this.operationToDo = operationToDo;
 		dialog = this;
+		this.parentFrame = parentFrame;
 		initGUI();
 	}		
 	
@@ -129,8 +131,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 			this.setSize(657, 379);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
-		    //add your error handling code here
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -139,6 +140,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 		
 	}
 
+	// Set all the actions allowed for that role
 	private void setKnowledgeActions(List<Operation> operations) {
 		for(Operation o: operations) {
 			if (o.getGroup().equals(Groups.Knowledge.name()))
@@ -146,6 +148,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 		}
 	}
     
+	// Create the left panel with the available actions
 	@SuppressWarnings("rawtypes")
 	private void createPanelActions() throws IOException {
 		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
@@ -194,14 +197,13 @@ public class JDKnowledge extends javax.swing.JDialog {
 							Component component = null;
 							if (data != null) {
 								// Use constructor of the corresponding panel, in order to pass the data to the constructor
-								// This is reflection
-								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {JDialog.class, Object.class, String.class});
-								component = (Component) c.newInstance(new Object [] {dialog, data, operationToDo});
+								// Use of reflection
+								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {JFMain.class, JDialog.class, Object.class, String.class});
+								component = (Component) c.newInstance(new Object [] {parentFrame, dialog, data, operationToDo});
 							}
 							else {
-								// Pass this dialog to the children panels
-								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {JDialog.class});
-								component = (Component) c.newInstance(new Object [] {dialog});
+								Constructor c = Class.forName("presentation.panelsManageKnowledge.JPManage"+subgroup).getConstructor(new Class [] {JFMain.class, JDialog.class});
+								component = (Component) c.newInstance(new Object [] {parentFrame, dialog});
 							}
 							
 							mainPanel.add(component);
@@ -231,14 +233,15 @@ public class JDKnowledge extends javax.swing.JDialog {
 				
 				// Simulate button click that corresponds with the action selected by user.
 				// If it is null, no default action
-				if (subgroupSelected != null && subgroup.equals(subgroupSelected))
-					button.doClick();
+				if (subgroupSelected != null) {
+					if (subgroup.equals(subgroupSelected))
+						button.doClick();				
+					// Disable other buttons if there is a selected operation
+					else 
+						button.setEnabled(false);
+				}
+				
 			}
 		}
-    }
-
-	public Knowledge getNewKnowledge() {
-		// TODO Auto-generated method stub
-		return null;
-	}   
+    }  
 }

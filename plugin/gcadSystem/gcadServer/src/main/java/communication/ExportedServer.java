@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.Server;
-import model.business.control.SessionController;
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
@@ -85,10 +84,6 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
     	}
     }
     
-    public IServer getExportedServer() {
-    	return server;
-    }
-
     /*** Methods from server facade ***/
 	@Override
 	public ISession login(String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRole, RemoteException, Exception {

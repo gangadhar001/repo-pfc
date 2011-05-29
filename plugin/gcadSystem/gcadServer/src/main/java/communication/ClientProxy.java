@@ -1,12 +1,11 @@
 package communication;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Notification;
 
 /**
- * TODO: cambiar
  * Proxy used to connect with clients and request operation from that client
  */
 public class ClientProxy implements IClient {
@@ -15,152 +14,171 @@ public class ClientProxy implements IClient {
 	 * 
 	 */
 	private static final long serialVersionUID = -8805121423986535150L;
-	private IClient cliente;
+	private IClient client;
 	
-	public void associate(IClient cliente) {
-		this.cliente = cliente;
+	public void associate(IClient client) {
+		this.client = client;
 	}	
 	
-	public void cerrarSesion() throws RemoteException {
-		Thread hilo;
+	public void closeSession() throws RemoteException {
+		Thread thread;
 		
-		// Lanzamos la operación en otro hilo para no detener el servidor
-		hilo = new Thread(new HiloCerrarSesion(cliente));
-		hilo.start();
-	}
-
-	public void cerrarSesionEliminacion() throws RemoteException {
-		Thread hilo;
-		
-		// Lanzamos la operación en otro hilo para no detener el servidor
-		hilo = new Thread(new HiloCerrarSesionEliminacion(cliente));
-		hilo.start();
+		// Launch the operation on another thread for not stopping the server
+		thread = new Thread(new closeSessionThread(client));
+		thread.start();
 	}
 	
-	public void servidorInaccesible() throws RemoteException {
-		Thread hilo;
+	public void approachlessServer() throws RemoteException {
+		Thread thread;
 		
-		// Lanzamos la operación en otro hilo para no detener el servidor
-		hilo = new Thread(new HiloServidorInaccesible(cliente));
-		hilo.start();
+		// Launch the operation on another thread for not stopping the server
+		thread = new Thread(new approachlessServerThread(client));
+		thread.start();
 	}
-	
-	/**
-	 * Hilo utilizado para lanzar la operación cerrarSesion en un cliente.
-	 */
-	private class HiloCerrarSesion implements Runnable {
-	
-		private IClient cliente;
-		
-		public HiloCerrarSesion(IClient cliente) {
-			this.cliente = cliente;
-		}
-		
-		public void run() {
-			try {
-				cliente.cerrarSesion();
-			} catch(Exception e) {
-				// Aquí no se puede manejar la excepción
-			}
-		}
-		
-	}
-	
-	/**
-	 * Hilo utilizado para lanzar la operación cerrarSesionEliminacion en un cliente.
-	 */
-	private class HiloCerrarSesionEliminacion implements Runnable {
-	
-		private IClient cliente;
-		
-		public HiloCerrarSesionEliminacion(IClient cliente) {
-			this.cliente = cliente;
-		}
-		
-		public void run() {
-			try {
-				cliente.cerrarSesionEliminacion();
-			} catch(Exception e) {
-				// Aquí no se puede manejar la excepción
-			}
-		}
-		
-	}
-
-	
-	/**
-	 * Hilo utilizado para lanzar la operación servidorInaccesible en un cliente.
-	 */
-	private class HiloServidorInaccesible implements Runnable {
-	
-		private IClient cliente;
-		
-		public HiloServidorInaccesible(IClient cliente) {
-			this.cliente = cliente;
-		}
-		
-		public void run() {
-			try {
-				cliente.servidorInaccesible();
-			} catch(Exception e) {
-				// Aquí no se puede manejar la excepción
-			}
-		}
-		
-	}
-
-	@Override
-	public void notifyActionsAllowed(List<String> actionsName)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyConnection(boolean connected) throws RemoteException {
-Thread hilo;
-		
-		// Lanzamos la operación en otro hilo para no detener el servidor
-		hilo = new Thread(new notifyConnectionHilo(cliente, true));
-		hilo.start();
-	}
-
-private class notifyConnectionHilo implements Runnable {
-	
-	private IClient cliente;
-	private boolean conn;
-	
-	public notifyConnectionHilo(IClient cliente, boolean conn) {
-		this.cliente = cliente;
-		this.conn = conn;
-	}
-	
-	public void run() {
-		try {
-			cliente.notifyConnection(conn);
-		} catch(Exception e) {
-			// Aquí no se puede manejar la excepción
-		}
-	}
-	
-}
 
 	@Override
 	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
-		// TODO Auto-generated method stub
+		Thread thread;
 		
+		// Launch the operation on another thread for not stopping the server
+		thread = new Thread(new notifyKnowledgeRemovedThread(client, k));
+		thread.start();		
 	}
-
+	
 	@Override
-	public void notifyKnowledgeEdited(Knowledge k) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) throws RemoteException {
+		Thread thread;
 		
+		// Launch the operation on another thread for not stopping the server
+		thread = new Thread(new notifyKnowledgeEditedThread(client, newK, oldK));
+		thread.start();		
 	}
-
+	
 	@Override
 	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
-		// TODO Auto-generated method stub
+		Thread thread;
 		
+		// Launch the operation on another thread for not stopping the server
+		thread = new Thread(new notifyKnowledgeAddedThread(client, k));
+		thread.start();		
+	}
+	
+	@Override
+	public void notifyNotificationAvailable(Notification n) throws RemoteException {
+		Thread thread;
+		
+		// Launch the operation on another thread for not stopping the server
+		thread = new Thread(new notifyNotificationAvailableThread(client, n));
+		thread.start();		
 	}
 
+	
+	/**
+	 * Threads used to launch operations in a client
+	 */
+	private class closeSessionThread implements Runnable {
+	
+		private IClient client;
+		
+		public closeSessionThread(IClient client) {
+			this.client = client;
+		}
+		
+		public void run() {
+			try {
+				client.closeSession();
+			} catch(Exception e) {
+			}
+		}		
+	}
+
+	private class approachlessServerThread implements Runnable {
+	
+		private IClient client;
+		
+		public approachlessServerThread(IClient client) {
+			this.client = client;
+		}
+		
+		public void run() {
+			try {
+				client.approachlessServer();
+			} catch(Exception e) {
+			}
+		}		
+	}
+	
+	private class notifyKnowledgeRemovedThread implements Runnable {
+		
+		private IClient client;
+		private Knowledge k;
+		
+		public notifyKnowledgeRemovedThread(IClient client, Knowledge k) {
+			this.client = client;
+			this.k = k;
+		}
+		
+		public void run() {
+			try {
+				client.notifyKnowledgeRemoved(k);
+			} catch(Exception e) {
+			}
+		}		
+	}
+	
+	private class notifyKnowledgeEditedThread implements Runnable {
+		
+		private IClient client;
+		private Knowledge newK;
+		private Knowledge oldK;
+		
+		public notifyKnowledgeEditedThread(IClient client, Knowledge newK, Knowledge oldK) {
+			this.client = client;
+			this.newK = newK;
+			this.oldK = oldK;
+		}
+		
+		public void run() {
+			try {
+				client.notifyKnowledgeEdited(newK, oldK);
+			} catch(Exception e) {
+			}
+		}		
+	}
+	
+	private class notifyKnowledgeAddedThread implements Runnable {
+		
+		private IClient client;
+		private Knowledge k;
+		
+		public notifyKnowledgeAddedThread(IClient client, Knowledge k) {
+			this.client = client;
+			this.k = k;
+		}
+		
+		public void run() {
+			try {
+				client.notifyKnowledgeAdded(k);
+			} catch(Exception e) {
+			}
+		}		
+	}
+	
+	private class notifyNotificationAvailableThread implements Runnable {
+		
+		private IClient client;
+		private Notification n;
+		
+		public notifyNotificationAvailableThread(IClient client, Notification n) {
+			this.client = client;
+			this.n = n;
+		}
+		
+		public void run() {
+			try {
+				client.notifyNotificationAvailable(n);
+			} catch(Exception e) {
+			}
+		}		
+	}
 }

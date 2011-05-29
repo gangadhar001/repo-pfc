@@ -115,7 +115,7 @@ public class ClientController {
 	public void showMainFrame() {
 		Application.getInstance(JFLogin.class).getMainFrame().dispose();
 		mainWindowUI = new JFMain();
-		Application.launch(mainWindowUI.getClass(), null);
+		Application.launch(JFMain.class, null);
 	}
 	
 	// Show the login frame
@@ -159,10 +159,8 @@ public class ClientController {
 
 	
 	/*** Methods to make requests to the server ***/
-	public void addAnwser(Answer arg0, Proposal arg1) throws RemoteException,
-			SQLException {
-		// TODO Auto-generated method stub
-		
+	public void addAnwser(Answer a, Proposal p) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
+		server.addAnwser(session.getId(), a, p);
 	}
 
 	public void addProposal(Proposal p, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -170,9 +168,8 @@ public class ClientController {
 		
 	}
 
-	public void addTopic(Topic arg0) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
-		
+	public void addTopic(Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
+		server.addTopic(session.getId(), topic);		
 	}
 
 	public TopicWrapper getTopicsWrapper() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -187,9 +184,8 @@ public class ClientController {
 		return server.findParentAnswer(session.getId(), a);
 	}
 
-	public void modifyAnswer(Answer arg0, Answer arg1, Proposal arg2) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
-		
+	public void modifyAnswer(Answer newAnswer, Answer oldAnswer, Proposal p) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+		server.modifyAnswer(session.getId(), newAnswer, oldAnswer, p);
 	}
 
 	public void modifyProposal(Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -197,9 +193,8 @@ public class ClientController {
 		
 	}
 
-	public void modifyTopic(Topic arg0, Topic arg1) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
-		
+	public void modifyTopic(Topic newTopic, Topic oldTopic) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+		server.modifyTopic(session.getId(), newTopic, oldTopic);		
 	}
 
 	public void signout() throws RemoteException, SQLException, NotLoggedException, Exception {
@@ -218,36 +213,10 @@ public class ClientController {
 	public void createProject(Project project) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
 		server.createProject(session.getId(), project);
 		
-	}
+	}	
 
-	public void notifyActionsAllowed(List<String> actions) throws RemoteException {
-//		PresentationController.notifyActionsAllowed(actions);
-		
-	}
-
-	public void notifyConnection(boolean connected) throws RemoteException {
-//		 PresentationController.notifyConnection(connected);
-		
-	}
-
-	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
-//		PresentationController.notifyKnowledgeAdded(k);
-		
-	}
-
-	public void notifyKnowledgeEdited(Knowledge k) throws RemoteException {
-//		PresentationController.notifyKnowledgeEdited(k);
-		
-	}
-	
-	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
-//		PresentationController.notifyKnowledgeRemoved(k);
-		
-	}
-
-	public void deleteAnswer(Answer arg0) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
-		
+	public void deleteAnswer(Answer a) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+		server.deleteAnswer(session.getId(), a);		
 	}
 
 	public void deleteProposal(Proposal proposal) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -255,14 +224,12 @@ public class ClientController {
 		
 	}
 	
-	public void deleteTopic(Topic arg0) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
-		
+	public void deleteTopic(Topic topic) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+		server.deleteTopic(session.getId(), topic);		
 	}
 
 	public ArrayList<Answer> getAnswers() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return server.getAnswers(session.getId());
 	}
 
 	public ArrayList<Notification> getNotifications() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -274,7 +241,7 @@ public class ClientController {
 	}
 
 	public void removeNotification(Notification arg0) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		// TODO Auto-generated method stub
+		//TODO
 		
 	}
 	public List<Operation> getAvailableOperations() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -303,6 +270,53 @@ public class ClientController {
 	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
 		return server.getLoggedUser(session.getId());
 	}
+
+	public void closeSession() {
+		// TODO Limpiar y volver a la pantalla de login
+		
+	}
+
+	public void approachlessServer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.notifyKnowledgeAdded(k);
+	}
+
+	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) throws RemoteException {
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.notifyKnowledgeEdited(newK, oldK);
+		
+	}
+	
+	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.notifyKnowledgeRemoved(k);
+		
+	}
+	
+	public void notifyNotificationAvailable(Notification n) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// TODO: desconectar al cerrar aplicacion
+//	public void cerrarControlador() throws RemoteException, MalformedURLException, NotBoundException {
+//		if(cliente != null) {
+//			cliente.desactivar(ipCliente);
+//		}
+//		if(ventanaLogin != null) {
+//			ventanaLogin.setVisible(false);
+//			ventanaLogin.dispose();
+//		}
+//		if(ventanaPrincipal != null) {
+//			ventanaPrincipal.setVisible(false);
+//			ventanaPrincipal.dispose();
+//		}
+//	}
 
 	
 }

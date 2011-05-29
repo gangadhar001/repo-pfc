@@ -153,8 +153,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		String url;
 		String style = "HandleFillColor=#000000;whiteSpace=wrap;overflow=hidden;align=center;strokeColor=#000000;rounded;shape=label;image=";
 		// Add nodes and edges
-		for (Topic t: topicWrapper.getTopics()) {
-			
+		for (Topic t: topicWrapper.getTopics()) {			
 			url = this.getClass().getClassLoader().getResource("images/Topic.png").toString();			
 			mxCell vertexTopic = (mxCell) graph.insertVertex(parentGraph, null, t, 100, 30, 80, 30, style + url);
 			vertexTopic.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
@@ -303,176 +302,6 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		}
 	}
 	
-	// Method used to create a border with shadow
-	private void updateBorder(JComponent comp) {
-		 comp.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(Color.BLACK, 9, 0.5f, 12, false, false, true, true), comp.getBorder()));
-	}
-
-	/*** Methods used to add or modify knowledge ***/
-	public void operationAdd() {
-		// If an item is selected, show the knowledge window filled with data
-		Knowledge k = getSelectedKnowledge();
-		if (k != null) {
-			operationsKnowledge(k.getClass().getSimpleName(), k, Operations.Add.name());
-//			TreePath parentPath = tree.getSelectionPath();
-//			treeModel.reload();
-//			showTree();
-//			tree.scrollPathToVisible(parentPath);
-//			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());			
-//			 Topic t = new Topic("title", "desc", new Date());
-//			DefaultMutableTreeNode child = new DefaultMutableTreeNode(t);
-//			treeModel.insertNodeInto(child, parentNode, parentNode.getChildCount());
-//			tree.scrollPathToVisible(new TreePath(child.getPath()));
-		}
-		//TODO: si no está seleccionado, que se invoque desde el tollbar o el menu
-//		else {
-//			operationsKnowledge();
-//		}		
-	}
-	
-	// Show the frame of knowledge, used to add or modify knowledge. This frame will has filled with the knowledge data
-	private void operationsKnowledge(String knowledgeType, Knowledge k, String operation) {
-		fKnowledge = new JDKnowledge(knowledgeType, k, "Add");
-		fKnowledge.setLocationRelativeTo(this);
-		fKnowledge.setModal(true);
-		fKnowledge.setVisible(true);
-		// Refresh graph and tree with the new knowledge
-//		updateKnowledge(operation);
-	}
-	
-//	private void operationsKnowledge() {
-//		fKnowledge = new JDKnowledge();
-//		fKnowledge.setLocationRelativeTo(this);
-//		fKnowledge.setModal(true);
-//		fKnowledge.setVisible(true);
-//		updateKnowledge("");
-//	}
-	
-	private void updateKnowledge(String operation) {
-			// TODO: se lo dice el servidor el nuevo conocimiento
-			
-	}
-
-	public void operationDelete() {
-		Knowledge k = getSelectedKnowledge();
-		if (k != null) {
-			try {
-				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
-				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
-					if (k instanceof Topic)				
-						ClientController.getInstance().deleteTopic((Topic) k);
-					else if (k instanceof Proposal)				
-						ClientController.getInstance().deleteProposal((Proposal) k);
-					else			
-						ClientController.getInstance().deleteAnswer((Answer) k);
-					
-					// Refresh knowledge
-					topicWrapper = ClientController.getInstance().getTopicsWrapper();
-					// Refresh tree and graph
-					deleteKnowledgeFromTree(k);
-					deleteKnowledgeFromGraph(k);
-				}
-				else
-					// TODO: error
-					;
-			} catch (RemoteException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NotLoggedException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRole e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			}
-		}		
-	}
-	
-	private void deleteKnowledgeFromGraph(Knowledge k) {
-		mxCell cell = null;
-		if (knowledgeSelectedGraph != null)
-			 cell = (mxCell) graph.getSelectionCell();
-		else
-			// Search the cell for the knowledge received
-			cell = findCellKnowledge(k);
-		if (cell != null) {
-			// Get all edges of the vertex
-			Object[] edges = graph.getEdges(cell);
-			Object[] toRemove = new Object[edges.length];
-			for (int i = 0; i< edges.length; i++) {
-				toRemove[i] = ((mxCell)edges[i]).getTarget();
-			}
-			// Remove all edges of that cell
-			graph.removeCells(toRemove, true);
-			graph.refresh();
-			knowledgeSelectedGraph = null;
-		}
-	}
-
-	// Method used to delete a node from tree
-	private void deleteKnowledgeFromTree(Knowledge k) {
-		DefaultMutableTreeNode node = null;
-		if (knowledgeSelectedTree != null)
-			node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
-		else
-			// Search the node for the knowledge received 
-			node = findNodeKnowledge((DefaultMutableTreeNode)tree.getModel().getRoot(), k);
-		if (node != null) {
-			DefaultMutableTreeNode aux = (DefaultMutableTreeNode) node.getParent();
-			((DefaultTreeModel)tree.getModel()).removeNodeFromParent(node);
-			((DefaultTreeModel)tree.getModel()).reload();
-			tree.scrollPathToVisible(new TreePath(aux.getPath()));
-			knowledgeSelectedTree = null;
-		}
-	}
-
-	// Method used to find a vertex in the graph
-	private mxCell findCellKnowledge(Knowledge k) {
-		mxCell result = null;
-		Object[] edges = graph.getAllEdges(new Object[]{graph.getModel().getRoot()});
-		boolean found = false;
-		for (int i = 0; i< edges.length && !found; i++) {
-			if (((Knowledge)((mxCell)edges[i]).getSource().getValue()).equals(k)) {
-				result = (mxCell) ((mxCell)edges[i]).getSource();
-				found = true;
-			}
-			else if (((Knowledge)((mxCell)edges[i]).getTarget().getValue()).equals(k)) {
-				result = (mxCell) ((mxCell)edges[i]).getTarget();
-				found = true;
-			}
-		}
-		return result;
-	}
-	
-	// Method used to find a node in the tree
-	@SuppressWarnings("rawtypes")
-	private DefaultMutableTreeNode findNodeKnowledge(DefaultMutableTreeNode node, Knowledge k) {
-		DefaultMutableTreeNode result = null;
-		Enumeration e = node.children();
-		boolean found = false;
-		while(!found && e.hasMoreElements()) {
-			result = (DefaultMutableTreeNode)e.nextElement();
-			if (((Knowledge)result.getUserObject()).equals(k))
-				found = true;
-			else {
-				result = findNodeKnowledge(result, k);
-				if (result != null)
-					found = true;
-			}
-		}
-		return result;
-	}
-
-	// Get the selected knowledge (from tree or graph)
-	private Knowledge getSelectedKnowledge() {
-		Knowledge k = null;
-		if (knowledgeSelectedTree != null)
-			k = knowledgeSelectedTree;
-		else if (knowledgeSelectedGraph != null) {
-			k = knowledgeSelectedGraph;
-		}
-		return k;
-	}
-	
 	private JPanel getPnlUserInfo() {
 		if(pnlUserInfo == null) {
 			pnlUserInfo = new JPanel();
@@ -554,5 +383,336 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		}
 		return btnDetails;
 	}
+	
+	// Method used to create a border with shadow
+	private void updateBorder(JComponent comp) {
+		 comp.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(Color.BLACK, 9, 0.5f, 12, false, false, true, true), comp.getBorder()));
+	}
 
+	/*** Methods used to add, modify or delete knowledge ***/
+	public void operationAdd() {
+		// If an item is selected, show the knowledge window filled with data
+		Knowledge k = getSelectedKnowledge();
+		if (k != null) {
+			operationAddKnowledge(k.getClass().getSimpleName(), k, Operations.Add.name());
+		}
+	}
+	
+	public void operationModify() {
+		// If an item is selected, show the knowledge window filled with data
+		Knowledge k = getSelectedKnowledge();
+		if (k != null) {
+			operationModifyKnowledge(k.getClass().getSimpleName(), k, Operations.Modify.name());
+		}
+	}
+	
+	public void operationDelete() {
+		Knowledge k = getSelectedKnowledge();
+		if (k != null) {
+			try {
+				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
+				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+					if (k instanceof Topic)				
+						ClientController.getInstance().deleteTopic((Topic) k);
+					else if (k instanceof Proposal)				
+						ClientController.getInstance().deleteProposal((Proposal) k);
+					else			
+						ClientController.getInstance().deleteAnswer((Answer) k);
+					
+					// Refresh knowledge
+					topicWrapper = ClientController.getInstance().getTopicsWrapper();
+					// Refresh tree and graph
+					deleteKnowledgeFromTree(k);
+					deleteKnowledgeFromGraph(k);
+				}
+				else
+					// TODO: error
+					;
+			} catch (RemoteException e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRole e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
+		}		
+	}
+	
+	// Show the frame of knowledge, used to add. This frame will has filled with the knowledge data
+	private void operationAddKnowledge(String knowledgeType, Knowledge k, String operation) {
+		fKnowledge = new JDKnowledge(parent, knowledgeType, k, Operations.Add.name());
+		fKnowledge.setLocationRelativeTo(this);
+		fKnowledge.setModal(true);
+		fKnowledge.setVisible(true);
+	}
+	
+	// Show the frame of knowledge, used to modify. This frame will has filled with the knowledge data
+	private void operationModifyKnowledge(String knowledgeType, Knowledge k, String operation) {
+		fKnowledge = new JDKnowledge(parent, knowledgeType, k, Operations.Modify.name());
+		fKnowledge.setLocationRelativeTo(this);
+		fKnowledge.setModal(true);
+		fKnowledge.setVisible(true);
+	}	
+
+	/*** Methods used to notify new knowledge ***/ 
+	// Refresh graph and tree, because another client has added knowledge
+	public void notifyKnowledgeAdded(model.business.knowledge.Knowledge k) {
+		knowledgeAdded(k, null);		
+	}
+
+	public void notifyKnowledgeEdited(model.business.knowledge.Knowledge newK, Knowledge oldK) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// Refresh graph and tree, because another client has removed knowledge
+	public void notifyKnowledgeRemoved(model.business.knowledge.Knowledge k) {
+		try {
+			deleteKnowledgeFromGraph(k);
+			deleteKnowledgeFromTree(k);
+			// Refresh knowledge
+			topicWrapper = ClientController.getInstance().getTopicsWrapper();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	// Refresh graph and tree, because this client has added knowledge
+	public void notifyKnowledgeAdded(model.business.knowledge.Knowledge k, Knowledge parentK) {
+		knowledgeAdded(k ,parentK);		
+	}
+
+	private void knowledgeAdded(Knowledge k, Knowledge parentK) {
+		try {
+			addKnowledgeToGraph(k, parentK);
+			addKnowledgeToTree(k, parentK);
+			// Refresh knowledge
+			topicWrapper = ClientController.getInstance().getTopicsWrapper();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+	}
+
+	// Add new knowledge in graph
+	private void addKnowledgeToGraph(Knowledge k, Knowledge parentK) {
+		mxCell vertexParent = null;
+		String style = "HandleFillColor=#000000;whiteSpace=wrap;overflow=hidden;align=center;strokeColor=#000000;rounded;shape=label;image=";
+		try {
+			if (knowledgeSelectedGraph != null)
+				 vertexParent = (mxCell) graph.getSelectionCell();
+			else {
+				// Search the cell for the parent of knowledge received
+				Knowledge parent = null;
+				if (parentK == null){
+					if (k instanceof Proposal) {
+						parent = ClientController.getInstance().findParentProposal((Proposal) k);
+						style += this.getClass().getClassLoader().getResource("images/Trees/proposal.png").toString();
+					}
+					else if (k instanceof Answer) {
+						parent = ClientController.getInstance().findParentAnswer((Answer) k);
+						style += this.getClass().getClassLoader().getResource("images/Trees/answer.png").toString();
+					}
+				}
+				else
+					parent = parentK;
+				
+				if (parent != null)
+					vertexParent = findCellKnowledge(parent);
+			}
+			if (vertexParent != null) {
+				// Add the new knowledge to the vertex parent	
+				mxCell newVertex = (mxCell) graph.insertVertex(parentGraph, null, k, 100, 100, 80, 30, style);
+				newVertex.setGeometry(new mxGeometry(newVertex.getGeometry().getX(), newVertex.getGeometry().getX(), VERTEX_WIDTH, newVertex.getGeometry().getHeight()));
+				graph.insertEdge(parentGraph, null, "", vertexParent, newVertex);				
+			}
+			// It's a topic
+			else if (k instanceof Topic) {
+				style += this.getClass().getClassLoader().getResource("images/Trees/topic.png").toString();
+				mxCell newVertex = (mxCell) graph.insertVertex(parentGraph, null, k, 100, 100, 80, 30, style);
+				newVertex.setGeometry(new mxGeometry(newVertex.getGeometry().getX(), newVertex.getGeometry().getX(), VERTEX_WIDTH, newVertex.getGeometry().getHeight()));	
+			}
+			graph.refresh();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	// Add new knowledge in tree
+	private void addKnowledgeToTree(Knowledge k, Knowledge parentK) {
+		DefaultMutableTreeNode nodeParent = null;
+		try {
+			if (knowledgeSelectedTree != null)
+				nodeParent = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
+			else {
+				Knowledge parent = null;
+				if (parentK == null){
+					// Search the node for the parent of the knowledge received 
+					if (k instanceof Proposal) {
+						parent = ClientController.getInstance().findParentProposal((Proposal) k);
+					}
+					else if (k instanceof Answer) {
+						parent = ClientController.getInstance().findParentAnswer((Answer) k);
+					}
+				}
+				else
+					parent = parentK;
+				
+				if (parent != null)
+					nodeParent = findNodeKnowledge((DefaultMutableTreeNode)tree.getModel().getRoot(), parent);
+			}
+			if (nodeParent != null) {
+				// Add the new knowledge to the parent node	
+				DefaultMutableTreeNode child = new DefaultMutableTreeNode(k);
+				((DefaultTreeModel)tree.getModel()).insertNodeInto(child, nodeParent, nodeParent.getChildCount());
+				((DefaultTreeModel)tree.getModel()).reload();
+				tree.scrollPathToVisible(new TreePath(child.getPath()));		
+			}
+			// It's a topic
+			else if (k instanceof Topic) {
+				DefaultMutableTreeNode child = new DefaultMutableTreeNode(k);
+				((DefaultTreeModel)tree.getModel()).insertNodeInto(child, (DefaultMutableTreeNode)tree.getModel().getRoot(), ((DefaultMutableTreeNode)tree.getModel().getRoot()).getChildCount());
+				((DefaultTreeModel)tree.getModel()).reload();
+				tree.scrollPathToVisible(new TreePath(child.getPath()));	
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRole e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// Delete knowledge from graph
+	private void deleteKnowledgeFromGraph(Knowledge k) {
+		mxCell cell = null;
+		if (knowledgeSelectedGraph != null)
+			 cell = (mxCell) graph.getSelectionCell();
+		else
+			// Search the cell for the knowledge received
+			cell = findCellKnowledge(k);
+		if (cell != null) {
+			// Get all edges of the vertex
+			Object[] edges = graph.getEdges(cell);
+			Object[] toRemove = new Object[edges.length];
+			for (int i = 0; i< edges.length; i++) {
+				toRemove[i] = ((mxCell)edges[i]).getTarget();
+			}
+			// Remove all edges of that cell
+			graph.removeCells(toRemove, true);
+			graph.refresh();
+			knowledgeSelectedGraph = null;
+		}
+	}
+
+	// Method used to delete a node from tree
+	private void deleteKnowledgeFromTree(Knowledge k) {
+		DefaultMutableTreeNode node = null;
+		if (knowledgeSelectedTree != null)
+			node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
+		else
+			// Search the node for the knowledge received 
+			node = findNodeKnowledge((DefaultMutableTreeNode)tree.getModel().getRoot(), k);
+		if (node != null) {
+			DefaultMutableTreeNode aux = (DefaultMutableTreeNode) node.getParent();
+			((DefaultTreeModel)tree.getModel()).removeNodeFromParent(node);
+			((DefaultTreeModel)tree.getModel()).reload();
+			tree.scrollPathToVisible(new TreePath(aux.getPath()));
+			knowledgeSelectedTree = null;
+		}
+	}
+
+	// Method used to find a vertex in the graph
+	private mxCell findCellKnowledge(Knowledge k) {
+		mxCell result = null;
+		if (k != null) {
+			Object[] edges = graph.getAllEdges(new Object[]{graph.getModel().getRoot()});
+			boolean found = false;
+			for (int i = 0; i< edges.length && !found; i++) {
+				if (((Knowledge)((mxCell)edges[i]).getSource().getValue()).equals(k)) {
+					result = (mxCell) ((mxCell)edges[i]).getSource();
+					found = true;
+				}
+				else if (((Knowledge)((mxCell)edges[i]).getTarget().getValue()).equals(k)) {
+					result = (mxCell) ((mxCell)edges[i]).getTarget();
+					found = true;
+				}
+			}
+		}
+		return result;
+	}
+	
+	// Method used to find a node in the tree
+	@SuppressWarnings("rawtypes")
+	private DefaultMutableTreeNode findNodeKnowledge(DefaultMutableTreeNode node, Knowledge k) {
+		DefaultMutableTreeNode result = null;
+		if (k != null) {
+			Enumeration e = node.children();
+			boolean found = false;
+			while(!found && e.hasMoreElements()) {
+				result = (DefaultMutableTreeNode)e.nextElement();
+				if (((Knowledge)result.getUserObject()).equals(k))
+					found = true;
+				else {
+					result = findNodeKnowledge(result, k);
+					if (result != null)
+						found = true;
+				}
+			}
+		}
+		return result;
+	}
+
+	// Get the selected knowledge (from tree or graph)
+	private Knowledge getSelectedKnowledge() {
+		Knowledge k = null;
+		if (knowledgeSelectedTree != null)
+			k = knowledgeSelectedTree;
+		else if (knowledgeSelectedGraph != null) {
+			k = knowledgeSelectedGraph;
+		}
+		return k;
+	}
+
+	
 }

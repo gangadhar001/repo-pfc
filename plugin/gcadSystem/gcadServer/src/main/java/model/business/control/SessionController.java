@@ -59,10 +59,10 @@ public class SessionController {
 		} catch(NoSuchAlgorithmException e) {
 			throw new SQLException("No se puede encriptar la contraseña del usuario.");
 		}*/
-		// Comprobamos el login y la contraseña encriptada del usuario
+		// Check login and password
 		user = DAOUser.queryUser(login, password);
 
-		// Comprobamos si el usuario ya tenía una sesión iniciada
+		// Check if the user has already logged
 		openedSessions = sessions.elements();
 		openedSession = null;
 		found = false;
@@ -78,10 +78,9 @@ public class SessionController {
 			IClient client = ClientsController.getClient(openedSession.getId());
 			if (client != null)
 				try {
-					// Forzamos a que el cliente antiguo salga del sistema
-					client.cerrarSesion();
+					client.closeSession();
 				} catch(RemoteException e) {
-					// Ignoramos la excepción
+					// Ignore exception
 				}
 			sessions.remove(openedSession.getId());
 			ClientsController.detach(openedSession.getId());

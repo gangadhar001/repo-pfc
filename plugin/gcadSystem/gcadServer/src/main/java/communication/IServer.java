@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.business.control.SessionController;
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
@@ -55,8 +54,7 @@ public interface IServer extends Remote {
 	
 	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
-	
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;	
 	
 	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 		
@@ -90,26 +88,4 @@ public interface IServer extends Remote {
 	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
 	
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
-	
-	/*** Methods used to manage the UI observer ***/
-//	public void notifyLogin () {
-//		ClientsController.notifyConnection(true);
-//	}
-//	
-//	public void notifySignOut () {
-//		ClientsController.notifyConnection(false);
-//	}
-//	
-//	public void notifyKnowledgeAdded(Knowledge k) {
-//		ClientsController.notifyKnowledgeAdded(k);
-//	}
-//	
-//	public void notifyKnowledgeChanged(Knowledge k) {
-//		ClientsController.notifyKnowledgeEdited(k);
-//	}
-//	
-//	public void notifyKnowledgeRemoved(Knowledge k) {
-//		ClientsController.notifyKnowledgeRemoved(k);
-//	}
-	
 }
