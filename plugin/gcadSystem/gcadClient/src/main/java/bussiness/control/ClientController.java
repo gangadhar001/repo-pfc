@@ -19,6 +19,7 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
+import model.business.knowledge.UserRole;
 
 import org.jdesktop.application.Application;
 
@@ -52,6 +53,8 @@ public class ClientController {
 	private JFMain mainWindowUI;
 	private ISession session;
 	private String clientIP;
+	private String login;
+	private String role;
 
 	public ClientController() {
 		availableOperations = new ArrayList<Operation>();
@@ -62,6 +65,15 @@ public class ClientController {
 			instance = new ClientController();
 		}
 		return instance;
+	}	
+
+	public String getClientIP() {
+		return clientIP;
+	}
+	
+	public int getPort () {
+		return client.getListenPort();
+		
 	}
 
 	/*** Method to login and export the client (plug-in) ***/
@@ -88,7 +100,8 @@ public class ClientController {
 		try {
 			// Login in the server
 			session = server.login(username, pass);
-			//usuarioAutenticado = login;
+			login = username;
+			role = UserRole.values()[session.getRole()].name();
 		} catch(RemoteException e) {
 			throw new RemoteException(ApplicationInternationalization.getString("ClientController_Login_Error"));
 		} catch (Exception e) {
@@ -198,7 +211,8 @@ public class ClientController {
 	}
 
 	public void signout() throws RemoteException, SQLException, NotLoggedException, Exception {
-		server.signout(session.getId());		
+		server.signout(session.getId());
+		closeMainFrame();
 	}
 	
 	public boolean isLogged () {
@@ -318,6 +332,14 @@ public class ClientController {
 			
 		Application.getInstance(JFLogin.class).getMainFrame().dispose();
 		Application.getInstance(JFMain.class).getMainFrame().dispose();
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public String getUserLogin() {
+		return login;
 	}
 
 	

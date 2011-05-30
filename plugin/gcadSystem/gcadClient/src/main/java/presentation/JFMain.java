@@ -60,6 +60,8 @@ import presentation.panelsActions.panelStatisticsView;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 import exceptions.NotLoggedException;
 
 
@@ -80,8 +82,10 @@ import exceptions.NotLoggedException;
  */
 public class JFMain extends SingleFrameApplication {
     private JMenuBar menuBar;
+    private JLabel lblAction;
+    private JLabel lblPort;
+    private JLabel lblRole;
     private JPanel panelActions;
-    private JLabel lblStatus;
     private JTabbedPane tabPanel;
     private JMenuItem menuItemAbout;
     private JMenu menuHelp;
@@ -104,6 +108,7 @@ public class JFMain extends SingleFrameApplication {
 	private panelNotificationsView panelNotifications;
 	private List<Operation> operations;
 	private panelStatisticsView panelStatistics;
+	private JMenuItem menuFileCloseSession;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -118,27 +123,7 @@ public class JFMain extends SingleFrameApplication {
                          ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION;
              }
              public void willExit(EventObject event) {
-            	 try {
-            		// Close session
-            		 ClientController.getInstance().signout();
-            		// Close and unexport client
-					ClientController.getInstance().closeController();
-				} catch (RemoteException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (MalformedURLException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (NotBoundException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (ClassCastException e) {
-					// Ignore
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (NotLoggedException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				}
-				
+            	 quit();
              }
          });
 
@@ -155,35 +140,36 @@ public class JFMain extends SingleFrameApplication {
 			// TODO: Temporal
 			ClientController.getInstance().setCurrentProject(2);
 			
-			GridBagLayout mainFrameLayout = new GridBagLayout();
+			AnchorLayout mainFrameLayout = new AnchorLayout();
 			getMainFrame().setTitle(ApplicationInternationalization.getString("titleMain"));
-			mainFrameLayout.rowWeights = new double[] {0.01, 0.8, 0.05};
-			mainFrameLayout.rowHeights = new int[] {7, 7, 7};
-			mainFrameLayout.columnWeights = new double[] {0.1};
-			mainFrameLayout.columnWidths = new int[] {7};
 			getMainFrame().getContentPane().setLayout(mainFrameLayout);
 			{
 				statusPanel = new JPanel();
-				getMainFrame().getContentPane().add(statusPanel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-				GridBagLayout statusPanelLayout = new GridBagLayout();
-				statusPanelLayout.rowWeights = new double[] {0.1};
-				statusPanelLayout.rowHeights = new int[] {7};
-				statusPanelLayout.columnWeights = new double[] {0.1};
-				statusPanelLayout.columnWidths = new int[] {7};
+				getMainFrame().getContentPane().add(statusPanel, new AnchorConstraint(922, 1000, -27, 0, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+				AnchorLayout statusPanelLayout = new AnchorLayout();
 				statusPanel.setLayout(statusPanelLayout);
-				statusPanel.setPreferredSize(new java.awt.Dimension(907, 21));
+				statusPanel.setPreferredSize(new java.awt.Dimension(1051, 90));
 				{
-					lblStatus = new JLabel();
-					statusPanel.add(lblStatus, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.VERTICAL, new Insets(0, 4, 0, 0), 0, 0));
-					lblStatus.setName("lblStatus");
-					lblStatus.setText(ApplicationInternationalization.getString("lblSatusBar"));
+					lblAction = new JLabel();
+					statusPanel.add(lblAction, new AnchorConstraint(579, 201, 7, 7, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+					lblAction.setPreferredSize(new java.awt.Dimension(204, 20));
+				}
+				{
+					lblPort = new JLabel();
+					statusPanel.add(lblPort, new AnchorConstraint(563, 8, 7, 783, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+					lblPort.setPreferredSize(new java.awt.Dimension(221, 21));
+				}
+				{
+					lblRole = new JLabel();
+					statusPanel.add(lblRole, new AnchorConstraint(150, 4, 34, 879, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+					lblRole.setPreferredSize(new java.awt.Dimension(224, 24));
 				}
 			}
 			{
 				tabPanel = new JTabbedPane();
-				getMainFrame().getContentPane().add(tabPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+				getMainFrame().getContentPane().add(tabPanel, new AnchorConstraint(55, 1003, 884, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				tabPanel.setName("tabPanel");
-				tabPanel.setPreferredSize(new java.awt.Dimension(907, 415));
+				tabPanel.setPreferredSize(new java.awt.Dimension(1054, 440));
 				tabPanel.addChangeListener(new ChangeListener() {
 					public void stateChanged(ChangeEvent evt) {
 						tabPanelStateChanged(evt);
@@ -206,14 +192,15 @@ public class JFMain extends SingleFrameApplication {
 			}
 			{
 				toolBarPanel = new JPanel();
-				getMainFrame().getContentPane().add(toolBarPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+				getMainFrame().getContentPane().add(toolBarPanel, new AnchorConstraint(0, 1005, 172, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
 				BorderLayout jPanel1Layout = new BorderLayout();
 				toolBarPanel.setLayout(jPanel1Layout);
+				toolBarPanel.setPreferredSize(new java.awt.Dimension(1056, 52));
 				{
 					toolBar = new CustomToolBar();
 					toolBarPanel.add(toolBar, BorderLayout.CENTER);
-					toolBar.setPreferredSize(new java.awt.Dimension(958, 50));
-					toolBar.setSize(958, 50);
+					toolBar.setPreferredSize(new java.awt.Dimension(1057, 46));
+					toolBar.setSize(958, 32);
 				}
 			}
 			
@@ -230,6 +217,11 @@ public class JFMain extends SingleFrameApplication {
 		
 			createCommonToolbar();
 			
+			// TODO: 
+			lblPort.setText("Client ready on " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
+			lblRole.setText("Logged as " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());
+			lblAction.setVisible(false);
+			
 	        // Show the main frame
 	        show(getMainFrame());     
 	        
@@ -239,7 +231,6 @@ public class JFMain extends SingleFrameApplication {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
     }
 
@@ -296,8 +287,17 @@ public class JFMain extends SingleFrameApplication {
     	menuFile.setText(ApplicationInternationalization.getString("menuFile"));
     	{
     		menuFileExit = new JMenuItem();
+    		menuFile.add(menuFileCloseSession);
+    		menuFileExit.setName("menuFileCloseSession");
+    		menuFileExit.setAction(getAppActionMap().get("CloseSession"));
+    		menuFileExit.setText(ApplicationInternationalization.getString("menuFileCloseSession"));
+    	}
+    	
+    	{
+    		menuFileExit = new JMenuItem();
     		menuFile.add(menuFileExit);
     		menuFileExit.setName("menuFileExit");
+    		menuFileExit.setAction(getAppActionMap().get("Exit"));
     		menuFileExit.setText(ApplicationInternationalization.getString("menuItemExit"));
     	}
     	
@@ -385,6 +385,7 @@ public class JFMain extends SingleFrameApplication {
 		});
 	
 		panelActions.add(button);
+		button.setPreferredSize(new java.awt.Dimension(1061, 412));
     }    
     
     // Method used to show in the toolbar the common buttons for all tabs
@@ -491,6 +492,22 @@ public class JFMain extends SingleFrameApplication {
 	
     /*** Actions used to manage actions for menu items ***/
 	@Action
+	public void Exit() {
+		// TODO:
+//		JOptionPane.showConfirmDialog(ventanaPadre, mensaje, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
+		quit();
+	}
+	
+	
+    
+	@Action 
+	public void CloseSession() {
+		// TODO:
+//		JOptionPane.showConfirmDialog(ventanaPadre, mensaje, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
+		closeSessionConfirm();
+	}
+	
+    @Action
     public void manageKnowledge() {
 		// Invoke JFKnowledge without arguments (no operation, no data)
     	JDKnowledge frameKnowledge = new JDKnowledge(this);
@@ -640,4 +657,41 @@ public class JFMain extends SingleFrameApplication {
 //		JOptionPane.showMessageDialog(ventanaPadre, mensaje, titulo, JOptionPane.WARNING_MESSAGE);
 		ClientController.getInstance().closeMainFrame();		
 	}	
+	
+
+	protected void closeSessionConfirm() {
+		try {
+			// TODO:
+			lblAction.setVisible(false);
+			lblRole.setText("Sesión cerrada correctamente");
+			lblPort.setText("");
+			// Close session
+			ClientController.getInstance().signout();
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void quit() {
+		try {
+			// Close session
+       	 	closeSessionConfirm();	
+       	 	ClientController.getInstance().closeController();            	 
+		} catch (MalformedURLException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotBoundException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (ClassCastException e) {
+			// Ignore
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 }

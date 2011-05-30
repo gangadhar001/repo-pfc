@@ -140,10 +140,10 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				pnlPanel.setPreferredSize(new java.awt.Dimension(542, 327));
 				{
 					lblConnectedClients = new JLabel();
-					pnlPanel.add(lblConnectedClients, new AnchorConstraint(889, 228, 36, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+					pnlPanel.add(lblConnectedClients, new AnchorConstraint(889, 286, 36, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 					lblConnectedClients.setText(AppInternationalization.getString("ConnectedClients_label"));
 					lblConnectedClients.setName("lblClientesConectados");
-					lblConnectedClients.setPreferredSize(new java.awt.Dimension(115, 16));
+					lblConnectedClients.setPreferredSize(new java.awt.Dimension(147, 16));
 				}
 				{
 					scpPanelLog = new JScrollPane();
@@ -156,13 +156,14 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						txtLog.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 						txtLog.setEditable(false);
 						txtLog.setFont(new java.awt.Font("Tahoma",0,12));
+						txtLog.setPreferredSize(new java.awt.Dimension(528, 279));
 					}
 				}
 				{
 					lblStatusBar = new JLabel();
-					pnlPanel.add(lblStatusBar, new AnchorConstraint(941, 314, 12, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+					pnlPanel.add(lblStatusBar, new AnchorConstraint(941, 487, 12, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 					lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label"));
-					lblStatusBar.setPreferredSize(new java.awt.Dimension(162, 16));
+					lblStatusBar.setPreferredSize(new java.awt.Dimension(257, 16));
 				}
 				{
 					btnDisconnect = new JButton();

@@ -279,9 +279,9 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			{
 				panel = new JPanel();
 				AnchorLayout panelLayout = new AnchorLayout();
-				this.add(panel, new AnchorConstraint(3, 801, 1009, 177, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				this.add(panel, new AnchorConstraint(3, 768, 1001, 177, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				panel.setLayout(panelLayout);
-				panel.setPreferredSize(new java.awt.Dimension(661, 481));
+				panel.setPreferredSize(new java.awt.Dimension(626, 477));
 				{
 					panelGraph = new DropShadowPanel();
 					GridBagLayout panelGraphLayout = new GridBagLayout();
@@ -295,10 +295,11 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				}
 			}
 			updateBorder(scrollTree);
+			updateBorder(jScrollPane1);
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -309,7 +310,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			pnlUserInfo.setLayout(pnlUserInfoLayout);
 			pnlUserInfo.setPreferredSize(new java.awt.Dimension(194, 457));
 			pnlUserInfo.setBorder(BorderFactory.createTitledBorder(""));
-			pnlUserInfo.add(getPnlCompany(), new AnchorConstraint(552, 945, 782, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlUserInfo.add(getPnlCompany(), new AnchorConstraint(624, 936, 917, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 			pnlUserInfo.add(getLblSeniority(), new AnchorConstraint(493, 523, 526, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 			pnlUserInfo.add(getLblRole(), new AnchorConstraint(432, 523, 464, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 			pnlUserInfo.add(getLblDate(), new AnchorConstraint(318, 523, 351, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
@@ -357,7 +358,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JScrollPane getJScrollPane1() {
 		if(jScrollPane1 == null) {
 			jScrollPane1 = new JScrollPane();
-			jScrollPane1.setPreferredSize(new java.awt.Dimension(197, 460));
+			jScrollPane1.setPreferredSize(new java.awt.Dimension(231, 460));
 			jScrollPane1.setViewportView(getPnlUserInfo());
 		}
 		return jScrollPane1;
@@ -367,10 +368,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		if(pnlCompany == null) {
 			pnlCompany = new JPanel();
 			AnchorLayout pnlCompanyLayout = new AnchorLayout();
-			pnlCompany.setPreferredSize(new java.awt.Dimension(171, 105));
+			pnlCompany.setPreferredSize(new java.awt.Dimension(203, 134));
 			pnlCompany.setLayout(pnlCompanyLayout);
 			pnlCompany.setBorder(BorderFactory.createTitledBorder(""));
-			pnlCompany.add(getBtnDetails(), new AnchorConstraint(700, 938, 919, 599, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlCompany.add(getBtnDetails(), new AnchorConstraint(700, 938, 919, 540, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 		}
 		return pnlCompany;
 	}
@@ -378,7 +379,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JButton getBtnDetails() {
 		if(btnDetails == null) {
 			btnDetails = new JButton();
-			btnDetails.setPreferredSize(new java.awt.Dimension(58, 23));
+			btnDetails.setPreferredSize(new java.awt.Dimension(68, 23));
 			btnDetails.setName("btnDetails");
 		}
 		return btnDetails;
@@ -402,7 +403,22 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		// If an item is selected, show the knowledge window filled with data
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
-			operationModifyKnowledge(k.getClass().getSimpleName(), k, Operations.Modify.name());
+			try{
+				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+					operationModifyKnowledge(k.getClass().getSimpleName(), k, Operations.Modify.name());
+				}
+				else
+					//TODO: 
+					JOptionPane.showMessageDialog(this, "No puedes modificar otro conocimiento porque no eres su autor", ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (RemoteException e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRole e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	
@@ -427,7 +443,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				}
 				else
 					// TODO: error
-					;
+					JOptionPane.showMessageDialog(this, "No puedes borrar otro conocimiento porque no eres su autor", ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
@@ -463,7 +479,20 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	}
 
 	public void notifyKnowledgeEdited(model.business.knowledge.Knowledge newK, Knowledge oldK) {
-		// TODO Auto-generated method stub
+		try {
+			editKnowledgeFromGraph(newK, oldK);
+			editKnowledgeFromTree(newK, oldK);
+			// Refresh knowledge
+			topicWrapper = ClientController.getInstance().getTopicsWrapper();
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRole e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}		
 		
 	}
 	
@@ -475,17 +504,13 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			// Refresh knowledge
 			topicWrapper = ClientController.getInstance().getTopicsWrapper();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 	
@@ -501,19 +526,14 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			// Refresh knowledge
 			topicWrapper = ClientController.getInstance().getTopicsWrapper();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}		
-		
 	}
 
 	// Add new knowledge in graph
@@ -556,17 +576,13 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			}
 			graph.refresh();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -609,17 +625,42 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				tree.scrollPathToVisible(new TreePath(child.getPath()));	
 			}
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	// Edit knowledge from graph
+	private void editKnowledgeFromGraph(Knowledge newK, Knowledge oldK) {
+		mxCell cell = null;
+		if (knowledgeSelectedGraph != null)
+			 cell = (mxCell) graph.getSelectionCell();
+		else
+			// Search the cell for the old knowledge received
+			cell = findCellKnowledge(oldK);
+		if (cell != null) {
+			// Replace the old knowledge with the new Knowledge
+			cell.setValue(newK);
+			graph.refresh();
+		}
+	}
+
+	// Method used to edit a node from tree
+	private void editKnowledgeFromTree(Knowledge newK, Knowledge oldK) {
+		DefaultMutableTreeNode node = null;
+		if (knowledgeSelectedTree != null)
+			node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
+		else
+			// Search the node for the knowledge received 
+			node = findNodeKnowledge((DefaultMutableTreeNode)tree.getModel().getRoot(), oldK);
+		if (node != null) {
+			node.setUserObject(newK);
+			((DefaultTreeModel)tree.getModel()).reload();
 		}
 	}
 	
