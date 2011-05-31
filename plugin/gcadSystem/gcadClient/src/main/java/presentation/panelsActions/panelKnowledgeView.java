@@ -427,7 +427,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		if (k != null) {
 			try {
 				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
-				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+//				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
 					if (k instanceof Topic)				
 						ClientController.getInstance().deleteTopic((Topic) k);
 					else if (k instanceof Proposal)				
@@ -440,10 +440,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					// Refresh tree and graph
 					deleteKnowledgeFromTree(k);
 					deleteKnowledgeFromGraph(k);
-				}
-				else
-					// TODO: error
-					JOptionPane.showMessageDialog(this, "No puedes borrar otro conocimiento porque no eres su autor", ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+//				}
+//				else
+//					// TODO: error
+//					JOptionPane.showMessageDialog(this, "No puedes borrar otro conocimiento porque no eres su autor", ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {

@@ -421,7 +421,7 @@ public class Server implements IServer {
 		try {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
-			notifications = NotificationController.getNotifications(sessionId, session.getCurrentActiveProject());
+			notifications = NotificationController.getNotificationsProject(sessionId, session.getCurrentActiveProject());
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("GetNotifications_msg"));
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("SQL_GetNotifications_msg") + "': " + se.getLocalizedMessage());

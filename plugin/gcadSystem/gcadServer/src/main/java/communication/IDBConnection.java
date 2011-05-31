@@ -16,6 +16,10 @@ public interface IDBConnection extends Remote {
 		
 	public List<?> query(HibernateQuery query) throws RemoteException, SQLException;
 	
+	public List<?> query(String query) throws RemoteException, SQLException;
+	
+	public void executeUpdate(String query) throws RemoteException, SQLException;
+	
 	public void initTransaction() throws RemoteException, SQLException;
 	
 	public Object insert(Object object) throws RemoteException, SQLException;
@@ -27,9 +31,7 @@ public interface IDBConnection extends Remote {
 	public void commit() throws RemoteException, SQLException;
 	
 	public void rollback() throws RemoteException, SQLException;
-	
-	public void deleteCache(Object object) throws RemoteException, SQLException;
 
-	public void clearCache(Object object) throws SQLException;
+	public void clearCache(Object object) throws RemoteException, SQLException;
 		
 }

@@ -29,9 +29,9 @@ public class DBConnectionManager {
 		if (connections.size() == 0) {
 			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
-		for (IDBConnection conexion : connections) {
+		for (IDBConnection connection : connections) {
 			try {
-				conexion.initTransaction();
+				connection.initTransaction();
 			} catch (Exception ex) {
 
 				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
@@ -48,12 +48,12 @@ public class DBConnectionManager {
 		}
 		error = false;
 		excepcion = null;
-		for (IDBConnection conexion : connections) {
+		for (IDBConnection connection : connections) {
 			try {
-				conexion.commit();
+				connection.commit();
 			} catch (Exception ex) {
 				try {
-					conexion.rollback();
+					connection.rollback();
 				} catch (Exception ex2) {
 				}
 				error = true;
@@ -83,6 +83,24 @@ public class DBConnectionManager {
 		}
 		return data;
 	}
+	
+	public static List<?> query(String query) throws SQLException {
+		List<?> data;
+
+		if (connections.size() == 0) {
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
+		}
+
+		try {
+			data = connections.get(0).query(query);
+		} catch (Exception ex) {
+
+			throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
+
+		}
+		return data;
+		
+	}
 
 	public static Object insert(Object object) throws SQLException {
 		Object copy;
@@ -91,12 +109,12 @@ public class DBConnectionManager {
 			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
 		copy = null;
-		for (IDBConnection conexion : connections) {
+		for (IDBConnection connection : connections) {
 			try {
 				if (copy == null) {
-					copy = conexion.insert(object);
+					copy = connection.insert(object);
 				} else {
-					conexion.insert(object);
+					connection.insert(object);
 				}
 			} catch (Exception ex) {
 
@@ -111,9 +129,9 @@ public class DBConnectionManager {
 		if (connections.size() == 0) {
 			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
-		for (IDBConnection conexion : connections) {
+		for (IDBConnection connection : connections) {
 			try {
-				conexion.update(objeto);
+				connection.update(objeto);
 			} catch (Exception ex) {
 
 				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
@@ -125,23 +143,37 @@ public class DBConnectionManager {
 		if (connections.size() == 0) {
 			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
-		for (IDBConnection conexion : connections) {
+		for (IDBConnection connection : connections) {
 			try {
-				conexion.delete(objeto);
+				connection.delete(objeto);
 			} catch (Exception ex) {
 
 				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
 			}
 		}
 	}
+	
+	public static void executeUpdate(String query) throws SQLException {
+		if (connections.size() == 0) {
+			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
+		}
+		for (IDBConnection connection : connections) {
+			try {
+				connection.executeUpdate(query);
+			} catch (Exception ex) {
+
+				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);
+			}
+		}		
+	}
 
 	public static void clearCache(Object object) throws SQLException {
 		if (connections.size() == 0) {
 			throw new SQLException(AppInternationalization.getString("EmptyConnections_Exception"));
 		}
-		for (IDBConnection conexion : connections) {
+		for (IDBConnection connection : connections) {
 			try {
-				conexion.clearCache(object);
+				connection.clearCache(object);
 			} catch (Exception ex) {
 
 				throw new SQLException(AppInternationalization.getString("ErrorDB_Exception"), ex);

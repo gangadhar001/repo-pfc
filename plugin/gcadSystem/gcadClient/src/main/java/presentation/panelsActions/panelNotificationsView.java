@@ -91,8 +91,8 @@ public class panelNotificationsView extends javax.swing.JPanel {
 			notificationsTable.setValueAt(n.getKnowledge().getDate(), i, 3);
 			notificationsTable.setValueAt(n.getKnowledge().getUser().getName(), i, 4);
 			// If the notification state is "unread", colorize the row
-			if (notifications.get(i).getState().equals("Unread"))
-				notificationsTable.addRowToColorize(i);
+//			if (notifications.get(i).getState().equals("Unread"))
+//				notificationsTable.addRowToColorize(i);
 		}
 	}
 
@@ -129,9 +129,25 @@ public class panelNotificationsView extends javax.swing.JPanel {
 						// When select a row, show the details and mark this notification as "read"
 						@Override
 						public void valueChanged(ListSelectionEvent e) {
+							// TODO: 
 							rowSelected = notificationsTable.getSelectedRow();
-							notificationsTable.deleteRowToColorize(rowSelected);
-							showDetailRow();
+//							notificationsTable.deleteRowToColorize(rowSelected);
+//							showDetailRow();
+							try {
+								ClientController.getInstance().removeNotification(notifications.get(rowSelected));
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (NotLoggedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (NonPermissionRole e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						}
 					});
 					updateBorder(scrollTable);

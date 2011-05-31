@@ -102,18 +102,44 @@ public class DBConnection implements IDBConnection {
 	}
 		
 	public List<?> query(HibernateQuery query) throws RemoteException, SQLException {
-		List<?> datosLeidos;
+		List<?> data;
 		
 		try {
 			HibernateSessionFactory.getSession().beginTransaction();
-			datosLeidos = query.createQuery(HibernateSessionFactory.getSession()).list();
+			data = query.createQuery(HibernateSessionFactory.getSession()).list();
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}
 
-		return datosLeidos;
+		return data;
 	}
 
+	// Method uses to execute a SQL string query
+	@Override
+	public List<?> query(String query) throws RemoteException, SQLException {
+		List<?> data;
+		
+		try {
+			HibernateSessionFactory.getSession().beginTransaction();
+			data = HibernateSessionFactory.getSession().createSQLQuery(query).list();
+		} catch(HibernateException ex) {
+			throw new SQLException(ex.getLocalizedMessage(), ex);
+		}
+
+		return data;
+	}
+
+	// Method uses to execute a SQL string query update
+	@Override
+	public void executeUpdate(String query) throws RemoteException, SQLException {
+		try {
+			HibernateSessionFactory.getSession().createSQLQuery(query).executeUpdate();
+		} catch(HibernateException ex) {
+			throw new SQLException(ex.getLocalizedMessage(), ex);
+		}
+		
+	}
+	
 	public Object insert(Object object) throws RemoteException, SQLException {
 		try {
 			HibernateSessionFactory.getSession().save(object);

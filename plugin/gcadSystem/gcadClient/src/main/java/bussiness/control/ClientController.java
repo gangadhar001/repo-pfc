@@ -254,8 +254,8 @@ public class ClientController {
 		return server.getProposals(session.getId());
 	}
 
-	public void removeNotification(Notification arg0) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		//TODO
+	public void removeNotification(Notification notification) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+		server.removeNotification(session.getId(), notification);
 		
 	}
 	public List<Operation> getAvailableOperations() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
