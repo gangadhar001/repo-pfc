@@ -1,10 +1,13 @@
 package presentation.utils;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Component;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -48,11 +51,9 @@ public class ImagePDFTreeCellRenderer extends DefaultTreeCellRenderer {
 	                setIcon(icon);
 			}
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}        
         return this;
 		

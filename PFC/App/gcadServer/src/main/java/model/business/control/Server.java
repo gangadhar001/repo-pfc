@@ -37,7 +37,6 @@ import exceptions.NotLoggedException;
  * This class implements the facade of the server.
  */
 
-// TODO: actualizar clientes con nuevo conocimiento
 public class Server implements IServer {
 
 	private static Server instance = null;
@@ -393,6 +392,7 @@ public class Server implements IServer {
 //		}			
 //	}
 	
+	// TODO:
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		String login = "";
 		try {

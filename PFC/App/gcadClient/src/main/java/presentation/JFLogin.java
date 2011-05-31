@@ -103,11 +103,12 @@ public class JFLogin extends SingleFrameApplication {
              }
              public void willExit(EventObject event) {
             	 try {
-            		 if (ClientController.getInstance().isLogged())
+            		 if (ClientController.getInstance().isLogged()) {
             			 // Close session
             			 ClientController.getInstance().signout();
-            		 // Close and unexport client
-					 ClientController.getInstance().closeController();
+	            		 // Close and unexport client
+						 ClientController.getInstance().closeController();
+            		 }
 				} catch (RemoteException e) {
 					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 				} catch (MalformedURLException e) {

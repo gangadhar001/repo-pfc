@@ -18,7 +18,6 @@ import model.business.knowledge.TopicWrapper;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -38,7 +37,7 @@ public class PDFComposer {
 	private static List<Project> projects = null;
 	
 	@SuppressWarnings("rawtypes")
-	public static void composePDF (Document doc, DefaultMutableTreeNode root, List<Project> pro) throws DocumentException {
+	public static void composePDF (Document doc, DefaultMutableTreeNode root, List<Project> pro) throws NumberFormatException, RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		projects = pro;
 		Enumeration children = root.children();
 		int count = 1;
@@ -53,7 +52,7 @@ public class PDFComposer {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) {
+	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) throws NumberFormatException, RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		Enumeration children = parentNode.children();
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
@@ -67,7 +66,7 @@ public class PDFComposer {
 			}
 			if (child.getUserObject() instanceof Text) {
 				Font f = FontFactory.getFont(FontFactory.HELVETICA, 12f, Font.NORMAL, new BaseColor(Color.BLACK));
-				Paragraph p = new Paragraph(((Text)child.getUserObject()).getContent());
+				Paragraph p = new Paragraph(((Text)child.getUserObject()).getContent(), f);
 				if (el instanceof Chapter) 
 					((Chapter)el).add(p);
 				else if (el instanceof Section)
@@ -93,48 +92,33 @@ public class PDFComposer {
 		}
 	}
 
-	private static PdfPTable createTable(Project p) {
+	private static PdfPTable createTable(Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		PdfPTable table = new PdfPTable(5);
 		createHeader(table);
 		// Take knowledge from project
 		TopicWrapper tw;
-		try {
-			tw = ClientController.getInstance().getTopicsWrapper(p);
-			List<Knowledge> knowledge = ClientController.getInstance().getKnowledgeProject(tw);
-			for(Knowledge k: knowledge) {
-				PdfPCell cell = new PdfPCell(new Paragraph(k.getTitle()));
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Paragraph(k.getTitle()));
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Paragraph(k.getDescription()));
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Paragraph(k.getDate().toLocaleString()));
-				table.addCell(cell);
-				
-				cell = new PdfPCell(new Paragraph(k.getUser().getName() + ", " + k.getUser().getSurname()));
-				table.addCell(cell);
-				
+		tw = ClientController.getInstance().getTopicsWrapper(p);
+		List<Knowledge> knowledge = ClientController.getInstance().getKnowledgeProject(tw);
+		for(Knowledge k: knowledge) {
+			PdfPCell cell = new PdfPCell(new Paragraph(k.getTitle()));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Paragraph(k.getTitle()));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Paragraph(k.getDescription()));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Paragraph(k.getDate().toLocaleString()));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Paragraph(k.getUser().getName() + ", " + k.getUser().getSurname()));
+			table.addCell(cell);
+			
 //				cell = new PdfPCell(new Paragraph(k.getUser().getName() + ", " + k.getUser().getSurname()));
 //				table.addCell(cell);
-			}
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();		}
+		}
+		
 		
 		return table;
 	}

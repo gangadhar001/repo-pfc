@@ -14,11 +14,9 @@ public class Answer extends Knowledge implements Serializable{
 			
 	private static final long serialVersionUID = -1238919159476139631L;
 	
-	// TODO: cambiarlo por una enumeracion {Pro, Contra}
 	private String argument;
 	
 	public Answer () {
-		
 	}
 	
 	public Answer(String title, String description, Date date, String argument) {

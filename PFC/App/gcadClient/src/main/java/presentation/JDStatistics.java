@@ -40,6 +40,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import resources.NotEmptyValidator;
+
 import bussiness.control.ClientController;
 import bussiness.control.StatisticsGenerator;
 import exceptions.NonPermissionRole;
@@ -207,6 +209,7 @@ public class JDStatistics extends javax.swing.JDialog {
 							txtTitleChart = new JTextField();
 							panelCustomize.add(txtTitleChart);
 							txtTitleChart.setBounds(86, 10, 228, 23);
+							txtTitleChart.setInputVerifier(new NotEmptyValidator(this, txtTitleChart, ApplicationInternationalization.getString("loginValidateEmpty")));
 						}
 						{
 							lblTitleChart = new JLabel();
@@ -567,66 +570,85 @@ public class JDStatistics extends javax.swing.JDialog {
 		AbstractDataset dataset = null;
 		JFreeChart chart = null;
 		
-		// TODO: Validar que todos los campos esten rellenos
+		boolean valid = true;
+		if (cbCharts.getSelectedItem() == null) {
+			valid = false;
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectChart"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
+		if (valid && cbProjects.isEnabled() && cbProjects.getSelectedItem() == null) {
+			valid = false;
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectProject"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
+		if (valid && cbUsers.isEnabled() && cbUsers.getSelectedItem() == null) {
+			valid = false;
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectUser"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
+		if (valid && cbRange.isEnabled() && cbRange.getSelectedItem() == null) {
+			valid = false;
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectRange"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
 		
-		if (cbRange.getSelectedIndex() == 1)
-			isAnnually = false;
+		if (valid && !rbHideLegend.isSelected() && !rbShowLegend.isSelected()) {
+			valid = false;
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectLegend"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
 		
-		try {
-			if (oneProject) {
-				pro = (Project) cbProjects.getSelectedItem();
-				if (oneUser) {
-					u = (User) cbUsers.getSelectedItem();
-					if (historical) {	
-						dataset = (AbstractDataset) StatisticsGenerator.getInstance().createDatasetEvolutionUser(pro, u, isAnnually); // Caso 3.3
-						chart = generateLineChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
+		if (valid) {
+		
+			if (cbRange.getSelectedIndex() == 1)
+				isAnnually = false;
+			
+			try {
+				if (oneProject) {
+					pro = (Project) cbProjects.getSelectedItem();
+					if (oneUser) {
+						u = (User) cbUsers.getSelectedItem();
+						if (historical) {	
+							dataset = (AbstractDataset) StatisticsGenerator.getInstance().createDatasetEvolutionUser(pro, u, isAnnually); // Caso 3.3
+							chart = generateLineChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
+						}
+					}
+					else {
+						if (historical) {
+							dataset = (AbstractDataset) StatisticsGenerator.getInstance().createDatasetHistoricalProject(pro, isAnnually); // Caso 1.2
+							chart = generateLineChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
+						}
+						else {
+							dataset = StatisticsGenerator.getInstance().createDatasetProjectParticipation(pro, percentage); // Caso 1.1
+							if (percentage)
+								chart = generatePieChart(txtTitleChart.getText(), (DefaultPieDataset) dataset, false);
+							else
+								chart = generateBarChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
+						}
 					}
 				}
 				else {
-					if (historical) {
-						dataset = (AbstractDataset) StatisticsGenerator.getInstance().createDatasetHistoricalProject(pro, isAnnually); // Caso 1.2
-						chart = generateLineChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
-					}
-					else {
-						dataset = StatisticsGenerator.getInstance().createDatasetProjectParticipation(pro, percentage); // Caso 1.1
+					if (oneUser) {
+						dataset = StatisticsGenerator.getInstance().createDatasetKnowledgeDeveloper(u, percentage); // Caso 3.2
 						if (percentage)
 							chart = generatePieChart(txtTitleChart.getText(), (DefaultPieDataset) dataset, false);
 						else
 							chart = generateBarChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
 					}
-				}
-			}
-			else {
-				if (oneUser) {
-					dataset = StatisticsGenerator.getInstance().createDatasetKnowledgeDeveloper(u, percentage); // Caso 3.2
-					if (percentage)
-						chart = generatePieChart(txtTitleChart.getText(), (DefaultPieDataset) dataset, false);
-					else
+					else {
+						dataset = StatisticsGenerator.getInstance().createDatasetResourcesProject(resource); // Caso 2.1 y 2.2
 						chart = generateBarChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
+					}
 				}
-				else {
-					dataset = StatisticsGenerator.getInstance().createDatasetResourcesProject(resource); // Caso 2.1 y 2.2
-					chart = generateBarChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
-				}
-			}
-//			panelConfiguration.removeAll();
-			chartPanel = new ChartPanel(chart);
-			this.dispose();
-//			panelConfiguration.add(chartPanel);
-//			chartPanel.setBounds(0, 0, 323, 239);
-//			panelConfiguration.validate();
-//			panelConfiguration.repaint();
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
-			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		}		
+				chartPanel = new ChartPanel(chart);
+				this.dispose();
+			} catch (RemoteException e) {
+				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRole e) {
+				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}	
+		}
 	}	
 			
 	private JFreeChart generateLineChart(String title, DefaultCategoryDataset dataset, String xAxisName, String yAxisName, boolean showLegend) {

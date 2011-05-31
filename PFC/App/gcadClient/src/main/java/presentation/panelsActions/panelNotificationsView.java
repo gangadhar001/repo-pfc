@@ -1,4 +1,6 @@
 package presentation.panelsActions;
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
@@ -61,20 +64,15 @@ public class panelNotificationsView extends javax.swing.JPanel {
 		try {
 			notifications = ClientController.getInstance().getNotifications();			
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRole e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 		rowSelected = -1;
 		initGUI();
@@ -133,21 +131,7 @@ public class panelNotificationsView extends javax.swing.JPanel {
 							rowSelected = notificationsTable.getSelectedRow();
 //							notificationsTable.deleteRowToColorize(rowSelected);
 //							showDetailRow();
-							try {
-								ClientController.getInstance().removeNotification(notifications.get(rowSelected));
-							} catch (RemoteException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (NotLoggedException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (NonPermissionRole e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+							
 						}
 					});
 					updateBorder(scrollTable);
