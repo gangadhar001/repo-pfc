@@ -218,7 +218,7 @@ DROP TABLE IF EXISTS `dbgcad`.`notifications` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`notifications` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `state` ENUM('Read','Unread') NOT NULL ,
+  `subject` VARCHAR(255) NOT NULL ,
   `knowledgeId` INT NOT NULL ,
   `projectId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
@@ -253,9 +253,67 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`LogEntry` (
   CONSTRAINT `fk_log_user`
     FOREIGN KEY (`user` )
     REFERENCES `dbgcad`.`users` (`login` )
-    ON DELETE RESTRICT
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`notificationsUsers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`notificationsUsers` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`notificationsUsers` (
+  `idNotification` INT NOT NULL ,
+  `idUser` INT NOT NULL ,
+  `state` ENUM('Read','Unread') NOT NULL DEFAULT 'Unread' ,
+  PRIMARY KEY (`idNotification`, `idUser`) ,
+  INDEX `fk_notificationsUsers_user` (`idUser` ASC) ,
+  INDEX `fk_notificationsUsers_notification` (`idNotification` ASC) ,
+  CONSTRAINT `fk_notificationsUsers_user`
+    FOREIGN KEY (`idUser` )
+    REFERENCES `dbgcad`.`users` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_notificationsUsers_notification`
+    FOREIGN KEY (`idNotification` )
+    REFERENCES `dbgcad`.`notifications` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+USE `dbgcad`;
+
+DELIMITER $$
+
+USE `dbgcad`$$
+DROP TRIGGER IF EXISTS `dbgcad`.`DeleteEntity` $$
+USE `dbgcad`$$
+
+
+
+
+
+
+
+
+
+
+
+CREATE TRIGGER DeleteEntity
+AFTER DELETE ON notificationsUsers
+FOR EACH ROW
+BEGIN
+DECLARE
+  cont INT;
+  SELECT COUNT(*) INTO cont FROM notificationsUsers WHERE idNotification = old.idNotification;
+  IF (cont = 0) THEN
+    DELETE FROM notifications WHERE id = OLD.idNotification;
+  END IF;
+END$$
+
+
+DELIMITER ;
 
 
 
@@ -506,8 +564,20 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgeId`, `projectId`) VALUES ('1', 'Read', '2', '2');
-INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgeId`, `projectId`) VALUES ('2', 'Unread', '4', '2');
-INSERT INTO `dbgcad`.`notifications` (`id`, `state`, `knowledgeId`, `projectId`) VALUES ('3', 'Unread', '6', '2');
+INSERT INTO `dbgcad`.`notifications` (`id`, `subject`, `knowledgeId`, `projectId`) VALUES ('1', 'a', '2', '2');
+INSERT INTO `dbgcad`.`notifications` (`id`, `subject`, `knowledgeId`, `projectId`) VALUES ('2', 'b', '4', '2');
+INSERT INTO `dbgcad`.`notifications` (`id`, `subject`, `knowledgeId`, `projectId`) VALUES ('3', 'c', '6', '2');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `dbgcad`.`notificationsUsers`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `dbgcad`;
+INSERT INTO `dbgcad`.`notificationsUsers` (`idNotification`, `idUser`, `state`) VALUES ('1', '1', 'Read');
+INSERT INTO `dbgcad`.`notificationsUsers` (`idNotification`, `idUser`, `state`) VALUES ('1', '2', 'Read');
+INSERT INTO `dbgcad`.`notificationsUsers` (`idNotification`, `idUser`, `state`) VALUES ('2', '1', 'Unread');
+INSERT INTO `dbgcad`.`notificationsUsers` (`idNotification`, `idUser`, `state`) VALUES ('2', '2', 'Read');
 
 COMMIT;

@@ -59,9 +59,9 @@ public class DAOProposal {
 			if(data.size() > 0) {
 				aux = (Topic) data.get(0);			
 			}
-			// Set the topic parent to the proposal
 			p = (Proposal)proposal.clone();
 			DBConnectionManager.initTransaction();
+			// Set the topic parent to the proposal
 			aux.add(p);
 			Proposal newProposal = (Proposal) DBConnectionManager.insert(p);
 			// Set new id

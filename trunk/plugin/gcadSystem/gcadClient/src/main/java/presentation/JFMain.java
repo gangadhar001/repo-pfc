@@ -286,11 +286,11 @@ public class JFMain extends SingleFrameApplication {
     	menuFile.setName("menuFile");
     	menuFile.setText(ApplicationInternationalization.getString("menuFile"));
     	{
-    		menuFileExit = new JMenuItem();
+    		menuFileCloseSession = new JMenuItem();
     		menuFile.add(menuFileCloseSession);
-    		menuFileExit.setName("menuFileCloseSession");
-    		menuFileExit.setAction(getAppActionMap().get("CloseSession"));
-    		menuFileExit.setText(ApplicationInternationalization.getString("menuFileCloseSession"));
+    		menuFileCloseSession.setName("menuFileCloseSession");
+    		menuFileCloseSession.setAction(getAppActionMap().get("CloseSession"));
+    		menuFileCloseSession.setText(ApplicationInternationalization.getString("menuFileCloseSession"));
     	}
     	
     	{

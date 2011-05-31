@@ -1,6 +1,8 @@
 package model.business.knowledge;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class represents a notification about new Knowledge available in the project
@@ -13,6 +15,8 @@ public class Notification implements Serializable{
 	private Knowledge knowledge;
 	private String state;
 	private Project project;
+	private String subject;
+	private Set<User> users;
 	
 	public Notification() { }
 	
@@ -51,6 +55,22 @@ public class Notification implements Serializable{
 
 	public void setProject(Project project) {
 		this.project = project;
+	}	
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	@Override
@@ -60,10 +80,15 @@ public class Notification implements Serializable{
 	
 	public Object clone() {
 		Notification n;
+		Set<User> users = new HashSet<User>();
 		n = new Notification((Knowledge)getKnowledge().clone());
 		n.setId(getId());
 		n.setState(getState());
 		n.setProject((Project)getProject().clone());
+		n.setSubject(getSubject());
+		for (User u: getUsers())
+			users.add((User)u.clone());
+		n.setUsers(users);
 		return n;
 	}
 	

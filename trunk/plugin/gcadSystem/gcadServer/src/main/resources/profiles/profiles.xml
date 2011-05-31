@@ -26,9 +26,13 @@
 			</Subgroup>
 		</Group>
 		<Group id="Notifications">
-			<Operations>
-				<id>DeleteNotification</id>
-			</Operations>
+			<Subgroup id="Notifications">
+				<Operations>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
+				</Operations>
+			</Subgroup>
 		</Group>
 	</Profile>
 	<Profile name="Chief">
