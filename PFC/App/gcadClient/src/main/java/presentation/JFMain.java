@@ -89,7 +89,6 @@ public class JFMain extends SingleFrameApplication {
     private JTabbedPane tabPanel;
     private JMenuItem menuItemAbout;
     private JMenu menuHelp;
-    private JPanel statusPanel;
     private JToolBar toolBar;
     private JPanel toolBarPanel;
 
@@ -129,7 +128,7 @@ public class JFMain extends SingleFrameApplication {
 
     	
     	try {			
-			getMainFrame().setPreferredSize(new java.awt.Dimension(1067, 625));
+			getMainFrame().setPreferredSize(new java.awt.Dimension(1109, 645));
 			getMainFrame().setMinimumSize(new java.awt.Dimension(1067, 625));
 			{	
 				// Set glass panel
@@ -142,32 +141,25 @@ public class JFMain extends SingleFrameApplication {
 			getMainFrame().setTitle(ApplicationInternationalization.getString("titleMain"));
 			getMainFrame().getContentPane().setLayout(mainFrameLayout);
 			{
-				statusPanel = new JPanel();
-				getMainFrame().getContentPane().add(statusPanel, new AnchorConstraint(922, 1000, -27, 0, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
-				AnchorLayout statusPanelLayout = new AnchorLayout();
-				statusPanel.setLayout(statusPanelLayout);
-				statusPanel.setPreferredSize(new java.awt.Dimension(1051, 90));
-				{
-					lblAction = new JLabel();
-					statusPanel.add(lblAction, new AnchorConstraint(579, 201, 7, 7, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
-					lblAction.setPreferredSize(new java.awt.Dimension(204, 20));
-				}
-				{
-					lblPort = new JLabel();
-					statusPanel.add(lblPort, new AnchorConstraint(563, 8, 7, 783, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-					lblPort.setPreferredSize(new java.awt.Dimension(221, 21));
-				}
-				{
-					lblRole = new JLabel();
-					statusPanel.add(lblRole, new AnchorConstraint(150, 4, 34, 879, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-					lblRole.setPreferredSize(new java.awt.Dimension(224, 24));
-				}
+				lblAction = new JLabel();
+				getMainFrame().getContentPane().add(lblAction, new AnchorConstraint(942, 205, 14, 21, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+				lblAction.setPreferredSize(new java.awt.Dimension(203, 20));
+			}
+			{
+				lblPort = new JLabel();
+				getMainFrame().getContentPane().add(lblPort, new AnchorConstraint(940, 7, 11, 778, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblPort.setPreferredSize(new java.awt.Dimension(180, 15));
+			}
+			{
+				lblRole = new JLabel();
+				getMainFrame().getContentPane().add(lblRole, new AnchorConstraint(954, 7, 34, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblRole.setPreferredSize(new java.awt.Dimension(180, 14));
 			}
 			{
 				tabPanel = new JTabbedPane();
-				getMainFrame().getContentPane().add(tabPanel, new AnchorConstraint(55, 1003, 884, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				getMainFrame().getContentPane().add(tabPanel, new AnchorConstraint(45, 1002, 907, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				tabPanel.setName("tabPanel");
-				tabPanel.setPreferredSize(new java.awt.Dimension(1054, 440));
+				tabPanel.setPreferredSize(new java.awt.Dimension(1095, 481));
 				tabPanel.addChangeListener(new ChangeListener() {
 					public void stateChanged(ChangeEvent evt) {
 						tabPanelStateChanged(evt);
@@ -186,14 +178,18 @@ public class JFMain extends SingleFrameApplication {
 					panelActions.setPreferredSize(new java.awt.Dimension(1046, 480));
 					panelActions.setSize(1046, 480);
 					panelActions.setMinimumSize(new java.awt.Dimension(1046, 480));
+					{
+						
+					}
 				}
 			}
 			{
 				toolBarPanel = new JPanel();
-				getMainFrame().getContentPane().add(toolBarPanel, new AnchorConstraint(0, 1005, 172, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+				getMainFrame().getContentPane().add(toolBarPanel, new AnchorConstraint(59, 1005, 172, 0, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
 				BorderLayout jPanel1Layout = new BorderLayout();
 				toolBarPanel.setLayout(jPanel1Layout);
-				toolBarPanel.setPreferredSize(new java.awt.Dimension(1056, 52));
+				toolBarPanel.setPreferredSize(new java.awt.Dimension(1056, 42));
+				toolBarPanel.setSize(1051, 42);
 				{
 					toolBar = new CustomToolBar();
 					toolBarPanel.add(toolBar, BorderLayout.CENTER);
@@ -202,7 +198,7 @@ public class JFMain extends SingleFrameApplication {
 				}
 			}
 			
-	    	getMainFrame().setSize(1067, 625);
+	    	getMainFrame().setSize(1109, 645);
 	        menuBar = new JMenuBar();        
 	        getMainFrame().setJMenuBar(menuBar);
 	        
@@ -339,37 +335,29 @@ public class JFMain extends SingleFrameApplication {
     
     private void createComponent(String group) throws IOException {
     	// Load the group image of the operation
-		image = ImagesUtilities.loadCompatibleImage("Groups/" + group + ".png");	
-		
+		image = ImagesUtilities.loadCompatibleImage("Groups/" + group + ".png");
 		JButton button = new JButton();
-		// Set the group id as the name of the button
+		panelActions.add(button);
 		button.setName("btn_"+group);
 		button.setContentAreaFilled(false);
 		button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
-    	button.setFocusPainted(false);
-    	button.setHorizontalTextPosition(SwingConstants.CENTER);
-    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
-    	button.setRequestFocusEnabled(false);
-		// Set the corresponding action for the name of the button
-		button.setAction(getAppActionMap().get(group));
+		button.setFocusPainted(false);
+		button.setHorizontalTextPosition(SwingConstants.CENTER);
+		button.setVerticalTextPosition(SwingConstants.BOTTOM);
+		button.setRequestFocusEnabled(false);
 		button.setText(ApplicationInternationalization.getString("toolbar"+group));		
-		button.setIcon(new ImageIcon(image));
 		button.setToolTipText(ApplicationInternationalization.getString("toolbar"+group+"Tooltip"));
-		// Save button icon
-		ImagesUtilities.addImageButton(button.getName(), image);
-		
 		button.addMouseListener(new MouseAdapter() {
 			public void mouseExited(MouseEvent evt) {
 				getMainFrame().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
 				ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
 			}
-
+			
 			public void mouseEntered(MouseEvent evt) {
 				getMainFrame().setCursor(new Cursor(Cursor.HAND_CURSOR));
 				ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
 			}
 		});
-		
 		button.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -380,9 +368,14 @@ public class JFMain extends SingleFrameApplication {
 				buttonPressed.setContentAreaFilled(true);				
 			}
 		});
-	
-		panelActions.add(button);
-		button.setPreferredSize(new java.awt.Dimension(1061, 412));
+		button.setPreferredSize(new java.awt.Dimension(1043, 419));
+		// Set the group id as the name of the button
+		// Set the corresponding action for the name of the button
+		button.setAction(getAppActionMap().get(group));
+		button.setIcon(new ImageIcon(image));
+		// Save button icon
+		ImagesUtilities.addImageButton(button.getName(), image);
+
     }    
     
     // Method used to show in the toolbar the common buttons for all tabs
