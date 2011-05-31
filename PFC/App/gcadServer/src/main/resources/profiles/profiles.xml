@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<Profiles>
+	<Profile name="Default">
+		<Group id="Knowledge">
+			<Subgroup id="Proposal">
+				<Operations>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
+				</Operations>
+			</Subgroup>
+			<Subgroup id="Answer">
+				<Operations>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group id="PDFGeneration">
+			<Subgroup id="PDFGeneration">
+				<Operations>
+					<id>Generate</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group id="Notifications">
+			<Subgroup id="Notifications">
+				<Operations>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+	</Profile>
+	<Profile name="Chief">
+		<Group id="Knowledge">
+			<Subgroup id="Topic">
+				<Operations>
+					<id>Add</id>
+					<id>Modify</id>
+					<id>Delete</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group id="Project">
+			<Subgroup id="Project">
+				<Operations>
+					<id>Add</id>
+					<id>Get</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group id="Statistics">
+			<Subgroup id="Statistics">
+				<Operations>
+					<id>Generate</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+	</Profile>	
+</Profiles>
