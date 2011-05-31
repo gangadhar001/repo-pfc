@@ -1,15 +1,15 @@
 package presentation.panelsActions;
+
 import internationalization.ApplicationInternationalization;
-import java.awt.BorderLayout;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -21,12 +21,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -39,6 +38,7 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 
+import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
@@ -47,12 +47,11 @@ import presentation.JFMain;
 import presentation.customComponents.DropShadowPanel;
 import presentation.dataVisualization.KnowledgeGraph;
 import presentation.dataVisualization.TreeContentProvider;
-import presentation.dataVisualization.UserInfTable;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
 import bussiness.control.ClientController;
+
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
-
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -61,8 +60,6 @@ import com.mxgraph.view.mxGraph;
 
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
-
-
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -88,11 +85,22 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JLabel lblRole;
 	private JLabel lblDate;
 	private JLabel lblAuthor;
-	private JPanel pnlUserInfo;
+	private JPanel pnlInfo;
 	private JScrollPane scrollTree;
+	private JLabel lblCompany;
+	private JLabel lblCity;
+	private JScrollPane jScrollPane1;
+	private JTextArea txtDescription;
+	private JLabel lblDescription;
+	private JLabel lblIcon;
+	private JPanel pnlScrollKnowledge;
+	private JScrollPane scrollKnowledge;
+	private JPanel pnlScrollUser;
+	private JScrollPane jScrollUser;
+	private JPanel pnlKnowledgeInfo;
+	private JPanel pnlUser;
 	private JButton btnDetails;
 	private JPanel pnlCompany;
-	private JScrollPane jScrollPane1;
 	private JLabel lblSeniority;
 	private JPanel panelGraph;
 	private JPanel panelTree;
@@ -201,8 +209,14 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				graph.setSelectionCell(cell);				
 				if (cell != null)
 				{
+					clearSelectionTree();
 					knowledgeSelectedGraph = (Knowledge) ((mxCell)cell).getValue(); 
 					showUserInfo();
+				}
+				// No selection
+				else {
+					clearSelectionTree();
+					clearSelectionGraph();
 				}
 			}
 		});
@@ -239,20 +253,23 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		});
 		scrollTree.setViewportView(tree);
 		tree.setPreferredSize(new java.awt.Dimension(125, 411));
+		tree.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				treeMouseClicked(evt);
+			}
+		});
 
 		panelTree.add(scrollTree, new AnchorConstraint(13, 1017, 1007, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 	}
 	
 	// Method used to display information about the selected knowledge
 	private void showUserInfo() {
-//		Knowledge k = getSelectedKnowledge();
-//		if (k != null) {
-//			userInfTable.setValueAt(k.getUser().getName(), 0, 1);
-//			userInfTable.setValueAt(k.getUser().getSurname(), 0, 2);
-//			userInfTable.setValueAt(k.getUser().getEmail(), 0, 3);
-//			String company = k.getUser().getCompany().getName() + ", " + k.getUser().getCompany().getAddress().getCountry();
-//			userInfTable.setValueAt(company, 0, 4);
-//		}
+		Knowledge k = getSelectedKnowledge();
+		if (k != null) {
+			lblAuthor.setText(lblAuthor.getText() + " " + k.getUser().getName() + ", " + k.getUser().getSurname());
+		}
+		else
+			clearUserInfo();
 	}
 
 	private void initGUI() {
@@ -272,16 +289,16 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					scrollTree.setPreferredSize(new java.awt.Dimension(190, 472));
 
 				}
-				this.add(getJScrollPane1(), new AnchorConstraint(12, 6, 984, 818, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE));
-				this.add(panelTree, new AnchorConstraint(0, 172, 988, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-				panelTree.setPreferredSize(new java.awt.Dimension(180, 474));
+				this.add(getPnlUserInfo(), new AnchorConstraint(12, 10, 953, 776, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE));
+				this.add(panelTree, new AnchorConstraint(7, 172, 976, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				panelTree.setPreferredSize(new java.awt.Dimension(180, 461));
 			}
 			{
 				panel = new JPanel();
 				AnchorLayout panelLayout = new AnchorLayout();
-				this.add(panel, new AnchorConstraint(3, 768, 1001, 177, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				this.add(panel, new AnchorConstraint(7, 768, 988, 177, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				panel.setLayout(panelLayout);
-				panel.setPreferredSize(new java.awt.Dimension(626, 477));
+				panel.setPreferredSize(new java.awt.Dimension(626, 467));
 				{
 					panelGraph = new DropShadowPanel();
 					GridBagLayout panelGraphLayout = new GridBagLayout();
@@ -294,8 +311,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					panelGraphLayout.columnWidths = new int[] {7};
 				}
 			}
-			updateBorder(scrollTree);
-			updateBorder(jScrollPane1);
+			updateBorder(scrollTree);			
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -304,26 +320,147 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	}
 	
 	private JPanel getPnlUserInfo() {
-		if(pnlUserInfo == null) {
-			pnlUserInfo = new JPanel();
+		if(pnlInfo == null) {
+			pnlInfo = new JPanel();
 			AnchorLayout pnlUserInfoLayout = new AnchorLayout();
-			pnlUserInfo.setLayout(pnlUserInfoLayout);
-			pnlUserInfo.setPreferredSize(new java.awt.Dimension(194, 457));
-			pnlUserInfo.setBorder(BorderFactory.createTitledBorder(""));
-			pnlUserInfo.add(getPnlCompany(), new AnchorConstraint(624, 936, 917, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlUserInfo.add(getLblSeniority(), new AnchorConstraint(493, 523, 526, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlUserInfo.add(getLblRole(), new AnchorConstraint(432, 523, 464, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlUserInfo.add(getLblDate(), new AnchorConstraint(318, 523, 351, 64, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlUserInfo.add(getLblAuthor(), new AnchorConstraint(172, 93, 153, 67, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+			pnlInfo.setLayout(pnlUserInfoLayout);
+			pnlInfo.setPreferredSize(new java.awt.Dimension(221, 445));
+			pnlInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_Info")));
+			pnlInfo.add(getPnlKnowledgeInfo(), new AnchorConstraint(37, 957, 508, 47, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlInfo.add(getPnlUser(), new AnchorConstraint(232, 10, 112, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
+			pnlInfo.add(getPnlCompany(), new AnchorConstraint(762, 952, 962, 47, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 		}
-		return pnlUserInfo;
+		return pnlInfo;
+	}
+	
+	private JPanel getPnlUser() {
+		if(pnlUser == null) {
+			pnlUser = new JPanel();
+			AnchorLayout pnlUserLayout = new AnchorLayout();
+			pnlUser.setLayout(pnlUserLayout);
+			pnlUser.setPreferredSize(new java.awt.Dimension(201, 101));
+			pnlUser.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_UserInfo")));
+			pnlUser.add(getJScrollUser(), new AnchorConstraint(222, 977, 955, 27, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		}
+		return pnlUser;
+	}
+	
+	private JPanel getPnlKnowledgeInfo() {
+		if(pnlKnowledgeInfo == null) {
+			pnlKnowledgeInfo = new JPanel();
+			pnlKnowledgeInfo.setLayout(null);
+			pnlKnowledgeInfo.setPreferredSize(new java.awt.Dimension(201, 210));
+			pnlKnowledgeInfo.setName("pnlKnowledgeInfo");
+			pnlKnowledgeInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_KnowledgeInfo")));
+			pnlKnowledgeInfo.add(getScrollKnowledge(), new AnchorConstraint(13, 132, 291, 6, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		}
+		return pnlKnowledgeInfo;
+	}
+	
+	private JScrollPane getJScrollUser() {
+		if(jScrollUser == null) {
+			jScrollUser = new JScrollPane();
+			jScrollUser.setPreferredSize(new java.awt.Dimension(191, 74));
+			jScrollUser.setViewportView(getPnlScrollUser());
+		}
+		return jScrollUser;
+	}
+	
+	private JPanel getPnlScrollUser() {
+		if(pnlScrollUser == null) {
+			pnlScrollUser = new JPanel();
+			
+			pnlScrollUser.setLayout(null);
+			pnlScrollUser.add(getLblAuthor());
+			pnlScrollUser.add(getLblSeniority());
+			pnlScrollUser.add(getLblRole());
+		}
+		return pnlScrollUser;
+	}
+	
+	private JScrollPane getScrollKnowledge() {
+		if(scrollKnowledge == null) {
+			scrollKnowledge = new JScrollPane();
+			scrollKnowledge.setBounds(5, 21, 191, 183);
+			scrollKnowledge.setViewportView(getPnlScrollKnowledge());
+		}
+		return scrollKnowledge;
+	}
+	
+	private JPanel getPnlScrollKnowledge() {
+		if(pnlScrollKnowledge == null) {
+			pnlScrollKnowledge = new JPanel();
+			
+			pnlScrollKnowledge.setLayout(null);
+			pnlScrollKnowledge.add(getLblDate());
+			pnlScrollKnowledge.add(getLblIcon());
+			pnlScrollKnowledge.add(getLblDescription());
+			pnlScrollKnowledge.add(getJScrollPane1());
+		}
+		return pnlScrollKnowledge;
+	}
+	
+	private JLabel getLblIcon() {
+		if(lblIcon == null) {
+			lblIcon = new JLabel();
+			lblIcon.setBounds(56, 7, 77, 44);
+		}
+		return lblIcon;
+	}
+	
+	private JLabel getLblDescription() {
+		if(lblDescription == null) {
+			lblDescription = new JLabel();
+			lblDescription.setBounds(12, 80, 74, 17);
+			lblDescription.setName("lblDescription");
+			lblDescription.setText(ApplicationInternationalization.getString("KV_lblDescription"));
+		}
+		return lblDescription;
+	}
+	
+	private JTextArea getTxtDescription() {
+		if(txtDescription == null) {
+			txtDescription = new JTextArea();
+			txtDescription.setBounds(12, 108, 173, 60);
+		}
+		return txtDescription;
+	}
+	
+	private JScrollPane getJScrollPane1() {
+		if(jScrollPane1 == null) {
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setBounds(12, 103, 164, 65);
+			jScrollPane1.setViewportView(getTxtDescription());
+		}
+		return jScrollPane1;
+	}
+	
+	private JLabel getLblCompany() {
+		if(lblCompany == null) {
+			lblCompany = new JLabel();
+			lblCompany.setPreferredSize(new java.awt.Dimension(177, 19));
+			lblCompany.setName("lblCompany");
+			lblCompany.setText(ApplicationInternationalization.getString("KV_lblCity"));
+		}
+		return lblCompany;
+	}
+	
+	private JLabel getLblCity() {
+		if(lblCity == null) {
+			lblCity = new JLabel();
+			lblCity.setPreferredSize(new java.awt.Dimension(69, 14));
+			lblCity.setName("lblCity");
+			lblCity.setText(ApplicationInternationalization.getString("KV_lblCompany"));
+		}
+		return lblCity;
 	}
 	
 	private JLabel getLblAuthor() {
 		if(lblAuthor == null) {
 			lblAuthor = new JLabel();
-			lblAuthor.setPreferredSize(new java.awt.Dimension(89, 15));
 			lblAuthor.setName("lblAuthor");
+			lblAuthor.setBounds(12, -1, 185, 22);
+			lblAuthor.setText(ApplicationInternationalization.getString("KV_lblAuthor"));
 		}
 		return lblAuthor;
 	}
@@ -331,8 +468,9 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JLabel getLblDate() {
 		if(lblDate == null) {
 			lblDate = new JLabel();
-			lblDate.setPreferredSize(new java.awt.Dimension(89, 15));
 			lblDate.setName("lblDate");
+			lblDate.setText(ApplicationInternationalization.getString("KV_lblDate"));
+			lblDate.setBounds(12, 58, 101, 16);
 		}
 		return lblDate;
 	}
@@ -340,8 +478,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JLabel getLblRole() {
 		if(lblRole == null) {
 			lblRole = new JLabel();
-			lblRole.setPreferredSize(new java.awt.Dimension(89, 15));
 			lblRole.setName("lblRole");
+			lblRole.setText(ApplicationInternationalization.getString("KV_lblRole"));
+			lblRole.setBounds(12, 48, 100, 16);
+
 		}
 		return lblRole;
 	}
@@ -349,29 +489,23 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JLabel getLblSeniority() {
 		if(lblSeniority == null) {
 			lblSeniority = new JLabel();
-			lblSeniority.setPreferredSize(new java.awt.Dimension(89, 15));
 			lblSeniority.setName("lblSeniority");
+			lblSeniority.setText(ApplicationInternationalization.getString("KV_lblSeniority"));
+			lblSeniority.setBounds(12, 26, 103, 16);
 		}
 		return lblSeniority;
 	}
 
-	private JScrollPane getJScrollPane1() {
-		if(jScrollPane1 == null) {
-			jScrollPane1 = new JScrollPane();
-			jScrollPane1.setPreferredSize(new java.awt.Dimension(231, 460));
-			jScrollPane1.setViewportView(getPnlUserInfo());
-		}
-		return jScrollPane1;
-	}
-	
 	private JPanel getPnlCompany() {
 		if(pnlCompany == null) {
 			pnlCompany = new JPanel();
 			AnchorLayout pnlCompanyLayout = new AnchorLayout();
-			pnlCompany.setPreferredSize(new java.awt.Dimension(203, 134));
+			pnlCompany.setPreferredSize(new java.awt.Dimension(200, 89));
 			pnlCompany.setLayout(pnlCompanyLayout);
-			pnlCompany.setBorder(BorderFactory.createTitledBorder(""));
-			pnlCompany.add(getBtnDetails(), new AnchorConstraint(700, 938, 919, 540, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlCompany.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_CompanyInfo")));
+			pnlCompany.add(getLblCity(), new AnchorConstraint(488, 407, 646, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlCompany.add(getLblCompany(), new AnchorConstraint(219, 947, 432, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlCompany.add(getBtnDetails(), new AnchorConstraint(634, 952, 904, 537, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 		}
 		return pnlCompany;
 	}
@@ -379,8 +513,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private JButton getBtnDetails() {
 		if(btnDetails == null) {
 			btnDetails = new JButton();
-			btnDetails.setPreferredSize(new java.awt.Dimension(68, 23));
+			btnDetails.setPreferredSize(new java.awt.Dimension(83, 24));
 			btnDetails.setName("btnDetails");
+			btnDetails.setAction(Application.getInstance().getContext().getActionMap().get("Details"));
+			btnDetails.setText(ApplicationInternationalization.getString("btnDetails"));
 		}
 		return btnDetails;
 	}
@@ -392,9 +528,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 
 	/*** Methods used to add, modify or delete knowledge ***/
 	public void operationAdd() {
+		Object a = tree.getSelectionPath().getLastPathComponent();
 		// If an item is selected, show the knowledge window filled with data
 		Knowledge k = getSelectedKnowledge();
-		if (k != null) {
+		if (a != null) {
 			operationAddKnowledge(k.getClass().getSimpleName(), k, Operations.Add.name());
 		}
 	}
@@ -408,8 +545,8 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					operationModifyKnowledge(k.getClass().getSimpleName(), k, Operations.Modify.name());
 				}
 				else
-					//TODO: 
-					JOptionPane.showMessageDialog(this, "No puedes modificar otro conocimiento porque no eres su autor", ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+					// TODO: comprobar esto también el el JFKnowledge
+					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorModify"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
@@ -427,7 +564,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		if (k != null) {
 			try {
 				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
-//				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
 					if (k instanceof Topic)				
 						ClientController.getInstance().deleteTopic((Topic) k);
 					else if (k instanceof Proposal)				
@@ -440,10 +577,10 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					// Refresh tree and graph
 					deleteKnowledgeFromTree(k);
 					deleteKnowledgeFromGraph(k);
-//				}
-//				else
-//					// TODO: error
-//					JOptionPane.showMessageDialog(this, "No puedes borrar otro conocimiento porque no eres su autor", ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				}
+				else
+//					// TODO: comprobar esto también el el JFKnowledge
+					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorDelete"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
@@ -755,5 +892,37 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 		return k;
 	}
 
-	
+	@Action
+	public void Details() {
+		
+	}
+
+	private void treeMouseClicked(MouseEvent evt) {
+		int row = tree.getRowForLocation(evt.getX(), evt.getY());
+		// Click on empty surface. Clear selection from tree and graph
+		if (row == -1) {
+			clearSelectionTree();
+			clearSelectionGraph();
+		}
+	}
+
+	// Clear selection from tree
+	private void clearSelectionTree() {
+		tree.clearSelection();
+		knowledgeSelectedTree = null;
+		clearUserInfo();
+		
+	}
+
+	// Clear selection from graph
+	private void clearSelectionGraph() {
+		graph.clearSelection();
+		knowledgeSelectedGraph = null;	
+		clearUserInfo();
+	}
+
+	// Clear user information
+	private void clearUserInfo() {
+		
+	}
 }

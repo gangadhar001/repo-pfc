@@ -1,4 +1,6 @@
 package presentation.dataVisualization;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -42,27 +44,26 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	}
 	
 	private void initGUI() {
-//		setResizable(true);
-//		setClosable(true);
+		setResizable(true);
+		setClosable(true);
 		
 		try {
-			setPreferredSize(new Dimension(400, 300));
-			this.setBounds(0, 0, 400, 300);
+			this.setPreferredSize(new java.awt.Dimension(420, 288));
+			this.setBounds(0, 0, 705, 403);
 			setVisible(true);
-			GridBagLayout thisLayout = new GridBagLayout();
+			AnchorLayout thisLayout = new AnchorLayout();
 			this.setName("this");
-			thisLayout.rowWeights = new double[] {0.1, 0.7};
-			thisLayout.rowHeights = new int[] {7, 7};
-			thisLayout.columnWeights = new double[] {0.1};
-			thisLayout.columnWidths = new int[] {7};
 			getContentPane().setLayout(thisLayout);
 			{
 				toolBar = new JToolBar();
-				getContentPane().add(toolBar, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+				getContentPane().add(toolBar, new AnchorConstraint(1, 1013, 131, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
+				toolBar.setPreferredSize(new java.awt.Dimension(420, 32));
 			}
 			{
 				panelChart = new JPanel();
-				getContentPane().add(panelChart, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+				getContentPane().add(panelChart, new AnchorConstraint(39, 996, 995, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				panelChart.setPreferredSize(new java.awt.Dimension(420, 266));
+				panelChart.setSize(420, 266);
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -71,6 +72,7 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	}
 
 	public void addChartPanel(ChartPanel chartPanel) {
+		chartPanel.setPreferredSize(new java.awt.Dimension(420, 266));
 		panelChart.add(chartPanel);
 		panelChart.revalidate();
 		panelChart.repaint();

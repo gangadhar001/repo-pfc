@@ -1,4 +1,6 @@
 package presentation.panelsActions;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,7 +8,7 @@ import java.awt.Insets;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-
+import org.jdesktop.application.Application;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -36,19 +38,19 @@ public class panelStatisticsView extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setPreferredSize(new java.awt.Dimension(902, 402));
-			GridBagLayout thisLayout = new GridBagLayout();
 			this.setSize(902, 402);
-			thisLayout.rowWeights = new double[] {0.1};
-			thisLayout.rowHeights = new int[] {7};
-			thisLayout.columnWeights = new double[] {0.1};
-			thisLayout.columnWidths = new int[] {7};
+			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
 			{
 				desktopPane = new JDesktopPane();
-//				desktopPane.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
-				this.add(desktopPane, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+				desktopPane.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+				this.add(desktopPane, new AnchorConstraint(0, 1000, 1001, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				desktopPane.setName("desktopPane");
+				desktopPane.setPreferredSize(new java.awt.Dimension(902, 402));
 			}
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
+			// TODO:
 			e.printStackTrace();
 		}
 	}

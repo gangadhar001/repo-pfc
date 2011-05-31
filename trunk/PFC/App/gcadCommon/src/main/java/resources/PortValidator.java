@@ -15,7 +15,6 @@ public class PortValidator extends AbstractValidator {
 	
 	public PortValidator(JFrame jFrame, JComponent c, String message) {
 		super(jFrame, c, message);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -154,9 +154,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						txtLog = new JTextArea();
 						scpPanelLog.setViewportView(txtLog);
 						txtLog.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
-						txtLog.setEditable(false);
 						txtLog.setFont(new java.awt.Font("Tahoma",0,12));
-						txtLog.setPreferredSize(new java.awt.Dimension(528, 279));
+						txtLog.setName("txtLog");
+
 					}
 				}
 				{

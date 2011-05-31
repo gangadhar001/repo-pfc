@@ -74,10 +74,10 @@ public class ClientController {
 	public int getPort () {
 		return client.getListenPort();
 		
-	}
+	}	
 
 	/*** Method to login and export the client (plug-in) ***/
-	public void initClient(String serverIP, String serverPort, String username, String pass) throws NotBoundException, RemoteException, IncorrectEmployeeException, SQLException, NonExistentRole, MalformedURLException, NotLoggedException {
+	public void initClient(String serverIP, String serverPort, String username, String pass) throws NotBoundException, RemoteException, IncorrectEmployeeException, SQLException, NonExistentRole, MalformedURLException, NotLoggedException, Exception{
 		// Get the local host IP
 		clientIP = CommunicationsUtilities.getHostIP();
 		
@@ -104,9 +104,6 @@ public class ClientController {
 			role = UserRole.values()[session.getRole()].name();
 		} catch(RemoteException e) {
 			throw new RemoteException(ApplicationInternationalization.getString("ClientController_Login_Error"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		try {
@@ -118,10 +115,7 @@ public class ClientController {
 			server.register(session.getId(), (IClient)client);
 		} catch(RemoteException e) {
 			throw new RemoteException(ApplicationInternationalization.getString("ClientController_RegisterClient_Error"));				
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		} 	
 		
 	}
 	
@@ -212,6 +206,7 @@ public class ClientController {
 
 	public void signout() throws RemoteException, SQLException, NotLoggedException, Exception {
 		server.signout(session.getId());
+		session = null;
 		closeMainFrame();
 	}
 	
@@ -320,6 +315,7 @@ public class ClientController {
 
 	// Close main frame and show login frame
 	public void closeMainFrame() {
+		session = null;
 		Application.getInstance(JFMain.class).getMainFrame().dispose();
 		startApplication(null);		
 	}

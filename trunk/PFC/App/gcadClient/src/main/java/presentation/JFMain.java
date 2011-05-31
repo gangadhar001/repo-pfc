@@ -137,8 +137,6 @@ public class JFMain extends SingleFrameApplication {
 				companyDetailGlassPanel = new JPDetailsCompanyGlassPanel(panelDetailsCompany);
 				getMainFrame().setGlassPane(companyDetailGlassPanel);
 			}			
-			// TODO: Temporal
-			ClientController.getInstance().setCurrentProject(2);
 			
 			AnchorLayout mainFrameLayout = new AnchorLayout();
 			getMainFrame().setTitle(ApplicationInternationalization.getString("titleMain"));
@@ -217,9 +215,8 @@ public class JFMain extends SingleFrameApplication {
 		
 			createCommonToolbar();
 			
-			// TODO: 
-			lblPort.setText("Client ready on " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
-			lblRole.setText("Logged as " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());
+			lblPort.setText(ApplicationInternationalization.getString("lblStatusClient") + " " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
+			lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());
 			lblAction.setVisible(false);
 			
 	        // Show the main frame
@@ -335,7 +332,7 @@ public class JFMain extends SingleFrameApplication {
 			item.setText(ApplicationInternationalization.getString("manage"+groupName));
 			menuTools.add(item);
 			toolbarActions.add("Manage"+groupName);
-			// TODO: esta es la lista que controla las operaciones mostradas en la pestaña principal
+			// This is the list that controls the operations shown in the main tab
 			groupsShown.add("manage"+groupName);
     	}
     }
@@ -456,11 +453,9 @@ public class JFMain extends SingleFrameApplication {
 			else if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
 				createToolbarKnowledgeView();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -493,18 +488,16 @@ public class JFMain extends SingleFrameApplication {
     /*** Actions used to manage actions for menu items ***/
 	@Action
 	public void Exit() {
-		// TODO:
-//		JOptionPane.showConfirmDialog(ventanaPadre, mensaje, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
-		quit();
+		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
+			quit();
 	}
 	
 	
     
 	@Action 
 	public void CloseSession() {
-		// TODO:
-//		JOptionPane.showConfirmDialog(ventanaPadre, mensaje, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
-		closeSessionConfirm();
+		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);		closeSessionConfirm();
+			closeSessionConfirm();
 	}
 	
     @Action
@@ -539,11 +532,9 @@ public class JFMain extends SingleFrameApplication {
 				internalFrameStatistic.addChartPanel(chartPanel);
 				panelStatistics.addStatistic(internalFrameStatistic);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
@@ -645,25 +636,22 @@ public class JFMain extends SingleFrameApplication {
 
 	// When closes session, return to the login frame
 	public void forceCloseSession() {
-		//TODO 
-//		JOptionPane.showMessageDialog(getMainFrame(), mensaje, titulo, JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_ForceCloseSession"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		ClientController.getInstance().closeMainFrame();
 		
 	}
 
 	// When the server goes offline, then return to the login frame
 	public void approachlessServer() {
-		// TODO:
-//		JOptionPane.showMessageDialog(ventanaPadre, mensaje, titulo, JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_approachlessServer"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		ClientController.getInstance().closeMainFrame();		
 	}	
 	
 
 	protected void closeSessionConfirm() {
 		try {
-			// TODO:
 			lblAction.setVisible(false);
-			lblRole.setText("Sesión cerrada correctamente");
+			lblRole.setText(ApplicationInternationalization.getString("lblStatusClose"));
 			lblPort.setText("");
 			// Close session
 			ClientController.getInstance().signout();
@@ -680,9 +668,11 @@ public class JFMain extends SingleFrameApplication {
 	
 	public void quit() {
 		try {
-			// Close session
-       	 	closeSessionConfirm();	
-       	 	ClientController.getInstance().closeController();            	 
+			if (ClientController.getInstance().isLogged()) {
+				// Close session
+	       	 	closeSessionConfirm();		       	 	
+	       	 	ClientController.getInstance().closeController();
+			}
 		} catch (MalformedURLException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotBoundException e) {

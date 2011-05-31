@@ -1,11 +1,14 @@
 package presentation.utils;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Component;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -34,11 +37,9 @@ public class ImageTableNotificationCellRenderer extends DefaultTableCellRenderer
 	                label.setText(knowledgeType);
 	        }
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}        
         return label;
 		
