@@ -1,0 +1,47 @@
+\section{Método y Fases de trabajo}
+
+Para el desarrollo de la herramienta se ha optado por utilizar la metodología genérica descrita por el \textbf{Proceso Unificado de Desarrollo} (PUD). 
+El PUD \cite{jac00} es una evolución del Proceso Unificado de Rational (RUP), que define un ``conjunto de
+actividades necesarias para transformar los requisitos de usuario en un sistema software''. Es
+un marco genérico que puede especializarse para una gran variedad de sistemas de software,
+para diferentes áreas de aplicación, diferentes tipos de organizaciones, diferentes niveles de
+aptitud y diferentes tamaños de proyectos. 
+
+Las principales características del PUD son:
+
+\begin{milista}
+
+	\item \textbf{Dirigido por casos de uso}. Un caso de uso representa un requisito funcional al cuál el sistema debe dar soporte para proporcionar un resultado de valor al usuario. Los casos de uso guían el proceso de desarrollo, ya que basándose en los casos de uso, los desarrolladores
+crean una serie de modelos para poder llevarlos a cabo. Todos los casos de uso juntos constituyen el \textbf{modelo de casos de uso}.
+	\item \textbf{Centrado en la arquitectura}. Un sistema software puede contemplarse desde varios
+puntos de vista. Por tanto, la arquitectura software incluye los aspectos estáticos y
+dinámicos más significativos del sistema y debe estar profundamente relacionada con
+los casos de uso, ya que debe permitir el desarrollo de los mismos.
+	\item \textbf{Iterativo e incremental}. El esfuerzo de desarrollar un proyecto de software se divide en partes más
+pequeñas, llamadas \textbf{mini-proyectos}. Cada mini-proyecto es una \textbf{iteración} que resulta en un \textbf{incremento}.
+Las iteraciones deben estar controladas y deben seleccionarse y
+ejecutarse de una forma planificada, siguiendo el esquema \textit{requisitos, análisis, diseño, implementación y pruebas}, que es conocido como 
+\textbf{flujo de trabajo}.
+En cada iteración, los desarrolladores identifican y especifican los casos de uso relevantes, crean un diseño utilizando la arquitectura seleccionada como guía, implementan el diseño mediante componentes y verifican que los componentes satisfacen los casos de uso.
+
+\end{milista}
+
+Debido al enfoque iterativo e incremental que caracteriza al PUD, éste se divide en ciclos, donde cada ciclo se compone de cuatro fases y éstas, a su vez, se dividen en iteraciones que siguen el flujo de trabajo \textit{requisitos, análisis, diseño, implementación y pruebas}.
+
+% \imagen{pud}{0.75}{Fases y flujo de trabajo del PUD}{fig:pud}
+
+\indent Las cuatro fases que constituyen un ciclo son:
+
+\begin{milista}
+
+	\item \textbf{Iniciación}. Se obtiene un modelo de casos de uso simplificado, se identifican
+riesgos potenciales y se estima el proyecto de manera aproximada.
+	\item \textbf{Elaboración}. Se especifican en detalle la mayoría de los casos de
+uso del producto software y se diseña la arquitectura, obteniendo la línea base de la arquitectura.
+	\item \textbf{Construcción}. Se crea el producto en base a las dos fases anteriores. La línea base de la arquitectura
+crece hasta convertirse en el sistema completo.
+	\item \textbf{Transición}. Implica la corrección de errores y el mantenimiento del
+sistema.
+
+\end{milista}
+

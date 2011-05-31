@@ -1,0 +1,87 @@
+\section{Objetivos}% y fundamentos teóricos} 
+\label{objetivos}
+
+\indent En esta sección se presentará el objetivo que se pretende alcanzar con el desarrollo del Proyecto Fin de Carrera (en adelante PFC).
+
+\subsection{Objetivos del proyecto} \label{objetivoPFC}
+
+\indent El objetivo principal del PFC consistirá en el diseño y construcción de una herramienta visual que permita dar soporte a la gestión de decisiones en desarrollo software. Concretamente, la herramienta debe dar soporte a las decisiones planteadas en las fases de análisis y diseño de un producto software.
+
+Dicha herramienta se desarrollará en forma de plug-in para el IDE Eclipse \cite{eclipse}, uno de los más utilizados por las empresas en el ámbito de desarrollo de software. 
+
+Como se ha comentado en la sección \ref{introduccion}, con esta herramienta visual se intenta reducir o eliminar una de las problemáticas que aparece en DGS, como es la falta de comunicación y control, así como los malentendidos que pueden surgir a la hora de tomar decisiones en el desarrollo de un producto software.
+
+Por esta razón, la herramienta debe cumplir con los siguientes objetivos:
+
+\begin{milista}
+	\item Almacenar conocimiento en forma de alternativas y decisiones planteadas en las fases de análisis y diseño de un producto software. 
+	\item Mostrar de una forma visual e intuitiva las diferentes alternativas y decisiones que han sido tomadas en las fases de análisis y diseño de un producto software. 
+	\item Notificar nuevas contribuciones y conocimiento disponible. 
+	\item Proporcionar información acerca de quién aporta una alternativa o decisión. Dicha información puede ser el rol de esa persona, el país donde se encuentra trabajando, experiencia acumulada en desarrollo de software, antigüedad en la empresa, etcétera.
+	\item Aconsejar decisiones de análisis y diseño que hayan sido exitosas en otros proyectos con características similares. Para ello, se pretende utilizar técnicas de Razonamiento Basado en Casos (Cases Based Reasoning - CBR). \cite{cbr}  
+	\item Informar sobre la contribución de cada uno de los miembros del proyecto, ofreciendo estadísticas que ayuden a conocer qué personas aportan más. Dichas estadísticas podrán visualizarse en forma de diagramas de barras, diagrama circular, etcétera.
+	\item Exportar el conocimiento utilizando un estándar para el intercambio de información estructurada, como es XML \cite{XML}. También se permitirá exportar imágenes de los gráficos generados en formato PNG \cite{png}.
+\end{milista}
+
+%\clearpage
+
+\subsection{Fundamentos teóricos}
+
+Los conceptos teóricos que intervienen en este PFC son la Gestión de Conocimiento, \textit{Design Rationale}, el Razonamiento Basado en Casos y el desarrollo distribuido de software, donde nos centraremos en el Desarrollo Global de Software. Éste último ya ha sido descrito brevemente en la sección \ref{introduccion}, por lo que se presenta a continuación el resto de conceptos.
+
+\paragraph{Gestión del Conocimiento}
+
+Aunque actualmente no existe un consenso acerca del concepto de gestión del conocimiento, se podría definir como un proceso que permite capturar, crear, identificar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. 
+
+Por otra parte, el conocimiento se define como ''\textit{una mezcla fluida de experiencias enmarcadas, valores, información
+contextual, y pericia que provee de un marco para evaluar e incorporar nuevas experiencias
+e información. Esto se origina y es aplicado en la mente de quienes conocen. En las organizaciones,
+con frecuencia viene embebido no solo en documentos o repositorios, sino también en
+rutinas, procesos, prácticas o normas de la organización}'' \cite{Davenport2000}. En el caso concreto de una organización dedicada al desarrollo software, el conocimiento que más interesa gestionar son las alternativas y decisiones planteadas en el análisis y diseño del producto software, los diferentes diagramas, la documentación, las pruebas del software, etc. 
+
+Centrándose en la gestión de conocimiento en organizaciones especializadas en desarrollo de software, se presenta en el siguiente apartado el concepto de \textit{Design Rationale}.
+
+\paragraph{Design Rationale}
+
+\textit{Design Rationale} (o \textit{Rationale} simplemente) es ''\textit{un método que permite capturar, representar y mantener registros de información acerca de las decisiones que son tomadas por los miembros de un equipo de desarrollo de software}'' \cite{Dutoit2006}. Dicho método puede ser aplicado en cualquier fase del desarrollo, desde el análisis de requisitos hasta las pruebas. 
+
+De este modo, se pueden capturar todas las decisiones y alternativas que se van produciendo a lo largo del desarrollo, pudiendo discutir y decidir sobre éstas. Además, dichas decisiones quedarán almacenadas como nuevo conocimiento para la empresa y se podrá reutilizar en proyectos futuros, sobre todo aquellas decisiones que hayan sido exitosas. 
+
+A la hora de representar el conocimiento, existen, principalmente, dos enfoques \cite{Dutoit2006}:
+
+\begin{milista}
+	\item \textbf{Causal Graph}: es un grafo causal donde cada nodo representa una decisión y los arcos representan restricciones entre ellas, como por ejemplo que una decisión depende o proviene de otra anterior. En la Figura \ref{fig:causal} puede observase un ejemplo de este tipo de grafo. 
+	\item \textbf{Dialogue Map}: es un grafo donde los nodos pueden representar una pregunta, una idea o un argumento a favor o en contra de dichas ideas y preguntas. De este modo, se puede ir discutiendo una decisión e ir añadiendo nuevas alternativas y justificaciones. En la Figura \ref{fig:dialogue} puede observarse un ejemplo. 
+	Este tipo de grafo se basa en los sistemas \textbf{IBIS} (\textbf{I}ssue-\textbf{B}ased \textbf{I}nformation \textbf{S}ystems), donde el conocimiento se almacena y representa de manera jerárquica, en forma de decisiones/preguntas y justificaciones de éstas. 
+\end{milista}
+
+\imagenBorde{causal}{0.3}{Causal Graph}{fig:causal}
+\imagenBorde{ibis}{0.25}{Dialogue Map}{fig:dialogue}
+
+
+\paragraph{Razonamiento Basado en Casos}
+
+El Razonamiento Basado en Casos (Case-Based Reasoning, CBR en adelante) puede definirse como ``\textit{un proceso en el que experiencias específicas son recuperadas, reutilizadas, revisadas y almacenadas para utilizarse en la solución de problemas similares.}'' \cite{CBRCommentaries} De este modo, se pueden encontrar soluciones a nuevos problemas basándose en soluciones de problemas similares anteriores. Dichas soluciones puede que sea necesario adaptarlas para resolver el nuevo problema y se almacenarán en forma de nuevas experiencias (casos) para poder reutilizarlas en un futuro. Es por esto que un sistema CBR puede \textit{``aprender''} a partir de nuevas soluciones.  \cite{kolodner1992introduction}
+
+A diferencia de otras técnicas y algoritmos de Inteligencia Artificial, como pueden ser Razonamiento Basado en Reglas o Algoritmos Genéticos, CBR no se considera como una tecnología, sino más bien como una metodología, que indica cómo resolver problemas a partir de soluciones previas almacenadas en el sistema, pero sin detallar una tecnología concreta \cite{watson1998cbr}. Por tanto, un sistema CBR se define por lo que hace, pero no cómo se hace o se implementa.
+
+Conceptualmente, el CBR se describe como un ciclo (ver Figura \ref{fig:CBRCycle} ) con cuatro grandes etapas \cite{lopez2005retrieval} \cite{watson1998cbr}:
+
+\begin{milista}
+\item \textbf{Recuperación (Retrieve)} de casos similares al problema planteado.
+\item \textbf{Reutilización (Reuse)} de una solución propuesta por un caso similar.
+\item \textbf{Revisión (Revise)} de la solución propuesta, para adaptarla mejor a las condiciones del nuevo problema.
+\item \textbf{Retención (Retain)} de la nueva solución, pasando a formar un nuevo caso.
+\end{milista}
+
+\imagenBorde{CBRCycle}{0.5}{Ciclo del CBR}{fig:CBRCycle}
+
+
+Estas cuatro etapas son las que constituyen la metodología del CBR. Así, para solucionar un nuevo problema, primero se debe obtener una descripción de éste, midiendo la similitud del nuevo problema con otros problemas previos almacenados en el sistema. A continuación, se recuperan las soluciones de estos problemas similares y se reutiliza la solución de uno de estos casos, adaptándola si es necesario. Para terminar, este nuevo problema, junto a la solución encontrada, se almacena en el sistema, formando un nuevo caso. 
+
+Uno de los puntos críticos es la función de similitud que se va a utilizar para buscar problemas similares a uno dado. Por ejemplo, un problema se podría describir como una serie de atributos (o características) que pueden ser cuantificadas con un ``peso'' numérico, obteniendo un vector numérico, y utilizar como función de similitud la distancia Euclídea entre los vectores que representan cada problema. 
+
+Para terminar, el ciclo que se ha visto anteriormente encaja perfectamente con un sistema de Gestión del Conocimiento, pues en este tipo de sistemas también existen fases de recuperación, reutilización y almacenamiento, en este caso de conocimiento. 
+
+
+
