@@ -1,5 +1,8 @@
 package bussiness;
 
+import javax.swing.JFrame;
+
+import presentation.JDLanguages;
 import bussiness.control.ClientController;
 
 public class Main {
@@ -9,6 +12,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		ClientController.getInstance().startApplication(args);
+		JDLanguages lang = new JDLanguages(new JFrame());
 //		SplashScreen sps = new SplashScreen();
 //		sps.setLocationRelativeTo(null);
 //	    sps.setVisible(true);

@@ -1,4 +1,4 @@
-package bussiness.control;
+package resources;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +48,10 @@ public class XMLUtilities {
 	@SuppressWarnings("unchecked")
 	public static List<Element> selectNodes(Document docCharts, String xpath) throws JDOMException {
 		return XPath.selectNodes(docCharts, xpath);
+	}
+	
+	public static Element selectNode(Document docCharts, String xpath) throws JDOMException {
+		return (Element) XPath.selectSingleNode(docCharts, xpath);
 	}
 
 	public static Element selectNodeFromValueChild(Document docChartsConfiguration, String xpath, String nodeName) throws JDOMException {

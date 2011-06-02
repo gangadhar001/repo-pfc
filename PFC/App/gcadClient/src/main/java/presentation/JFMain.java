@@ -316,6 +316,7 @@ public class JFMain extends SingleFrameApplication {
     		menuItemAbout = new JMenuItem();
     		menuHelp.add(menuItemAbout);
     		menuItemAbout.setName("menuItemAbout");
+    		menuItemAbout.setAction(getAppActionMap().get("About"));
     		menuItemAbout.setText(ApplicationInternationalization.getString("menuItemAbout"));
     	}
     }
@@ -597,6 +598,14 @@ public class JFMain extends SingleFrameApplication {
 	@Action
 	public void GenerateStatistics() {
 		
+	}
+	
+	@Action
+	public void About () {
+		JDAbout about = new JDAbout(getMainFrame());
+		about.setLocationRelativeTo(getMainFrame());
+		about.setModal(true);
+		about.setVisible(true);		
 	}
 
 	/*** Methods used to update the views with changes made in other client.

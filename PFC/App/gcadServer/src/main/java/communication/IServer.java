@@ -88,4 +88,5 @@ public interface IServer extends Remote {
 	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
 	
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
+	
 }

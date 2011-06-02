@@ -1,30 +1,17 @@
 package presentation;
 
-import internationalization.ApplicationInternationalization;
-
-import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.EventObject;
-import javax.swing.BorderFactory;
+import java.awt.Shape;
+import java.awt.geom.RoundRectangle2D;
+import java.lang.reflect.Method;
 import javax.swing.JButton;
+
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.event.EventListenerList;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
+import javax.swing.SwingUtilities;
 import org.jdesktop.application.Application;
 
+import presentation.utils.AWTUtilitiesWrapper;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -39,129 +26,53 @@ import org.jdesktop.application.Application;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 
-/**
- * About Window
- */
+// REFERENCES: http://java.sun.com/developer/technicalArticles/GUI/translucent_shaped_windows/#Demo
 public class JDAbout extends javax.swing.JDialog {
-	private static final long serialVersionUID = -4903915570854306815L;
-	
-	private EventListenerList listenerList;
-	private JButton btnAceptar;
 	private JPanel jPanel1;
-	private JLabel lblTitulo2;
-	private JLabel lblTitulo;
-	private JTextPane txtAcercaDe;
-	
+	private JButton btnOk;
+
+	/**
+	* Auto-generated main method to display this JDialog
+	*/
+		
 	public JDAbout(JFrame frame) {
 		super(frame);
 		initGUI();
-		listenerList = new EventListenerList();
 	}
 	
 	private void initGUI() {
 		try {
-			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			getContentPane().setLayout(null);
-			this.setTitle("Acerca del Servidor Front-End (SSCA)");
 			{
-				jPanel1 = new JPanel();
-				getContentPane().add(jPanel1);
-				jPanel1.setLayout(null);
-				jPanel1.setBounds(0, 0, 414, 272);
+				this.setLayout(new java.awt.BorderLayout());
 				{
-					lblTitulo2 = new JLabel();
-					jPanel1.add(lblTitulo2);
-					lblTitulo2.setText("Servidor Front-End");
-					lblTitulo2.setPreferredSize(new java.awt.Dimension(389, 26));
-					lblTitulo2.setFont(new java.awt.Font("Tahoma",1,20));
-					lblTitulo2.setOpaque(false);
-					lblTitulo2.setFocusable(false);
-					lblTitulo2.setHorizontalAlignment(SwingConstants.CENTER);
-					lblTitulo2.setBounds(12, 5, 389, 26);
-				}
-				{
-					lblTitulo = new JLabel();
-					jPanel1.add(lblTitulo);
-					lblTitulo.setText("Sistema de Salud de Comunidades Autónomas");
-					lblTitulo.setPreferredSize(new java.awt.Dimension(394, 19));
-					lblTitulo.setOpaque(false);
-					lblTitulo.setFont(new java.awt.Font("Tahoma",1,14));
-					lblTitulo.setFocusable(false);
-					lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-					lblTitulo.setBounds(10, 36, 394, 19);
-				}
-				{
-					txtAcercaDe = new JTextPane();
-					jPanel1.add(txtAcercaDe);
-					txtAcercaDe.setPreferredSize(new java.awt.Dimension(370, 155));
-					txtAcercaDe.setOpaque(false);
-					txtAcercaDe.setContentType("text/html");
-					txtAcercaDe.setText("Versión: 1.0<br>\nPágina web: <a href=\"http://www.inf-cr.uclm.es\">ESI@UCLM</a><br><br>\nDesarrolladores:\n<ul>Juan Andrada Romero (<a href=\"mailto:juan.andrada@alu.uclm.es\">juan.andrada@alu.uclm.es</a>)<br>\nJuan Gallardo Casero (<a href=\"mailto:juan.gallardo@alu.uclm.es\">juan.gallardo@alu.uclm.es</a>)<br>\nJose Domingo López López (<a href=\"mailto:josed.lopez1@alu.uclm.es\">josed.lopez1@alu.uclm.es</a>)<br>");
-					txtAcercaDe.setEditable(false);
-					txtAcercaDe.setFocusable(false);
-					txtAcercaDe.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-					txtAcercaDe.setBounds(22, 60, 370, 155);
-					txtAcercaDe.addHyperlinkListener(new HyperlinkListener() {
-						public void hyperlinkUpdate(HyperlinkEvent evt) {
-							txtAcercaDeHyperlinkUpdate(evt);
-						}
-					});
-				}
-				{
-					btnAceptar = new JButton();
-					jPanel1.add(btnAceptar);
-					btnAceptar.setText("Aceptar");
-					btnAceptar.setName("btnAceptar");
-					btnAceptar.setBounds(309, 236, 83, 25);
-					btnAceptar.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							btnAceptarActionPerformed(evt);
-						}
-					});
+					jPanel1 = new JPanel();
+					getContentPane().add(jPanel1);
+					jPanel1.setBounds(0, 0, 664, 322);
+					jPanel1.setLayout(null);
+					jPanel1.setName("jPanel1");
+					{
+						btnOk = new JButton();
+						jPanel1.add(btnOk);
+						btnOk.setBounds(603, 324, 66, 25);
+						btnOk.setName("btnOk");
+					}
 				}
 			}
-			setResizable(false);
-			this.setPreferredSize(new java.awt.Dimension(400, 300));
-			this.setMaximumSize(new java.awt.Dimension(420, 300));
-			this.setMinimumSize(new java.awt.Dimension(420, 300));
-			this.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent evt) {
-					thisWindowClosing(evt);
-				}
-			});
-			pack();
+			this.setUndecorated(true);
+			
+			this.setSize(680, 360);
+			
+			if (AWTUtilitiesWrapper.isTranslucencySupported(AWTUtilitiesWrapper.TRANSLUCENT))				
+				AWTUtilitiesWrapper.setWindowOpacity(this, ((float) 95.0) / 100.0f);
+			
+			Shape shape = null;
+            shape = new RoundRectangle2D.Float(0, 0, this.getWidth(), this.getHeight(), 50, 50);
+            AWTUtilitiesWrapper.setWindowShape(this, shape);
+            
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
-	
-	//$hide>>$
-	
-	private void txtAcercaDeHyperlinkUpdate(HyperlinkEvent evt) {
-		if(evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-			try {
-				Desktop.getDesktop().browse(evt.getURL().toURI());
-			} catch(IOException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch(URISyntaxException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-	
-	private void btnAceptarActionPerformed(ActionEvent evt) {
-		cerrarVentana();
-	}
-	
-	private void thisWindowClosing(WindowEvent evt) {
-		cerrarVentana();
-	}
-
-	private void cerrarVentana() {
-		this.dispose();
-	}
-
-	//$hide<<$
 
 }

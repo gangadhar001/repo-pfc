@@ -23,6 +23,7 @@ import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import presentation.utils.DateUtilities;
+import resources.XMLUtilities;
 import exceptions.NonPermissionRole;
 import exceptions.NotLoggedException;
 

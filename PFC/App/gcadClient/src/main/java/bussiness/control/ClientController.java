@@ -2,6 +2,7 @@ package bussiness.control;
 
 import internationalization.ApplicationInternationalization;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -12,6 +13,7 @@ import java.util.List;
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;
@@ -22,6 +24,7 @@ import model.business.knowledge.User;
 import model.business.knowledge.UserRole;
 
 import org.jdesktop.application.Application;
+import org.jdom.JDOMException;
 
 import presentation.JFLogin;
 import presentation.JFMain;
@@ -278,6 +281,19 @@ public class ClientController {
 	
 	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
 		return server.getLoggedUser(session.getId());
+	}
+	
+	public Language getDefaultLanguage() throws RemoteException, JDOMException, IOException {
+		return LanguagesController.getDefaultLanguage();
+	}
+
+	public ArrayList<Language> getLanguages() throws RemoteException, JDOMException, IOException {
+		return LanguagesController.getLanguages();
+	}
+
+	public void setDefaultLanguage(Language language) throws RemoteException, JDOMException, IOException {
+		LanguagesController.setDefaultLanguage(language);
+		
 	}
 
 	public void closeSession() {
