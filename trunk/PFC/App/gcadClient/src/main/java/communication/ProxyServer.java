@@ -1,5 +1,6 @@
 package communication;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -8,8 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdom.JDOMException;
+
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;

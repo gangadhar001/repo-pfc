@@ -12,7 +12,6 @@ import java.util.Set;
 import model.business.knowledge.Answer;
 import model.business.knowledge.IMessageTypeLog;
 import model.business.knowledge.ISession;
-import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;
@@ -21,8 +20,6 @@ import model.business.knowledge.Session;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
-
-import org.apache.commons.configuration.ConfigurationException;
 
 import communication.ClientProxy;
 import communication.IClient;
@@ -634,10 +631,6 @@ public class Server implements IServer {
 	
 	public void setCurrentProject(long sessionId, int id) throws RemoteException, NotLoggedException, Exception {
 		SessionController.getSession(sessionId).setCurrentActiveProject(id);		
-	}
-	
-	public ArrayList<Language> getLanguages() throws ConfigurationException {
-		return LanguagesController.getLanguages();
 	}
 
 	@Override
