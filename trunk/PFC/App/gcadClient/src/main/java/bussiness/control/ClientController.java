@@ -354,5 +354,11 @@ public class ClientController {
 		return login;
 	}
 
+	public void restartLoginFrame() throws InterruptedException {
+		Application.getInstance(JFLogin.class).getMainFrame().dispose();
+		Thread.sleep(700);
+		startApplication(null);		
+	}
+
 	
 }

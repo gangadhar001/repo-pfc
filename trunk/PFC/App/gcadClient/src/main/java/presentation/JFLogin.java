@@ -15,7 +15,11 @@ import java.util.EventObject;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -26,7 +30,6 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jdesktop.application.Application.ExitListener;
 
 import resources.IPValidator;
 import resources.ImagesUtilities;
@@ -79,6 +82,8 @@ public class JFLogin extends SingleFrameApplication {
 	private JTextField txtServerPort;	
 	
 	private static final String DEFAULT_PORT = "2995";
+	private JMenu menuFile;
+	private JMenuBar jMenuBar;
 	private static final int HEIGHT = 75;
 	
 	private InfiniteProgressPanel glassPane;
@@ -97,35 +102,13 @@ public class JFLogin extends SingleFrameApplication {
     protected void startup() {    
     	// Listener to confirm exit
         addExitListener(new ExitListener() {
-             public boolean canExit(EventObject event) {
-                 return JOptionPane.showConfirmDialog(getMainFrame(),
-                         ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION;
-             }
-             public void willExit(EventObject event) {
-            	 try {
-            		 if (ClientController.getInstance().isLogged()) {
-            			 // Close session
-            			 ClientController.getInstance().signout();
-	            		 // Close and unexport client
-						 ClientController.getInstance().closeController();
-            		 }
-				} catch (RemoteException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (MalformedURLException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (NotBoundException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (ClassCastException e) {
-					// Ignore
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (NotLoggedException e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-				}
-				
-             }
+        	  public boolean canExit(EventObject event) {
+                  return JOptionPane.showConfirmDialog(getMainFrame(),
+                          ApplicationInternationalization.getString("Dialog_CloseFrame_Message")) == JOptionPane.YES_OPTION;
+              }
+              public void willExit(EventObject event) {
+             	 quit();
+              }
          });
         
         this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
@@ -139,9 +122,43 @@ public class JFLogin extends SingleFrameApplication {
 
         BorderLayout mainFrameLayout = new BorderLayout();
         getMainFrame().getContentPane().setLayout(mainFrameLayout);
-        getMainFrame().setPreferredSize(new java.awt.Dimension(350, 301));
-        getMainFrame().setMinimumSize(new java.awt.Dimension(350, 301));
+        getMainFrame().setPreferredSize(new java.awt.Dimension(350, 341));
+        getMainFrame().setMinimumSize(new java.awt.Dimension(350, 341));
         getMainFrame().setMaximumSize(new java.awt.Dimension(0, 0));
+        {
+        	jMenuBar = new JMenuBar();
+        	getMainFrame().setJMenuBar(jMenuBar);
+        	{
+        		menuFile = new JMenu();
+        		jMenuBar.add(menuFile);
+        		menuFile.setName("menuFile");
+        		menuFile.setText(ApplicationInternationalization.getString("fileMenu"));
+        		{
+        			JMenuItem menuLogin = new JMenuItem();
+        			menuFile.add(menuLogin);
+        			menuLogin.setAction(getAppActionMap().get("loginAction"));
+        			menuLogin.setText(ApplicationInternationalization.getString("titleLogin"));
+        			menuFile.addSeparator();
+        			JMenuItem menuExit = new JMenuItem();
+        			menuFile.add(menuExit);
+        			menuExit.setAction(getAppActionMap().get("Exit"));
+        			menuExit.setText(ApplicationInternationalization.getString("exitAction"));
+        		}
+        	}
+        	
+        	{
+        		JMenu menuWindow = new JMenu();
+        		jMenuBar.add(menuWindow);
+        		menuWindow.setName("menuWindow");
+        		menuWindow.setText(ApplicationInternationalization.getString("windowMenu"));
+        		{
+        			JMenuItem menuChange = new JMenuItem();
+        			menuWindow.add(menuChange);
+        			menuChange.setAction(getAppActionMap().get("ChangeLanguage"));
+        			menuChange.setText(ApplicationInternationalization.getString("changeMenu"));
+        		}
+        	}
+        }
 
         {
                 topPanel = new JPanel();
@@ -358,6 +375,20 @@ public class JFLogin extends SingleFrameApplication {
     }
     
     @Action
+	public void Exit() {
+		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
+			quit();
+	}
+    
+    @Action
+    public void ChangeLanguage() {
+    	JDLanguages lang = new JDLanguages(new JFrame());
+		lang.setLocationRelativeTo(getMainFrame());
+		lang.setModal(true);
+		lang.setVisible(true);
+    }
+    
+    @Action
     public void acceptAction() {
     	try {
     		int index = projectpanel.getProjectId();
@@ -475,5 +506,38 @@ public class JFLogin extends SingleFrameApplication {
 		btnLogin.setText(ApplicationInternationalization.getString("btnAccept"));
 		btnCancel.setAction(getAppActionMap().get("backwardAction"));
 		btnCancel.setText(ApplicationInternationalization.getString("btnBackward"));
-	}   
+	}  
+	
+	public void quit() {
+		try {
+			if (ClientController.getInstance().isLogged()) {
+				// Close session
+	       	 	closeSessionConfirm();		       	 	
+			}
+			ClientController.getInstance().closeController();
+		} catch (MalformedURLException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotBoundException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (ClassCastException e) {
+			// Ignore
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private void closeSessionConfirm() {
+		try {
+			// Close session
+			ClientController.getInstance().signout();
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+	}
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 import model.business.knowledge.Language;
 
-import org.dom4j.io.OutputFormat;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -18,7 +17,7 @@ import org.jdom.output.XMLOutputter;
 import resources.XMLUtilities;
 
 /** 
- * TODO: This class represents a controller to retrieve available languages and update the current language of the tool
+ * This class represents a controller to retrieve available languages and update the current language of the tool
  */
 public class LanguagesController {
 
