@@ -27,6 +27,7 @@ import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -607,7 +608,7 @@ public class JFMain extends SingleFrameApplication {
 		about.setModal(true);
 		about.setVisible(true);		
 	}
-
+	
 	/*** Methods used to update the views with changes made in other client.
 	 * Only refresh the actual and visible view  ***/
 	public void notifyKnowledgeAdded(Knowledge k) {
@@ -648,9 +649,8 @@ public class JFMain extends SingleFrameApplication {
 		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_approachlessServer"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		ClientController.getInstance().closeMainFrame();		
 	}	
-	
 
-	protected void closeSessionConfirm() {
+	private void closeSessionConfirm() {
 		try {
 			lblAction.setVisible(false);
 			lblRole.setText(ApplicationInternationalization.getString("lblStatusClose"));
@@ -672,9 +672,9 @@ public class JFMain extends SingleFrameApplication {
 		try {
 			if (ClientController.getInstance().isLogged()) {
 				// Close session
-	       	 	closeSessionConfirm();		       	 	
-	       	 	ClientController.getInstance().closeController();
+	       	 	closeSessionConfirm();
 			}
+	       	ClientController.getInstance().closeController();			
 		} catch (MalformedURLException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotBoundException e) {

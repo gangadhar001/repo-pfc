@@ -12,7 +12,6 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		ClientController.getInstance().startApplication(args);
-		JDLanguages lang = new JDLanguages(new JFrame());
 //		SplashScreen sps = new SplashScreen();
 //		sps.setLocationRelativeTo(null);
 //	    sps.setVisible(true);
