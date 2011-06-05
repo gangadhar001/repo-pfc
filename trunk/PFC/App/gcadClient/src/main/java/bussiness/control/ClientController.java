@@ -105,6 +105,7 @@ public class ClientController {
 			session = server.login(username, pass);
 			login = username;
 			role = UserRole.values()[session.getRole()].name();
+			availableOperations.clear();
 		} catch(RemoteException e) {
 			throw new RemoteException(ApplicationInternationalization.getString("ClientController_Login_Error"));
 		}
@@ -208,9 +209,12 @@ public class ClientController {
 	}
 
 	public void signout() throws RemoteException, SQLException, NotLoggedException, Exception {
-		server.signout(session.getId());
-		session = null;
-		closeMainFrame();
+		if (session != null) {
+			server.signout(session.getId());
+			availableOperations.clear();
+			session = null;
+			closeMainFrame();			
+		}
 	}
 	
 	public boolean isLogged () {
@@ -331,7 +335,6 @@ public class ClientController {
 
 	// Close main frame and show login frame
 	public void closeMainFrame() {
-		session = null;
 		Application.getInstance(JFMain.class).getMainFrame().dispose();
 		startApplication(null);		
 	}
@@ -358,6 +361,12 @@ public class ClientController {
 		Application.getInstance(JFLogin.class).getMainFrame().dispose();
 		Thread.sleep(700);
 		startApplication(null);		
+	}
+	
+	public void restartMainFrame() throws InterruptedException {
+		Application.getInstance(JFMain.class).getMainFrame().dispose();
+		Thread.sleep(700);
+		Application.launch(JFMain.class, null);
 	}
 
 	

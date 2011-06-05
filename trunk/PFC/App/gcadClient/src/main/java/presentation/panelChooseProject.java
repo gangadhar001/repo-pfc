@@ -48,14 +48,14 @@ public class panelChooseProject extends javax.swing.JPanel {
 			{
 				lblChoose = new JLabel();
 				this.add(lblChoose);
-				lblChoose.setBounds(12, 38, 75, 16);
+				lblChoose.setBounds(12, 38, 103, 16);
 				lblChoose.setName("lblChoose");
 				lblChoose.setText(ApplicationInternationalization.getString("lblChooseProject"));
 			}
 			{
 				cbProjects = new JComboBox();
 				this.add(cbProjects);
-				cbProjects.setBounds(81, 34, 218, 24);
+				cbProjects.setBounds(120, 34, 179, 24);
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
