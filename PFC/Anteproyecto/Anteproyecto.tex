@@ -185,7 +185,7 @@
 \pagestyle{empty} 
 
 %% Se incluye la portada
-%\input{Portada.tex}
+\input{Portada.tex}
 \clearpage
 
 % Texto del reverso de la portada
@@ -208,7 +208,7 @@
 \pagenumbering{Roman}
 
 % Se crea el índice
-%\tableofcontents
+\tableofcontents
 % Se pasa página y se añade el índice de figuras al índice principal
 %\clearpage\phantomsection
 %\addcontentsline{toc}{section}{\listfigurename}
@@ -229,36 +229,37 @@
 \pagenumbering{arabic}
 \pagestyle{fancy}
 
-%\input{1introduccion.tex}
-%\clearpage
-%\input{2objetivo.tex}
-%\clearpage
-%\input{3metodo.tex}
-%\clearpage
-%\input{4medios.tex}
-%\clearpage
-\input{modificación.tex}
+\input{1introduccion.tex}
+\clearpage
+\input{2objetivo.tex}
+\clearpage
+\input{3metodo.tex}
+\clearpage
+\input{4medios.tex}
+\clearpage
+%\input{modificación.tex}
+
 % Sección de apéndices
 % Se añade el titulo de "Apéndices" al índice
 %\addcontentsline{toc}{section}{Apéndices}
 
 %\input{Apendices.tex}
 
-%\renewcommand{\bibname}{Bibliografía}
-%\renewcommand{\refname}{\bibname} % Para cambiar el nombre de la sección de bibliografia
+\renewcommand{\bibname}{Bibliografía}
+\renewcommand{\refname}{\bibname} % Para cambiar el nombre de la sección de bibliografia
 %
 %% Añadimos la bibliografia al índice
-%\clearpage\phantomsection
-%\addcontentsline{toc}{section}{\bibname}
-%
-%%%% Bibliografía. En este caso se usa BibTeX
-%%\nocite{*} % Comando por si queremos incluir todas las entradas de la bibliografía aunque no estén citadas en el texto.
-%\selectbiblanguage{spanish}
-%\pagestyle{plain}
-%\bibliographystyle{bababbrv} % Estilo de bibliografía
-%\bibliography{Bibliografia}
-%
-%\clearpage
-%\input{solicitud.tex}
+\clearpage\phantomsection
+\addcontentsline{toc}{section}{\bibname}
+
+%%% Bibliografía. En este caso se usa BibTeX
+\nocite{*} % Comando por si queremos incluir todas las entradas de la bibliografía aunque no estén citadas en el texto.
+\selectbiblanguage{spanish}
+\pagestyle{plain}
+\bibliographystyle{bababbrv} % Estilo de bibliografía
+\bibliography{Bibliografia}
+
+\clearpage
+\input{solicitud.tex}
 
 \end{document}

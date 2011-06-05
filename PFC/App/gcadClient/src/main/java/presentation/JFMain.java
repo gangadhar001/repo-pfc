@@ -109,6 +109,7 @@ public class JFMain extends SingleFrameApplication {
 	private List<Operation> operations;
 	private panelStatisticsView panelStatistics;
 	private JMenuItem menuFileCloseSession;
+	private JMenu menuOptions;
 
     private ActionMap getAppActionMap() {
         return Application.getInstance().getContext().getActionMap(this);
@@ -149,12 +150,12 @@ public class JFMain extends SingleFrameApplication {
 			{
 				lblPort = new JLabel();
 				getMainFrame().getContentPane().add(lblPort, new AnchorConstraint(940, 7, 11, 778, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblPort.setPreferredSize(new java.awt.Dimension(180, 15));
+				lblPort.setPreferredSize(new java.awt.Dimension(238, 15));
 			}
 			{
 				lblRole = new JLabel();
-				getMainFrame().getContentPane().add(lblRole, new AnchorConstraint(954, 7, 34, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblRole.setPreferredSize(new java.awt.Dimension(180, 14));
+				getMainFrame().getContentPane().add(lblRole, new AnchorConstraint(954, 7, 32, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblRole.setPreferredSize(new java.awt.Dimension(238, 14));
 			}
 			{
 				tabPanel = new JTabbedPane();
@@ -305,6 +306,22 @@ public class JFMain extends SingleFrameApplication {
     	for(String group : OperationsUtilities.getAllGroups(operations)) {
 	    	createToolMenuItem(group);    		
     	}
+    	
+
+    	// Add "Options" menu
+    	menuOptions = new JMenu();
+    	menuBar.add(menuOptions);
+    	menuOptions.setName("menuOptions");
+    	menuOptions.setText(ApplicationInternationalization.getString("menuOptions"));
+    	// Add menu item for switch active project
+    	{
+    		JMenuItem menuItemSwitch = new JMenuItem();
+    		menuOptions.add(menuItemSwitch);
+    		menuItemSwitch.setName("menuItemSwitch");
+    		menuItemSwitch.setAction(getAppActionMap().get("SwitchProject"));
+    		menuItemSwitch.setText(ApplicationInternationalization.getString("menuItemSwitch"));
+    	}
+    	
     	
     	toolbarActions.add("Separator");
     	
@@ -483,7 +500,7 @@ public class JFMain extends SingleFrameApplication {
     /*** Actions used to manage actions for menu items ***/
 	@Action
 	public void Exit() {
-		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
+		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
 			quit();
 	}
 	
@@ -491,7 +508,7 @@ public class JFMain extends SingleFrameApplication {
     
 	@Action 
 	public void CloseSession() {
-		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);		closeSessionConfirm();
+		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
 			closeSessionConfirm();
 	}
 	
@@ -607,6 +624,14 @@ public class JFMain extends SingleFrameApplication {
 		about.setLocationRelativeTo(getMainFrame());
 		about.setModal(true);
 		about.setVisible(true);		
+	}
+	
+	@Action
+	public void SwitchProject() {		
+		JDChooseProject jdc = new JDChooseProject(getMainFrame());
+		jdc.setModal(true);
+		jdc.setLocationRelativeTo(getMainFrame());
+		jdc.setVisible(true);				
 	}
 	
 	/*** Methods used to update the views with changes made in other client.
