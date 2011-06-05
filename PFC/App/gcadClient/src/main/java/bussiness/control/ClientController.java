@@ -58,6 +58,7 @@ public class ClientController {
 	private String clientIP;
 	private String login;
 	private String role;
+	private JFLogin loginWindowUI;
 
 	public ClientController() {
 		availableOperations = new ArrayList<Operation>();
@@ -213,7 +214,6 @@ public class ClientController {
 			server.signout(session.getId());
 			availableOperations.clear();
 			session = null;
-			closeMainFrame();			
 		}
 	}
 	
@@ -301,13 +301,25 @@ public class ClientController {
 	}
 
 	public void closeSession() {
-		mainWindowUI = Application.getInstance(JFMain.class);
-		mainWindowUI.forceCloseSession();
+		if (Application.getInstance() instanceof JFMain) {
+			mainWindowUI = Application.getInstance(JFMain.class);
+			mainWindowUI.forceCloseSession();
+		}
+		else if (Application.getInstance() instanceof JFLogin) {
+			loginWindowUI = Application.getInstance(JFLogin.class);
+			loginWindowUI.forceCloseSession();
+		}
 	}
 
 	public void approachlessServer() {
-		mainWindowUI = Application.getInstance(JFMain.class);
-		mainWindowUI.approachlessServer();
+		if (Application.getInstance() instanceof JFMain) {
+			mainWindowUI = Application.getInstance(JFMain.class);
+			mainWindowUI.approachlessServer();
+		}
+		else if (Application.getInstance() instanceof JFLogin) {
+			loginWindowUI = Application.getInstance(JFLogin.class);
+			loginWindowUI.approachlessServer();
+		}
 		
 	}
 

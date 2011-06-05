@@ -540,4 +540,23 @@ public class JFLogin extends SingleFrameApplication {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	// When closes session, return to the login frame
+	public void forceCloseSession() {
+		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_ForceCloseSession"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		try {
+			ClientController.getInstance().restartLoginFrame();
+		} catch (InterruptedException e) {
+		}
+		
+	}
+
+	// When the server goes offline, then return to the login frame
+	public void approachlessServer() {
+		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_approachlessServer"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		try {
+			ClientController.getInstance().restartLoginFrame();
+		} catch (InterruptedException e) {
+		}	
+	}	
 }
