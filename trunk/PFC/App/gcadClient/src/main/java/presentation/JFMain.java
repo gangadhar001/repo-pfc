@@ -682,6 +682,7 @@ public class JFMain extends SingleFrameApplication {
 			lblPort.setText("");
 			// Close session
 			ClientController.getInstance().signout();
+			ClientController.getInstance().closeMainFrame();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
