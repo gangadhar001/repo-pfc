@@ -1,6 +1,8 @@
 package model.business.control;
 
+import java.lang.reflect.Field;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.NonPermissionRole;
@@ -9,6 +11,7 @@ import exceptions.NotLoggedException;
 import persistence.DAOProject;
 import persistence.DAOUser;
 
+import model.business.control.CBR.Attribute;
 import model.business.knowledge.Project;
 
 import model.business.knowledge.Groups;
@@ -45,5 +48,18 @@ public class ProjectController {
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Get.name()));
 		
 		return DAOProject.getProjects();
+	}
+	
+	// TODO: añadirlo al servidor
+	public static List<Attribute> getAttributesFromProject(Project p) throws NonPermissionRole, NotLoggedException {		
+		List<Attribute> attributes = new ArrayList<Attribute>();
+		
+		// Get attributes from a project using reflection
+		for(Field f: p.getClass().getDeclaredFields())
+		{
+			Attribute at = new Attribute(f.getName(), f.getType());
+			attributes.add(at);
+		}
+		return attributes;
 	}
 }
