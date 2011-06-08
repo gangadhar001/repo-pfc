@@ -9,7 +9,6 @@ import model.business.control.ProjectController;
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.similarity.global.GlobalSimilarityFunction;
-import model.business.control.CBR.similarity.global.jcolibri;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
 import model.business.knowledge.Project;
 
@@ -73,6 +72,6 @@ public class NNMethod {
 		}
 		
 		// Return the similarity applying the global function (average)
-		return gsf.computeSimilarity(values, weights, i);
+		return gsf.computeGlobalSimilarity(values, weights, i);
     }
 }

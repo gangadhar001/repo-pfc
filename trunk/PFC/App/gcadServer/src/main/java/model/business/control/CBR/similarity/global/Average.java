@@ -1,34 +1,21 @@
-/**
- * Average.java
- * jCOLIBRI2 framework. 
- * @author Juan A. Recio-García.
- * GAIA - Group for Artificial Intelligence Applications
- * http://gaia.fdi.ucm.es
- * 03/01/2007
- */
 package model.business.control.CBR.similarity.global;
 
-import jcolibri.method.retrieve.NNretrieval.similarity.StandardGlobalSimilarityFunction;
-
-
 /**
- * This function computes the average of the similarites of its subattributes.
- * @author Juan A. Recio-Garcia
- * @version 1.0
+ * Class used to calculate the global similarity between two cases
  */
-public class Average extends StandardGlobalSimilarityFunction {
+public class Average implements GlobalSimilarityFunction {
 
-
-	public double computeSimilarity(double[] values, double[] weigths, int ivalue)
+	// Uses the evaluation and weights for each attribute of the case
+	public double computeGlobalSimilarity(double[] values, double[] weigths, int nAttributes)
 	{
-		double acum = 0;
-		double weigthsAcum = 0;
-		for(int i=0; i<ivalue; i++)
+		double sum = 0;
+		double totalWeight = 0;
+		for(int i=0; i<nAttributes; i++)
 		{
-			acum += values[i] * weigths[i];
-			weigthsAcum += weigths[i];
+			sum += values[i] * weigths[i];
+			totalWeight += weigths[i];
 		}
-		return acum/weigthsAcum;
+		return sum/totalWeight;
 	}
 
 

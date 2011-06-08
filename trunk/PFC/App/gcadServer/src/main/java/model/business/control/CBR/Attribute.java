@@ -1,6 +1,5 @@
 package model.business.control.CBR;
 
-
 /**
  * This class represents an attribute of a case. Each attribute has name and type (class)
  */
