@@ -1,55 +1,29 @@
 package model.business.control.CBR.similarity.local;
 
-
-
-import jcolibri.method.retrieve.NNretrieval.similarity.LocalSimilarityFunction;
-
+import exceptions.NoApplicableTypeException;
 
 /**
- * This function returns the similarity of two enum values as the their distance
- * sim(x,y)=|ord(x) - ord(y)|
- * 
- * @author Juan A. Recio-García
+ * Class used to calculate the similarity between enum attributes.
+ * This value is the their distance sim(x,y)=|ord(x) - ord(y)|
  */
 public class EnumDistance implements LocalSimilarityFunction {
 
-	/**
-	 * Applies the similarity function.
-	 * 
-	 * @param o1
-	 *            StringEnum or String
-	 * @param o2
-	 *            StringEnum or String
-	 * @return the result of apply the similarity function.
-	 */
-	public double compute(Object o1, Object o2) throws jcolibri.exception.NoApplicableSimilarityFunctionException{
-		if ((o1 == null) || (o2 == null))
+	public double getSimilarity(Object value1, Object value2) throws NoApplicableTypeException {
+		if ((value1 == null) || (value2 == null))
 			return 0;
-		if(!(o1 instanceof Enum))
-			throw new jcolibri.exception.NoApplicableSimilarityFunctionException(this.getClass(), o1.getClass());
-		if(!(o2 instanceof Enum))
-			throw new jcolibri.exception.NoApplicableSimilarityFunctionException(this.getClass(), o2.getClass());
+		if(!(value1 instanceof Enum))
+			// TODO: 
+			throw new NoApplicableTypeException(this.getClass(), value1.getClass());
+		if(!(value2 instanceof Enum))
+			throw new NoApplicableTypeException(this.getClass(), value2.getClass());
 		
-		Enum e1 = (Enum)o1;
-		Enum e2 = (Enum)o2;
+		Enum<?> enum1 = (Enum<?>)value1;
+		Enum<?> enum2 = (Enum<?>)value2;
 		
-		double size = e1.getDeclaringClass().getEnumConstants().length;
-		double diff = Math.abs(e1.ordinal() - e2.ordinal());
+		double size = enum1.getDeclaringClass().getEnumConstants().length;
+		double diff = Math.abs(enum1.ordinal() - enum2.ordinal());
 		
 		return 1 - (diff / size);
-	}
-
-	/** Applicable to Enum */
-	public boolean isApplicable(Object o1, Object o2)
-	{
-		if((o1==null)&&(o2==null))
-			return true;
-		else if(o1==null)
-			return o2 instanceof Enum;
-		else if(o2==null)
-			return o1 instanceof Enum;
-		else
-			return (o1 instanceof Enum)&&(o2 instanceof Enum);
 	}
 
 }

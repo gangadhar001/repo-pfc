@@ -1,31 +1,15 @@
 package model.business.control.CBR.similarity.local;
 
-import jcolibri.method.retrieve.NNretrieval.similarity.LocalSimilarityFunction;
-
-
 /**
- * This function returns 1 if both individuals are equal, otherwise returns 0
+ * Class used to calculate the similarity between attributes.
+ * This value is 1 if both are equals, and 0 otherwise
  */
 public class Equal implements LocalSimilarityFunction {
 
-	/**
-	 * Applies the similarity function.
-	 * 
-	 * @param o1
-	 *            Object.
-	 * @param o2
-	 *            Object.
-	 * @return the result of apply the similarity function.
-	 */
-    public double compute(Object o1, Object o2) throws jcolibri.exception.NoApplicableSimilarityFunctionException{
-        if ((o1 == null) || (o2 == null))
+    public double getSimilarity(Object value1, Object value2) {
+        if ((value1 == null) || (value2 == null))
             return 0;
-        return o1.equals(o2) ? 1 : 0;
+        return value1.equals(value2) ? 1 : 0;
     }
     
-    /** Applicable to any class */
-	public boolean isApplicable(Object o1, Object o2)
-	{
-		return true;
-	}
 }

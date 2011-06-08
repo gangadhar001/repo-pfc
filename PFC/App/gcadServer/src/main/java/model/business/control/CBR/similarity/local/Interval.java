@@ -1,64 +1,36 @@
 package model.business.control.CBR.similarity.local;
 
-import jcolibri.method.retrieve.NNretrieval.similarity.LocalSimilarityFunction;
-
-
+import exceptions.NoApplicableTypeException;
 
 /**
- * This function returns the similarity of two number inside an interval.
- * sim(x,y)=1-(|x-y|/interval)
- * 
- * Now it works with Number values.
+ * Class used to calculate the similarity between numeric attributes inside an interval
+ * This value is the their distance sim(x,y)= 1 - (|x-y|/interval)
  */
 public class Interval implements LocalSimilarityFunction {
 
-	/** Interval */
-	double _interval;
+	private double interval;	
 
-	/**
-	 * Constructor.
-	 */
-	public Interval(double interval) {
-		_interval = interval;
+	public double getInterval() {
+		return interval;
 	}
 
-	/**
-	 * Applies the similarity function.
-	 * 
-	 * @param o1
-	 *            Number
-	 * @param o2
-	 *            Number
-	 * @return result of apply the similarity function.
-	 */
-	public double compute(Object o1, Object o2) throws jcolibri.exception.NoApplicableSimilarityFunctionException{
-		if ((o1 == null) || (o2 == null))
+	public void setInterval(double interval) {
+		this.interval = interval;
+	}
+
+	public double getSimilarity (Object value1, Object valueo2) throws NoApplicableTypeException {
+		if ((value1 == null) || (valueo2 == null))
 			return 0;
-		if (!(o1 instanceof java.lang.Number))
-			throw new jcolibri.exception.NoApplicableSimilarityFunctionException(this.getClass(), o1.getClass());
-		if (!(o2 instanceof java.lang.Number))
-			throw new jcolibri.exception.NoApplicableSimilarityFunctionException(this.getClass(), o2.getClass());
+		if (!(value1 instanceof java.lang.Number))
+			throw new NoApplicableTypeException(this.getClass(), value1.getClass());
+		if (!(valueo2 instanceof java.lang.Number))
+			throw new NoApplicableTypeException(this.getClass(), valueo2.getClass());
 
-
-		Number i1 = (Number) o1;
-		Number i2 = (Number) o2;
+		Number num1 = (Number) value1;
+		Number num2 = (Number) valueo2;
 		
-		double v1 = i1.doubleValue();
-		double v2 = i2.doubleValue();
-		return 1 - ((double) Math.abs(v1 - v2) / _interval);
+		return 1 - ((double) Math.abs(num1.doubleValue() - num2.doubleValue()) / interval);
 	}
 	
-	/** Applicable to Integer */
-	public boolean isApplicable(Object o1, Object o2)
-	{
-		if((o1==null)&&(o2==null))
-			return true;
-		else if(o1==null)
-			return o2 instanceof Number;
-		else if(o2==null)
-			return o1 instanceof Number;
-		else
-			return (o1 instanceof Number)&&(o2 instanceof Number);
-	}
 
 }
