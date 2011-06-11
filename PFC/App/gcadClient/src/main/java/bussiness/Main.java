@@ -3,6 +3,7 @@ package bussiness;
 import javax.swing.JFrame;
 
 import presentation.JDLanguages;
+import presentation.CBR.JDConfigSimil;
 import bussiness.control.ClientController;
 
 public class Main {

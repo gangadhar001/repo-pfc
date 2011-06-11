@@ -1,10 +1,16 @@
 package model.business.control.CBR;
 
+import java.io.Serializable;
+
 /**
  * This class represents an attribute of a case. Each attribute has name and type (class)
  */
-public class Attribute {
+public class Attribute implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4643433099138548613L;
 	private String name;
 	private Class<?> type;
 	

@@ -9,7 +9,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import model.business.control.CBR.Attribute;
+import model.business.control.CBR.retrieveAlgorithms.NNConfig;
+import model.business.control.CBR.retrieveAlgorithms.NNMethod;
 import model.business.knowledge.Answer;
+import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.IMessageTypeLog;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
@@ -629,6 +633,19 @@ public class Server implements IServer {
 		return users;
 	}
 	
+	public List<Attribute> getAttributesFromProject(Project p) throws Exception {		
+		List<Attribute> attributes;
+		try {
+			attributes = ProjectController.getAttributesFromProject(p);
+			// TODO: mensajes
+			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("GetUsersProject_msg") + " " + p.getName());
+		} catch(Exception e) {
+			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("Exception_GetUsersProject_msg") + " " + p.getName() + ": " + e.toString());
+			throw e;
+		}		
+		return attributes;
+	}
+	
 	public void setCurrentProject(long sessionId, int id) throws RemoteException, NotLoggedException, Exception {
 		SessionController.getSession(sessionId).setCurrentActiveProject(id);		
 	}
@@ -682,6 +699,16 @@ public class Server implements IServer {
 		
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception{
 		return SessionController.getSession(sessionId).getUser();
+	}
+
+	@Override
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig config, int k) throws RemoteException, Exception {
+		List<Project> result = new ArrayList<Project>();
+		switch(algorithmName) {
+		case NN:
+			result = NNMethod.evaluateSimilarity(caseToEval, cases, config, k);
+		}
+		return result;
 	}
 	
 	/*** Methods used to manage the UI observer ***/

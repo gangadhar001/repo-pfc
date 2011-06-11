@@ -1,12 +1,19 @@
 package model.business.control.CBR.similarity.local;
 
+import java.io.Serializable;
+
 import exceptions.NoApplicableTypeException;
 
 /**
  * Class used to calculate the similarity between enum attributes.
  * This value is the their distance sim(x,y)=|ord(x) - ord(y)|
  */
-public class EnumDistance implements LocalSimilarityFunction {
+public class EnumDistance implements LocalSimilarityFunction, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6867487022372921018L;
 
 	public double getSimilarity(Object value1, Object value2) throws NoApplicableTypeException {
 		if ((value1 == null) || (value2 == null))

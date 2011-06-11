@@ -10,7 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.business.control.CBR.Attribute;
+import model.business.control.CBR.retrieveAlgorithms.NNConfig;
 import model.business.knowledge.Answer;
+import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Language;
@@ -282,6 +285,14 @@ public class ClientController {
 	public List<Project> getProjectsFromCurrentUser() throws RemoteException, NotLoggedException, Exception {
 		return server.getProjectsFromCurrentUser(session.getId());
 	}	
+	
+	public List<Attribute> getAttributesFromProject(Project p) throws RemoteException, Exception {
+		return server.getAttributesFromProject(p);
+	}
+	
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig configCBR, int k) throws RemoteException, Exception {
+		return server.executeAlgorithm(algorithmName, cases, caseToEval, configCBR, k);
+	}
 	
 	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
 		return server.getLoggedUser(session.getId());
