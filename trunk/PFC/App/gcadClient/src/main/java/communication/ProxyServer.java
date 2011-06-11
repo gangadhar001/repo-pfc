@@ -11,7 +11,10 @@ import java.util.List;
 
 import org.jdom.JDOMException;
 
+import model.business.control.CBR.Attribute;
+import model.business.control.CBR.retrieveAlgorithms.NNConfig;
 import model.business.knowledge.Answer;
+import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
@@ -185,6 +188,16 @@ public class ProxyServer implements IServer {
 	@Override
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception {
 		return server.getLoggedUser(sessionId);
+	}
+
+	@Override
+	public List<Attribute> getAttributesFromProject(Project p) throws RemoteException, Exception {
+		return server.getAttributesFromProject(p);
+	}
+
+	@Override
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig configCBR, int k) throws RemoteException, Exception {
+		return server.executeAlgorithm(algorithmName, cases, caseToEval, configCBR, k);
 	}
 
 }

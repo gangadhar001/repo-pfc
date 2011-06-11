@@ -3,7 +3,7 @@ package model.business.control.CBR.similarity.local;
 import exceptions.NoApplicableTypeException;
 
 /**
- * Class used to calculate the similarity between numeric attributes inside an interval
+ * Class used to calculate the similarity between numeric attributes
  * This value is the their distance sim(x,y)= 1 - (|x-y|/interval)
  */
 public class Interval implements LocalSimilarityFunction {

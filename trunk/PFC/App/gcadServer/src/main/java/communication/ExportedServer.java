@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.Server;
+import model.business.control.CBR.Attribute;
+import model.business.control.CBR.retrieveAlgorithms.NNConfig;
 import model.business.knowledge.Answer;
+import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
@@ -221,5 +224,15 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception{
 		return server.getLoggedUser(sessionId);
+	}
+
+	@Override
+	public List<Attribute> getAttributesFromProject(Project p) throws RemoteException, Exception {
+		return server.getAttributesFromProject(p);
+	}
+	
+	@Override
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig config, int k) throws RemoteException, Exception {
+		return server.executeAlgorithm(algorithmName, cases, caseToEval, config, k);
 	}
 }

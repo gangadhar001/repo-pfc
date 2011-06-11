@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.business.control.CBR.Attribute;
+import model.business.control.CBR.retrieveAlgorithms.NNConfig;
 import model.business.knowledge.Answer;
+import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
@@ -88,5 +91,10 @@ public interface IServer extends Remote {
 	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
 	
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
+	
+	/*** Methods used in CBR ***/
+	public List<Attribute> getAttributesFromProject(Project p)  throws RemoteException, Exception;
+	
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig config, int k) throws RemoteException, Exception;
 	
 }

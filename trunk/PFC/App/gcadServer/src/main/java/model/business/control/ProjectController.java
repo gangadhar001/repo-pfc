@@ -50,8 +50,7 @@ public class ProjectController {
 		return DAOProject.getProjects();
 	}
 	
-	// TODO: añadirlo al servidor
-	public static List<Attribute> getAttributesFromProject(Project p) throws NonPermissionRole, NotLoggedException {		
+	public static List<Attribute> getAttributesFromProject(Project p) {		
 		List<Attribute> attributes = new ArrayList<Attribute>();
 		
 		// Get attributes from a project using reflection
