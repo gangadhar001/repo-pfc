@@ -123,11 +123,6 @@ public class JDConfigSimil extends javax.swing.JDialog {
 						for (EnumAlgorithmCBR ea : EnumAlgorithmCBR.values())
 							cbAlgorithm.addItem(ea.name());
 						cbAlgorithm.setBounds(89, 17, 210, 23);
-						cbAlgorithm.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								cbAlgorithmActionPerformed(evt);
-							}
-						});
 					}
 					{
 						lblNumberK = new JLabel();
@@ -209,7 +204,7 @@ public class JDConfigSimil extends javax.swing.JDialog {
 		}
 	}
 
-	// Method used to retrieve all the attributes from one project (case)
+	// Method used to retrieve all the attributes from one project (case) and show them in the UI
 	private void setAttributesName() throws RemoteException, Exception {
 		caseToEval = new Project();
 		attributes = ClientController.getInstance().getAttributesFromProject(caseToEval);
@@ -283,11 +278,6 @@ public class JDConfigSimil extends javax.swing.JDialog {
 				numberAttributes ++;
 			}				
 		}		
-	}
-	
-	private void cbAlgorithmActionPerformed(ActionEvent evt) {
-		System.out.println("cbAlgorithm.actionPerformed, event="+evt);
-		//TODO add your code for cbAlgorithm.actionPerformed
 	}
 	
 	// Disable the function parameter when its type isn't Interval

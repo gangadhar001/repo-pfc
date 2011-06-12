@@ -52,6 +52,7 @@ import org.jdesktop.application.SingleFrameApplication;
 import org.jfree.chart.ChartPanel;
 
 import presentation.CBR.JDConfigSimil;
+import presentation.CBR.JDRetrievalCases;
 import presentation.customComponents.CustomToolBar;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
@@ -512,7 +513,9 @@ public class JFMain extends SingleFrameApplication {
 //		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
 //			closeSessionConfirm();
 		// TODO
-		JDConfigSimil j = new JDConfigSimil(null);
+//		JDConfigSimil j = new JDConfigSimil(null);
+//		j.setVisible(true);
+		JDRetrievalCases j = new JDRetrievalCases(getMainFrame());
 		j.setVisible(true);
 	}
 	
