@@ -104,6 +104,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 					tbAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
 					if (attField.get(project) != null)
 						tbAttValue.setText(attField.get(project).toString());
+					// TODO: añadir inputVerifier para que los valores no sean vacios
 					this.add(tbAttValue);
 					tbAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);
 					tbAttValue.setEditable(editable);

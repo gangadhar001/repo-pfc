@@ -229,9 +229,8 @@ public class ClientController {
 		
 	}
 
-	public void createProject(Project project) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		server.createProject(session.getId(), project);
-		
+	public Project createProject(Project project) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+		return server.createProject(session.getId(), project);		
 	}	
 
 	public void deleteAnswer(Answer a) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
@@ -394,6 +393,10 @@ public class ClientController {
 		Application.getInstance(JFMain.class).getMainFrame().dispose();
 		Thread.sleep(700);
 		Application.launch(JFMain.class, null);
+	}
+
+	public void addProjectsUser(User user, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		server.addProjectsUser(session.getId(), user, p);
 	}
 
 	

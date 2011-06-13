@@ -32,7 +32,8 @@ public class DAOProject {
 	public static void insert (Project project) throws SQLException {
 		try {
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.insert(project.clone());
+			Project p = (Project) DBConnectionManager.insert(project.clone());
+			project.setId(p.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}

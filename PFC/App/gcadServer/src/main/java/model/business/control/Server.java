@@ -347,12 +347,13 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods to manage projects ***/
-	public void createProject (long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public Project createProject (long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		String login = "";
+		Project result;
 		try {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
-			ProjectController.createProject(sessionId, p);
+			result = ProjectController.createProject(sessionId, p);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewProject_msg") + " " + p.getName());
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_NewProject_msg") + " '" + p.getName() + "': " + se.getLocalizedMessage());
@@ -366,7 +367,8 @@ public class Server implements IServer {
 		} catch(Exception e) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_NewProject_msg") + " " + e.toString());
 			throw e;
-		}	
+		}
+		return result;
 	}
 	
 	/*** Methods used to manage notifications ***/	
@@ -722,6 +724,11 @@ public class Server implements IServer {
 	@Override
 	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return UsersController.getUsers(sessionId);
+	}
+	
+	@Override
+	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		UsersController.addProjectsUser(sessionId, user, project);
 	}
 	
 	/*** Methods used to manage the UI observer ***/

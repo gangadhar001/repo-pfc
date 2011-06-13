@@ -26,11 +26,13 @@ import model.business.knowledge.User;
 public class ProjectController {
 
 	// Method used to create a new project and insert it into database
-	public static void createProject(long sessionId, Project project) throws SQLException, NonPermissionRole, NotLoggedException {			
+	public static Project createProject(long sessionId, Project project) throws SQLException, NonPermissionRole, NotLoggedException {			
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
 		
 		DAOProject.insert(project);
+		// Return the new project, in order the client can update its id
+		return project;
 	}
 	
 	// Method used to retrieve developers that participate in a project
