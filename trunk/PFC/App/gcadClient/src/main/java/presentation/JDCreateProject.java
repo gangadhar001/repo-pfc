@@ -1,4 +1,5 @@
 package presentation;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -57,6 +58,7 @@ public class JDCreateProject extends javax.swing.JDialog {
 	private JTextArea txtUserInfo;
 	private JButton btnOK;
 	private JButton btnCancel;
+	private List<User> selectedUsers;
 
 	/**
 	* Auto-generated main method to display this JDialog
@@ -89,7 +91,7 @@ public class JDCreateProject extends javax.swing.JDialog {
 					{
 						jScrollPane2 = new JScrollPane();
 						pnlUsers.add(jScrollPane2);
-						jScrollPane2.setBounds(10, 312, 235, 94);
+						jScrollPane2.setBounds(10, 279, 235, 127);
 						{
 							txtUserInfo = new JTextArea();
 							jScrollPane2.setViewportView(txtUserInfo);
@@ -102,7 +104,7 @@ public class JDCreateProject extends javax.swing.JDialog {
 					{
 						jScrollPane1 = new JScrollPane();
 						pnlUsers.add(jScrollPane1);
-						jScrollPane1.setBounds(10, 17, 235, 256);
+						jScrollPane1.setBounds(10, 17, 235, 224);
 						{
 							listUsers = new JList();
 							// Set list as check list
@@ -116,12 +118,16 @@ public class JDCreateProject extends javax.swing.JDialog {
 							        Rectangle rect = listUsers.getCellBounds(index, index);
 							        listUsers.repaint(rect);
 							        if (item.isSelected()) {
-							        	txtUserInfo.setText("User: " + item.getUser().getName() +", " + item.getUser().getSurname()
+							        	txtUserInfo.append("User: " + item.getUser().getName() +", " + item.getUser().getSurname()
 							        			+ "\nCompany: " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
-							        			+ item.getUser().getCompany().getAddress().getCountry() + ")");
+							        			+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
+							        	Font f = txtUserInfo.getFont();
+							        	txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
+							        	selectedUsers.add(item.getUser());
 							        }
 							        else {
 							        	txtUserInfo.setText("");
+							        	selectedUsers.remove(item.getUser());
 							        }
 							      }
 							});
@@ -134,7 +140,7 @@ public class JDCreateProject extends javax.swing.JDialog {
 					{
 						lblUserInfo = new JLabel();
 						pnlUsers.add(lblUserInfo);
-						lblUserInfo.setBounds(10, 285, 74, 14);
+						lblUserInfo.setBounds(10, 259, 135, 14);
 						lblUserInfo.setName("lblUserInfo");
 					}
 				}
@@ -200,8 +206,17 @@ public class JDCreateProject extends javax.swing.JDialog {
 		// Validate data TODO
 		// Create project and update users
 		Project newProject = panelCaseInformation.getProject();
+		if (newProject == null)
+			; // TODO: error. Rellenar todos los datos del proyecto	
 		try {
-			ClientController.getInstance().createProject(newProject);
+			Project p = ClientController.getInstance().createProject(newProject);
+			if (p != null)
+				// Update id of the project
+				newProject.setId(p.getId());			
+			for (Object u : selectedUsers) {
+				((CheckableItem)u).getUser().getProjects().add(newProject);
+				ClientController.getInstance().addProjectsUser(((CheckableItem)u).getUser(), p);
+			}
 			this.dispose();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block

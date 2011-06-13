@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.Server;
+import model.business.control.UsersController;
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
@@ -180,9 +181,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
-		server.createProject(sessionId, p);
-		
+	public Project createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return server.createProject(sessionId, p);		
 	}
 
 	@Override
@@ -239,5 +239,10 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	@Override
 	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return server.getUsers(sessionId);
+	}
+	
+	@Override
+	public void addProjectsUser(long sessionId, User user, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		server.addProjectsUser(sessionId, user, p);
 	}
 }

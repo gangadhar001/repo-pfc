@@ -7,6 +7,7 @@ import java.util.List;
 import communication.DBConnectionManager;
 
 import model.business.knowledge.Project;
+import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
 import exceptions.IncorrectEmployeeException;
@@ -18,9 +19,12 @@ import exceptions.NonExistentRole;
 public class DAOUser {
 
 	private static final String USER_CLASS = "User";
+	private static final String USERS_PROJECTS = "usersProjects";
 	
 	private static final String COL_LOGIN = "login";
 	private static final String COL_PASSWORD = "password";
+	private static final String COL_IDUSER = "idUser";
+	private static final String COL_IDPROJECT = "idProject";
 	
 	public static User queryUser(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
 		HibernateQuery query;
@@ -91,5 +95,54 @@ public class DAOUser {
 		}
 		
 		return result;
+	}
+
+	public static void update(User user) throws SQLException {
+		// Get the proposal stores in database and update that reference 
+		HibernateQuery query;
+		List<?> data;
+		User oldUser = null;
+		
+		try {
+			query = new HibernateQuery("From " + USER_CLASS + " Where nif = ?", user.getNif());
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				oldUser = (User)data.get(0);									
+			}
+			
+			DBConnectionManager.initTransaction();	
+			
+			oldUser.setNif(user.getNif());
+			oldUser.setName(user.getName());
+			oldUser.setEmail(user.getEmail());
+			oldUser.setCompany(user.getCompany());
+			oldUser.setLogin(user.getLogin());
+			oldUser.setPassword(user.getPassword());
+			oldUser.setProjects(user.getProjects());
+			oldUser.setSeniority(user.getSeniority());
+			oldUser.setSurname(user.getSurname());
+			oldUser.setTelephone(user.getTelephone());
+
+			DBConnectionManager.update(oldUser);
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}		
+	}
+	
+	public static void updateProject(User u, Project p) throws SQLException {;		
+		try {				
+			DBConnectionManager.initTransaction();
+			String query = "INSERT INTO " + USERS_PROJECTS + " VALUES (" + u.getId() + ", " + p.getId() + ")";
+			DBConnectionManager.executeUpdate(query);
+			
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
 	}
 }

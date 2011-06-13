@@ -59,7 +59,7 @@ public interface IServer extends Remote {
 
 	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;	
 	
-	public void createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
+	public Project createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 		
 	/*** Methods used to manage notifications ***/	
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
@@ -98,5 +98,7 @@ public interface IServer extends Remote {
 	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception;
 
 	List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
+
+	void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
 }

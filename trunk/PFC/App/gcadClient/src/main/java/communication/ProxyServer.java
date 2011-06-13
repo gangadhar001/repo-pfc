@@ -105,9 +105,8 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public void createProject(long sessionId, Project project) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
-		server.createProject(sessionId, project);
-		
+	public Project createProject(long sessionId, Project project) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception{
+		return server.createProject(sessionId, project);		
 	}
 
 	@Override
@@ -202,6 +201,10 @@ public class ProxyServer implements IServer {
 
 	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return server.getUsers(sessionId);
+	}
+
+	public void addProjectsUser(long sessionId, User user, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		server.addProjectsUser(sessionId, user, p);
 	}
 
 
