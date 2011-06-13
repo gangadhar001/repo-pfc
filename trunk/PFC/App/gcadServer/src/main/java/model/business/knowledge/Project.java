@@ -25,8 +25,7 @@ public class Project implements Serializable {
 	private String progLanguage;
 	private int estimatedHours;
 		
-	public Project () {
-		
+	public Project () {		
 	}
 
 	public Project(String name, String description, Date startDate,

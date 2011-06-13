@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.CBR.Attribute;
-import model.business.control.CBR.retrieveAlgorithms.NNConfig;
+import model.business.control.CBR.ConfigCBR;
+import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Answer;
-import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
@@ -95,6 +95,8 @@ public interface IServer extends Remote {
 	/*** Methods used in CBR ***/
 	public List<Attribute> getAttributesFromProject(Project p)  throws RemoteException, Exception;
 	
-	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig config, int k) throws RemoteException, Exception;
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception;
+
+	List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception;
 	
 }

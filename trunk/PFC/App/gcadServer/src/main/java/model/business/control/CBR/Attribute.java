@@ -41,6 +41,23 @@ public class Attribute implements Serializable{
 		this.type = type;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(!(o instanceof Attribute))
+			return false;
+		return  (name.equals(((Attribute)o).getName()))
+				&&(type.equals(((Attribute)o).getType()));
+	}
 
 //	/**
 //	 * Returns the value of the attribute for a concrete object. Of course, the object must be instance of the class that this attribute belongs to.
@@ -90,13 +107,8 @@ public class Attribute implements Serializable{
 //
 //	}	
 	
-	public boolean equals(Object o)
-	{
-		if(!(o instanceof Attribute))
-			return false;
-		return  (name.equals(((Attribute)o).getName()))
-				&&(type.equals(((Attribute)o).getType()));
-	}
+	
+	
 	
 	
 }

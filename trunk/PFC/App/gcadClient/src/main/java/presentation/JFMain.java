@@ -515,8 +515,10 @@ public class JFMain extends SingleFrameApplication {
 		// TODO
 //		JDConfigSimil j = new JDConfigSimil(null);
 //		j.setVisible(true);
-		JDRetrievalCases j = new JDRetrievalCases(getMainFrame());
+		JDCreateProject j = new JDCreateProject(getMainFrame());
+		j.setModal(true);
 		j.setVisible(true);
+		
 	}
 	
     @Action

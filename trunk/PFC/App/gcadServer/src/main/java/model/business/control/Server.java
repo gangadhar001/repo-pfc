@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 import model.business.control.CBR.Attribute;
-import model.business.control.CBR.retrieveAlgorithms.NNConfig;
+import model.business.control.CBR.ConfigCBR;
+import model.business.control.CBR.EnumAlgorithmCBR;
+import model.business.control.CBR.retrieveAlgorithms.EuclDistanceMethod;
 import model.business.control.CBR.retrieveAlgorithms.NNMethod;
 import model.business.knowledge.Answer;
-import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.IMessageTypeLog;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
@@ -702,13 +703,25 @@ public class Server implements IServer {
 	}
 
 	@Override
-	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig config, int k) throws RemoteException, Exception {
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception {
 		List<Project> result = new ArrayList<Project>();
 		switch(algorithmName) {
 		case NN:
 			result = NNMethod.evaluateSimilarity(caseToEval, cases, config, k);
+			break;
+		case Euclidean:
+			result = EuclDistanceMethod.evaluateSimilarity(caseToEval, cases, config, k);
+			break;
+//		case Sim:
+//			result = SimMethod.evaluateSimilarity(caseToEval, cases, config, k);
+//			break;
 		}
 		return result;
+	}
+	
+	@Override
+	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return UsersController.getUsers(sessionId);
 	}
 	
 	/*** Methods used to manage the UI observer ***/
