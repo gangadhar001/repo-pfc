@@ -18,6 +18,8 @@ import model.business.knowledge.Project;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import presentation.panelProjectInformation;
+
 /**
 * This code was edited or generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -31,7 +33,7 @@ import org.jdesktop.application.Application;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class JDRetrievalCases extends javax.swing.JDialog {
-	private panelCaseInformation currentPanel;
+	private panelProjectInformation currentPanel;
 	private JButton btnBackward;
 	private JButton btnForward;
 	private JLabel lblNumberCases;
@@ -52,7 +54,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		cases.add(p1);
 		cases.add(p2);
 		initGUI();
-		currentPanel.showData(cases.get(currentProject-1));
+		currentPanel.showData(cases.get(currentProject-1), false);
 	}
 	
 	private ActionMap getAppActionMap() {
@@ -64,7 +66,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				{
-					currentPanel = new panelCaseInformation();
+					currentPanel = new panelProjectInformation();
 					getContentPane().add(currentPanel);
 					currentPanel.setBounds(0, 0, 328, 410);
 				}
@@ -103,7 +105,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		if (currentProject < cases.size()) {
 			currentProject++;
 			btnBackward.setEnabled(true);
-			currentPanel.showData(cases.get(currentProject-1));
+			currentPanel.showData(cases.get(currentProject-1), false);
 			lblNumberCases.setText("Case " + currentProject+"/"+cases.size());
 		}
 		if(currentProject == cases.size()) {
@@ -116,7 +118,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		if (currentProject > 0) {
 			currentProject--;
 			btnForward.setEnabled(true);
-			currentPanel.showData(cases.get(currentProject-1));
+			currentPanel.showData(cases.get(currentProject-1), false);
 			lblNumberCases.setText("Case " + currentProject+"/"+cases.size());
 		}
 		if(currentProject == 1) {

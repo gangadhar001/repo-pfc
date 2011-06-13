@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.CBR.Attribute;
-import model.business.control.CBR.retrieveAlgorithms.NNConfig;
+import model.business.control.CBR.ConfigCBR;
+import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Answer;
-import model.business.knowledge.EnumAlgorithmCBR;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Language;
@@ -281,6 +281,10 @@ public class ClientController {
 	public List<User> getUsersProject(Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
 		return server.getUsersProject(session.getId(), p);
 	}
+	
+	public List<User> getUsers() throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+		return server.getUsers(session.getId());
+	}
 
 	public List<Project> getProjectsFromCurrentUser() throws RemoteException, NotLoggedException, Exception {
 		return server.getProjectsFromCurrentUser(session.getId());
@@ -290,7 +294,7 @@ public class ClientController {
 		return server.getAttributesFromProject(p);
 	}
 	
-	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, NNConfig configCBR, int k) throws RemoteException, Exception {
+	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
 		return server.executeAlgorithm(algorithmName, cases, caseToEval, configCBR, k);
 	}
 	
@@ -391,6 +395,8 @@ public class ClientController {
 		Thread.sleep(700);
 		Application.launch(JFMain.class, null);
 	}
+
+	
 
 	
 }

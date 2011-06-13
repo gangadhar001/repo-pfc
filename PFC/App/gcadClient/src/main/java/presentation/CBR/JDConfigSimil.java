@@ -2,6 +2,7 @@ package presentation.CBR;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
@@ -29,14 +30,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.business.control.CBR.Attribute;
-import model.business.control.CBR.retrieveAlgorithms.NNConfig;
+import model.business.control.CBR.ConfigCBR;
+import model.business.control.CBR.EnumAlgorithmCBR;
+import model.business.control.CBR.EnumSimilFunctions;
 import model.business.control.CBR.retrieveAlgorithms.NNMethod;
 import model.business.control.CBR.similarity.local.EnumDistance;
 import model.business.control.CBR.similarity.local.Equal;
 import model.business.control.CBR.similarity.local.Interval;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
-import model.business.knowledge.EnumAlgorithmCBR;
-import model.business.knowledge.EnumSimilFunctions;
 import model.business.knowledge.Project;
 
 import org.jdesktop.application.Action;
@@ -206,7 +207,7 @@ public class JDConfigSimil extends javax.swing.JDialog {
 
 	// Method used to retrieve all the attributes from one project (case) and show them in the UI
 	private void setAttributesName() throws RemoteException, Exception {
-		caseToEval = new Project();
+		caseToEval = new Project("PrintPro", "Processor", new Date(), new Date(), 15000.0, 905, "bank", "C#", 11000);
 		attributes = ClientController.getInstance().getAttributesFromProject(caseToEval);
 		// Show attributes name 
 		numberAttributes = 1;
@@ -262,7 +263,7 @@ public class JDConfigSimil extends javax.swing.JDialog {
 						double value = new Double(((JSlider)e.getSource()).getValue());
 						for (Object o : pnlAttributes.getComponents()) {
 							if (o instanceof JLabel) {
-								if (((JLabel)o).getName().equals("lbl_"+name))
+								if (((JLabel)o).getName() != null && ((JLabel)o).getName().equals("lbl_"+name))
 									((JLabel)o).setText(String.valueOf(value/100));
 							}
 						}						
@@ -312,7 +313,7 @@ public class JDConfigSimil extends javax.swing.JDialog {
 		// Validate data and generate the configuration used to retrieve similar cases to the given case (project)
 		boolean valid = true;
 		int numberCases = Integer.parseInt(txtNumberK.getText());
-		NNConfig configCBR = new NNConfig();
+		ConfigCBR configCBR = new ConfigCBR();
 		
 		if (cbAlgorithm.getSelectedIndex() == -1)
 			valid = false; // TODO error
@@ -324,33 +325,22 @@ public class JDConfigSimil extends javax.swing.JDialog {
 				if (o instanceof JLabel) {
 					JLabel lbl = (JLabel)o;
 					// Search attribute
-					if (lbl.getName().contains("attribute")) {
-						int index = Integer.parseInt(lbl.getName().substring(lbl.getName().lastIndexOf("_")+1)) - 1;
-						Attribute att = attributes.get(index);
+					if (lbl.getName() != null && lbl.getName().contains("attribute")) {
+						int index = Integer.parseInt(lbl.getName().substring(lbl.getName().lastIndexOf("_")+1));
+						// Ignore id and SerialUID
+						Attribute att = attributes.get(index + 1);
 						// Get the values (similarity function, function parameter and weight) for that attribute
-						List<Object> values = searchValuesFromRow(index+1);
+						List<Object> values = searchValuesFromRow(index);
 						LocalSimilarityFunction function = null;
 						for (Object ob: values) {
 							// Weight
 							if (ob instanceof Double)
 								configCBR.setWeight(att, (Double)ob);
 							// Similarity Function
-							else if (ob instanceof String) {
-								String functionName = ob.toString();
-								if (functionName.equals(EnumSimilFunctions.Interval.name()))
-									function = new Interval();
-								if (functionName.equals(EnumSimilFunctions.Equal.name()))
-									function = new Equal();
-								if (functionName.equals(EnumSimilFunctions.Enum.name()))
-									function = new EnumDistance();
-							}
-							// Function parameter for Interval function
-							else if (ob instanceof Integer) {
-								if (function != null) {
-									((Interval)function).setInterval((Integer)ob);
-								}
-							}
-							configCBR.addLocalSimFunction(att, function);
+							else if (ob instanceof LocalSimilarityFunction) {
+								function = (LocalSimilarityFunction)ob;
+								configCBR.addLocalSimFunction(att, function);
+							}														
 						}
 					}
 				}
@@ -387,30 +377,48 @@ public class JDConfigSimil extends javax.swing.JDialog {
 			if (o instanceof JLabel) {
 				JLabel lbl = (JLabel)o;
 				// Weight
-				if (lbl.getName().contains("lbl_slider")) {
+				if (lbl.getName() != null && lbl.getName().contains("lbl_slider")) {
 					int index = Integer.parseInt(lbl.getName().substring(lbl.getName().lastIndexOf("_")+1));
 					if (index == row) {
 						result.add(Double.parseDouble(lbl.getText()));
 					}
 				}
 			}
-			if (o instanceof JSpinner) {
-				JSpinner sp = (JSpinner)o;
-				// Function parameter
-				if (sp.getName().contains(String.valueOf(row))) {					
-					result.add(Integer.parseInt(sp.getValue().toString()));
-					
-				}
-			}
 			if (o instanceof JComboBox) {
 				JComboBox cb = (JComboBox)o;
 				// Similarity Function
 				if (cb.getName().contains(String.valueOf(row))) {
-					result.add(cb.getSelectedItem().toString());					
+					LocalSimilarityFunction function = null;
+					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Interval.name())) {
+						function = new Interval();
+						((Interval)function).setInterval(getIntervalValue(row));
+					}
+					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Equal.name()))
+						function = new Equal();
+					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Enum.name()))
+						function = new EnumDistance();
+					result.add(function);					
 				}
 			}
 		}
 		
+		return result;
+	}
+
+	private double getIntervalValue(int row) {
+		boolean found = false;
+		double result = 0.0;
+		Object[] components = pnlAttributes.getComponents();
+		for (int i = 0; i < components.length && !found; i++) {
+			if (components[i] instanceof JSpinner) {
+				JSpinner sp = (JSpinner)components[i];
+				// Function parameter
+				if (sp.getName().contains(String.valueOf(row))) {					
+					result = Double.parseDouble(sp.getValue().toString());
+					found = true;
+				}
+			}
+		}
 		return result;
 	}
 }

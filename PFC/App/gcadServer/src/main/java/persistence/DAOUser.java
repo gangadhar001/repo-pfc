@@ -44,6 +44,30 @@ public class DAOUser {
 		return user;
 	}
 	
+	public static List<User> getUsers() throws SQLException {
+		HibernateQuery query;
+		List<?> data;
+		List<User> result = new ArrayList<User>();
+		
+		query = new HibernateQuery("From " + USER_CLASS);
+		data = DBConnectionManager.query(query);
+
+		// TODO: 
+//		if(data.size() == 0) {
+//			throw new IncorrectEmployeeException("No hay usuarios registrados en el sistema");
+//		} else {
+			for(Object o: data)
+				result.add((User) ((User)(o)).clone());			
+//		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+		
+		return result;
+	}
+	
 	public static List<User> getUsersProject(Project p) throws SQLException {
 		HibernateQuery query;
 		List<?> data;
