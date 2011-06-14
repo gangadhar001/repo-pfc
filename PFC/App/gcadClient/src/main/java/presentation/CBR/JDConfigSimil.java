@@ -88,13 +88,15 @@ public class JDConfigSimil extends javax.swing.JDialog {
 	
 	private final int POSY = 23;
 	private final int INCREMENT_POSY = 35;
-	private Hashtable dic;
+	private Hashtable<Integer, JLabel> dic;
 	private int numberAttributes;
 	private List<Attribute> attributes;
 	private Project caseToEval;
+	private JFrame frame;
 		
 	public JDConfigSimil(JFrame frame) {
 		super(frame);
+		this.frame = frame;
 		initGUI();
 	}
 	
@@ -162,7 +164,7 @@ public class JDConfigSimil extends javax.swing.JDialog {
 					}
 					
 					// Change labels of slider
-					dic = new Hashtable();
+					dic = new Hashtable<Integer, JLabel>();
 					for (int i=0; i<=100; i++) {
 						double aux = new Double(i);
 						double value = aux / 100.00;
@@ -350,7 +352,14 @@ public class JDConfigSimil extends javax.swing.JDialog {
 			List<Project> cases;
 			try {
 				cases = ClientController.getInstance().getProjects();
-				ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
+				List<Project> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
+				// TODO: mostrar numero de resultados encontrados
+				if (result.size() > 0) {
+					JDRetrievalCases showCases = new JDRetrievalCases(frame, cases);
+					this.dispose();
+					showCases.setModal(true);
+					showCases.setVisible(true);					
+				}
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
