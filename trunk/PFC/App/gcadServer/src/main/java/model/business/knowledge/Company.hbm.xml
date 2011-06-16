@@ -12,6 +12,6 @@
 		<property name="cif" column="cif" type="string" not-null="true" />
 		<property name="name" column="name" type="string" not-null="true" />
 		<property name="information" column="information" type="string" not-null="true" />		
-		<many-to-one name="address" column="addressId" class="Address" not-null="false" lazy="false" />
+		<many-to-one name="address" column="addressId" class="Address" not-null="false" lazy="false"/>
 	</class>
 </hibernate-mapping>
