@@ -35,7 +35,7 @@ import exceptions.NotLoggedException;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class JDRetrievalCases extends javax.swing.JDialog {
+public class JDReviseCase extends javax.swing.JDialog {
 	/**
 	 * 
 	 */
@@ -60,15 +60,16 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private JTextArea txtAreaKnowledge;
 	private panelKnowledgeTree panelTree;
 	
-	public JDRetrievalCases(JFrame frame, List<Project> cases) {
+	public JDReviseCase(JFrame frame, List<Project> cases) {
 		super(frame);
 		this.cases = cases;
 		currentProject = 1;
 		initGUI();
-		currentPanel.showData(cases.get(currentProject-1), false);
+		currentPanel.showData(cases.get(currentProject-1), true);
 		// Show tree of knowledge for this project
 		try {
 			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
+			panelTree.setEditable();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,9 +158,10 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		if (currentProject < cases.size()) {
 			currentProject++;
 			btnBackward.setEnabled(true);
-			currentPanel.showData(cases.get(currentProject-1), false);
+			currentPanel.showData(cases.get(currentProject-1), true);
 			try {
 				panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
+				panelTree.setEditable();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -188,9 +190,10 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		if (currentProject > 0) {
 			currentProject--;
 			btnForward.setEnabled(true);
-			currentPanel.showData(cases.get(currentProject-1), false);
+			currentPanel.showData(cases.get(currentProject-1), true);
 			try {
 				panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
+				panelTree.setEditable();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
