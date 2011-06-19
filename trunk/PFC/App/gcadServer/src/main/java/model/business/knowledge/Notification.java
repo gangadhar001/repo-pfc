@@ -23,6 +23,14 @@ public class Notification implements Serializable{
 	public Notification(Knowledge knowledge) {
 		this.knowledge = knowledge;
 	}
+	
+	public Notification(Knowledge knowledge, String state, Project project, String subject, Set<User> users) {
+		this.knowledge = knowledge;
+		this.state = state;
+		this.project = project;
+		this.subject = subject;
+		this.users = users;		
+	}
 
 	public int getId() {
 		return id;

@@ -23,11 +23,14 @@ import javax.swing.event.EventListenerList;
 import org.jdesktop.application.Application;
 
 import presentation.auxiliary.CloseWindowListener;
+import presentation.auxiliary.Validation;
 import resources.IPValidator;
 import resources.NotEmptyValidator;
 import resources.PortValidator;
 
 import communication.ServerConfiguration;
+import exceptions.InvalidIPException;
+import exceptions.InvalidPortException;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -127,7 +130,7 @@ public class JDConfig extends javax.swing.JDialog {
 					{
 						txtDBPort = new JTextField();
 						pnlDB.add(txtDBPort);
-						txtDBPort.setName("txtPuertoBDPrincipal");
+						txtDBPort.setName("txtDBPort");
 						txtDBPort.setBounds(100, 51, 108, 20);
 						txtDBPort.setSize(144, 20);
 						txtDBPort.setInputVerifier(new PortValidator(frame, txtDBPort, AppInternationalization.getString("ValidatePort") + "[1 - 65535]"));
@@ -135,7 +138,7 @@ public class JDConfig extends javax.swing.JDialog {
 					{
 						txtDBIP = new JTextField();
 						pnlDB.add(txtDBIP);
-						txtDBIP.setName("txtIPBDPrincipal");
+						txtDBIP.setName("txtDBIP");
 						txtDBIP.setBounds(100, 22, 144, 20);
 						txtDBIP.setInputVerifier(new IPValidator(frame, txtDBIP, AppInternationalization.getString("ValidateIP")));
 					}
@@ -166,6 +169,7 @@ public class JDConfig extends javax.swing.JDialog {
 					{
 						txtSchema = new JTextField();
 						pnlDB.add(txtSchema);
+						txtSchema.setName("txtSchema");
 						txtSchema.setBounds(100, 85, 108, 20);
 						txtSchema.setSize(144, 20);
 						txtSchema.setInputVerifier(new NotEmptyValidator(this, txtSchema, AppInternationalization.getString("ValidateEmpty")));
@@ -173,6 +177,7 @@ public class JDConfig extends javax.swing.JDialog {
 					{
 						txtUsername = new JTextField();
 						pnlDB.add(txtUsername);
+						txtUsername.setName("txtUsername");
 						txtUsername.setBounds(100, 116, 108, 20);
 						txtUsername.setSize(144, 20);
 						txtUsername.setInputVerifier(new NotEmptyValidator(this, txtUsername, AppInternationalization.getString("ValidateEmpty")));
@@ -186,6 +191,7 @@ public class JDConfig extends javax.swing.JDialog {
 					{
 						txtPassword = new JPasswordField();
 						pnlDB.add(txtPassword);
+						txtPassword.setName("txtPassword");
 						txtPassword.setBounds(100, 150, 108, 20);
 						txtPassword.setSize(144, 20);
 						txtPassword.setInputVerifier(new NotEmptyValidator(this, txtPassword, AppInternationalization.getString("ValidateEmpty")));
@@ -202,7 +208,7 @@ public class JDConfig extends javax.swing.JDialog {
 						txtServerPort = new JTextField();
 						pnlServer.add(txtServerPort);
 						txtServerPort.setBounds(100, 20, 108, 20);
-						txtServerPort.setName("txtPuertoFrontend");
+						txtServerPort.setName("txtServerPort");
 						txtServerPort.setSize(144, 20);
 						txtServerPort.setInputVerifier(new PortValidator(frame, txtServerPort, AppInternationalization.getString("loginValidatePort") + "[1 - 65535]"));
 					}
@@ -230,17 +236,44 @@ public class JDConfig extends javax.swing.JDialog {
 	}	
 
 	private void btnAceptarActionPerformed(ActionEvent evt) {	
+		boolean valid = true;
 		try {
-			configuration.setDBIp(txtDBIP.getText().trim());
-			configuration.setDBPort(Integer.parseInt(txtDBPort.getText().trim()));
-			configuration.setDBSchema(txtSchema.getText().trim());
-			configuration.setDBUser(txtUsername.getText().trim());
-			configuration.setDBPassword(new String(txtPassword.getPassword()));				
-			
-			configuration.setServerPort(Integer.parseInt(txtServerPort.getText().trim()));
-		} catch(NumberFormatException e) { }
-
-		closeWindow();		
+			Validation.comprobarDireccionIP(txtDBIP.getText().trim());
+			Validation.comprobarPuerto(txtDBPort.getText().trim());
+			Validation.comprobarPuerto(txtServerPort.getText().trim());
+		} catch(InvalidIPException ex) {
+			// TODO
+//			Dialogos.mostrarDialogoError(this, "Error", "La dirección IP de la base de datos principal tiene un formato incorrecto.");
+			txtDBIP.selectAll();
+			txtDBIP.grabFocus();
+			valid = false;
+		} catch(InvalidPortException ex) {
+//			Dialogos.mostrarDialogoError(this, "Error", "El puerto de la base de datos principal debe ser un número entre " + String.valueOf(Validation.PUERTO_MINIMO) + " y " + String.valueOf(Validation.PUERTO_MAXIMO) + ".");
+			txtDBPort.selectAll();
+			txtDBPort.grabFocus();
+			valid = false;
+		}
+		if (valid && txtSchema.getText().length() == 0)
+			//ERROR
+			valid = false;
+		if (valid && txtUsername.getText().length() == 0)
+			//ERROR
+			valid = false;
+		if (valid && new String(txtPassword.getPassword()).length() == 0)
+			//ERROR
+			valid = false;
+		if (valid) {
+			try {
+				configuration.setDBIp(txtDBIP.getText().trim());
+				configuration.setDBPort(Integer.parseInt(txtDBPort.getText().trim()));
+				configuration.setDBSchema(txtSchema.getText().trim());
+				configuration.setDBUser(txtUsername.getText().trim());
+				configuration.setDBPassword(new String(txtPassword.getPassword()));					
+				configuration.setServerPort(Integer.parseInt(txtServerPort.getText().trim()));
+				closeWindow();		
+			} catch(NumberFormatException e) { }
+		}
+		
 	}
 	
 	private void btnCancelActionPerformed(ActionEvent evt) {

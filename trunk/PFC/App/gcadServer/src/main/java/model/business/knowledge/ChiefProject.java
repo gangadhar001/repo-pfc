@@ -19,8 +19,8 @@ public class ChiefProject extends User implements Serializable {
 		
 	}
 
-	public ChiefProject(String nif, String login, String password, String name, String surname, String email, String telephone, Company c) {
-		super(nif, login, password, name, surname, email, telephone, c);
+	public ChiefProject(String nif, String login, String password, String name, String surname, String email, String telephone, int seniority, Company c) {
+		super(nif, login, password, name, surname, email, telephone, seniority, c);
 	}
 	
 	public UserRole getRole(){
@@ -30,7 +30,7 @@ public class ChiefProject extends User implements Serializable {
 	public Object clone() {
 		ChiefProject c; 
 		HashSet<Project> projects = new HashSet<Project>();		
-		c = new ChiefProject(getNif(), getLogin(), getPassword(), getName(), getSurname(), getEmail(), getTelephone(), (Company)getCompany().clone());
+		c = new ChiefProject(getNif(), getLogin(), getPassword(), getName(), getSurname(), getEmail(), getTelephone(), getSeniority(), (Company)getCompany().clone());
 		c.setId(getId());
 		for (Project p: getProjects())
 			projects.add((Project)p.clone());

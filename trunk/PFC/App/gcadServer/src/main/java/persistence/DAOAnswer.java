@@ -16,7 +16,7 @@ import model.business.knowledge.Proposal;
 public class DAOAnswer {
 	
 	private static final String PROPOSAL_CLASS = "Proposal";
-	private static final String ANSWER_CLASS = "Proposal";
+	private static final String ANSWER_CLASS = "Answer";
 	
 	public static void insert(Answer answer, int proposalId) throws SQLException {
 		HibernateQuery query;
@@ -93,7 +93,7 @@ public class DAOAnswer {
 		}
 	}
 
-	private static Answer queryAnswer(int id) throws SQLException {
+	public static Answer queryAnswer(int id) throws SQLException {
 		HibernateQuery query;
 		List<?> data;
 		Answer answer = null;
