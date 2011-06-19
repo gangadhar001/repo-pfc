@@ -164,13 +164,14 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					pnlPanel.add(lblStatusBar, new AnchorConstraint(941, 487, 12, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 					lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label"));
 					lblStatusBar.setPreferredSize(new java.awt.Dimension(257, 16));
+					lblStatusBar.setName("lblStatusBar");
 				}
 				{
 					btnDisconnect = new JButton();
 					pnlPanel.add(btnDisconnect, new AnchorConstraint(795, 10, 853, 795, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					btnDisconnect.setText(AppInternationalization.getString("btn_Disconnect_Text"));
 					btnDisconnect.setEnabled(false);
-					btnDisconnect.setName("btnDesconectar");
+					btnDisconnect.setName("btnDisconnect");
 					btnDisconnect.setPreferredSize(new java.awt.Dimension(103, 27));
 					btnDisconnect.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
@@ -182,7 +183,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					btnConnect = new JButton();
 					pnlPanel.add(btnConnect, new AnchorConstraint(798, 128, 851, 587, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					btnConnect.setText(AppInternationalization.getString("btn_Connect_Text"));
-					btnConnect.setName("btnConectar");
+					btnConnect.setName("btnConnect");
 					btnConnect.setPreferredSize(new java.awt.Dimension(99, 25));
 					btnConnect.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
@@ -193,9 +194,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				{
 					lblConfigBD = new JLabel();
 					pnlPanel.add(lblConfigBD, new AnchorConstraint(939, 980, 13, 498, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL));
-					lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + "IP XXX.XXX.XXX.XXX, puerto XXXXX");
+					lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + " IP XXX.XXX.XXX.XXX, puerto XXXXX");
 					lblConfigBD.setHorizontalAlignment(SwingConstants.TRAILING);
-					lblConfigBD.setName("lblConfigBD");
+					lblConfigBD.setName("lblConfigDB");
 					lblConfigBD.setPreferredSize(new java.awt.Dimension(265, 16));
 				}
 				{
@@ -206,6 +207,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						btnConnectToolbar = new JButton();
 						toolbar.add(btnConnectToolbar);
 						configureToolbarButton(btnConnectToolbar, "connect");
+						btnConnectToolbar.setName("btnConnectToolbar");
 						btnConnectToolbar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnConnectActionPerformed(evt);
@@ -216,6 +218,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						btnDisconnectToolbar = new JButton();
 						toolbar.add(btnDisconnectToolbar);
 						configureToolbarButton(btnDisconnectToolbar, "disconnect");
+						btnDisconnectToolbar.setName("btnDisconnectToolbar");
 						btnDisconnectToolbar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnDisconnectActionPerformed(evt);
@@ -253,11 +256,13 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					mnuFile = new JMenu();
 					mnbMenus.add(mnuFile);
 					mnuFile.setText(AppInternationalization.getString("FileMenu_Label"));
+					mnuFile.setName("File");
 					{
 						mniConnect = new JMenuItem();
 						mniConnect.setIcon(ImagesUtilities.loadIcon("menus/serverConnect.png"));
 						mnuFile.add(mniConnect);
 						mniConnect.setText(AppInternationalization.getString("mniConnect_Label"));
+						mniConnect.setText("mniConnect");
 						mniConnect.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								mniConnectActionPerformed(evt);
@@ -269,6 +274,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						mnuFile.add(mniDisconnect);
 						mniDisconnect.setIcon(ImagesUtilities.loadIcon("menus/serverDisconnect.png"));
 						mniDisconnect.setText(AppInternationalization.getString("mniDisconnect_Label"));
+						mniDisconnect.setText("mniDisconnect");
 						mniDisconnect.setEnabled(false);
 						mniDisconnect.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
@@ -285,6 +291,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						mnuFile.add(mniExit);
 						mniExit.setIcon(ImagesUtilities.loadIcon("menus/exit.png"));
 						mniExit.setText(AppInternationalization.getString("mniExit_Label"));
+						mniExit.setName("Exit");
 						mniExit.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								mniExitActionPerformed(evt);
@@ -296,12 +303,13 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					mnuOption = new JMenu();
 					mnbMenus.add(mnuOption);
 					mnuOption.setText(AppInternationalization.getString("mnuOptions_Label"));
+					mnuOption.setName("Options");
 					{
 						mniConfigure = new JMenuItem();
 						mniConfigure.setIcon(ImagesUtilities.loadIcon("menus/configure.png"));
 						mnuOption.add(mniConfigure);
 						mniConfigure.setText(AppInternationalization.getString("mniConfigure_Label"));
-						mniConfigure.setName("mniConfigurar");
+						mniConfigure.setName("mniConfigure");
 						mniConfigure.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								mniConfigureActionPerformed(evt);
@@ -313,11 +321,13 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 					mnuHelp = new JMenu();
 					mnbMenus.add(mnuHelp);
 					mnuHelp.setText(AppInternationalization.getString("mnuHelp_Label"));
+					mnuHelp.setName("Help");
 					{
 						mniAbout = new JMenuItem();
 						mnuHelp.add(mniAbout);
 						mniAbout.setIcon(ImagesUtilities.loadIcon("menus/about.png"));
 						mniAbout.setText(AppInternationalization.getString("mniAbout_Label"));
+						mniAbout.setName("About");
 						mniAbout.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								mniAboutActionPerformed(evt);
@@ -335,7 +345,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch(Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 	//$hide>>$
@@ -438,7 +447,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		} else {
 			lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label"));
 		}
-		lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + configuration.getDBIp() + ":" + String.valueOf(configuration.getDBPort()));
+		lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + " " + configuration.getDBIp() + ":" + String.valueOf(configuration.getDBPort()));
 		}
 	
 	
@@ -518,9 +527,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			mniConnect.setEnabled(true);
 			mniConfigure.setEnabled(true);
 			btnConfigure.setEnabled(true);
-			btnDisconnectToolbar.setEnabled(true);
-			btnDisconnect.setEnabled(true);
-			mniDisconnect.setEnabled(true);
+			btnDisconnectToolbar.setEnabled(false);
+			btnDisconnect.setEnabled(false);
+			mniDisconnect.setEnabled(false);
 			updateState();
 			ok = true;
 		} catch(SQLException e) {

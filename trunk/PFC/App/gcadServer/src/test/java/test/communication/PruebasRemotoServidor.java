@@ -70,25 +70,6 @@ public class PruebasRemotoServidor extends PruebasBase {
 		}
 	}
 	
-	/** Pruebas de conexión y desconexión */
-//	public void testConectarDesconectar() {
-//		try {
-//			// Activamos la conexión varias veces para ver si no hay fallos
-//			conexion.activate(IDatosPruebas.IP_ESCUCHA, IDatosPruebas.PUERTO_ESCUCHA);
-//			conexion.activate(IDatosPruebas.IP_ESCUCHA, IDatosPruebas.PUERTO_ESCUCHA);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Desactivamos la conexión varias veces para ver si no hay fallos
-//			conexion.deactivate(IDatosPruebas.IP_ESCUCHA, IDatosPruebas.PUERTO_ESCUCHA);
-//			conexion.deactivate(IDatosPruebas.IP_ESCUCHA, IDatosPruebas.PUERTO_ESCUCHA);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//	}
-	
 	/** Pruebas de las operaciones */	
 	public void testOperaciones() {		
 		ISession sessionEmployee = null;
@@ -126,7 +107,7 @@ public class PruebasRemotoServidor extends PruebasBase {
 			projects.add(project);
 			chief.setProjects(projects);
 			employee.setProjects(projects);
-			// TODO: hacer este método de update en el server, porque se usara para añaidr nuevos proyectos al usuario
+			// TODO: no hace falta, porque se hace con el update del usuario, añadiendo un proyecto
 //			conexion.addProjectsUser(sessionChief.getId(), chief, project);	
 //			conexion.addProjectsUser(sessionEmployee.getId(), employee, project);
 			DAOUser.update(chief);

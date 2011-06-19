@@ -113,7 +113,7 @@ public class JDAbout extends javax.swing.JDialog {
 					btnAceptar = new JButton();
 					jPanel1.add(btnAceptar);
 					btnAceptar.setText("Aceptar");
-					btnAceptar.setName("btnAceptar");
+					btnAceptar.setName("btnAccept");
 					btnAceptar.setBounds(309, 236, 83, 25);
 					btnAceptar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
