@@ -6,6 +6,7 @@ import java.util.List;
 
 import communication.DBConnectionManager;
 
+import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
@@ -144,5 +145,16 @@ public class DAOUser {
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
+	}
+
+	public static void insert(User user) throws SQLException {
+		try {
+			DBConnectionManager.initTransaction();
+			User newUser = (User) DBConnectionManager.insert(user.clone());
+			user.setId(newUser.getId());
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+		
 	}
 }

@@ -181,6 +181,7 @@ public class DAONotification {
 		if(data.size() > 0) {
 			for (Object o: data) {
 				Notification n = (Notification) ((Notification)o).clone();
+				setState(n);
 				result.add(n);
 			}
 		}
@@ -196,6 +197,21 @@ public class DAONotification {
 	// Set the state of the notification
 	private static void setState(Notification n, int idUser) throws SQLException {
 		String query = "SELECT " + COL_STATE + " FROM " + NOTIFICATIONS_USERS + " WHERE idNotification = " + n.getId() + " AND idUser = " + idUser;
+		List<?> data = DBConnectionManager.query(query);
+		String state = "";
+		if (data.get(0).toString().startsWith("R")) state = "Read";
+		else state = "Unread";
+		n.setState(state);
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}
+	}
+	
+	// Set the state of the notification
+	private static void setState(Notification n) throws SQLException {
+		String query = "SELECT " + COL_STATE + " FROM " + NOTIFICATIONS_USERS + " WHERE idNotification = " + n.getId();
 		List<?> data = DBConnectionManager.query(query);
 		String state = "";
 		if (data.get(0).toString().startsWith("R")) state = "Read";
@@ -227,7 +243,7 @@ public class DAONotification {
 		Notification old = null;
 		
 		try {
-			query = new HibernateQuery("From " + NOTIFICATION_CLASS + " Where Where " + COL_ID + " = ?", n.getId());
+			query = new HibernateQuery("From " + NOTIFICATION_CLASS + " Where " + COL_ID + " = ?", n.getId());
 			data = DBConnectionManager.query(query);
 	
 			if(data.size() > 0) {

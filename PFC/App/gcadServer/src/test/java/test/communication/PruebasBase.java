@@ -1,3 +1,4 @@
+package test.communication;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
@@ -42,7 +43,6 @@ public class PruebasBase extends TestCase {
 				}
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
 			fail(e.toString());
 		}
 	}

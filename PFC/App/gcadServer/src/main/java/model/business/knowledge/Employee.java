@@ -18,8 +18,8 @@ public class Employee extends User implements Serializable {
 		
 	}
 
-	public Employee(String nif, String login, String password, String name, String surname, String email, String telephone, Company c) {
-		super(nif, login, password, name, surname, email, telephone, c);
+	public Employee(String nif, String login, String password, String name, String surname, String email, String telephone, int seniority, Company c) {
+		super(nif, login, password, name, surname, email, telephone, seniority, c);
 	}
 	
 	public UserRole getRole(){
@@ -29,7 +29,7 @@ public class Employee extends User implements Serializable {
 	public Object clone() {
 		Employee c; 
 		HashSet<Project> projects = new HashSet<Project>();		
-		c = new Employee(getNif(), getLogin(), getPassword(), getName(), getSurname(), getEmail(), getTelephone(), (Company)getCompany().clone());
+		c = new Employee(getNif(), getLogin(), getPassword(), getName(), getSurname(), getEmail(), getTelephone(), getSeniority(), (Company)getCompany().clone());
 		c.setId(getId());
 		for (Project p: getProjects())
 			projects.add((Project)p.clone());

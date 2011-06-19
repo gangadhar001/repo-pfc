@@ -37,7 +37,7 @@ public abstract class User implements Serializable {
 		
 	}
 	
-	public User(String nif, String login, String password, String name, String surname, String email, String telephone, Company c) {
+	public User(String nif, String login, String password, String name, String surname, String email, String telephone, int seniority, Company c) {
 		this.nif = nif;
 		this.login = login;
 		this.password = password;
@@ -45,6 +45,7 @@ public abstract class User implements Serializable {
 		this.surname = surname;
 		this.email = email;
 		this.telephone = telephone;
+		this.seniority = seniority;
 		this.company = c;
 	}
 	
