@@ -1,7 +1,5 @@
 package test.presentation;
 
-import javax.print.attribute.standard.Severity;
-
 import model.business.control.ServerController;
 
 import org.uispec4j.Button;
@@ -11,6 +9,8 @@ import org.uispec4j.Trigger;
 import org.uispec4j.Window;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
+
+import communication.ServerConfiguration;
 
 import presentation.JFServer;
 
@@ -25,8 +25,8 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 	private Window winVentana;
 	private Button btnConectar;
 	private Button btnDesconectar;
-	private Button btnSalir;
-	private TextBox lblBarraEstado;
+	private Button btnDisconnectToolbar;
+	private Button btnConnectToolbar;
 	private TextBox lblConfigBD;
 	private MenuItem mniConectar;
 	private MenuItem mniDesconectar;
@@ -38,19 +38,19 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 		try {
 			// Creamos el controlador y con él la ventana de estado
 			controlador = new ServerController();
-			ventana = controlador();
+			ventana = controlador.getWindow();
 			// Obtenemos los componentes de la ventana
 			winVentana = new Window(ventana);
-			btnConectar = winVentana.getButton("btnConectar");
-			btnDesconectar = winVentana.getButton("btnDesconectar");
-			btnSalir = winVentana.getButton("btnSalir");
-			lblBarraEstado = winVentana.getTextBox("lblBarraEstado");
-			lblConfigBD = winVentana.getTextBox("lblConfigBD");
-			mniConectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("Conectar");
-			mniDesconectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("Desconectar");
+			btnConectar = winVentana.getButton("btnConnect");
+			lblConfigBD = winVentana.getTextBox("lblConfigDB");
+			btnDesconectar = winVentana.getButton("btnDisconnect");
+			btnDisconnectToolbar = winVentana.getButton("btnDisconnectToolbar");
+			btnConnectToolbar = winVentana.getButton("btnConnectToolbar");
 			mniSalir = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("Salir");
-			mniAcercaDe = winVentana.getMenuBar().getMenu("Ayuda").getSubMenu("Acerca de...");
-			mniConfigurar = winVentana.getMenuBar().getMenu("Opciones").getSubMenu("Configurar...");
+			mniConectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("mniConnect");
+			mniDesconectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("mniDisconnect");
+			mniAcercaDe = winVentana.getMenuBar().getMenu("Ayuda").getSubMenu("Acerca de");
+			mniConfigurar = winVentana.getMenuBar().getMenu("Opciones").getSubMenu("Configurar");
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -67,14 +67,9 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 	
 	/** Pruebas de las acciones de conectar y desconectar */
 	public void testConectarDesconectar() {
-		int puerto = 0;
-		
 		try {
-			// Obtenemos el puerto de escucha predeterminado
-			puerto = (new ConfiguracionFrontend()).getPuertoFrontend();
 			// Comprobamos que el servidor está desactivado
-			assertEquals(lblBarraEstado.getText(), "Servidor desconectado (puerto " + String.valueOf(puerto) + ").");
-			assertFalse(controlador.isServidorActivo());
+			assertFalse(controlador.isServerActivate());
 			assertTrue(btnConectar.isEnabled());
 			assertTrue(mniConectar.isEnabled());
 			assertTrue(mniConfigurar.isEnabled());
@@ -82,8 +77,8 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 			assertFalse(mniDesconectar.isEnabled());
 			// Activamos el servidor
 			btnConectar.click();
-			assertEquals(lblBarraEstado.getText(), "Servidor preparado en " + UtilidadesComunicaciones.obtenerIPHost() + " (puerto " + String.valueOf(puerto) + ").");
-			assertTrue(controlador.isServidorActivo());
+			Thread.sleep(2000);
+			assertTrue(controlador.isServerActivate());
 			assertFalse(btnConectar.isEnabled());
 			assertFalse(mniConectar.isEnabled());
 			assertFalse(mniConfigurar.isEnabled());
@@ -91,8 +86,7 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 			assertTrue(mniDesconectar.isEnabled());
 			// Desactivamos el servidor
 			btnDesconectar.click();
-			assertEquals(lblBarraEstado.getText(), "Servidor desconectado (puerto " + String.valueOf(puerto) + ").");
-			assertFalse(controlador.isServidorActivo());
+			assertFalse(controlador.isServerActivate());
 			assertTrue(btnConectar.isEnabled());
 			assertTrue(mniConectar.isEnabled());
 			assertTrue(mniConfigurar.isEnabled());
@@ -105,7 +99,8 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 		try {
 			// Activamos el servidor por menú
 			mniConectar.click();
-			assertTrue(controlador.isServidorActivo());
+			Thread.sleep(2000);
+			assertTrue(controlador.isServerActivate());
 			assertFalse(btnConectar.isEnabled());
 			assertFalse(mniConectar.isEnabled());
 			assertFalse(mniConfigurar.isEnabled());
@@ -113,29 +108,35 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 			assertTrue(mniDesconectar.isEnabled());
 			// Desactivamos el servidor por menú
 			mniDesconectar.click();
-			assertFalse(controlador.isServidorActivo());
+			assertFalse(controlador.isServerActivate());
 			assertTrue(btnConectar.isEnabled());
 			assertTrue(mniConectar.isEnabled());
 			assertTrue(mniConfigurar.isEnabled());
 			assertFalse(btnDesconectar.isEnabled());
 			assertFalse(mniDesconectar.isEnabled());
-		} catch(Exception e) {
-			fail(e.toString());
-		}
-
-		try {
+			
+			// Activamos el servidor por toolbar
+			btnConnectToolbar.click();
+			Thread.sleep(2000);
+			assertTrue(controlador.isServerActivate());
+			assertFalse(btnConectar.isEnabled());
+			assertFalse(mniConectar.isEnabled());
+			assertFalse(mniConfigurar.isEnabled());
+			assertTrue(btnDesconectar.isEnabled());
+			assertTrue(mniDesconectar.isEnabled());
+			// Desactivamos el servidor por toolbar
+			btnDisconnectToolbar.click();
+			assertFalse(controlador.isServerActivate());
+			assertTrue(btnConectar.isEnabled());
+			assertTrue(mniConectar.isEnabled());
+			assertTrue(mniConfigurar.isEnabled());
+			assertFalse(btnDesconectar.isEnabled());
+			assertFalse(mniDesconectar.isEnabled());
+			
 			// Activamos el servidor e intentamos salir pero
 			// cancelamos el cuadro de diálogo de confirmación
 			mniConectar.click();
-			WindowInterceptor.init(btnSalir.triggerClick())
-		    .process(new WindowHandler() {
-		    	public Trigger process(Window window) {
-		    		return window.getButton("No").triggerClick();
-		    	}
-		    }).run();
-			// Comprobamos que el servidor sigue activo
-			assertTrue(controlador.isServidorActivo());
-			// Intentamos salir por menú
+			Thread.sleep(2000);
 			WindowInterceptor.init(mniSalir.triggerClick())
 		    .process(new WindowHandler() {
 		    	public Trigger process(Window window) {
@@ -143,38 +144,42 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 		    	}
 		    }).run();
 			// Comprobamos que el servidor sigue activo
-			assertTrue(controlador.isServidorActivo());
+			assertTrue(controlador.isServerActivate());			
 		} catch(Exception e) {
 			fail(e.toString());
 		}
+		
 	}
 	
 	/** Pruebas de la ventana de configuración */
 	public void testConfigurar() {
-		Window dialogo;
 		String ip;
 		
 		try {
-			// Abrimos la ventana de configuración y cambiamos un puerto
-			dialogo = WindowInterceptor.run(mniConfigurar.triggerClick());
-			dialogo.getTextBox("txtPuertoBDPrincipal").setText("8888");
-			dialogo.getButton("btnAceptar").click();
+			// Abrimos la ventana de configuración desde menú y cambiamos un puerto
+			WindowInterceptor.init(mniConfigurar.triggerClick()).process(new WindowHandler(){
+		        public Trigger process(Window window) {
+		        	window.getTextBox("txtDBPort").setText("8888");
+		            return window.getButton("OK").triggerClick();
+		          }
+		        }).run();
+			
 			// Comprobamos que el cambio se ha reflejado en la ventana
-			ip = (new ConfiguracionFrontend()).getIPBDPrincipal();
-			assertEquals(lblConfigBD.getText(), "BD Principal: IP " + ip + ", puerto 8888");
+			ip = (new ServerConfiguration()).getDBIp();
+			assertEquals(lblConfigBD.getText(), "BD Principal en " + ip + ":8888");
 		} catch(Exception e) {
 			fail(e.toString());
 		}
 	}
 	
 	/** Pruebas de la ventana 'Acerca de' */
-	public void testAcercaDe() {
-		Window dialogo;
-		
+	public void testAcercaDe() {		
 		try {
-			// Abrimos la ventana de 'Acerca de' y la cerramos
-			dialogo = WindowInterceptor.run(mniAcercaDe.triggerClick());
-			dialogo.getButton("btnAceptar").click();
+			WindowInterceptor.init(mniAcercaDe.triggerClick()).process(new WindowHandler(){
+		        public Trigger process(Window window) {
+		            return window.getButton("Aceptar").triggerClick();
+		          }
+		        }).run();			
 		} catch(Exception e) {
 			fail(e.toString());
 		}

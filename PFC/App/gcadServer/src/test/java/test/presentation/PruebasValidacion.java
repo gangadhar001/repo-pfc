@@ -1,8 +1,8 @@
 package test.presentation;
 
-import presentacion.auxiliar.Validacion;
-import excepciones.IPInvalidaException;
-import excepciones.PuertoInvalidoException;
+import exceptions.InvalidIPException;
+import exceptions.InvalidPortException;
+import presentation.auxiliary.Validation;
 import junit.framework.TestCase;
 
 /**
@@ -30,7 +30,7 @@ public class PruebasValidacion extends TestCase {
 				try {
 					Validation.comprobarDireccionIP(ip);
 					fail("La dirección IP '" + ip + "' debería ser inválida.");
-				} catch(IPInvalidaException e) {
+				} catch(InvalidIPException e) {
 				}
 			}
 			// Probamos IPs correctas
@@ -38,7 +38,7 @@ public class PruebasValidacion extends TestCase {
 			for(String ip : validos) {
 				try {
 					Validation.comprobarDireccionIP(ip);
-				} catch(IPInvalidaException e) {
+				} catch(InvalidIPException e) {
 					fail("La dirección IP '" + ip + "' debería ser válida.");
 				}
 			}
@@ -58,7 +58,7 @@ public class PruebasValidacion extends TestCase {
 				try {
 					Validation.comprobarPuerto(puerto);
 					fail("El puerto '" + puerto + "' debería ser inválido.");
-				} catch(PuertoInvalidoException e) {
+				} catch(InvalidPortException e) {
 				}
 			}
 			// Probamos IPs correctas
@@ -66,7 +66,7 @@ public class PruebasValidacion extends TestCase {
 			for(String puerto : validos) {
 				try {
 					Validation.comprobarPuerto(puerto);
-				} catch(PuertoInvalidoException e) {
+				} catch(InvalidPortException e) {
 					fail("El puerto '" + puerto + "' debería ser válido.");
 				}
 			}

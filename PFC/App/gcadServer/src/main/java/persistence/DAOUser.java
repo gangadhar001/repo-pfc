@@ -157,4 +157,14 @@ public class DAOUser {
 		}
 		
 	}
+	
+	public static void delete(User user) throws SQLException, IncorrectEmployeeException, NonExistentRole {
+		try {
+			DBConnectionManager.initTransaction();
+			// Get the proposal stores in database and delete that reference 
+			DBConnectionManager.delete(queryUser(user.getLogin(), user.getPassword()));
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
 }

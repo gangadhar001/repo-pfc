@@ -127,7 +127,7 @@ public class ServerController {
 		isServerActivate = false;
 	}
 	
-	public JFServer getVentana() {
+	public JFServer getWindow() {
 		return serverWindowUI;
 	}
 	
