@@ -9,12 +9,15 @@ import java.util.Set;
 import java.util.Vector;
 
 import exceptions.IncorrectAddressException;
+import exceptions.IncorrectCompanyException;
 import exceptions.IncorrectEmployeeException;
 
 import persistence.DAOAddress;
 import persistence.DAOCompany;
+import persistence.DAOLog;
 import persistence.DAOProject;
 import persistence.DAOUser;
+import persistence.utils.HibernateSessionFactory;
 
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
@@ -22,6 +25,8 @@ import model.business.knowledge.Categories;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
 import model.business.knowledge.Employee;
+import model.business.knowledge.IMessageTypeLog;
+import model.business.knowledge.LogEntry;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
@@ -47,6 +52,7 @@ public class PruebasPersistencia extends PruebasBase {
 	private Notification not;
 	private HashSet<Project> projects;
 	private User emp;
+	private LogEntry logEntry1, logEntry2, logEntry3;
 
 	@SuppressWarnings("deprecation")
 	protected void setUp() {
@@ -68,6 +74,9 @@ public class PruebasPersistencia extends PruebasBase {
 			users.add(chief);
 			users.add(employee);
 			not = new Notification(topic, "Unread", project, "subject", users);
+			logEntry1 = new LogEntry(employee.getLogin(), new Timestamp(109, 11, 1, 10, 10, 10, 0), IMessageTypeLog.CREATE, "Entrada CREATE.");
+			logEntry2 = new LogEntry(null, new Timestamp(109, 5, 25, 7, 30, 0, 0), IMessageTypeLog.READ, "Entrada READ.");
+			logEntry3 = new LogEntry(chief.getLogin(), new Timestamp(109, 9, 4, 8, 0, 0, 0), "message", "Entrada UPDATE.");
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -186,9 +195,8 @@ public class PruebasPersistencia extends PruebasBase {
 		}		
 	}
 
-//
-//	/** Pruebas de la tabla de citas */
-	public void testCitas() {
+	/** Pruebas de la tabla de direccion */
+	public void testAddress() {
 		try {
 			// Intentamos buscar una direccion inexistente
 			DAOAddress.queryAddress(0);
@@ -233,441 +241,103 @@ public class PruebasPersistencia extends PruebasBase {
 			fail("Se esperaba una excepción IncorrectAddressException");
 		}			
 	}
-//		
-//	/** Pruebas de la tabla de entradas del log */
-//	public void testEntradasLog() {
-//		Vector<EntradaLog> log;
-//		
-//		try {
-//			// Consultamos las entradas sin haber ninguna en
-//			// el log para ver si se devuelve una lista vacía
-//			log = FPEntradaLog.consultarLog();
-//			assertTrue(log != null && log.size() == 0);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Insertamos varios usuarios
-//			FPCentroSalud.insertar(centro1);
-//			FPUsuario.insertar(medico1);
-//			FPUsuario.insertar(citador1);
-//			FPUsuario.insertar(administrador1);
-//			// Insertamos nuevas entradas válidas
-//			// (y repetidas, que se permite)
-//			FPEntradaLog.insertar(entrada1);
-//			FPEntradaLog.insertar(entrada2);
-//			FPEntradaLog.insertar((EntradaLog)entrada1.clone());
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Intentamos insertar una entrada con un tipo
-//			// de mensaje o acción no permitido
-//			FPEntradaLog.insertar(entrada6);
-//			fail("Se esperaba una excepción SQLException");
-//		} catch(SQLException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción SQLException");
-//		}
-//
-//		try {
-//			// Comprobamos que las entradas se hayan añadido bien
-//			log = FPEntradaLog.consultarLog();
-//			assertTrue(log.size() == 3);
-//			assertTrue((log.get(0).equals(entrada1) && log.get(1).equals(entrada2)
-//			           || (log.get(0).equals(entrada2) && log.get(1).equals(entrada1))));
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Insertamos entradas con el resto de tipos de mensaje
-//			FPEntradaLog.insertar(entrada3);
-//			FPEntradaLog.insertar(entrada4);
-//			FPEntradaLog.insertar(entrada5);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//	}
-//	
-//	/** Pruebas de la tabla de sustituciones */
-//	public void testSustituciones() {
-//		Vector<Sustitucion> sustituciones;
-//		
-//		try {
-//			// Añadimos varios médicos a la base de datos
-//			FPCentroSalud.insertar(centro1);
-//			FPUsuario.insertar(medico1);
-//			FPUsuario.insertar(medico2);
-//			// Intentamos consultar las sustituciones antes de añadirlas
-//			// para comprobar que se devuelve una lista vacía
-//			sustituciones = FPSustitucion.consultarPorSustituido(medico1.getNif());
-//			assertTrue(sustituciones.size() == 0);
-//			sustituciones = FPSustitucion.consultarPorSustituto(medico2.getNif());
-//			assertTrue(sustituciones.size() == 0);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Intentamos leer las sustituciones de un médico que no existe
-//			FPSustitucion.consultarPorSustituido("01233210N");
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Intentamos leer las sustituciones hechas por un médico que no existe
-//			FPSustitucion.consultarPorSustituto("01233210N");
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Insertamos varias sustituciones correctas
-//			FPSustitucion.insertar(sustitucion1);
-//			FPSustitucion.insertar(sustitucion2);
-//			// Recuperamos las sustituciones almacenadas
-//			sustituciones = FPSustitucion.consultarPorSustituido(medico1.getNif());
-//			assertTrue((sustituciones.get(0).equals(sustitucion1) && sustituciones.get(1).equals(sustitucion2)
-//			           || (sustituciones.get(0).equals(sustitucion2) && sustituciones.get(1).equals(sustitucion1))));
-//			sustituciones = FPSustitucion.consultarPorSustituto(medico2.getNif());
-//			assertTrue((sustituciones.get(0).equals(sustitucion1) && sustituciones.get(1).equals(sustitucion2)
-//			           || (sustituciones.get(0).equals(sustitucion2) && sustituciones.get(1).equals(sustitucion1))));
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Intentamos consultar las sustituciones de un
-//			// usuario que existe pero no es médico
-//			FPUsuario.insertar(administrador1);
-//			FPSustitucion.consultarPorSustituido(administrador1.getNif());
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Intentamos consultar las sustituciones hechas
-//			// por un usuario que existe pero no es médico
-//			FPUsuario.insertar(citador1);
-//			FPSustitucion.consultarPorSustituto(citador1.getNif());
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//	}
-//	
-//	/** Pruebas de la tabla de usuarios */
-//	public void testUsuarios() {
-//		Vector<String> medicos;
-//		Usuario usuario, usuarioAux;
-//		
-//		try {
-//			// Intentamos buscar un usuario sin haber creado ninguno
-//			usuario = FPUsuario.consultar("1234567");
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Intentamos buscar un usuario sin haber creado ninguno
-//			usuario = FPUsuario.consultarPorLogin("login");
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Intentamos buscar un usuario sin haber creado ninguno
-//			usuario = FPUsuario.consultar("login", "pass");
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Intentamos obtener una lista con los médicos especialistas
-//			// antes de añadirlos para ver que se devuelve una lista vacía
-//			medicos = FPUsuario.consultarMedicos(new Especialista(""));
-//			assertTrue(medicos.size() == 0);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//
-//		try {
-//			// Añadimos los centros de salud asociados a los usuarios
-//			FPCentroSalud.insertar(centro1);
-//			FPCentroSalud.insertar(centro2);
-//			FPCentroSalud.insertar(centro3);
-//			// Insertamos varios usuarios correctos de todos los tipos
-//			medico1.getCalendario().add(periodo1);
-//			medico2.getCalendario().add(periodo2);
-//			FPUsuario.insertar(medico1);
-//			FPUsuario.insertar(medico2);
-//			FPUsuario.insertar(medico3);
-//			FPUsuario.insertar(medico4);
-//			FPUsuario.insertar(citador1);
-//			FPUsuario.insertar(administrador1);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Intentamos insertar un usuario con un NIF existente
-//			usuarioAux = (Usuario)medico1.clone();
-//			FPUsuario.insertar(usuarioAux);
-//			fail("Se esperaba una excepción SQLException");
-//		} catch(SQLException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción SQLException");
-//		}
-//
-//		try {
-//			// Intentamos insertar un usuario con un login existente
-//			FPUsuario.insertar(citador2);
-//			fail("Se esperaba una excepción SQLException");
-//		} catch(SQLException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción SQLException");
-//		}
-//		
-//		try {
-//			// Recuperamos varios usuarios insertados de las tres formas posibles
-//			usuario = FPUsuario.consultar(medico1.getNif());
-//			assertEquals(medico1, usuario);
-//			usuario = FPUsuario.consultar(citador1.getNif());
-//			assertEquals(citador1, usuario);
-//			usuario = FPUsuario.consultar(medico1.getLogin(), medico1.getPassword());
-//			assertEquals(medico1, usuario);
-//			usuario = FPUsuario.consultar(citador1.getLogin(), citador1.getPassword());
-//			assertEquals(citador1, usuario);
-//			usuario = FPUsuario.consultarPorLogin(medico1.getLogin());
-//			assertEquals(medico1, usuario);
-//			usuario = FPUsuario.consultarPorLogin(citador1.getLogin());
-//			assertEquals(citador1, usuario);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Modificamos un usuario que no sea médico
-//			citador1.setApellidos("U. L.");
-//			citador1.setCorreo("abc@abc.abc");
-//			citador1.setLogin("ramoncitador");
-//			citador1.setMovil("666777888");
-//			citador1.setNombre("Ramón");
-//			citador1.setPassword(UtilidadesDominio.encriptarPasswordSHA1("nuevapass"));
-//			citador1.setTelefono("999888777");
-//			FPUsuario.modificar(citador1);
-//			// Comprobamos si los cambios han tenido efecto
-//			usuario = FPUsuario.consultar(citador1.getNif());
-//			assertEquals(citador1, usuario);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//				
-//		try {
-//			// Obtenemos una lista con los médicos de cabecera
-//			medicos = FPUsuario.consultarMedicos(new Cabecera());
-//			assertTrue(medicos.size() == 2);
-//			assertTrue((medicos.get(0).equals(medico2.getNif()) && medicos.get(1).equals(medico3.getNif()))
-//			           || (medicos.get(0).equals(medico3.getNif()) && medicos.get(1).equals(medico2.getNif())));
-//			// Obtenemos una lista con los médidos pediatras
-//			medicos = FPUsuario.consultarMedicos(new Pediatra());
-//			assertTrue(medicos.size() == 1);
-//			assertTrue(medicos.get(0).equals(medico4.getNif()));
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Modificamos un médico
-//			medico1.setLogin("nuevologin");
-//			medico1.getCalendario().add(periodo3);
-//			medico1.setTipoMedico(new Cabecera());
-//			FPUsuario.modificar(medico1);
-//			// Comprobamos si los cambios han tenido efecto
-//			usuario = FPUsuario.consultar(medico1.getNif());
-//			assertEquals(medico1, usuario);
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Modificamos un usuario de forma incorrecta (login repetido)
-//			medico1.setLogin("admin");
-//			FPUsuario.modificar(medico1);
-//			fail("Se esperaba una excepción SQLException");
-//		} catch(SQLException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción SQLException");
-//		}
-//		
-//		try {
-//			// Eliminamos un usuario
-//			FPUsuario.eliminar(administrador1);
-//			// Comprobamos si los cambios han tenido efecto
-//			usuario = FPUsuario.consultar(administrador1.getNif());
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Eliminamos un médico
-//			FPUsuario.eliminar(medico1);
-//			// Comprobamos si los cambios han tenido efecto
-//			usuario = FPUsuario.consultar(medico1.getNif());
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		} catch(UsuarioIncorrectoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción UsuarioIncorrectoException");
-//		}
-//		
-//		try {
-//			// Comprobamos que los usuarios no borrados siguen existiendo
-//			usuario = FPUsuario.consultar(citador1.getNif());
-//			assertEquals(citador1, usuario);
-//			usuario = FPUsuario.consultar(citador1.getLogin(), citador1.getPassword());
-//			assertEquals(citador1, usuario);
-//			usuario = FPUsuario.consultar(medico2.getNif());
-//			assertEquals(medico2, usuario);
-//			usuario = FPUsuario.consultar(medico2.getLogin(), medico2.getPassword());
-//			assertEquals(medico2, usuario);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//	}
-//	
-//	/** Pruebas de la tabla de volantes */
-//	@SuppressWarnings("deprecation")
-//	public void testVolantes() {
-//		Volante volante;
-//		
-//		try {
-//			// Intentamos buscar un volante inexistente
-//			FPVolante.consultar(-900);
-//			fail("Se esperaba una excepción VolanteNoValidoException");
-//		} catch(VolanteNoValidoException e) {
-//		} catch(Exception e) {
-//			fail("Se esperaba una excepción VolanteNoValidoException");
-//		}
-//		
-//		try {
-//			// Insertamos todos los objetos referidos por los volantes
-//			FPCentroSalud.insertar(centro1);
-//			FPCentroSalud.insertar(centro2);
-//			FPUsuario.insertar(medico1);
-//			FPUsuario.insertar(medico2);
-//			FPUsuario.insertar(medico3);
-//			FPBeneficiario.insertar(beneficiario1);
-//			FPBeneficiario.insertar(beneficiario2);
-//			FPCita.insertar(cita1);
-//			FPCita.insertar(cita2);
-//			// Insertamos varios volantes correctos
-//			// (y repetidos, que se permite)
-//			FPVolante.insertar(volante1);
-//			FPVolante.insertar(volante2);
-//			FPVolante.insertar(volante1);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Comprobamos que los volantes se han añadido bien
-//			volante = FPVolante.consultar(volante1.getId());
-//			assertEquals(volante1, volante);
-//			volante = FPVolante.consultar(volante2.getId());
-//			assertEquals(volante2, volante);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//
-//		try {
-//			// Modificamos un volante existente
-//			volante1.setCita(cita2);
-//			volante1.setEmisor(medico2);
-//			volante1.setReceptor(medico1);
-//			volante1.setBeneficiario(beneficiario2);
-//			volante1.setFechaCaducidad(new Date(2010 - 1900, 4, 4));
-//			FPVolante.modificar(volante1);
-//			// Comprobamos que los cambios han tenido efecto
-//			volante = FPVolante.consultar(volante1.getId());
-//			assertEquals(volante1, volante);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Comprobamos que los volantes siguen teniendo los datos correctos
-//			volante = FPVolante.consultar(volante1.getId());
-//			assertEquals(volante1, volante);
-//			volante = FPVolante.consultar(volante2.getId());
-//			assertEquals(volante2, volante);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//	}
-//	
-//	/** Pruebas de las utilidades de persistencia */
-//	public void testUtilidades() {
-//		String nif;
-//		
-//		try {
-//			// Añadimos varios beneficiarios y usuarios
-//			FPCentroSalud.insertar(centro1);
-//			FPCentroSalud.insertar(centro2);
-//			FPUsuario.insertar(medico1);
-//			FPUsuario.insertar(medico2);
-//			FPUsuario.insertar(medico3);
-//			FPUsuario.insertar(administrador1);
-//			FPBeneficiario.insertar(beneficiario1);
-//			FPBeneficiario.insertar(beneficiario2);
-//			FPBeneficiario.insertar(beneficiario3);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Comprobamos que existe el NIF de un beneficiario
-//			assertTrue(UtilidadesPersistencia.existeNIF(beneficiario3.getNif()));
-//			// Comprobamos que existe el NIF de un usuario
-//			assertTrue(UtilidadesPersistencia.existeNIF(administrador1.getNif()));
-//			// Comprobamos que no existe un NIF aleatorio
-//			assertFalse(UtilidadesPersistencia.existeNIF("11881188P"));
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//		
-//		try {
-//			// Buscamos un médico de cabecera al azar del centro1
-//			nif = UtilidadesPersistencia.obtenerMedicoAleatorioTipoCentro(CategoriasMedico.Cabecera, centro1);
-//			assertEquals(medico2.getNif(), nif);
-//			// Buscamos un médico de cabecera al azar del centro2
-//			nif = UtilidadesPersistencia.obtenerMedicoAleatorioTipoCentro(CategoriasMedico.Cabecera, centro2);
-//			assertEquals(medico3.getNif(), nif);
-//			// Buscamos un médico al azar que no existe
-//			nif = UtilidadesPersistencia.obtenerMedicoAleatorioTipoCentro(CategoriasMedico.Especialista, centro2);
-//			assertEquals("", nif);
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//	}
+		
+	/** Pruebas de la tabla de entradas del log */
+	public void testEntradasLog() {
+		List<LogEntry> log;
+		
+		try {
+			// Consultamos las entradas sin haber ninguna en
+			// el log para ver si se devuelve una lista vacía
+			log = DAOLog.queryLog();
+			assertTrue(log != null && log.size() == 0);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Insertamos varios usuarios
+			DAOAddress.insert(address);
+			DAOCompany.insert(company);
+			DAOUser.insert(employee);
+			DAOUser.insert(chief);
+			// Insertamos nuevas entradas válidas
+			// (y repetidas, que se permite)
+			DAOLog.insert(logEntry1);
+			DAOLog.insert(logEntry2);
+			DAOLog.insert((LogEntry)logEntry1.clone());
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+
+		try {
+			// Comprobamos que las entradas se hayan añadido bien
+			log = DAOLog.queryLog();
+			assertTrue(log.size() == 3);
+			assertTrue((log.get(0).equals(logEntry1) && log.get(1).equals(logEntry2)
+			           || (log.get(0).equals(logEntry2) && log.get(1).equals(logEntry1))));
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Intentamos insertar una entrada con un tipo
+			// de mensaje o acción no permitido
+			DAOLog.insert(logEntry3);
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+	}
+	
+	/** Pruebas de la tabla de compañias */
+	public void testComapny() {
+		try {
+			// Intentamos buscar una direccion inexistente
+			DAOCompany.queryCompany(0);
+			fail("Se esperaba una excepción IncorrectCompanyException");
+		} catch(IncorrectCompanyException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción IncorrectCompanyException");
+		}
+		
+		try {
+			// Añadimos una compañia
+			DAOAddress.insert(address);
+			DAOCompany.insert(company);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Modificamos la compañia
+			company.setName("L.A");
+			company.setCif("13170");
+			company.setInformation("L.A in Spain");
+			DAOCompany.update(company);
+			// Comprobamos si los cambios han tenido efecto
+			Company comp = DAOCompany.queryCompany(company.getId());
+			assertEquals(company, comp);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Eliminamos una compañia
+			// Primero, se inserta un usuario para comprobar que luego su compañia es nula
+			DAOUser.insert(chief);
+			// Se elimina la compañia
+			DAOCompany.delete(company);
+			// Comprobamos si los cambios han tenido efecto
+			DAOCompany.queryCompany(company.getId());
+			fail("Se esperaba una excepción IncorrectCompanyException");
+			Company comp = DAOCompany.queryCompany(company.getId());
+			assertTrue(chief.getCompany() == null);
+		} catch(IncorrectCompanyException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción IncorrectCompanyException");
+		}			
+	}
 	
 }

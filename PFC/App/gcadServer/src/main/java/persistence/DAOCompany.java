@@ -59,4 +59,47 @@ public class DAOCompany {
 		
 		return comp;
 	}
+	
+	public static void update(Company comp) throws SQLException {
+		// Get the proposal stores in database and update that reference 
+		HibernateQuery query;
+		List<?> data;
+		Company oldComp = null;
+		
+		try {
+			query = new HibernateQuery("From " + COMPANY_CLASS + " Where " + COL_ID + " = ?", comp.getId());
+			data = DBConnectionManager.query(query);
+	
+			if(data.size() > 0) {
+				oldComp = (Company)data.get(0);									
+			}
+			
+			DBConnectionManager.initTransaction();	
+			
+			oldComp.setAddress(comp.getAddress());
+			oldComp.setCif(comp.getCif());
+			oldComp.setId(comp.getId());
+			oldComp.setInformation(comp.getInformation());
+			oldComp.setName(comp.getName());
+
+			DBConnectionManager.update(oldComp);
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
+		}		
+	}
+	
+	public static void delete(Company comp) throws SQLException, IncorrectAddressException, NonExistentRole, IncorrectCompanyException {
+		try {
+			DBConnectionManager.initTransaction();
+			// Get the proposal stores in database and delete that reference 
+			DBConnectionManager.delete(queryCompany(comp.getId()));
+		} finally {
+			DBConnectionManager.finishTransaction();
+		}
+	}
 }
