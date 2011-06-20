@@ -16,7 +16,7 @@ public class DAOLog {
 	
 	private static final String LOG_CLASS = "LogEntry";
 			
-	public static List<LogEntry> queryLog(int id) throws SQLException {
+	public static List<LogEntry> queryLog() throws SQLException {
 		HibernateQuery query;
 		List<?> data;
 		List<LogEntry> result = new ArrayList<LogEntry>();
@@ -44,5 +44,6 @@ public class DAOLog {
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
+	
 	}	
 }
