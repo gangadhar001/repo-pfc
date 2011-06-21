@@ -15,8 +15,8 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
-import exceptions.AddressNotFound;
-import exceptions.WSResponseError;
+import exceptions.NonExistentAddressException;
+import exceptions.WSResponseException;
 
 /**
  * Class used to obtain geographic coordinates from an address. To do so, uses the Web Service "Yahoo! PlaceFinder"
@@ -28,7 +28,7 @@ public class GeoCoder {
 	// Yahoo! Web Service base url
 	private static final String BASE_URL =  "http://where.yahooapis.com/geocode";
 			
-	public static Coordinates getGeoCoordinates(Address address) throws AddressNotFound, WSResponseError, IOException, JDOMException {
+	public static Coordinates getGeoCoordinates(Address address) throws NonExistentAddressException, WSResponseException, IOException, JDOMException {
 		URL url;
 		Coordinates coor = null;
 		StringBuffer ad = new StringBuffer();
@@ -51,10 +51,10 @@ public class GeoCoder {
 		// Get values from XML using XPath
 		String status = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Error")).getContent(0).getValue();
 		if (status.equals(0))
-			throw new WSResponseError();
+			throw new WSResponseException();
 		String found = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Found")).getContent(0).getValue();
 		if (found.equals(0))
-			throw new AddressNotFound(AppInternationalization.getString("AddressNotFound_Exception"));
+			throw new NonExistentAddressException(AppInternationalization.getString("AddressNotFound_Exception"));
 		String latitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/latitude")).getContent(0).getValue();
 		String longitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/longitude")).getContent(0).getValue();		
 		in.close();

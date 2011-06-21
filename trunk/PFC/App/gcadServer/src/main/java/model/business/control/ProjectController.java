@@ -5,7 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonExistentProjectException;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 import persistence.DAOProject;
@@ -26,7 +27,7 @@ import model.business.knowledge.User;
 public class ProjectController {
 
 	// Method used to create a new project and insert it into database
-	public static Project createProject(long sessionId, Project project) throws SQLException, NonPermissionRole, NotLoggedException {			
+	public static Project createProject(long sessionId, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException {			
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
 		
@@ -36,7 +37,7 @@ public class ProjectController {
 	}
 	
 	// Method used to retrieve developers that participate in a project
-	public static List<User> getUsersProject(long sessionId, Project p) throws SQLException, NonPermissionRole, NotLoggedException {
+	public static List<User> getUsersProject(long sessionId, Project p) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Get.name()));
 		
@@ -45,7 +46,7 @@ public class ProjectController {
 		return result;
 	}
 
-	public static List<Project> getProjects(long sessionId) throws NonPermissionRole, NotLoggedException, SQLException {
+	public static List<Project> getProjects(long sessionId) throws NonPermissionRoleException, NotLoggedException, SQLException, NonExistentProjectException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Get.name()));
 		

@@ -6,6 +6,8 @@ import java.util.List;
 import persistence.utils.HibernateQuery;
 
 import communication.DBConnectionManager;
+import exceptions.NonExistentAnswerException;
+import exceptions.NonExistentProposalException;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Proposal;
@@ -18,7 +20,7 @@ public class DAOAnswer {
 	private static final String PROPOSAL_CLASS = "Proposal";
 	private static final String ANSWER_CLASS = "Answer";
 	
-	public static void insert(Answer answer, int proposalId) throws SQLException {
+	public static void insert(Answer answer, int proposalId) throws SQLException, NonExistentProposalException {
 		HibernateQuery query;
 		List<?> data;
 		Proposal aux = null;
@@ -32,6 +34,10 @@ public class DAOAnswer {
 			if(data.size() > 0) {
 				aux = (Proposal) data.get(0);			
 			}
+			
+			else 
+				throw new NonExistentProposalException();
+				
 			// Set the topic parent to the proposal
 			a = (Answer)answer.clone();
 			DBConnectionManager.initTransaction();
@@ -50,7 +56,7 @@ public class DAOAnswer {
 		
 	}
 	
-	public static void update(Answer answer) throws SQLException {
+	public static void update(Answer answer) throws SQLException, NonExistentAnswerException {
 		// Get the answer stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
@@ -63,6 +69,9 @@ public class DAOAnswer {
 			if(data.size() > 0) {
 				old = (Answer)data.get(0);									
 			}
+			
+			else 
+				throw new NonExistentAnswerException();
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -83,7 +92,7 @@ public class DAOAnswer {
 		}
 	}
 
-	public static void delete(Answer a) throws SQLException {
+	public static void delete(Answer a) throws SQLException, NonExistentAnswerException {
 		try {
 			DBConnectionManager.initTransaction();
 			// Get the answer stores in database and delete that reference 
@@ -93,7 +102,7 @@ public class DAOAnswer {
 		}
 	}
 
-	public static Answer queryAnswer(int id) throws SQLException {
+	public static Answer queryAnswer(int id) throws SQLException, NonExistentAnswerException {
 		HibernateQuery query;
 		List<?> data;
 		Answer answer = null;
@@ -104,6 +113,8 @@ public class DAOAnswer {
 		if(data.size() > 0) {
 			answer = (Answer) ((Answer)data.get(0)).clone();									
 		}
+		else 
+			throw new NonExistentAnswerException();
 		
 		// Clear cache
 		for(Object object : data) {

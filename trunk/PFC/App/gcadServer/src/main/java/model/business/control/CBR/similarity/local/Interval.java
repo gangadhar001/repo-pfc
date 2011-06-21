@@ -2,8 +2,6 @@ package model.business.control.CBR.similarity.local;
 
 import java.io.Serializable;
 
-import exceptions.NoApplicableTypeException;
-
 /**
  * Class used to calculate the similarity between numeric attributes
  * This value is the their distance sim(x,y)= 1 - (|x-y|/interval)
@@ -24,13 +22,9 @@ public class Interval implements LocalSimilarityFunction, Serializable {
 		this.interval = interval;
 	}
 
-	public double getSimilarity (Object value1, Object value2) throws NoApplicableTypeException {
+	public double getSimilarity (Object value1, Object value2) {
 		if ((value1 == null) || (value2 == null))
-			return 0;
-		if (!(value1 instanceof java.lang.Number))
-			throw new NoApplicableTypeException(this.getClass(), value1.getClass());
-		if (!(value2 instanceof java.lang.Number))
-			throw new NoApplicableTypeException(this.getClass(), value2.getClass());
+			return 0;		
 
 		Number num1 = (Number) value1;
 		Number num2 = (Number) value2;

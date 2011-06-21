@@ -12,7 +12,7 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
+import exceptions.NonExistentRoleException;
 
 /**
  * This class allows to query users from the database
@@ -27,7 +27,7 @@ public class DAOUser {
 	private static final String COL_IDUSER = "idUser";
 	private static final String COL_IDPROJECT = "idProject";
 	
-	public static User queryUser(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
+	public static User queryUser(String login, String password) throws IncorrectEmployeeException, SQLException {
 		HibernateQuery query;
 		List<?> data;
 		User user = null;
@@ -49,7 +49,7 @@ public class DAOUser {
 		return user;
 	}
 	
-	public static List<User> getUsers() throws SQLException {
+	public static List<User> getUsers() throws SQLException, IncorrectEmployeeException {
 		HibernateQuery query;
 		List<?> data;
 		List<User> result = new ArrayList<User>();
@@ -58,12 +58,12 @@ public class DAOUser {
 		data = DBConnectionManager.query(query);
 
 		// TODO: 
-//		if(data.size() == 0) {
-//			throw new IncorrectEmployeeException("No hay usuarios registrados en el sistema");
-//		} else {
+		if(data.size() == 0) {
+			throw new IncorrectEmployeeException("No hay usuarios registrados en el sistema");
+		} else {
 			for(Object o: data)
 				result.add((User) ((User)(o)).clone());			
-//		}
+		}
 		
 		// Clear cache
 		for(Object object : data) {
@@ -98,7 +98,7 @@ public class DAOUser {
 		return result;
 	}
 
-	public static void update(User user) throws SQLException {
+	public static void update(User user) throws SQLException, IncorrectEmployeeException {
 		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
@@ -111,6 +111,8 @@ public class DAOUser {
 			if(data.size() > 0) {
 				oldUser = (User)data.get(0);									
 			}
+			else
+				throw new IncorrectEmployeeException("El nombre de usuario o contraseña introducidos no son válidos.");
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -136,16 +138,16 @@ public class DAOUser {
 		}		
 	}
 	
-	public static void updateProject(User u, Project p) throws SQLException {;		
-		try {				
-			DBConnectionManager.initTransaction();
-			String query = "INSERT INTO " + USERS_PROJECTS + " VALUES (" + u.getId() + ", " + p.getId() + ")";
-			DBConnectionManager.executeUpdate(query);
-			
-		} finally {
-			DBConnectionManager.finishTransaction();
-		}
-	}
+//	public static void updateProject(User u, Project p) throws SQLException {;		
+//		try {				
+//			DBConnectionManager.initTransaction();
+//			String query = "INSERT INTO " + USERS_PROJECTS + " VALUES (" + u.getId() + ", " + p.getId() + ")";
+//			DBConnectionManager.executeUpdate(query);
+//			
+//		} finally {
+//			DBConnectionManager.finishTransaction();
+//		}
+//	}
 
 	public static void insert(User user) throws SQLException {
 		try {
@@ -158,7 +160,7 @@ public class DAOUser {
 		
 	}
 	
-	public static void delete(User user) throws SQLException, IncorrectEmployeeException, NonExistentRole {
+	public static void delete(User user) throws SQLException, IncorrectEmployeeException {
 		try {
 			DBConnectionManager.initTransaction();
 			// Get the proposal stores in database and delete that reference 

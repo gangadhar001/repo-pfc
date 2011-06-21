@@ -27,8 +27,8 @@ import model.business.knowledge.User;
 import model.business.knowledge.UserRole;
 import persistence.DAOUser;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
-import exceptions.NonPermissionRole;
+import exceptions.NonExistentRoleException;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -44,7 +44,7 @@ public class SessionController {
 	/**
 	 * Method that log in an user and creates a session
 	 */
-	public static Session login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRole {
+	public static Session login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRoleException {
 		Enumeration<Session> openedSessions; 
 		Session session, openedSession;
 		User user;
@@ -127,7 +127,7 @@ public class SessionController {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRole, NotLoggedException
+	public static ArrayList<Operation> getAvailableOperations(long sessionId) throws NonPermissionRoleException, NotLoggedException
 	{
 		// Retrieve the available operations from profile file.
 		ArrayList<Operation> result = new ArrayList<Operation>();
@@ -209,18 +209,18 @@ public class SessionController {
 			}
 			else
 			{
-				throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole") + role.toString());
+				throw new NonPermissionRoleException(AppInternationalization.getString("Exception.NonPermissionRole") + role.toString());
 			}
 		}
 		catch (ConfigurationException e)
 		{
-			throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole"));
+			throw new NonPermissionRoleException(AppInternationalization.getString("Exception.NonPermissionRole"));
 		}
 		return result;
 	}
 
 	// Method used for other managers to check the permissions of a user
-	public static void checkPermission(long sessionId, Operation operation) throws NonPermissionRole, NotLoggedException 
+	public static void checkPermission(long sessionId, Operation operation) throws NonPermissionRoleException, NotLoggedException 
 	{
 		ArrayList<Operation> operations;
 		Session session;
@@ -239,7 +239,7 @@ public class SessionController {
 
 		// Check if you have permission to perform operation
 		if (!checkOperation(operations, operation))
-			throw new NonPermissionRole(AppInternationalization.getString("Exception.NonPermissionRole"));
+			throw new NonPermissionRoleException(AppInternationalization.getString("Exception.NonPermissionRole"));
 	}
 
 	// Method used to retrieve common operations for all users. It is done only the first time.

@@ -31,8 +31,8 @@ import communication.IClient;
 import communication.IServer;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
-import exceptions.NonPermissionRole;
+import exceptions.NonExistentRoleException;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -51,7 +51,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to manage login and signout ***/
-	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, NonExistentRole, Exception {
+	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, NonExistentRoleException, Exception {
 		ISession session;
 		try {
 			session = SessionController.login(user, pass);
@@ -62,7 +62,7 @@ public class Server implements IServer {
 		} catch(IncorrectEmployeeException iee) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("IncorrectEmployee_msg") + " '" + user + "' " + AppInternationalization.getString("Login_msg") + iee.getLocalizedMessage());
 			throw iee;
-		} catch(NonExistentRole ner) {
+		} catch(NonExistentRoleException ner) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("Role_permissions_msg") + " '" + user + "': " + ner.getLocalizedMessage());
 			throw ner;
 		} catch(Exception e) {
@@ -124,7 +124,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to add new Knowledge  ***/
-	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		boolean found = false;
 		Project project = null;
 		String login = "";
@@ -147,7 +147,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewTopic_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewTopic_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -156,7 +156,7 @@ public class Server implements IServer {
 		}
 	}
 	
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login ="";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -170,7 +170,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewProposal_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewProposal_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -179,7 +179,7 @@ public class Server implements IServer {
 		}
 	}
 	
-	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void addAnwser (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try{
 			Session session = SessionController.getSession(sessionId);
@@ -193,7 +193,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewAnswer_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewAnswer_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -203,7 +203,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to modify Knowledge ***/
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -217,7 +217,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ModifyTopic_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("NonPermission_ModifyTopic_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -226,7 +226,7 @@ public class Server implements IServer {
 		}
 	}
 	
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login ="";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -240,7 +240,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ModifyProposal_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("NonPermission_ModifyProposal_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -249,7 +249,7 @@ public class Server implements IServer {
 		}
 	}
 	
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -263,7 +263,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ModifyAnswer_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("NonPermission_ModifyAnswer_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -274,7 +274,7 @@ public class Server implements IServer {
 		
 	/*** Methods used to delete Knowledge ***/
 	@Override
-	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -288,7 +288,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteTopic_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("NonPermission_DeleteTopic_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -298,7 +298,7 @@ public class Server implements IServer {
 	}
 
 	@Override
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -312,7 +312,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteProposal_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("NonPermission_DeleteProposal_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -322,7 +322,7 @@ public class Server implements IServer {
 	}
 
 	@Override
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			
@@ -337,7 +337,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteAnswer_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("NonPermission_DeleteAnswer_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -347,7 +347,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods to manage projects ***/
-	public Project createProject (long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public Project createProject (long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		Project result;
 		try {
@@ -361,7 +361,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewProject_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewProject_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -397,7 +397,7 @@ public class Server implements IServer {
 //	}
 	
 	// TODO:
-	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -410,7 +410,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteNotification_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("NonPermission_DeleteNotification_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -419,7 +419,7 @@ public class Server implements IServer {
 		}			
 	}
 
-	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		ArrayList<Notification> notifications;
 		try {
@@ -433,7 +433,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetNotifications_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetNotifications_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -444,7 +444,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Auxiliary methods  ***/
-	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		ArrayList<Proposal> proposals;
 		try {
@@ -458,7 +458,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetProposals_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetProposals_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -468,7 +468,7 @@ public class Server implements IServer {
 		return proposals;
 	}
 	
-	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		ArrayList<Answer> answers;
 		try {
@@ -482,7 +482,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetAnswers_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetAnswers_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -492,7 +492,7 @@ public class Server implements IServer {
 		return answers;
 	}
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		Proposal proposal;
 		try {
@@ -506,7 +506,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_FindParentAnswer_msg") + " " + a.getTitle() + ": " + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_FindParentAnswer_msg") +  " " + a.getTitle() + ": " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -516,7 +516,7 @@ public class Server implements IServer {
 		return proposal;
 	}
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		Topic topic;
 		try {
@@ -530,7 +530,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_FindParentProposal_msg") + " " + p.getTitle() + ": " + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_FindParentProposal_msg") +  " " + p.getTitle() + ": " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -540,7 +540,7 @@ public class Server implements IServer {
 		return topic;
 	}		
 		
-	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		TopicWrapper tw;
 		try {
@@ -554,7 +554,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetTW_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetTW_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -564,7 +564,7 @@ public class Server implements IServer {
 		return tw;
 	}
 	
-	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		TopicWrapper tw;
 		try {
@@ -578,7 +578,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetTWProject_msg") + " " + p.getName() + ": " + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetTWProject_msg") +  " " + p.getName() + ": " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -588,7 +588,7 @@ public class Server implements IServer {
 		return tw;
 	}
 	
-	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception{
+	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRoleException, NotLoggedException, SQLException, Exception{
 		String login = "";
 		List<Project> projects;
 		try {
@@ -602,7 +602,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetProjects_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetProjects_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -612,7 +612,7 @@ public class Server implements IServer {
 		return projects;
 	}
 	
-	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		List<User> users;
 		try {
@@ -626,7 +626,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetUsersProject_msg") + " " + p.getName() + ": " + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetUsersProject_msg") +  " " + p.getName() + ": " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -679,7 +679,7 @@ public class Server implements IServer {
 	/**
 	 * This method reads the profiles available for a user role from a XML file.
 	 */
-	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRole, NotLoggedException, Exception {
+	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		ArrayList<Operation> operations;
 		try {
@@ -690,7 +690,7 @@ public class Server implements IServer {
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetOperations_msg") + nte.getLocalizedMessage());
 			throw nte;
-		} catch(NonPermissionRole npr) {
+		} catch(NonPermissionRoleException npr) {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetOperations_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
@@ -722,12 +722,12 @@ public class Server implements IServer {
 	}
 	
 	@Override
-	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		return UsersController.getUsers(sessionId);
 	}
 	
 	@Override
-	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		UsersController.addProjectsUser(sessionId, user, project);
 	}
 	

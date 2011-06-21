@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import communication.DBConnectionManager;
+import exceptions.NonExistentTopicException;
 
 import model.business.knowledge.Topic;
 import persistence.utils.HibernateQuery;
@@ -18,7 +19,7 @@ public class DAOTopic {
 	
 	private static final String COL_PROJECT_ID = "projectId";
 			
-	public static Topic queryTopic(int id) throws SQLException {
+	public static Topic queryTopic(int id) throws SQLException, NonExistentTopicException {
 		HibernateQuery query;
 		List<?> data;
 		Topic result = null;
@@ -30,6 +31,9 @@ public class DAOTopic {
 			result = (Topic) ((Topic) data.get(0)).clone();			
 		}
 		
+		else
+			throw new NonExistentTopicException();
+		
 		// Clear cache
 		for(Object object : data) {
 			DBConnectionManager.clearCache(object);
@@ -38,7 +42,7 @@ public class DAOTopic {
 		return result;
 	}
 	
-	public static ArrayList<Topic> queryTopicsProject(int projectId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static ArrayList<Topic> queryTopicsProject(int projectId) throws SQLException, NonExistentTopicException {
 		HibernateQuery query;
 		List<?> data;
 		ArrayList<Topic> result = new ArrayList<Topic>();
@@ -51,6 +55,9 @@ public class DAOTopic {
 					result.add((Topic)((Topic)o).clone());
 				}
 			}
+			
+			else
+				throw new NonExistentTopicException();
 			
 			// Clear cache
 			for(Object object : data) {
@@ -71,7 +78,7 @@ public class DAOTopic {
 		}
 	}
 	
-	public static void update (Topic topic) throws SQLException {		
+	public static void update (Topic topic) throws SQLException, NonExistentTopicException {		
 		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
@@ -84,6 +91,9 @@ public class DAOTopic {
 			if(data.size() > 0) {
 				old = (Topic)data.get(0);									
 			}
+			
+			else
+				throw new NonExistentTopicException();
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -105,7 +115,7 @@ public class DAOTopic {
 		}
 	}
 
-	public static void delete(Topic topic) throws SQLException {
+	public static void delete(Topic topic) throws SQLException, NonExistentTopicException {
 		try {
 			DBConnectionManager.initTransaction();
 			DBConnectionManager.delete(queryTopic(topic.getId()));
