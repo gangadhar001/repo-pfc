@@ -13,10 +13,10 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
-import exceptions.IncorrectAddressException;
-import exceptions.IncorrectCompanyException;
+import exceptions.NonExistentAddressException;
+import exceptions.NonExistentCompanyException;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
+import exceptions.NonExistentRoleException;
 
 /**
  * This class allows to query users from the database
@@ -37,7 +37,7 @@ public class DAOCompany {
 		
 	}
 
-	public static Company queryCompany(int id) throws SQLException, IncorrectCompanyException {
+	public static Company queryCompany(int id) throws SQLException, NonExistentCompanyException {
 		HibernateQuery query;
 		List<?> data;
 		Company comp = null;
@@ -47,7 +47,7 @@ public class DAOCompany {
 
 		// TODO
 		if(data.size() == 0) {
-			throw new IncorrectCompanyException("El nombre de usuario o contraseña introducidos no son válidos.");
+			throw new NonExistentCompanyException("El nombre de usuario o contraseña introducidos no son válidos.");
 		} else {
 			comp = (Company) ((Company)(data.get(0))).clone();			
 		}
@@ -60,7 +60,7 @@ public class DAOCompany {
 		return comp;
 	}
 	
-	public static void update(Company comp) throws SQLException {
+	public static void update(Company comp) throws SQLException, NonExistentCompanyException {
 		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
@@ -73,6 +73,9 @@ public class DAOCompany {
 			if(data.size() > 0) {
 				oldComp = (Company)data.get(0);									
 			}
+			
+			else
+				throw new NonExistentCompanyException("El nombre de usuario o contraseña introducidos no son válidos.");
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -93,7 +96,7 @@ public class DAOCompany {
 		}		
 	}
 	
-	public static void delete(Company comp) throws SQLException, IncorrectAddressException, NonExistentRole, IncorrectCompanyException {
+	public static void delete(Company comp) throws SQLException, NonExistentCompanyException {
 		try {
 			DBConnectionManager.initTransaction();
 			// Get the proposal stores in database and delete that reference 

@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import communication.DBConnectionManager;
+import exceptions.NonExistentProposalException;
+import exceptions.NonExistentTopicException;
 
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -26,7 +28,7 @@ public class DAOProposal {
 //	private static final String COL_TOPIC_ID = "topicId";
 	
 	
-	public static Proposal queryProposal(int id) throws SQLException {
+	public static Proposal queryProposal(int id) throws SQLException, NonExistentProposalException {
 		HibernateQuery query;
 		List<?> data;
 		Proposal result = null;
@@ -41,11 +43,15 @@ public class DAOProposal {
 					DBConnectionManager.clearCache(object);
 				}				
 			}
+			
+			else 
+				throw new NonExistentProposalException();
+				
 		return result;
 	}
 	
 	
-	public static void insert(Proposal proposal, int idParent) throws SQLException {
+	public static void insert(Proposal proposal, int idParent) throws SQLException, NonExistentTopicException {
 		HibernateQuery query;
 		List<?> data;
 		Topic aux = null;
@@ -59,6 +65,10 @@ public class DAOProposal {
 			if(data.size() > 0) {
 				aux = (Topic) data.get(0);			
 			}
+			
+			else 
+				throw new NonExistentTopicException();
+			
 			p = (Proposal)proposal.clone();
 			DBConnectionManager.initTransaction();
 			// Set the topic parent to the proposal
@@ -76,7 +86,7 @@ public class DAOProposal {
 		}
 	}
 	
-	public static void update(Proposal p) throws SQLException {		
+	public static void update(Proposal p) throws SQLException, NonExistentProposalException {		
 		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
@@ -89,6 +99,9 @@ public class DAOProposal {
 			if(data.size() > 0) {
 				old = (Proposal)data.get(0);									
 			}
+			
+			else 
+				throw new NonExistentProposalException();
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -110,7 +123,7 @@ public class DAOProposal {
 		}
 	}
 	
-	public static void delete(Proposal pro) throws SQLException {
+	public static void delete(Proposal pro) throws SQLException, NonExistentProposalException {
 		try {
 			DBConnectionManager.initTransaction();
 			// Get the proposal stores in database and delete that reference 

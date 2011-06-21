@@ -12,9 +12,9 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
-import exceptions.IncorrectAddressException;
+import exceptions.NonExistentAddressException;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
+import exceptions.NonExistentRoleException;
 
 /**
  * This class allows to query users from the database
@@ -24,7 +24,7 @@ public class DAOAddress {
 	private static final String ADDRESS_CLASS = "Address";
 	private static final String COL_ID = "id";
 
-	public static Address queryAddress(int id) throws IncorrectAddressException, SQLException, NonExistentRole {
+	public static Address queryAddress(int id) throws NonExistentAddressException, SQLException {
 		HibernateQuery query;
 		List<?> data;
 		Address add = null;
@@ -34,7 +34,7 @@ public class DAOAddress {
 
 		// TODO
 		if(data.size() == 0) {
-			throw new IncorrectAddressException("El nombre de usuario o contraseña introducidos no son válidos.");
+			throw new NonExistentAddressException("El nombre de usuario o contraseña introducidos no son válidos.");
 		} else {
 			add = (Address) ((Address)(data.get(0))).clone();			
 		}
@@ -57,7 +57,7 @@ public class DAOAddress {
 		}		
 	}
 	
-	public static void update(Address add) throws SQLException {
+	public static void update(Address add) throws SQLException, NonExistentAddressException {
 		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
@@ -70,6 +70,8 @@ public class DAOAddress {
 			if(data.size() > 0) {
 				oldAdd = (Address)data.get(0);									
 			}
+			else
+				throw new NonExistentAddressException("El nombre de usuario o contraseña introducidos no son válidos.");
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -90,7 +92,7 @@ public class DAOAddress {
 		}		
 	}
 	
-	public static void delete(Address address) throws SQLException, IncorrectAddressException, NonExistentRole {
+	public static void delete(Address address) throws SQLException, NonExistentAddressException {
 		try {
 			DBConnectionManager.initTransaction();
 			// Get the proposal stores in database and delete that reference 

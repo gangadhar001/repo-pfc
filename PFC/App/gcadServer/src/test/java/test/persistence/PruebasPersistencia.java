@@ -6,18 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
-
-import exceptions.IncorrectAddressException;
-import exceptions.IncorrectCompanyException;
-import exceptions.IncorrectEmployeeException;
-
-import persistence.DAOAddress;
-import persistence.DAOCompany;
-import persistence.DAOLog;
-import persistence.DAOProject;
-import persistence.DAOUser;
-import persistence.utils.HibernateSessionFactory;
 
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
@@ -32,8 +20,24 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.User;
-
+import persistence.DAOAddress;
+import persistence.DAOAnswer;
+import persistence.DAOCompany;
+import persistence.DAOLog;
+import persistence.DAONotification;
+import persistence.DAOProject;
+import persistence.DAOProposal;
+import persistence.DAOTopic;
+import persistence.DAOUser;
 import test.communication.PruebasBase;
+import exceptions.IncorrectEmployeeException;
+import exceptions.NonExistentAddressException;
+import exceptions.NonExistentAnswerException;
+import exceptions.NonExistentCompanyException;
+import exceptions.NonExistentNotificationException;
+import exceptions.NonExistentProjectException;
+import exceptions.NonExistentProposalException;
+import exceptions.NonExistentTopicException;
 
 /**
  * Pruebas de las clases de persistencia.
@@ -49,7 +53,7 @@ public class PruebasPersistencia extends PruebasBase {
 	private Topic topic;
 	private Answer ans;
 	private Set<User> users;
-	private Notification not;
+	private Notification not, not2;
 	private HashSet<Project> projects;
 	private User emp;
 	private LogEntry logEntry1, logEntry2, logEntry3;
@@ -73,6 +77,10 @@ public class PruebasPersistencia extends PruebasBase {
 			users = new HashSet<User>();
 			users.add(chief);
 			users.add(employee);
+			topic.setUser(chief);
+			topic.setProject(project);
+			pro.setUser(chief);
+			ans.setUser(chief);
 			not = new Notification(topic, "Unread", project, "subject", users);
 			logEntry1 = new LogEntry(employee.getLogin(), new Timestamp(109, 11, 1, 10, 10, 10, 0), IMessageTypeLog.CREATE, "Entrada CREATE.");
 			logEntry2 = new LogEntry(null, new Timestamp(109, 5, 25, 7, 30, 0, 0), IMessageTypeLog.READ, "Entrada READ.");
@@ -98,6 +106,24 @@ public class PruebasPersistencia extends PruebasBase {
 		try {
 			// Intentamos buscar un usuario inexistente
 			DAOUser.queryUser("log", "log");
+			fail("Se esperaba una excepción IncorrectEmployeeException");
+		} catch(IncorrectEmployeeException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción IncorrectEmployeeException");
+		}
+		
+		try {
+			// Intentamos buscar un usuario inexistente
+			DAOUser.getUsers();
+			fail("Se esperaba una excepción IncorrectEmployeeException");
+		} catch(IncorrectEmployeeException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción IncorrectEmployeeException");
+		}
+		
+		try {
+			// Intentamos actualizar un usuario inexistente
+			DAOUser.update(chief);
 			fail("Se esperaba una excepción IncorrectEmployeeException");
 		} catch(IncorrectEmployeeException e) {
 		} catch(Exception e) {
@@ -201,9 +227,18 @@ public class PruebasPersistencia extends PruebasBase {
 			// Intentamos buscar una direccion inexistente
 			DAOAddress.queryAddress(0);
 			fail("Se esperaba una excepción IncorrectAddressException");
-		} catch(IncorrectAddressException e) {
+		} catch(NonExistentAddressException e) {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción IncorrectAddressException");
+		}
+		
+		try {
+			// Intentamos actualizar una dirección inexistente
+			DAOAddress.update(address);
+			fail("Se esperaba una excepción NonExistentAddressException");
+		} catch(NonExistentAddressException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentAddressException");
 		}
 		
 		try {
@@ -236,7 +271,7 @@ public class PruebasPersistencia extends PruebasBase {
 			fail("Se esperaba una excepción IncorrectAddressException");
 			Company comp = DAOCompany.queryCompany(company.getId());
 			assertTrue(comp.getAddress() == null);
-		} catch(IncorrectAddressException e) {
+		} catch(NonExistentAddressException e) {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción IncorrectAddressException");
 		}			
@@ -292,14 +327,23 @@ public class PruebasPersistencia extends PruebasBase {
 	}
 	
 	/** Pruebas de la tabla de compañias */
-	public void testComapny() {
+	public void testCompany() {
 		try {
 			// Intentamos buscar una direccion inexistente
 			DAOCompany.queryCompany(0);
 			fail("Se esperaba una excepción IncorrectCompanyException");
-		} catch(IncorrectCompanyException e) {
+		} catch(NonExistentCompanyException e) {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción IncorrectCompanyException");
+		}
+		
+		try {
+			// Intentamos actualizar una compañia inexistente
+			DAOCompany.update(company);
+			fail("Se esperaba una excepción NonExistentCompanyException");
+		} catch(NonExistentCompanyException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentCompanyException");
 		}
 		
 		try {
@@ -329,15 +373,360 @@ public class PruebasPersistencia extends PruebasBase {
 			DAOUser.insert(chief);
 			// Se elimina la compañia
 			DAOCompany.delete(company);
-			// Comprobamos si los cambios han tenido efecto
 			DAOCompany.queryCompany(company.getId());
-			fail("Se esperaba una excepción IncorrectCompanyException");
-			Company comp = DAOCompany.queryCompany(company.getId());
-			assertTrue(chief.getCompany() == null);
-		} catch(IncorrectCompanyException e) {
+			fail("Se esperaba una excepción IncorrectCompanyException");			
+		} catch(NonExistentCompanyException e) {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción IncorrectCompanyException");
 		}			
+	}
+	
+	/** Pruebas de la tablas de conocimiento */
+	public void testKnowledge() {
+		try {
+			// Intentamos buscar una respuesta inexistente
+			DAOAnswer.queryAnswer(0);
+			fail("Se esperaba una excepción NonExistentAnswers");
+		} catch(NonExistentAnswerException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentAnswers");
+		}
+		
+		try {
+			// Intentamos buscar una propuesta inexistente
+			DAOProposal.queryProposal(0);
+			fail("Se esperaba una excepción NonExistentProposal");
+		} catch(NonExistentProposalException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProposal");
+		}
+		
+		try {
+			// Intentamos buscar un topic inexistente
+			DAOTopic.queryTopic(0);
+			fail("Se esperaba una excepción NonExistentTopic");
+		} catch(NonExistentTopicException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentTopic");
+		}
+		
+		try {
+			// Intentamos actualizar una respuesta inexistente
+			DAOAnswer.update(ans);
+			fail("Se esperaba una excepción NonExistentAnswers");
+		} catch(NonExistentAnswerException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentAnswers");
+		}
+		
+		try {
+			// Intentamos actualizar una propuesta inexistente
+			DAOProposal.update(pro);
+			fail("Se esperaba una excepción NonExistentProposal");
+		} catch(NonExistentProposalException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProposal");
+		}
+		
+		try {
+			// Intentamos actualizar un topic inexistente
+			DAOTopic.update(topic);
+			fail("Se esperaba una excepción NonExistentTopic");
+		} catch(NonExistentTopicException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentTopic");
+		}
+		
+		try {
+			DAOProject.insert(project);
+			DAOAddress.insert(address);
+			DAOCompany.insert(company);
+			DAOUser.insert(chief);
+			// Añadimos un topic, una propuesta, y una respuesta
+			DAOTopic.insert(topic);
+			DAOProposal.insert(pro, topic.getId());
+			DAOAnswer.insert(ans, pro.getId());
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		// Prueba para comprobar el numero de topics en un proyecto
+		try {
+			List<Topic> topics = DAOTopic.queryTopicsProject(project.getId());
+			assertTrue(topics.size() == 1);
+			assertEquals(topics.get(0), topic);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Modificamos un topic, una propuesta, y una respuesta
+			Topic newTopic = (Topic) topic.clone();
+			Proposal newPro = (Proposal) pro.clone();
+			Answer newAns = (Answer) ans.clone();
+			newPro.setDescription("newDesc");
+			newAns.setDescription("newDesc");
+			newTopic.setDescription("newDesc");
+			DAOTopic.update(newTopic);
+			DAOProposal.update(newPro);
+			DAOAnswer.update(newAns);
+			assertEquals(newTopic, DAOTopic.queryTopic(newTopic.getId()));
+			assertEquals(newPro, DAOProposal.queryProposal(newPro.getId()));
+			assertEquals(newAns, DAOAnswer.queryAnswer(newAns.getId()));
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Eliminar
+			DAOAnswer.delete(ans);
+			DAOProposal.delete(pro);
+			DAOTopic.delete(topic);
+			DAOTopic.queryTopicsProject(project.getId());
+			fail("Se esperaba una excepción NonExistentTopic");
+		} catch(NonExistentTopicException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentTopic");
+		}		
+		
+		// Comprobamos que se han eliminado correctamente
+		try {
+			DAOAnswer.queryAnswer(0);
+			fail("Se esperaba una excepción NonExistentAnswers");
+		} catch(NonExistentAnswerException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentAnswers");
+		}
+		
+		try {
+			DAOProposal.queryProposal(0);
+			fail("Se esperaba una excepción NonExistentProposal");
+		} catch(NonExistentProposalException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProposal");
+		}
+		
+		try {
+			DAOTopic.queryTopic(0);
+			fail("Se esperaba una excepción NonExistentTopic");
+		} catch(NonExistentTopicException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentTopic");
+		}
+		
+		// Prueba a insertar una propuesta en un topic inexistente
+		try {
+			DAOProposal.insert(pro, topic.getId());
+			fail("Se esperaba una excepción NonExistentTopic");
+		} catch(NonExistentTopicException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentTopic");
+		}
+		
+		// Prueba a insertar una respuesta en una propuesta inexistente
+		try {
+			DAOAnswer.insert(ans, pro.getId());
+			fail("Se esperaba una excepción NonExistentProposal");
+		} catch(NonExistentProposalException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProposal");
+		}
+	}
+	
+	/** Pruebas de la tabla de proyectos */
+	public void testProjects() {
+		try {
+			// Intentamos buscar un proyecto inexistente
+			DAOProject.queryProject(0);
+			fail("Se esperaba una excepción NonExistentProjectException");
+		} catch(NonExistentProjectException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProjectException");
+		}
+		
+		try {
+			DAOProject.getProjects();
+			fail("Se esperaba una excepción NonExistentProjectException");
+		} catch(NonExistentProjectException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProjectException");
+		}	
+		
+		try {
+			// Intentamos actualizar un usuario inexistente
+			DAOProject.update(project);
+			fail("Se esperaba una excepción NonExistentProjectException");
+		} catch(NonExistentProjectException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProjectException");
+		}
+		
+		try {
+			// Insertamos un proyecto
+			DAOProject.insert(project);
+			List<Project> projects = DAOProject.getProjects();
+			assertTrue(projects.size() == 1);
+			assertEquals(projects.get(0), project);
+		} catch(Exception e) {
+			fail(e.toString());
+		}	
+		
+		try {
+			// Modificamos el proyecto
+			Project newPro = (Project) project.clone();
+			newPro.setDescription("description");
+			newPro.setDomain("defense");
+			newPro.setEndDate(new Timestamp(new Date().getTime()));
+			newPro.setEstimatedHours(15871);
+			newPro.setName("project name");
+			DAOProject.update(newPro);
+			assertEquals(newPro, DAOProject.queryProject(newPro.getId()));
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Eliminar
+			DAOProject.delete(project);
+			DAOProject.queryProject(project.getId());
+			fail("Se esperaba una excepción NonExistentProjectException");
+		} catch(NonExistentProjectException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentProjectException");
+		}			
+	}
+	
+	/** Pruebas de la tablas de notificaciones */
+	public void testNotifications() {
+		// Insertamos objetos necesarios para las pruebas
+		try {
+			DAOProject.insert(project);
+			DAOAddress.insert(address);
+			DAOCompany.insert(company);
+			DAOUser.insert(chief);
+			DAOUser.insert(employee);
+			// Añadimos un topic, una propuesta, y una respuesta
+			DAOTopic.insert(topic);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Intentamos buscar una notificacion inexistente
+			DAONotification.queryNotificationsUser(chief.getId(), 0);
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		} catch(NonExistentNotificationException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		}
+		
+		try {
+			// Intentamos buscar una notificacion inexistente
+			DAONotification.queryNotificationsUser(0, project.getId());
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		} catch(NonExistentNotificationException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		}
+		
+		try {
+			// Intentamos buscar una notificacion inexistente
+			DAONotification.queryNotificationsProject(0);
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		} catch(NonExistentNotificationException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		}		
+		
+		try {
+			// Intentamos actualizar una notificacion inexistente
+			DAONotification.update(not);
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		} catch(NonExistentNotificationException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		}
+		
+		try {
+			// Añadimos la notificacion
+			DAONotification.insert(not);
+			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+			nots = DAONotification.queryNotificationsUser(chief.getId(), project.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+			nots = DAONotification.queryNotificationsUser(employee.getId(), project.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Añadimos una nueva notificacion
+			Set<User> auxUsers = new HashSet<User>();
+			auxUsers.add(employee);
+			not2 = new Notification(topic, "Read", project, "subject", auxUsers);
+			DAONotification.insert(not2);
+			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
+			assertTrue(nots.size() == 2);
+			assertTrue((nots.get(0).equals(not) && nots.get(1).equals(not2)) || (nots.get(0).equals(not2) && nots.get(1).equals(not)));
+			nots = DAONotification.queryNotificationsUser(chief.getId(), project.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+			nots = DAONotification.queryNotificationsUser(employee.getId(), project.getId());
+			assertTrue(nots.size() == 2);
+			assertTrue((nots.get(0).equals(not) && nots.get(1).equals(not2)) || (nots.get(0).equals(not2) && nots.get(1).equals(not)));
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Modificamos el estado de una notificacion
+			not.setState("Read");
+			DAONotification.updateState(not, chief.getId());
+			// Se comprueba que se ha actualizado el estado para ese usuario y no para el otro
+			List<Notification> nots = DAONotification.queryNotificationsUser(chief.getId(), project.getId());
+			assertEquals (not, nots.get(0));
+		    nots = DAONotification.queryNotificationsUser(employee.getId(), project.getId());
+			assertTrue((not.equals(nots.get(0)) && !not.equals(nots.get(1))) || (not.equals(nots.get(1)) && !not.equals(nots.get(0))));
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Modificamos la notificacion
+			not.setSubject("subject");
+			not.setState("Unread");
+			DAONotification.update(not);
+			// Se comprueba que se ha actualizado el estado para ese usuario y no para el otro
+			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
+			assertTrue((nots.get(0).equals(not) || nots.get(1).equals(not)));
+		} catch(Exception e) {
+			fail(e.toString());
+		}		
+
+		try {
+			// Eliminar la notificacion de un usuario
+			DAONotification.deleteFromUser(not2, employee.getId());
+			// Se habra ejecutado el trigger, porque solo exisitia la notificacion para ese usuario, por lo que se debe haber eliminado
+			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+		} catch(Exception e) {
+			fail(e.toString());
+		}	
+		
+		try {
+			// Eliminar la otra notificacion
+			DAONotification.delete(not);
+			DAONotification.queryNotificationsProject(project.getId());
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		} catch(NonExistentNotificationException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NonExistentNotificationException");
+		}		
 	}
 	
 }
