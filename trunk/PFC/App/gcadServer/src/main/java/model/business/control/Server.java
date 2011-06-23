@@ -731,25 +731,4 @@ public class Server implements IServer {
 		UsersController.addProjectsUser(sessionId, user, project);
 	}
 	
-	/*** Methods used to manage the UI observer ***/
-//	public void notifyLogin () {
-//		ClientsController.notifyConnection(true);
-//	}
-//	
-//	public void notifySignOut () {
-//		ClientsController.notifyConnection(false);
-//	}
-//	
-//	public void notifyKnowledgeAdded(Knowledge k) {
-//		ClientsController.notifyKnowledgeAdded(k);
-//	}
-//	
-//	public void notifyKnowledgeChanged(Knowledge k) {
-//		ClientsController.notifyKnowledgeEdited(k);
-//	}
-//	
-//	public void notifyKnowledgeRemoved(Knowledge k) {
-//		ClientsController.notifyKnowledgeRemoved(k);
-//	}
-	
 }

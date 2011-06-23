@@ -43,6 +43,10 @@ public class ServerController {
 		serverWindowUI.setLocationRelativeTo(null);
 		serverWindowUI.setVisible(true);
 	}
+	
+	public void hideServerWindowUI() {
+		serverWindowUI.setVisible(false);
+	}
 
 	// TODO: pruebas
 //	public void hideServerWindowUI() {

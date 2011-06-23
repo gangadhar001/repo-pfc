@@ -1,11 +1,13 @@
+package test.utils;
 import test.communication.ComunicacionesTest;
+import test.control.DominioTest;
 import test.persistence.PersistenciaTest;
 import test.presentation.PresentacionTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * Suite de pruebas para el servidor front-end.
+ * Suite de pruebas para el servidor
  */
 public class SuitePruebas {
 	
@@ -17,7 +19,7 @@ public class SuitePruebas {
 		TestSuite suite;
 		
 		suite = new TestSuite("Pruebas completas para el servidor front-end");
-//		suite.addTest(DominioTest.suite());
+		suite.addTest(DominioTest.suite());
 		suite.addTest(PersistenciaTest.suite());
 		suite.addTest(ComunicacionesTest.suite());
 		suite.addTest(PresentacionTest.suite());
