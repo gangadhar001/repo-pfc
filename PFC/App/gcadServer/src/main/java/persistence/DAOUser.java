@@ -12,7 +12,6 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRoleException;
 
 /**
  * This class allows to query users from the database
@@ -49,21 +48,17 @@ public class DAOUser {
 		return user;
 	}
 	
-	public static List<User> getUsers() throws SQLException, IncorrectEmployeeException {
+	public static List<User> getUsers() throws SQLException {
 		HibernateQuery query;
 		List<?> data;
 		List<User> result = new ArrayList<User>();
 		
 		query = new HibernateQuery("From " + USER_CLASS);
 		data = DBConnectionManager.query(query);
-
-		// TODO: 
-		if(data.size() == 0) {
-			throw new IncorrectEmployeeException("No hay usuarios registrados en el sistema");
-		} else {
-			for(Object o: data)
-				result.add((User) ((User)(o)).clone());			
-		}
+		
+		for(Object o: data)
+			result.add((User) ((User)(o)).clone());			
+		
 		
 		// Clear cache
 		for(Object object : data) {

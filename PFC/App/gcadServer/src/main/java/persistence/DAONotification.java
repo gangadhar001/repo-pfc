@@ -150,7 +150,7 @@ public class DAONotification {
 	private static final String NOTIFICATIONS = "notifications";
 			
 	// Get all the notifications of that user in that project
-	public static ArrayList<Notification> queryNotificationsUser(int idUser, int projectId) throws SQLException, NonExistentNotificationException {
+	public static ArrayList<Notification> queryNotificationsUser(int idUser, int projectId) throws SQLException {
 		ArrayList<Notification> result = new ArrayList<Notification>();
 
 		HibernateQuery query = new HibernateQuery("From " + NOTIFICATION_CLASS + " n Join n.users user where user.id = ? AND " + COL_PROJECT_ID + " = ?", idUser, projectId);
@@ -165,9 +165,7 @@ public class DAONotification {
 				result.add(n);
 			}
 		}
-		else
-			throw new NonExistentNotificationException();
-		
+				
 		// Clear cache
 		for(Object object : data) {
 			DBConnectionManager.clearCache(object);
@@ -177,7 +175,7 @@ public class DAONotification {
 	}
 	
 	// Get all the notifications in that project
-	public static ArrayList<Notification> queryNotificationsProject(int projectId) throws SQLException, NonExistentNotificationException {
+	public static ArrayList<Notification> queryNotificationsProject(int projectId) throws SQLException {
 		ArrayList<Notification> result = new ArrayList<Notification>();
 
 		HibernateQuery query = new HibernateQuery("From " + NOTIFICATION_CLASS + " Where " + COL_PROJECT_ID + " = ?", projectId);
@@ -190,8 +188,7 @@ public class DAONotification {
 				result.add(n);
 			}
 		}
-		else
-			throw new NonExistentNotificationException();
+		
 		
 		// Clear cache
 		for(Object object : data) {
@@ -202,13 +199,15 @@ public class DAONotification {
 	}
 	
 	// Set the state of the notification
-	private static void setState(Notification n, int idUser) throws SQLException, NonExistentNotificationException {
+	private static void setState(Notification n, int idUser) throws SQLException {
 		String query = "SELECT " + COL_STATE + " FROM " + NOTIFICATIONS_USERS + " WHERE " + COL_NOTIFICATION_ID + " = " + n.getId() + " AND " + COL_USER_ID + " = " + idUser;
 		List<?> data = DBConnectionManager.query(query);
 		String state = "";		
-		if (data.get(0).toString().startsWith("R")) state = "Read";
-		else state = "Unread";
-		n.setState(state);
+		if (data.size() > 0) {
+			if (data.get(0).toString().startsWith("R")) state = "Read";
+			else state = "Unread";
+			n.setState(state);
+		}
 		
 		// Clear cache
 		for(Object object : data) {
@@ -217,13 +216,15 @@ public class DAONotification {
 	}
 	
 	// Set the state of the notification
-	private static void setState(Notification n) throws SQLException, NonExistentNotificationException {
+	private static void setState(Notification n) throws SQLException {
 		String query = "SELECT " + COL_STATE + " FROM " + NOTIFICATIONS_USERS + " WHERE " + COL_NOTIFICATION_ID + " = " + n.getId();
 		List<?> data = DBConnectionManager.query(query);
-		String state = "";		
-		if (data.get(0).toString().startsWith("R")) state = "Read";
-		else state = "Unread";
-		n.setState(state);
+		String state = "";	
+		if (data.size() > 0) {
+			if (data.get(0).toString().startsWith("R")) state = "Read";
+			else state = "Unread";
+			n.setState(state);
+		}
 		
 		// Clear cache
 		for(Object object : data) {
@@ -262,8 +263,10 @@ public class DAONotification {
 			DBConnectionManager.initTransaction();	
 			
 			old.setKnowledge(n.getKnowledge());
-			old.setState(n.getState());
 			old.setProject(n.getProject());
+			old.setId(n.getId());
+			old.setSubject(n.getSubject());
+			old.setUsers(n.getUsers());
 
 			DBConnectionManager.update(old);
 		} finally {

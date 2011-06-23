@@ -23,15 +23,6 @@ public class DBConnection implements IDBConnection {
 	
 	public DBConnection() {
 	}
-		
-	public DBConnection(String ip, int port, String schema, String user, String password) {
-		this.ip = ip;
-		this.port = port;
-		this.schema = schema;
-		this.user = user;
-		this.password = password;
-		changeURL();
-	}
 
 	public String getIp() {
 		return ip;
@@ -170,14 +161,6 @@ public class DBConnection implements IDBConnection {
 			HibernateSessionFactory.getSession().flush();
 			HibernateSessionFactory.getSession().getTransaction().commit();
 			HibernateSessionFactory.closeSession();
-		} catch(HibernateException ex) {
-			throw new SQLException(ex.getLocalizedMessage(), ex);
-		}
-	}
-	
-	public void deleteCache(Object object) throws RemoteException, SQLException {
-		try {
-			HibernateSessionFactory.getSession().evict(object);
 		} catch(HibernateException ex) {
 			throw new SQLException(ex.getLocalizedMessage(), ex);
 		}

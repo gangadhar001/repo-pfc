@@ -9,7 +9,6 @@ import persistence.utils.HibernateQuery;
 import communication.DBConnectionManager;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentProjectException;
-import exceptions.NonExistentRoleException;
 
 import model.business.knowledge.Address;
 import model.business.knowledge.Project;
@@ -20,18 +19,8 @@ import model.business.knowledge.Project;
 public class DAOProject {
 
 	private static final String PROJECT_CLASS = "Project";
-//	
-	private static final String COL_ID = "id";
-//	private static final String COL_NAME = "name";
-//	private static final String COL_DESCRIPTION = "description";
-//	private static final String COL_START_DATE = "startDate";
-//	private static final String COL_END_DATE = "endDate";
-//	private static final String COL_BUDGET = "budget";
-//	private static final String COL_QUANTITY_LINES = "quantityLines";
-//	private static final String COL_DOMAIN = "domain";
-//	private static final String COL_PROG_LANGUAGE = "progLanguage";
-//	private static final String COL_ESTIMATED_HOURS = "estimatedHours";
 	
+	private static final String COL_ID = "id";
 	
 	public static void insert (Project project) throws SQLException {
 		try {
@@ -83,7 +72,7 @@ public class DAOProject {
 		}		
 	}
 
-	public static List<Project> getProjects() throws SQLException, NonExistentProjectException {
+	public static List<Project> getProjects() throws SQLException {
 		HibernateQuery query;
 		List<?> data;
 		List<Project> result = new ArrayList<Project>();
@@ -95,9 +84,7 @@ public class DAOProject {
 			for(Object o: data) {
 				result.add((Project) ((Project)o).clone());
 			}				
-		}
-		else
-			throw new NonExistentProjectException();
+		}		
 		
 		// Clear cache
 		for(Object object : data) {

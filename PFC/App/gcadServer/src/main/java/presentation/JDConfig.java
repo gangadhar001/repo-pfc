@@ -313,7 +313,4 @@ public class JDConfig extends javax.swing.JDialog {
 		listenerList.add(CloseWindowListener.class, listener);
 	}
 
-	public void removeWindowCloseListener(CloseWindowListener listener) {
-		listenerList.remove(CloseWindowListener.class, listener);
-	}
 }

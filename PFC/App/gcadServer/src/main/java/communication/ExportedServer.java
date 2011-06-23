@@ -28,7 +28,6 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRoleException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -90,7 +89,7 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
     
     /*** Methods from server facade ***/
 	@Override
-	public ISession login(String user, String pass) throws IncorrectEmployeeException, SQLException, NonExistentRoleException, RemoteException, Exception {
+	public ISession login(String user, String pass) throws IncorrectEmployeeException, SQLException, RemoteException, Exception {
 		return server.login(user, pass);
 		
 	}
@@ -191,8 +190,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.getNotifications(sessionId);
+	public ArrayList<Notification> getNotificationsProject(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.getNotificationsProject(sessionId);
 	}
 
 	@Override

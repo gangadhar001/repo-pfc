@@ -50,10 +50,10 @@ public class GeoCoder {
 		doc = builder.build(in);
 		// Get values from XML using XPath
 		String status = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Error")).getContent(0).getValue();
-		if (status.equals(0))
+		if (!status.equals("0"))
 			throw new WSResponseException();
 		String found = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Found")).getContent(0).getValue();
-		if (found.equals(0))
+		if (found.equals("0"))
 			throw new NonExistentAddressException(AppInternationalization.getString("AddressNotFound_Exception"));
 		String latitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/latitude")).getContent(0).getValue();
 		String longitude = ((Element) XPath.selectSingleNode(doc, "/ResultSet/Result/longitude")).getContent(0).getValue();		

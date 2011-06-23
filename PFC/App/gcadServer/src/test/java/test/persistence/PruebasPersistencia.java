@@ -75,8 +75,6 @@ public class PruebasPersistencia extends PruebasBase {
 			ans = new Answer("ans", "desc", new Date(), "Pro");
 			topic = new Topic("pro", "desc", new Date());
 			users = new HashSet<User>();
-			users.add(chief);
-			users.add(employee);
 			topic.setUser(chief);
 			topic.setProject(project);
 			pro.setUser(chief);
@@ -106,15 +104,6 @@ public class PruebasPersistencia extends PruebasBase {
 		try {
 			// Intentamos buscar un usuario inexistente
 			DAOUser.queryUser("log", "log");
-			fail("Se esperaba una excepción IncorrectEmployeeException");
-		} catch(IncorrectEmployeeException e) {
-		} catch(Exception e) {
-			fail("Se esperaba una excepción IncorrectEmployeeException");
-		}
-		
-		try {
-			// Intentamos buscar un usuario inexistente
-			DAOUser.getUsers();
 			fail("Se esperaba una excepción IncorrectEmployeeException");
 		} catch(IncorrectEmployeeException e) {
 		} catch(Exception e) {
@@ -543,15 +532,7 @@ public class PruebasPersistencia extends PruebasBase {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción NonExistentProjectException");
 		}
-		
-		try {
-			DAOProject.getProjects();
-			fail("Se esperaba una excepción NonExistentProjectException");
-		} catch(NonExistentProjectException e) {
-		} catch(Exception e) {
-			fail("Se esperaba una excepción NonExistentProjectException");
-		}	
-		
+	
 		try {
 			// Intentamos actualizar un usuario inexistente
 			DAOProject.update(project);
@@ -609,34 +590,7 @@ public class PruebasPersistencia extends PruebasBase {
 			DAOTopic.insert(topic);
 		} catch(Exception e) {
 			fail(e.toString());
-		}
-		
-		try {
-			// Intentamos buscar una notificacion inexistente
-			DAONotification.queryNotificationsUser(chief.getId(), 0);
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		} catch(NonExistentNotificationException e) {
-		} catch(Exception e) {
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		}
-		
-		try {
-			// Intentamos buscar una notificacion inexistente
-			DAONotification.queryNotificationsUser(0, project.getId());
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		} catch(NonExistentNotificationException e) {
-		} catch(Exception e) {
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		}
-		
-		try {
-			// Intentamos buscar una notificacion inexistente
-			DAONotification.queryNotificationsProject(0);
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		} catch(NonExistentNotificationException e) {
-		} catch(Exception e) {
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		}		
+		}	
 		
 		try {
 			// Intentamos actualizar una notificacion inexistente
@@ -653,6 +607,9 @@ public class PruebasPersistencia extends PruebasBase {
 			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
+			not.getUsers().add(chief);
+			not.getUsers().add(employee);
+			DAONotification.update(not);
 			nots = DAONotification.queryNotificationsUser(chief.getId(), project.getId());
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
@@ -693,18 +650,6 @@ public class PruebasPersistencia extends PruebasBase {
 			assertTrue((not.equals(nots.get(0)) && !not.equals(nots.get(1))) || (not.equals(nots.get(1)) && !not.equals(nots.get(0))));
 		} catch(Exception e) {
 			fail(e.toString());
-		}
-		
-		try {
-			// Modificamos la notificacion
-			not.setSubject("subject");
-			not.setState("Unread");
-			DAONotification.update(not);
-			// Se comprueba que se ha actualizado el estado para ese usuario y no para el otro
-			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
-			assertTrue((nots.get(0).equals(not) || nots.get(1).equals(not)));
-		} catch(Exception e) {
-			fail(e.toString());
 		}		
 
 		try {
@@ -721,11 +666,10 @@ public class PruebasPersistencia extends PruebasBase {
 		try {
 			// Eliminar la otra notificacion
 			DAONotification.delete(not);
-			DAONotification.queryNotificationsProject(project.getId());
-			fail("Se esperaba una excepción NonExistentNotificationException");
-		} catch(NonExistentNotificationException e) {
+			List<Notification> nots = DAONotification.queryNotificationsProject(project.getId());
+			assertTrue(nots.size() == 0);		
 		} catch(Exception e) {
-			fail("Se esperaba una excepción NonExistentNotificationException");
+			fail(e.toString());
 		}		
 	}
 	

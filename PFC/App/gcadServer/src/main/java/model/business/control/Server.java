@@ -2,6 +2,7 @@ package model.business.control;
 
 import internationalization.AppInternationalization;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,12 +10,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.jdom.JDOMException;
+
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.retrieveAlgorithms.EuclDistanceMethod;
 import model.business.control.CBR.retrieveAlgorithms.NNMethod;
+import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
+import model.business.knowledge.Coordinates;
 import model.business.knowledge.IMessageTypeLog;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Notification;
@@ -31,9 +36,11 @@ import communication.IClient;
 import communication.IServer;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRoleException;
+import exceptions.NonExistentAddressException;
+import exceptions.NonExistentNotificationException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
+import exceptions.WSResponseException;
 
 /**
  * This class implements the facade of the server.
@@ -51,7 +58,7 @@ public class Server implements IServer {
 	}
 	
 	/*** Methods used to manage login and signout ***/
-	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, NonExistentRoleException, Exception {
+	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, Exception {
 		ISession session;
 		try {
 			session = SessionController.login(user, pass);
@@ -61,10 +68,7 @@ public class Server implements IServer {
 			throw se;
 		} catch(IncorrectEmployeeException iee) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("IncorrectEmployee_msg") + " '" + user + "' " + AppInternationalization.getString("Login_msg") + iee.getLocalizedMessage());
-			throw iee;
-		} catch(NonExistentRoleException ner) {
-			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("Role_permissions_msg") + " '" + user + "': " + ner.getLocalizedMessage());
-			throw ner;
+			throw iee;		
 		} catch(Exception e) {
 			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("Exception_login") + " " + e.toString());
 			throw e;
@@ -419,7 +423,7 @@ public class Server implements IServer {
 		}			
 	}
 
-	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	public ArrayList<Notification> getNotificationsProject(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		ArrayList<Notification> notifications;
 		try {
@@ -729,6 +733,35 @@ public class Server implements IServer {
 	@Override
 	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		UsersController.addProjectsUser(sessionId, user, project);
+	}
+
+	public Coordinates getCoordinates(long sessionId, Address add) throws NonExistentAddressException, WSResponseException, IOException, JDOMException {
+		// TODO
+		return GeoCoder.getGeoCoordinates(add);		
+	}
+
+	public void createNotification(long sessionId, Notification n) throws SQLException, NonPermissionRoleException, NotLoggedException {
+		// TODO 
+		NotificationController.insertNotification(sessionId, n);
+		
+	}
+
+	public ArrayList<Notification> getNotificationsUser(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
+		// TODO
+		Session session = SessionController.getSession(sessionId);
+		return NotificationController.getNotificationsUser(sessionId, session.getUser().getId(), session.getCurrentActiveProject());
+		
+	}
+
+	public void updateNotification(long sessionId, Notification not) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException {
+		// TODO
+		NotificationController.update(sessionId, not);		
+	}
+	
+	public void updateNotificationState(long sessionId, Notification not) throws NotLoggedException, SQLException, NonPermissionRoleException {
+		// TODO
+		Session session = SessionController.getSession(sessionId);
+		NotificationController.updateState(sessionId, session.getUser().getId(), not);
 	}
 	
 }

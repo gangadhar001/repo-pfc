@@ -12,9 +12,5 @@ public class NotLoggedException extends Exception {
 	public NotLoggedException() {
 		super(AppInternationalization.getString("NotLogged_Exception"));
 	}
-	
-	public NotLoggedException(String message) {
-		super(message);
-	}
 
 }
