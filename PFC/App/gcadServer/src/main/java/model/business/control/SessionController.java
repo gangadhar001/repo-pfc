@@ -185,24 +185,15 @@ public class SessionController {
 						// For each group, read subgroup
 						for (int j = 0; j < groupsName.size(); j++)
 						{
-							subgroupsName = configFile.getList("Profile(" + i + ").Group(" + j + ").Subgroup[@id]");
-							// If there aren't any subgroups, take operations
-							if (subgroupsName.size() == 0)
+						subgroupsName = configFile.getList("Profile(" + i + ").Group(" + j + ").Subgroup[@id]");
+						
+							// If there are subgroups, take operations for each one
+							for (int k = 0; k < subgroupsName.size(); k++)
 							{
-								operationsName = configFile.getList("Profile(" + i + ").Group(" + j + ").Operations.id");
-								op = new Operation(groupsName.get(j), "", operationsName);
+								operationsName = configFile.getList("Profile(" + i + ").Group(" + j + ").Subgroup(" + k + ").Operations.id");
+								op = new Operation(groupsName.get(j), subgroupsName.get(k), operationsName);
 								result.add(op);
-							}
-							else
-							{
-								// If there are subgroups, take operations for each one
-								for (int k = 0; k < subgroupsName.size(); k++)
-								{
-									operationsName = configFile.getList("Profile(" + i + ").Group(" + j + ").Subgroup(" + k + ").Operations.id");
-									op = new Operation(groupsName.get(j), subgroupsName.get(k), operationsName);
-									result.add(op);
-								}
-							}
+							}							
 						}
 					}
 				}

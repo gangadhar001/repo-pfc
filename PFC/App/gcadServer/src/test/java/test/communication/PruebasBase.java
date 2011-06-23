@@ -1,6 +1,5 @@
 package test.communication;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.util.List;
 
 import persistence.utils.HibernateQuery;
@@ -21,7 +20,6 @@ public class PruebasBase extends TestCase {
 		HibernateQuery consulta;
 		List<?> datos;
 		DBConnection conexion;
-		boolean iniciado;
 		
 		try {
 			// Ponemos la conexión local con la base de datos
@@ -31,7 +29,6 @@ public class PruebasBase extends TestCase {
 			// problemas al reutilizar los objetos de las pruebas
 			HibernateSessionFactory.closeSession();
 			// Borramos la base de datos (solo hacen falta estos objetos, porque los demas se borran en cascada)
-			iniciado = false;
 			for(String clase : new String[] { "Project", "LogEntry", "Company", "Address", "User"}) {
 				consulta = new HibernateQuery("FROM " + clase);
 				datos = DBConnectionManager.query(consulta);

@@ -17,7 +17,7 @@ import communication.IClient;
 /**
  * Cliente dummy utilizado en las pruebas del servidor front-end.
  */
-class ClientePrueba extends UnicastRemoteObject implements IClient {
+public class ClientePrueba extends UnicastRemoteObject implements IClient {
 
 	private static final long serialVersionUID = -6461417903923553869L;
 
