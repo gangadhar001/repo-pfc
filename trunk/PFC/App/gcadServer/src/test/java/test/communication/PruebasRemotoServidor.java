@@ -156,28 +156,25 @@ public class PruebasRemotoServidor extends PruebasBase {
 		}		
 		
 		try {
+			// TODO: llamarlo desde la conexion
 			// Probamos las operaciones de gestión de notificaciones
 			topic = new Topic("pro", "desc", new Date());
 			conexion.addTopic(sessionChief.getId(), topic);
 			conexion.setCurrentProject(sessionChief.getId(), project.getId());
 			Set<User> users = new HashSet<User>();			
-			users.add(chief);
-			users.add(employee);
 			// Crear notificación			
 			not = new Notification(topic, "Unread", project, "subject", users);
-			// TODO: hacer este método en el servidor
 			DAONotification.insert(not);
-			assertEquals(conexion.getNotifications(sessionChief.getId()).size(), 1);
-			assertEquals(not, conexion.getNotifications(sessionChief.getId()).get(0));
-			// Modificar notificacion
-			//TODO: hacer estos métodos en el servidor
-			DAONotification.updateState(not, chief.getId());
-			String state = conexion.getNotifications(sessionChief.getId()).get(0).getState();
-			assertEquals(state, not.getState());
-			not.setSubject("subject");
-			not.setState("Read");
+			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).size(), 1);
+			assertEquals(not, conexion.getNotificationsProject(sessionChief.getId()).get(0));			
+			not.getUsers().add(employee);
+			not.getUsers().add(chief);
 			DAONotification.update(not);
-			assertEquals(conexion.getNotifications(sessionChief.getId()).get(0), not);
+			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).get(0), not);
+			// Modificar notificacion
+			DAONotification.updateState(not, chief.getId());
+			String state = conexion.getNotificationsProject(sessionChief.getId()).get(0).getState();
+			assertEquals(state, not.getState());
 			// Eliminar
 			conexion.removeNotification(sessionChief.getId(), not);
 		} catch(Exception e) {

@@ -11,6 +11,10 @@ public class DominioTest extends TestCase {
 		TestSuite("Tests para la capa de dominio");
 		suite.addTestSuite(PruebasControlador.class);
 		suite.addTestSuite(PruebasSesiones.class);
+		suite.addTestSuite(GeoCoderTest.class);
+		suite.addTestSuite(UsersControllerTest.class);
+		suite.addTestSuite(ProjectsControllerTest.class);
+		suite.addTestSuite(NotificationsControllerTest.class);
 		return suite;
 	}
 

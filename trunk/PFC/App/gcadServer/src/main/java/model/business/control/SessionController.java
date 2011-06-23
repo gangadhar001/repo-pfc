@@ -27,7 +27,6 @@ import model.business.knowledge.User;
 import model.business.knowledge.UserRole;
 import persistence.DAOUser;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRoleException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -44,7 +43,7 @@ public class SessionController {
 	/**
 	 * Method that log in an user and creates a session
 	 */
-	public static Session login(String login, String password) throws IncorrectEmployeeException, SQLException, NonExistentRoleException {
+	public static Session login(String login, String password) throws IncorrectEmployeeException, SQLException {
 		Enumeration<Session> openedSessions; 
 		Session session, openedSession;
 		User user;
@@ -115,7 +114,7 @@ public class SessionController {
 		sessions.remove(sessionID);
 	}
 
-	public static void disconnectClients() throws RemoteException {
+	public static void disconnectClients() {
 		sessions = new Hashtable<Long, Session>();		
 	}
 
@@ -262,5 +261,20 @@ public class SessionController {
 			}
 		}
 		return result;
+	}
+	
+	// Method used to update the user of the session
+	public static void refreshUserInformation(User user) {
+		boolean found = false;
+		long id = -1;
+		Enumeration<Long> keys = sessions.keys();
+		while(!found && keys.hasMoreElements()) {
+			id = keys.nextElement();
+			if (sessions.get(id).getUser().equals(user))
+				found = true;
+		}
+		if (found)
+			sessions.get(id).setUser(user);
+	
 	}
 }

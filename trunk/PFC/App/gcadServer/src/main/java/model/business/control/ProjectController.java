@@ -46,7 +46,7 @@ public class ProjectController {
 		return result;
 	}
 
-	public static List<Project> getProjects(long sessionId) throws NonPermissionRoleException, NotLoggedException, SQLException, NonExistentProjectException {
+	public static List<Project> getProjects(long sessionId) throws NonPermissionRoleException, NotLoggedException, SQLException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Get.name()));
 		

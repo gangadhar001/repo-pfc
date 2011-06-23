@@ -16,7 +16,6 @@ import persistence.utils.HibernateQuery;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentCompanyException;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRoleException;
 
 /**
  * This class allows to query users from the database

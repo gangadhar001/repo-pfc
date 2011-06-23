@@ -179,10 +179,6 @@ public class JDAbout extends javax.swing.JDialog {
 		listenerList.add(CloseWindowListener.class, ventanaCerradaListener);
 	}
 
-	public void removeVentanaCerradaListener(CloseWindowListener listener) {
-		listenerList.remove(CloseWindowListener.class, listener);
-	}
-
 	//$hide<<$
 
 }

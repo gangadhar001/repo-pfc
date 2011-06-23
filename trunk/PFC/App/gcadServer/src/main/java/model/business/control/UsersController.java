@@ -18,18 +18,21 @@ import model.business.knowledge.User;
 
 public class UsersController {
 
-	public static List<User> getUsers(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
+	public static List<User> getUsers(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Get.name()));
 		
 		return DAOUser.getUsers();
 	}
 
-	public static void addProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException {
+	public static void addProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
 		// TODO: cambiar, haciendo el update 
-//		DAOUser.updateProject(user, project);		
+		// DAOUser.updateProject(user, project);
+		user.getProjects().add(project);
+		DAOUser.update(user);
+		SessionController.refreshUserInformation(user);
 	}
 
 }

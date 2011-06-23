@@ -19,7 +19,6 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRoleException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -32,7 +31,7 @@ public interface IServer extends Remote {
 	public static final String NAME_SERVER = "gcadServer";
 
 	/*** Methods used to manage login and signout ***/
-	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, NonExistentRoleException, Exception;
+	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, Exception;
 	
 	public void signout(long sessionID) throws RemoteException, SQLException, NotLoggedException, Exception ;
 
@@ -64,7 +63,7 @@ public interface IServer extends Remote {
 	/*** Methods used to manage notifications ***/	
 	public void removeNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 
-	public ArrayList<Notification> getNotifications(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public ArrayList<Notification> getNotificationsProject(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
 	/*** Auxiliary methods ***/
 	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;

@@ -69,12 +69,85 @@ public class PruebasConexiones extends UISpecTestCase {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción SQLException");
 		}
+		
+		try {
+			// Intentamos ejecutar un comando sin ninguna base de datos configurada
+			DBConnectionManager.clear();
+			DBConnectionManager.query("SELECT * FROM Users");
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
 
 		try {
-			// Intentamos insertar un objeto sin ninguna base de datos configurada
+			// Intentamos inicializar la transaccion sin ninguna base de datos configurada
 			DBConnectionManager.initTransaction();
 			DBConnectionManager.insert(new Address("street", "city", "country", "zip"));
 			DBConnectionManager.finishTransaction();
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+		
+		try {
+			// Intentamos insertar un objeto sin ninguna base de datos configurada
+			DBConnectionManager.insert(new Address("street", "city", "country", "zip"));
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+		
+		try {
+			// Intentamos finalizar la transaccion sin ninguna base de datos configurada
+			DBConnectionManager.finishTransaction();
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+		
+
+		try {
+			// Intentamos actualizar un objeto sin ninguna base de datos configurada
+			DBConnectionManager.update(new Address("street", "city", "country", "zip"));
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+		
+		try {
+			// Intentamos actualizar un objeto sin ninguna base de datos configurada
+			DBConnectionManager.executeUpdate("UPDATE FROM Users");
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+		
+
+		try {
+			// Intentamos eliminar un objeto sin ninguna base de datos configurada
+			DBConnectionManager.delete(new Address("street", "city", "country", "zip"));
+			fail("Se esperaba una excepción SQLException");
+		} catch(SQLException e) {
+			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
+		} catch(Exception e) {
+			fail("Se esperaba una excepción SQLException");
+		}
+		
+		try {
+			// Intentamos eliminar la cache sin ninguna base de datos configurada
+			DBConnectionManager.clearCache(new Address("street", "city", "country", "zip"));
 			fail("Se esperaba una excepción SQLException");
 		} catch(SQLException e) {
 			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
