@@ -3,8 +3,6 @@ package model.business.control;
 import internationalization.AppInternationalization;
 
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -48,12 +46,7 @@ public class ServerController {
 		serverWindowUI.setVisible(false);
 	}
 
-	// TODO: pruebas
-//	public void hideServerWindowUI() {
-//		serverWindowUI.setVisible(false);
-//	}
-
-	public void startServer(ServerConfiguration configuration) throws RemoteException, MalformedURLException, UnknownHostException, NotBoundException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void startServer(ServerConfiguration configuration) throws RemoteException, MalformedURLException, SQLException {
 		serverIP = CommunicationsUtilities.getHostIP();
 		boolean ok;
 		
@@ -73,7 +66,7 @@ public class ServerController {
 		databaseConnection.setUser(configuration.getDBUser());
 		databaseConnection.setPassword(configuration.getDBPassword());
 		
-		ok = databaseConnection.testConexion();
+		ok = databaseConnection.testConecction();
 		if(!ok) {
 			throw new SQLException(AppInternationalization.getString("TestDBConnection_Exception"));
 		}
@@ -100,7 +93,7 @@ public class ServerController {
 		isServerActivate = true;
 	}
 
-	public void stopServer(ServerConfiguration configuration) throws RemoteException, MalformedURLException, UnknownHostException, SQLException {
+	public void stopServer(ServerConfiguration configuration) throws MalformedURLException {
 		// When disconnect the server, it ignores all errors in order to put down the server, 
 		// even if do not have access to clients who had registered (eg, because the network is down), 
 		// the database server has stopped or changed the IP of server

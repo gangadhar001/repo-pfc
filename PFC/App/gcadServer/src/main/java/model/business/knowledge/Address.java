@@ -72,10 +72,10 @@ public class Address implements Serializable {
 	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer();
-		result.append("Address:\n");
-		result.append("      " + street + "\n");
-		result.append("      " + city + " " + zip + "\n");
-		result.append("      " + country + "\n");
+		result.append("Address: ");
+		result.append("      " + street + " ");
+		result.append("      " + city + " " + zip + " ");
+		result.append("      " + country + " ");
 		return result.toString();
 	}
 

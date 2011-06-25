@@ -81,7 +81,6 @@ public class ServerConfiguration {
 	}
 	
 	@Override
-	// TODO
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -115,9 +114,5 @@ public class ServerConfiguration {
 		if (serverPort != other.serverPort)
 			return false;
 		return true;
-	}
-	
-	
-
-	
+	}	
 }

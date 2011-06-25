@@ -174,7 +174,7 @@ public class PruebasRemotoServidor extends PruebasBase {
 			String state = conexion.getNotificationsProject(sessionChief.getId()).get(0).getState();
 			assertEquals(state, not.getState());
 			// Eliminar
-			conexion.removeNotification(sessionChief.getId(), not);
+			conexion.deleteNotification(sessionChief.getId(), not);
 		} catch(Exception e) {
 			fail(e.toString());
 		}		

@@ -1,6 +1,6 @@
 package model.business.knowledge;
 
-import java.io.Serializable;
+
 import java.util.HashSet;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  */
 
 @XmlAccessorType( XmlAccessType.FIELD )
-public class ChiefProject extends User implements Serializable {
+public class ChiefProject extends User {
 	
 	private static final long serialVersionUID = 2298009369141533960L;
 

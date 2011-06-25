@@ -56,10 +56,9 @@ public class ClientsController {
 				clients.get(id).notifyKnowledgeRemoved(k);
 	}
 	
-	public static void notifyNotificationAvailable(long sessionId, Notification n) throws RemoteException {
+	public static void notifyNotificationAvailable(Notification n) throws RemoteException {
 		// Notify the clients about the operation, in order to refresh their view (if it is necessary)
 		for(Long id : clients.keySet()) 
-//			if (id != sessionId)
 				clients.get(id).notifyNotificationAvailable(n);
 	}
 	

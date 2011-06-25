@@ -158,7 +158,6 @@ public class DBConnection implements IDBConnection {
 	
 	public void commit() throws RemoteException, SQLException {
 		try {			
-//			HibernateSessionFactory.getSession().flush();
 			HibernateSessionFactory.getSession().getTransaction().commit();
 			HibernateSessionFactory.closeSession();
 		} catch(HibernateException ex) {
@@ -168,7 +167,6 @@ public class DBConnection implements IDBConnection {
 
 	public void rollback() throws RemoteException, SQLException {
 		try {
-//			HibernateSessionFactory.getSession().flush();
 			HibernateSessionFactory.getSession().getTransaction().rollback();
 			HibernateSessionFactory.closeSession();
 		} catch(HibernateException ex) {
@@ -177,7 +175,7 @@ public class DBConnection implements IDBConnection {
 	}
 
 	@SuppressWarnings("deprecation")
-	public boolean testConexion() {
+	public boolean testConecction() {
 		Session sesion;
 		boolean ok;
 		

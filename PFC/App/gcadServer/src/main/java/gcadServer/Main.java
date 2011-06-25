@@ -8,8 +8,7 @@ import model.business.control.ServerController;
 public class Main {
 	
 	public static void main(String[] args) {
-		ServerController cont;
-		
+		ServerController cont;		
 		cont = new ServerController();
 		cont.showServerWindowUI();
 	}

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.NonExistentProjectException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 

@@ -63,7 +63,6 @@ public class KnowledgeController {
 	
 	/**
 	 * This method returns all existing proposals from current project 
-	 * @throws NonExistentTopicException 
 	 */
 	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
@@ -78,7 +77,6 @@ public class KnowledgeController {
 	
 	/**
 	 * This method returns all existing answers from current project
-	 * @throws NonExistentTopicException 
 	 */
 	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
@@ -189,7 +187,7 @@ public class KnowledgeController {
 		}
 	}
 	
-	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException, NonPermissionRoleException, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException, NonExistentAnswerException, NonExistentProposalException, NonExistentTopicException {
+	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentAnswerException, NonExistentProposalException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Modify.name()));
 		
