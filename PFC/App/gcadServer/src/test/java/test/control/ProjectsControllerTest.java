@@ -1,5 +1,6 @@
 package test.control;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +96,16 @@ public class ProjectsControllerTest extends PruebasBase {
 			assertEquals(Server.getInstance().getProjects(session.getId()).get(0), project);
 		} catch(Exception e) {
 			fail(e.toString());
-		}		
+		}
+		
+		try {
+			// Se intenta crear otro proyecto con el mismo nombre
+			DAOProject.insert(project);
+			fail("Se esperaba SQLException");
+		} catch(SQLException e) {
+		} catch(Exception e) {
+			fail("Se esperaba SQLException");
+		}	
 	}
 	
 	public void testGetUsersProject() {		
@@ -145,6 +155,15 @@ public class ProjectsControllerTest extends PruebasBase {
 		}
 		
 		try {
+			// Se intentan obtener los proyectos de un usuario con una sesión invalida
+			Server.getInstance().getProjectsFromCurrentUser(-15);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}
+		
+		try {
 			// Se intentan obtener los usuarios de un proyecto sin tener permiso
 			session = Server.getInstance().login("emp1", "emp1");
 			Server.getInstance().getProjects(session.getId());
@@ -165,7 +184,17 @@ public class ProjectsControllerTest extends PruebasBase {
 			assertEquals(projects.get(0), project);
 		} catch(Exception e) {
 			fail(e.toString());
-		}		
+		}	
+		
+		try {
+			// Se intentan obtener todos los proyectos de un usuario
+			Server.getInstance().addProjectsUser(session.getId(), chief, project);
+			List<Project> projects = Server.getInstance().getProjectsFromCurrentUser(session.getId());
+			assertTrue(projects.size() == 1);
+			assertEquals(projects.get(0), project);
+		} catch(Exception e) {
+			fail(e.toString());
+		}	
 	}
 	
 	public void testGetAttributesProject() {		

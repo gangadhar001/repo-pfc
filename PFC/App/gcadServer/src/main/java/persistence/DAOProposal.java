@@ -110,7 +110,8 @@ public class DAOProposal {
 			old.setDate(p.getDate());
 			old.setDescription(p.getDescription());
 			old.setTitle(p.getTitle());
-			old.setUser(p.getUser());			
+			old.setUser(p.getUser());	
+			old.setId(p.getId());
 
 			DBConnectionManager.update(old);
 		} finally {

@@ -15,6 +15,7 @@ public class DominioTest extends TestCase {
 		suite.addTestSuite(UsersControllerTest.class);
 		suite.addTestSuite(ProjectsControllerTest.class);
 		suite.addTestSuite(NotificationsControllerTest.class);
+		suite.addTestSuite(KnowledgeControllerTest.class);
 		return suite;
 	}
 

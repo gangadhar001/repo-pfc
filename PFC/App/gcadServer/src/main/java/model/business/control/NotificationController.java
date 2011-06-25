@@ -8,6 +8,7 @@ import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Subgroups;
+import model.business.knowledge.User;
 import persistence.DAONotification;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonPermissionRoleException;
@@ -58,7 +59,14 @@ public class NotificationController {
 		SessionController.checkPermission(sessionId, new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Delete.name()));
 		
 		DAONotification.delete(notification);
-	}		
+	}	
+	
+	public static void deleteNotificationFromUser(long sessionId, User u, Notification notification) throws SQLException, NonPermissionRoleException, NotLoggedException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Delete.name()));
+		
+		DAONotification.deleteFromUser(notification, u.getId());
+	}
 	
 
 }

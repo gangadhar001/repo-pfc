@@ -1,7 +1,10 @@
 package test.control;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+
+import persistence.DAOUser;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -64,11 +67,20 @@ public class UsersControllerTest extends PruebasBase {
 		}
 	}
 	
-	public void testGetUsers() {		
+	public void testGetUsers() {
 		ISession session = null;
 		try {
 			// Se intenta obtener todos los usuarios con una sesion invalida
 			Server.getInstance().getUsers(-15);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}
+		
+		try {
+			// Se intenta obtener el usuario logueado con una sesion invalida
+			Server.getInstance().getLoggedUser(-15);
 			fail("se esperaba NotLoggedException");
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
@@ -92,7 +104,24 @@ public class UsersControllerTest extends PruebasBase {
 			assertTrue(users.size() == 2);
 		} catch(Exception e) {
 			fail(e.toString());
-		}		
+		}
+		
+		try {
+			// Se intenta obtener el usuario logueado 
+			User user = Server.getInstance().getLoggedUser(session.getId());
+			assertEquals(user, chief);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			// Se intenta duplicar el usuario, para forzar la excepción
+			DAOUser.insert(chief);
+			fail("se esperaba SQLException");
+		} catch (SQLException e) { 
+		} catch(Exception e) {
+			fail("se esperaba SQLException");
+		}
 	}
 	
 	public void testUpdateUsers() {		
@@ -117,7 +146,7 @@ public class UsersControllerTest extends PruebasBase {
 		}
 		
 		try {
-			// Se intenta actualziar el usuario con un nuevo proyecto
+			// Se intenta actualizar el usuario con un nuevo proyecto
 			assertTrue(employee.getProjects().size() == 0);
 			session2 = Server.getInstance().login("emp2", "emp2");
 			Server.getInstance().addProjectsUser(session2.getId(), employee, project);

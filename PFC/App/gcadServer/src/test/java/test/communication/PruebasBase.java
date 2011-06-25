@@ -41,6 +41,7 @@ public class PruebasBase extends TestCase {
 			}
 		} catch(Exception e) {
 			fail(e.toString());
+			e.printStackTrace();
 		}
 	}
 	

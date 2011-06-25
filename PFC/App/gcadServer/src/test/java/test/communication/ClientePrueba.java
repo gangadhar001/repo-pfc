@@ -71,7 +71,7 @@ public class ClientePrueba extends UnicastRemoteObject implements IClient {
         }
     }
     
-    public void deactivate(String ip) throws RemoteException, MalformedURLException, NotBoundException {
+    public void deactivate(String ip) throws RemoteException, MalformedURLException {
 		// Si el objeto no estaba exportado, controlamos las
 		// excepciones y no las lanzamos hacia arriba
     	try {

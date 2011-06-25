@@ -32,7 +32,6 @@ public class PruebasConexiones extends UISpecTestCase {
 	private DBLogManager conexionLogBD;
 	private WindowsLogManager conexionLogVentana;
 	private JFServer ventana;
-	//private ProxyServidorRespaldo conexionRespaldo;
 	
 	protected void setUp() {
 		try {

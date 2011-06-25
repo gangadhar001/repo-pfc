@@ -143,24 +143,6 @@ public abstract class User implements Serializable {
 	public String toString () {
 		return name + " " + surname;
 	}
-	
-	public String getInfo() {
-		StringBuffer result = new StringBuffer();
-		Project p;
-		result.append("User:\n");
-		result.append("      " + nif + "\n");
-		result.append("      " + name + "\n");
-		result.append("      " + surname + "\n");
-		result.append("      " + email + "\n");
-		result.append("      " + telephone + "\n");
-		result.append("      " + company + "\n");
-		result.append("      Projects:\n");
-		for (Iterator<Project> i = projects.iterator(); i.hasNext(); ) {
-			p = (Project) i.next();
-			result.append("      " + p + "\n");
-		}			
-		return result.toString();
-	}
 
 	@Override
 	public boolean equals(Object obj) {
