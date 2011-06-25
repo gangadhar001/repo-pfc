@@ -1,9 +1,8 @@
 package model.business.knowledge;
 
-import java.io.Serializable;
+
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,7 +13,7 @@ import javax.xml.bind.annotation.XmlAccessType;
  * This class represents a Proposal
  */
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Proposal extends Knowledge implements Serializable {
+public class Proposal extends Knowledge {
 	
 	private static final long serialVersionUID = -404860160279086681L;
 	

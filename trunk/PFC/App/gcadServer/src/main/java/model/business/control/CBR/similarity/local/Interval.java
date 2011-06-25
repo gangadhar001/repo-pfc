@@ -29,7 +29,8 @@ public class Interval implements LocalSimilarityFunction, Serializable {
 		Number num1 = (Number) value1;
 		Number num2 = (Number) value2;
 		
-		return 1 - ((double) Math.abs(num1.doubleValue() - num2.doubleValue()) / interval);
+		double abs = Math.abs(num1.doubleValue() - num2.doubleValue());
+		return 1 - (abs / interval);
 	}
 	
 

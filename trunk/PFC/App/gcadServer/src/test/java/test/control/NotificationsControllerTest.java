@@ -196,7 +196,7 @@ public class NotificationsControllerTest extends PruebasBase {
 		ISession session = null;
 		try {
 			// Se intenta modificar una notificacion con una sesion invalida
-			Server.getInstance().updateNotification(-15, not);
+			Server.getInstance().modifyNotification(-15, not);
 			fail("se esperaba NotLoggedException");
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
@@ -206,7 +206,7 @@ public class NotificationsControllerTest extends PruebasBase {
 		try {
 			// Se intenta modificar una notificacion inexistente
 			session = Server.getInstance().login("emp2", "emp2");
-			Server.getInstance().updateNotification(session.getId(), not);
+			Server.getInstance().modifyNotification(session.getId(), not);
 			fail("se esperaba NonExistentNotificationException");
 		} catch (NonExistentNotificationException e) { 
 		} catch(Exception e) {
@@ -223,13 +223,13 @@ public class NotificationsControllerTest extends PruebasBase {
 			// Se añade un usuario a la notificacion y se actualiza
 			not.getUsers().add(chief);
 			not.getUsers().add(employee);
-			Server.getInstance().updateNotification(session.getId(), not);
+			Server.getInstance().modifyNotification(session.getId(), not);
 			nots = Server.getInstance().getNotificationsUser(session.getId());
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
 			// Se modifica el estado de la notificacion para este usuario
 			not.setState("Read");
-			Server.getInstance().updateNotificationState(session.getId(), not);
+			Server.getInstance().modifyNotificationState(session.getId(), not);
 			nots = Server.getInstance().getNotificationsUser(session.getId());
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
@@ -248,7 +248,7 @@ public class NotificationsControllerTest extends PruebasBase {
 		ISession session = null;
 		try {
 			// Se intenta eliminar una notificacion con una sesion invalida
-			Server.getInstance().removeNotification(-15, not);
+			Server.getInstance().deleteNotification(-15, not);
 			fail("se esperaba NotLoggedException");
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
@@ -257,7 +257,7 @@ public class NotificationsControllerTest extends PruebasBase {
 		
 		try {
 			// Se intenta eliminar una notificacion con una sesion invalida
-			Server.getInstance().removeNotificationFromUser(-15, not);
+			Server.getInstance().deleteNotificationFromUser(-15, not);
 			fail("se esperaba NotLoggedException");
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
@@ -274,7 +274,7 @@ public class NotificationsControllerTest extends PruebasBase {
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
 			// Se elimina una notificación
-			Server.getInstance().removeNotification(session.getId(), not);
+			Server.getInstance().deleteNotification(session.getId(), not);
 			nots = Server.getInstance().getNotificationsProject(session.getId());
 			assertTrue(nots.size() == 0);
 		} catch(Exception e) {
@@ -284,12 +284,12 @@ public class NotificationsControllerTest extends PruebasBase {
 		try {
 			Server.getInstance().createNotification(session.getId(), not);
 			not.getUsers().add(chief);
-			Server.getInstance().updateNotification(session.getId(), not);
+			Server.getInstance().modifyNotification(session.getId(), not);
 			List<Notification> nots = Server.getInstance().getNotificationsProject(session.getId());
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
 			// Se elimina una notificación
-			Server.getInstance().removeNotificationFromUser(session.getId(), not);
+			Server.getInstance().deleteNotificationFromUser(session.getId(), not);
 			// Se ha lanzado el trigger de la base de datos, por lo que ya no existe esta notificacion
 			nots = Server.getInstance().getNotificationsProject(session.getId());
 			assertTrue(nots.size() == 0);

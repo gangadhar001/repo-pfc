@@ -1,6 +1,5 @@
 package model.business.knowledge;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,7 +9,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * This class represents an Answer given to a Proposal
  */
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Answer extends Knowledge implements Serializable{
+public class Answer extends Knowledge{
 			
 	private static final long serialVersionUID = -1238919159476139631L;
 	

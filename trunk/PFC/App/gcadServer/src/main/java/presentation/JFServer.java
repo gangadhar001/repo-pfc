@@ -1,13 +1,8 @@
 package presentation;
 
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
-
-import communication.ServerConfiguration;
 import internationalization.AppInternationalization;
 
 import java.awt.BorderLayout;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -17,10 +12,10 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.EventObject;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,6 +35,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 
 import model.business.control.ServerController;
+
 import org.jdesktop.application.Application;
 
 import presentation.auxiliary.CloseWindowListener;
@@ -47,7 +43,9 @@ import presentation.auxiliary.IWindowState;
 import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
 
-import java.util.EventObject;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
+import communication.ServerConfiguration;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -492,26 +490,11 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		} catch(MalformedURLException e) {
 			glassPane.stop();
 			putMessage("Error: " + e.getLocalizedMessage());
-		} catch(UnknownHostException e) {
-			glassPane.stop();
-			putMessage("Error: " + e.getLocalizedMessage());
-		} catch(NotBoundException e) {
-			glassPane.stop();
-			putMessage("Error: " + e.getLocalizedMessage());
 		} catch(RemoteException e) {
 			glassPane.stop();
 			putMessage("Error: " + e.getLocalizedMessage());
 			disableServer();
-		} catch (InstantiationException e) {
-			glassPane.stop();
-			putMessage("Error: " + e.getLocalizedMessage());
-		} catch (IllegalAccessException e) {
-			glassPane.stop();
-			putMessage("Error: " + e.getLocalizedMessage());
-		} catch (ClassNotFoundException e) {
-			glassPane.stop();
-			putMessage("Error: " + e.getLocalizedMessage());
-		}		
+		}			
 	}   
 	
 	private boolean disableServer() {
@@ -531,14 +514,8 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			btnDisconnect.setEnabled(false);
 			mniDisconnect.setEnabled(false);
 			updateState();
-			ok = true;
-		} catch(SQLException e) {
-			putMessage("Error: " + e.getLocalizedMessage());
-		} catch(RemoteException e) {
-			putMessage("Error: " + e.getLocalizedMessage());
+			ok = true;		
 		} catch(MalformedURLException e) {
-			putMessage("Error: " + e.getLocalizedMessage());
-		} catch(UnknownHostException e) {
 			putMessage("Error: " + e.getLocalizedMessage());
 		}
 		

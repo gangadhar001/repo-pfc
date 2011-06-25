@@ -1,8 +1,8 @@
 package model.business.knowledge;
 
-import java.io.Serializable;
+
 import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Abstract class that represents a system user
  */
 @XmlAccessorType( XmlAccessType.FIELD )
-public abstract class User implements Serializable {
+public abstract class User {
 
 	/**
 	 * 
