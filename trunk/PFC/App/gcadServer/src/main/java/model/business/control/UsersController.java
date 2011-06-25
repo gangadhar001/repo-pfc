@@ -28,8 +28,6 @@ public class UsersController {
 	public static void addProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
-		// TODO: cambiar, haciendo el update 
-		// DAOUser.updateProject(user, project);
 		user.getProjects().add(project);
 		DAOUser.update(user);
 		SessionController.refreshUserInformation(user);

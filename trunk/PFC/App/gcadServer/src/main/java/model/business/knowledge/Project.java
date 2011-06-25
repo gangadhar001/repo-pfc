@@ -126,22 +126,7 @@ public class Project implements Serializable {
 	@Override
 	public String toString() {
 		return name;
-	}
-	
-	public String getInfo() {
-		StringBuffer result = new StringBuffer();
-		result.append("Project:\n");		
-		result.append("      " + name + "\n");
-		result.append("      " + description + "\n");
-		result.append("      " + startDate + "\n");
-		result.append("      " + endDate + "\n");
-		result.append("      " + budget + "\n");
-		result.append("      " + quantityLines + "\n");
-		result.append("      " + domain + "\n");
-		result.append("      " + progLanguage + "\n");
-		result.append("      " + estimatedHours + "\n");
-		return result.toString();
-	}
+	}	
 
 	@Override
 	public boolean equals(Object obj) {

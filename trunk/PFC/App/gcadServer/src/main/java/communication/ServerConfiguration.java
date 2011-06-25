@@ -81,6 +81,7 @@ public class ServerConfiguration {
 	}
 	
 	@Override
+	// TODO
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

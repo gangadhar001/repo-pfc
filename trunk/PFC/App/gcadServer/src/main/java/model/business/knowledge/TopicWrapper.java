@@ -45,16 +45,7 @@ public class TopicWrapper implements Serializable {
 	}	
 	
 	public String toString() {
-		return "Knowledge";
-	}
-	
-	public String getInfo() {
-		StringBuffer result = new StringBuffer();
-		result.append("Topics:\n");
-		for (Topic t: topics ) {
-			result.append("      " + t + "\n");
-		}	
-		return result.toString();
+		return "Topic Wrapper " + topics;
 	}
 
 	public Topic getTopic(Topic t) {

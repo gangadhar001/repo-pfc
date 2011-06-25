@@ -57,9 +57,9 @@ public class ClientsController {
 	}
 	
 	public static void notifyNotificationAvailable(long sessionId, Notification n) throws RemoteException {
-		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view (if it is necessary)
+		// Notify the clients about the operation, in order to refresh their view (if it is necessary)
 		for(Long id : clients.keySet()) 
-			if (id != sessionId)
+//			if (id != sessionId)
 				clients.get(id).notifyNotificationAvailable(n);
 	}
 	

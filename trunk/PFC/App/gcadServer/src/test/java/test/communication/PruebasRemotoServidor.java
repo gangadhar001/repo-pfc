@@ -1,5 +1,6 @@
 package test.communication;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -83,8 +84,7 @@ public class PruebasRemotoServidor extends PruebasBase {
 		
 		// Todas las operaciones de la clase RemotoServidorFrontend se redirigen
 		// a la clase ServidorFrontend, la cual se prueba con los casos de prueba
-		// de los gestores; por eso aquí no se contempla más que un escenario
-		// para ver que la operación se ejecuta correctamente
+		// de los gestores; por eso aquí no se contempla más que algunos ejemplos
 		
 		try {
 			// Probamos las operaciones de gestión de sesiones
@@ -107,9 +107,6 @@ public class PruebasRemotoServidor extends PruebasBase {
 			projects.add(project);
 			chief.setProjects(projects);
 			employee.setProjects(projects);
-			// TODO: no hace falta, porque se hace con el update del usuario, añadiendo un proyecto
-//			conexion.addProjectsUser(sessionChief.getId(), chief, project);	
-//			conexion.addProjectsUser(sessionEmployee.getId(), employee, project);
 			DAOUser.update(chief);
 			DAOUser.update(employee);			
 			assertEquals(chief, DAOUser.queryUser(chief.getLogin(), chief.getPassword()));
@@ -130,10 +127,11 @@ public class PruebasRemotoServidor extends PruebasBase {
 			// Crear topic, proposal y answer
 			pro = new Proposal("pro", "desc", new Date(), Categories.Analysis);
 			ans = new Answer("ans", "desc", new Date(), "Pro");
-			topic = new Topic("pro", "desc", new Date());			
+			topic = new Topic("pro", "desc", new Date());	
+			conexion.setCurrentProject(sessionChief.getId(), project.getId());
 			conexion.addTopic(sessionChief.getId(), topic);
 			conexion.addProposal(sessionEmployee.getId(), pro, topic);
-			conexion.addAnwser(sessionEmployee.getId(), ans, pro);
+			conexion.addAnswer(sessionEmployee.getId(), ans, pro);
 			// Modificar topic, proposal y answer
 			Topic newTopic = (Topic) topic.clone();
 			Proposal newPro = (Proposal) pro.clone();
@@ -180,6 +178,16 @@ public class PruebasRemotoServidor extends PruebasBase {
 		} catch(Exception e) {
 			fail(e.toString());
 		}		
+		
+		try {
+			// Probamos a duplicar la compañia
+			DAOCompany.insert(company);
+			fail("Se esperaba SQLException");
+		} catch(SQLException e) {
+		} catch(Exception e) {
+			fail("Se esperaba SQLException");
+		}
+		
 	}
 
 }

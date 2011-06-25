@@ -119,8 +119,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public void addAnwser(long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		server.addAnwser(sessionId, a, parent);
+	public void addAnswer(long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.addAnswer(sessionId, a, parent);
 		
 	}
 

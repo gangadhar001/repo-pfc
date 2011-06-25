@@ -1,5 +1,6 @@
 package test.control;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,9 @@ import persistence.DAOProject;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
 import persistence.DAOUser;
+import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
+import test.utils.IDatosPruebas;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -43,6 +46,8 @@ public class NotificationsControllerTest extends PruebasBase {
 	private Proposal pro;
 	private Topic topic;
 	private Notification not;
+	private ClientePrueba chiefClient;
+	private ClientePrueba employeeClient;
 	
 	protected void setUp() {	
 		try {
@@ -70,6 +75,8 @@ public class NotificationsControllerTest extends PruebasBase {
 			DBConnectionManager.insert(topic);	
 			pro.setUser(chief);
 			DAOProposal.insert(pro, topic.getId());
+			chiefClient = new ClientePrueba();
+			employeeClient = new ClientePrueba();
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -169,11 +176,17 @@ public class NotificationsControllerTest extends PruebasBase {
 		try {
 			// Se intenta insertar una notificacion
 			session = Server.getInstance().login("emp2", "emp2");
+			chiefClient.activate(IDatosPruebas.IP_ESCUCHA_CLIENTES);
+			Server.getInstance().register(session.getId(), chiefClient);
 			Server.getInstance().setCurrentProject(session.getId(), project.getId());
+			not.getUsers().add(chief);
 			Server.getInstance().createNotification(session.getId(), not);
 			List<Notification> nots = Server.getInstance().getNotificationsProject(session.getId());
 			assertTrue(nots.size() == 1);
 			assertEquals(nots.get(0), not);
+			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
+			Thread.sleep(100);
+			assertEquals(chiefClient.getUltimoDato(), not);
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -226,6 +239,60 @@ public class NotificationsControllerTest extends PruebasBase {
 			nots = Server.getInstance().getNotificationsUser(session.getId());
 			assertTrue(nots.size() == 1);
 			assertFalse(nots.get(0).getState().startsWith("R"));
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+	}
+	
+	public void testDeleteNotification() {
+		ISession session = null;
+		try {
+			// Se intenta eliminar una notificacion con una sesion invalida
+			Server.getInstance().removeNotification(-15, not);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}
+		
+		try {
+			// Se intenta eliminar una notificacion con una sesion invalida
+			Server.getInstance().removeNotificationFromUser(-15, not);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}
+		
+		try {
+			session = Server.getInstance().login("emp2", "emp2");
+			Server.getInstance().setCurrentProject(session.getId(), project.getId());
+			List<Notification> nots = Server.getInstance().getNotificationsProject(session.getId());
+			assertTrue(nots.size() == 0);
+			Server.getInstance().createNotification(session.getId(), not);
+			nots = Server.getInstance().getNotificationsProject(session.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+			// Se elimina una notificación
+			Server.getInstance().removeNotification(session.getId(), not);
+			nots = Server.getInstance().getNotificationsProject(session.getId());
+			assertTrue(nots.size() == 0);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+		
+		try {
+			Server.getInstance().createNotification(session.getId(), not);
+			not.getUsers().add(chief);
+			Server.getInstance().updateNotification(session.getId(), not);
+			List<Notification> nots = Server.getInstance().getNotificationsProject(session.getId());
+			assertTrue(nots.size() == 1);
+			assertEquals(nots.get(0), not);
+			// Se elimina una notificación
+			Server.getInstance().removeNotificationFromUser(session.getId(), not);
+			// Se ha lanzado el trigger de la base de datos, por lo que ya no existe esta notificacion
+			nots = Server.getInstance().getNotificationsProject(session.getId());
+			assertTrue(nots.size() == 0);
 		} catch(Exception e) {
 			fail(e.toString());
 		}

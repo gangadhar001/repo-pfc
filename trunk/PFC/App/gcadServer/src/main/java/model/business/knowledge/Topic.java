@@ -77,22 +77,6 @@ public class Topic extends Knowledge implements Serializable {
 	public String toString() {
 		return title;
 	}
-	
-	public String getInfo() {
-		StringBuffer result = new StringBuffer();
-		Proposal p;
-		result.append("Topic:\n");
-		result.append("      " + title + "\n");
-		result.append("      " + date + "\n");
-		result.append("      Project:\n");
-		result.append("      " + project + "\n");
-		result.append("      Proposals:\n");
-		for (Iterator<Proposal> i = proposals.iterator(); i.hasNext(); ) {
-			p = (Proposal) i.next();
-			result.append("      " + p + "\n");
-		}	
-		return result.toString();
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -122,8 +106,10 @@ public class Topic extends Knowledge implements Serializable {
 		Set<Proposal> proposals = new HashSet<Proposal>();
 		t = new Topic(getTitle(), getDescription(), getDate());
 		t.setId(getId());
-		t.setProject((Project)getProject().clone());
-		t.setUser((User)getUser().clone());
+		if (getProject() != null)
+			t.setProject((Project)getProject().clone());
+		if (getUser() != null)
+			t.setUser((User)getUser().clone());
 		for (Proposal p: getProposals())
 			proposals.add((Proposal)p.clone());
 		t.setProposals(proposals);

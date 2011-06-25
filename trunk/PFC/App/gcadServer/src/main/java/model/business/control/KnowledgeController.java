@@ -2,6 +2,7 @@ package model.business.control;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Groups;
@@ -28,13 +29,14 @@ import exceptions.NotLoggedException;
 public class KnowledgeController {
 		
 	// Method used to get all the hierarchy of knowledge of the current project
-	public static TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRoleException, NotLoggedException {
+	public static TopicWrapper getTopicsWrapper(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Get.name()));
 
 		TopicWrapper topicWrapper = new TopicWrapper();
 		try {
-			for (Topic t: DAOTopic.queryTopicsProject(SessionController.getSession(sessionId).getCurrentActiveProject()))
+			List<Topic> topics = DAOTopic.queryTopicsProject(SessionController.getSession(sessionId).getCurrentActiveProject());
+			for (Topic t: topics)
 				topicWrapper.add(t);
 		} catch (NonExistentTopicException e) { 
 			// Ignore exception, in order to return an empty list
@@ -43,13 +45,19 @@ public class KnowledgeController {
 	}
 	
 	// Method used to get all the hierarchy of knowledge of a specific project
-	public static TopicWrapper getTopicsWrapper(long sessionId, Project p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static TopicWrapper getTopicsWrapper(long sessionId, Project p) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Get.name()));
 
 		TopicWrapper topicWrapper = new TopicWrapper();
-		for (Topic t: DAOTopic.queryTopicsProject(p.getId()))
-			topicWrapper.add(t);
+		List<Topic> topics;
+		try {
+			topics = DAOTopic.queryTopicsProject(p.getId());
+			for (Topic t: topics)
+				topicWrapper.add(t);
+		} catch (NonExistentTopicException e) {
+			// Ignore exception, in order to return an empty list
+		}
 		return topicWrapper;
 	}
 	
@@ -57,7 +65,7 @@ public class KnowledgeController {
 	 * This method returns all existing proposals from current project 
 	 * @throws NonExistentTopicException 
 	 */
-	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static ArrayList<Proposal> getProposals(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
 
@@ -72,7 +80,7 @@ public class KnowledgeController {
 	 * This method returns all existing answers from current project
 	 * @throws NonExistentTopicException 
 	 */
-	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static ArrayList<Answer> getAnswers(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Get.name()));
 
@@ -123,70 +131,105 @@ public class KnowledgeController {
 	
 	/**
 	 * Methods used to modify knowledge
-	 * @throws NonExistentTopicException 
 	 */	
-	public static void modifyTopic(long sessionId, User user, Topic newTopic, Topic oldTopic) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static void modifyTopic(long sessionId, User user, Topic newTopic) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Modify.name()));
 
-		newTopic.setUser(user);
-		//// Copy proposal list and project to new Topic
-		//newTopic.setProposals(oldTopic.getProposals());
-		//newTopic.setProject(oldTopic.getProject());
-		//newTopic.setId(oldTopic.getId());
-		//// Remove old topic
-		//int index = topicWrapper.getTopics().indexOf(oldTopic);
-		//topicWrapper.remove(oldTopic);
-		// Add new topic
-		DAOTopic.update(newTopic);
-		//topicWrapper.getTopics().add(index, newTopic);		
+		newTopic.setUser(user);		
+		DAOTopic.update(newTopic);		
 	}
 	
-	public static void modifyProposal(long sessionId, User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException, NonPermissionRoleException, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException, NonExistentTopicException, NonExistentProposalException {
+	public static void modifyProposal(long sessionId, User user, Proposal newProposal, Proposal oldProposal, Topic newParent) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException, NonExistentProposalException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Modify.name()));
-
-		newProposal.setUser(user);				
+		
+		newProposal.setUser(user);
+		Topic auxParent = (Topic) newParent.clone();
 		// If the new parent is different from the previous one, the old proposal is removed
 		Topic t = findParentProposal(sessionId, oldProposal);
 		if (t!=null && !t.equals(newParent)) {	
-			t.remove(oldProposal);
-			// Delete the old proposal from old topic (it deletes the answers too)
-			DAOProposal.delete((Proposal) oldProposal.clone());
-			DAOProposal.insert(newProposal, newParent.getId());
-			// Insert answers from old Proposal
-			for (Answer a: oldProposal.getAnswers())
-				DAOAnswer.insert(a, newProposal.getId());
-			newProposal.setAnswers(oldProposal.getAnswers());
-			newParent.add(newProposal);
+			try {
+				t.remove(oldProposal);
+				// Delete the old proposal from old topic (it deletes the answers too)
+				DAOProposal.delete((Proposal) oldProposal.clone());
+				DAOProposal.insert(newProposal, newParent.getId());
+				// Insert answers from old Proposal
+				for (Answer a: oldProposal.getAnswers())
+					DAOAnswer.insert(a, newProposal.getId());
+				newProposal.setAnswers(oldProposal.getAnswers());
+				newParent.add(newProposal);
+			} catch(NonExistentProposalException e) {
+				// Restaure parent
+				newParent = (Topic) auxParent.clone();
+				throw e;
+			} catch(NonExistentTopicException e) {
+				// Restaure parent
+				newParent = (Topic) auxParent.clone();
+				throw e;				
+			} catch(SQLException e) {
+				newParent = (Topic) auxParent.clone();
+				throw e;	
+			}
 			
 		}
 		else {
-			newProposal.setId(oldProposal.getId());
 			newParent.remove(oldProposal);
-			newParent.add(newProposal);			
-			DAOProposal.update(newProposal);
+			newParent.add(newProposal);		
+			try {
+				DAOProposal.update(newProposal);
+			} catch(NonExistentProposalException e) {
+				// Restaure parent
+				newParent = (Topic) auxParent.clone();
+				throw e;				
+			} catch(SQLException e) {
+				newParent = (Topic) auxParent.clone();
+				throw e;	
+			}			
 		}
 	}
 	
 	public static void modifyAnswer(long sessionId, User user, Answer newAnswer, Answer oldAnswer, Proposal newParent) throws SQLException, NonPermissionRoleException, InstantiationException, IllegalAccessException, ClassNotFoundException, NotLoggedException, NonExistentAnswerException, NonExistentProposalException, NonExistentTopicException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Modify.name()));
-
+		
 		newAnswer.setUser(user);
+		Proposal auxParent = (Proposal) newParent.clone();
 		// If the new parent is different from the previous one, the old answer is removed
 		Proposal p = findParentAnswer(sessionId, oldAnswer);
-		if (p!=null && !p.equals(newParent)) {		
-			p.getAnswers().remove(oldAnswer);
-			DAOAnswer.delete(oldAnswer);
-			DAOAnswer.insert(newAnswer, newParent.getId());
-			newParent.add(newAnswer);
+		if (p!=null && !p.equals(newParent)) {	
+			try{
+				p.getAnswers().remove(oldAnswer);
+				DAOAnswer.delete(oldAnswer);
+				DAOAnswer.insert(newAnswer, newParent.getId());
+				newParent.add(newAnswer);
+		
+			} catch(NonExistentProposalException e) {
+				// Restaure parent
+				newParent = (Proposal) auxParent.clone();
+				throw e;
+			} catch(NonExistentAnswerException e) {
+				// Restaure parent
+				newParent = (Proposal) auxParent.clone();
+				throw e;				
+			} catch(SQLException e) {
+				newParent = (Proposal) auxParent.clone();
+				throw e;	
+			}
 		}
 		else {
-			newAnswer.setId(oldAnswer.getId());
-			newParent.remove(oldAnswer);
-			newParent.add(newAnswer);
-			DAOAnswer.update(newAnswer);
+			try{
+				newParent.remove(oldAnswer);
+				newParent.add(newAnswer);
+				DAOAnswer.update(newAnswer);
+			} catch(NonExistentAnswerException e) {
+				// Restaure parent
+				newParent = (Proposal) auxParent.clone();
+				throw e;				
+			} catch(SQLException e) {
+				newParent = (Proposal) auxParent.clone();
+				throw e;	
+			}
 		}
 	}
 	
@@ -202,9 +245,6 @@ public class KnowledgeController {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Delete.name()));
 
-		//Topic t = findParentProposal(sessionId, p);
-		//if (t!=null)
-		//    t.getProposals().remove(p);
 		DAOProposal.delete(p);
 	}
 
@@ -212,13 +252,10 @@ public class KnowledgeController {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Delete.name()));
 
-		//Proposal p = findParentAnswer(sessionId, a);
-		//if (p!=null)
-		//    p.getAnswers().remove(a);
 		DAOAnswer.delete(a);
 	}
 
-	public static Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static Proposal findParentAnswer(long sessionId, Answer a) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		Proposal result = null;
 		for(Topic t: getTopicsWrapper(sessionId).getTopics()){
 			for (Proposal p: t.getProposals())
@@ -228,7 +265,7 @@ public class KnowledgeController {
 		return result;
 	}
 	
-	public static Topic findParentProposal(long sessionId, Proposal p) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static Topic findParentProposal(long sessionId, Proposal p) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		Topic result = null;	
 		for(Topic t: getTopicsWrapper(sessionId).getTopics()) {
 			if (t.getProposals().contains(p))
