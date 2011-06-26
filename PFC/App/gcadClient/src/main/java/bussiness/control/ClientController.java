@@ -16,7 +16,6 @@ import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Answer;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
-import model.business.knowledge.Language;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;
@@ -31,10 +30,11 @@ import org.jdom.JDOMException;
 
 import presentation.JFLogin;
 import presentation.JFMain;
+import resources.LanguagesUtilities;
+import resources.Language;
 
 import communication.CommunicationsUtilities;
 import communication.ExportedClient;
-import communication.IClient;
 import communication.ProxyServer;
 
 import exceptions.IncorrectEmployeeException;
@@ -120,7 +120,7 @@ public class ClientController {
 			client.activate(clientIP);
 			((Client)client.getExportedClient()).setController(this);
 			// Register the exported object in the server			
-			server.register(session.getId(), (IClient)client);
+			server.register(session.getId(), client);
 		} catch(RemoteException e) {
 			throw new RemoteException(ApplicationInternationalization.getString("ClientController_RegisterClient_Error"));				
 		} 	
@@ -302,15 +302,15 @@ public class ClientController {
 	}
 	
 	public Language getDefaultLanguage() throws RemoteException, JDOMException, IOException {
-		return LanguagesController.getDefaultLanguage();
+		return LanguagesUtilities.getDefaultLanguage();
 	}
 
 	public ArrayList<Language> getLanguages() throws RemoteException, JDOMException, IOException {
-		return LanguagesController.getLanguages();
+		return LanguagesUtilities.getLanguages();
 	}
 
 	public void setDefaultLanguage(Language language) throws RemoteException, JDOMException, IOException {
-		LanguagesController.setDefaultLanguage(language);
+		LanguagesUtilities.setDefaultLanguage(language);
 		
 	}
 
@@ -337,18 +337,18 @@ public class ClientController {
 		
 	}
 
-	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
+	public void notifyKnowledgeAdded(Knowledge k) {
 		mainWindowUI = Application.getInstance(JFMain.class);
 		mainWindowUI.notifyKnowledgeAdded(k);
 	}
 
-	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) throws RemoteException {
+	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
 		mainWindowUI = Application.getInstance(JFMain.class);
 		mainWindowUI.notifyKnowledgeEdited(newK, oldK);
 		
 	}
 	
-	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
+	public void notifyKnowledgeRemoved(Knowledge k)  {
 		mainWindowUI = Application.getInstance(JFMain.class);
 		mainWindowUI.notifyKnowledgeRemoved(k);
 		

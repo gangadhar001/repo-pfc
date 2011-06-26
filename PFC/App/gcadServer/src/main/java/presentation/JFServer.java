@@ -314,6 +314,16 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 							}
 						});
 					}
+					{
+	        			JMenuItem menuChange = new JMenuItem();
+	        			mnuOption.add(menuChange);
+	        			menuChange.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								mnuChangeActionPerformed(evt);
+							}
+						});
+	        			menuChange.setText(AppInternationalization.getString("changeMenu"));
+	        		}
 				}
 				{
 					mnuHelp = new JMenu();
@@ -345,6 +355,15 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	@SuppressWarnings("unused")
+	protected void mnuChangeActionPerformed(ActionEvent evt) {
+		JDLanguages lang = new JDLanguages(this);
+		lang.setLocationRelativeTo(this);
+		lang.setModal(true);
+		lang.setVisible(true);		
+	}
+
 	//$hide>>$
 	
 	private JButton configureToolbarButton(JButton button, String action) throws MalformedURLException, IOException {
@@ -476,7 +495,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		});			
 		return ok;
 	}
-	
+	  
 	 // Method used to start the server
 	private void perform(ServerConfiguration configuration) {
 		try {

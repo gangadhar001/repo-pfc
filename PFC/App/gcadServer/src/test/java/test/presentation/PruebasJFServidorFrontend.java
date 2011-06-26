@@ -33,6 +33,7 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 	private MenuItem mniConfigurar;
 	private MenuItem mniAcercaDe;
 	private MenuItem mniSalir;
+	private MenuItem mniChangeLanguage;
 
 	public void setUp() {
 		try {
@@ -51,6 +52,7 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 			mniDesconectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("mniDisconnect");
 			mniAcercaDe = winVentana.getMenuBar().getMenu("Ayuda").getSubMenu("Acerca de");
 			mniConfigurar = winVentana.getMenuBar().getMenu("Opciones").getSubMenu("Configurar");
+			mniChangeLanguage = winVentana.getMenuBar().getMenu("Opciones").getSubMenu("Cambiar idioma");
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -167,6 +169,21 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 			// Comprobamos que el cambio se ha reflejado en la ventana
 			ip = (new ServerConfiguration()).getDBIp();
 			assertEquals(lblConfigBD.getText(), "BD Principal en " + ip + ":8888");
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+	}
+	
+	/** Pruebas de la ventana de cambiar idioma */
+	public void testChangeLanguage() {		
+		try {
+			// Abrimos la ventana de configuración desde menú y cambiamos un puerto
+			WindowInterceptor.init(mniChangeLanguage.triggerClick()).process(new WindowHandler(){
+		        public Trigger process(Window window) {
+		            return window.getButton("OK").triggerClick();
+		          }
+		        }).run();
+			
 		} catch(Exception e) {
 			fail(e.toString());
 		}

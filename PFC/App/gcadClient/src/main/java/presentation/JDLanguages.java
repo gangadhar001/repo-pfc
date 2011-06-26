@@ -14,15 +14,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-import model.business.knowledge.Language;
+import resources.Language;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdom.JDOMException;
 
+import resources.LanguagesUtilities;
+
 import bussiness.control.ClientController;
-import bussiness.control.LanguagesController;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -124,7 +125,7 @@ public class JDLanguages extends javax.swing.JDialog {
 			if (JOptionPane.showConfirmDialog(this, ApplicationInternationalization.getString("Confirm_Change_Language")) == JOptionPane.YES_OPTION) {
 				// Set the selected language and restart the application
 				try {
-					LanguagesController.setDefaultLanguage(selectedLanguage);
+					LanguagesUtilities.setDefaultLanguage(selectedLanguage);
 					this.dispose();
 					ClientController.getInstance().restartLoginFrame();
 				} catch (JDOMException e) {

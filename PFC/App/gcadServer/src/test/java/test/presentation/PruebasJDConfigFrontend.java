@@ -14,7 +14,7 @@ import communication.ServerConfiguration;
 /**
  * Pruebas de la ventana de configuración del servidor front-end. 
  */
-public class PruebasJFConfigFrontend extends org.uispec4j.UISpecTestCase {
+public class PruebasJDConfigFrontend extends org.uispec4j.UISpecTestCase {
 
 	private JDConfig ventana;
 	private Window winVentana;
