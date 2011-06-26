@@ -243,26 +243,28 @@ public class JDConfig extends javax.swing.JDialog {
 			Validation.checkPort(txtDBPort.getText().trim());
 			Validation.checkPort(txtServerPort.getText().trim());
 		} catch(InvalidIPException ex) {
-			// TODO
-//			Dialogos.mostrarDialogoError(this, "Error", "La dirección IP de la base de datos principal tiene un formato incorrecto.");
+			JOptionPane.showMessageDialog(this, ex.getMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			txtDBIP.selectAll();
 			txtDBIP.grabFocus();
 			valid = false;
 		} catch(InvalidPortException ex) {
-//			Dialogos.mostrarDialogoError(this, "Error", "El puerto de la base de datos principal debe ser un número entre " + String.valueOf(Validation.PUERTO_MINIMO) + " y " + String.valueOf(Validation.PUERTO_MAXIMO) + ".");
+			JOptionPane.showMessageDialog(this, ex.getMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			txtDBPort.selectAll();
 			txtDBPort.grabFocus();
 			valid = false;
 		}
-		if (valid && txtSchema.getText().length() == 0)
-			//ERROR
+		if (valid && txtSchema.getText().length() == 0) {
+			JOptionPane.showMessageDialog(this, AppInternationalization.getString("EmptySchema"), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			valid = false;
-		if (valid && txtUsername.getText().length() == 0)
-			//ERROR
+		}
+		if (valid && txtUsername.getText().length() == 0) {
+			JOptionPane.showMessageDialog(this, AppInternationalization.getString("EmptyUser"), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			valid = false;
-		if (valid && new String(txtPassword.getPassword()).length() == 0)
-			//ERROR
+		}
+		if (valid && new String(txtPassword.getPassword()).length() == 0) {
+			JOptionPane.showMessageDialog(this, AppInternationalization.getString("EmptyPassword"), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			valid = false;
+		}
 		if (valid) {
 			try {
 				configuration.setDBIp(txtDBIP.getText().trim());

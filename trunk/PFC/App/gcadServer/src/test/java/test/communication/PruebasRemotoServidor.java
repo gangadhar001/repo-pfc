@@ -20,7 +20,6 @@ import model.business.knowledge.User;
 import persistence.DAOAddress;
 import persistence.DAOAnswer;
 import persistence.DAOCompany;
-import persistence.DAONotification;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
 import persistence.DAOUser;
@@ -152,7 +151,6 @@ public class PruebasRemotoServidor extends PruebasBase {
 		}		
 		
 		try {
-			// TODO: llamarlo desde la conexion
 			// Probamos las operaciones de gestión de notificaciones
 			topic = new Topic("pro", "desc", new Date());
 			conexion.addTopic(sessionChief.getId(), topic);
@@ -160,15 +158,15 @@ public class PruebasRemotoServidor extends PruebasBase {
 			Set<User> users = new HashSet<User>();			
 			// Crear notificación			
 			not = new Notification(topic, "Unread", project, "subject", users);
-			DAONotification.insert(not);
+			conexion.createNotification(sessionChief.getId(), not);
 			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).size(), 1);
 			assertEquals(not, conexion.getNotificationsProject(sessionChief.getId()).get(0));			
 			not.getUsers().add(employee);
 			not.getUsers().add(chief);
-			DAONotification.update(not);
+			conexion.modifyNotification(sessionChief.getId(), not);
 			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).get(0), not);
 			// Modificar notificacion
-			DAONotification.updateState(not, chief.getId());
+			conexion.modifyNotificationState(sessionChief.getId(), not);
 			String state = conexion.getNotificationsProject(sessionChief.getId()).get(0).getState();
 			assertEquals(state, not.getState());
 			// Eliminar

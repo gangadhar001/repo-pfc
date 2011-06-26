@@ -3,7 +3,7 @@ package model.business.control.CBR;
 import model.business.knowledge.Project;
 
 /***
- * Class that represent the evaluation of a case, project in this case.
+ * Class that represent the evaluation of a case (project in this case)
  */
 public class CaseEval implements Comparable<Object>{
 	

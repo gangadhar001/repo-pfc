@@ -60,5 +60,12 @@
 				</Operations>
 			</Subgroup>
 		</Group>
+		<Group id="CBR">
+			<Subgroup id="CBR">
+				<Operations>
+					<id>Execute</id>
+				</Operations>
+			</Subgroup>
+		</Group>
 	</Profile>	
 </Profiles>
