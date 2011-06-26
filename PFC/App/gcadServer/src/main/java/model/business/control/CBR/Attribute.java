@@ -10,7 +10,7 @@ public class Attribute implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4643433099138548613L;
+	private static final long serialVersionUID = 4991331355897873744L;
 	private String name;
 	private Class<?> type;
 	
@@ -41,69 +41,39 @@ public class Attribute implements Serializable{
 		this.type = type;
 	}
 	
-	public String toString() {
-		return name;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
 	}
 
 	@Override
-	public boolean equals(Object o)
-	{
-		if(!(o instanceof Attribute))
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		return  (name.equals(((Attribute)o).getName()))
-				&&(type.equals(((Attribute)o).getType()));
+		if (getClass() != obj.getClass())
+			return false;
+		Attribute other = (Attribute) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
 	}
 
-//	/**
-//	 * Returns the value of the attribute for a concrete object. Of course, the object must be instance of the class that this attribute belongs to.
-//	 * @param obj Instance to obtain the attribute from
-//	 * @throws AttributeAccessException
-//	 */
-//	public Object getValue(Object obj) throws AttributeAccessException
-//	{
-//		Object res = null;
-//		try{
-//			res = field.get(obj);
-//			return res;
-//		}catch(Exception e)
-//		{}
-//
-//		try{
-//			java.beans.PropertyDescriptor pd = new java.beans.PropertyDescriptor(field.getName(),field.getDeclaringClass());
-//			res = pd.getReadMethod().invoke(obj, (Object[])null);
-//			return res;
-//		}catch(Exception e)
-//		{}
-//		throw new AttributeAccessException("Error getting value from object: "+obj+", attribute: "+field.getName());
-//
-//	}
-//	
-//	/**
-//	 * Sets the value of the attribute in a concrete object.
-//	 * @param obj Object that defines the attribute to set.
-//	 * @param value Value to set.
-//	 * @throws AttributeAccessException
-//	 */
-//	public void setValue(Object obj, Object value) throws AttributeAccessException
-//	{
-//		try{
-//			field.set(obj, value);
-//		}catch(Exception e)
-//		{}
-//
-//		try{
-//			java.beans.PropertyDescriptor pd = new java.beans.PropertyDescriptor(field.getName(),field.getDeclaringClass());
-//			Object[] args = {value};
-//			pd.getWriteMethod().invoke(obj, args);
-//		}catch(Exception e)
-//		{
-//			throw new AttributeAccessException("Error setting value from object: "+obj+", attribute: "+field.getName());
-//		}
-//
-//	}	
-	
-	
-	
-	
+	public String toString() {
+		return name;
+	}
 	
 }

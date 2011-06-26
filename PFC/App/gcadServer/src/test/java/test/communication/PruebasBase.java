@@ -11,7 +11,7 @@ import communication.DBConnectionManager;
 import junit.framework.TestCase;
 
 /**
- * TODO: Clase base para las pruebas, que prepara y abre la conexión con la
+ * Clase base para las pruebas, que prepara y abre la conexión con la
  * base de datos al iniciar las pruebas y la cierra al finalizar.
  */
 public class PruebasBase extends TestCase {

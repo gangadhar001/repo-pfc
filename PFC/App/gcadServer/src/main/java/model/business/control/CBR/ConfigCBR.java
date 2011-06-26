@@ -6,7 +6,7 @@ import java.util.HashMap;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
 
 /***
- * Class used to store the configuration of the NN algorithm
+ * Class used to store the configuration of the CBR algorithm
  */
 public class ConfigCBR implements Serializable {
 	

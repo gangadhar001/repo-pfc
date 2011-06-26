@@ -44,8 +44,8 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 			btnConectar = winVentana.getButton("btnConnect");
 			lblConfigBD = winVentana.getTextBox("lblConfigDB");
 			btnDesconectar = winVentana.getButton("btnDisconnect");
-			btnDisconnectToolbar = winVentana.getButton("btnDisconnectToolbar");
-			btnConnectToolbar = winVentana.getButton("btnConnectToolbar");
+			btnDisconnectToolbar = winVentana.getButton("disconnect");
+			btnConnectToolbar = winVentana.getButton("connect");
 			mniSalir = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("Salir");
 			mniConectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("mniConnect");
 			mniDesconectar = winVentana.getMenuBar().getMenu("Archivo").getSubMenu("mniDisconnect");

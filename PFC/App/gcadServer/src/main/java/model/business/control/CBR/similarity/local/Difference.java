@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * Class used to calculate the similarity between attributes.
- * This value is 1 if both are equals, and 0 otherwise
+ * This value is the difference between both attributes
  */
 public class Difference implements LocalSimilarityFunction, Serializable {
 	/**

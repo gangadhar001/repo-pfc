@@ -39,7 +39,6 @@ public class DAOCompany {
 		query = new HibernateQuery("From " + COMPANY_CLASS + " Where " + COL_ID + " = ?", id);
 		data = DBConnectionManager.query(query);
 
-		// TODO
 		if(data.size() == 0) 
 			throw new NonExistentCompanyException(AppInternationalization.getString("NonExistentCompanyException"));
 

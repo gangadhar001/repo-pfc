@@ -3,6 +3,7 @@ package presentation;
 import internationalization.AppInternationalization;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -154,6 +155,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						txtLog.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
 						txtLog.setFont(new java.awt.Font("Tahoma",0,12));
 						txtLog.setName("txtLog");
+						txtLog.setEditable(false);
 
 					}
 				}
@@ -205,7 +207,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						btnConnectToolbar = new JButton();
 						toolbar.add(btnConnectToolbar);
 						configureToolbarButton(btnConnectToolbar, "connect");
-						btnConnectToolbar.setName("btnConnectToolbar");
 						btnConnectToolbar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnConnectActionPerformed(evt);
@@ -216,7 +217,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						btnDisconnectToolbar = new JButton();
 						toolbar.add(btnDisconnectToolbar);
 						configureToolbarButton(btnDisconnectToolbar, "disconnect");
-						btnDisconnectToolbar.setName("btnDisconnectToolbar");
 						btnDisconnectToolbar.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnDisconnectActionPerformed(evt);
@@ -362,12 +362,12 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			ImagesUtilities.addImageButton(button.getName(), image);
 	    	button.addMouseListener(new MouseAdapter() {
 				public void mouseExited(MouseEvent evt) {
-//					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
+					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
 					ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
 				}
 
 				public void mouseEntered(MouseEvent evt) {
-//					setCursor(new Cursor(Cursor.HAND_CURSOR));
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
 					ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
 				}
 			});

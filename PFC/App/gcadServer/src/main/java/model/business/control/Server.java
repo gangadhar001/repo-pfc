@@ -12,8 +12,6 @@ import java.util.Set;
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
-import model.business.control.CBR.retrieveAlgorithms.EuclDistanceMethod;
-import model.business.control.CBR.retrieveAlgorithms.NNMethod;
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Coordinates;
@@ -408,22 +406,21 @@ public class Server implements IServer {
 	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
-			//TODO: mensajes
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			UsersController.addProjectsUser(sessionId, user, project);
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteNotification_msg") + " ");		
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("AddProjectsUser_msg") + " " + project.getName());		
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteNotification_msg") + " '" );
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_AddProjectsUser_msg") + " " + project.getName() );
 			throw se;
 		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteNotification_msg") + nte.getLocalizedMessage());
+			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_AddProjectsUser_msg") + nte.getLocalizedMessage());
 			throw nte;
 		} catch(NonPermissionRoleException npr) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("NonPermission_DeleteNotification_msg") + " " + npr.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("NonPermission_AddProjectsUser_msg") + " " + npr.getLocalizedMessage());
 			throw npr;
 		} catch(Exception e) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("Exception_DeleteNotification_msg") + " " + e.toString());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("Exception_AddProjectsUser_msg") + " " + e.toString());
 			throw e;
 		}
 	}
@@ -531,7 +528,6 @@ public class Server implements IServer {
 	public void createNotification(long sessionId, Notification n) throws SQLException, NonPermissionRoleException, NotLoggedException, RemoteException, Exception {
 		String login = "";
 		try {
-			//TODO: mensajes
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			NotificationController.insertNotification(sessionId, n);
@@ -935,20 +931,26 @@ public class Server implements IServer {
 	}
 	
 	@Override
-	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception {
+	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
 		// TODO: mensajes
-		List<Project> result = new ArrayList<Project>();
-		switch(algorithmName) {
-		case NN:
-			result = NNMethod.evaluateSimilarity(caseToEval, cases, config, k);
-			break;
-		case Euclidean:
-			result = EuclDistanceMethod.evaluateSimilarity(caseToEval, cases, config, k);
-			break;
-//		case Sim:
-//			result = SimMethod.evaluateSimilarity(caseToEval, cases, config, k);
-//			break;
+		List<Project> projects = new ArrayList<Project>();			
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			projects = CBRController.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, config, k);	
+			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("DeleteNotification_msg") + " " );
+		} catch(NonPermissionRoleException nea) {
+			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonExistent_GetCoordinates_msg") + " " );
+			throw nea;
+		} catch(NotLoggedException wsre) {
+			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("WSResponse_GetCoordinates_msg") + " " );
+			throw wsre;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("Exception_GetCoordinates_msg") + " ");
+			throw e;
 		}
-		return result;
+		return projects;
+		
 	}	
 }
