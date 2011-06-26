@@ -3,14 +3,13 @@ package test.presentation;
 import javax.swing.JTextField;
 
 import org.uispec4j.Button;
-import org.uispec4j.CheckBox;
 import org.uispec4j.PasswordField;
 import org.uispec4j.TextBox;
 import org.uispec4j.Window;
 
-import communication.ServerConfiguration;
-
 import presentation.JDConfig;
+
+import communication.ServerConfiguration;
 
 /**
  * Pruebas de la ventana de configuración del servidor front-end. 
@@ -28,8 +27,7 @@ public class PruebasJFConfigFrontend extends org.uispec4j.UISpecTestCase {
 	private PasswordField txtPassword;
 	private TextBox txtPuertoFrontend;
 	private JTextField jtxtIPBDPrincipal;
-	private JTextField jtxtPuertoBDPrincipal;
-	private JTextField jtxtPuertoFrontend;
+	private JTextField jtxtPuertoBDPrincipal;	
 	
 	public void setUp() {
 		try {
@@ -42,14 +40,12 @@ public class PruebasJFConfigFrontend extends org.uispec4j.UISpecTestCase {
 			txtIPBDPrincipal = winVentana.getTextBox("txtDBIP");
 			txtPuertoBDPrincipal = winVentana.getTextBox("txtDBPort");
 			txtPuertoFrontend = winVentana.getTextBox("txtServerPort");
-			//TODO: nombre, pass y schema
 			txtSchema = winVentana.getTextBox("txtSchema");
 			txtUser = winVentana.getTextBox("txtUsername");
 			txtPassword = winVentana.getPasswordField("txtPassword");		
 			
 			jtxtIPBDPrincipal = (JTextField)txtIPBDPrincipal.getAwtComponent();
-			jtxtPuertoBDPrincipal = (JTextField)txtPuertoBDPrincipal.getAwtComponent();
-			jtxtPuertoFrontend = (JTextField)txtPuertoFrontend.getAwtComponent();
+			jtxtPuertoBDPrincipal = (JTextField)txtPuertoBDPrincipal.getAwtComponent();			
 		} catch(Exception e) {
 			fail(e.toString());
 		}

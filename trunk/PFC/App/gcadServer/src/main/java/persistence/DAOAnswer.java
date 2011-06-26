@@ -1,5 +1,7 @@
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class DAOAnswer {
 			}
 			
 			else 
-				throw new NonExistentProposalException();
+				throw new NonExistentProposalException(AppInternationalization.getString("NonExistentProposalException"));
 				
 			// Set the topic parent to the proposal
 			a = (Answer)answer.clone();
@@ -71,7 +73,7 @@ public class DAOAnswer {
 			}
 			
 			else 
-				throw new NonExistentAnswerException();
+				throw new NonExistentAnswerException(AppInternationalization.getString("NonExistentAnswerException"));
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -115,7 +117,7 @@ public class DAOAnswer {
 			answer = (Answer) ((Answer)data.get(0)).clone();									
 		}
 		else 
-			throw new NonExistentAnswerException();
+			throw new NonExistentAnswerException(AppInternationalization.getString("NonExistentAnswerException"));
 		
 		// Clear cache
 		for(Object object : data) {

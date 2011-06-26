@@ -1,15 +1,11 @@
 package test.control;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import model.business.control.Server;
-import model.business.control.CBR.Attribute;
 import model.business.knowledge.Address;
-import model.business.knowledge.Answer;
 import model.business.knowledge.Categories;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
@@ -20,10 +16,7 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.User;
-import persistence.DAONotification;
-import persistence.DAOProject;
 import persistence.DAOProposal;
-import persistence.DAOTopic;
 import persistence.DAOUser;
 import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
@@ -33,7 +26,6 @@ import communication.DBConnection;
 import communication.DBConnectionManager;
 
 import exceptions.NonExistentNotificationException;
-import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
@@ -47,7 +39,6 @@ public class NotificationsControllerTest extends PruebasBase {
 	private Topic topic;
 	private Notification not;
 	private ClientePrueba chiefClient;
-	private ClientePrueba employeeClient;
 	
 	protected void setUp() {	
 		try {
@@ -76,7 +67,6 @@ public class NotificationsControllerTest extends PruebasBase {
 			pro.setUser(chief);
 			DAOProposal.insert(pro, topic.getId());
 			chiefClient = new ClientePrueba();
-			employeeClient = new ClientePrueba();
 		} catch(Exception e) {
 			fail(e.toString());
 		}

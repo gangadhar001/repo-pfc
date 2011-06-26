@@ -1,24 +1,19 @@
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import model.business.knowledge.Company;
+import persistence.utils.HibernateQuery;
 
 import communication.DBConnectionManager;
 
-import model.business.knowledge.Address;
-import model.business.knowledge.Company;
-import model.business.knowledge.Notification;
-import model.business.knowledge.Project;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.User;
-import persistence.utils.HibernateQuery;
-import exceptions.NonExistentAddressException;
 import exceptions.NonExistentCompanyException;
-import exceptions.IncorrectEmployeeException;
 
 /**
- * This class allows to query users from the database
+ *  * This class allows to query and modify companies from the database
  */
 public class DAOCompany {
 
@@ -45,11 +40,10 @@ public class DAOCompany {
 		data = DBConnectionManager.query(query);
 
 		// TODO
-		if(data.size() == 0) {
-			throw new NonExistentCompanyException("El nombre de usuario o contraseña introducidos no son válidos.");
-		} else {
-			comp = (Company) ((Company)(data.get(0))).clone();			
-		}
+		if(data.size() == 0) 
+			throw new NonExistentCompanyException(AppInternationalization.getString("NonExistentCompanyException"));
+
+		comp = (Company) ((Company)(data.get(0))).clone();				
 		
 		// Clear cache
 		for(Object object : data) {
@@ -60,7 +54,6 @@ public class DAOCompany {
 	}
 	
 	public static void update(Company comp) throws SQLException, NonExistentCompanyException {
-		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
 		Company oldComp = null;
@@ -71,10 +64,9 @@ public class DAOCompany {
 	
 			if(data.size() > 0) {
 				oldComp = (Company)data.get(0);									
-			}
-			
+			}			
 			else
-				throw new NonExistentCompanyException("El nombre de usuario o contraseña introducidos no son válidos.");
+				throw new NonExistentCompanyException(AppInternationalization.getString("NonExistentCompanyException"));
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -98,7 +90,6 @@ public class DAOCompany {
 	public static void delete(Company comp) throws SQLException, NonExistentCompanyException {
 		try {
 			DBConnectionManager.initTransaction();
-			// Get the proposal stores in database and delete that reference 
 			DBConnectionManager.delete(queryCompany(comp.getId()));
 		} finally {
 			DBConnectionManager.finishTransaction();

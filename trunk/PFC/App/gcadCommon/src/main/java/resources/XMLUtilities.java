@@ -19,7 +19,6 @@ import org.jdom.xpath.XPath;
 public class XMLUtilities {
 
 	// Marshal domain class into XML file, using JAXB
-    @SuppressWarnings("unchecked")
 	public static <E> void marshal(String fileName, Class<E> className, Object obj) throws JAXBException {
     
 	    JAXBContext jaxbContent = JAXBContext.newInstance(className);
@@ -27,7 +26,7 @@ public class XMLUtilities {
 	    Marshaller marshaller = jaxbContent.createMarshaller();
 	    marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); 
 	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-	    marshaller.marshal((E)obj, new File (fileName));    
+	    marshaller.marshal(obj, new File (fileName));    
     }
     
     /*** Methods used to read and parse XML, using JDOM and XPath  ***/

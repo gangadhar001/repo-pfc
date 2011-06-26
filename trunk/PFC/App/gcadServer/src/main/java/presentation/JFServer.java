@@ -378,6 +378,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    	return button;
 	    }
 	
+	@SuppressWarnings("unused")
 	private void mniAboutActionPerformed(ActionEvent evt) {
 		frmAbout = new JDAbout(this);
 		frmAbout.addVentanaCerradaListener(new CloseWindowListener() {
@@ -390,10 +391,12 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		frmAbout.setVisible(true);
 	}
 	
+	@SuppressWarnings("unused")
 	private void frmAboutClosewindow(EventObject evt) {
 		frmAbout.dispose();
 	}
 	
+	@SuppressWarnings("unused")
 	private void mniConfigureActionPerformed(ActionEvent evt) {
 		// Create configuration Dialog
 		frmConfiguration = new JDConfig(this);
@@ -409,32 +412,39 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		frmConfiguration.setVisible(true);
 	}
 
+	@SuppressWarnings("unused")
 	private void frmConfigureCloseWindow(EventObject evt) {
 		configuration = frmConfiguration.getConfiguration();
 		updateState();
 		frmConfiguration.dispose();
 	}
 	
+	@SuppressWarnings("unused")
 	private void btnConnectActionPerformed(ActionEvent evt) {
 		activateServer();
 	}
 	
+	@SuppressWarnings("unused")
 	private void btnDisconnectActionPerformed(ActionEvent evt) {
 		confirmDisableServer();
 	}
 
+	@SuppressWarnings("unused")
 	private void thisWindowClosing(WindowEvent evt) {
 		closeServer();
 	}
 	
+	@SuppressWarnings("unused")
 	private void mniConnectActionPerformed(ActionEvent evt) {
 		activateServer();
 	}
 	
+	@SuppressWarnings("unused")
 	private void mniDisconnectActionPerformed(ActionEvent evt) {
 		disableServer();
 	}
 
+	@SuppressWarnings("unused")
 	private void mniExitActionPerformed(ActionEvent evt) {
 		closeServer();
 	}

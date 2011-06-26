@@ -548,6 +548,8 @@ public class PruebasPersistencia extends PruebasBase {
 			List<Project> projects = DAOProject.getProjects();
 			assertTrue(projects.size() == 1);
 			assertEquals(projects.get(0), project);
+			Project p = DAOProject.queryProject(project.getId());
+			assertEquals(p, project);
 		} catch(Exception e) {
 			fail(e.toString());
 		}	

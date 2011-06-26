@@ -123,6 +123,8 @@
 
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -187,8 +189,7 @@ public class DAONotification {
 				setState(n);
 				result.add(n);
 			}
-		}
-		
+		}		
 		
 		// Clear cache
 		for(Object object : data) {
@@ -258,7 +259,7 @@ public class DAONotification {
 				old = (Notification)data.get(0);									
 			}
 			else
-				throw new NonExistentNotificationException();
+				throw new NonExistentNotificationException(AppInternationalization.getString("NonExistentNotificationException"));
 			
 			DBConnectionManager.initTransaction();	
 			

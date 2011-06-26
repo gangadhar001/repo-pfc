@@ -4,27 +4,23 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import persistence.DAOUser;
-
-import communication.DBConnection;
-import communication.DBConnectionManager;
-
-import test.communication.PruebasBase;
-import exceptions.NonExistentAddressException;
-import exceptions.NonPermissionRoleException;
-import exceptions.NotLoggedException;
-import exceptions.WSResponseException;
 import model.business.control.Server;
-import model.business.control.ServerController;
 import model.business.control.SessionController;
 import model.business.knowledge.Address;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
-import model.business.knowledge.Coordinates;
 import model.business.knowledge.Employee;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Project;
 import model.business.knowledge.User;
+import persistence.DAOUser;
+import test.communication.PruebasBase;
+
+import communication.DBConnection;
+import communication.DBConnectionManager;
+
+import exceptions.NonPermissionRoleException;
+import exceptions.NotLoggedException;
 
 
 public class UsersControllerTest extends PruebasBase {	

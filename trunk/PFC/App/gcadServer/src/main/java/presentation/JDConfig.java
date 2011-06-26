@@ -230,17 +230,18 @@ public class JDConfig extends javax.swing.JDialog {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+	@SuppressWarnings("unused")
 	private void thisWindowClosing(WindowEvent evt) {
 		closeWindow();
 	}	
 
+	@SuppressWarnings("unused")
 	private void btnAceptarActionPerformed(ActionEvent evt) {	
 		boolean valid = true;
 		try {
-			Validation.comprobarDireccionIP(txtDBIP.getText().trim());
-			Validation.comprobarPuerto(txtDBPort.getText().trim());
-			Validation.comprobarPuerto(txtServerPort.getText().trim());
+			Validation.checkIP(txtDBIP.getText().trim());
+			Validation.checkPort(txtDBPort.getText().trim());
+			Validation.checkPort(txtServerPort.getText().trim());
 		} catch(InvalidIPException ex) {
 			// TODO
 //			Dialogos.mostrarDialogoError(this, "Error", "La dirección IP de la base de datos principal tiene un formato incorrecto.");
@@ -276,6 +277,7 @@ public class JDConfig extends javax.swing.JDialog {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private void btnCancelActionPerformed(ActionEvent evt) {
 		closeWindow();
 	}

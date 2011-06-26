@@ -152,10 +152,12 @@ public class JDAbout extends javax.swing.JDialog {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void btnAceptarActionPerformed(ActionEvent evt) {
 		cerrarVentana();
 	}
 	
+	@SuppressWarnings("unused")
 	private void thisWindowClosing(WindowEvent evt) {
 		cerrarVentana();
 	}

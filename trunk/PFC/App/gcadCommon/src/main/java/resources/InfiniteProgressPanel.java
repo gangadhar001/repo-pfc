@@ -161,9 +161,9 @@ public class InfiniteProgressPanel extends JComponent implements MouseListener
     {
         Area[] ticker = new Area[barsCount];
         Point2D.Double center = new Point2D.Double((double) getWidth() / 2, (double) getHeight() / 2);
-        double fixedAngle = 2.0 * Math.PI / ((double) barsCount);
+        double fixedAngle = 2.0 * Math.PI / (barsCount);
 
-        for (double i = 0.0; i < (double) barsCount; i++)
+        for (double i = 0.0; i < barsCount; i++)
         {
             Area primitive = buildPrimitive();
 
@@ -209,7 +209,7 @@ public class InfiniteProgressPanel extends JComponent implements MouseListener
         public void run()
         {
             Point2D.Double center = new Point2D.Double((double) getWidth() / 2, (double) getHeight() / 2);
-            double fixedIncrement = 2.0 * Math.PI / ((double) barsCount);
+            double fixedIncrement = 2.0 * Math.PI / (barsCount);
             AffineTransform toCircle = AffineTransform.getRotateInstance(fixedIncrement, center.getX(), center.getY());
     
             long start = System.currentTimeMillis();

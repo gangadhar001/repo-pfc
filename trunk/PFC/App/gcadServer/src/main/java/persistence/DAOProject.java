@@ -1,17 +1,17 @@
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.business.knowledge.Project;
 import persistence.utils.HibernateQuery;
 
 import communication.DBConnectionManager;
-import exceptions.NonExistentAddressException;
-import exceptions.NonExistentProjectException;
 
-import model.business.knowledge.Address;
-import model.business.knowledge.Project;
+import exceptions.NonExistentProjectException;
 
 /**
  * This class allows to query and modify projects from the database
@@ -33,7 +33,6 @@ public class DAOProject {
 	}
 	
 	public static void update(Project p) throws SQLException, NonExistentProjectException {
-		// Get the proposal stores in database and update that reference 
 		HibernateQuery query;
 		List<?> data;
 		Project oldPro = null;
@@ -46,7 +45,7 @@ public class DAOProject {
 				oldPro = (Project)data.get(0);									
 			}
 			else
-				throw new NonExistentProjectException();
+				throw new NonExistentProjectException(AppInternationalization.getString("NonExistentProjectException"));
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -99,14 +98,14 @@ public class DAOProject {
 		List<?> data;
 		Project result = null;
 
-		query = new HibernateQuery("from " + PROJECT_CLASS);
+		query = new HibernateQuery("from " + PROJECT_CLASS + " WHERE " + COL_ID + " = ?", id);
 		data = DBConnectionManager.query(query);
 
 		if(data.size() > 0) {
 			result = ((Project) ((Project)data.get(0)).clone());			
 		}
 		else
-			throw new NonExistentProjectException();
+			throw new NonExistentProjectException(AppInternationalization.getString("NonExistentProjectException"));
 		
 		// Clear cache
 		for(Object object : data) {
@@ -119,7 +118,6 @@ public class DAOProject {
 	public static void delete(Project p) throws SQLException, NonExistentProjectException {
 		try {
 			DBConnectionManager.initTransaction();
-			// Get the proposal stores in database and delete that reference 
 			DBConnectionManager.delete(queryProject(p.getId()));
 		} finally {
 			DBConnectionManager.finishTransaction();

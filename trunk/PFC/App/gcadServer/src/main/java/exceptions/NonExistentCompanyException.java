@@ -2,8 +2,13 @@ package exceptions;
 
 public class NonExistentCompanyException extends Exception {
 
-	public NonExistentCompanyException(String string) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2928405021756214794L;
+
+	public NonExistentCompanyException(String message) {
+		super(message);
 	}
 
 }
