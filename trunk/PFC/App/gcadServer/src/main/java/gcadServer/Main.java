@@ -7,8 +7,15 @@ import model.business.control.ServerController;
  */
 public class Main {
 	
-	public static void main(String[] args) {
-		ServerController cont;		
+	private static ServerController cont;
+	
+	public static void main(String[] args) {			
+		cont = new ServerController();
+		cont.showServerWindowUI();
+	}
+	
+	public static void restart() {
+		cont.closeServerWindowUI();
 		cont = new ServerController();
 		cont.showServerWindowUI();
 	}

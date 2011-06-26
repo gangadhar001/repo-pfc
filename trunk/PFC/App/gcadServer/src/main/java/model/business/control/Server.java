@@ -2,12 +2,18 @@ package model.business.control;
 
 import internationalization.AppInternationalization;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import org.jdom.JDOMException;
+
+import resources.Language;
+import resources.LanguagesUtilities;
 
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
@@ -53,6 +59,20 @@ public class Server implements IServer {
 			instance = new Server();
 		}
 		return instance;
+	}
+	
+	/*** Methods used in server ***/
+	public Language getDefaultLanguage() throws RemoteException, JDOMException, IOException {
+		return LanguagesUtilities.getDefaultLanguage();
+	}
+
+	public ArrayList<Language> getLanguages() throws RemoteException, JDOMException, IOException {
+		return LanguagesUtilities.getLanguages();
+	}
+
+	public void setDefaultLanguage(Language language) throws RemoteException, JDOMException, IOException {
+		LanguagesUtilities.setDefaultLanguage(language);
+		
 	}
 	
 	/*** Methods used to manage login and signout ***/

@@ -140,4 +140,9 @@ public class ServerController {
 		return ClientsController.getClients();
 	}
 
+	public void closeServerWindowUI() {
+		serverWindowUI.dispose();
+		
+	}
+
 }
