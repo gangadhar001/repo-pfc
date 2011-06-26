@@ -61,7 +61,7 @@ public class HibernateSessionFactory {
 	 * the <code>SessionFactory</code> if needed.
 	 */
 	public static Session getSession() throws HibernateException {
-		Session session = (Session) threadLocal.get();
+		Session session = threadLocal.get();
 
 		if (session == null || !session.isOpen()) {
 			if (sessionFactory == null) {
@@ -100,7 +100,7 @@ public class HibernateSessionFactory {
 	 *  Close the single hibernate session instance.
 	 */
 	public static void closeSession() throws HibernateException {
-		Session session = (Session) threadLocal.get();
+		Session session = threadLocal.get();
 		threadLocal.set(null);
 
 		if (session != null) {

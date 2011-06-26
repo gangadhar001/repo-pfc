@@ -4,15 +4,6 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
-
-import persistence.DAOAddress;
-import persistence.DAOAnswer;
-import persistence.DAOCompany;
-import persistence.DAONotification;
-import persistence.DAOProposal;
-import persistence.DAOTopic;
-import persistence.DAOUser;
 
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
@@ -26,6 +17,13 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.User;
+import persistence.DAOAddress;
+import persistence.DAOAnswer;
+import persistence.DAOCompany;
+import persistence.DAONotification;
+import persistence.DAOProposal;
+import persistence.DAOTopic;
+import persistence.DAOUser;
 
 import communication.CommunicationsUtilities;
 import communication.ExportedServer;

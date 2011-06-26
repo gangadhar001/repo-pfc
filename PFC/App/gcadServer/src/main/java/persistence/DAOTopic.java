@@ -1,5 +1,7 @@
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class DAOTopic {
 		}
 		
 		else
-			throw new NonExistentTopicException();
+			throw new NonExistentTopicException(AppInternationalization.getString("NonExistentTopicException"));
 		
 		// Clear cache
 		for(Object object : data) {
@@ -57,7 +59,7 @@ public class DAOTopic {
 			}
 			
 			else
-				throw new NonExistentTopicException();
+				throw new NonExistentTopicException(AppInternationalization.getString("NonExistentTopicException"));
 			
 			// Clear cache
 			for(Object object : data) {
@@ -93,7 +95,7 @@ public class DAOTopic {
 			}
 			
 			else
-				throw new NonExistentTopicException();
+				throw new NonExistentTopicException(AppInternationalization.getString("NonExistentTopicException"));
 			
 			DBConnectionManager.initTransaction();	
 			

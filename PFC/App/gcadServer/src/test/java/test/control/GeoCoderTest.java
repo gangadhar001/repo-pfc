@@ -1,20 +1,19 @@
 package test.control;
 
-import communication.DBConnection;
-import communication.DBConnectionManager;
-
-import test.communication.PruebasBase;
-import exceptions.NonExistentAddressException;
-import exceptions.WSResponseException;
 import model.business.control.Server;
-import model.business.control.ServerController;
 import model.business.knowledge.Address;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
 import model.business.knowledge.Coordinates;
-import model.business.knowledge.Employee;
 import model.business.knowledge.ISession;
 import model.business.knowledge.User;
+import test.communication.PruebasBase;
+
+import communication.DBConnection;
+import communication.DBConnectionManager;
+
+import exceptions.NonExistentAddressException;
+import exceptions.WSResponseException;
 
 
 public class GeoCoderTest extends PruebasBase {	

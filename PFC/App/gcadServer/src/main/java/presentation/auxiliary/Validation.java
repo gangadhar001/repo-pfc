@@ -1,49 +1,50 @@
 package presentation.auxiliary;
 
+import internationalization.AppInternationalization;
+
 import java.util.regex.Pattern;
 
 import exceptions.InvalidIPException;
 import exceptions.InvalidPortException;
 
 /**
- * TODO: Clase estática que contiene métodos para comprobar la validez
- * de los campos de las ventanas.
+ * Class used to validate the fields of the user interface
+ * 
  */
 public class Validation {
 	
-	public static final int PUERTO_MINIMO = 1;
-	public static final int PUERTO_MAXIMO = 65535;
+	public static final int MINIMUM_PORT = 1;
+	public static final int MAXIMUM_PORT = 65535;
 	
-	public static void comprobarDireccionIP(String ip) throws InvalidIPException {
-		Pattern patronIP;
+	public static void checkIP(String ip) throws InvalidIPException {
+		Pattern IPPattern;
 		
 		// Creamos un patrón que define las IPs válidas
-		patronIP = Pattern.compile("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." + 
+		IPPattern = Pattern.compile("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." + 
 				"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
                 "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
                 "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
 		
 		if(ip.equals("")) {
-			throw new InvalidIPException("La dirección IP no puede ser nula.");
-		} else if(!patronIP.matcher(ip).matches()) {
-			throw new InvalidIPException("La dirección IP no tiene el formato correcto");
+			throw new InvalidIPException(AppInternationalization.getString("ValidateIP"));
+		} else if(!IPPattern.matcher(ip).matches()) {
+			throw new InvalidIPException(AppInternationalization.getString("ValidateIP"));
 		}
 	}
 	
-	public static void comprobarPuerto(String puerto) throws InvalidPortException {
-		int numPuerto;
+	public static void checkPort(String port) throws InvalidPortException {
+		int portNumber;
 	
-		if(puerto.equals("")) {
-			throw new InvalidPortException("El puerto no puede ser nulo.");
-		} else {
-			try {
-				numPuerto = Integer.parseInt(puerto);
-				if(numPuerto < PUERTO_MINIMO || numPuerto > PUERTO_MAXIMO) {
-					throw new InvalidPortException("El puerto debe ser un número comprendido entre " + PUERTO_MINIMO + " y " + PUERTO_MAXIMO + ".");
-				}
-			} catch(NumberFormatException ex) {
-				throw new InvalidPortException("El puerto debe ser un número comprendido entre " + PUERTO_MINIMO + " y " + PUERTO_MAXIMO + ".");
+		if(port.equals("")) {
+			throw new InvalidPortException(AppInternationalization.getString("ValidatePort"));
+		}
+		try {
+			portNumber = Integer.parseInt(port);
+			if(portNumber < MINIMUM_PORT || portNumber > MAXIMUM_PORT) {
+				throw new InvalidPortException(AppInternationalization.getString("RangePort") + " [" + MINIMUM_PORT + "-" + MAXIMUM_PORT + "]");
 			}
+		} catch(NumberFormatException ex) {
+			throw new InvalidPortException(AppInternationalization.getString("RangePort") + " [" + MINIMUM_PORT + "-" + MAXIMUM_PORT + "]");
 		}
 	}
 	

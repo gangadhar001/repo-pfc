@@ -1,5 +1,7 @@
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,14 +21,6 @@ public class DAOProposal {
 	private static final String PROPOSAL_CLASS = "Proposal";
 	private static final String TOPIC_CLASS = "Topic";
 	
-//	private static final String COL_ID = "id";
-//	private static final String COL_NAME = "name";
-//	private static final String COL_DESCRIPTION = "description";
-//	private static final String COL_DATE = "date";
-//	private static final String COL_CATEGORY = "category";
-//	private static final String COL_EMPLOYEE_ID = "employeeId";
-//	private static final String COL_TOPIC_ID = "topicId";
-	
 	
 	public static Proposal queryProposal(int id) throws SQLException, NonExistentProposalException {
 		HibernateQuery query;
@@ -45,7 +39,7 @@ public class DAOProposal {
 			}
 			
 			else 
-				throw new NonExistentProposalException();
+				throw new NonExistentProposalException(AppInternationalization.getString("NonExistentProposalException"));
 				
 		return result;
 	}
@@ -67,7 +61,7 @@ public class DAOProposal {
 			}
 			
 			else 
-				throw new NonExistentTopicException();
+				throw new NonExistentTopicException(AppInternationalization.getString("NonExistentTopicException"));
 			
 			p = (Proposal)proposal.clone();
 			DBConnectionManager.initTransaction();
@@ -101,7 +95,7 @@ public class DAOProposal {
 			}
 			
 			else 
-				throw new NonExistentProposalException();
+				throw new NonExistentProposalException(AppInternationalization.getString("NonExistentProposalException"));
 			
 			DBConnectionManager.initTransaction();	
 			

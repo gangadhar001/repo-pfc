@@ -1,16 +1,17 @@
 package persistence;
 
+import internationalization.AppInternationalization;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import communication.DBConnectionManager;
-
-import model.business.knowledge.Notification;
 import model.business.knowledge.Project;
-import model.business.knowledge.Proposal;
 import model.business.knowledge.User;
 import persistence.utils.HibernateQuery;
+
+import communication.DBConnectionManager;
+
 import exceptions.IncorrectEmployeeException;
 
 /**
@@ -19,12 +20,9 @@ import exceptions.IncorrectEmployeeException;
 public class DAOUser {
 
 	private static final String USER_CLASS = "User";
-	private static final String USERS_PROJECTS = "usersProjects";
 	
 	private static final String COL_LOGIN = "login";
 	private static final String COL_PASSWORD = "password";
-	private static final String COL_IDUSER = "idUser";
-	private static final String COL_IDPROJECT = "idProject";
 	
 	public static User queryUser(String login, String password) throws IncorrectEmployeeException, SQLException {
 		HibernateQuery query;
@@ -34,11 +32,11 @@ public class DAOUser {
 		query = new HibernateQuery("From " + USER_CLASS + " Where " + COL_LOGIN + " = ? AND " + COL_PASSWORD + " = ?", login, password);
 		data = DBConnectionManager.query(query);
 
-		if(data.size() == 0) {
-			throw new IncorrectEmployeeException("El nombre de usuario o contraseña introducidos no son válidos.");
-		} else {
-			user = (User) ((User)(data.get(0))).clone();			
-		}
+		if(data.size() == 0) 
+			throw new IncorrectEmployeeException(AppInternationalization.getString("IncorrectEmployeeException"));
+		
+		user = (User) ((User)(data.get(0))).clone();			
+		
 		
 		// Clear cache
 		for(Object object : data) {
@@ -93,8 +91,7 @@ public class DAOUser {
 		return result;
 	}
 
-	public static void update(User user) throws SQLException, IncorrectEmployeeException {
-		// Get the proposal stores in database and update that reference 
+	public static void update(User user) throws SQLException, IncorrectEmployeeException { 
 		HibernateQuery query;
 		List<?> data;
 		User oldUser = null;
@@ -107,7 +104,7 @@ public class DAOUser {
 				oldUser = (User)data.get(0);									
 			}
 			else
-				throw new IncorrectEmployeeException("El nombre de usuario o contraseña introducidos no son válidos.");
+				throw new IncorrectEmployeeException(AppInternationalization.getString("NonExistentUserException"));
 			
 			DBConnectionManager.initTransaction();	
 			
@@ -132,17 +129,6 @@ public class DAOUser {
 			DBConnectionManager.clearCache(object);
 		}		
 	}
-	
-//	public static void updateProject(User u, Project p) throws SQLException {;		
-//		try {				
-//			DBConnectionManager.initTransaction();
-//			String query = "INSERT INTO " + USERS_PROJECTS + " VALUES (" + u.getId() + ", " + p.getId() + ")";
-//			DBConnectionManager.executeUpdate(query);
-//			
-//		} finally {
-//			DBConnectionManager.finishTransaction();
-//		}
-//	}
 
 	public static void insert(User user) throws SQLException {
 		try {
@@ -158,7 +144,6 @@ public class DAOUser {
 	public static void delete(User user) throws SQLException, IncorrectEmployeeException {
 		try {
 			DBConnectionManager.initTransaction();
-			// Get the proposal stores in database and delete that reference 
 			DBConnectionManager.delete(queryUser(user.getLogin(), user.getPassword()));
 		} finally {
 			DBConnectionManager.finishTransaction();

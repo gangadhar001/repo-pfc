@@ -28,7 +28,7 @@ public class PruebasValidacion extends TestCase {
 			invalidos = new String[] { "", "  ", "abc", "1234", "300.0.0.300", "128.0.0.256", "128.0.0.-1", "127.0.0.1  ", "  127.0.0.1" };
 			for(String ip : invalidos) {
 				try {
-					Validation.comprobarDireccionIP(ip);
+					Validation.checkIP(ip);
 					fail("La dirección IP '" + ip + "' debería ser inválida.");
 				} catch(InvalidIPException e) {
 				}
@@ -37,7 +37,7 @@ public class PruebasValidacion extends TestCase {
 			validos = new String[] { "127.0.0.1", "34.98.240.10", "0.0.0.0", "255.255.255.255" };
 			for(String ip : validos) {
 				try {
-					Validation.comprobarDireccionIP(ip);
+					Validation.checkIP(ip);
 				} catch(InvalidIPException e) {
 					fail("La dirección IP '" + ip + "' debería ser válida.");
 				}
@@ -56,7 +56,7 @@ public class PruebasValidacion extends TestCase {
 			invalidos = new String[] { "", "  ", "-1", "0", "abcd", "65536", "400x", "3,45", "1.000", "100000" };
 			for(String puerto : invalidos) {
 				try {
-					Validation.comprobarPuerto(puerto);
+					Validation.checkPort(puerto);
 					fail("El puerto '" + puerto + "' debería ser inválido.");
 				} catch(InvalidPortException e) {
 				}
@@ -65,7 +65,7 @@ public class PruebasValidacion extends TestCase {
 			validos = new String[] { "1", "65535", "100", "1000", "00001000" };
 			for(String puerto : validos) {
 				try {
-					Validation.comprobarPuerto(puerto);
+					Validation.checkPort(puerto);
 				} catch(InvalidPortException e) {
 					fail("El puerto '" + puerto + "' debería ser válido.");
 				}

@@ -2,8 +2,13 @@ package exceptions;
 
 public class NonExistentAddressException extends Exception {
 
-	public NonExistentAddressException(String string) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1886322396651115501L;
+
+	public NonExistentAddressException(String message) {
+		super(message);
 	}
 
 }
