@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * This class represents an Answer given to a Proposal
  */
 @XmlAccessorType( XmlAccessType.FIELD )
-public class Answer extends Knowledge{
+public class Answer extends Knowledge  {
 			
 	private static final long serialVersionUID = -1238919159476139631L;
 	

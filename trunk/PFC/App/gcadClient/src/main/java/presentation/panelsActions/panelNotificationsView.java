@@ -29,7 +29,7 @@ import org.jdesktop.swingx.border.DropShadowBorder;
 import presentation.dataVisualization.NotificationsTable;
 import presentation.utils.DateUtilities;
 import bussiness.control.ClientController;
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
@@ -62,14 +62,14 @@ public class panelNotificationsView extends javax.swing.JPanel {
 		super();
 		// Get notifications for the actual project
 		try {
-			notifications = ClientController.getInstance().getNotifications();			
+			notifications = ClientController.getInstance().getNotificationsProject();			
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

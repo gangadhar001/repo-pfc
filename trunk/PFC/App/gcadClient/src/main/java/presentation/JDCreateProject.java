@@ -29,7 +29,7 @@ import model.business.knowledge.User;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 import bussiness.control.ClientController;
@@ -189,7 +189,7 @@ public class JDCreateProject extends javax.swing.JDialog {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotLoggedException e) {
@@ -224,7 +224,7 @@ public class JDCreateProject extends javax.swing.JDialog {
 		} catch (NotLoggedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {

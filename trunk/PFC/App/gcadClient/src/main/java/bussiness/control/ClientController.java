@@ -38,8 +38,7 @@ import communication.ExportedClient;
 import communication.ProxyServer;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /***
@@ -84,7 +83,7 @@ public class ClientController {
 	}	
 
 	/*** Method to login and export the client (plug-in) ***/
-	public void initClient(String serverIP, String serverPort, String username, String pass) throws NotBoundException, RemoteException, IncorrectEmployeeException, SQLException, NonExistentRole, MalformedURLException, NotLoggedException, Exception{
+	public void initClient(String serverIP, String serverPort, String username, String pass) throws NotBoundException, RemoteException, IncorrectEmployeeException, SQLException, MalformedURLException, NotLoggedException, Exception{
 		// Get the local host IP
 		clientIP = CommunicationsUtilities.getHostIP();
 		
@@ -174,41 +173,41 @@ public class ClientController {
 
 	
 	/*** Methods to make requests to the server ***/
-	public void addAnwser(Answer a, Proposal p) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
-		server.addAnwser(session.getId(), a, p);
+	public void addAnwser(Answer a, Proposal p) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		server.addAnswer(session.getId(), a, p);
 	}
 
-	public void addProposal(Proposal p, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void addProposal(Proposal p, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.addProposal(session.getId(), p, parent);
 		
 	}
 
-	public void addTopic(Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRole, Exception {
+	public void addTopic(Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.addTopic(session.getId(), topic);		
 	}
 
-	public TopicWrapper getTopicsWrapper() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public TopicWrapper getTopicsWrapper() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		return server.getTopicsWrapper(session.getId());
 	}
 	
-	public Topic findParentProposal(Proposal p) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public Topic findParentProposal(Proposal p) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		return server.findParentProposal(session.getId(), p);
 	}
 	
-	public Proposal findParentAnswer(Answer a) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public Proposal findParentAnswer(Answer a) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		return server.findParentAnswer(session.getId(), a);
 	}
 
-	public void modifyAnswer(Answer newAnswer, Answer oldAnswer, Proposal p) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void modifyAnswer(Answer newAnswer, Answer oldAnswer, Proposal p) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.modifyAnswer(session.getId(), newAnswer, oldAnswer, p);
 	}
 
-	public void modifyProposal(Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void modifyProposal(Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.modifyProposal(session.getId(), newProposal, oldProposal, parent);
 		
 	}
 
-	public void modifyTopic(Topic newTopic, Topic oldTopic) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void modifyTopic(Topic newTopic, Topic oldTopic) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.modifyTopic(session.getId(), newTopic, oldTopic);		
 	}
 
@@ -229,59 +228,59 @@ public class ClientController {
 		
 	}
 
-	public Project createProject(Project project) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public Project createProject(Project project) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		return server.createProject(session.getId(), project);		
 	}	
 
-	public void deleteAnswer(Answer a) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void deleteAnswer(Answer a) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.deleteAnswer(session.getId(), a);		
 	}
 
-	public void deleteProposal(Proposal proposal) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void deleteProposal(Proposal proposal) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.deleteProposal(session.getId(), proposal);
 		
 	}
 	
-	public void deleteTopic(Topic topic) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public void deleteTopic(Topic topic) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		server.deleteTopic(session.getId(), topic);		
 	}
 
-	public ArrayList<Answer> getAnswers() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public ArrayList<Answer> getAnswers() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		return server.getAnswers(session.getId());
 	}
 
-	public ArrayList<Notification> getNotifications() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		return server.getNotifications(session.getId());
+	public ArrayList<Notification> getNotificationsProject() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.getNotificationsProject(session.getId());
 	}
 
-	public ArrayList<Proposal> getProposals() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public ArrayList<Proposal> getProposals() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		return server.getProposals(session.getId());
 	}
 
-	public void removeNotification(Notification notification) throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
-		server.removeNotification(session.getId(), notification);
+	public void removeNotification(Notification notification) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		// TODO: server.removeNotification(session.getId(), notification);
 		
 	}
-	public List<Operation> getAvailableOperations() throws RemoteException, NotLoggedException, NonPermissionRole, Exception {
+	public List<Operation> getAvailableOperations() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		// Only make the request to the server the first time
 		if (availableOperations.size() == 0)
 			availableOperations = server.getAvailableOperations(session.getId());
 		return availableOperations;
 	} 
 	
-	public List<Project> getProjects() throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception {
+	public List<Project> getProjects() throws RemoteException, NonPermissionRoleException, NotLoggedException, SQLException, Exception {
 		return server.getProjects(session.getId()); 
 	}
 
-	public TopicWrapper getTopicsWrapper(Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public TopicWrapper getTopicsWrapper(Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		return server.getTopicsWrapper(session.getId(), p);
 	}
 
-	public List<User> getUsersProject(Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public List<User> getUsersProject(Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		return server.getUsersProject(session.getId(), p);
 	}
 	
-	public List<User> getUsers() throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public List<User> getUsers() throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		return server.getUsers(session.getId());
 	}
 
@@ -294,7 +293,8 @@ public class ClientController {
 	}
 	
 	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
-		return server.executeAlgorithm(algorithmName, cases, caseToEval, configCBR, k);
+		// TODO: return server.executeAlgorithm(k, algorithmName, cases, caseToEval, configCBR, k);
+		return null;
 	}
 	
 	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
@@ -395,7 +395,7 @@ public class ClientController {
 		Application.launch(JFMain.class, null);
 	}
 
-	public void addProjectsUser(User user, Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public void addProjectsUser(User user, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		server.addProjectsUser(session.getId(), user, p);
 	}
 

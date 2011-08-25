@@ -39,8 +39,8 @@ import resources.ImagesUtilities;
 
 import com.cloudgarden.layout.AnchorConstraint;
 
-import exceptions.AddressNotFound;
-import exceptions.WSResponseError;
+import exceptions.NonExistentAddressException;
+import exceptions.WSResponseException;
 
 
 
@@ -298,9 +298,9 @@ public class JPDetailsCompany extends JXPanel {
         jXMapKit.setAddressLocationShown(true);
         jXMapKit.setCenterPosition(position);
         jXMapKit.setDataProviderCreditShown(true);
-		} catch (AddressNotFound e) {
+		} catch (NonExistentAddressException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (WSResponseError e) {
+		} catch (WSResponseException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
