@@ -1,5 +1,6 @@
 package test.presentation;
 
+import gcadServer.Main;
 import model.business.control.ServerController;
 
 import org.uispec4j.Button;
@@ -183,6 +184,21 @@ public class PruebasJFServidorFrontend extends org.uispec4j.UISpecTestCase {
 		            return window.getButton("OK").triggerClick();
 		          }
 		        }).run();
+		
+			// Se muestra el frame y se reinicia
+			WindowInterceptor.run(new Trigger() {
+				@Override
+				public void run() throws Exception {
+					Main.main(new String[0]);			
+				}
+			});
+			
+			WindowInterceptor.run(new Trigger() {
+				@Override
+				public void run() throws Exception {
+					Main.restart();			
+				}
+			});
 			
 		} catch(Exception e) {
 			fail(e.toString());

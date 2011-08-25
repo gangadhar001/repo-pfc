@@ -8,20 +8,16 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.event.TreeSelectionEvent;
@@ -38,6 +34,8 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 
+import org.japura.gui.CollapsiblePanel;
+import org.japura.gui.CollapsibleRootPanel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
@@ -58,7 +56,7 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -82,26 +80,12 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private static final double VERTEX_WIDTH = 120;
 	
 	private JPanel panel;
-	private JLabel lblRole;
-	private JLabel lblDate;
-	private JLabel lblAuthor;
 	private JPanel pnlInfo;
 	private JScrollPane scrollTree;
-	private JLabel lblCompany;
-	private JLabel lblCity;
-	private JScrollPane jScrollPane1;
-	private JTextArea txtDescription;
-	private JLabel lblDescription;
-	private JLabel lblIcon;
-	private JPanel pnlScrollKnowledge;
-	private JScrollPane scrollKnowledge;
-	private JPanel pnlScrollUser;
-	private JScrollPane jScrollUser;
-	private JPanel pnlKnowledgeInfo;
-	private JPanel pnlUser;
-	private JButton btnDetails;
-	private JPanel pnlCompany;
-	private JLabel lblSeniority;
+	private CollapsiblePanel collapsiblePanel3;
+	private CollapsiblePanel collapsiblePanel1;
+	private CollapsibleRootPanel collapsibleRootPanel1;
+	private CollapsiblePanel collapsiblePanel;
 	private JPanel panelGraph;
 	private JPanel panelTree;
 	protected int rowSelected;
@@ -143,7 +127,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -266,7 +250,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private void showUserInfo() {
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
-			lblAuthor.setText(lblAuthor.getText() + " " + k.getUser().getName() + ", " + k.getUser().getSurname());
+//			lblAuthor.setText(lblAuthor.getText() + " " + k.getUser().getName() + ", " + k.getUser().getSurname());
 		}
 		else
 			clearUserInfo();
@@ -326,201 +310,11 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			pnlInfo.setLayout(pnlUserInfoLayout);
 			pnlInfo.setPreferredSize(new java.awt.Dimension(221, 445));
 			pnlInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_Info")));
-			pnlInfo.add(getPnlKnowledgeInfo(), new AnchorConstraint(37, 957, 508, 47, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlInfo.add(getPnlUser(), new AnchorConstraint(232, 10, 112, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
-			pnlInfo.add(getPnlCompany(), new AnchorConstraint(762, 952, 962, 47, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+			pnlInfo.add(getCollapsibleRootPanel1(), new AnchorConstraint(75, 957, 978, 10, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 		}
 		return pnlInfo;
 	}
-	
-	private JPanel getPnlUser() {
-		if(pnlUser == null) {
-			pnlUser = new JPanel();
-			AnchorLayout pnlUserLayout = new AnchorLayout();
-			pnlUser.setLayout(pnlUserLayout);
-			pnlUser.setPreferredSize(new java.awt.Dimension(201, 101));
-			pnlUser.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_UserInfo")));
-			pnlUser.add(getJScrollUser(), new AnchorConstraint(222, 977, 955, 27, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		}
-		return pnlUser;
-	}
-	
-	private JPanel getPnlKnowledgeInfo() {
-		if(pnlKnowledgeInfo == null) {
-			pnlKnowledgeInfo = new JPanel();
-			pnlKnowledgeInfo.setLayout(null);
-			pnlKnowledgeInfo.setPreferredSize(new java.awt.Dimension(201, 210));
-			pnlKnowledgeInfo.setName("pnlKnowledgeInfo");
-			pnlKnowledgeInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_KnowledgeInfo")));
-			pnlKnowledgeInfo.add(getScrollKnowledge(), new AnchorConstraint(13, 132, 291, 6, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		}
-		return pnlKnowledgeInfo;
-	}
-	
-	private JScrollPane getJScrollUser() {
-		if(jScrollUser == null) {
-			jScrollUser = new JScrollPane();
-			jScrollUser.setPreferredSize(new java.awt.Dimension(191, 74));
-			jScrollUser.setViewportView(getPnlScrollUser());
-		}
-		return jScrollUser;
-	}
-	
-	private JPanel getPnlScrollUser() {
-		if(pnlScrollUser == null) {
-			pnlScrollUser = new JPanel();
-			
-			pnlScrollUser.setLayout(null);
-			pnlScrollUser.add(getLblAuthor());
-			pnlScrollUser.add(getLblSeniority());
-			pnlScrollUser.add(getLblRole());
-		}
-		return pnlScrollUser;
-	}
-	
-	private JScrollPane getScrollKnowledge() {
-		if(scrollKnowledge == null) {
-			scrollKnowledge = new JScrollPane();
-			scrollKnowledge.setBounds(5, 21, 191, 183);
-			scrollKnowledge.setViewportView(getPnlScrollKnowledge());
-		}
-		return scrollKnowledge;
-	}
-	
-	private JPanel getPnlScrollKnowledge() {
-		if(pnlScrollKnowledge == null) {
-			pnlScrollKnowledge = new JPanel();
-			
-			pnlScrollKnowledge.setLayout(null);
-			pnlScrollKnowledge.add(getLblDate());
-			pnlScrollKnowledge.add(getLblIcon());
-			pnlScrollKnowledge.add(getLblDescription());
-			pnlScrollKnowledge.add(getJScrollPane1());
-		}
-		return pnlScrollKnowledge;
-	}
-	
-	private JLabel getLblIcon() {
-		if(lblIcon == null) {
-			lblIcon = new JLabel();
-			lblIcon.setBounds(56, 7, 77, 44);
-		}
-		return lblIcon;
-	}
-	
-	private JLabel getLblDescription() {
-		if(lblDescription == null) {
-			lblDescription = new JLabel();
-			lblDescription.setBounds(12, 80, 74, 17);
-			lblDescription.setName("lblDescription");
-			lblDescription.setText(ApplicationInternationalization.getString("KV_lblDescription"));
-		}
-		return lblDescription;
-	}
-	
-	private JTextArea getTxtDescription() {
-		if(txtDescription == null) {
-			txtDescription = new JTextArea();
-			txtDescription.setBounds(12, 108, 173, 60);
-		}
-		return txtDescription;
-	}
-	
-	private JScrollPane getJScrollPane1() {
-		if(jScrollPane1 == null) {
-			jScrollPane1 = new JScrollPane();
-			jScrollPane1.setBounds(12, 103, 164, 65);
-			jScrollPane1.setViewportView(getTxtDescription());
-		}
-		return jScrollPane1;
-	}
-	
-	private JLabel getLblCompany() {
-		if(lblCompany == null) {
-			lblCompany = new JLabel();
-			lblCompany.setPreferredSize(new java.awt.Dimension(177, 19));
-			lblCompany.setName("lblCompany");
-			lblCompany.setText(ApplicationInternationalization.getString("KV_lblCity"));
-		}
-		return lblCompany;
-	}
-	
-	private JLabel getLblCity() {
-		if(lblCity == null) {
-			lblCity = new JLabel();
-			lblCity.setPreferredSize(new java.awt.Dimension(69, 14));
-			lblCity.setName("lblCity");
-			lblCity.setText(ApplicationInternationalization.getString("KV_lblCompany"));
-		}
-		return lblCity;
-	}
-	
-	private JLabel getLblAuthor() {
-		if(lblAuthor == null) {
-			lblAuthor = new JLabel();
-			lblAuthor.setName("lblAuthor");
-			lblAuthor.setBounds(12, -1, 185, 22);
-			lblAuthor.setText(ApplicationInternationalization.getString("KV_lblAuthor"));
-		}
-		return lblAuthor;
-	}
-	
-	private JLabel getLblDate() {
-		if(lblDate == null) {
-			lblDate = new JLabel();
-			lblDate.setName("lblDate");
-			lblDate.setText(ApplicationInternationalization.getString("KV_lblDate"));
-			lblDate.setBounds(12, 58, 101, 16);
-		}
-		return lblDate;
-	}
-	
-	private JLabel getLblRole() {
-		if(lblRole == null) {
-			lblRole = new JLabel();
-			lblRole.setName("lblRole");
-			lblRole.setText(ApplicationInternationalization.getString("KV_lblRole"));
-			lblRole.setBounds(12, 48, 100, 16);
 
-		}
-		return lblRole;
-	}
-	
-	private JLabel getLblSeniority() {
-		if(lblSeniority == null) {
-			lblSeniority = new JLabel();
-			lblSeniority.setName("lblSeniority");
-			lblSeniority.setText(ApplicationInternationalization.getString("KV_lblSeniority"));
-			lblSeniority.setBounds(12, 26, 103, 16);
-		}
-		return lblSeniority;
-	}
-
-	private JPanel getPnlCompany() {
-		if(pnlCompany == null) {
-			pnlCompany = new JPanel();
-			AnchorLayout pnlCompanyLayout = new AnchorLayout();
-			pnlCompany.setPreferredSize(new java.awt.Dimension(200, 89));
-			pnlCompany.setLayout(pnlCompanyLayout);
-			pnlCompany.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_CompanyInfo")));
-			pnlCompany.add(getLblCity(), new AnchorConstraint(488, 407, 646, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlCompany.add(getLblCompany(), new AnchorConstraint(219, 947, 432, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-			pnlCompany.add(getBtnDetails(), new AnchorConstraint(634, 952, 904, 537, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		}
-		return pnlCompany;
-	}
-	
-	private JButton getBtnDetails() {
-		if(btnDetails == null) {
-			btnDetails = new JButton();
-			btnDetails.setPreferredSize(new java.awt.Dimension(83, 24));
-			btnDetails.setName("btnDetails");
-			btnDetails.setAction(Application.getInstance().getContext().getActionMap().get("Details"));
-			btnDetails.setText(ApplicationInternationalization.getString("btnDetails"));
-		}
-		return btnDetails;
-	}
-	
 	// Method used to create a border with shadow
 	private void updateBorder(JComponent comp) {
 		 comp.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(Color.BLACK, 9, 0.5f, 12, false, false, true, true), comp.getBorder()));
@@ -551,7 +345,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -585,7 +379,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -625,7 +419,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -644,7 +438,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -666,7 +460,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -716,7 +510,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -765,7 +559,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -925,4 +719,45 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 	private void clearUserInfo() {
 		
 	}
+
+	private CollapsiblePanel getCollapsiblePanel() {
+		if(collapsiblePanel == null) {
+			collapsiblePanel = new CollapsiblePanel();			
+			collapsiblePanel.setAutoscrolls(true);
+			collapsiblePanel.setTitle("Company");
+			collapsiblePanel.setBounds(6, 12, 189, 162);
+		}
+		return collapsiblePanel;
+	}
+
+	private CollapsibleRootPanel getCollapsibleRootPanel1() {
+		if(collapsibleRootPanel1 == null) {
+			collapsibleRootPanel1 = new CollapsibleRootPanel(CollapsibleRootPanel.SCROLL_BAR);
+			collapsibleRootPanel1.setAutoscrolls(true);
+			collapsibleRootPanel1.setPreferredSize(new java.awt.Dimension(201, 392));
+			collapsibleRootPanel1.add(getCollapsiblePanel());
+			collapsibleRootPanel1.add(getCollapsiblePanel1());
+			collapsibleRootPanel1.add(getCollapsiblePanel3());
+			collapsibleRootPanel1.setMaxHeight(418);
+		}
+		return collapsibleRootPanel1;
+	}
+
+	private CollapsiblePanel getCollapsiblePanel1() {
+		if(collapsiblePanel1 == null) {
+			collapsiblePanel1 = new CollapsiblePanel();
+			collapsiblePanel1.setBounds(6, 180, 189, 117);
+			collapsiblePanel1.setName("collapsiblePanel1");
+		}
+		return collapsiblePanel1;
+	}
+
+	private CollapsiblePanel getCollapsiblePanel3() {
+		if(collapsiblePanel3 == null) {
+			collapsiblePanel3 = new CollapsiblePanel();
+			collapsiblePanel3.setBounds(6, 303, 189, 84);
+		}
+		return collapsiblePanel3;
+	}
+
 }

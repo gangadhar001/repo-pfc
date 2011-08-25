@@ -44,7 +44,7 @@ import com.cloudgarden.layout.AnchorLayout;
 import communication.CommunicationsUtilities;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
@@ -463,7 +463,7 @@ public class JFLogin extends SingleFrameApplication {
 			glassPane.stop();
 			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonExistentRole e) {
+		} catch (NonPermissionRoleException e) {
 			glassPane.stop();
 			btnLogin.setEnabled(true);
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

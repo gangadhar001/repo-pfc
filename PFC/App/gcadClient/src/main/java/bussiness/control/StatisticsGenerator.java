@@ -24,7 +24,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import presentation.utils.DateUtilities;
 import resources.XMLUtilities;
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 public class StatisticsGenerator {
@@ -123,7 +123,7 @@ public class StatisticsGenerator {
 
 	/*** Methods used to generate datasets ***/	
 	// Create dataset for the chart of evolution of developer
-	public CategoryDataset createDatasetEvolutionUser(Project pro, User u, boolean isAnnually) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public CategoryDataset createDatasetEvolutionUser(Project pro, User u, boolean isAnnually) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		ArrayList<Integer> years;
 		Hashtable<Integer, List<Integer>> months;
@@ -155,7 +155,7 @@ public class StatisticsGenerator {
 	}	
 	
 	// Create dataset for the chart of historical of a project
-	public CategoryDataset createDatasetHistoricalProject(Project pro, boolean isAnnually) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public CategoryDataset createDatasetHistoricalProject(Project pro, boolean isAnnually) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		ArrayList<Integer> years;
 		Hashtable<Integer, List<Integer>> months;
@@ -186,7 +186,7 @@ public class StatisticsGenerator {
 	}
 	
 	// Create dataset for the chart of participation of each user on the project
-	public AbstractDataset createDatasetProjectParticipation(Project pro, boolean percentage) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public AbstractDataset createDatasetProjectParticipation(Project pro, boolean percentage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		AbstractDataset dataset = null;
 		if (percentage)
 			dataset = new DefaultPieDataset();
@@ -213,7 +213,7 @@ public class StatisticsGenerator {
 	}
 	
 	// Create dataset for the chart of number of knowledge made on each project for that user
-	public AbstractDataset createDatasetKnowledgeDeveloper(User u, boolean percentage) throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception {
+	public AbstractDataset createDatasetKnowledgeDeveloper(User u, boolean percentage) throws RemoteException, NonPermissionRoleException, NotLoggedException, SQLException, Exception {
 		AbstractDataset dataset = null;
 		if (percentage)
 			dataset = new DefaultPieDataset();
@@ -247,7 +247,7 @@ public class StatisticsGenerator {
 	}
 	
 	// Create dataset for the chart of number of resources on each project
-	public DefaultCategoryDataset createDatasetResourcesProject(String resource) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public DefaultCategoryDataset createDatasetResourcesProject(String resource) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		int totalResources = 0;
 		
