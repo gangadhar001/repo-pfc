@@ -1,4 +1,4 @@
-﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -306,6 +306,25 @@ END$$
 
 DELIMITER ;
 
+;
+CREATE USER `gcad` IDENTIFIED BY 'gcad';
+
+grant ALL on TABLE `dbgcad`.`addresses` to gcad;
+grant ALL on TABLE `dbgcad`.`answers` to gcad;
+grant ALL on TABLE `dbgcad`.`companies` to gcad;
+grant ALL on TABLE `dbgcad`.`projects` to gcad;
+grant ALL on TABLE `dbgcad`.`proposals` to gcad;
+grant ALL on TABLE `dbgcad`.`topics` to gcad;
+grant ALL on TABLE `dbgcad`.`users` to gcad;
+grant ALL on TABLE `dbgcad`.`usersProjects` to gcad;
+grant ALL on TABLE `dbgcad`.`knowledge` to gcad;
+grant ALL on TABLE `dbgcad`.`notifications` to gcad;
+grant ALL on TABLE `dbgcad`.`LogEntry` to gcad;
+grant ALL on TABLE `dbgcad`.`notificationsUsers` to gcad;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
 -- Data for table `dbgcad`.`projects`

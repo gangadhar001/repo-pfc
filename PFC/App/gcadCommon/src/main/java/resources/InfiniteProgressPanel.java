@@ -40,10 +40,12 @@ public class InfiniteProgressPanel extends JComponent implements MouseListener
     protected float   fps        = 1.0f;
 
     protected RenderingHints hints = null;
+    protected int colorB;
 
     public InfiniteProgressPanel()
     {
         this("Identificando", 16);
+        colorB = 96;
     }
 
     public InfiniteProgressPanel(String text)
@@ -88,6 +90,11 @@ public class InfiniteProgressPanel extends JComponent implements MouseListener
     public String getText()
     {
         return text;
+    }
+    
+    public void setColorB(int B)
+    {
+        colorB = B;
     }
 
     public void start()
@@ -136,8 +143,11 @@ public class InfiniteProgressPanel extends JComponent implements MouseListener
 
             for (int i = 0; i < ticker.length; i++)
             {
-                int channel = 224 - 128 / (i + 1);
-                g2.setColor(new Color(channel, channel, channel, alphaLevel));
+                int channel = colorB / (i+1); //224 - 128 / (i + 1);
+                if (colorB != 96)
+                	g2.setColor(new Color(0, 0, channel, alphaLevel));
+                else
+                	g2.setColor(new Color(channel, channel, channel, alphaLevel));
                 g2.fill(ticker[i]);
 
                 Rectangle2D bounds = ticker[i].getBounds2D();

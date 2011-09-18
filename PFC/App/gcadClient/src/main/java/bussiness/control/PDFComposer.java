@@ -26,7 +26,7 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -37,7 +37,7 @@ public class PDFComposer {
 	private static List<Project> projects = null;
 	
 	@SuppressWarnings("rawtypes")
-	public static void composePDF (Document doc, DefaultMutableTreeNode root, List<Project> pro) throws NumberFormatException, RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	public static void composePDF (Document doc, DefaultMutableTreeNode root, List<Project> pro) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		projects = pro;
 		Enumeration children = root.children();
 		int count = 1;
@@ -52,7 +52,7 @@ public class PDFComposer {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) throws NumberFormatException, RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		Enumeration children = parentNode.children();
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
@@ -92,7 +92,7 @@ public class PDFComposer {
 		}
 	}
 
-	private static PdfPTable createTable(Project p) throws RemoteException, SQLException, NonPermissionRole, NotLoggedException, Exception {
+	private static PdfPTable createTable(Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		PdfPTable table = new PdfPTable(5);
 		createHeader(table);
 		// Take knowledge from project

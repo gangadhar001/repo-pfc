@@ -66,7 +66,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
@@ -498,7 +498,7 @@ public class JDPdf extends JDialog {
 			if (path != null)
 				path.delete();
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			if (path != null)
 				path.delete();
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
