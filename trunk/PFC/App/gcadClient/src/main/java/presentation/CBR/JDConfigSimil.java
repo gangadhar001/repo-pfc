@@ -34,7 +34,7 @@ import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.EnumSimilFunctions;
 import model.business.control.CBR.retrieveAlgorithms.NNMethod;
-import model.business.control.CBR.similarity.local.EnumDistance;
+
 import model.business.control.CBR.similarity.local.Equal;
 import model.business.control.CBR.similarity.local.Interval;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
@@ -43,7 +43,8 @@ import model.business.knowledge.Project;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
-import exceptions.NonPermissionRole;
+
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 import bussiness.control.ClientController;
@@ -363,7 +364,7 @@ public class JDConfigSimil extends javax.swing.JDialog {
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NotLoggedException e) {
@@ -405,7 +406,8 @@ public class JDConfigSimil extends javax.swing.JDialog {
 					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Equal.name()))
 						function = new Equal();
 					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Enum.name()))
-						function = new EnumDistance();
+						//TODO: function = new EnumDistance();
+						;
 					result.add(function);					
 				}
 			}

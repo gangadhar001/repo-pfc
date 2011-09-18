@@ -35,7 +35,7 @@ import bussiness.control.OperationsUtilities;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -269,7 +269,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 				cbProposals.setSelectedItem(p.getTitle());
 				cbProposals.setEnabled(false);
 			
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -291,7 +291,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
 				cbTopicsModify.insertItemAt(topics.get(i).getTitle(), i);
 			}
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -336,7 +336,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 			ClientController.getInstance().addProposal(newPro, topics.get(cbTopics.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeAdded(newPro, topics.get(cbTopics.getSelectedIndex()));
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -357,7 +357,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 			ClientController.getInstance().modifyProposal(newPro, proposals[cbProposals.getSelectedIndex()], topics.get(cbTopicsModify.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeEdited(newPro, proposals[cbProposals.getSelectedIndex()]);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

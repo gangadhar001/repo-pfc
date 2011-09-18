@@ -33,7 +33,7 @@ import bussiness.control.OperationsUtilities;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -223,7 +223,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 			for (int i=0; i<topics.size(); i++) {
 				cbTopics.insertItemAt(topics.get(i).getTitle(), i);
 			}	
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -256,7 +256,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 			ClientController.getInstance().addTopic(newTopic);
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeAdded(newTopic, null);
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -277,7 +277,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 			ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeEdited(newTopic, topics.get(cbTopics.getSelectedIndex()));
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

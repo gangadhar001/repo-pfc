@@ -20,7 +20,7 @@ import org.jdesktop.application.Application;
 
 import presentation.panelProjectInformation;
 import bussiness.control.ClientController;
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -76,7 +76,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NonPermissionRole e) {
+		} catch (NonPermissionRoleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotLoggedException e) {
@@ -168,7 +168,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NotLoggedException e) {
@@ -200,7 +200,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NotLoggedException e) {

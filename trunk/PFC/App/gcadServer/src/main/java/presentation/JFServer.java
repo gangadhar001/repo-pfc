@@ -32,6 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 
@@ -111,6 +112,13 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    } catch(Exception e) {
 	    	JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 	    }
+//		for(UIManager.LookAndFeelInfo laf:UIManager.getInstalledLookAndFeels()){
+//            if("Nimbus".equals(laf.getName()))
+//                try {
+//                UIManager.setLookAndFeel(laf.getClassName());
+//            } catch (Exception ex) {
+//            }
+//        }
 	}
     
 	public JFServer(ServerController controller) {
@@ -212,6 +220,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 								btnConnectActionPerformed(evt);
 							}
 						});
+						btnConnectToolbar.setToolTipText(AppInternationalization.getString("Tooltip_Connect"));
 					}
 					{
 						btnDisconnectToolbar = new JButton();
@@ -222,6 +231,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 								btnDisconnectActionPerformed(evt);
 							}
 						});
+						btnDisconnectToolbar.setToolTipText(AppInternationalization.getString("Tooltip_Disconnect"));
 					}
 					{
 						toolbar.addSeparator();
@@ -233,7 +243,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 								mniConfigureActionPerformed(evt);
 							}
 						});
-						
+						btnConfigure.setToolTipText(AppInternationalization.getString("Tooltip_Configure"));
 					}
 				}
 				{
@@ -373,7 +383,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    	button.setName(action);
 	    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    	button.setRequestFocusEnabled(false);
-	    	button.setToolTipText(AppInternationalization.getString("toolbar"+action+"Tooltip"));
 	    	image = ImagesUtilities.loadCompatibleImage("toolbar/" + action + ".png");
 	    	button.setIcon(new ImageIcon(image));
 	    	button.setRolloverEnabled(true);
@@ -484,6 +493,8 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		// spinner
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				// Blue color for spinner
+				glassPane.setColorB(241);
 				glassPane.start();
 				Thread performer = new Thread(new Runnable() {
 					public void run() {

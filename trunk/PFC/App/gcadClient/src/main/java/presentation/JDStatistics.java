@@ -44,7 +44,7 @@ import resources.NotEmptyValidator;
 
 import bussiness.control.ClientController;
 import bussiness.control.StatisticsGenerator;
-import exceptions.NonPermissionRole;
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 /**
@@ -327,7 +327,7 @@ public class JDStatistics extends javax.swing.JDialog {
 						JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 					} catch (RemoteException e1) {
 						JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-					} catch (NonPermissionRole e1) {
+					} catch (NonPermissionRoleException e1) {
 						JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 					} catch (NotLoggedException e1) {
 						JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -365,7 +365,7 @@ public class JDStatistics extends javax.swing.JDialog {
 		cbCharts.setSelectedIndex(0);
 	}
 	
-	private void fillComboProjects() throws RemoteException, NonPermissionRole, NotLoggedException, SQLException, Exception {
+	private void fillComboProjects() throws RemoteException, NonPermissionRoleException, NotLoggedException, SQLException, Exception {
 		List<Project> projects = ClientController.getInstance().getProjects();
 		for (Project p: projects) {
 			cbProjects.addItem(p);
@@ -537,7 +537,7 @@ public class JDStatistics extends javax.swing.JDialog {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -641,7 +641,7 @@ public class JDStatistics extends javax.swing.JDialog {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRole e) {
+			} catch (NonPermissionRoleException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (NotLoggedException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
