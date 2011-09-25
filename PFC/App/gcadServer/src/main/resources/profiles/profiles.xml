@@ -2,7 +2,7 @@
  
 <Profiles>
 	<Profile name="Default">
-		<Group id="Knowledge">
+		<Group id="Knowledge" view="True">
 			<Subgroup id="Proposal">
 				<Operations>
 					<id>Add</id>
@@ -18,14 +18,14 @@
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="PDFGeneration">
+		<Group id="PDFGeneration" view="False">
 			<Subgroup id="PDFGeneration">
 				<Operations>
 					<id>Generate</id>
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="Notifications">
+		<Group id="Notifications" view="True">
 			<Subgroup id="Notifications">
 				<Operations>
 					<id>Add</id>
@@ -35,8 +35,9 @@
 			</Subgroup>
 		</Group>
 	</Profile>
+	
 	<Profile name="Chief">
-		<Group id="Knowledge">
+		<Group id="Knowledge" view="True">
 			<Subgroup id="Topic">
 				<Operations>
 					<id>Add</id>
@@ -45,7 +46,7 @@
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="Project">
+		<Group id="Project" view="False">
 			<Subgroup id="Project">
 				<Operations>
 					<id>Add</id>
@@ -53,14 +54,14 @@
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="Statistics">
+		<Group id="Statistics" view="True">
 			<Subgroup id="Statistics">
 				<Operations>
 					<id>Generate</id>
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="CBR">
+		<Group id="CBR" view="False">
 			<Subgroup id="CBR">
 				<Operations>
 					<id>Execute</id>

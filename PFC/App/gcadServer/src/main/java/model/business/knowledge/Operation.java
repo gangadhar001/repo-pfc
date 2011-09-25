@@ -19,11 +19,13 @@ public class Operation implements Serializable {
 	// In some cases, this value doesn't appear
 	private String subgroup;
 	private List<String> operations;
+	private boolean showGroupInView;
 	
-	public Operation(String group, String subgroup, List<String> operationsName) {
+	public Operation(String group, String subgroup, List<String> operationsName, boolean showGroupInView) {
 		this.group = group;
 		this.subgroup = subgroup;
 		this.operations = operationsName;
+		this.showGroupInView = showGroupInView;
 	}
 
 	public Operation(String group, String subgroup, String op) {
@@ -31,7 +33,7 @@ public class Operation implements Serializable {
 		this.group = group;
 		this.subgroup = subgroup;
 		this.operations.add(op);
-		
+		this.showGroupInView = false;
 	}
 
 	public String getGroup() {
@@ -57,7 +59,13 @@ public class Operation implements Serializable {
 	public void setOperations(List<String> operations) {
 		this.operations = operations;
 	}
-	
-	
+
+	public boolean isShowGroupInView() {
+		return showGroupInView;
+	}
+
+	public void setShowGroupInView(boolean showGroupInView) {
+		this.showGroupInView = showGroupInView;
+	}	
 
 }

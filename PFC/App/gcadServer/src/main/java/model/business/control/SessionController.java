@@ -147,7 +147,6 @@ public class SessionController {
 			UserRole role = UserRole.values()[session.getRole()];
 			// Load XML Roles file
 			configFile = new XMLConfiguration(IResources.XML_PROFILES_PATH + "profiles-role.xml");
-			// Use XPath expressions
 
 			// Take defined roles in that XML file (returns a list)
 			rolesName = configFile.getList("Role[@name]");
@@ -190,7 +189,8 @@ public class SessionController {
 							for (int k = 0; k < subgroupsName.size(); k++)
 							{
 								operationsName = configFile.getList("Profile(" + i + ").Group(" + j + ").Subgroup(" + k + ").Operations.id");
-								op = new Operation(groupsName.get(j), subgroupsName.get(k), operationsName);
+								boolean showInView = Boolean.parseBoolean(configFile.getString("Profile(" + i + ").Group(" + j + ")[@view]"));
+								op = new Operation(groupsName.get(j), subgroupsName.get(k), operationsName, showInView);
 								result.add(op);
 							}							
 						}

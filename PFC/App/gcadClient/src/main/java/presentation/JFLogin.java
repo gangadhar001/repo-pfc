@@ -357,6 +357,7 @@ public class JFLogin extends SingleFrameApplication {
 			// spinner
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
+					glassPane.setColorB(241);
 					glassPane.start();
 					Thread performer = new Thread(new Runnable() {
 						public void run() {
