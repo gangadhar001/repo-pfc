@@ -2,43 +2,25 @@ package presentation;
 
 import internationalization.ApplicationInternationalization;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
 import javax.swing.ActionMap;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
@@ -49,24 +31,19 @@ import model.business.knowledge.Operations;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jfree.chart.ChartPanel;
 
-import presentation.CBR.JDConfigSimil;
-import presentation.CBR.JDRetrievalCases;
 import presentation.customComponents.CustomMenubar;
-import presentation.customComponents.CustomToolBar;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
-import presentation.dataVisualization.InternalFStatistics;
 import presentation.panelsActions.panelKnowledgeView;
-import presentation.panelsActions.panelNotificationsView;
-import presentation.panelsActions.panelStatisticsView;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
+
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
+
 import exceptions.NotLoggedException;
 
 
@@ -86,11 +63,8 @@ import exceptions.NotLoggedException;
  * Class used to create and show the main frame
  */
 public class JFMain extends SingleFrameApplication {
-
-    private BufferedImage image;
     
 	private JPDetailsCompany panelDetailsCompany;
-	private JPanel jPanel1;
 	private JPDetailsCompanyGlassPanel companyDetailGlassPanel;
 	
 	// List of operations allowed to an user, depends on its role
@@ -98,11 +72,12 @@ public class JFMain extends SingleFrameApplication {
 
 	private JLabel lblAction;
 	private JLabel lblPort;
-	private JPanel viewPanel;
 	private JPanel statusBar;
 	private JToolBar toolbar;
 	private JPanel mainPanel;
 	private JLabel lblRole;
+
+	private panelKnowledgeView panelKnowledge;
 	
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 728;	
@@ -124,6 +99,8 @@ public class JFMain extends SingleFrameApplication {
             	 quit();
              }
          });
+        
+       
     	
     	try {			
 			getMainFrame().setPreferredSize(new java.awt.Dimension(WIDTH, HEIGHT));
@@ -154,16 +131,39 @@ public class JFMain extends SingleFrameApplication {
 			}
 			{
 				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.jpg"));
-				AnchorLayout mainPanelLayout = new AnchorLayout();
-				mainPanel.setLayout(mainPanelLayout);
-				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(37, 1000, 925, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 601));
-				{
-					viewPanel = new JPanel();
-					mainPanel.add(viewPanel, new AnchorConstraint(20, 985, 980, 12, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-					viewPanel.setPreferredSize(new java.awt.Dimension(981, 577));
-					viewPanel.setName("viewPanel");
-				}
+				mainPanel.setLayout(null);
+				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 607));
+				mainPanel.addComponentListener(new ComponentListener() {
+					
+					@Override
+					public void componentShown(ComponentEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void componentResized(ComponentEvent e) {
+						System.out.println("ENTRAAAAAAA EN RESIZE EL PANEL CON FONDO");
+						if (panelKnowledge != null) {
+							System.out.println(mainPanel.getSize());
+							panelKnowledge.setSize(mainPanel.getSize());
+						}
+					}
+					
+					@Override
+					public void componentMoved(ComponentEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void componentHidden(ComponentEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
 			}
 			{
 				lblAction = new JLabel();
@@ -261,22 +261,31 @@ public class JFMain extends SingleFrameApplication {
 //	}
 	
 	 // Method to add specific button for knowledge view to the toolbar
-    private void createToolbarKnowledgeView() throws MalformedURLException, IOException {
+    public void createToolbarKnowledgeView() {
         toolbar.removeAll();
       
                 // Includes operation "add", "modify", and "delete", if the user has permissions
                 List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
-                if (availableOps.contains(Operations.Add.name()))
-                	toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
-                if (availableOps.contains(Operations.Modify.name()))
-                	toolbar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
-                if (availableOps.contains(Operations.Delete.name()))
-                	toolbar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
+                try {
+                	if (availableOps.contains(Operations.Add.name()))					
+						toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
+					if (availableOps.contains(Operations.Modify.name()))
+	                	toolbar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
+	                if (availableOps.contains(Operations.Delete.name()))
+	                	toolbar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+             
                 
         }
     
     // Method to add specific button for Statistics view to the toolbar
-    private void createToolbarStatisticsView() throws MalformedURLException, IOException {
+    public void createToolbarStatisticsView() throws MalformedURLException, IOException {
     	toolbar.removeAll();
                
                 // Includes operation "generate", if the user has permissions
@@ -412,6 +421,16 @@ public class JFMain extends SingleFrameApplication {
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public void showKnowledgeView() {
+		createToolbarKnowledgeView();
+		panelKnowledge = new panelKnowledgeView(this);
+		panelKnowledge.setOpaque(false);
+		panelKnowledge.setBounds(12, 12, 984, 583);
+		mainPanel.add(panelKnowledge);//, new AnchorConstraint(64, 1000, 979, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		
+//		panelKnowledge.setBounds(12, 12, 984, 577);
 	}
 
 }

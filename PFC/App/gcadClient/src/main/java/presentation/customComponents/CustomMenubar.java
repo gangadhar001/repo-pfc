@@ -1,0 +1,440 @@
+package presentation.customComponents;
+
+import internationalization.ApplicationInternationalization;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ActionMap;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+
+import org.jdesktop.application.Action;
+import org.jdesktop.application.Application;
+
+import presentation.JDAbout;
+import presentation.JDChooseProject;
+import presentation.JDCreateProject;
+import presentation.JDKnowledge;
+import presentation.JDPdf;
+import presentation.JFMain;
+import presentation.panelsActions.panelKnowledgeView;
+import presentation.utils.MenuMnemonicsRuntime;
+
+import bussiness.control.OperationsUtilities;
+
+import model.business.knowledge.Groups;
+import model.business.knowledge.Operation;
+import net.miginfocom.swing.MigLayout;
+import resources.ImagesUtilities;
+
+/**
+ * Custom class that represents a custom menu bar. It manages the menus, the custom toolbar and its events
+ * 
+ */
+public class CustomMenubar extends JMenuBar {
+
+	// REFERENCE: http://blogs.oracle.com/geertjan/entry/customizable_corporate_menu_bar_for
+	// REFERENCE: http://www.miglayout.com/
+
+	private static final long serialVersionUID = 7960099104264885051L;
+
+	private static final int MENU_HEIGHT = 45;
+
+	private JPanel viewsPanel;
+	private JMenu menuTools;
+	private JFMain mainFrame;
+
+	private panelKnowledgeView panelKnowledge;
+
+	protected Object viewButtonName;
+
+	private ActionMap getAppActionMap() {
+		return Application.getInstance().getContext().getActionMap(this);
+	}
+	
+	public CustomMenubar() {
+		super();
+	}
+
+	public CustomMenubar(JFMain mainFrame, List<Operation> operations) {
+		super();
+		
+		this.mainFrame = mainFrame;
+		
+		// Set layout to menu bar
+		setLayout(new MigLayout("align left"));
+		setPreferredSize(new Dimension(1024, MENU_HEIGHT));
+
+		// Add common menus
+		JMenu menuFile = new JMenu(ApplicationInternationalization.getString("menuFile"));
+		menuFile.setName("menuFile");
+		menuFile.setMnemonic(KeyEvent.VK_F);
+		
+		JMenuItem menuFileCloseSession = new JMenuItem();
+		menuFileCloseSession.setName("menuFileCloseSession");
+		menuFileCloseSession.setAction(getAppActionMap().get("CloseSession"));
+		menuFileCloseSession.setText(ApplicationInternationalization.getString("menuFileCloseSession"));
+
+		JMenuItem menuFileExit = new JMenuItem();
+		menuFile.add(menuFileExit);
+		menuFileExit.setName("menuFileExit");
+		menuFileExit.setAction(getAppActionMap().get("Exit"));
+		menuFileExit.setText(ApplicationInternationalization.getString("menuItemExit"));
+		menuFileExit.setMnemonic(KeyEvent.VK_E);
+
+		menuTools = new JMenu(ApplicationInternationalization.getString("menuTools"));
+		menuTools.setName("menuTools");
+
+		// Add menu items to "Tools" menu. Each menu item is a group of
+		// operations
+		List<String> groups = OperationsUtilities.getAllGroups(operations);
+		for (String group : groups) {
+			createToolMenuItem(group);
+		}
+
+		// Add "Options" menu
+		JMenu menuOptions = new JMenu();
+		menuOptions.setName("menuOptions");
+		menuOptions.setText(ApplicationInternationalization.getString("menuOptions"));
+		
+		// Add menu item for switch active project
+		JMenuItem menuItemSwitch = new JMenuItem();
+		menuOptions.add(menuItemSwitch);
+		menuItemSwitch.setName("menuItemSwitch");
+		menuItemSwitch.setAction(getAppActionMap().get("SwitchProject"));
+		menuItemSwitch.setText(ApplicationInternationalization.getString("menuItemSwitch"));
+		
+		JMenu menuHelp = new JMenu(ApplicationInternationalization.getString("menuHelp"));
+		JMenuItem menuAbout = new JMenuItem(ApplicationInternationalization.getString("menuItemAbout"));
+		menuAbout.setAction(getAppActionMap().get("About"));
+		menuHelp.add(menuAbout);		
+		
+		add(menuFile);
+		add(menuTools);
+		add(menuOptions);
+		add(menuHelp);	
+
+		// Set mnemonics
+		MenuMnemonicsRuntime.setMnemonics(this);
+		
+		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+		separator.setSize(new Dimension(separator.getWidth(), MENU_HEIGHT - 5));
+		separator.setPreferredSize(new Dimension(separator.getWidth(), MENU_HEIGHT - 5));
+		add(separator);
+
+		JLabel label = new JLabel();
+		label.setSize(new Dimension(10, MENU_HEIGHT - 5));
+		label.setPreferredSize(new Dimension(10, MENU_HEIGHT - 5));
+		label.setFocusable(false);
+		add(label);
+
+		// Add the panel used to contain the view icons
+		viewsPanel = new JPanel();
+		GridLayout gl = new GridLayout(1, groups.size());
+		gl.setHgap(20);
+		viewsPanel.setLayout(gl);
+		// Create panel with view icons
+		try {
+			createViews(operations);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		viewsPanel.setOpaque(false);
+		add(viewsPanel, "span, align left");
+		
+	}
+	
+	// Create all submenus for one menu (one group of operations)
+	private void createToolMenuItem(String groupName) {
+        if (!groupName.equals(Groups.Notifications.name())) {
+	        JMenuItem item = new JMenuItem();
+            item.setName("Manage_"+groupName);
+            item.setAction(getAppActionMap().get(item.getName()));
+            item.setText(ApplicationInternationalization.getString("manage"+groupName));
+            menuTools.add(item);
+        }
+    }
+
+
+	// Method used to create the different button with icons on toolbar, depends on the
+	// allowed operations
+	public void createViews(List<Operation> operations) throws MalformedURLException, IOException {
+		List<String> shownGroups = new ArrayList<String>();
+		for (Operation op : operations) {
+			if (op.isShowGroupInView() && !shownGroups.contains(op.getGroup())) {
+				JButton button = new JButton();
+				button.setName("View_" + op.getGroup());
+				ImageIcon icon = ImagesUtilities.loadIcon("Toolbars/" + op.getGroup()+".png");
+			    button.setAction(getAppActionMap().get(button.getName()));
+			    button.setIcon(icon);
+				button.setSize(new Dimension(80, 100));		    
+			    button.setContentAreaFilled(false);
+			    button.setFocusPainted(false);
+			    button.setText(ApplicationInternationalization.getString("ButtonView_" + op.getGroup()));
+			    button.setVerticalTextPosition(SwingConstants.BOTTOM);
+			    button.setHorizontalTextPosition(SwingConstants.CENTER);
+			    button.setToolTipText(ApplicationInternationalization.getString("TooltipView_" + op.getGroup()));
+			    button.setBorderPainted(false);
+			    button.addMouseListener(new MouseListener() {	
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e)
+					{
+					}
+					
+					@Override
+			        public void mouseEntered(MouseEvent e) {
+			            JButton button = (JButton) e.getComponent();
+			            button.setBorderPainted(true);
+			            button.setContentAreaFilled(true);
+			        }
+
+			        @Override
+			        public void mouseExited(MouseEvent e) {
+			            JButton button = (JButton) e.getComponent();
+			            if (!button.getName().equals(viewButtonName)) {
+			            	button.setBorderPainted(false);
+				            button.setContentAreaFilled(false);
+			            }
+			        }
+
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// Deactivate other buttons
+						for(Component component: viewsPanel.getComponents()) {
+							if (component instanceof JButton) {
+								JButton button = (JButton) component;
+								button.setBorderPainted(false);
+					            button.setContentAreaFilled(false);
+							}
+						}
+						
+						// Activate current button
+						JButton button = (JButton) e.getComponent();
+			            button.setBorderPainted(true);
+			            button.setContentAreaFilled(true);
+						
+			            viewButtonName = button.getName();
+					}
+				});
+			   
+				viewsPanel.add(button);
+			}				
+		}		
+	}
+	
+	/*** Actions used to manage actions for menu items ***/
+	@Action
+	public void Exit() {
+		if (JOptionPane.showConfirmDialog(mainFrame.getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),
+				ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), 
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+			mainFrame.quit();
+	}
+
+	@Action
+	public void CloseSession() {
+		// if (JOptionPane.showConfirmDialog(getMainFrame(),
+		// ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
+		// ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),
+		// JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
+		// JOptionPane.YES_OPTION)
+		// closeSessionConfirm();
+		// TODO
+		// JDConfigSimil j = new JDConfigSimil(null);
+		// j.setVisible(true);
+		JDCreateProject j = new JDCreateProject(mainFrame.getMainFrame());
+		j.setModal(true);
+		j.setVisible(true);
+
+	}
+
+	@Action
+	public void Manage_Knowledge() {
+		// Invoke JFKnowledge without arguments (no operation, no data)
+		JDKnowledge frameKnowledge = new JDKnowledge(mainFrame);
+		frameKnowledge.setLocationRelativeTo(mainFrame.getMainFrame());
+		frameKnowledge.setModal(true);
+		frameKnowledge.setVisible(true);
+	}
+
+	@Action
+	public void Manage_PDFGeneration() {
+		JDPdf framePDF = new JDPdf(mainFrame.getMainFrame());
+		framePDF.setLocationRelativeTo(mainFrame.getMainFrame());
+		framePDF.setModal(true);
+		framePDF.setVisible(true);
+	}
+
+	@Action
+	public void Manage_Statistics() {
+		// JDStatistics frameStatistics = new
+		// JDStatistics(mainFrame.getMainFrame());
+		// frameStatistics.setLocationRelativeTo(mainFrame.getMainFrame());
+		// frameStatistics.setModal(true);
+		// frameStatistics.setVisible(true);
+		// // Take the generated chart and show it in the view of statistics
+		// ChartPanel chartPanel = frameStatistics.getChartPanel();
+		// if (chartPanel != null) {
+		// try {
+		// Statistics();
+		// InternalFStatistics internalFrameStatistic = new
+		// InternalFStatistics();
+		// internalFrameStatistic.addChartPanel(chartPanel);
+		// panelStatistics.addStatistic(internalFrameStatistic);
+		// } catch (MalformedURLException e) {
+		// JOptionPane.showMessageDialog(getMainFrame(),
+		// e.getLocalizedMessage(),
+		// ApplicationInternationalization.getString("Error"),
+		// JOptionPane.ERROR_MESSAGE);
+		// } catch (IOException e) {
+		// JOptionPane.showMessageDialog(getMainFrame(),
+		// e.getLocalizedMessage(),
+		// ApplicationInternationalization.getString("Error"),
+		// JOptionPane.ERROR_MESSAGE);
+		// }
+		// }
+
+	}
+
+	@Action
+	public void About() {
+		JDAbout about = new JDAbout(mainFrame.getMainFrame());
+		about.setLocationRelativeTo(mainFrame.getMainFrame());
+		about.setModal(true);
+		about.setVisible(true);
+	}
+
+	@Action
+	public void SwitchProject() {
+		JDChooseProject jdc = new JDChooseProject(mainFrame.getMainFrame());
+		jdc.setModal(true);
+		jdc.setLocationRelativeTo(mainFrame.getMainFrame());
+		jdc.setVisible(true);
+	}
+
+	/*** Actions used to manage actions for menu items ***/
+	@Action
+	// Show Knowledge view
+	public void View_Knowledge() {
+		mainFrame.showKnowledgeView();
+		
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+	// DataFolder df = DataFolder.findFolder(fo);
+	// DataObject[] childs = df.getChildren();
+	// DataObject dob;
+	// Object instanceObj;
+	// for (int i = 0; i < childs.length; i++) {
+	// dob = childs[i];
+	// if (dob.getPrimaryFile().isFolder()) {
+	// FileObject childFo = childs[i].getPrimaryFile();
+	// JMenu menu = new JMenu();
+	// Mnemonics.setLocalizedText(menu, dob.getNodeDelegate().getDisplayName());
+	// comp.add(menu);
+	// buildPopup(childFo, menu);
+	// } else {
+	// //Cookie or Lookup API discovery:
+	// InstanceCookie ck = (InstanceCookie) dob.getCookie(InstanceCookie.class);
+	// try {
+	// instanceObj = ck.instanceCreate();
+	// } catch (Exception ex) {
+	// instanceObj = null;
+	// ErrorManager.getDefault().notify(ErrorManager.EXCEPTION, ex);
+	// }
+	// if (instanceObj == null) {
+	// continue;
+	// }
+	// if (instanceObj instanceof JSeparator) {
+	// comp.add((JSeparator) instanceObj);
+	// } else if (instanceObj instanceof BooleanStateAction) {
+	// JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem();
+	// Actions.connect(menuItem, (BooleanStateAction) instanceObj, true);
+	// } else if (instanceObj instanceof Action) {
+	// final Action a = (Action) instanceObj;
+	// String name = (String) a.getValue(Action.NAME);
+	// String cutAmpersand = Actions.cutAmpersand(name);
+	// JMenuItem menuItem = new JMenuItem();
+	// menuItem.setAction(new AbstractAction(cutAmpersand) {
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// a.actionPerformed(e);
+	// }
+	// });
+	// //Should be like this, but somehow didn't work in this case:
+	// //Actions.connect(menuItem, (Action) instanceObj, false);
+	// comp.add(menuItem);
+	// }
+	// }
+	// }
+
+	// Paint the banner image into the menu bar:
+
+	// private final Paint bannerPaint = makeBannerPaint();
+	//
+	// @Override
+	// protected void paintComponent(Graphics g) {
+	// Graphics2D g2 = (Graphics2D) g;
+	// g2.setPaint(bannerPaint);
+	// g2.fillRect(0, 0, getWidth(), getHeight());
+	// }
+	//
+	// private Paint makeBannerPaint() {
+	// //Pointing to an image in org/menu/bar:
+	// BufferedImage img;
+	// try {
+	// img = (BufferedImage)
+	// ImagesUtilities.loadCompatibleImage("toolbar/disconnect.png");
+	// return new TexturePaint(img, new Rectangle(0, 0, img.getWidth(),
+	// img.getHeight()));
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// return null;
+	//
+	// }
+
+}
