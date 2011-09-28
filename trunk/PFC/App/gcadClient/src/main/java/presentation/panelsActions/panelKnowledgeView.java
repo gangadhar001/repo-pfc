@@ -258,12 +258,12 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(1046, 480));
+			this.setPreferredSize(new java.awt.Dimension(1008, 601));
 			this.setName("this");
 			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(1046, 480);
-			this.setMinimumSize(new java.awt.Dimension(1046, 480));
+			this.setSize(1008, 601);
+			this.setMinimumSize(new java.awt.Dimension(1008, 601));
 			{
 				panelTree = new JPanel();
 				AnchorLayout panelTreeLayout = new AnchorLayout();
