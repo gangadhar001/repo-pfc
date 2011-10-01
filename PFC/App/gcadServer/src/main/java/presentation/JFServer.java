@@ -4,7 +4,6 @@ import internationalization.AppInternationalization;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -33,7 +32,6 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 
@@ -45,6 +43,7 @@ import presentation.auxiliary.CloseWindowListener;
 import presentation.auxiliary.IWindowState;
 import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
+import resources.MenuMnemonicsRuntime;
 
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
@@ -74,14 +73,25 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	private JDConfig frmConfiguration;
 	private JDAbout frmAbout;
 	private JLabel lblConfigBD;
-	private JPanel pnlPanel;
-	private JScrollPane scpPanelLog;
-	private JLabel lblStatusBar;
-	private JButton btnDisconnectToolbar;
-	private JLabel lblConnectedClients;
-	private JTextArea txtLog;
-	private JToolBar toolbar;
-	private JPanel panelLogo;
+	private JMenuItem mniDisconnect;
+    private JMenuItem mniConnect;
+    private JPanel pnlPanel;
+    private JScrollPane scpPanelLog;
+    private JLabel lblStatusBar;
+    private JButton btnDisconnectToolbar;
+    private JLabel lblConnectedClients;
+    private JMenuBar mnbMenus;
+    private JTextArea txtLog;
+    private JMenuItem mniAbout;
+    private JMenuItem mniConfigure;
+    private JMenuItem mniExit;
+    private JSeparator sepSeparator;
+    private JMenu mnuFile;
+    private JMenu mnuHelp;
+    private JToolBar toolbar;
+    private JPanel panelLogo;
+    private JMenu mnuOption;
+
 
 	private int clientsNumber;
 	
@@ -95,6 +105,8 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	private BufferedImage image;
 
 	private JButton btnConnectToolbar;
+
+	private JMenuItem menuChange;
 	
 	{
 		 //Set Look & Feel
@@ -103,6 +115,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    } catch(Exception e) {
 	    	JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 	    }
+	    
 //		for(UIManager.LookAndFeelInfo laf:UIManager.getInstalledLookAndFeels()){
 //            if("Nimbus".equals(laf.getName()))
 //                try {
@@ -212,6 +225,8 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 							}
 						});
 						btnConnectToolbar.setToolTipText(AppInternationalization.getString("Tooltip_Connect"));
+						btnConnectToolbar.setFocusPainted(false);
+						btnConnectToolbar.setFocusable(false);
 					}
 					{
 						btnDisconnectToolbar = new JButton();
@@ -223,6 +238,9 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 							}
 						});
 						btnDisconnectToolbar.setToolTipText(AppInternationalization.getString("Tooltip_Disconnect"));
+						btnDisconnectToolbar.setFocusPainted(false);
+						btnDisconnectToolbar.setFocusable(false);
+						btnDisconnectToolbar.setEnabled(false);
 					}
 					{
 						toolbar.addSeparator();
@@ -235,6 +253,8 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 							}
 						});
 						btnConfigure.setToolTipText(AppInternationalization.getString("Tooltip_Configure"));
+						btnConfigure.setFocusPainted(false);
+						btnConfigure.setFocusable(false);
 					}
 				}
 				{
@@ -250,8 +270,110 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				}
 			});
 
-			toolbar.setPreferredSize(new java.awt.Dimension(549, 50));
+			toolbar.setPreferredSize(new java.awt.Dimension(549, 32));
 			getRootPane().setDefaultButton(btnConnect);
+			
+			{
+                mnbMenus = new JMenuBar();
+                setJMenuBar(mnbMenus);
+                {
+                        mnuFile = new JMenu();
+                        mnbMenus.add(mnuFile);
+                        mnuFile.setText(AppInternationalization.getString("FileMenu_Label"));
+                        mnuFile.setName("File");
+                        {
+                                mniConnect = new JMenuItem();
+                                mniConnect.setIcon(ImagesUtilities.loadIcon("menus/serverConnect.png"));
+                                mnuFile.add(mniConnect);
+                                mniConnect.setText(AppInternationalization.getString("mniConnect_Label"));
+                                mniConnect.setName("mniConnect");
+                                mniConnect.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent evt) {
+                                                mniConnectActionPerformed(evt);
+                                        }
+                                });
+                        }
+                        {
+                                mniDisconnect = new JMenuItem();
+                                mnuFile.add(mniDisconnect);
+                                mniDisconnect.setIcon(ImagesUtilities.loadIcon("menus/serverDisconnect.png"));
+                                mniDisconnect.setText(AppInternationalization.getString("mniDisconnect_Label"));
+                                mniDisconnect.setName("mniDisconnect");
+                                mniDisconnect.setEnabled(false);
+                                mniDisconnect.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent evt) {
+                                                mniDisconnectActionPerformed(evt);
+                                        }
+                                });
+                        }
+                        {
+                                sepSeparator = new JSeparator();
+                                mnuFile.add(sepSeparator);
+                        }
+                        {
+                                mniExit = new JMenuItem();
+                                mnuFile.add(mniExit);
+                                mniExit.setIcon(ImagesUtilities.loadIcon("menus/exit.png"));
+                                mniExit.setText(AppInternationalization.getString("mniExit_Label"));
+                                mniExit.setName("Exit");
+                                mniExit.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent evt) {
+                                                mniExitActionPerformed(evt);
+                                        }
+                                });
+                        }
+                }
+                {
+                        mnuOption = new JMenu();
+                        mnbMenus.add(mnuOption);
+                        mnuOption.setText(AppInternationalization.getString("mnuOptions_Label"));
+                        mnuOption.setName("Options");
+                        {
+                                mniConfigure = new JMenuItem();
+                                mniConfigure.setIcon(ImagesUtilities.loadIcon("menus/configure.png"));
+                                mnuOption.add(mniConfigure);
+                                mniConfigure.setText(AppInternationalization.getString("mniConfigure_Label"));
+                                mniConfigure.setName("mniConfigure");
+                                mniConfigure.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent evt) {
+                                                mniConfigureActionPerformed(evt);
+                                        }
+                                });
+                        }
+                        {
+                        mnuOption.addSeparator();
+                        menuChange = new JMenuItem();
+                        menuChange.setIcon(ImagesUtilities.loadIcon("menus/languages.png"));
+                        mnuOption.add(menuChange);
+                        menuChange.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent evt) {
+                                                mnuChangeActionPerformed(evt);
+                                        }
+                                });
+                        menuChange.setText(AppInternationalization.getString("changeMenu"));
+                }
+                }
+                {
+                        mnuHelp = new JMenu();
+                        mnbMenus.add(mnuHelp);
+                        mnuHelp.setText(AppInternationalization.getString("mnuHelp_Label"));
+                        mnuHelp.setName("Help");
+                        {
+                                mniAbout = new JMenuItem();
+                                mnuHelp.add(mniAbout);
+                                mniAbout.setIcon(ImagesUtilities.loadIcon("menus/about.png"));
+                                mniAbout.setText(AppInternationalization.getString("mniAbout_Label"));
+                                mniAbout.setName("About");
+                                mniAbout.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent evt) {
+                                                mniAboutActionPerformed(evt);
+                                        }
+                                });
+                        }
+                }
+			}
+			
+			MenuMnemonicsRuntime.setMnemonics(mnbMenus);
 
 			pack();
 			this.setSize(565, 527);
@@ -271,15 +393,17 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 
 	//$hide>>$
 	
-	private JButton configureToolbarButton(JButton button, String action) throws MalformedURLException, IOException {
+	private JButton configureToolbarButton(JButton button, String action) {
 	    	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
-	    	button.setFocusPainted(true);
+	    	button.setFocusPainted(false);
 	    	button.setHorizontalTextPosition(SwingConstants.CENTER);
 	    	button.setName(action);
 	    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    	button.setRequestFocusEnabled(false);
-	    	image = ImagesUtilities.loadCompatibleImage("toolbar/" + action + ".png");
-	    	button.setIcon(new ImageIcon(image));
+	    	try {
+				image = ImagesUtilities.loadCompatibleImage("toolbar/" + action + ".png");
+				button.setIcon(new ImageIcon(image));
+			} catch (IOException e) { }	    	
 	    	button.setRolloverEnabled(true);
 	    	// Save button icon
 			ImagesUtilities.addImageButton(button.getName(), image);
@@ -297,7 +421,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    	
 	    	button.setSize(25, 50);
 	    	
-//	    	button.setContentAreaFilled(false);
 	    	return button;
 	    }
 	
@@ -410,12 +533,13 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			// Update UI Window
 			btnConnectToolbar.setEnabled(false);
 			btnConnect.setEnabled(false);
-//			mniConnect.setEnabled(false);
-//			mniConfigure.setEnabled(false);
+			mniConnect.setEnabled(false);
+			mniConfigure.setEnabled(false);
 			btnConfigure.setEnabled(false);
+			menuChange.setEnabled(false);
 			btnDisconnectToolbar.setEnabled(true);
 			btnDisconnect.setEnabled(true);
-//			mniDisconnect.setEnabled(true);
+			mniDisconnect.setEnabled(true);
 			updateState();
 			ok = true;
 			glassPane.stop();
@@ -442,12 +566,13 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 
 			btnConnectToolbar.setEnabled(true);
 			btnConnect.setEnabled(true);
-//			mniConnect.setEnabled(true);
-//			mniConfigure.setEnabled(true);
+			mniConnect.setEnabled(true);
+			mniConfigure.setEnabled(true);
+			menuChange.setEnabled(true);
 			btnConfigure.setEnabled(true);
 			btnDisconnectToolbar.setEnabled(false);
 			btnDisconnect.setEnabled(false);
-//			mniDisconnect.setEnabled(false);
+			mniDisconnect.setEnabled(false);
 			updateState();
 			ok = true;		
 		} catch(MalformedURLException e) {

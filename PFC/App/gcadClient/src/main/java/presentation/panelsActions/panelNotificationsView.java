@@ -26,9 +26,13 @@ import model.business.knowledge.Notification;
 import org.jdesktop.application.Application;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
+import presentation.customComponents.ImagePanel;
 import presentation.dataVisualization.NotificationsTable;
 import presentation.utils.DateUtilities;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -45,7 +49,7 @@ import exceptions.NotLoggedException;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class panelNotificationsView extends javax.swing.JPanel {
+public class panelNotificationsView extends ImagePanel {
 	/**
 	 * 
 	 */
@@ -60,8 +64,10 @@ public class panelNotificationsView extends javax.swing.JPanel {
 	
 	public panelNotificationsView() {
 		super();
-		// Get notifications for the actual project
 		try {
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
+			
+			// Get notifications for the actual project
 			notifications = ClientController.getInstance().getNotificationsProject();			
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -96,19 +102,20 @@ public class panelNotificationsView extends javax.swing.JPanel {
 
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(902, 402));
+			this.setPreferredSize(new java.awt.Dimension(1008, 601));
 			this.setName("this");
+			this.setSize(1008, 601);
 			GridBagLayout thisLayout = new GridBagLayout();
-			thisLayout.rowWeights = new double[] {0.1, 0.1, 0.1};
-			thisLayout.rowHeights = new int[] {7, 7, 7};
+			thisLayout.rowWeights = new double[] {0.1, 0.01, 0.15};
+			thisLayout.rowHeights = new int[] {7, 1, 7};
 			thisLayout.columnWeights = new double[] {0.1};
 			thisLayout.columnWidths = new int[] {7};
 			this.setLayout(thisLayout);
-			this.setSize(902, 402);
+			this.setMinimumSize(new java.awt.Dimension(1008, 601));
 			{
 				scrollTable = new JScrollPane();
-				this.add(scrollTable, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(15, 15, 0, 9), 0, 0));
-				scrollTable.setPreferredSize(new java.awt.Dimension(872, 190));
+				this.add(scrollTable, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(10, 10, 0, 10), 0, 0));
+				scrollTable.setPreferredSize(new java.awt.Dimension(979, 344));
 				{					
 					notificationsTable = new NotificationsTable();
 					DefaultTableModel model = new DefaultTableModel(notifications.size(), 5);
@@ -120,7 +127,7 @@ public class panelNotificationsView extends javax.swing.JPanel {
 					notificationsTable.setIntercellSpacing(new Dimension(0,0));
 					//					notificationsTable.setPreferredSize(new java.awt.Dimension(844, 159));
 					notificationsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					notificationsTable.setPreferredSize(new java.awt.Dimension(21, 25));
+//					notificationsTable.setPreferredSize(new java.awt.Dimension(977, 348));
 					notificationsTable.bound();
 					notificationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 						
@@ -134,21 +141,20 @@ public class panelNotificationsView extends javax.swing.JPanel {
 							
 						}
 					});
-					updateBorder(scrollTable);
+//					updateBorder(scrollTable);
 				}			
 				
 			}
 			{
 				lblDetail = new JLabel();
-				this.add(lblDetail, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(0, 15, 0, 0), 0, 0));
-				lblDetail.setPreferredSize(new java.awt.Dimension(112, 16));
+				this.add(lblDetail, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 				lblDetail.setName("lblDetail");
+				lblDetail.setPreferredSize(new java.awt.Dimension(981, 34));
 			}
 			{
 				scrollText = new JScrollPane();
-				this.add(scrollText, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.BOTH, new Insets(0, 15, 9, 9), 0, 0));
-				scrollText.setPreferredSize(new java.awt.Dimension(872, 148));
-				scrollText.setSize(882, 148);
+				this.add(scrollText, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 10, 10, 10), 0, 0));
+				scrollText.setPreferredSize(new java.awt.Dimension(982, 173));
 				{
 					txtDetails = new JTextArea();
 					scrollText.setViewportView(txtDetails);
@@ -157,7 +163,7 @@ public class panelNotificationsView extends javax.swing.JPanel {
 					txtDetails.setPreferredSize(new java.awt.Dimension(855, 129));
 				}
 				
-				updateBorder(scrollText);
+//				updateBorder(scrollText);
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {

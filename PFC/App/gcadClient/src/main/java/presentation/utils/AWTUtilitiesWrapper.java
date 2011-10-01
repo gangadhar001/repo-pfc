@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JPanel;
+
 /**
  *
  * REFERENCES: http://java.sun.com/developer/technicalArticles/GUI/translucent_shaped_windows/#Demo
@@ -101,7 +103,7 @@ public class AWTUtilitiesWrapper {
     public static void setWindowShape(Window window, Shape shape) {
         set(mSetWindowShape, window, shape);
     }
-
+    
     public static void setWindowOpacity(Window window, float opacity) {
         set(mSetWindowOpacity, window, Float.valueOf(opacity));
     }

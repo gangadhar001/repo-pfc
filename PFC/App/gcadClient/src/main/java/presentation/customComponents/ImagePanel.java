@@ -14,15 +14,23 @@ public class ImagePanel extends JPanel{
 	private static final long serialVersionUID = -5313649672422697765L;
 	private Image img;
 
+	public ImagePanel() {
+		super();
+	}
+	
 	public ImagePanel(BufferedImage image) {
+		super();
 		this.img = image;
-//		setLayout(null);
 	}
 
 	public void paintComponent(Graphics g) {
 		 super.paintComponent(g);
 		 if (img != null)
 		      g.drawImage(img, 0,0,this.getWidth(),this.getHeight(),this);
+	}
+
+	public void setImage(BufferedImage image) {
+		this.img = image;		
 	}
 
 }

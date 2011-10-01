@@ -14,7 +14,6 @@ import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -42,10 +41,11 @@ import org.jdesktop.swingx.border.DropShadowBorder;
 
 import presentation.JDKnowledge;
 import presentation.JFMain;
-import presentation.customComponents.DropShadowPanel;
+import presentation.customComponents.ImagePanel;
 import presentation.dataVisualization.KnowledgeGraph;
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 
 import com.cloudgarden.layout.AnchorConstraint;
@@ -71,7 +71,7 @@ import exceptions.NotLoggedException;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class panelKnowledgeView extends javax.swing.JPanel {
+public class panelKnowledgeView extends ImagePanel {
 	/**
 	 * 
 	 */
@@ -104,11 +104,14 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 
 	private JDKnowledge fKnowledge;
 	
+	
 	public panelKnowledgeView(JFMain parent) {
 		super();
 		this.parent = parent;
 		rowSelected = -1;
-		try {
+		try {		
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
+			
 			// Get knowledge from current project
 			topicWrapper = ClientController.getInstance().getTopicsWrapper();
 			initGUI();
@@ -236,14 +239,15 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			}
 		});
 		scrollTree.setViewportView(tree);
-		tree.setPreferredSize(new java.awt.Dimension(125, 411));
+		tree.setPreferredSize(new java.awt.Dimension(184, 547));
+		tree.setName("tree");
 		tree.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				treeMouseClicked(evt);
 			}
 		});
 
-		panelTree.add(scrollTree, new AnchorConstraint(13, 1017, 1007, 62, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelTree.add(scrollTree, new AnchorConstraint(0, 947, 1000, 2, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 	}
 	
 	// Method used to display information about the selected knowledge
@@ -270,21 +274,23 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 				panelTree.setLayout(panelTreeLayout);
 				{
 					scrollTree = new JScrollPane();
-					scrollTree.setPreferredSize(new java.awt.Dimension(190, 472));
+					scrollTree.setPreferredSize(new java.awt.Dimension(205, 573));
 
 				}
-				this.add(getPnlUserInfo(), new AnchorConstraint(12, 10, 953, 776, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE));
-				this.add(panelTree, new AnchorConstraint(7, 172, 976, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-				panelTree.setPreferredSize(new java.awt.Dimension(180, 461));
+				this.add(getPnlUserInfo(), new AnchorConstraint(12, 10, 974, 776, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE));
+				this.add(panelTree, new AnchorConstraint(12, 172, 974, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				panelTree.setPreferredSize(new java.awt.Dimension(217, 573));
+				panelTree.setName("panelTree");
 			}
 			{
 				panel = new JPanel();
 				AnchorLayout panelLayout = new AnchorLayout();
-				this.add(panel, new AnchorConstraint(7, 768, 988, 177, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				this.add(panel, new AnchorConstraint(12, 779, 974, 229, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				panel.setLayout(panelLayout);
-				panel.setPreferredSize(new java.awt.Dimension(626, 467));
+				panel.setPreferredSize(new java.awt.Dimension(556, 573));
+				panel.setName("panel");
 				{
-					panelGraph = new DropShadowPanel();
+					panelGraph = new JPanel();
 					GridBagLayout panelGraphLayout = new GridBagLayout();
 					panel.add(panelGraph, new AnchorConstraint(1, 1000, 1001, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					panelGraph.setLayout(panelGraphLayout);
@@ -295,7 +301,8 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 					panelGraphLayout.columnWidths = new int[] {7};
 				}
 			}
-			updateBorder(scrollTree);			
+			
+//			updateBorder(scrollTree);			
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -308,7 +315,7 @@ public class panelKnowledgeView extends javax.swing.JPanel {
 			pnlInfo = new JPanel();
 			AnchorLayout pnlUserInfoLayout = new AnchorLayout();
 			pnlInfo.setLayout(pnlUserInfoLayout);
-			pnlInfo.setPreferredSize(new java.awt.Dimension(221, 445));
+			pnlInfo.setPreferredSize(new java.awt.Dimension(201, 573));
 			pnlInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("KV_title_Info")));
 			pnlInfo.add(getCollapsibleRootPanel1(), new AnchorConstraint(75, 957, 978, 10, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 		}

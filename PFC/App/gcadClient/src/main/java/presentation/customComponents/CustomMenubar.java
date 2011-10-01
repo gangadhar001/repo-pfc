@@ -4,11 +4,12 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -26,7 +27,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+
+import model.business.knowledge.Groups;
+import model.business.knowledge.Operation;
+import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -37,15 +42,9 @@ import presentation.JDCreateProject;
 import presentation.JDKnowledge;
 import presentation.JDPdf;
 import presentation.JFMain;
-import presentation.panelsActions.panelKnowledgeView;
-import presentation.utils.MenuMnemonicsRuntime;
-
-import bussiness.control.OperationsUtilities;
-
-import model.business.knowledge.Groups;
-import model.business.knowledge.Operation;
-import net.miginfocom.swing.MigLayout;
 import resources.ImagesUtilities;
+import resources.MenuMnemonicsRuntime;
+import bussiness.control.OperationsUtilities;
 
 /**
  * Custom class that represents a custom menu bar. It manages the menus, the custom toolbar and its events
@@ -58,13 +57,11 @@ public class CustomMenubar extends JMenuBar {
 
 	private static final long serialVersionUID = 7960099104264885051L;
 
-	private static final int MENU_HEIGHT = 45;
+	private static final int MENU_HEIGHT = 60;
 
 	private JPanel viewsPanel;
 	private JMenu menuTools;
 	private JFMain mainFrame;
-
-	private panelKnowledgeView panelKnowledge;
 
 	protected Object viewButtonName;
 
@@ -76,7 +73,7 @@ public class CustomMenubar extends JMenuBar {
 		super();
 	}
 
-	public CustomMenubar(JFMain mainFrame, List<Operation> operations) {
+	public CustomMenubar(JFMain mainFrame, List<Operation> operations) throws MalformedURLException, IOException {
 		super();
 		
 		this.mainFrame = mainFrame;
@@ -84,23 +81,25 @@ public class CustomMenubar extends JMenuBar {
 		// Set layout to menu bar
 		setLayout(new MigLayout("align left"));
 		setPreferredSize(new Dimension(1024, MENU_HEIGHT));
-
+		 
 		// Add common menus
 		JMenu menuFile = new JMenu(ApplicationInternationalization.getString("menuFile"));
 		menuFile.setName("menuFile");
-		menuFile.setMnemonic(KeyEvent.VK_F);
 		
 		JMenuItem menuFileCloseSession = new JMenuItem();
 		menuFileCloseSession.setName("menuFileCloseSession");
 		menuFileCloseSession.setAction(getAppActionMap().get("CloseSession"));
 		menuFileCloseSession.setText(ApplicationInternationalization.getString("menuFileCloseSession"));
-
+		menuFileCloseSession.setIcon(ImagesUtilities.loadIcon("menus/session.png"));
+		menuFile.add(menuFileCloseSession);
+		menuFile.addSeparator();
+		
 		JMenuItem menuFileExit = new JMenuItem();
 		menuFile.add(menuFileExit);
 		menuFileExit.setName("menuFileExit");
 		menuFileExit.setAction(getAppActionMap().get("Exit"));
 		menuFileExit.setText(ApplicationInternationalization.getString("menuItemExit"));
-		menuFileExit.setMnemonic(KeyEvent.VK_E);
+		menuFileExit.setIcon(ImagesUtilities.loadIcon("menus/exit.png"));
 
 		menuTools = new JMenu(ApplicationInternationalization.getString("menuTools"));
 		menuTools.setName("menuTools");
@@ -123,10 +122,20 @@ public class CustomMenubar extends JMenuBar {
 		menuItemSwitch.setName("menuItemSwitch");
 		menuItemSwitch.setAction(getAppActionMap().get("SwitchProject"));
 		menuItemSwitch.setText(ApplicationInternationalization.getString("menuItemSwitch"));
+		menuItemSwitch.setIcon(ImagesUtilities.loadIcon("menus/changeProject.png"));
+		menuOptions.addSeparator();
+		
+		JMenuItem menuChange = new JMenuItem();
+		menuOptions.add(menuChange);
+		menuChange.setName("menuChangeLanguage");
+		menuChange.setAction(getAppActionMap().get("ChangeLanguage"));
+		menuChange.setText(ApplicationInternationalization.getString("menuItemLanguage"));
+		menuChange.setIcon(ImagesUtilities.loadIcon("menus/languages.png"));
 		
 		JMenu menuHelp = new JMenu(ApplicationInternationalization.getString("menuHelp"));
 		JMenuItem menuAbout = new JMenuItem(ApplicationInternationalization.getString("menuItemAbout"));
 		menuAbout.setAction(getAppActionMap().get("About"));
+		menuAbout.setIcon(ImagesUtilities.loadIcon("menus/about.png"));
 		menuHelp.add(menuAbout);		
 		
 		add(menuFile);
@@ -153,16 +162,8 @@ public class CustomMenubar extends JMenuBar {
 		GridLayout gl = new GridLayout(1, groups.size());
 		gl.setHgap(20);
 		viewsPanel.setLayout(gl);
-		// Create panel with view icons
-		try {
-			createViews(operations);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Create panel with view icons		
+		createViews(operations);	
 		
 		viewsPanel.setOpaque(false);
 		add(viewsPanel, "span, align left");
@@ -176,6 +177,12 @@ public class CustomMenubar extends JMenuBar {
             item.setName("Manage_"+groupName);
             item.setAction(getAppActionMap().get(item.getName()));
             item.setText(ApplicationInternationalization.getString("manage"+groupName));
+            ImageIcon icon = null;
+			try {
+				icon = ImagesUtilities.loadIcon("menus/" + item.getName() + ".png");
+			} catch (Exception e) { }
+            if (icon != null)
+            	item.setIcon(icon);
             menuTools.add(item);
         }
     }
@@ -189,17 +196,21 @@ public class CustomMenubar extends JMenuBar {
 			if (op.isShowGroupInView() && !shownGroups.contains(op.getGroup())) {
 				JButton button = new JButton();
 				button.setName("View_" + op.getGroup());
-				ImageIcon icon = ImagesUtilities.loadIcon("Toolbars/" + op.getGroup()+".png");
+				BufferedImage icon = ImagesUtilities.loadCompatibleImage("Toolbars/" + op.getGroup()+".png");
 			    button.setAction(getAppActionMap().get(button.getName()));
-			    button.setIcon(icon);
-				button.setSize(new Dimension(80, 100));		    
+			    button.setIcon(new ImageIcon(icon));
+				button.setSize(new Dimension(80, 100));	
+				button.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+				button.setBorderPainted(false);
+		    	button.setFocusPainted(false);
 			    button.setContentAreaFilled(false);
-			    button.setFocusPainted(false);
 			    button.setText(ApplicationInternationalization.getString("ButtonView_" + op.getGroup()));
 			    button.setVerticalTextPosition(SwingConstants.BOTTOM);
 			    button.setHorizontalTextPosition(SwingConstants.CENTER);
 			    button.setToolTipText(ApplicationInternationalization.getString("TooltipView_" + op.getGroup()));
 			    button.setBorderPainted(false);
+			    // Save button icon
+				ImagesUtilities.addImageButton(button.getName(), icon);
 			    button.addMouseListener(new MouseListener() {	
 					@Override
 					public void mouseReleased(MouseEvent e) {
@@ -215,7 +226,9 @@ public class CustomMenubar extends JMenuBar {
 			        public void mouseEntered(MouseEvent e) {
 			            JButton button = (JButton) e.getComponent();
 			            button.setBorderPainted(true);
-			            button.setContentAreaFilled(true);
+			            setCursor(new Cursor(Cursor.HAND_CURSOR));
+						ImagesUtilities.increaseImageBrightness(button);
+						button.setBackground(Color.LIGHT_GRAY);
 			        }
 
 			        @Override
@@ -223,7 +236,8 @@ public class CustomMenubar extends JMenuBar {
 			            JButton button = (JButton) e.getComponent();
 			            if (!button.getName().equals(viewButtonName)) {
 			            	button.setBorderPainted(false);
-				            button.setContentAreaFilled(false);
+			            	setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+							ImagesUtilities.decreaseImageBrightness(button);
 			            }
 			        }
 
@@ -235,20 +249,21 @@ public class CustomMenubar extends JMenuBar {
 							if (component instanceof JButton) {
 								JButton button = (JButton) component;
 								button.setBorderPainted(false);
-					            button.setContentAreaFilled(false);
+								ImagesUtilities.decreaseImageBrightness(button);
 							}
 						}
 						
 						// Activate current button
 						JButton button = (JButton) e.getComponent();
 			            button.setBorderPainted(true);
-			            button.setContentAreaFilled(true);
+			            ImagesUtilities.decreaseImageBrightness(button);
 						
 			            viewButtonName = button.getName();
 					}
 				});
 			   
 				viewsPanel.add(button);
+				shownGroups.add(op.getGroup());
 			}				
 		}		
 	}
@@ -347,11 +362,26 @@ public class CustomMenubar extends JMenuBar {
 	@Action
 	// Show Knowledge view
 	public void View_Knowledge() {
-		mainFrame.showKnowledgeView();
-		
+		mainFrame.showKnowledgeView();		
+	}
+	
+	@Action
+	// Show Notifications view
+	public void View_Notifications() {
+		mainFrame.showNotificationsView();		
+	}
+	
+	@Action
+	// Show Notifications view
+	public void View_Statistics() {
+		mainFrame.showStatisticsView();		
 	}
     
-    
+	@Action
+	// Show Notifications view
+	public void View_PDFGeneration() {
+		mainFrame.showPDFView();		
+	}
     
     
     

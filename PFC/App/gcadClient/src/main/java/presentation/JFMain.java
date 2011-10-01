@@ -3,9 +3,9 @@ package presentation;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -16,11 +16,15 @@ import java.util.EventObject;
 import java.util.List;
 
 import javax.swing.ActionMap;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
@@ -37,6 +41,9 @@ import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
 import presentation.panelsActions.panelKnowledgeView;
+import presentation.panelsActions.panelNotificationsView;
+import presentation.panelsActions.panelPDFGeneration;
+import presentation.panelsActions.panelStatisticsGeneration;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -78,6 +85,9 @@ public class JFMain extends SingleFrameApplication {
 	private JLabel lblRole;
 
 	private panelKnowledgeView panelKnowledge;
+	private panelNotificationsView panelNotifications;
+	private panelStatisticsGeneration panelStatistics;
+	private panelPDFGeneration panelPDF;
 	
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 728;	
@@ -120,8 +130,8 @@ public class JFMain extends SingleFrameApplication {
 			{
 				AnchorLayout statusLayout = new AnchorLayout();
 				statusBar = new JPanel();
-				getMainFrame().getContentPane().add(statusBar, new AnchorConstraint(935, 1000, 999, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-				statusBar.setPreferredSize(new java.awt.Dimension(1008, 44));
+				getMainFrame().getContentPane().add(statusBar, new AnchorConstraint(942, 1000, 999, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				statusBar.setPreferredSize(new java.awt.Dimension(1008, 39));
 				statusBar.setLayout(statusLayout);
 			}
 			{
@@ -132,38 +142,8 @@ public class JFMain extends SingleFrameApplication {
 			{
 				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.jpg"));
 				mainPanel.setLayout(null);
-				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 607));
-				mainPanel.addComponentListener(new ComponentListener() {
-					
-					@Override
-					public void componentShown(ComponentEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void componentResized(ComponentEvent e) {
-						System.out.println("ENTRAAAAAAA EN RESIZE EL PANEL CON FONDO");
-						if (panelKnowledge != null) {
-							System.out.println(mainPanel.getSize());
-							panelKnowledge.setSize(mainPanel.getSize());
-						}
-					}
-					
-					@Override
-					public void componentMoved(ComponentEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void componentHidden(ComponentEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				
+				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(45, 1000, 936, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 615));				
 			}
 			{
 				lblAction = new JLabel();
@@ -178,13 +158,13 @@ public class JFMain extends SingleFrameApplication {
 			}
 			{
 				lblPort = new JLabel();
-				statusBar.add(lblPort, new AnchorConstraint(940, 7, 8, 778, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblPort.setPreferredSize(new java.awt.Dimension(238, 12));
+				statusBar.add(lblPort, new AnchorConstraint(940, 7, 4, 778, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblPort.setPreferredSize(new java.awt.Dimension(238, 10));
 			}
 			{
 				lblRole = new JLabel();
-				statusBar.add(lblRole, new AnchorConstraint(954, 7, 26, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblRole.setPreferredSize(new java.awt.Dimension(238, 10));
+				statusBar.add(lblRole, new AnchorConstraint(954, 7, 18, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblRole.setPreferredSize(new java.awt.Dimension(238, 18));
 			}     
 
 
@@ -211,31 +191,40 @@ public class JFMain extends SingleFrameApplication {
 		}
     }    
     
-    private JButton createToolbarButton(String id) throws MalformedURLException, IOException {
+    private JButton createToolbarButton(String id) {
     	JButton button = new JButton();
+    	button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
+    	button.setFocusPainted(false);
+    	button.setHorizontalTextPosition(SwingConstants.CENTER);
     	button.setAction(getAppActionMap().get(id));
-     	button.setIcon(ImagesUtilities.loadIcon("Toolbars/" + id + ".png"));
+    	button.setText("");
+    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	button.setRequestFocusEnabled(false);
+    	button.setName(id);
+    	button.setToolTipText(ApplicationInternationalization.getString("Tooltip_" + id));
+    	BufferedImage image = null;
+    	try {
+			image = ImagesUtilities.loadCompatibleImage("Toolbars/" + id + ".png");
+			button.setIcon(new ImageIcon(image));
+		} catch (Exception e) { }	  
+    	button.setRolloverEnabled(true);
+    	// Save button icon
+		ImagesUtilities.addImageButton(button.getName(), image);
+    	button.addMouseListener(new MouseAdapter() {
+			public void mouseExited(MouseEvent evt) {
+				getMainFrame().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
+				ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
+			}
+
+			public void mouseEntered(MouseEvent evt) {
+				getMainFrame().setCursor(new Cursor(Cursor.HAND_CURSOR));
+				ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
+			}
+		});
+        
     	return button;
     }
-    
-//    private boolean existsTab(String title) {
-//    	boolean found = false;
-//    	for(int i=0; i<tabPanel.getTabCount() && !found; i++) {
-//    		if (tabPanel.getTitleAt(i).equals(title))
-//    			found=true;
-//    	}
-//    	return found;
-//    }
-//    
-//    private int getIndexTab(String title) {
-//    	int result = -1;
-//    	for(int i=0; i<tabPanel.getTabCount() && result==-1; i++) {
-//    		if (tabPanel.getTitleAt(i).equals(title))
-//    			result=i;
-//    	}
-//    	return result;
-//	}
-    
+        
     // Methods used to show and hide the glass panel, with "fade" effect
     public void fadeIn(Company c) {
 		companyDetailGlassPanel.fadeIn(c);
@@ -244,88 +233,33 @@ public class JFMain extends SingleFrameApplication {
 	public void fadeOut() {		
 		companyDetailGlassPanel.fadeOut();		
 	}
-	
-//	private void tabPanelStateChanged(ChangeEvent evt) {
-//		try {
-//			int index = pane.getSelectedIndex();
-//			createCommonToolbar();
-//			if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabStatistics")))
-//				createToolbarStatisticsView();
-//			else if (tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
-//				createToolbarKnowledgeView();
-//		} catch (MalformedURLException e) {
-//			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-//		} catch (IOException e) {
-//			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-//		}
-//	}
-	
+		
 	 // Method to add specific button for knowledge view to the toolbar
     public void createToolbarKnowledgeView() {
-        toolbar.removeAll();
-      
-                // Includes operation "add", "modify", and "delete", if the user has permissions
-                List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
-                try {
-                	if (availableOps.contains(Operations.Add.name()))					
-						toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Knowledge.name()));
-					if (availableOps.contains(Operations.Modify.name()))
-	                	toolbar.add(createToolbarButton(Operations.Modify.name()+Groups.Knowledge.name()));
-	                if (availableOps.contains(Operations.Delete.name()))
-	                	toolbar.add(createToolbarButton(Operations.Delete.name()+Groups.Knowledge.name()));
-					} catch (MalformedURLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-             
-                
-        }
+		toolbar.removeAll();
+
+		// Includes operation "add", "modify", and "delete", if the user has
+		// permissions
+		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
+		if (availableOps.contains(Operations.Add.name()))
+			toolbar.add(createToolbarButton(Operations.Add.name() + Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Modify.name()))
+			toolbar.add(createToolbarButton(Operations.Modify.name() + Groups.Knowledge.name()));
+		if (availableOps.contains(Operations.Delete.name()))
+			toolbar.add(createToolbarButton(Operations.Delete.name() + Groups.Knowledge.name()));
+
+	}
     
     // Method to add specific button for Statistics view to the toolbar
-    public void createToolbarStatisticsView() throws MalformedURLException, IOException {
+    public void createToolbarStatisticsView() {
     	toolbar.removeAll();
-               
-                // Includes operation "generate", if the user has permissions
-                List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
-                if (availableOps.contains(Operations.Generate.name()))
-                	toolbar.add(createToolbarButton(Operations.Generate.name()+Groups.Statistics.name()));
+    	
+        // Includes operation "generate", if the user has permissions
+        List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
+        if (availableOps.contains(Operations.Generate.name()))
+        	toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Statistics.name()));
                 
         }
-
-    
-    /*** Actions used in buttons of the main tab and toolbar, used to show different views  ***/
-    @Action
-    public void Knowledge() throws MalformedURLException, IOException {
-//    	// Create a new tab in order to store the Knowledge view
-//    	int index = tabPanel.getTabCount();
-//
-//    	else {
-//    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabKnowledge")));
-//    	}
-    }
-    
-	@Action
-    public void Notifications() {
-//    	int index = tabPanel.getTabCount();
-//    	
-//    	// Create a new tab in order to show the Notification view 
-//    	else {
-//    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabNotification")));
-//    	}
-    }
-    
-	@Action
-    public void Statistics() throws MalformedURLException, IOException {
-//    	// Create a new tab in order to store the different Statistics frames (JInternalFrame)
-//    	int index = tabPanel.getTabCount();
-//    	
-//    	else {
-//    		tabPanel.setSelectedIndex(getIndexTab(ApplicationInternationalization.getString("tabStatistics")));
-//    	}
-    }
 	
 	/*** Actions for specific toolbar buttons. This actions are used when an specific tab is shown ***/
 	@Action
@@ -424,13 +358,56 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void showKnowledgeView() {
+		mainPanel.setVisible(false);
+		// Remove other views, if any
+		clearViews();
 		createToolbarKnowledgeView();
 		panelKnowledge = new panelKnowledgeView(this);
-		panelKnowledge.setOpaque(false);
-		panelKnowledge.setBounds(12, 12, 984, 583);
-		mainPanel.add(panelKnowledge);//, new AnchorConstraint(64, 1000, 979, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+	
+		getMainFrame().getContentPane().add(panelKnowledge, new AnchorConstraint(45, 1000, 942, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 619));			
+	}
+	
+	public void showNotificationsView() {
+		mainPanel.setVisible(false);
+		clearViews();
+		//createToolbarNotificationsView();
+		panelNotifications = new panelNotificationsView();
 		
-//		panelKnowledge.setBounds(12, 12, 984, 577);
+		getMainFrame().getContentPane().add(panelNotifications, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelNotifications.setPreferredSize(new java.awt.Dimension(1008, 607));	
+	}
+
+	public void showStatisticsView() {
+		mainPanel.setVisible(false);
+		clearViews();
+		createToolbarStatisticsView();
+		panelStatistics = new panelStatisticsGeneration();
+		
+		getMainFrame().getContentPane().add(panelStatistics, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelStatistics.setPreferredSize(new java.awt.Dimension(1008, 607));
+	}
+	
+	private void clearViews() {
+		Component component = null;
+		for(Component c: getMainFrame().getContentPane().getComponents()) {
+			// only exists one at same time
+			if (c instanceof panelNotificationsView || c instanceof panelKnowledgeView || c instanceof panelStatisticsGeneration)
+				component = c;
+		}
+		if (component != null)
+			getMainFrame().getContentPane().remove(component);
+	}
+
+	public void showPDFView() {
+		mainPanel.setVisible(false);
+		clearViews();
+//		createToolbarStatisticsView();
+		panelPDF = new panelPDFGeneration();
+		
+		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 607));
+		
 	}
 
 }
