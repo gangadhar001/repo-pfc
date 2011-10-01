@@ -18,7 +18,7 @@
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="PDFGeneration" view="False">
+		<Group id="PDFGeneration" view="True">
 			<Subgroup id="PDFGeneration">
 				<Operations>
 					<id>Generate</id>
@@ -50,6 +50,7 @@
 			<Subgroup id="Project">
 				<Operations>
 					<id>Add</id>
+					<id>Modify</id>
 					<id>Get</id>
 				</Operations>
 			</Subgroup>
