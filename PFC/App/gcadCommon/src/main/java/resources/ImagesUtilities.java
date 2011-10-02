@@ -554,13 +554,17 @@ public class ImagesUtilities {
         float[] offsets = new float[] {
             0.0f, 0.0f, 0.0f, 0.0f
         };
+        try {
         RescaleOp op = new RescaleOp(factors, offsets, null);
         BufferedImage brighter = op.filter(images.get(c.getName()), null);
         c.setIcon(new ImageIcon(brighter));
-    }
+		} catch (Exception e) { }
+	}
 
     public static void decreaseImageBrightness(JButton c) {
-        c.setIcon(new ImageIcon(images.get(c.getName())));
+    	try {
+    		c.setIcon(new ImageIcon(images.get(c.getName())));
+    	} catch (Exception e) { }
     }
     
     public static void addImageButton(String buttonName, BufferedImage image) {

@@ -94,6 +94,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 	private void initGUI() {
 		this.setTitle(ApplicationInternationalization.getString("titleJFKnowledge"));
 		this.setResizable(false);
+		this.setUndecorated(true);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				closeWindow(evt);
@@ -119,6 +120,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 					panelActions.setLayout(panelActionsLayout);
 					jScrollPane1.setViewportView(panelActions);
 					panelActions.setPreferredSize(new java.awt.Dimension(145, 316));
+					panelActions.setName("panelActions");
 				}
 			}
 			

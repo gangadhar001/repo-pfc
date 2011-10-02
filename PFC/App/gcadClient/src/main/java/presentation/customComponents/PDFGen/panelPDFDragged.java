@@ -31,7 +31,8 @@ public class panelPDFDragged extends RoundedPanel implements Transferable {
 	private static final long serialVersionUID = 2371562767403267428L;
 
 	public panelPDFDragged() {
-		super();
+		// Disable shadow of the panel
+		super(false);
 		
 		// Add the listener which will export this panel for dragging
         this.addMouseListener(new DraggableMouseListener());
@@ -43,7 +44,7 @@ public class panelPDFDragged extends RoundedPanel implements Transferable {
 
 	/*
      * One of three methods defined by the Transferable interface.
-     * Returns supported DataFlavor. Again, we're only supporting this actual Object within the JVM.
+     * Returns supported DataFlavor. We're only supporting this actual Object within the JVM.
      * For more information, see the JavaDoc for DataFlavor.
      */
     public DataFlavor[] getTransferDataFlavors() {

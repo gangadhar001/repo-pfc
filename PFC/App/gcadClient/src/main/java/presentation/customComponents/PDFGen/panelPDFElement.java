@@ -1,6 +1,10 @@
 package presentation.customComponents.PDFGen;
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 
 // REFERENCE: http://www.codeproject.com/KB/java/rounded-jpanel.aspx
+
+import internationalization.ApplicationInternationalization;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,16 +60,24 @@ public class panelPDFElement extends RoundedPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(128, 128));
-			this.setSize(128, 128);
-			this.setMinimumSize(new java.awt.Dimension(128, 128));
+			this.setPreferredSize(new java.awt.Dimension(96, 102));
+			this.setSize(96, 102);
+			this.setMinimumSize(new java.awt.Dimension(96, 102));
 			
 			this.setLayout(null);
 			{
 				btnAdd = new JButton();
 				this.add(btnAdd);
+				btnAdd.setBounds(63, 74, 20, 20);
+				btnAdd.setFocusPainted(false);
+				btnAdd.setSelected(false);
+				btnAdd.setToolTipText(ApplicationInternationalization.getString("Tooltip_insert"));
 				btnAdd.setName("btnAdd");
-				btnAdd.setBounds(84, 98, 39, 23);
+				try 
+				{
+					btnAdd.setIcon(ImagesUtilities.loadIcon("menus/insert.png"));
+				}
+				catch (Exception e) { }				
 				btnAdd.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						btnAddActionPerformed();
@@ -74,18 +86,21 @@ public class panelPDFElement extends RoundedPanel {
 			}
 			{
 				imagePanel = new ImagePanel();
-				imagePanel.setImage(ImagesUtilities.loadCompatibleImage("PDFElements/" + elementName + ".png"));
-				this.add(imagePanel);
-				imagePanel.setBounds(12, 36, 104, 77);
+				try {
+					imagePanel.setImage(ImagesUtilities.loadCompatibleImage("PDFElements/" + elementName + ".png"));
+				} catch (Exception e) { }
+				this.add(imagePanel, new AnchorConstraint(36, 12, 15, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				imagePanel.setName("imagePanel");
+				imagePanel.setBounds(11, 30, 70, 57);
+				imagePanel.setPreferredSize(new java.awt.Dimension(70, 57));
 			}
 			{
 				lblTitle = new JLabel();
 				lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 				lblTitle.setText(elementName);
-				this.add(lblTitle);
-				lblTitle.setBounds(7, 5, 101, 25);
+				this.add(lblTitle, new AnchorConstraint(5, 108, 98, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				lblTitle.setName("lblTitle");
+				lblTitle.setBounds(7, 7, 77, 17);
 			}
 
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
