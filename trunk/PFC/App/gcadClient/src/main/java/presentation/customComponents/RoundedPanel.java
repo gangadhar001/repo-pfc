@@ -19,7 +19,7 @@ public class RoundedPanel extends javax.swing.JPanel {
     /** Color of shadow */
     protected Color shadowColor = Color.black;
     /** Sets if it drops shadow */
-    protected boolean shady = true;
+    protected boolean shady;
     /** Double values for Horizontal and Vertical radius of corner arcs */
     protected Dimension arcs = new Dimension(20, 20);
     /** Distance between shadow border and opaque panel border */
@@ -30,10 +30,15 @@ public class RoundedPanel extends javax.swing.JPanel {
     protected int shadowAlpha = 150;
     
 	public RoundedPanel() {
-		super();		
+		super();	
+		this.shady = true;
 	}
 	
-	 protected void paintComponent(Graphics g) {
+	 public RoundedPanel(boolean enableShadow) {
+		this.shady = enableShadow;
+	}
+
+	protected void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        int width = getWidth();
 	        int height = getHeight();

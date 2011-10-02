@@ -65,7 +65,6 @@ public class PanelDropTargetListener implements DropTargetListener {
             // Grab expected flavor
             dragAndDropPanelFlavor = panelPDFGeneration.getDragAndDropPanelDataFlavor();            
             transferable = dtde.getTransferable();
-//            DropTargetContext c = dtde.getDropTargetContext();
             
             // What does the Transferable support
             if (transferable.isDataFlavorSupported(dragAndDropPanelFlavor)) {
@@ -89,7 +88,7 @@ public class PanelDropTargetListener implements DropTargetListener {
 	        yLocMapForPanels.put(dropYLoc, droppedPanel);
 	
 	        // Iterate through the existing demo panels. Going to find their locations.
-	        for (panelPDFDragged nextPanel : parent.getDraggedPanels()) {	
+	        for (panelPDFDragged nextPanel : parent.getSectionDraggedPanels()) {	
 	            // Grab the y value
 	            int y = nextPanel.getY();
 	
@@ -111,7 +110,7 @@ public class PanelDropTargetListener implements DropTargetListener {
 	        }
 	        
 	        // Grab the in-memory list and re-add panels in order.
-	        List<panelPDFDragged> inMemoryPanelList =  parent.getDraggedPanels();
+	        List<panelPDFDragged> inMemoryPanelList =  parent.getSectionDraggedPanels();
 	        inMemoryPanelList.clear();
 	        inMemoryPanelList.addAll(orderedPanels);
 	    

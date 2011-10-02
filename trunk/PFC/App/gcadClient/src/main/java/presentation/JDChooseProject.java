@@ -53,6 +53,7 @@ public class JDChooseProject extends javax.swing.JDialog {
 	private void initGUI() {
 		try {
 			{
+				setUndecorated(true);
 				getContentPane().setLayout(null);
 				pnlChooseProject = new panelChooseProject();
 				pnlChooseProject.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());

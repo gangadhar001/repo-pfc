@@ -205,11 +205,14 @@ public class JFMain extends SingleFrameApplication {
     	BufferedImage image = null;
     	try {
 			image = ImagesUtilities.loadCompatibleImage("Toolbars/" + id + ".png");
-			button.setIcon(new ImageIcon(image));
+			if (image != null) {
+				button.setIcon(new ImageIcon(image));
+				// Save button icon
+				ImagesUtilities.addImageButton(button.getName(), image);
+			}			
 		} catch (Exception e) { }	  
-    	button.setRolloverEnabled(true);
-    	// Save button icon
-		ImagesUtilities.addImageButton(button.getName(), image);
+		
+    	button.setRolloverEnabled(true);  
     	button.addMouseListener(new MouseAdapter() {
 			public void mouseExited(MouseEvent evt) {
 				getMainFrame().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  				
@@ -259,9 +262,25 @@ public class JFMain extends SingleFrameApplication {
         if (availableOps.contains(Operations.Generate.name()))
         	toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Statistics.name()));
                 
-        }
+    }
 	
-	/*** Actions for specific toolbar buttons. This actions are used when an specific tab is shown ***/
+    // Method to add specific button for PDFGen view to the toolbar
+    public void createToolbarPDFGenView() {
+    	toolbar.removeAll();
+    	
+        // Includes operation "generate", if the user has permissions
+        List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.PDFGeneration.name());
+        if (availableOps.contains(Operations.Generate.name())) {
+        	toolbar.add(createToolbarButton(Operations.Add.name()+"Section"));
+        	JButton but = createToolbarButton(Operations.Delete.name()+"Section");
+          	but.setEnabled(false);
+          	toolbar.add(but);      
+        	toolbar.addSeparator();
+        	toolbar.add(createToolbarButton("CompilePDF"));
+        }
+    }
+    
+	/*** Actions for specific toolbar buttons. ***/
 	@Action
 	public void AddKnowledge() {
 //		if (panelKnowledge != null)
@@ -278,6 +297,25 @@ public class JFMain extends SingleFrameApplication {
 	public void GenerateStatistics() {
 		
 	}	
+	
+	@Action
+	public void AddSection() {
+		if (panelPDF != null)
+			panelPDF.addSection();
+	}
+	
+	@Action
+	public void DeleteSection() {
+		if (panelPDF != null)
+			panelPDF.deleteSection();
+	}
+	
+	@Action
+	public void CompilePDF() {
+		if (panelPDF != null)
+			panelPDF.compile();
+	}
+	
 	
 	/*** Methods used to update the views with changes made in other client.
 	 * Only refresh the actual and visible view  ***/
@@ -402,11 +440,24 @@ public class JFMain extends SingleFrameApplication {
 	public void showPDFView() {
 		mainPanel.setVisible(false);
 		clearViews();
-//		createToolbarStatisticsView();
-		panelPDF = new panelPDFGeneration();
+		createToolbarPDFGenView();
+		panelPDF = new panelPDFGeneration(this);
 		
 		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 607));
+		
+	}
+
+	// Method to enable or disable a toolbar button
+	public void enableToolbarButton(String name, boolean enabled) {
+		boolean found = false;
+		Component[] components = toolbar.getComponents();
+		for(int i = 0; i< components.length && !found; i++) {
+			if (components[i].getName().equals(name)) {
+				found = true;
+				((JButton)components[i]).setEnabled(enabled);
+			}
+		}
 		
 	}
 
