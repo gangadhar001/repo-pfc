@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.knowledge.Answer;
+import model.business.knowledge.File;
 import model.business.knowledge.Groups;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Project;
@@ -15,9 +17,11 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 import persistence.DAOAnswer;
+import persistence.DAOFile;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
 import exceptions.NonExistentAnswerException;
+import exceptions.NonExistentFileException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
 import exceptions.NonPermissionRoleException;
@@ -270,5 +274,22 @@ public class KnowledgeController {
 				result = t;
 		}
 		return result;
+	}
+
+	public static int attachFile(long sessionId, File file) throws SQLException, NonPermissionRoleException, NotLoggedException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Add.name()));
+
+		DAOFile.insert(file);
+		// Return the auto-assigned id
+		return file.getId();
+	}
+
+	public static List<File> getAttachedFiles(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException, NonExistentFileException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
+
+		return DAOFile.queryAllFiles(k.getId());
+		
 	}		
 }

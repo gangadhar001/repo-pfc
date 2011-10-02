@@ -17,7 +17,9 @@ import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Coordinates;
+import model.business.knowledge.File;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;
@@ -27,6 +29,7 @@ import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
+import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -36,6 +39,7 @@ import exceptions.WSResponseException;
  * Proxy used to connect to server
  *
  */
+// TODO: revisar
 public class ProxyServer implements IServer {
 
 	private IServer server;
@@ -260,6 +264,20 @@ public class ProxyServer implements IServer {
 			NonPermissionRoleException, Exception {
 		server.modifyNotificationState(arg0, arg1);
 		
+	}
+
+	@Override
+	public int attachFile(long sessionId, File file) throws RemoteException,
+			SQLException, NonPermissionRoleException, NotLoggedException,
+			Exception {
+	 return server.attachFile(sessionId, file);
+	}
+
+	@Override
+	public List<File> getAttachedFiles(long sessionId, Knowledge k)
+			throws RemoteException, SQLException, NonExistentFileException,
+			NonPermissionRoleException, NotLoggedException, Exception {
+		return server.getAttachedFiles(sessionId, k);
 	}
 
 

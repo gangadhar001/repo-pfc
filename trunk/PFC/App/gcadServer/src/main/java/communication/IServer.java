@@ -12,7 +12,9 @@ import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Coordinates;
+import model.business.knowledge.File;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;
@@ -23,6 +25,7 @@ import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentAnswerException;
+import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
@@ -120,4 +123,8 @@ public interface IServer extends Remote {
 
 	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k)	throws RemoteException, Exception;	
 	
+	/*** Methods used to manage Files ***/
+	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	
+	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception;
 }

@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -282,6 +282,26 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`notificationsUsers` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`files`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`files` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`files` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `knowledgeId` INT NOT NULL ,
+  `fileName` VARCHAR(255) NOT NULL ,
+  `content` LONGBLOB NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_fileKnowledge_knowledge` (`knowledgeId` ASC) ,
+  CONSTRAINT `fk_fileKnowledge_knowledge`
+    FOREIGN KEY (`knowledgeId` )
+    REFERENCES `dbgcad`.`knowledge` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
 USE `dbgcad`;
 
 DELIMITER $$
@@ -289,6 +309,8 @@ DELIMITER $$
 USE `dbgcad`$$
 DROP TRIGGER IF EXISTS `dbgcad`.`DeleteEntity` $$
 USE `dbgcad`$$
+
+
 
 
 CREATE TRIGGER DeleteEntity
@@ -306,7 +328,7 @@ END$$
 
 DELIMITER ;
 
-;
+
 CREATE USER `gcad` IDENTIFIED BY 'gcad';
 
 grant ALL on TABLE `dbgcad`.`addresses` to gcad;
@@ -321,6 +343,7 @@ grant ALL on TABLE `dbgcad`.`knowledge` to gcad;
 grant ALL on TABLE `dbgcad`.`notifications` to gcad;
 grant ALL on TABLE `dbgcad`.`LogEntry` to gcad;
 grant ALL on TABLE `dbgcad`.`notificationsUsers` to gcad;
+grant ALL on TABLE `dbgcad`.`files` to gcad;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
