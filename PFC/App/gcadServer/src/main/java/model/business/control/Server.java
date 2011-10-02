@@ -21,8 +21,10 @@ import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Coordinates;
+import model.business.knowledge.File;
 import model.business.knowledge.IMessageTypeLog;
 import model.business.knowledge.ISession;
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Project;
@@ -39,6 +41,7 @@ import communication.IServer;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentAnswerException;
+import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
@@ -970,7 +973,57 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("Exception_GetCoordinates_msg") + " ");
 			throw e;
 		}
-		return projects;
-		
+		return projects;		
 	}	
+	
+	/*** Methods used to manage Files ***/
+	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		// TODO: mensajes
+		String login = "";
+		int id = -1;
+		try{
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			id = KnowledgeController.attachFile(sessionId, file);
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewAnswer_msg") + " " + file.getFileName());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newAnswer_msg") + " '" + file.getFileName() + "': " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewAnswer_msg") + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRoleException npr) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewAnswer_msg") + " " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_newAnswer_msg") + " " + e.toString());
+			throw e;
+		}
+		return id;
+	}
+	
+	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception {
+		// TODO: mensajes
+		String login = "";
+		List<File> files = new ArrayList<File>();
+		try{
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			files = KnowledgeController.getAttachedFiles(sessionId, k);
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewAnswer_msg") + " " + k.getId());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newAnswer_msg") + " '" + k.getId() + "': " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewAnswer_msg") + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRoleException npr) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewAnswer_msg") + " " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_newAnswer_msg") + " " + e.toString());
+			throw e;
+		}
+		return files;
+	}
 }

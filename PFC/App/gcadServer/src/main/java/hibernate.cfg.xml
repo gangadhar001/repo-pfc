@@ -31,6 +31,7 @@
 		<mapping resource="model/business/knowledge/Knowledge.hbm.xml" />
 		<mapping resource="model/business/knowledge/Notification.hbm.xml" />
 		<mapping resource="model/business/knowledge/LogEntry.hbm.xml" />		
+		<mapping resource="model/business/knowledge/File.hbm.xml" />
 		
 	</session-factory>
 	

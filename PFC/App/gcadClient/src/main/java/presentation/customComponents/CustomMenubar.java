@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import javax.swing.border.EtchedBorder;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
+import model.business.knowledge.TopicWrapper;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.application.Action;
@@ -44,6 +47,7 @@ import presentation.JDPdf;
 import presentation.JFMain;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
+import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
 /**
@@ -279,18 +283,40 @@ public class CustomMenubar extends JMenuBar {
 
 	@Action
 	public void CloseSession() {
+		// TODO
 		// if (JOptionPane.showConfirmDialog(getMainFrame(),
 		// ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
 		// ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),
 		// JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
 		// JOptionPane.YES_OPTION)
 		// closeSessionConfirm();
-		// TODO
+
 		// JDConfigSimil j = new JDConfigSimil(null);
 		// j.setVisible(true);
-		JDCreateProject j = new JDCreateProject(mainFrame.getMainFrame());
-		j.setModal(true);
-		j.setVisible(true);
+//		JDCreateProject j = new JDCreateProject(mainFrame.getMainFrame());
+//		j.setModal(true);
+//		j.setVisible(true);
+		
+        try {
+        	   //save image into database
+        	
+        	File file = new File("C:\\Users\\Juan\\Downloads\\matricula.pdf");
+            byte[] bFile = new byte[(int) file.length()];
+   	     FileInputStream fileInputStream = new FileInputStream(file);
+   	     //convert file into array of bytes
+   	     fileInputStream.read(bFile);
+   	     fileInputStream.close();
+          
+   	     	TopicWrapper topicWrapper = ClientController.getInstance().getTopicsWrapper();
+           model.business.knowledge.File f = new model.business.knowledge.File(topicWrapper.getTopics().get(0), "Graphique.png", bFile);
+           // Insert file into database
+           f.setId(ClientController.getInstance().attachFile(f));
+           
+           model.business.knowledge.File fAux = ClientController.getInstance().getAttachedFiles(topicWrapper.getTopics().get(0)).get(0);
+           System.out.println(fAux.getContent());
+        } catch (Exception e) {
+      	     e.printStackTrace();
+              }
 
 	}
 

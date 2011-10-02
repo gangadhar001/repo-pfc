@@ -14,6 +14,7 @@ import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Answer;
+import model.business.knowledge.File;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
@@ -38,6 +39,7 @@ import communication.ExportedClient;
 import communication.ProxyServer;
 
 import exceptions.IncorrectEmployeeException;
+import exceptions.NonExistentFileException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -399,7 +401,13 @@ public class ClientController {
 		server.addProjectsUser(session.getId(), user, p);
 	}
 
-	
+	public int attachFile(File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.attachFile(session.getId(), file);
+	}
+
+	public List<File> getAttachedFiles(Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.getAttachedFiles(session.getId(), k);
+	}
 
 	
 }
