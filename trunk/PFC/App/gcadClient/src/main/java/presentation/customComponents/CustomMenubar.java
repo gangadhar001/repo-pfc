@@ -41,9 +41,6 @@ import org.jdesktop.application.Application;
 
 import presentation.JDAbout;
 import presentation.JDChooseProject;
-import presentation.JDCreateProject;
-import presentation.JDKnowledge;
-import presentation.JDPdf;
 import presentation.JFMain;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
@@ -322,20 +319,16 @@ public class CustomMenubar extends JMenuBar {
 
 	@Action
 	public void Manage_Knowledge() {
-		// Invoke JFKnowledge without arguments (no operation, no data)
-		JDKnowledge frameKnowledge = new JDKnowledge(mainFrame);
-		frameKnowledge.setLocationRelativeTo(mainFrame.getMainFrame());
-		frameKnowledge.setModal(true);
-		frameKnowledge.setVisible(true);
+		mainFrame.manageKnowledgeFromMenu();
 	}
 
-	@Action
-	public void Manage_PDFGeneration() {
-		JDPdf framePDF = new JDPdf(mainFrame.getMainFrame());
-		framePDF.setLocationRelativeTo(mainFrame.getMainFrame());
-		framePDF.setModal(true);
-		framePDF.setVisible(true);
-	}
+//	@Action
+//	public void Manage_PDFGeneration() {
+//		JDPdf framePDF = new JDPdf(mainFrame.getMainFrame());
+//		framePDF.setLocationRelativeTo(mainFrame.getMainFrame());
+//		framePDF.setModal(true);
+//		framePDF.setVisible(true);
+//	}
 
 	@Action
 	public void Manage_Statistics() {

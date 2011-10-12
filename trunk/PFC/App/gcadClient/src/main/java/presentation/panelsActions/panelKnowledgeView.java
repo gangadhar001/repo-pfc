@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.SwingConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -50,12 +49,8 @@ import bussiness.control.ClientController;
 
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
-import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.view.mxGraph;
 
+import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -77,8 +72,6 @@ public class panelKnowledgeView extends ImagePanel {
 	 */
 	private static final long serialVersionUID = 3144486182937579912L;
 	
-	private static final double VERTEX_WIDTH = 120;
-	
 	private JPanel panel;
 	private JPanel pnlInfo;
 	private JScrollPane scrollTree;
@@ -86,36 +79,33 @@ public class panelKnowledgeView extends ImagePanel {
 	private CollapsiblePanel collapsiblePanel1;
 	private CollapsibleRootPanel collapsibleRootPanel1;
 	private CollapsiblePanel collapsiblePanel;
-	private JPanel panelGraph;
+	private GraphZoomScrollPane panelGraph;
 	private JPanel panelTree;
-	protected int rowSelected;
 	private TopicWrapper topicWrapper;
 	private JTree tree;
-	protected Knowledge knowledgeSelectedTree;
-	protected int column;
-	protected int row;
+	private Knowledge knowledgeSelectedTree;
 	private JFMain parent;
-	protected DefaultMutableTreeNode parentSelected;
 	private DefaultTreeModel treeModel;
-	private mxGraph graph;
-	private Object parentGraph;
 
-	protected Knowledge knowledgeSelectedGraph;
-
+	private Knowledge knowledgeSelectedGraph;
 	private JDKnowledge fKnowledge;
+	private KnowledgeGraph KnowGraph;
 	
 	
 	public panelKnowledgeView(JFMain parent) {
 		super();
 		this.parent = parent;
-		rowSelected = -1;
-		try {		
+		try {
 			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
-			
+		} catch (Exception e) {}
+		try {		
 			// Get knowledge from current project
 			topicWrapper = ClientController.getInstance().getTopicsWrapper();
+			// Create custom graph
+			KnowGraph = new KnowledgeGraph(topicWrapper, this);
+			
 			initGUI();
-			// Show knowledge tree and graph
+			// Show knowledge tree and graph			
 			showTree();
 			showGraph();
 		} catch (RemoteException e) {
@@ -139,80 +129,10 @@ public class panelKnowledgeView extends ImagePanel {
 	
 	// Method used to show knowledge graph
 	private void showGraph() {
-		panelGraph.removeAll();
-		// Create custom graph
-		final mxGraphComponent graphComponent = new mxGraphComponent(new KnowledgeGraph().getGraph());	
-		graph = graphComponent.getGraph();
-		parentGraph = graph.getDefaultParent();
-		graph.getModel().beginUpdate();
-		String url;
-		String style = "HandleFillColor=#000000;whiteSpace=wrap;overflow=hidden;align=center;strokeColor=#000000;rounded;shape=label;image=";
-		// Add nodes and edges
-		for (Topic t: topicWrapper.getTopics()) {			
-			url = this.getClass().getClassLoader().getResource("images/Topic.png").toString();			
-			mxCell vertexTopic = (mxCell) graph.insertVertex(parentGraph, null, t, 100, 30, 80, 30, style + url);
-			vertexTopic.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
-			for (Proposal p: t.getProposals()) {
-				url = this.getClass().getClassLoader().getResource("images/Proposal.png").toString();
-				mxCell vertexProposal = (mxCell) graph.insertVertex(parentGraph, null, p, 100, 50, 80, 30, style + url);
-				vertexProposal.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
-				graph.insertEdge(parentGraph, null, "", vertexTopic, vertexProposal);
-				for (Answer a : p.getAnswers()) {
-					url = this.getClass().getClassLoader().getResource("images/Trees/answer.png").toString();
-					mxCell vertexAnswer = (mxCell) graph.insertVertex(parentGraph, null, a, 100, 100, 80, 30, style + url);
-					vertexAnswer.setGeometry(new mxGeometry(vertexTopic.getGeometry().getX(), vertexTopic.getGeometry().getX(), VERTEX_WIDTH, vertexTopic.getGeometry().getHeight()));
-					graph.insertEdge(parentGraph, null, "", vertexProposal, vertexAnswer );
-				}
-			}
-		}
-		
-		// Set layout
-		mxHierarchicalLayout layout = new mxHierarchicalLayout(graph, SwingConstants.WEST);
-		layout.setFineTuning(true);
-		layout.setInterRankCellSpacing(230.5);
-		layout.setIntraCellSpacing(95.5);
-		layout.setUseBoundingBox(false);
-		layout.setResizeParent(true);
+		panelGraph.removeAll();	
 		
 		
-		layout.execute(graph.getDefaultParent());
-		
-		// Set graph properties
-		graph.setAllowDanglingEdges(false);
-		graph.setAllowLoops(false);
-		graph.setCellsEditable(false);
-		graph.setEdgeLabelsMovable(false);
-		graph.setCellsDisconnectable(false);
-		graph.setCellsBendable(false);
-		
-		graph.getModel().endUpdate();
-		
-		graphComponent.setBorder(null);		
-		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
-		{								
-			public void mousePressed(MouseEvent e)
-			{
-				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
-				graph.setSelectionCell(cell);				
-				if (cell != null)
-				{
-					clearSelectionTree();
-					knowledgeSelectedGraph = (Knowledge) ((mxCell)cell).getValue(); 
-					showUserInfo();
-				}
-				// No selection
-				else {
-					clearSelectionTree();
-					clearSelectionGraph();
-				}
-			}
-		});
-		graphComponent.setAntiAlias(true);
-		graphComponent.setEnabled(true);
-		graphComponent.setOpaque(false);
-		graphComponent.setToolTips(true);
-		panelGraph.add(graphComponent, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 13, 5), 0, 0));
-
+		panelGraph.add(KnowGraph.getVisualGraph(), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 13, 5), 0, 0));
 		panelGraph.validate();
 		panelGraph.repaint();
 	}
@@ -235,6 +155,9 @@ public class panelKnowledgeView extends ImagePanel {
 				if (!(val instanceof TopicWrapper)) {
 					knowledgeSelectedTree = (Knowledge) val;
 					showUserInfo();
+					// Enable delete an edit buttons in toolbar
+					parent.enableToolbarButton("ModifyKnowledge", true);
+					parent.enableToolbarButton("DeleteKnowledge", true);
 				}
 			}
 		});
@@ -290,19 +213,19 @@ public class panelKnowledgeView extends ImagePanel {
 				panel.setPreferredSize(new java.awt.Dimension(556, 573));
 				panel.setName("panel");
 				{
-					panelGraph = new JPanel();
+					panelGraph = new GraphZoomScrollPane(KnowGraph.getVisualGraph());
+					
 					GridBagLayout panelGraphLayout = new GridBagLayout();
-					panel.add(panelGraph, new AnchorConstraint(1, 1000, 1001, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					
 					panelGraph.setLayout(panelGraphLayout);
 					panelGraph.setPreferredSize(new java.awt.Dimension(615, 481));
 					panelGraphLayout.rowWeights = new double[] {0.1};
 					panelGraphLayout.rowHeights = new int[] {7};
 					panelGraphLayout.columnWeights = new double[] {0.1};
 					panelGraphLayout.columnWidths = new int[] {7};
+					panel.add(panelGraph, new AnchorConstraint(1, 1000, 1001, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 				}
-			}
-			
-//			updateBorder(scrollTree);			
+			}				
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -322,18 +245,12 @@ public class panelKnowledgeView extends ImagePanel {
 		return pnlInfo;
 	}
 
-	// Method used to create a border with shadow
-	private void updateBorder(JComponent comp) {
-		 comp.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(Color.BLACK, 9, 0.5f, 12, false, false, true, true), comp.getBorder()));
-	}
-
-	/*** Methods used to add, modify or delete knowledge ***/
+	/*** Methods used to add, modify or delete knowledge, since toolbar ***/
 	public void operationAdd() {
-		Object a = tree.getSelectionPath().getLastPathComponent();
 		// If an item is selected, show the knowledge window filled with data
 		Knowledge k = getSelectedKnowledge();
-		if (a != null) {
-			operationAddKnowledge(k.getClass().getSimpleName(), k, Operations.Add.name());
+		if (k != null) {
+			operationKnowledge(k.getClass().getSimpleName(), k, Operations.Add.name());
 		}
 	}
 	
@@ -342,11 +259,12 @@ public class panelKnowledgeView extends ImagePanel {
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
 			try{
-				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
-					operationModifyKnowledge(k.getClass().getSimpleName(), k, Operations.Modify.name());
+				// Only the author can modify its knowledge
+				if (ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+					operationKnowledge(k.getClass().getSimpleName(), k, Operations.Modify.name());
 				}
 				else
-					// TODO: comprobar esto también el el JFKnowledge
+					// TODO: comprobar esto también en el JFKnowledge
 					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorModify"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -365,7 +283,7 @@ public class panelKnowledgeView extends ImagePanel {
 		if (k != null) {
 			try {
 				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
-				if (!ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
+				if (ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
 					if (k instanceof Topic)				
 						ClientController.getInstance().deleteTopic((Topic) k);
 					else if (k instanceof Proposal)				
@@ -373,14 +291,12 @@ public class panelKnowledgeView extends ImagePanel {
 					else			
 						ClientController.getInstance().deleteAnswer((Answer) k);
 					
-					// Refresh knowledge
-					topicWrapper = ClientController.getInstance().getTopicsWrapper();
 					// Refresh tree and graph
 					deleteKnowledgeFromTree(k);
 					deleteKnowledgeFromGraph(k);
 				}
 				else
-//					// TODO: comprobar esto también el el JFKnowledge
+					// TODO: comprobar esto también en el JFKnowledge
 					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorDelete"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -394,21 +310,21 @@ public class panelKnowledgeView extends ImagePanel {
 		}		
 	}
 	
-	// Show the frame of knowledge, used to add. This frame will has filled with the knowledge data
-	private void operationAddKnowledge(String knowledgeType, Knowledge k, String operation) {
-		fKnowledge = new JDKnowledge(parent, knowledgeType, k, Operations.Add.name());
-		fKnowledge.setLocationRelativeTo(this);
+	// Show the frame of knowledge, used to add or modify. This frame will has filled with the knowledge data
+	private void operationKnowledge(String knowledgeType, Knowledge k, String operation) {
+		fKnowledge = new JDKnowledge(parent, knowledgeType, k, operation);
+		fKnowledge.setLocationRelativeTo(parent.getMainFrame());
 		fKnowledge.setModal(true);
 		fKnowledge.setVisible(true);
 	}
 	
-	// Show the frame of knowledge, used to modify. This frame will has filled with the knowledge data
-	private void operationModifyKnowledge(String knowledgeType, Knowledge k, String operation) {
-		fKnowledge = new JDKnowledge(parent, knowledgeType, k, Operations.Modify.name());
-		fKnowledge.setLocationRelativeTo(this);
-		fKnowledge.setModal(true);
-		fKnowledge.setVisible(true);
-	}	
+	// Invoke JFKnowledge without arguments (no operation, no data)
+	public void manageKnowledgeFromMenu() {	
+		JDKnowledge frameKnowledge = new JDKnowledge(parent);
+		frameKnowledge.setLocationRelativeTo(parent.getMainFrame());
+		frameKnowledge.setModal(true);
+		frameKnowledge.setVisible(true);		
+	}
 
 	/*** Methods used to notify new knowledge ***/ 
 	// Refresh graph and tree, because another client has added knowledge
@@ -453,7 +369,7 @@ public class panelKnowledgeView extends ImagePanel {
 	}
 	
 	// Refresh graph and tree, because this client has added knowledge
-	public void notifyKnowledgeAdded(model.business.knowledge.Knowledge k, Knowledge parentK) {
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
 		knowledgeAdded(k ,parentK);		
 	}
 
@@ -472,57 +388,6 @@ public class panelKnowledgeView extends ImagePanel {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}		
-	}
-
-	// Add new knowledge in graph
-	private void addKnowledgeToGraph(Knowledge k, Knowledge parentK) {
-		mxCell vertexParent = null;
-		String style = "HandleFillColor=#000000;whiteSpace=wrap;overflow=hidden;align=center;strokeColor=#000000;rounded;shape=label;image=";
-		try {
-			if (knowledgeSelectedGraph != null)
-				 vertexParent = (mxCell) graph.getSelectionCell();
-			else {
-				// Search the cell for the parent of knowledge received
-				Knowledge parent = null;
-				if (parentK == null){
-					if (k instanceof Proposal) {
-						parent = ClientController.getInstance().findParentProposal((Proposal) k);
-						style += this.getClass().getClassLoader().getResource("images/Trees/proposal.png").toString();
-					}
-					else if (k instanceof Answer) {
-						parent = ClientController.getInstance().findParentAnswer((Answer) k);
-						style += this.getClass().getClassLoader().getResource("images/Trees/answer.png").toString();
-					}
-				}
-				else
-					parent = parentK;
-				
-				if (parent != null)
-					vertexParent = findCellKnowledge(parent);
-			}
-			if (vertexParent != null) {
-				// Add the new knowledge to the vertex parent	
-				mxCell newVertex = (mxCell) graph.insertVertex(parentGraph, null, k, 100, 100, 80, 30, style);
-				newVertex.setGeometry(new mxGeometry(newVertex.getGeometry().getX(), newVertex.getGeometry().getX(), VERTEX_WIDTH, newVertex.getGeometry().getHeight()));
-				graph.insertEdge(parentGraph, null, "", vertexParent, newVertex);				
-			}
-			// It's a topic
-			else if (k instanceof Topic) {
-				style += this.getClass().getClassLoader().getResource("images/Trees/topic.png").toString();
-				mxCell newVertex = (mxCell) graph.insertVertex(parentGraph, null, k, 100, 100, 80, 30, style);
-				newVertex.setGeometry(new mxGeometry(newVertex.getGeometry().getX(), newVertex.getGeometry().getX(), VERTEX_WIDTH, newVertex.getGeometry().getHeight()));	
-			}
-			graph.refresh();
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		}
-		
 	}
 
 	// Add new knowledge in tree
@@ -573,19 +438,11 @@ public class panelKnowledgeView extends ImagePanel {
 		}
 	}
 	
-	// Edit knowledge from graph
-	private void editKnowledgeFromGraph(Knowledge newK, Knowledge oldK) {
-		mxCell cell = null;
-		if (knowledgeSelectedGraph != null)
-			 cell = (mxCell) graph.getSelectionCell();
-		else
-			// Search the cell for the old knowledge received
-			cell = findCellKnowledge(oldK);
-		if (cell != null) {
-			// Replace the old knowledge with the new Knowledge
-			cell.setValue(newK);
-			graph.refresh();
-		}
+
+	// Add new knowledge in graph
+	private void addKnowledgeToGraph(Knowledge k, Knowledge parentK) {               
+	    // Add the new knowledge 
+		KnowGraph.addVertex(k, parentK);                        
 	}
 
 	// Method used to edit a node from tree
@@ -602,26 +459,9 @@ public class panelKnowledgeView extends ImagePanel {
 		}
 	}
 	
-	// Delete knowledge from graph
-	private void deleteKnowledgeFromGraph(Knowledge k) {
-		mxCell cell = null;
-		if (knowledgeSelectedGraph != null)
-			 cell = (mxCell) graph.getSelectionCell();
-		else
-			// Search the cell for the knowledge received
-			cell = findCellKnowledge(k);
-		if (cell != null) {
-			// Get all edges of the vertex
-			Object[] edges = graph.getEdges(cell);
-			Object[] toRemove = new Object[edges.length];
-			for (int i = 0; i< edges.length; i++) {
-				toRemove[i] = ((mxCell)edges[i]).getTarget();
-			}
-			// Remove all edges of that cell
-			graph.removeCells(toRemove, true);
-			graph.refresh();
-			knowledgeSelectedGraph = null;
-		}
+	// Edit knowledge from graph
+	private void editKnowledgeFromGraph(Knowledge newK, Knowledge oldK) {
+	
 	}
 
 	// Method used to delete a node from tree
@@ -638,29 +478,31 @@ public class panelKnowledgeView extends ImagePanel {
 			((DefaultTreeModel)tree.getModel()).reload();
 			tree.scrollPathToVisible(new TreePath(aux.getPath()));
 			knowledgeSelectedTree = null;
+			refreshKnowledge();
 		}
-	}
-
-	// Method used to find a vertex in the graph
-	private mxCell findCellKnowledge(Knowledge k) {
-		mxCell result = null;
-		if (k != null) {
-			Object[] edges = graph.getAllEdges(new Object[]{graph.getModel().getRoot()});
-			boolean found = false;
-			for (int i = 0; i< edges.length && !found; i++) {
-				if (((Knowledge)((mxCell)edges[i]).getSource().getValue()).equals(k)) {
-					result = (mxCell) ((mxCell)edges[i]).getSource();
-					found = true;
-				}
-				else if (((Knowledge)((mxCell)edges[i]).getTarget().getValue()).equals(k)) {
-					result = (mxCell) ((mxCell)edges[i]).getTarget();
-					found = true;
-				}
-			}
-		}
-		return result;
 	}
 	
+	// Delete knowledge from graph
+	private void deleteKnowledgeFromGraph(Knowledge k) {
+		KnowledgeGraph.deleteVertex(k);
+		refreshKnowledge();
+	}
+	
+	private void refreshKnowledge() {
+		// Refresh knowledge
+		try {
+			topicWrapper = ClientController.getInstance().getTopicsWrapper();
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}		
+	}
+
 	// Method used to find a node in the tree
 	@SuppressWarnings("rawtypes")
 	private DefaultMutableTreeNode findNodeKnowledge(DefaultMutableTreeNode node, Knowledge k) {
@@ -704,6 +546,8 @@ public class panelKnowledgeView extends ImagePanel {
 		if (row == -1) {
 			clearSelectionTree();
 			clearSelectionGraph();
+			parent.enableToolbarButton("ModifyKnowledge", false);
+			parent.enableToolbarButton("DeleteKnowledge", false);
 		}
 	}
 
@@ -717,7 +561,7 @@ public class panelKnowledgeView extends ImagePanel {
 
 	// Clear selection from graph
 	private void clearSelectionGraph() {
-		graph.clearSelection();
+		KnowGraph.clearSelection();
 		knowledgeSelectedGraph = null;	
 		clearUserInfo();
 	}
@@ -765,6 +609,24 @@ public class panelKnowledgeView extends ImagePanel {
 			collapsiblePanel3.setBounds(6, 303, 189, 84);
 		}
 		return collapsiblePanel3;
+	}
+
+	public Knowledge getKnowledgeSelectedGraph() {
+		return knowledgeSelectedGraph;
+	}
+
+	public void setKnowledgeSelectedGraph(Knowledge knowledgeSelectedGraph) {
+		this.knowledgeSelectedGraph = knowledgeSelectedGraph;
+		if (this.knowledgeSelectedGraph != null) {
+			// Enable delete an edit buttons in toolbar
+			parent.enableToolbarButton("ModifyKnowledge", true);
+			parent.enableToolbarButton("DeleteKnowledge", true);
+		}
+		else {
+			// Enable delete an edit buttons in toolbar
+			parent.enableToolbarButton("ModifyKnowledge", false);
+			parent.enableToolbarButton("DeleteKnowledge", false);
+		}
 	}
 
 }

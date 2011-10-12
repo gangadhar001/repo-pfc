@@ -244,13 +244,19 @@ public class JFMain extends SingleFrameApplication {
 		// Includes operation "add", "modify", and "delete", if the user has
 		// permissions
 		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
-		if (availableOps.contains(Operations.Add.name()))
-			toolbar.add(createToolbarButton(Operations.Add.name() + Groups.Knowledge.name()));
-		if (availableOps.contains(Operations.Modify.name()))
-			toolbar.add(createToolbarButton(Operations.Modify.name() + Groups.Knowledge.name()));
-		if (availableOps.contains(Operations.Delete.name()))
-			toolbar.add(createToolbarButton(Operations.Delete.name() + Groups.Knowledge.name()));
-
+		if (availableOps.contains(Operations.Add.name())) {
+			toolbar.add(createToolbarButton(Operations.Add.name() + Groups.Knowledge.name()));        	
+		}
+		if (availableOps.contains(Operations.Modify.name())) {
+			JButton but = createToolbarButton(Operations.Modify.name() + Groups.Knowledge.name());
+          	but.setEnabled(false);
+          	toolbar.add(but);      
+		}
+		if (availableOps.contains(Operations.Delete.name())) {
+			JButton but = createToolbarButton(Operations.Delete.name() + Groups.Knowledge.name());
+          	but.setEnabled(false);
+          	toolbar.add(but);  
+		}
 	}
     
     // Method to add specific button for Statistics view to the toolbar
@@ -283,14 +289,20 @@ public class JFMain extends SingleFrameApplication {
 	/*** Actions for specific toolbar buttons. ***/
 	@Action
 	public void AddKnowledge() {
-//		if (panelKnowledge != null)
-//			panelKnowledge.operationAdd();
+		if (panelKnowledge != null)
+			panelKnowledge.operationAdd();
+	}
+	
+	@Action
+	public void EditKnowledge() {
+		if (panelKnowledge != null)
+			panelKnowledge.operationModify();
 	}
 	
 	@Action
 	public void DeleteKnowledge() {
-//		if (panelKnowledge != null)
-//			panelKnowledge.operationDelete();
+		if (panelKnowledge != null)
+			panelKnowledge.operationDelete();
 	}
 	
 	@Action
@@ -458,6 +470,11 @@ public class JFMain extends SingleFrameApplication {
 				((JButton)components[i]).setEnabled(enabled);
 			}
 		}
+		
+	}
+
+	public void manageKnowledgeFromMenu() {
+		panelKnowledge.manageKnowledgeFromMenu();
 		
 	}
 
