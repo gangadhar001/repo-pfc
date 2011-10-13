@@ -3,17 +3,17 @@ package bussiness.control;
 import java.awt.Color;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.List;
-
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Project;
-import model.business.knowledge.Table;
-import model.business.knowledge.Text;
-import model.business.knowledge.Title;
 import model.business.knowledge.TopicWrapper;
+import presentation.PDFConfiguration;
+import presentation.PDFElement;
+import presentation.PDFSection;
+import presentation.PDFTable;
+import presentation.PDFText;
+import presentation.PDFTitle;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
@@ -32,62 +32,33 @@ import exceptions.NotLoggedException;
 /**
  * Class used to generate a PDF document from the user-entered configuration
  */
-public class PDFComposer {
-	
-	private static List<Project> projects = null;
-	
-	@SuppressWarnings("rawtypes")
-	public static void composePDF (Document doc, DefaultMutableTreeNode root, List<Project> pro) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		projects = pro;
-		Enumeration children = root.children();
+public class PDFComposer {	
+	public static void composePDF (Document doc, PDFConfiguration config) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		int count = 1;
-		while (children.hasMoreElements()) {
-			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
-			if (child.getUserObject() instanceof model.business.knowledge.Section) {
-				Chapter ch = new Chapter(count);
-				generateContent(ch, child);
-				doc.add(ch);
-			}
+		Chapter ch = new Chapter(count);
+		for (PDFSection section : config.getSections()) {	
+			Section s = ch.addSection(4f, "");
+			generateContent(s, section);
+			doc.add(ch);
+			
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	private static void generateContent(Element el, DefaultMutableTreeNode parentNode) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		Enumeration children = parentNode.children();
-		while (children.hasMoreElements()) {
-			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
-			if (child.getUserObject() instanceof Title) {
-				Font f = FontFactory.getFont(FontFactory.HELVETICA, 16f, Font.BOLD, new BaseColor(Color.BLACK));
-				Paragraph p = new Paragraph(((Title)child.getUserObject()).getContent(), f);
-				if (el instanceof Chapter) 
-					((Chapter)el).setTitle(p);
-				else if (el instanceof Section)
-					((Section)el).setTitle(p);
+	private static void generateContent(Section sec, PDFSection section) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		for(PDFElement element : section.getElements()){
+			if (element instanceof PDFTitle) {
+				Font f = ((PDFTitle)element).getFont();
+				Paragraph p = new Paragraph(((PDFTitle)element).getTitle(), f);
+				sec.setTitle(p);
 			}
-			if (child.getUserObject() instanceof Text) {
-				Font f = FontFactory.getFont(FontFactory.HELVETICA, 12f, Font.NORMAL, new BaseColor(Color.BLACK));
-				Paragraph p = new Paragraph(((Text)child.getUserObject()).getContent(), f);
-				if (el instanceof Chapter) 
-					((Chapter)el).add(p);
-				else if (el instanceof Section)
-					((Section)el).add(p);
+			if (element instanceof PDFText) {
+				Font f = ((PDFText)element).getFont();
+				Paragraph p = new Paragraph(((PDFText)element).getContent(), f);
+				sec.setTitle(p);
 			}
-			if (child.getUserObject() instanceof model.business.knowledge.Section) {
-				if (el instanceof Chapter) {
-					Section s = ((Chapter)el).addSection(4f, "");
-					generateContent(s, child );
-				}
-				else if (el instanceof Section) {
-					Section s = ((Section)el).addSection(4f, "");
-					generateContent(s, child);
-				}
-			}
-			if (child.getUserObject() instanceof Table) {
-				PdfPTable table = createTable(projects.get(Integer.parseInt(((Table)child.getUserObject()).getContent())));
-				if (el instanceof Chapter) 
-					((Chapter)el).add(table);
-				else if (el instanceof Section)
-					((Section)el).add(table);
+			else if (element instanceof PDFTable) {
+				PdfPTable table = createTable(((PDFTable)element).getProject());
+				sec.add(table);
 			}
 		}
 	}

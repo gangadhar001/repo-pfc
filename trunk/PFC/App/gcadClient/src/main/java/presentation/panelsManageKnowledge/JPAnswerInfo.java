@@ -55,15 +55,16 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(null);
-			this.setPreferredSize(new java.awt.Dimension(431, 174));
-			this.setSize(405, 166);
+			this.setPreferredSize(new java.awt.Dimension(531, 172));
+			this.setSize(531, 172);
 			{
 				panelAnswerInfo = new JPanel();
 				this.add(panelAnswerInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				panelAnswerInfo.setBorder(BorderFactory.createTitledBorder("Answer Info"));
 				panelAnswerInfo.setLayout(null);
 				panelAnswerInfo.setBounds(0, 0, 431, 174);
-				panelAnswerInfo.setPreferredSize(new java.awt.Dimension(431, 174));
+				panelAnswerInfo.setPreferredSize(new java.awt.Dimension(531, 172));
+				panelAnswerInfo.setSize(531, 172);
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
@@ -84,13 +85,13 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 					txtDescription = new JTextArea();
 					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelAnswerInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtDescription.setBounds(122, 58, 270, 65);
+					txtDescription.setBounds(122, 58, 392, 65);
 				}
 				{
 					txtTitle = new JTextField();
 					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, "FallO" + ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelAnswerInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtTitle.setBounds(122, 23, 270, 23);
+					txtTitle.setBounds(122, 23, 392, 23);
 				}
 				{
 					lblDescriptionAnswer = new JLabel();

@@ -65,36 +65,35 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public void addTopic(long sessionId, Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.addTopic(sessionId, topic);
+	public Topic addTopic(long sessionId, Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.addTopic(sessionId, topic);		
+	}
+
+	@Override
+	public Proposal addProposal(long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.addProposal(sessionId, p, parent);
 		
 	}
 
 	@Override
-	public void addProposal(long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.addProposal(sessionId, p, parent);
+	public Answer addAnswer(long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.addAnswer(sessionId, a, parent);
 		
 	}
 
 	@Override
-	public void addAnswer(long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.addAnswer(sessionId, a, parent);
-		
+	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.modifyTopic(sessionId, newTopic, oldTopic);
 	}
 
 	@Override
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.modifyTopic(sessionId, newTopic, oldTopic);
+	public Proposal modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.modifyProposal(sessionId, newProposal, oldProposal, parent);		
 	}
 
 	@Override
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.modifyProposal(sessionId, newProposal, oldProposal, parent);		
-	}
-
-	@Override
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.modifyAnswer(sessionId, newAnswer, oldAnswer, parent);
+	public Answer modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.modifyAnswer(sessionId, newAnswer, oldAnswer, parent);
 		
 	}
 

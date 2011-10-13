@@ -153,7 +153,7 @@ public class Server implements IServer {
 	
 	/*** Methods used to add new Knowledge  ***/
 	@Override
-	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	public Topic addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		boolean found = false;
 		Project project = null, aux;
 		String login = "";
@@ -184,10 +184,12 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_newTopic_msg") + " " + e.toString());
 			throw e;
 		}
+		// Return the new topic added
+		return topic;
 	}
 	
 	@Override
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	public Proposal addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login ="";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -208,10 +210,12 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_newProposal_msg") + " " + e.toString());
 			throw e;
 		}
+		// Return the new topic added
+		return p;
 	}
 	
 	@Override
-	public void addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	public Answer addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try{
 			Session session = SessionController.getSession(sessionId);
@@ -232,11 +236,12 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_newAnswer_msg") + " " + e.toString());
 			throw e;
 		}
+		return a;
 	}
 	
 	/*** Methods used to modify Knowledge ***/
 	@Override
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception {
+	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -260,10 +265,11 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("Exception_ModifyTopic_msg") + " " + e.toString());
 			throw e;
 		}
+		return newTopic;
 	}
 	
 	@Override
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonExistentProposalException, NonPermissionRoleException, NotLoggedException, Exception {
+	public Proposal modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonExistentProposalException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login ="";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -287,10 +293,11 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("Exception_ModifyProposal_msg") + " " + e.toString());
 			throw e;
 		}
+		return newProposal;
 	}
 	
 	@Override
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonExistentAnswerException, NonPermissionRoleException, NotLoggedException, Exception {
+	public Answer modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonExistentAnswerException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -314,6 +321,7 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("Exception_ModifyAnswer_msg") + " " + e.toString());
 			throw e;
 		}
+		return newAnswer;
 	}
 		
 	/*** Methods used to delete Knowledge ***/

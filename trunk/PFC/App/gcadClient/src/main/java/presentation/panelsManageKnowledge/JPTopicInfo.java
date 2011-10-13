@@ -50,27 +50,27 @@ public class JPTopicInfo extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(null);
-			this.setPreferredSize(new java.awt.Dimension(431, 174));
-			this.setSize(439, 317);
+			this.setPreferredSize(new java.awt.Dimension(531, 172));
+			this.setSize(531, 172);
 			{
 				panelTopicInfo = new JPanel();
 				this.add(panelTopicInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				panelTopicInfo.setBorder(BorderFactory.createTitledBorder("Topic Info"));
 				panelTopicInfo.setLayout(null);
 				panelTopicInfo.setBounds(0, 0, 405, 137);
-				panelTopicInfo.setSize(431, 174);
-				panelTopicInfo.setPreferredSize(new java.awt.Dimension(431, 174));
+				panelTopicInfo.setSize(531, 172);
+				panelTopicInfo.setPreferredSize(new java.awt.Dimension(531, 172));
 				{
 					txtDescription = new JTextArea();
 					panelTopicInfo.add(txtDescription);
-					txtDescription.setBounds(122, 56, 269, 105);
+					txtDescription.setBounds(122, 56, 392, 105);
 					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					txtTitle = new JTextField();
 					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelTopicInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtTitle.setBounds(122, 23, 270, 23);
+					txtTitle.setBounds(122, 23, 392, 23);
 				}
 				{
 					lblDescriptionTopic = new JLabel();

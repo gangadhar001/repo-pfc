@@ -93,10 +93,10 @@ public class JPManageTopic extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(460, 288));
+			this.setPreferredSize(new java.awt.Dimension(560, 288));
 			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(460, 288);
+			this.setSize(560, 288);
 			{
 				tabPanelTopic = new JTabbedPane();
 				this.add(tabPanelTopic, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
@@ -112,7 +112,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 						btnCancelAdd = new JButton();
 						panelAddTopic.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnCancelAdd.setName("btnCancelAdd");
-						btnCancelAdd.setBounds(376, 217, 67, 25);
+						btnCancelAdd.setBounds(453, 217, 91, 24);
 						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
 						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));						
 					}
@@ -120,7 +120,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 						btnSaveTopic = new JButton();
 						panelAddTopic.add(btnSaveTopic, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnSaveTopic.setName("btnSaveTopic");
-						btnSaveTopic.setBounds(297, 217, 68, 24);
+						btnSaveTopic.setBounds(351, 217, 91, 24);
 						btnSaveTopic.setAction(getAppActionMap().get("Save"));
 						btnSaveTopic.setText(ApplicationInternationalization.getString("btnSave"));
 					}
@@ -128,6 +128,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 						panelTopicInfoAdd = new JPTopicInfo(parentD);
 						panelAddTopic.add(panelTopicInfoAdd);
 						panelTopicInfoAdd.setBounds(12, 12, 431, 174);
+						panelTopicInfoAdd.setSize(531, 172);
+						panelTopicInfoAdd.setPreferredSize(new java.awt.Dimension(531, 172));
 					}
 				}
 				{
@@ -138,7 +140,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 					{
 						btnCancelModify = new JButton();
 						panelModifyTopic.add(btnCancelModify);
-						btnCancelModify.setBounds(376, 217, 67, 25);
+						btnCancelModify.setBounds(453, 217, 91, 24);
 						btnCancelModify.setName("btnCancelModify");
 						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
 						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));
@@ -146,7 +148,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 					{
 						btnSaveModify = new JButton();
 						panelModifyTopic.add(btnSaveModify);
-						btnSaveModify.setBounds(297, 217, 68, 24);
+						btnSaveModify.setBounds(351, 217, 91, 24);
 						btnSaveModify.setName("btnSaveModify");
 						btnSaveModify.setAction(getAppActionMap().get("Modify"));
 						btnSaveModify.setText(ApplicationInternationalization.getString("btnModify"));
@@ -155,6 +157,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 						panelTopicInfoModify = new JPTopicInfo(parentD);
 						panelModifyTopic.add(panelTopicInfoModify);
 						panelTopicInfoModify.setBounds(12, 41, 433, 165);
+						panelTopicInfoModify.setSize(531, 172);
+						panelTopicInfoModify.setPreferredSize(new java.awt.Dimension(531, 172));
 					}
 					{
 						lblTopics = new JLabel();
@@ -167,9 +171,10 @@ public class JPManageTopic extends javax.swing.JPanel {
 						cbTopics = new JComboBox();
 						panelModifyTopic.add(cbTopics);
 						cbTopics.setBounds(73, 9, 161, 23);
+						cbTopics.setSize(167, 23);
 						cbTopics.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								cbTopicsActionPerformed(evt);
+								cbTopicsActionPerformed();
 							}
 						});
 					}
@@ -210,7 +215,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 		}
 	}
 	
-	private void cbTopicsActionPerformed(ActionEvent evt) {
+	private void cbTopicsActionPerformed() {
 		panelTopicInfoModify.fillData(topics.get(cbTopics.getSelectedIndex()));
 	}
 	
@@ -253,9 +258,10 @@ public class JPManageTopic extends javax.swing.JPanel {
 		Topic newTopic = new Topic(panelTopicInfoAdd.getTopicTitle(), panelTopicInfoAdd.getTopicDescription(), new Date());
 		try {
 			// Create and insert new Topic
-			ClientController.getInstance().addTopic(newTopic);
+			Topic newTopicAdded = ClientController.getInstance().addTopic(newTopic);
 			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeAdded(newTopic, null);
+			mainFrame.notifyKnowledgeAdded(newTopicAdded, null);
+			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
@@ -271,12 +277,15 @@ public class JPManageTopic extends javax.swing.JPanel {
 	
 	@Action
 	public void Modify() {
+		Topic oldTopic = topics.get(cbTopics.getSelectedIndex());
 		Topic newTopic = new Topic(panelTopicInfoAdd.getTopicTitle(), panelTopicInfoAdd.getTopicDescription(), new Date());
+		newTopic.setId(oldTopic.getId());
 		try {
 			// Modify the old Topic
-			ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
+			Topic newTopicModified = ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
 			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeEdited(newTopic, topics.get(cbTopics.getSelectedIndex()));
+			mainFrame.notifyKnowledgeEdited(newTopicModified, oldTopic);
+			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {

@@ -175,17 +175,17 @@ public class ClientController {
 
 	
 	/*** Methods to make requests to the server ***/
-	public void addAnwser(Answer a, Proposal p) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.addAnswer(session.getId(), a, p);
+	public Answer addAnwser(Answer a, Proposal p) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.addAnswer(session.getId(), a, p);
 	}
 
-	public void addProposal(Proposal p, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.addProposal(session.getId(), p, parent);
+	public Proposal addProposal(Proposal p, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.addProposal(session.getId(), p, parent);
 		
 	}
 
-	public void addTopic(Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.addTopic(session.getId(), topic);		
+	public Topic addTopic(Topic topic) throws RemoteException, SQLException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.addTopic(session.getId(), topic);		
 	}
 
 	public TopicWrapper getTopicsWrapper() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
@@ -200,17 +200,16 @@ public class ClientController {
 		return server.findParentAnswer(session.getId(), a);
 	}
 
-	public void modifyAnswer(Answer newAnswer, Answer oldAnswer, Proposal p) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.modifyAnswer(session.getId(), newAnswer, oldAnswer, p);
+	public Answer modifyAnswer(Answer newAnswer, Answer oldAnswer, Proposal p) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.modifyAnswer(session.getId(), newAnswer, oldAnswer, p);
 	}
 
-	public void modifyProposal(Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.modifyProposal(session.getId(), newProposal, oldProposal, parent);
-		
+	public Proposal modifyProposal(Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.modifyProposal(session.getId(), newProposal, oldProposal, parent);		
 	}
 
-	public void modifyTopic(Topic newTopic, Topic oldTopic) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
-		server.modifyTopic(session.getId(), newTopic, oldTopic);		
+	public Topic modifyTopic(Topic newTopic, Topic oldTopic) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		return server.modifyTopic(session.getId(), newTopic, oldTopic);		
 	}
 
 	public void signout() throws RemoteException, SQLException, NotLoggedException, Exception {

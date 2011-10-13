@@ -55,16 +55,16 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(null);
-			this.setPreferredSize(new java.awt.Dimension(431, 174));
-			this.setSize(405, 166);
+			this.setPreferredSize(new java.awt.Dimension(531, 172));
+			this.setSize(531, 172);
 			{
 				panelProposalInfo = new JPanel();
 				this.add(panelProposalInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				panelProposalInfo.setBorder(BorderFactory.createTitledBorder("Proposal Info"));
 				panelProposalInfo.setLayout(null);
-				panelProposalInfo.setBounds(0, 0, 405, 166);
-				panelProposalInfo.setPreferredSize(new java.awt.Dimension(431, 174));
-				panelProposalInfo.setSize(431, 174);
+				panelProposalInfo.setBounds(0, 0, 531, 174);
+				panelProposalInfo.setSize(531, 172);
+				panelProposalInfo.setPreferredSize(new java.awt.Dimension(531, 172));
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
@@ -84,13 +84,13 @@ public class JPProposalInfo extends javax.swing.JPanel {
 				{
 					txtDescription = new JTextPane();
 					panelProposalInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtDescription.setBounds(122, 58, 270, 65);
+					txtDescription.setBounds(122, 58, 392, 65);
 					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					txtTitle = new JTextField();
 					panelProposalInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtTitle.setBounds(122, 23, 270, 23);
+					txtTitle.setBounds(122, 23, 392, 23);
 					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{

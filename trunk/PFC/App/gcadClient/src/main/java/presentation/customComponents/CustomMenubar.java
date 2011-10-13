@@ -280,7 +280,7 @@ public class CustomMenubar extends JMenuBar {
 
 	@Action
 	public void CloseSession() {
-		// TODO
+		// TODO: cerrar sesion
 		// if (JOptionPane.showConfirmDialog(getMainFrame(),
 		// ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
 		// ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),

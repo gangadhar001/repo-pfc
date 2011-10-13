@@ -11,11 +11,11 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DropTarget;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -23,7 +23,14 @@ import javax.swing.event.ChangeListener;
 
 import org.jdesktop.application.Application;
 
+import presentation.JDPdf;
 import presentation.JFMain;
+import presentation.PDFConfiguration;
+import presentation.PDFElement;
+import presentation.PDFSection;
+import presentation.PDFTable;
+import presentation.PDFText;
+import presentation.PDFTitle;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.PDFGen.panelPDFDragged;
 import presentation.customComponents.PDFGen.panelPDFDraggedTable;
@@ -60,7 +67,7 @@ public class panelPDFGeneration extends ImagePanel {
 	private panelPDFElement panelPDFElementTitle;
 	private JTabbedPane tabbedPane;
 	
-	protected final static int PANEL_INSETS = 50;
+	protected final static int PANEL_INSETS = 20;
 	
 	private JFMain parent;
 	
@@ -156,6 +163,7 @@ public class panelPDFGeneration extends ImagePanel {
 		panelPDFDragged element = null;
 		if (panelPDFElement.getTitle().equals("Title")) {
 			element = new panelPDFDraggedTitle();
+			panelPDFElement.enableAddButton(false);
 		}
 		else if (panelPDFElement.getTitle().equals("Text")) {
 			element = new panelPDFDraggedText();
@@ -194,41 +202,42 @@ public class panelPDFGeneration extends ImagePanel {
      */
 	public void relayout() {
 
-		// Create the constraints, and go ahead and set those
-		// that don't change for components
-		final GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.gridx = 0;
-		gbc.anchor = GridBagConstraints.NORTH;
-		gbc.weighty = 0.0;
-		gbc.fill = GridBagConstraints.NONE;
+		 // Create the constraints, and go ahead and set those
+        // that don't change for components
+        final GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.weighty = 0.0;
+        gbc.fill = GridBagConstraints.NONE;
 
-		int row = 0;
+        int row = 0;
 
-		// Clear out all previously added items in current section
-		JPanel sectionPanel = (JPanel)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
-		sectionPanel.removeAll();
+        // Clear out all previously added items in current section
+        JPanel sectionPanel = (JPanel)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
+        sectionPanel.removeAll();
 
-		// Put a lot of room around panels so can drop easily!
-		gbc.insets = new Insets(PANEL_INSETS, PANEL_INSETS, PANEL_INSETS, PANEL_INSETS);
+        // Put a lot of room around panels so can drop easily!
+        gbc.insets = new Insets(PANEL_INSETS, PANEL_INSETS, PANEL_INSETS, PANEL_INSETS);
 
-		// Add the panels, if any
-		List<panelPDFDragged> panels = getSectionDraggedPanels();
-		for (panelPDFDragged p : panels) {
-			gbc.gridy = row++;
-			sectionPanel.add(p, gbc);
-		}
+        // Add the panels, if any
+        List<panelPDFDragged> panels = getSectionDraggedPanels();
+        for (panelPDFDragged p : panels) {
+                gbc.gridy = row++;
+                sectionPanel.add(p, gbc);
+        }
 
-		// Add a vertical strut to push content to top.
-		gbc.weighty = 1.0;
-		gbc.weightx = 1.0;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridy = row++;
-		Component strut = Box.createVerticalStrut(1);
-		sectionPanel.add(strut, gbc);
+        // Add a vertical strut to push content to top.
+        gbc.weighty = 1.0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridy = row++;
+        Component strut = Box.createVerticalStrut(1);
+        sectionPanel.add(strut, gbc);
 
-		this.validate();
-		this.repaint();
+        this.validate();
+        this.repaint();
+
 	}
 
 	// Returns (creating, if necessary) the DataFlavor representing the PDF Element Dragged
@@ -245,6 +254,7 @@ public class panelPDFGeneration extends ImagePanel {
 	 private JPanel getSectionPanel_1() {
 		 if(sectionPanel_1 == null) {
 			 sectionPanel_1 = new JPanel();
+			 sectionPanel_1.setLayout(new GridBagLayout());
 			 sectionPanel_1.setName("sectionPanel_1");
 			 sectionPanel_1.setPreferredSize(new java.awt.Dimension(613, 462));
 		 }
@@ -252,9 +262,10 @@ public class panelPDFGeneration extends ImagePanel {
 	 }
 	 
 	 public void addSection() {
-		 JPanel sectionPanel = new JPanel();
+		 JPanel sectionPanel = new JPanel();		 
 		 sectionPanel.setPreferredSize(new java.awt.Dimension(613, 462));
 		 sectionPanel.setBackground(new Color(255, 255, 255));
+		 sectionPanel.setLayout(new GridBagLayout());
 		 int count = tabbedPane.getTabCount();
 		 tabbedPane.addTab(ApplicationInternationalization.getString("Section_tab") + " " + (count + 1), null, sectionPanel, null);
 		 parent.enableToolbarButton("DeleteSection", true);
@@ -270,7 +281,36 @@ public class panelPDFGeneration extends ImagePanel {
 	 }
 	 
 	 public void compile() {
+		 // Get sections and its elements
+		 List<PDFSection> sections = new ArrayList<PDFSection>();
+		 Enumeration<Integer> keys = panelsDragged.keys();
+		 while(keys.hasMoreElements()) {
+			 int sectionNumber = keys.nextElement();
+			 List<PDFElement> elementsInSection = new ArrayList<PDFElement>();
+			 for(panelPDFDragged pd: panelsDragged.get(sectionNumber)) {
+				 PDFElement element = null;
+				 if (pd instanceof panelPDFDraggedTitle) {
+					 element = new PDFTitle(((panelPDFDraggedTitle)pd).getContent());
+				 }
+				 else if (pd instanceof panelPDFDraggedText) {
+					 element = new PDFText(((panelPDFDraggedText)pd).getContent());
+				 }
+				 else if (pd instanceof panelPDFDraggedTable) {
+					 //TODO: si no es el chief, solo se hace para el proyecto donde trabaja el empleado
+					 element = new PDFTable(((panelPDFDraggedTable)pd).getProject());
+				 }
+				 elementsInSection.add(element);
+			 }
+			 sections.add(new PDFSection(elementsInSection));				 
+		 }
 		 
+		 PDFConfiguration config = new PDFConfiguration(sections);
+		 if (config.isValid()) {
+			 JDPdf dialog = new JDPdf(config);
+			 dialog.setLocationRelativeTo(this);
+			 dialog.setModal(true);
+			 dialog.setVisible(true);
+		 }
 	 }
 
 }
