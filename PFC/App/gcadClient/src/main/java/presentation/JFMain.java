@@ -40,6 +40,7 @@ import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
+import presentation.dataVisualization.KnowledgeGraph;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelPDFGeneration;
@@ -294,7 +295,7 @@ public class JFMain extends SingleFrameApplication {
 	}
 	
 	@Action
-	public void EditKnowledge() {
+	public void ModifyKnowledge() {
 		if (panelKnowledge != null)
 			panelKnowledge.operationModify();
 	}
@@ -338,9 +339,9 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
-//		int index = tabPanel.getSelectedIndex();
-//		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
-//			panelKnowledge.notifyKnowledgeEdited(newK, oldK);				
+		if (panelKnowledge != null && panelKnowledge.isVisible()) {
+			panelKnowledge.notifyKnowledgeEdited(newK, oldK);
+		}
 	}
 
 	public void notifyKnowledgeRemoved(Knowledge k) {
@@ -442,7 +443,7 @@ public class JFMain extends SingleFrameApplication {
 		Component component = null;
 		for(Component c: getMainFrame().getContentPane().getComponents()) {
 			// only exists one at same time
-			if (c instanceof panelNotificationsView || c instanceof panelKnowledgeView || c instanceof panelStatisticsGeneration)
+			if (c instanceof panelNotificationsView || c instanceof panelKnowledgeView || c instanceof panelStatisticsGeneration || c instanceof panelPDFGeneration)
 				component = c;
 		}
 		if (component != null)

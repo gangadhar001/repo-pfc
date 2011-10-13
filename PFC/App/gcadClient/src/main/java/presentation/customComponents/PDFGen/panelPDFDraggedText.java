@@ -1,5 +1,7 @@
 package presentation.customComponents.PDFGen;
 import java.io.IOException;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import javax.swing.JTextField;
 import org.jdesktop.application.Application;
@@ -26,7 +28,8 @@ public class panelPDFDraggedText extends panelPDFDragged {
 	 */
 	private static final long serialVersionUID = 908251059799542523L;
 	private ImagePanel imagePanel;
-	private JTextField tbTitle;
+	private JTextArea txtDescription;
+	private JScrollPane jScrollPane1;
 
 	public panelPDFDraggedText() {
 		super();
@@ -35,24 +38,34 @@ public class panelPDFDraggedText extends panelPDFDragged {
 
 	private void initGUI() {
 		{
-			this.setPreferredSize(new java.awt.Dimension(500, 100));
+			this.setPreferredSize(new java.awt.Dimension(646, 117));
 			this.setLayout(null);
+			this.setSize(646, 67);
 			{
 				imagePanel = new ImagePanel();
 				try {
 					imagePanel.setImage(ImagesUtilities.loadCompatibleImage("PDFElements/Text.png"));
 				} catch (IOException e) { }
 				this.add(imagePanel);
-				imagePanel.setBounds(12, 12, 82, 71);
+				imagePanel.setBounds(12, 33, 50, 45);
 			}
 			{
-				tbTitle = new JTextField();
-				this.add(tbTitle);
-				tbTitle.setBounds(106, 25, 375, 44);
-				tbTitle.setName("tbTitle");
+				jScrollPane1 = new JScrollPane();
+				this.add(jScrollPane1);
+				jScrollPane1.setBounds(79, 12, 555, 93);
+				{
+					txtDescription = new JTextArea();
+					jScrollPane1.setViewportView(txtDescription);
+					txtDescription.setBounds(79, 12, 555, 93);
+					txtDescription.setName("txtDescription");
+				}
 			}
 		}
 
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+	}
+
+	public String getContent() {
+		return txtDescription.getText().trim();
 	}
 }

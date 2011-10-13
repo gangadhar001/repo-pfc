@@ -114,36 +114,36 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 		server.register(sessionID, client);
 	}
 	
-	/*** Methods used to add new Knowledge  ***/
+	/*** Methods used to add new Knowledge ***/
 	@Override
-	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		server.addTopic(sessionId, topic);
+	public Topic addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.addTopic(sessionId, topic);
 	}
 	
 	@Override
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		server.addProposal(sessionId, p, parent);
+	public Proposal addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.addProposal(sessionId, p, parent);
 	}
 	
 	@Override
-	public void addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		server.addAnswer(sessionId, a, parent);
+	public Answer addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.addAnswer(sessionId, a, parent);
 	}
 	
 	/*** Methods used to modify Knowledge ***/
 	@Override
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception {
-		server.modifyTopic(sessionId, newTopic, oldTopic);
+	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception {
+		return server.modifyTopic(sessionId, newTopic, oldTopic);
 	}
 	
 	@Override
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonExistentProposalException, NonPermissionRoleException, NotLoggedException, Exception {
-		server.modifyProposal(sessionId, newProposal, oldProposal, parent);
+	public Proposal modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, SQLException, NonExistentProposalException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.modifyProposal(sessionId, newProposal, oldProposal, parent);
 	}
 	
 	@Override
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonExistentAnswerException, NonPermissionRoleException, NotLoggedException, Exception {
-		server.modifyAnswer(sessionId, newAnswer, oldAnswer, parent);
+	public Answer modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, SQLException, NonExistentAnswerException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.modifyAnswer(sessionId, newAnswer, oldAnswer, parent);
 	}
 		
 	/*** Methods used to delete Knowledge ***/

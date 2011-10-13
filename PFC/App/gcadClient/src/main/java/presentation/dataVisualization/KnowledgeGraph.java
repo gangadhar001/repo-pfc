@@ -1,17 +1,25 @@
 package presentation.dataVisualization;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Paint;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.Icon;
+import javax.swing.JFileChooser;
 import javax.swing.JPopupMenu;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
@@ -21,6 +29,8 @@ import model.business.knowledge.TopicWrapper;
 
 import org.apache.commons.collections15.Transformer;
 
+import bussiness.control.ClientController;
+
 import presentation.dataVisualization.auxiliary.PopupVertexEdgeMenuMousePlugin;
 import presentation.dataVisualization.auxiliary.VertexMenu;
 import presentation.panelsActions.panelKnowledgeView;
@@ -28,8 +38,6 @@ import resources.ImagesUtilities;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
-import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.LayeredIcon;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
@@ -43,20 +51,24 @@ import edu.uci.ics.jung.visualization.decorators.PickableVertexPaintTransformer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.decorators.VertexIconShapeTransformer;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import exceptions.NonPermissionRoleException;
+import exceptions.NotLoggedException;
 
 public class KnowledgeGraph {
 
 	private VisualizationViewer<Knowledge,String> vv;
 	private static Graph<Knowledge, String> graph;
 	private PickedState<Knowledge> pickedState;
-	private HashMap<Knowledge, Icon> iconMap;;
+	private HashMap<Knowledge, Icon> iconMap;
+	protected static Knowledge selectedVertex;
+	private static panelKnowledgeView parent;;
 	
 	@SuppressWarnings("rawtypes")
 	public KnowledgeGraph (TopicWrapper topicWrapper, final panelKnowledgeView parent) {			
 		/*** CREATE THE GRAPH ***/
-		 graph = new DirectedSparseMultigraph<Knowledge, String>();
-		 
-		 
+		graph = new DirectedSparseMultigraph<Knowledge, String>();		 
+		KnowledgeGraph.parent = parent;
+		
 		// Map for the Icons
         iconMap = new HashMap<Knowledge,Icon>();
 		
@@ -94,7 +106,8 @@ public class KnowledgeGraph {
 		layout.setMaxIterations(100);	
 		
 		/*** SET GRAPH VISUALIZATION ***/
-		vv = new VisualizationViewer<Knowledge,String>(layout);
+		Dimension preferredSize = new Dimension(700, 700);
+		vv = new VisualizationViewer<Knowledge,String>(layout, preferredSize);
 				
 		/*** SET GRAPH TRANSFORMERS ***/		
 		Transformer<Knowledge,Paint> vpf = new PickableVertexPaintTransformer<Knowledge>(vv.getPickedVertexState(), Color.white, Color.yellow);	        
@@ -110,9 +123,9 @@ public class KnowledgeGraph {
 				
 		/*** MOUSE EVENTS ***/
 		PluggableGraphMouse gm = new PluggableGraphMouse();
-//		gm.add(new PickingGraphMousePlugin<Knowledge, String>());
+		gm.add(new PickingGraphMousePlugin<Knowledge, String>());
 		gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON1_MASK));
-		gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));
+		gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.8f));
 		
 	    PopupVertexEdgeMenuMousePlugin myPlugin = new PopupVertexEdgeMenuMousePlugin();
         // Add some popup menus for the edges and vertices to mouse plugin.
@@ -130,9 +143,9 @@ public class KnowledgeGraph {
 				Object subject = e.getItem();
 				// The graph uses Knowledge for vertices
 				if (subject instanceof Knowledge) {		
-					Knowledge vertex = (Knowledge) subject;
-					if (pickedState.isPicked(vertex)) 
-						parent.setKnowledgeSelectedGraph(vertex);
+					selectedVertex = (Knowledge) subject;
+					if (pickedState.isPicked(selectedVertex)) 
+						parent.setKnowledgeSelectedGraph(selectedVertex);
 					else
 						parent.setKnowledgeSelectedGraph(null);					
 				}
@@ -193,33 +206,75 @@ public class KnowledgeGraph {
 		vv.repaint();		
 	}
 	
-	public void modifyVertex(Knowledge newK, Knowledge oldK) {
-		Collection<Knowledge> vertexs = graph.getVertices();
-		for(Knowledge o : vertexs) {
-			if (o.equals(oldK)) {
-				// Replace the old knowledge
-				oldK = (Knowledge) newK.clone();
-			}
+	// Remove the old vertex and add the new vertex
+	public void modifyVertex(Knowledge newK, Knowledge oldK) {	
+		int cont = graph.getEdgeCount() + 1;
+		Collection<Knowledge> succesors = graph.getSuccessors(oldK);
+		Collection<Knowledge> predecessors = graph.getPredecessors(oldK);
+		graph.removeVertex(oldK);
+
+		for(Knowledge ob: succesors) {
+			graph.addEdge(String.valueOf(cont), newK, ob);
+			cont++;
 		}
-		
-//		int cont = graph.getEdgeCount() + 1;
-//		Collection<Knowledge> vertexs = graph.getSuccessors(oldK);
-//		graph.removeVertex(oldK);
-//		for(Object ob: vertexs) {
-//			graph.addEdge(String.valueOf(cont), newK, (Knowledge) ob);
-//			cont++;
-//		}
-		
+		for(Knowledge ob: predecessors) {
+			graph.addEdge(String.valueOf(cont), ob, newK);
+			cont++;
+		}
+
+		clearSelection();
 		vv.repaint();
 	}
 	
-	// Method use to delete, recursively, a vertex and its connections
+	
 	public static void deleteVertex(Knowledge vertex) {
+	   	// Refresh View
+		parent.notifyKnowledgeRemoved(vertex);
+	}
+
+	public static void deleteVertexRecursively(Knowledge vertex) {
 		Collection<Knowledge> vertexs = graph.getSuccessors(vertex);
-	   	 for (Knowledge ob: vertexs) {	   		 
+	  	 for (Knowledge ob: vertexs) {	   		 
 	   		deleteVertex(ob);
 	   	 }   	
-	   	graph.removeVertex(vertex);
+	   	graph.removeVertex(vertex);		
 	}
+
+	public static void attachFile() {
+		File file = parent.showAttachFileDialog();
+		if (file != null) {
+			byte[] bFile = new byte[(int) file.length()];
+	   	     FileInputStream fileInputStream;
+			try {
+				fileInputStream = new FileInputStream(file);
+				// Convert file into array of bytes
+		   	     fileInputStream.read(bFile);
+		   	     fileInputStream.close();          
+		         model.business.knowledge.File f = new model.business.knowledge.File(selectedVertex, file.getName(), bFile);
+		         // Insert file into database
+		         f.setId(ClientController.getInstance().attachFile(f));		
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NonPermissionRoleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotLoggedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   	     	
+		}
+	}
+	
 	
 }

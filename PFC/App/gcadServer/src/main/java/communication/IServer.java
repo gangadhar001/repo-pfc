@@ -48,19 +48,20 @@ public interface IServer extends Remote {
 
 	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException, Exception;
 		
-	/*** Methods used to add new Knowledge ***/
-	public void addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	/*** Methods used to add new Knowledge 
+	 * @return ***/
+	public Topic addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
-	public void addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Proposal addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
-	public void addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Answer addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
 	/*** Methods used to modify Knowledge  ***/
-	public void modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonExistentTopicException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonExistentTopicException, NonPermissionRoleException, NotLoggedException, Exception;
 	
-	public void modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NonExistentProposalException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Proposal modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NonExistentProposalException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
-	public void modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, NonExistentAnswerException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Answer modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, NonExistentAnswerException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 		
 	/*** Methods used to delete Knowledge ***/
 	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception;

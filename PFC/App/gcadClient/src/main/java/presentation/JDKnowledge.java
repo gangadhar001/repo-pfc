@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -87,6 +88,8 @@ public class JDKnowledge extends javax.swing.JDialog {
 		this.data = data;
 		this.operationToDo = operationToDo;
 		dialog = this;
+		this.setPreferredSize(new java.awt.Dimension(770, 340));
+		this.setMinimumSize(new java.awt.Dimension(770, 340));
 		this.parentFrame = parentFrame;
 		initGUI();
 	}		
@@ -94,10 +97,10 @@ public class JDKnowledge extends javax.swing.JDialog {
 	private void initGUI() {
 		this.setTitle(ApplicationInternationalization.getString("titleJFKnowledge"));
 		this.setResizable(false);
-		this.setUndecorated(true);
+//		this.setUndecorated(true);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				closeWindow(evt);
+				closeWindow();
 			}
 		});
 		
@@ -108,19 +111,19 @@ public class JDKnowledge extends javax.swing.JDialog {
 				mainPanel = new JPanel();
 				mainPanel.setLayout(null);
 				getContentPane().add(mainPanel);
-				mainPanel.setBounds(190, 12, 439, 327);
+				mainPanel.setBounds(190, 12, 560, 327);
+				mainPanel.setSize(560, 288);
 			}
 			{
 				jScrollPane1 = new JScrollPane();
 				getContentPane().add(jScrollPane1);
 				jScrollPane1.setBounds(12, 12, 166, 327);
+				jScrollPane1.setSize(163, 288);
 				{
 					panelActions = new JPanel();
-					FlowLayout panelActionsLayout = new FlowLayout();
-					panelActions.setLayout(panelActionsLayout);
-					jScrollPane1.setViewportView(panelActions);
-					panelActions.setPreferredSize(new java.awt.Dimension(145, 316));
+					jScrollPane1.setViewportView(panelActions);					
 					panelActions.setName("panelActions");
+					
 				}
 			}
 			
@@ -130,16 +133,15 @@ public class JDKnowledge extends javax.swing.JDialog {
 			// Create the knowledge actions panel
 			createPanelActions();
 			pack();
-			this.setSize(657, 379);
+			this.setSize(770, 340);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
-	protected void closeWindow(WindowEvent evt) {
-		this.dispose();
-		
+	protected void closeWindow() {
+		this.dispose();		
 	}
 
 	// Set all the actions allowed for that role
@@ -154,13 +156,16 @@ public class JDKnowledge extends javax.swing.JDialog {
 	@SuppressWarnings("rawtypes")
 	private void createPanelActions() throws IOException {
 		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
+		GridLayout layout = new GridLayout(subgroups.size(), 1);
+		layout.setVgap(35);
+		layout.setHgap(20);
+		panelActions.setLayout(layout);
 		for (final String subgroup: subgroups) {
 			if (!subgroup.equals(Subgroups.PDFGeneration.name())) {
 		    	// Load the subgroup image of the operation
 				image = ImagesUtilities.loadCompatibleImage(subgroup + ".png");
 				// Create button
 				JButton button = new JButton();
-				button.setSize(new Dimension(100, 100));
 				button.setPreferredSize(button.getSize());
 				// Set the subgroup id as name of the button
 				button.setName("btn_"+subgroup);

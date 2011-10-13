@@ -118,4 +118,9 @@ public class panelPDFElement extends RoundedPanel {
 		return elementName;
 	}
 
+	public void enableAddButton(boolean value) {
+		btnAdd.setEnabled(value);
+		
+	}
+
 }

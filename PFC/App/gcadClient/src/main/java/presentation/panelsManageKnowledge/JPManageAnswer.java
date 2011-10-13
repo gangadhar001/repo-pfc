@@ -101,10 +101,12 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(460, 288));
+			this.setPreferredSize(new java.awt.Dimension(560, 288));
 			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(460, 288);
+			this.setSize(560, 288);
+			this.setMinimumSize(new java.awt.Dimension(560, 288));
+			this.setName("this");
 			{
 				tabPanelAnswer = new JTabbedPane();
 				this.add(tabPanelAnswer, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
@@ -113,22 +115,23 @@ public class JPManageAnswer extends javax.swing.JPanel {
 					panelAddAnswer = new JPanel();
 					tabPanelAnswer.addTab(ApplicationInternationalization.getString("tabManageAnswer_Add"), null, panelAddAnswer, null);
 					panelAddAnswer.setLayout(null);
-					panelAddAnswer.setPreferredSize(new java.awt.Dimension(429, 264));
-					panelAddAnswer.setSize(439, 317);
+					panelAddAnswer.setPreferredSize(new java.awt.Dimension(554, 260));
+					panelAddAnswer.setSize(430, 317);
 					panelAddAnswer.setName("panelAddProposals");
 					{
 						btnCancelAdd = new JButton();
 						panelAddAnswer.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnCancelAdd.setName("btnCancelAdd");
-						btnCancelAdd.setBounds(376, 227, 67, 25);
+						btnCancelAdd.setBounds(451, 227, 86, 25);
 						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
 						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));
+						btnCancelAdd.setSize(91, 24);
 					}
 					{
 						btnSaveAnswer = new JButton();
 						panelAddAnswer.add(btnSaveAnswer, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnSaveAnswer.setName("btnSaveAnswer");
-						btnSaveAnswer.setBounds(297, 228, 68, 24);
+						btnSaveAnswer.setBounds(349, 227, 91, 24);
 						btnSaveAnswer.setAction(getAppActionMap().get("Save"));
 						btnSaveAnswer.setText(ApplicationInternationalization.getString("btnSave"));
 					}
@@ -136,6 +139,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 						cbProposalsAdd = new JComboBox();
 						panelAddAnswer.add(cbProposalsAdd, new AnchorConstraint(32,726,112,285,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
 						cbProposalsAdd.setBounds(76, 9, 195, 21);
+						cbProposalsAdd.setSize(167, 23);
 					}
 					{
 						lblProposal = new JLabel();
@@ -147,7 +151,9 @@ public class JPManageAnswer extends javax.swing.JPanel {
 					{
 						panelAnswerInfoAdd = new JPAnswerInfo(parentD);
 						panelAddAnswer.add(panelAnswerInfoAdd);
-						panelAnswerInfoAdd.setBounds(12, 44, 431, 172);
+						panelAnswerInfoAdd.setBounds(12, 44, 531, 172);
+						panelAnswerInfoAdd.setPreferredSize(new java.awt.Dimension(531, 172));
+						panelAnswerInfoAdd.setMinimumSize(new java.awt.Dimension(531, 172));
 					}
 				}
 				{
@@ -165,26 +171,27 @@ public class JPManageAnswer extends javax.swing.JPanel {
 					{
 						cbProposals = new JComboBox();
 						panelModifyAnswer.add(cbProposals);
-						cbProposals.setBounds(79, 9, 129, 23);
+						cbProposals.setBounds(79, 9, 167, 23);
 						cbProposals.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								cbProposalsActionPerformed(evt);
+								cbProposalsActionPerformed();
 							}
 						});
 					}
 					{
 						btnCancelModify = new JButton();
 						panelModifyAnswer.add(btnCancelModify);
-						btnCancelModify.setBounds(376, 227, 67, 25);
+						btnCancelModify.setBounds(450, 227, 87, 25);
 						btnCancelModify.setName("btnCancelModify");
 						btnCancelModify.setAction(getAppActionMap().get("Cancel"));
 						btnCancelModify.setText(ApplicationInternationalization.getString("CancelButton"));
-						
+						btnCancelModify.setSize(91, 24);
+
 					}
 					{
 						btnSaveModify = new JButton();
 						panelModifyAnswer.add(btnSaveModify);
-						btnSaveModify.setBounds(297, 228, 68, 24);
+						btnSaveModify.setBounds(348, 227, 91, 24);
 						btnSaveModify.setName("btnSaveModify");
 						btnSaveModify.setAction(getAppActionMap().get("Modify"));
 						btnSaveModify.setText(ApplicationInternationalization.getString("btnModify"));
@@ -192,17 +199,17 @@ public class JPManageAnswer extends javax.swing.JPanel {
 					{
 						lblAnswerModify = new JLabel();
 						panelModifyAnswer.add(lblAnswerModify);
-						lblAnswerModify.setBounds(242, 12, 65, 17);
+						lblAnswerModify.setBounds(311, 12, 65, 17);
 						lblAnswerModify.setName("lblAnswerModify");
 						lblAnswerModify.setText(ApplicationInternationalization.getString("lblAnswerModify"));
 					}
 					{
 						cbAnswers = new JComboBox();
 						panelModifyAnswer.add(cbAnswers);
-						cbAnswers.setBounds(307, 9, 136, 23);
+						cbAnswers.setBounds(376, 12, 167, 23);
 						cbAnswers.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								cbAnswersActionPerformed(evt);
+								cbAnswersActionPerformed();
 							}
 						});
 					}
@@ -210,6 +217,9 @@ public class JPManageAnswer extends javax.swing.JPanel {
 						panelAnswerInfoModify = new JPAnswerInfo(parentD);
 						panelModifyAnswer.add(panelAnswerInfoModify);
 						panelAnswerInfoModify.setBounds(12, 44, 431, 172);
+						panelAnswerInfoModify.setMinimumSize(new java.awt.Dimension(531, 172));
+						panelAnswerInfoModify.setSize(531, 172);
+						panelAnswerInfoModify.setPreferredSize(new java.awt.Dimension(531, 172));
 					}
 				}
 			}
@@ -233,13 +243,13 @@ public class JPManageAnswer extends javax.swing.JPanel {
 				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Add"));
 				if (operationToDo.equals(Operations.Add.name())) {
 					if (indexModify != -1)
-						tabPanelAnswer.getTabComponentAt(indexModify).setEnabled(false);
+						tabPanelAnswer.getComponentAt(indexModify).setEnabled(false);
 					if (indexAdd != -1)
 						tabPanelAnswer.setSelectedIndex(indexAdd);
 				}
 				else if (operationToDo.equals(Operations.Modify.name())) {
 					if (indexAdd != -1)
-						tabPanelAnswer.getTabComponentAt(indexAdd).setEnabled(false);
+						tabPanelAnswer.getComponentAt(indexAdd).setEnabled(false);
 					if (indexModify != -1)
 						tabPanelAnswer.setSelectedIndex(indexModify);
 				}
@@ -249,7 +259,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 		}
 	}
 	
-	private void cbAnswersActionPerformed(ActionEvent evt) {
+	private void cbAnswersActionPerformed() {
 		panelAnswerInfoModify.fillData(answers[cbAnswers.getSelectedIndex()]);
 	}
 	
@@ -306,7 +316,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	}
 	
 	// When select a proposal, fill the "Answers" combobox
-	private void cbProposalsActionPerformed(ActionEvent evt) {
+	private void cbProposalsActionPerformed() {
 		if (cbProposals.getSelectedIndex() != -1) {
 			Proposal p = proposals.get(cbProposals.getSelectedIndex());
 			Object[] aux = p.getAnswers().toArray();
@@ -328,9 +338,10 @@ public class JPManageAnswer extends javax.swing.JPanel {
 		Answer newAn = new Answer(panelAnswerInfoAdd.getAnswerTitle(), panelAnswerInfoAdd.getAnswerDescription(), new Date(), panelAnswerInfoAdd.getAnswerArgument());
 		try {
 			// Create and insert new Answer
-			ClientController.getInstance().addAnwser(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
-			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeAdded(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
+			Answer newAnswerAdded = ClientController.getInstance().addAnwser(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
+			// Notify to main frame the new knowledge added
+			mainFrame.notifyKnowledgeAdded(newAnswerAdded, proposals.get(cbProposalsAdd.getSelectedIndex()));
+			parentD.dispose();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -342,12 +353,15 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	
 	@Action
 	public void Modify() {
+		Answer oldAn = answers[cbAnswers.getSelectedIndex()];
 		Answer newAn = new Answer(panelAnswerInfoModify.getAnswerTitle(), panelAnswerInfoModify.getAnswerDescription(), new Date(), panelAnswerInfoModify.getAnswerArgument());
+		newAn.setId(oldAn.getId());
 		try {
 			// Modify the old Answer
-			ClientController.getInstance().modifyAnswer(newAn, answers[cbAnswers.getSelectedIndex()], proposals.get(cbProposals.getSelectedIndex()));
+			Answer newAnswerModified = ClientController.getInstance().modifyAnswer(newAn, oldAn, proposals.get(cbProposals.getSelectedIndex()));
 			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeEdited(newAn, answers[cbAnswers.getSelectedIndex()]);
+			mainFrame.notifyKnowledgeEdited(newAnswerModified, answers[cbAnswers.getSelectedIndex()]);
+			parentD.dispose();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {

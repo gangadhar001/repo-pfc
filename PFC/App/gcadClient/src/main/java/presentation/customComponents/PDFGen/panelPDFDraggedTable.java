@@ -2,6 +2,9 @@ package presentation.customComponents.PDFGen;
 import java.io.IOException;
 
 import javax.swing.JTextField;
+
+import model.business.knowledge.Project;
+
 import org.jdesktop.application.Application;
 
 import presentation.customComponents.ImagePanel;
@@ -26,10 +29,11 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 	 */
 	private static final long serialVersionUID = 908251059799542523L;
 	private ImagePanel imagePanel;
-	private JTextField tbTitle;
+	private Project project;
 
 	public panelPDFDraggedTable() {
 		super();
+		project = null;
 		initGUI();
 	}
 
@@ -45,14 +49,15 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 				this.add(imagePanel);
 				imagePanel.setBounds(12, 12, 82, 71);
 			}
-			{
-				tbTitle = new JTextField();
-				this.add(tbTitle);
-				tbTitle.setBounds(106, 25, 375, 44);
-				tbTitle.setName("tbTitle");
-			}
 		}
 
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+	
 	}
+
+	public Project getProject() {
+		return project;
+	}
+	
+	
 }

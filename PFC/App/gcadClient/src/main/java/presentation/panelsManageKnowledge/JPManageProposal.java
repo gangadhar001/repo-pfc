@@ -101,10 +101,11 @@ public class JPManageProposal extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(460, 288));
+			this.setPreferredSize(new java.awt.Dimension(560, 288));
 			AnchorLayout thisLayout = new AnchorLayout();
 			this.setLayout(thisLayout);
-			this.setSize(460, 288);
+			this.setSize(560, 288);
+			this.setMinimumSize(new java.awt.Dimension(560, 288));
 			{
 				tabPanelProposal = new JTabbedPane();
 				this.add(tabPanelProposal, new AnchorConstraint(1, 1001, 1001, 1, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
@@ -120,16 +121,16 @@ public class JPManageProposal extends javax.swing.JPanel {
 						btnCancelAdd = new JButton();
 						panelAddProposal.add(btnCancelAdd, new AnchorConstraint(835, 961, 932, 807, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnCancelAdd.setName("btnCancelAdd");
-						btnCancelAdd.setBounds(376, 227, 67, 25);
+						btnCancelAdd.setBounds(453, 228, 91, 24);
 						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
 						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));
-						
+
 					}
 					{
 						btnSaveProposal = new JButton();
 						panelAddProposal.add(btnSaveProposal, new AnchorConstraint(835, 754, 929, 596, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						btnSaveProposal.setName("btnSaveProposal");
-						btnSaveProposal.setBounds(297, 228, 68, 24);
+						btnSaveProposal.setBounds(351, 228, 91, 24);
 						btnSaveProposal.setAction(getAppActionMap().get("Save"));
 						btnSaveProposal.setText(ApplicationInternationalization.getString("btnSave"));
 					}
@@ -137,6 +138,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 						cbTopics = new JComboBox();
 						panelAddProposal.add(cbTopics, new AnchorConstraint(32,726,112,285,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL,AnchorConstraint.ANCHOR_REL));
 						cbTopics.setBounds(61, 9, 195, 22);
+						cbTopics.setSize(167, 23);
 					}
 					{
 						lblTopic = new JLabel();
@@ -149,7 +151,9 @@ public class JPManageProposal extends javax.swing.JPanel {
 						proposalInfoAdd = new JPProposalInfo(parentD);
 						panelAddProposal.add(proposalInfoAdd);
 						proposalInfoAdd.setBounds(12, 44, 431, 172);
-						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(431, 172));
+						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(531, 172));
+						proposalInfoAdd.setMinimumSize(new java.awt.Dimension(531, 172));
+						proposalInfoAdd.setSize(531, 172);
 					}
 				}
 				{
@@ -161,11 +165,13 @@ public class JPManageProposal extends javax.swing.JPanel {
 						proposalInfoModify = new JPProposalInfo(parentD);
 						panelModifyProposal.add(proposalInfoModify);
 						proposalInfoModify.setBounds(12, 44, 431, 172);
+						proposalInfoModify.setSize(531, 172);
+						proposalInfoModify.setPreferredSize(new java.awt.Dimension(531, 172));
 					}
 					{
 						btnCancelModify = new JButton();
 						panelModifyProposal.add(btnCancelModify);
-						btnCancelModify.setBounds(376, 227, 67, 25);
+						btnCancelModify.setBounds(453, 228, 91, 24);
 						btnCancelModify.setName("btnCancelModify");
 						btnCancelModify.setAction(getAppActionMap().get("Cancel"));
 						btnCancelModify.setText(ApplicationInternationalization.getString("CancelButton"));
@@ -173,7 +179,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 					{
 						btnSaveModify = new JButton();
 						panelModifyProposal.add(btnSaveModify);
-						btnSaveModify.setBounds(297, 228, 68, 24);
+						btnSaveModify.setBounds(351, 228, 91, 24);
 						btnSaveModify.setName("btnSaveModify");
 						btnSaveModify.setAction(getAppActionMap().get("Modify"));
 						btnSaveModify.setText(ApplicationInternationalization.getString("btnSave"));
@@ -182,10 +188,10 @@ public class JPManageProposal extends javax.swing.JPanel {
 						
 						cbProposals = new JComboBox();
 						panelModifyProposal.add(cbProposals);
-						cbProposals.setBounds(307, 9, 136, 23);
+						cbProposals.setBounds(376, 9, 167, 23);
 						cbProposals.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								cbProposalsActionPerformed(evt);
+								cbProposalsActionPerformed();
 							}
 						});
 
@@ -194,16 +200,17 @@ public class JPManageProposal extends javax.swing.JPanel {
 						lblProposals = new JLabel();
 						panelModifyProposal.add(lblProposals);
 						lblProposals.setName("lblProposals");
-						lblProposals.setBounds(241, 12, 67, 17);
+						lblProposals.setBounds(309, 12, 67, 17);
 						lblProposals.setText(ApplicationInternationalization.getString("lblProposal"));
 					}
 					{
 						cbTopicsModify = new JComboBox();
 						panelModifyProposal.add(cbTopicsModify);
 						cbTopicsModify.setBounds(59, 9, 140, 22);
+						cbTopicsModify.setSize(167, 23);
 						cbTopicsModify.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								cbTopicsModifyActionPerformed(evt);
+								cbTopicsModifyActionPerformed();
 							}
 						});
 					}
@@ -252,7 +259,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 		}
 	}
 
-	private void cbProposalsActionPerformed(ActionEvent evt) {
+	private void cbProposalsActionPerformed() {
 		proposalInfoModify.fillData(proposals[cbProposals.getSelectedIndex()]);
 	}
 	
@@ -311,7 +318,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 	}
 	
 	// When select a topic, fill the "Proposals" combobox
-	private void cbTopicsModifyActionPerformed(ActionEvent evt) {
+	private void cbTopicsModifyActionPerformed() {
 		if (cbTopicsModify.getSelectedIndex() != -1) {	
 			Topic t = topics.get(cbTopicsModify.getSelectedIndex());
 			Object[] aux =  t.getProposals().toArray();
@@ -333,9 +340,10 @@ public class JPManageProposal extends javax.swing.JPanel {
 		Proposal newPro = new Proposal(proposalInfoAdd.getProposalTitle(), proposalInfoAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
 		try {
 			// Create and insert new Proposal
-			ClientController.getInstance().addProposal(newPro, topics.get(cbTopics.getSelectedIndex()));
+			Proposal newProposalAdded = ClientController.getInstance().addProposal(newPro, topics.get(cbTopics.getSelectedIndex()));
 			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeAdded(newPro, topics.get(cbTopics.getSelectedIndex()));
+			mainFrame.notifyKnowledgeAdded(newProposalAdded, topics.get(cbTopics.getSelectedIndex()));
+			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
@@ -351,12 +359,15 @@ public class JPManageProposal extends javax.swing.JPanel {
 	
 	@Action
 	public void Modify() {
+		Proposal oldPro = proposals[cbProposals.getSelectedIndex()];
 		Proposal newPro = new Proposal(proposalInfoModify.getProposalTitle(), proposalInfoModify.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoModify.getProposalCategory()));
+		newPro.setId(oldPro.getId());
 		try {
 			// Modify the old Proposal
-			ClientController.getInstance().modifyProposal(newPro, proposals[cbProposals.getSelectedIndex()], topics.get(cbTopicsModify.getSelectedIndex()));
+			Proposal newProposalModified = ClientController.getInstance().modifyProposal(newPro, proposals[cbProposals.getSelectedIndex()], topics.get(cbTopicsModify.getSelectedIndex()));
 			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeEdited(newPro, proposals[cbProposals.getSelectedIndex()]);
+			mainFrame.notifyKnowledgeEdited(newProposalModified, oldPro);
+			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
