@@ -40,7 +40,9 @@ public class panelPDFDraggedText extends panelPDFDragged {
 		{
 			this.setPreferredSize(new java.awt.Dimension(646, 117));
 			this.setLayout(null);
-			this.setSize(646, 67);
+			this.setSize(646, 117);
+			this.setMinimumSize(new java.awt.Dimension(646, 117));
+			this.setMaximumSize(new java.awt.Dimension(646, 117));
 			{
 				imagePanel = new ImagePanel();
 				try {

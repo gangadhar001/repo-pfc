@@ -22,9 +22,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
@@ -80,6 +82,8 @@ public class JFMain extends SingleFrameApplication {
 
 	private JLabel lblAction;
 	private JLabel lblPort;
+	private JProgressBar jProgressBar;
+	private JLabel lblStatus;
 	private JPanel statusBar;
 	private JToolBar toolbar;
 	private JPanel mainPanel;
@@ -134,17 +138,30 @@ public class JFMain extends SingleFrameApplication {
 				getMainFrame().getContentPane().add(statusBar, new AnchorConstraint(942, 1000, 999, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 				statusBar.setPreferredSize(new java.awt.Dimension(1008, 39));
 				statusBar.setLayout(statusLayout);
+				{
+					jProgressBar = new JProgressBar();
+					statusBar.add(jProgressBar, new AnchorConstraint(362, 269, 712, 108, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jProgressBar.setPreferredSize(new java.awt.Dimension(162, 14));
+					jProgressBar.setIndeterminate(true);
+					jProgressBar.setVisible(false);
+				}
+				{
+					lblStatus = new JLabel();
+					statusBar.add(lblStatus, new AnchorConstraint(312, 111, 712, 7, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					lblStatus.setPreferredSize(new java.awt.Dimension(105, 16));
+					lblStatus.setName("lblStatus");
+				}
 			}
 			{
 				toolbar = new JToolBar();
 				getMainFrame().getContentPane().add(toolbar, new AnchorConstraint(0, 1000, 71, 0, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
-				toolbar.setPreferredSize(new java.awt.Dimension(1008, 31));
+				toolbar.setPreferredSize(new java.awt.Dimension(1008, 38));
 			}
 			{
 				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.jpg"));
 				mainPanel.setLayout(null);
-				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(45, 1000, 936, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 615));				
+				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(55, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 607));				
 			}
 			{
 				lblAction = new JLabel();
@@ -164,8 +181,8 @@ public class JFMain extends SingleFrameApplication {
 			}
 			{
 				lblRole = new JLabel();
-				statusBar.add(lblRole, new AnchorConstraint(954, 7, 18, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblRole.setPreferredSize(new java.awt.Dimension(238, 18));
+				statusBar.add(lblRole, new AnchorConstraint(954, 7, 20, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblRole.setPreferredSize(new java.awt.Dimension(238, 16));
 			}     
 
 
@@ -179,6 +196,8 @@ public class JFMain extends SingleFrameApplication {
 			lblPort.setText(ApplicationInternationalization.getString("lblStatusClient") + " " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
 			lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());
 			lblAction.setVisible(false);
+			
+			lblStatus.setVisible(false);
 			
 	        // Show the main frame
 	        show(getMainFrame());     
@@ -409,14 +428,19 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void showKnowledgeView() {
-		mainPanel.setVisible(false);
-		// Remove other views, if any
-		clearViews();
-		createToolbarKnowledgeView();
-		panelKnowledge = new panelKnowledgeView(this);
-	
-		getMainFrame().getContentPane().add(panelKnowledge, new AnchorConstraint(45, 1000, 942, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 619));			
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				startProgressBar();
+				Thread performer = new Thread(new Runnable() {
+					public void run() {
+						createKnowledgeView();
+					}
+
+					
+				}, "Performer");
+				performer.start();
+			}
+		});
 	}
 	
 	public void showNotificationsView() {
@@ -425,18 +449,55 @@ public class JFMain extends SingleFrameApplication {
 		//createToolbarNotificationsView();
 		panelNotifications = new panelNotificationsView();
 		
-		getMainFrame().getContentPane().add(panelNotifications, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelNotifications.setPreferredSize(new java.awt.Dimension(1008, 607));	
+		getMainFrame().getContentPane().add(panelNotifications, new AnchorConstraint(60, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelNotifications.setPreferredSize(new java.awt.Dimension(1008, 597));	
 	}
 
 	public void showStatisticsView() {
-		mainPanel.setVisible(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				startProgressBar();
+				Thread performer = new Thread(new Runnable() {
+					public void run() {
+						createStatisticsView();
+					}
+
+					
+				}, "Performer");
+				performer.start();
+			}
+		});
+	}
+	
+	private void createStatisticsView() {
 		clearViews();
 		createToolbarStatisticsView();
 		panelStatistics = new panelStatisticsGeneration();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) { }		
 		
-		getMainFrame().getContentPane().add(panelStatistics, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelStatistics.setPreferredSize(new java.awt.Dimension(1008, 607));
+		getMainFrame().getContentPane().add(panelStatistics, new AnchorConstraint(61, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		mainPanel.setVisible(false);
+		panelStatistics.setPreferredSize(new java.awt.Dimension(1008, 596));
+		
+		stopProgressBar();
+	}
+	
+	private void createKnowledgeView() {		
+		// Remove other views, if any
+		clearViews();
+		createToolbarKnowledgeView();
+		panelKnowledge = new panelKnowledgeView(this);		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) { }
+		
+		getMainFrame().getContentPane().add(panelKnowledge, new AnchorConstraint(58, 1000, 941, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		mainPanel.setVisible(false);
+		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 609));		
+		
+		stopProgressBar();
 	}
 	
 	private void clearViews() {
@@ -456,8 +517,8 @@ public class JFMain extends SingleFrameApplication {
 		createToolbarPDFGenView();
 		panelPDF = new panelPDFGeneration(this);
 		
-		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(45, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 607));
+		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(60, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 604));
 		
 	}
 
@@ -475,8 +536,28 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void manageKnowledgeFromMenu() {
-		panelKnowledge.manageKnowledgeFromMenu();
-		
+		panelKnowledge.manageKnowledgeFromMenu();		
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void stopProgressBar() {
+		getMainFrame().setCursor(Cursor.DEFAULT_CURSOR);
+		jProgressBar.setVisible(false);
+		lblStatus.setText("View Created.");
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void startProgressBar() {
+		getMainFrame().setCursor(Cursor.WAIT_CURSOR);
+		jProgressBar.setVisible(true);
+		lblStatus.setVisible(true);
+	}
+
+	public void manageProjectFromMenu() {
+		JDManageProject dialogProject = new JDManageProject(getMainFrame());
+		dialogProject.setLocationRelativeTo(getMainFrame());
+		dialogProject.setModal(true);
+		dialogProject.setVisible(true);		
 	}
 
 }

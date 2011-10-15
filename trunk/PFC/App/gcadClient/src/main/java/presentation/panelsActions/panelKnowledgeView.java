@@ -127,15 +127,6 @@ public class panelKnowledgeView extends ImagePanel {
 		}		
 	}
 	
-	// Method used to show knowledge graph
-	private void showGraph() {
-		panelGraph.removeAll();			
-		
-		panelGraph.add(KnowGraph.getVisualGraph(), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 13, 5), 0, 0));
-		panelGraph.validate();
-		panelGraph.repaint();
-	}
-	
 	// Method used to show knowledge tree
 	private void showTree() {	
 		panelTree.removeAll();
@@ -583,7 +574,7 @@ public class panelKnowledgeView extends ImagePanel {
 	}
 
 	public File showAttachFileDialog() {
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(".*");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "*.*");
 		JFileChooser fileChooser = new JFileChooser();       
 		fileChooser.setFileFilter(filter);
 		int result = fileChooser.showOpenDialog(this);

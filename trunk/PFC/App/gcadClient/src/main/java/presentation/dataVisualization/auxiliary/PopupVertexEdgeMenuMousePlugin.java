@@ -8,8 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import javax.swing.JPopupMenu;
 
-import presentation.panelsActions.panelKnowledgeView;
-
 //REFERENCE: http://www.grotto-networking.com/JUNG/
 /**
  * Custom JUNG GraphMousePlugin that brings up the popup menus when a vertex is

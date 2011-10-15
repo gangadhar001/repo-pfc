@@ -36,7 +36,8 @@ public class DeleteVertexMenuItem<V> extends JMenuItem implements VertexMenuList
             @SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
                 visComp.getPickedVertexState().pick(vertex, false);
-                KnowledgeGraph.deleteVertex((Knowledge) vertex);          
+                KnowledgeGraph.setSelectedVertex((Knowledge) vertex);
+                KnowledgeGraph.deleteVertex();          
                 visComp.repaint();
             }
         });

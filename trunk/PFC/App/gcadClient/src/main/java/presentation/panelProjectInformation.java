@@ -1,5 +1,7 @@
 package presentation;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.lang.reflect.Field;
@@ -43,6 +45,10 @@ import javax.swing.SpinnerNumberModel;
 public class panelProjectInformation extends javax.swing.JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4888933412773329217L;
+	/**
 	* Auto-generated main method to display this 
 	* JPanel inside a new JFrame.
 	*/
@@ -62,7 +68,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 		try {
 			this.setPreferredSize(new java.awt.Dimension(269, 418));
 			this.setLayout(null);
-			this.setBorder(BorderFactory.createTitledBorder(""));
+			this.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelProject")));
 			
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 			
@@ -75,7 +81,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	public void showData(Project project, boolean editable) {
 		clearPanel();
 		
-		// Show attributes of the project (case)
+		// Show attributes of the project
 		List<Attribute> attributes;
 		try {
 			attributes = ClientController.getInstance().getAttributesFromProject(project);		
@@ -85,11 +91,10 @@ public class panelProjectInformation extends javax.swing.JPanel {
 				// Ignore id and UID
 				if (!att.getName().equals("id") && (!att.getName().equals("serialVersionUID"))) {
 					JLabel lblAtt = new JLabel ();
-					//TODO: internacionalizacion
 					lblAtt.setName("attribute_"+att.getName()+"_"+numberAttributes);
-					lblAtt.setText(att.getName());
+					lblAtt.setText(ApplicationInternationalization.getString(att.getName()));
 					this.add(lblAtt);
-					lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 90, 20);
+					lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 100, 20);
 					
 					// Show attribute value (using reflection)
 					JTextField tbAttValue = null;

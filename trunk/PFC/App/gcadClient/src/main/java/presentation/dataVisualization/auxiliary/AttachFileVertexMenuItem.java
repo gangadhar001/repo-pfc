@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
+import model.business.knowledge.Knowledge;
+
 import presentation.dataVisualization.KnowledgeGraph;
 
 
@@ -34,6 +36,7 @@ public class AttachFileVertexMenuItem<V> extends JMenuItem implements VertexMenu
             @SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
                 visComp.getPickedVertexState().pick(vertex, false);
+                KnowledgeGraph.setSelectedVertex((Knowledge) vertex);
                 KnowledgeGraph.attachFile();
                 visComp.repaint();
             }

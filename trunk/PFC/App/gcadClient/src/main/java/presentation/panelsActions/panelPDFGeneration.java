@@ -1,9 +1,12 @@
 package presentation.panelsActions;
 
+import info.clearthought.layout.TableLayout;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,8 +19,10 @@ import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -39,6 +44,7 @@ import presentation.customComponents.PDFGen.panelPDFDraggedTitle;
 import presentation.customComponents.PDFGen.panelPDFElement;
 import presentation.dragdrop.DragAndDropTransferHandler;
 import presentation.dragdrop.PanelDropTargetListener;
+import presentation.utils.SpringUtilities;
 import resources.ImagesUtilities;
 
 
@@ -162,7 +168,7 @@ public class panelPDFGeneration extends ImagePanel {
 	public void addPanelToSection(panelPDFElement panelPDFElement) {
 		panelPDFDragged element = null;
 		if (panelPDFElement.getTitle().equals("Title")) {
-			element = new panelPDFDraggedTitle();
+			element = new panelPDFDraggedTitle(this);
 			panelPDFElement.enableAddButton(false);
 		}
 		else if (panelPDFElement.getTitle().equals("Text")) {
@@ -201,43 +207,19 @@ public class panelPDFGeneration extends ImagePanel {
      *   Re-ordering panels (user drags and drops a panel to acceptable drop target region)
      */
 	public void relayout() {
-
-		 // Create the constraints, and go ahead and set those
-        // that don't change for components
-        final GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.weighty = 0.0;
-        gbc.fill = GridBagConstraints.NONE;
-
-        int row = 0;
-
         // Clear out all previously added items in current section
         JPanel sectionPanel = (JPanel)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
         sectionPanel.removeAll();
 
-        // Put a lot of room around panels so can drop easily!
-        gbc.insets = new Insets(PANEL_INSETS, PANEL_INSETS, PANEL_INSETS, PANEL_INSETS);
-
         // Add the panels, if any
-        List<panelPDFDragged> panels = getSectionDraggedPanels();
+        List<panelPDFDragged> panels = getSectionDraggedPanels(); 
+        sectionPanel.add(Box.createVerticalStrut(20));
         for (panelPDFDragged p : panels) {
-                gbc.gridy = row++;
-                sectionPanel.add(p, gbc);
-        }
-
-        // Add a vertical strut to push content to top.
-        gbc.weighty = 1.0;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridy = row++;
-        Component strut = Box.createVerticalStrut(1);
-        sectionPanel.add(strut, gbc);
+            sectionPanel.add(p);
+        }       
 
         this.validate();
         this.repaint();
-
 	}
 
 	// Returns (creating, if necessary) the DataFlavor representing the PDF Element Dragged
@@ -253,9 +235,9 @@ public class panelPDFGeneration extends ImagePanel {
 	 
 	 private JPanel getSectionPanel_1() {
 		 if(sectionPanel_1 == null) {
-			 sectionPanel_1 = new JPanel();
-			 sectionPanel_1.setLayout(new GridBagLayout());
+			 sectionPanel_1 = new JPanel();			 
 			 sectionPanel_1.setName("sectionPanel_1");
+			 sectionPanel_1.setLayout(new BoxLayout(sectionPanel_1,BoxLayout.Y_AXIS));
 			 sectionPanel_1.setPreferredSize(new java.awt.Dimension(613, 462));
 		 }
 		 return sectionPanel_1;
@@ -265,7 +247,7 @@ public class panelPDFGeneration extends ImagePanel {
 		 JPanel sectionPanel = new JPanel();		 
 		 sectionPanel.setPreferredSize(new java.awt.Dimension(613, 462));
 		 sectionPanel.setBackground(new Color(255, 255, 255));
-		 sectionPanel.setLayout(new GridBagLayout());
+		 sectionPanel.setLayout(new BoxLayout(sectionPanel,BoxLayout.Y_AXIS));
 		 int count = tabbedPane.getTabCount();
 		 tabbedPane.addTab(ApplicationInternationalization.getString("Section_tab") + " " + (count + 1), null, sectionPanel, null);
 		 parent.enableToolbarButton("DeleteSection", true);
@@ -312,5 +294,12 @@ public class panelPDFGeneration extends ImagePanel {
 			 dialog.setVisible(true);
 		 }
 	 }
+
+	public void removeDragged(panelPDFDraggedTitle panelPDFDraggedTitle) {
+		JPanel sectionPanel = (JPanel)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
+        sectionPanel.remove(panelPDFDraggedTitle);
+        panelsDragged.get(tabbedPane.getSelectedIndex()).remove(panelPDFDraggedTitle);
+		relayout();
+	}
 
 }

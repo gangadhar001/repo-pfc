@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.ActionMap;
@@ -247,74 +248,48 @@ public class JDPdf extends JDialog {
 	
 	@Action
 	public void save() {
-		File path = null;
-		try {
-			// TODO: añadir metadatos del PDF (autor, hora, asunto ...). Validarlos
-			FileNameExtensionFilter filter = new FileNameExtensionFilter(ApplicationInternationalization.getString("PDFFile"), "pdf", "PDF");
-			JFileChooser fileChooser = new JFileChooser();       
-			fileChooser.setFileFilter(filter);
-			int result = fileChooser.showSaveDialog(this);
-			if (result == JFileChooser.APPROVE_OPTION ) {
-				// Margin of documents
-				float marginTop = 20;
-				float marginBottom = 20;
-				Image headerImage = getImage(headerImagePath);
-				if (headerImage != null)
-					marginTop = headerImage.getHeight() + 20;
-				Image footImage = getImage(footImagePath);
-				if (footImage != null)
-					marginBottom = footImage.getHeight() + 20;
-				
-				Document doc = new Document(PageSize.A4, 20, 20, marginTop, marginBottom);
-				path = fileChooser.getSelectedFile().getAbsoluteFile();
-	            PdfWriter pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path + ".pdf"));
-	            // Event used to add header image and foot image
-	            HeaderFooter event = new HeaderFooter(headerImage, footImage);
-				pdfWriter.setPageEvent(event);				
-	            
-				doc.open();            
-				PDFComposer.composePDF(doc, configuration);
-				doc.close();
+		File path = null;	
+		// TODO: añadir metadatos del PDF (autor, hora, asunto ...). Validarlos
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(ApplicationInternationalization.getString("PDFFile"), "pdf", "PDF");
+		JFileChooser fileChooser = new JFileChooser();       
+		fileChooser.setFileFilter(filter);
+		int result = fileChooser.showSaveDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION ) {
+			path = fileChooser.getSelectedFile().getAbsoluteFile();
+			try {
+				PDFComposer.createDocument(configuration, path, headerImagePath, footImagePath);
 				// TODO: dialogo informacion
-				this.dispose();
-	        }
-		} catch(IOException e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);			
-		} catch (DocumentException e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NumberFormatException e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			if (path != null)
-				path.delete();
-			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	
-	private Image getImage(String path) throws MalformedURLException, IOException, DocumentException {
-		Image result = null;
-		if (path != null)
-			result = Image.getInstance(path);
-		return result;
-		
+			} catch(IOException e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);			
+			} catch (DocumentException e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NumberFormatException e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRoleException e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				if (path != null)
+					path.delete();
+				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
+			this.dispose();
+        }
 	}
 	
 	@Action
