@@ -28,7 +28,17 @@ public class UsersController {
 	public static void addProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
+		
 		user.getProjects().add(project);
+		DAOUser.update(user);
+		SessionController.refreshUserInformation(user);
+	}
+	
+	public static void removeProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
+		
+		user.getProjects().remove(project);
 		DAOUser.update(user);
 		SessionController.refreshUserInformation(user);
 	}

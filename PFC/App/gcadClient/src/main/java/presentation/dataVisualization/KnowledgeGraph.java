@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -58,8 +59,9 @@ public class KnowledgeGraph {
 
 	private VisualizationViewer<Knowledge,String> vv;
 	private static Graph<Knowledge, String> graph;
-	private PickedState<Knowledge> pickedState;
+	private static PickedState<Knowledge> pickedState;
 	private HashMap<Knowledge, Icon> iconMap;
+	private static DefaultVertexIconTransformer<Knowledge> vertexIconTransformer;
 	protected static Knowledge selectedVertex;
 	private static panelKnowledgeView parent;;
 	
@@ -114,7 +116,7 @@ public class KnowledgeGraph {
 	    vv.getRenderContext().setVertexFillPaintTransformer(vpf);        		 
 		 
 	    VertexIconShapeTransformer<Knowledge> vertexIconShapeTransformer = new VertexIconShapeTransformer<Knowledge>(new EllipseVertexShapeTransformer<Knowledge>());
-	    DefaultVertexIconTransformer<Knowledge> vertexIconTransformer = new DefaultVertexIconTransformer<Knowledge>();  	        
+	    vertexIconTransformer = new DefaultVertexIconTransformer<Knowledge>();  	        
         vertexIconShapeTransformer.setIconMap(iconMap);
         vertexIconTransformer.setIconMap(iconMap);     
         vv.getRenderContext().setVertexShapeTransformer(vertexIconShapeTransformer);
@@ -153,8 +155,9 @@ public class KnowledgeGraph {
 		});		
 	}
 
-	public void clearSelection() {
+	public static void clearSelection() {
 		pickedState.clear();
+		parent.setKnowledgeSelectedGraph(null);				
 	}
 	
 	private Icon getIcon(String node) {
@@ -227,15 +230,15 @@ public class KnowledgeGraph {
 	}
 	
 	
-	public static void deleteVertex(Knowledge vertex) {
+	public static void deleteVertex() {
 	   	// Refresh View
-		parent.notifyKnowledgeRemoved(vertex);
+		parent.operationDelete();
 	}
 
 	public static void deleteVertexRecursively(Knowledge vertex) {
 		Collection<Knowledge> vertexs = graph.getSuccessors(vertex);
 	  	 for (Knowledge ob: vertexs) {	   		 
-	   		deleteVertex(ob);
+	  		deleteVertexRecursively(ob);
 	   	 }   	
 	   	graph.removeVertex(vertex);		
 	}
@@ -252,7 +255,10 @@ public class KnowledgeGraph {
 		   	     fileInputStream.close();          
 		         model.business.knowledge.File f = new model.business.knowledge.File(selectedVertex, file.getName(), bFile);
 		         // Insert file into database
-		         f.setId(ClientController.getInstance().attachFile(f));		
+		         f.setId(ClientController.getInstance().attachFile(f));	
+		         // Draw the icon
+		         setAttachIconVertex(selectedVertex);
+		         clearSelection();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -275,6 +281,25 @@ public class KnowledgeGraph {
 	   	     	
 		}
 	}
-	
+
+	private static void setAttachIconVertex(Knowledge selectedVertex) {
+		Icon icon = vertexIconTransformer.transform(selectedVertex);
+        if(icon != null && icon instanceof LayeredIcon) {           
+        	try {
+				((LayeredIcon)icon).add(ImagesUtilities.loadIcon("attach.png"));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}           
+        }		
+	}
+
+	public static void setSelectedVertex(Knowledge selectedVertex) {
+		KnowledgeGraph.selectedVertex = selectedVertex;
+		parent.setKnowledgeSelectedGraph(selectedVertex);				
+	}	
 	
 }

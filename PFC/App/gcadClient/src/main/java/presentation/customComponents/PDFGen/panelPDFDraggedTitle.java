@@ -1,11 +1,19 @@
 package presentation.customComponents.PDFGen;
 import java.io.IOException;
+import java.net.MalformedURLException;
+
+import javax.swing.ActionMap;
 import javax.swing.JButton;
 
 import javax.swing.JTextField;
+
+import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import com.jhlabs.image.ImageUtils;
+
 import presentation.customComponents.ImagePanel;
+import presentation.panelsActions.panelPDFGeneration;
 import resources.ImagesUtilities;
 
 /**
@@ -29,9 +37,11 @@ public class panelPDFDraggedTitle extends panelPDFDragged {
 	private ImagePanel imagePanel;
 	private JButton btnDelete;
 	private JTextField tbTitle;
+	private panelPDFGeneration parent;
 
-	public panelPDFDraggedTitle() {
+	public panelPDFDraggedTitle(panelPDFGeneration parent) {
 		super();
+		this.parent = parent;
 		initGUI();
 	}
 
@@ -39,6 +49,8 @@ public class panelPDFDraggedTitle extends panelPDFDragged {
 		{
 			this.setPreferredSize(new java.awt.Dimension(646, 67));
 			this.setLayout(null);
+			this.setMaximumSize(new java.awt.Dimension(646, 67));
+			this.setMinimumSize(new java.awt.Dimension(646, 67));
 			{
 				imagePanel = new ImagePanel();
 				try {
@@ -58,13 +70,34 @@ public class panelPDFDraggedTitle extends panelPDFDragged {
 				this.add(btnDelete);
 				btnDelete.setBounds(621, 5, 20, 15);
 				btnDelete.setSize(16, 16);
+				btnDelete.setAction(getAppActionMap().get("Delete"));
+				btnDelete.setContentAreaFilled(false);
+				btnDelete.setText("");
+				try {
+					btnDelete.setIcon(ImagesUtilities.loadIcon("menus/remove.png"));
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
 
+	private ActionMap getAppActionMap() {
+        return Application.getInstance().getContext().getActionMap(this);
+    }
+	
 	public String getContent() {
 		return tbTitle.getText().trim();
+	}
+	
+	@Action
+	public void Delete () {
+		parent.removeDragged(this);
 	}
 }

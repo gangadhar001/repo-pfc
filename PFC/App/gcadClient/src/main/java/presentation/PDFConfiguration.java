@@ -25,16 +25,19 @@ public class PDFConfiguration {
 			if (valid) {
 				valid = section.getElements().size() > 0;
 				if (valid) {
-					for(PDFElement element: section.getElements()) {
-						if (valid) {
-							// Title must be the first element in a section
-							valid = (element instanceof PDFTitle);
+					// Title must be the first element in a section
+					valid = (section.getElements().get(0) instanceof PDFTitle);
+					if (valid) {
+						for(PDFElement element: section.getElements()) {
 							if (valid) {
 								if (element instanceof PDFText) {
 									valid = ((PDFText)element).getContent().length() > 0;
 								}
 								else if (element instanceof PDFTable) {
 									valid = ((PDFTable)element).getProject() != null;
+								}
+								else if (element instanceof PDFTitle) {
+									valid = ((PDFTitle)element).getTitle().length() > 0;
 								}
 							}
 						}

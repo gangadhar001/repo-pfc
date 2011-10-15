@@ -107,7 +107,7 @@ public class CustomMenubar extends JMenuBar {
 
 		// Add menu items to "Tools" menu. Each menu item is a group of
 		// operations
-		List<String> groups = OperationsUtilities.getAllGroups(operations);
+		List<String> groups = OperationsUtilities.getAllGroupsMenu(operations);
 		for (String group : groups) {
 			createToolMenuItem(group);
 		}
@@ -280,40 +280,17 @@ public class CustomMenubar extends JMenuBar {
 
 	@Action
 	public void CloseSession() {
+		
 		// TODO: cerrar sesion
-		// if (JOptionPane.showConfirmDialog(getMainFrame(),
-		// ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
-		// ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),
-		// JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
-		// JOptionPane.YES_OPTION)
-		// closeSessionConfirm();
+//		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
+//					ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
+//					JOptionPane.YES_OPTION)
+//			closeSessionConfirm();
 
 		// JDConfigSimil j = new JDConfigSimil(null);
 		// j.setVisible(true);
-//		JDCreateProject j = new JDCreateProject(mainFrame.getMainFrame());
-//		j.setModal(true);
-//		j.setVisible(true);
+//		
 		
-        try {
-        	   //save image into database
-        	
-        	File file = new File("C:\\Users\\Juan\\Downloads\\matricula.pdf");
-            byte[] bFile = new byte[(int) file.length()];
-   	     FileInputStream fileInputStream = new FileInputStream(file);
-   	     //convert file into array of bytes
-   	     fileInputStream.read(bFile);
-   	     fileInputStream.close();
-          
-   	     	TopicWrapper topicWrapper = ClientController.getInstance().getTopicsWrapper();
-           model.business.knowledge.File f = new model.business.knowledge.File(topicWrapper.getTopics().get(0), "Graphique.png", bFile);
-           // Insert file into database
-           f.setId(ClientController.getInstance().attachFile(f));
-           
-           model.business.knowledge.File fAux = ClientController.getInstance().getAttachedFiles(topicWrapper.getTopics().get(0)).get(0);
-           System.out.println(fAux.getContent());
-        } catch (Exception e) {
-      	     e.printStackTrace();
-              }
 
 	}
 
@@ -322,43 +299,9 @@ public class CustomMenubar extends JMenuBar {
 		mainFrame.manageKnowledgeFromMenu();
 	}
 
-//	@Action
-//	public void Manage_PDFGeneration() {
-//		JDPdf framePDF = new JDPdf(mainFrame.getMainFrame());
-//		framePDF.setLocationRelativeTo(mainFrame.getMainFrame());
-//		framePDF.setModal(true);
-//		framePDF.setVisible(true);
-//	}
-
 	@Action
-	public void Manage_Statistics() {
-		// JDStatistics frameStatistics = new
-		// JDStatistics(mainFrame.getMainFrame());
-		// frameStatistics.setLocationRelativeTo(mainFrame.getMainFrame());
-		// frameStatistics.setModal(true);
-		// frameStatistics.setVisible(true);
-		// // Take the generated chart and show it in the view of statistics
-		// ChartPanel chartPanel = frameStatistics.getChartPanel();
-		// if (chartPanel != null) {
-		// try {
-		// Statistics();
-		// InternalFStatistics internalFrameStatistic = new
-		// InternalFStatistics();
-		// internalFrameStatistic.addChartPanel(chartPanel);
-		// panelStatistics.addStatistic(internalFrameStatistic);
-		// } catch (MalformedURLException e) {
-		// JOptionPane.showMessageDialog(getMainFrame(),
-		// e.getLocalizedMessage(),
-		// ApplicationInternationalization.getString("Error"),
-		// JOptionPane.ERROR_MESSAGE);
-		// } catch (IOException e) {
-		// JOptionPane.showMessageDialog(getMainFrame(),
-		// e.getLocalizedMessage(),
-		// ApplicationInternationalization.getString("Error"),
-		// JOptionPane.ERROR_MESSAGE);
-		// }
-		// }
-
+	public void Manage_Project() {
+		mainFrame.manageProjectFromMenu();
 	}
 
 	@Action
@@ -401,89 +344,5 @@ public class CustomMenubar extends JMenuBar {
 	public void View_PDFGeneration() {
 		mainFrame.showPDFView();		
 	}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-	// DataFolder df = DataFolder.findFolder(fo);
-	// DataObject[] childs = df.getChildren();
-	// DataObject dob;
-	// Object instanceObj;
-	// for (int i = 0; i < childs.length; i++) {
-	// dob = childs[i];
-	// if (dob.getPrimaryFile().isFolder()) {
-	// FileObject childFo = childs[i].getPrimaryFile();
-	// JMenu menu = new JMenu();
-	// Mnemonics.setLocalizedText(menu, dob.getNodeDelegate().getDisplayName());
-	// comp.add(menu);
-	// buildPopup(childFo, menu);
-	// } else {
-	// //Cookie or Lookup API discovery:
-	// InstanceCookie ck = (InstanceCookie) dob.getCookie(InstanceCookie.class);
-	// try {
-	// instanceObj = ck.instanceCreate();
-	// } catch (Exception ex) {
-	// instanceObj = null;
-	// ErrorManager.getDefault().notify(ErrorManager.EXCEPTION, ex);
-	// }
-	// if (instanceObj == null) {
-	// continue;
-	// }
-	// if (instanceObj instanceof JSeparator) {
-	// comp.add((JSeparator) instanceObj);
-	// } else if (instanceObj instanceof BooleanStateAction) {
-	// JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem();
-	// Actions.connect(menuItem, (BooleanStateAction) instanceObj, true);
-	// } else if (instanceObj instanceof Action) {
-	// final Action a = (Action) instanceObj;
-	// String name = (String) a.getValue(Action.NAME);
-	// String cutAmpersand = Actions.cutAmpersand(name);
-	// JMenuItem menuItem = new JMenuItem();
-	// menuItem.setAction(new AbstractAction(cutAmpersand) {
-	// @Override
-	// public void actionPerformed(ActionEvent e) {
-	// a.actionPerformed(e);
-	// }
-	// });
-	// //Should be like this, but somehow didn't work in this case:
-	// //Actions.connect(menuItem, (Action) instanceObj, false);
-	// comp.add(menuItem);
-	// }
-	// }
-	// }
-
-	// Paint the banner image into the menu bar:
-
-	// private final Paint bannerPaint = makeBannerPaint();
-	//
-	// @Override
-	// protected void paintComponent(Graphics g) {
-	// Graphics2D g2 = (Graphics2D) g;
-	// g2.setPaint(bannerPaint);
-	// g2.fillRect(0, 0, getWidth(), getHeight());
-	// }
-	//
-	// private Paint makeBannerPaint() {
-	// //Pointing to an image in org/menu/bar:
-	// BufferedImage img;
-	// try {
-	// img = (BufferedImage)
-	// ImagesUtilities.loadCompatibleImage("toolbar/disconnect.png");
-	// return new TexturePaint(img, new Rectangle(0, 0, img.getWidth(),
-	// img.getHeight()));
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return null;
-	//
-	// }
 
 }

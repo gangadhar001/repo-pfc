@@ -1,11 +1,16 @@
 package presentation.customComponents.PDFGen;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import javax.swing.JTextField;
 
 import model.business.knowledge.Project;
 
 import org.jdesktop.application.Application;
+
+import exceptions.NotLoggedException;
+
+import bussiness.control.ClientController;
 
 import presentation.customComponents.ImagePanel;
 import resources.ImagesUtilities;
@@ -56,6 +61,19 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 	}
 
 	public Project getProject() {
+		// TODO: quitar
+		try {
+			project = ClientController.getInstance().getProjectsFromCurrentUser().get(0);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return project;
 	}
 	

@@ -37,4 +37,12 @@ public class OperationsUtilities {
 				result.add(o.getGroup());
 		return result;
 	}
+
+	public static List<String> getAllGroupsMenu(List<Operation> operations) {
+		List<String> result = new ArrayList<String>();
+		for(Operation o: operations)
+			if (!result.contains(o.getGroup()) && (!o.isShowGroupInView() || o.getGroup().equals("Knowledge")))
+				result.add(o.getGroup());
+		return result;
+	}
 }

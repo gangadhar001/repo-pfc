@@ -14,6 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
@@ -574,6 +575,10 @@ public class ImagesUtilities {
     		images.remove(buttonName);
     		images.put(buttonName, image);
     	}
+    }
+    
+    public static URL getPathImage(String name) {
+    	return ImagesUtilities.class.getClassLoader().getResource(IMAGES_PATH + name);
     }
     
 }
