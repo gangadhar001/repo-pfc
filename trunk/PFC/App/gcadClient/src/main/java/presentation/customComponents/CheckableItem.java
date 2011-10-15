@@ -2,6 +2,10 @@ package presentation.customComponents;
 
 import model.business.knowledge.User;
 
+/**
+ * This class represents a custom checkable item
+ *
+ */
 // REFERENCE: http://www.java2s.com/Code/Java/Swing-Components/CheckListExample2.htm
 public class CheckableItem {
 	

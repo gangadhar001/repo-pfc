@@ -1,4 +1,4 @@
-package presentation;
+package model.business.knowledge;
 
 import java.awt.Color;
 
@@ -6,6 +6,10 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 
+/**
+ * This class represents a PDF Title
+ *
+ */
 public class PDFTitle extends PDFElement {
 	
 	private String title;

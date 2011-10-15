@@ -1,6 +1,5 @@
 package presentation.dragdrop;
 
-
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DragSourceDragEvent;
 import java.awt.dnd.DragSourceMotionListener;
@@ -10,7 +9,10 @@ import javax.swing.TransferHandler;
 
 import presentation.customComponents.PDFGen.panelPDFDragged;
 
-
+/**
+ * Class used to handle the drag&drop event and create the transferable object
+ *
+ */
 public class DragAndDropTransferHandler  extends TransferHandler implements DragSourceMotionListener {
 
     /**
@@ -25,7 +27,6 @@ public class DragAndDropTransferHandler  extends TransferHandler implements Drag
     // This creates the Transferable object.
     @Override()
     public Transferable createTransferable(JComponent c) {        
-        // TaskInstancePanel implements Transferable
         if (c instanceof panelPDFDragged) {
             Transferable tip = (panelPDFDragged) c;
             return tip;

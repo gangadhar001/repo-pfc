@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.NonExistentProjectException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -35,6 +36,13 @@ public class ProjectController {
 		return project;
 	}
 	
+	public static void updateProject(long sessionId, Project p) throws NonPermissionRoleException, NotLoggedException, SQLException, NonExistentProjectException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Modify.name()));
+		
+		DAOProject.update(p);
+	}
+	
 	// Method used to retrieve developers that participate in a project
 	public static List<User> getUsersProject(long sessionId, Project p) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
@@ -63,4 +71,5 @@ public class ProjectController {
 		}
 		return attributes;
 	}
+
 }

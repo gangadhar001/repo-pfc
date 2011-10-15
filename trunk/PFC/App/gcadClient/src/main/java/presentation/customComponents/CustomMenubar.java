@@ -10,8 +10,6 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -33,7 +31,6 @@ import javax.swing.border.EtchedBorder;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
-import model.business.knowledge.TopicWrapper;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.application.Action;
@@ -44,7 +41,6 @@ import presentation.JDChooseProject;
 import presentation.JFMain;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
-import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
 /**
@@ -188,7 +184,6 @@ public class CustomMenubar extends JMenuBar {
         }
     }
 
-
 	// Method used to create the different button with icons on toolbar, depends on the
 	// allowed operations
 	public void createViews(List<Operation> operations) throws MalformedURLException, IOException {
@@ -214,8 +209,7 @@ public class CustomMenubar extends JMenuBar {
 				ImagesUtilities.addImageButton(button.getName(), icon);
 			    button.addMouseListener(new MouseListener() {	
 					@Override
-					public void mouseReleased(MouseEvent e) {
-						
+					public void mouseReleased(MouseEvent e) {						
 					}
 					
 					@Override
@@ -279,8 +273,7 @@ public class CustomMenubar extends JMenuBar {
 	}
 
 	@Action
-	public void CloseSession() {
-		
+	public void CloseSession() {		
 		// TODO: cerrar sesion
 //		if (JOptionPane.showConfirmDialog(getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
 //					ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
@@ -288,10 +281,7 @@ public class CustomMenubar extends JMenuBar {
 //			closeSessionConfirm();
 
 		// JDConfigSimil j = new JDConfigSimil(null);
-		// j.setVisible(true);
-//		
-		
-
+		// j.setVisible(true);/	
 	}
 
 	@Action

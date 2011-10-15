@@ -4,6 +4,10 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
+/**
+ * Custom Numeric TextField
+ *
+ */
 // REFERENCE: http://www.devx.com/tips/Tip/14311
 public class NumericTextField extends JTextField {
 

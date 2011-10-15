@@ -2,6 +2,7 @@ package presentation.dataVisualization;
 
 import javax.swing.table.TableColumnModel;
 
+import presentation.customComponents.CustomTable;
 import presentation.utils.DateRenderer;
 import presentation.utils.ImageTableNotificationCellRenderer;
 

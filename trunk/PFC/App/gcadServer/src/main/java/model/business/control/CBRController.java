@@ -16,6 +16,9 @@ import model.business.knowledge.Operations;
 import model.business.knowledge.Project;
 import model.business.knowledge.Subgroups;
 
+/**
+ * This class represents the CBR Controller
+ */
 public class CBRController {
 
 	public static List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {

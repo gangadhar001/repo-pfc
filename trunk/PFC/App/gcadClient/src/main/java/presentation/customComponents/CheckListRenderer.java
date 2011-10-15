@@ -7,6 +7,10 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 
+/**
+ * This class represents a custom JCheckBox
+ *
+ */
 // REFERENCE: http://www.java2s.com/Code/Java/Swing-Components/CheckListExample2.htm
 public class CheckListRenderer extends JCheckBox implements ListCellRenderer {
 

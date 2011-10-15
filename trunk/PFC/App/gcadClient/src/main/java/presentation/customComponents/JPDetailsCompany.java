@@ -42,8 +42,6 @@ import com.cloudgarden.layout.AnchorConstraint;
 import exceptions.NonExistentAddressException;
 import exceptions.WSResponseException;
 
-
-
 /**
 * This code was edited or generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -56,6 +54,11 @@ import exceptions.WSResponseException;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
+
+/**
+ * This class represents a custom panel to show the details of a company
+ *
+ */
 public class JPDetailsCompany extends JXPanel {
 	
 	/**
@@ -77,11 +80,6 @@ public class JPDetailsCompany extends JXPanel {
 	private JXMapKit jXMapKit;
 	private Company company;
 	private GeoPosition position;	
-
-	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
 		
 	public JPDetailsCompany(JFMain frame) {
         setOpaque(false);
@@ -94,7 +92,7 @@ public class JPDetailsCompany extends JXPanel {
 				lblTitle = new JLabel();
 				this.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 				lblTitle.setName("lblTitle");
-				lblTitle.setText("Title");
+				lblTitle.setText(ApplicationInternationalization.getString("companyTitle"));
 				lblTitle.setBounds(189, 12, 226, 20);
 			}
 			{
@@ -113,7 +111,7 @@ public class JPDetailsCompany extends JXPanel {
 						panelDetailsCompany.add(lblCountry, new AnchorConstraint(718, 708, 815, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblCountry.setPreferredSize(new java.awt.Dimension(176, 17));
 						lblCountry.setName("lblCountry");
-						lblCountry.setText("Country");
+						lblCountry.setText(ApplicationInternationalization.getString("companyCountry"));
 						lblCountry.setBounds(21, 140, 172, 18);
 					}
 					{
@@ -121,7 +119,7 @@ public class JPDetailsCompany extends JXPanel {
 						panelDetailsCompany.add(lblZip, new AnchorConstraint(593, 694, 684, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblZip.setPreferredSize(new java.awt.Dimension(173, 16));
 						lblZip.setName("lblZip");
-						lblZip.setText("ZIP");
+						lblZip.setText(ApplicationInternationalization.getString("companyZip"));
 						lblZip.setBounds(21, 115, 168, 18);
 					}
 					{
@@ -129,7 +127,7 @@ public class JPDetailsCompany extends JXPanel {
 						panelDetailsCompany.add(lblAddress, new AnchorConstraint(474, 672, 559, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblAddress.setPreferredSize(new java.awt.Dimension(167, 15));
 						lblAddress.setName("lblAddress");
-						lblAddress.setText("Address");
+						lblAddress.setText(ApplicationInternationalization.getString("companyAddress"));
 						lblAddress.setBounds(21, 92, 163, 17);
 					}
 					{
@@ -137,7 +135,7 @@ public class JPDetailsCompany extends JXPanel {
 						panelDetailsCompany.add(lblCif, new AnchorConstraint(281, 667, 372, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblCif.setPreferredSize(new java.awt.Dimension(165, 16));
 						lblCif.setName("lblCif");
-						lblCif.setText("CIF");
+						lblCif.setText(ApplicationInternationalization.getString("companyCif"));
 						lblCif.setBounds(21, 54, 161, 18);
 					}
 					{
@@ -145,7 +143,7 @@ public class JPDetailsCompany extends JXPanel {
 						panelDetailsCompany.add(lblNameCompany, new AnchorConstraint(150, 663, 247, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblNameCompany.setPreferredSize(new java.awt.Dimension(164, 17));
 						lblNameCompany.setName("lblNameCompany");
-						lblNameCompany.setText("Company");
+						lblCif.setText(ApplicationInternationalization.getString("companyName"));
 						lblNameCompany.setBounds(21, 29, 160, 19);
 					}
 				}
@@ -171,7 +169,7 @@ public class JPDetailsCompany extends JXPanel {
 				this.add(btnOK, new GridBagConstraints(-1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 330, 0, 10), 0, 0));
 				btnOK.setName("btnOK");
 				btnOK.setBounds(442, 292, 66, 23);
-				btnOK.setText("OK");
+				btnOK.setText(ApplicationInternationalization.getString("btnOK"));
 				btnOK.setDoubleBuffered(true);
 				btnOK.addActionListener(new ActionListener() {
 					@Override
@@ -261,14 +259,14 @@ public class JPDetailsCompany extends JXPanel {
 	}
 
 	private void setDetailsCompany() {
-		lblCif.setText("CIF: " + company.getCif());
-		lblNameCompany.setText("Name: " + company.getName());
-		lblCountry.setText("Country: " + company.getAddress().getCountry());
-		lblZip.setText("ZIP: " + company.getAddress().getZip());
-		lblAddress.setText("Address: " + company.getAddress().getStreet() + ", " + company.getAddress().getCity());
-		
+		lblCif.setText(ApplicationInternationalization.getString("companyCif") + ": " + company.getCif());
+		lblNameCompany.setText(ApplicationInternationalization.getString("companyName") + ": " + company.getName());
+		lblCountry.setText(ApplicationInternationalization.getString("companyCountry") + ": " + company.getAddress().getCountry());
+		lblZip.setText(ApplicationInternationalization.getString("companyZip") + ": " + company.getAddress().getZip());
+		lblAddress.setText(ApplicationInternationalization.getString("companyAddress") + ": " + company.getAddress().getStreet() + ", " + company.getAddress().getCity());		
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void setPosition() {
 		Coordinates coor;
 		try {
@@ -282,7 +280,7 @@ public class JPDetailsCompany extends JXPanel {
         Set<Waypoint> waypoints = new HashSet<Waypoint>();
         waypoints.add(new Waypoint(latitude, longitude));			        
 
-        WaypointPainter painter = new WaypointPainter();
+        WaypointPainter<?> painter = new WaypointPainter();
         painter.setWaypoints(waypoints);
 //	        painter.setRenderer(new WaypointRenderer() {
 //	            public boolean paintWaypoint(Graphics2D g, JXMapViewer map, Waypoint wp) {

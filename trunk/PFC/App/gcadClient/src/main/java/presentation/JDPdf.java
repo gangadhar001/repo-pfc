@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.ActionMap;
@@ -27,17 +26,15 @@ import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import model.business.knowledge.PDFConfiguration;
+
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
-import presentation.customComponents.HeaderFooter;
-import bussiness.control.PDFComposer;
+import bussiness.control.ClientController;
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -257,7 +254,10 @@ public class JDPdf extends JDialog {
 		if (result == JFileChooser.APPROVE_OPTION ) {
 			path = fileChooser.getSelectedFile().getAbsoluteFile();
 			try {
-				PDFComposer.createDocument(configuration, path, headerImagePath, footImagePath);
+				byte[] document = ClientController.getInstance().composePDF(configuration, getImage(headerImagePath), getImage(footImagePath));
+				FileOutputStream doc = new FileOutputStream(path);
+				doc.write(document);
+				doc.close();
 				// TODO: dialogo informacion
 			} catch(IOException e) {
 				if (path != null)
@@ -339,6 +339,13 @@ public class JDPdf extends JDialog {
 	private void btnBrowseFootActionPerformed() {
 		footImagePath = getPath();
 		
+	}
+	
+	private static Image getImage(String path) throws MalformedURLException, IOException, DocumentException {
+		Image result = null;
+		if (path != null)
+			result = Image.getInstance(path);
+		return result;		
 	}
 
 }

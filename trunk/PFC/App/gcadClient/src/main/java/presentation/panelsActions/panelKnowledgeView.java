@@ -2,9 +2,6 @@ package presentation.panelsActions;
 
 import internationalization.ApplicationInternationalization;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -105,9 +102,8 @@ public class panelKnowledgeView extends ImagePanel {
 			KnowGraph = new KnowledgeGraph(topicWrapper, this);
 			
 			initGUI();
-			// Show knowledge tree and graph			
+			// Show knowledge tree			
 			showTree();
-//			showGraph();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -297,11 +293,6 @@ public class panelKnowledgeView extends ImagePanel {
 	}
 
 	/*** Methods used to notify new knowledge ***/ 
-	// Refresh graph and tree, because another client has added knowledge
-//	public void notifyKnowledgeAdded(Knowledge k) {
-//		knowledgeAdded(k, null);		
-//	}
-
 	// Refresh graph and tree
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
 		refreshKnowledge();			
@@ -375,8 +366,7 @@ public class panelKnowledgeView extends ImagePanel {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
-	}
-	
+	}	
 
 	// Add new knowledge in graph
 	private void addKnowledgeToGraph(Knowledge k, Knowledge parentK) {               
@@ -500,7 +490,7 @@ public class panelKnowledgeView extends ImagePanel {
 
 	// Clear selection from graph
 	private void clearSelectionGraph() {
-		KnowGraph.clearSelection();
+		KnowledgeGraph.clearSelection();
 		knowledgeSelectedGraph = null;	
 		clearUserInfo();
 		activateToolbarButtons(false);
@@ -573,7 +563,9 @@ public class panelKnowledgeView extends ImagePanel {
 		
 	}
 
+	// Show a dialog to attach a file
 	public File showAttachFileDialog() {
+		// TODO: todos los archivos (filter)
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "*.*");
 		JFileChooser fileChooser = new JFileChooser();       
 		fileChooser.setFileFilter(filter);
@@ -583,6 +575,10 @@ public class panelKnowledgeView extends ImagePanel {
 			file = fileChooser.getSelectedFile();
 		
 		return file;
+	}
+
+	public void showMessage(Exception e) {
+		JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
 	}
 
 }

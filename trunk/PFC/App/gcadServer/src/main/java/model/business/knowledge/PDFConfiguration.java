@@ -1,7 +1,11 @@
-package presentation;
+package model.business.knowledge;
 
 import java.util.List;
 
+/**
+ * This class represents the configuration used to generate a PDF File
+ *
+ */
 public class PDFConfiguration {
 	
 	private List<PDFSection> sections;

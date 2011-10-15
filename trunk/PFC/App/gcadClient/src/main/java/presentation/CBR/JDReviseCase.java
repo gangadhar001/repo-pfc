@@ -18,7 +18,7 @@ import model.business.knowledge.Project;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
-import presentation.panelProjectInformation;
+import presentation.customComponents.panelProjectInformation;
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;

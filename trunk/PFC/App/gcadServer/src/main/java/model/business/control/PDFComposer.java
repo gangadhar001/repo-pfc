@@ -1,33 +1,34 @@
-package bussiness.control;
+package model.business.control;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.ByteArrayOutputStream;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.business.control.auxiliary.HeaderFooter;
 import model.business.knowledge.Answer;
+import model.business.knowledge.Groups;
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Operation;
+import model.business.knowledge.Operations;
+import model.business.knowledge.PDFConfiguration;
+import model.business.knowledge.PDFElement;
+import model.business.knowledge.PDFTitle;
+import model.business.knowledge.PDFText;
+import model.business.knowledge.PDFTable;
+import model.business.knowledge.PDFSection;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Subgroups;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
-import presentation.PDFConfiguration;
-import presentation.PDFElement;
-import presentation.PDFSection;
-import presentation.PDFTable;
-import presentation.PDFText;
-import presentation.PDFTitle;
-import presentation.customComponents.HeaderFooter;
 import resources.ImagesUtilities;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -47,43 +48,46 @@ import exceptions.NotLoggedException;
  */
 public class PDFComposer {	
 	
-	public static void createDocument(PDFConfiguration configuration, File path, String headerImagePath, String footImagePath) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-	
+	public static byte[] createDocument(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.PDFGeneration.name(), Subgroups.PDFGeneration.name(), Operations.Generate.name()));
+		
 		// Margin of documents
 		float marginTop = 20;
-		float marginBottom = 20;
-		Image headerImage = getImage(headerImagePath);
+		float marginBottom = 20;		
 		if (headerImage != null)
-			marginTop = headerImage.getHeight() + 20;
-		Image footImage = getImage(footImagePath);
+			marginTop = headerImage.getHeight() + 20;		
 		if (footImage != null)
 			marginBottom = footImage.getHeight() + 20;
 		
 		Document doc = new Document(PageSize.A4, 20, 20, marginTop, marginBottom);
 		
-        PdfWriter pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path + ".pdf"));
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        PdfWriter pdfWriter = PdfWriter.getInstance(doc, buffer);
+        
         // Event used to add header image and foot image
         HeaderFooter event = new HeaderFooter(headerImage, footImage);
 		pdfWriter.setPageEvent(event);				
         
 		doc.open();            
-		composePDF(doc, configuration);
+		composePDF(sessionId, doc, configuration);
 		doc.close();
-				
+		
+		return buffer.toByteArray();				
 	}
 	
-	public static void composePDF (Document doc, PDFConfiguration config) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	private static void composePDF (long sessionId, Document doc, PDFConfiguration config) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		int count = 1;
 		Chapter ch = new Chapter(count);
 		ch.setNumberDepth(0);
 		for (PDFSection section : config.getSections()) {	
 			Section s = ch.addSection(4f, "");
-			generateContent(s, section);
+			generateContent(sessionId, s, section);
 			doc.add(ch);			
 		}
 	}
 
-	private static void generateContent(Section sec, PDFSection section) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	private static void generateContent(long sessionId, Section sec, PDFSection section) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		for(PDFElement element : section.getElements()){
 			if (element instanceof PDFTitle) {
 				Font f = ((PDFTitle)element).getFont();
@@ -96,19 +100,19 @@ public class PDFComposer {
 				sec.add(p);
 			}
 			else if (element instanceof PDFTable) {
-				PdfPTable table = createTable(((PDFTable)element).getProject());
+				PdfPTable table = createTable(sessionId, ((PDFTable)element).getProject());
 				sec.add(table);
 			}
 		}
 	}
 
-	private static PdfPTable createTable(Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	private static PdfPTable createTable(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		PdfPTable table = new PdfPTable(6);
 		createHeader(table, p);
 		TopicWrapper tw;
 		// Take knowledge from project
-		tw = ClientController.getInstance().getTopicsWrapper(p);
-		List<Knowledge> knowledge = ClientController.getInstance().getKnowledgeProject(tw);
+		tw = Server.getInstance().getTopicsWrapper(sessionId, p);
+		List<Knowledge> knowledge = getKnowledgeProject(tw);
 
 		for(Knowledge k: knowledge) {
 			Image image = null;
@@ -145,6 +149,22 @@ public class PDFComposer {
 		
 		
 		return table;
+	}
+	
+
+	// Get knowledge from a project
+	private static List<Knowledge> getKnowledgeProject(TopicWrapper tw) {		
+		List<Knowledge> result = new ArrayList<Knowledge>();
+		for (Topic t: tw.getTopics()){
+				result.add(t);
+			for (Proposal p: t.getProposals()){
+					result.add(p);
+				for (Answer a: p.getAnswers()) {
+						result.add(a);
+				}
+			}
+		}
+		return result;		
 	}
 
 	private static void setBackgroundColor(Knowledge k, PdfPCell cell) {
@@ -185,13 +205,6 @@ public class PDFComposer {
 		
 	}
 
-	private static Image getImage(String path) throws MalformedURLException, IOException, DocumentException {
-		Image result = null;
-		if (path != null)
-			result = Image.getInstance(path);
-		return result;
-		
-	}
-
+	
 
 }

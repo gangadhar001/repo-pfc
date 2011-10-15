@@ -5,6 +5,9 @@ import java.util.List;
 
 import model.business.knowledge.Operation;
 
+/**
+ * This class is used to manage auxiliary operations in groups of available permissions and operations
+ */
 public class OperationsUtilities {
 
 	public static List<String> getSubgroupsId(List<Operation> operations, String groupName) {

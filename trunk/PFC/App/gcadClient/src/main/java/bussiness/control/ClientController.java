@@ -19,6 +19,7 @@ import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
+import model.business.knowledge.PDFConfiguration;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -28,6 +29,9 @@ import model.business.knowledge.UserRole;
 
 import org.jdesktop.application.Application;
 import org.jdom.JDOMException;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
 
 import presentation.JFLogin;
 import presentation.JFMain;
@@ -408,5 +412,16 @@ public class ClientController {
 		return server.getAttachedFiles(session.getId(), k);
 	}
 
+	public byte[] composePDF(PDFConfiguration config, Image header, Image footer) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.composePDF(session.getId(), config, header, footer);
+	}
+
+	public void removeProjectsUser(User u, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.removeProjectsUser(session.getId(), u, p);		
+	}
+
+	public void updateProject(Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.updateProject(session.getId(), p);		
+	}	
 	
 }
