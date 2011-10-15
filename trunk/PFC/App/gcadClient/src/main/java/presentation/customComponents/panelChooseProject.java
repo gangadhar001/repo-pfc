@@ -68,7 +68,8 @@ public class panelChooseProject extends javax.swing.JPanel {
 		for(Project p : projects) {
 			cbProjects.addItem(p);
 		}
-		cbProjects.setSelectedIndex(0);
+		if (cbProjects.getItemCount() > 0)
+			cbProjects.setSelectedIndex(0);
 	}
 
 	public int getProjectId() {
