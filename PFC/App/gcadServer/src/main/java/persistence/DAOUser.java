@@ -91,43 +91,14 @@ public class DAOUser {
 		return result;
 	}
 
-	public static void update(User user) throws SQLException, IncorrectEmployeeException { 
-		HibernateQuery query;
-		List<?> data;
-		User oldUser = null;
-		
-		try {
-			query = new HibernateQuery("From " + USER_CLASS + " Where nif = ?", user.getNif());
-			data = DBConnectionManager.query(query);
-	
-			if(data.size() > 0) {
-				oldUser = (User)data.get(0);									
-			}
-			else
-				throw new IncorrectEmployeeException(AppInternationalization.getString("NonExistentUserException"));
-			
-			DBConnectionManager.initTransaction();	
-			
-			oldUser.setNif(user.getNif());
-			oldUser.setName(user.getName());
-			oldUser.setEmail(user.getEmail());
-			oldUser.setCompany(user.getCompany());
-			oldUser.setLogin(user.getLogin());
-			oldUser.setPassword(user.getPassword());
-			oldUser.setProjects(user.getProjects());
-			oldUser.setSeniority(user.getSeniority());
-			oldUser.setSurname(user.getSurname());
-			oldUser.setTelephone(user.getTelephone());
-
-			DBConnectionManager.update(oldUser);
+	public static void update(User user) throws SQLException { 		
+		try {			
+			DBConnectionManager.initTransaction();			
+			DBConnectionManager.update(user.clone());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
 		
-		// Clear cache
-		for(Object object : data) {
-			DBConnectionManager.clearCache(object);
-		}		
 	}
 
 	public static void insert(User user) throws SQLException {
@@ -137,8 +108,29 @@ public class DAOUser {
 			user.setId(newUser.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
+		}		
+	}
+	
+	public static User insertProject(String login, String password) throws IncorrectEmployeeException, SQLException {
+		HibernateQuery query;
+		List<?> data;
+		User user = null;
+		
+		query = new HibernateQuery("From " + USER_CLASS + " Where " + COL_LOGIN + " = ? AND " + COL_PASSWORD + " = ?", login, password);
+		data = DBConnectionManager.query(query);
+
+		if(data.size() == 0) 
+			throw new IncorrectEmployeeException(AppInternationalization.getString("IncorrectEmployeeException"));
+		
+		user = (User) ((User)(data.get(0))).clone();			
+		
+		
+		// Clear cache
+		for(Object object : data) {
+			DBConnectionManager.clearCache(object);
 		}
 		
+		return user;
 	}
 	
 	public static void delete(User user) throws SQLException, IncorrectEmployeeException {

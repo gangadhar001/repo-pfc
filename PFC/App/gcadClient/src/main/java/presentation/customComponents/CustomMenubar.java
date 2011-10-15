@@ -38,6 +38,7 @@ import org.jdesktop.application.Application;
 
 import presentation.JDAbout;
 import presentation.JDChooseProject;
+import presentation.JDLanguages;
 import presentation.JFMain;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
@@ -308,6 +309,14 @@ public class CustomMenubar extends JMenuBar {
 		jdc.setModal(true);
 		jdc.setLocationRelativeTo(mainFrame.getMainFrame());
 		jdc.setVisible(true);
+	}
+	
+	@Action
+	public void ChangeLanguage() {
+		JDLanguages jdl = new JDLanguages(mainFrame);
+		jdl.setModal(true);
+		jdl.setLocationRelativeTo(mainFrame.getMainFrame());
+		jdl.setVisible(true);
 	}
 
 	/*** Actions used to manage actions for menu items ***/

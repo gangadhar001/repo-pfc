@@ -1,6 +1,5 @@
 package communication;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -8,11 +7,6 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jdom.JDOMException;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Image;
 
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
@@ -31,6 +25,9 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
+
+import com.itextpdf.text.Image;
+
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentFileException;

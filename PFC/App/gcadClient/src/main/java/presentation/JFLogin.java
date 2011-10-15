@@ -385,7 +385,7 @@ public class JFLogin extends SingleFrameApplication {
     
     @Action
     public void ChangeLanguage() {
-    	JDLanguages lang = new JDLanguages(new JFrame());
+    	JDLanguages lang = new JDLanguages(this);
 		lang.setLocationRelativeTo(getMainFrame());
 		lang.setModal(true);
 		lang.setVisible(true);
