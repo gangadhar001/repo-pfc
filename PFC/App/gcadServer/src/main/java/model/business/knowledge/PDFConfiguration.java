@@ -1,13 +1,21 @@
 package model.business.knowledge;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * This class represents the configuration used to generate a PDF File
  *
  */
-public class PDFConfiguration {
+public class PDFConfiguration implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7189876391103733835L;
+	/**
+	 * 
+	 */
 	private List<PDFSection> sections;
 
 	public PDFConfiguration(List<PDFSection> sections) {

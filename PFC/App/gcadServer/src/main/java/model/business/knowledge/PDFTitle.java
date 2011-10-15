@@ -1,10 +1,5 @@
 package model.business.knowledge;
 
-import java.awt.Color;
-
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 
 /**
  * This class represents a PDF Title
@@ -12,12 +7,16 @@ import com.itextpdf.text.FontFactory;
  */
 public class PDFTitle extends PDFElement {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8885195870975827909L;
 	private String title;
-	private Font font;
+	private float fontSize;
 
 	public PDFTitle(String title) {
 		super();
-		font = FontFactory.getFont(FontFactory.HELVETICA, 16f, Font.BOLD, new BaseColor(Color.BLACK));
+		fontSize = 16f;
 		this.title = title;
 	}
 
@@ -29,14 +28,9 @@ public class PDFTitle extends PDFElement {
 		this.title = title;
 	}
 
-	public Font getFont() {
-		return font;
+	public float getFontSize() {
+		return fontSize;
 	}
-
-	public void setFont(Font font) {
-		this.font = font;
-	}
-
 
 
 }

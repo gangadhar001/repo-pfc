@@ -90,12 +90,12 @@ public class PDFComposer {
 	private static void generateContent(long sessionId, Section sec, PDFSection section) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		for(PDFElement element : section.getElements()){
 			if (element instanceof PDFTitle) {
-				Font f = ((PDFTitle)element).getFont();
+				Font f = FontFactory.getFont(FontFactory.HELVETICA, ((PDFTitle)element).getFontSize(), Font.BOLD, new BaseColor(Color.BLACK));
 				Paragraph p = new Paragraph(((PDFTitle)element).getTitle().toUpperCase(), f);
 				sec.setTitle(p);
 			}
-			if (element instanceof PDFText) {
-				Font f = ((PDFText)element).getFont();
+			else if (element instanceof PDFText) {
+				Font f = FontFactory.getFont(FontFactory.HELVETICA, ((PDFText)element).getFontSize(), Font.BOLD, new BaseColor(Color.BLACK));
 				Paragraph p = new Paragraph(((PDFText)element).getContent(), f);
 				sec.add(p);
 			}
