@@ -98,7 +98,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				{
-					currentPanel = new panelProjectInformation();
+					currentPanel = new panelProjectInformation(this);
 					getContentPane().add(currentPanel);
 					currentPanel.setBounds(12, 12, 272, 480);
 				}

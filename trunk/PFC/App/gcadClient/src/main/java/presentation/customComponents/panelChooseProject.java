@@ -72,7 +72,10 @@ public class panelChooseProject extends javax.swing.JPanel {
 	}
 
 	public int getProjectId() {
-		return ((Project)cbProjects.getSelectedItem()).getId();
+		int result = -1;
+		if (cbProjects.getSelectedItem() != null)
+			result = ((Project)cbProjects.getSelectedItem()).getId();
+		return result;
 	}
 
 }

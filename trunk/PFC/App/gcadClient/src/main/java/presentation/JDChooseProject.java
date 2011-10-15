@@ -50,18 +50,18 @@ public class JDChooseProject extends javax.swing.JDialog {
 	private void initGUI() {
 		try {
 			{
-				setUndecorated(true);
 				getContentPane().setLayout(null);
+				this.setResizable(false);
 				this.setTitle(ApplicationInternationalization.getString("chooseProjectTitle"));
 				pnlChooseProject = new panelChooseProject();
 				pnlChooseProject.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
 				getContentPane().add(pnlChooseProject);
-				pnlChooseProject.setBounds(0, 0, 322, 194);
+				pnlChooseProject.setBounds(0, 0, 322, 95);
 			}
 			{
 				btnOK = new JButton();
 				getContentPane().add(btnOK, "Center");
-				btnOK.setBounds(138, 193, 81, 25);
+				btnOK.setBounds(132, 123, 81, 25);
 				btnOK.setName("btnOK");
 				btnOK.setAction(getAppActionMap().get("Ok"));
 				btnOK.setText(ApplicationInternationalization.getString("btnOK"));
@@ -69,12 +69,12 @@ public class JDChooseProject extends javax.swing.JDialog {
 			{
 				btnCancel = new JButton();
 				getContentPane().add(btnCancel);
-				btnCancel.setBounds(230, 193, 81, 25);
+				btnCancel.setBounds(218, 123, 81, 25);
 				btnCancel.setAction(getAppActionMap().get("Cancel"));
 				btnCancel.setName("btnCancel");
 				btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
 			}
-			this.setSize(338, 270);
+			this.setSize(330, 198);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -84,10 +84,9 @@ public class JDChooseProject extends javax.swing.JDialog {
 	@Action
 	public void Ok () {
 		if (pnlChooseProject.getProjectId() != -1) {
-			if (JOptionPane.showConfirmDialog(this, ApplicationInternationalization.getString("chooseProjectTitle"), ApplicationInternationalization.getString("l"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(this, ApplicationInternationalization.getString("Dialog_SwitchProject_Message"), ApplicationInternationalization.getString("chooseProjectTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 				try {
-					// TODO: hacer
-					ClientController.getInstance().setCurrentProject(3);
+					ClientController.getInstance().setCurrentProject(pnlChooseProject.getProjectId());
 					this.dispose();
 					ClientController.getInstance().restartMainFrame();
 				} catch (RemoteException e) {

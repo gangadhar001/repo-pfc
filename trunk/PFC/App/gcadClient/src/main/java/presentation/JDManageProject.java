@@ -60,7 +60,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = -6500564343875421781L;
-	private panelProjectInformation panelCaseInformationCreate;
+	private panelProjectInformation panelProjectInformationCreate;
 	private JPanel pnlUsersCreate;
 	private JList listUsers;
 	private JScrollPane jScrollPane1;
@@ -120,9 +120,9 @@ public class JDManageProject extends javax.swing.JDialog {
 						tabCreateProject.setLayout(null);
 						tabCreateProject.setPreferredSize(new java.awt.Dimension(617, 564));
 						{
-							panelCaseInformationCreate = new panelProjectInformation();
-							tabCreateProject.add(panelCaseInformationCreate);
-							panelCaseInformationCreate.setBounds(12, 12, 266, 450);
+							panelProjectInformationCreate = new panelProjectInformation(this);
+							tabCreateProject.add(panelProjectInformationCreate);
+							panelProjectInformationCreate.setBounds(12, 12, 266, 450);
 						}
 						{
 							pnlUsersCreate = new JPanel();
@@ -211,7 +211,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						jTabbedPane.addTab(ApplicationInternationalization.getString("tabModifyProject"), null, tabModifyProject, null);
 						tabModifyProject.setLayout(null);
 						{
-							panelProjectInformationModify = new panelProjectInformation();
+							panelProjectInformationModify = new panelProjectInformation(this);
 							tabModifyProject.add(panelProjectInformationModify);
 							panelProjectInformationModify.setBounds(12, 53, 266, 430);
 							panelProjectInformationModify.setName("panelProjectInformationModify");
@@ -251,11 +251,11 @@ public class JDManageProject extends javax.swing.JDialog {
 									listUsersModify.setBounds(5, 131, 247, 128);
 									listUsersModify.addMouseListener(new MouseAdapter() {
 										public void mouseClicked(MouseEvent e) {
-											int index = listUsers.locationToIndex(e.getPoint());
+											int index = listUsersModify.locationToIndex(e.getPoint());
 											CheckableItem item = (CheckableItem) listUsers.getModel().getElementAt(index);
 											item.setSelected(!item.isSelected());
-											Rectangle rect = listUsers.getCellBounds(index, index);
-											listUsers.repaint(rect);
+											Rectangle rect = listUsersModify.getCellBounds(index, index);
+											listUsersModify.repaint(rect);
 											if (item.isSelected()) {
 												txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
 														+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
@@ -324,7 +324,10 @@ public class JDManageProject extends javax.swing.JDialog {
 
 				fillUsers();
 				fillProjects();
-				panelCaseInformationCreate.showData(new Project(), true);
+				
+				panelProjectInformationCreate.showData(new Project(), true);
+				cbProjects.setSelectedIndex(0);
+				
 			}
 			this.setSize(593, 620);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
@@ -338,8 +341,9 @@ public class JDManageProject extends javax.swing.JDialog {
 			try {
 				List<User> users = ClientController.getInstance().getUsersProject((Project) cbProjects.getSelectedItem());
 				for (User u: users) {
-					listUsersModify.setSelectedIndex(getIndexofUserInList(u));
+					selectUserInList(getIndexofUserInList(u));
 				}
+				selectedUsersModify.addAll(users);
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
@@ -351,10 +355,16 @@ public class JDManageProject extends javax.swing.JDialog {
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		
+		}		
 	}
 
+	private void selectUserInList(int index) {
+		CheckableItem item = (CheckableItem) listUsersModify.getModel().getElementAt(index);
+		item.setSelected(!item.isSelected());
+		Rectangle rect = listUsersModify.getCellBounds(index, index);
+		listUsersModify.repaint(rect);
+	}
+	
 	private int getIndexofUserInList(User u) {
 		boolean found = false;
 		int result = -1;
@@ -394,8 +404,6 @@ public class JDManageProject extends javax.swing.JDialog {
 	private void fillProjectData() {
 		if (cbProjects.getSelectedItem() != null) {
 			panelProjectInformationModify.showData((Project) cbProjects.getSelectedItem(), true);
-			panelProjectInformationModify.setEnabled(true);
-			panelUsersModify.setEnabled(true);
 			btnCancelModify.setEnabled(true);
 			btnModify.setEnabled(true);
 		}		
@@ -429,18 +437,15 @@ public class JDManageProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Create() {
-		// Validate data TODO
 		// Create project and update users
-		Project newProject = panelCaseInformationCreate.getProject();
-		if (newProject == null)
-			; // TODO: error. Rellenar datos obligatorios del proyecto	
+		Project newProject = panelProjectInformationCreate.getProject();
 		try {
 			Project p = ClientController.getInstance().createProject(newProject);
 			if (p != null)
 				// Update id of the project
 				newProject.setId(p.getId());			
 			for (User u : selectedUsersCreate) {
-				ClientController.getInstance().addProjectsUser(u, p);
+                ClientController.getInstance().addProjectsUser(u, p);
 			}
 			this.dispose();
 		} catch (RemoteException e) {
@@ -458,13 +463,10 @@ public class JDManageProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Modify() {
-		// Validate data TODO
 		// Modify project and update users
 		Project oldProject = (Project)cbProjects.getSelectedItem();
-		Project projectModified = panelCaseInformationCreate.getProject();
+		Project projectModified = panelProjectInformationModify.getProject();
 		projectModified.setId(oldProject.getId());
-		if (projectModified == null)
-			; // TODO: error. Rellenar datos obligatorios del proyecto	
 		try {
 			ClientController.getInstance().updateProject(projectModified);
 			List<User> oldUsers = ClientController.getInstance().getUsersProject(oldProject);

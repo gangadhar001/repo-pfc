@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -23,6 +22,7 @@ import org.jdom.JDOMException;
 
 import resources.LanguagesUtilities;
 
+import bussiness.Main;
 import bussiness.control.ClientController;
 
 /**
@@ -48,6 +48,7 @@ public class JDLanguages extends javax.swing.JDialog {
 	private JLabel lblChoose;
 	private Language selectedLanguage = null;
 	private Language defaultLanguage;
+	private Object parent; 
 	
 	private static final int HEIGHT = 35;
 
@@ -55,8 +56,9 @@ public class JDLanguages extends javax.swing.JDialog {
 	* Auto-generated main method to display this JDialog
 	*/
 		
-	public JDLanguages(JFrame frame) {
-		super(frame);
+	public JDLanguages(Object parent) {
+		super();
+		this.parent = parent;
 		initGUI();
 	}
 	
@@ -129,7 +131,10 @@ public class JDLanguages extends javax.swing.JDialog {
 				try {
 					LanguagesUtilities.setDefaultLanguage(selectedLanguage);
 					this.dispose();
-					ClientController.getInstance().restartLoginFrame();
+					if (parent instanceof JFMain)
+						ClientController.getInstance().restartMainFrame();
+					else
+						ClientController.getInstance().restartLoginFrame();
 				} catch (JDOMException e) {
 					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 				} catch (IOException e) {
@@ -149,7 +154,7 @@ public class JDLanguages extends javax.swing.JDialog {
 	private JButton getBtnOk() {
 		if(btnOk == null) {
 			btnOk = new JButton();
-			btnOk.setBounds(128, 201, 82, 25);
+			btnOk.setBounds(37, 202, 82, 25);
 			btnOk.setName("btnOk");
 			btnOk.setAction(getAppActionMap().get("OK"));
 			btnOk.setText(ApplicationInternationalization.getString("btnOK"));
@@ -160,10 +165,10 @@ public class JDLanguages extends javax.swing.JDialog {
 	private JButton getBtnCancel() {
 		if(btnCancel == null) {
 			btnCancel = new JButton();
-			btnCancel.setBounds(41, 201, 82, 25);
+			btnCancel.setBounds(124, 202, 82, 25);
 			btnCancel.setName("btnCancel");
 			btnCancel.setAction(getAppActionMap().get("Cancel"));
-			btnOk.setText(ApplicationInternationalization.getString("CancelButton"));
+			;
 		}
 		return btnCancel;
 	}

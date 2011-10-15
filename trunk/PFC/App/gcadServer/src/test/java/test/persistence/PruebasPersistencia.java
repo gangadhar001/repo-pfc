@@ -113,10 +113,8 @@ public class PruebasPersistencia extends PruebasBase {
 		try {
 			// Intentamos actualizar un usuario inexistente
 			DAOUser.update(chief);
-			fail("Se esperaba una excepción IncorrectEmployeeException");
-		} catch(IncorrectEmployeeException e) {
+			fail("Se esperaba una excepción");
 		} catch(Exception e) {
-			fail("Se esperaba una excepción IncorrectEmployeeException");
 		}
 		
 		try {

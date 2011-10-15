@@ -23,9 +23,10 @@ public class DAOProject {
 	private static final String COL_ID = "id";
 	
 	public static void insert (Project project) throws SQLException {
+		Project p = null;
 		try {
 			DBConnectionManager.initTransaction();
-			Project p = (Project) DBConnectionManager.insert(project.clone());
+			p = (Project) DBConnectionManager.insert(project.clone());
 			project.setId(p.getId());
 		} finally {
 			DBConnectionManager.finishTransaction();
