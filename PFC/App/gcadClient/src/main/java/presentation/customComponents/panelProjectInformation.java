@@ -1,34 +1,24 @@
-package presentation;
+package presentation.customComponents;
 
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.lang.reflect.Field;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-
-import javax.swing.WindowConstants;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import model.business.control.CBR.Attribute;
 import model.business.knowledge.Project;
 
 import org.jdesktop.application.Application;
 
-import presentation.customComponents.NumericTextField;
-
 import bussiness.control.ClientController;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -42,6 +32,10 @@ import javax.swing.SpinnerNumberModel;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
+
+/**
+ * Custom panel used to show the information of a Project
+ */
 public class panelProjectInformation extends javax.swing.JPanel {
 
 	/**
@@ -70,11 +64,10 @@ public class panelProjectInformation extends javax.swing.JPanel {
 			this.setLayout(null);
 			this.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelProject")));
 			
-			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
-			
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);			
 					
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -118,11 +111,9 @@ public class panelProjectInformation extends javax.swing.JPanel {
 				}
 			}
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 

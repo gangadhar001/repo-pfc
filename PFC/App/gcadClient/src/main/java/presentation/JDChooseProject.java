@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import presentation.customComponents.panelChooseProject;
+
 import bussiness.control.ClientController;
 import exceptions.NotLoggedException;
 
@@ -27,7 +29,6 @@ import exceptions.NotLoggedException;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 
-// TODO: internacionalizar
 public class JDChooseProject extends javax.swing.JDialog {
 	/**
 	 * 
@@ -37,10 +38,6 @@ public class JDChooseProject extends javax.swing.JDialog {
 	private JButton btnCancel;
 	private panelChooseProject pnlChooseProject;
 
-	/**
-	* Auto-generated main method to display this JDialog
-	*/
-		
 	public JDChooseProject(JFrame frame) {
 		super(frame);
 		initGUI();
@@ -55,6 +52,7 @@ public class JDChooseProject extends javax.swing.JDialog {
 			{
 				setUndecorated(true);
 				getContentPane().setLayout(null);
+				this.setTitle(ApplicationInternationalization.getString("chooseProjectTitle"));
 				pnlChooseProject = new panelChooseProject();
 				pnlChooseProject.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
 				getContentPane().add(pnlChooseProject);
@@ -66,6 +64,7 @@ public class JDChooseProject extends javax.swing.JDialog {
 				btnOK.setBounds(138, 193, 81, 25);
 				btnOK.setName("btnOK");
 				btnOK.setAction(getAppActionMap().get("Ok"));
+				btnOK.setText(ApplicationInternationalization.getString("btnOK"));
 			}
 			{
 				btnCancel = new JButton();
@@ -73,6 +72,7 @@ public class JDChooseProject extends javax.swing.JDialog {
 				btnCancel.setBounds(230, 193, 81, 25);
 				btnCancel.setAction(getAppActionMap().get("Cancel"));
 				btnCancel.setName("btnCancel");
+				btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
 			}
 			this.setSize(338, 270);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
@@ -83,26 +83,22 @@ public class JDChooseProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Ok () {
-		// TODO: mensaje error e internacionalizacion
 		if (pnlChooseProject.getProjectId() != -1) {
-			if (JOptionPane.showConfirmDialog(this, ApplicationInternationalization.getString("Dialog_SwitchProject_Title"), ApplicationInternationalization.getString("Dialog_SwitchProject_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(this, ApplicationInternationalization.getString("chooseProjectTitle"), ApplicationInternationalization.getString("l"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 				try {
+					// TODO: hacer
 					ClientController.getInstance().setCurrentProject(3);
 					this.dispose();
 					ClientController.getInstance().restartMainFrame();
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 				} catch (NotLoggedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
-		// else
 	}
 	
 	@Action

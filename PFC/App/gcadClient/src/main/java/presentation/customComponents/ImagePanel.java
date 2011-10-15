@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+/**
+ * This class represents a custom JPanel with an image as background
+ *
+ */
 public class ImagePanel extends JPanel{
 
 	/**

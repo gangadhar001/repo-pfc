@@ -7,6 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+/**
+ * Custom panel with rounded corners
+ *
+ */
 public class RoundedPanel extends javax.swing.JPanel {
 
 	/**

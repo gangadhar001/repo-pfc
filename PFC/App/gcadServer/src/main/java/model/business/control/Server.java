@@ -10,11 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.jdom.JDOMException;
-
-import resources.Language;
-import resources.LanguagesUtilities;
-
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
@@ -27,6 +22,7 @@ import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
+import model.business.knowledge.PDFConfiguration;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Session;
@@ -34,6 +30,12 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 
+import org.jdom.JDOMException;
+
+import resources.Language;
+import resources.LanguagesUtilities;
+
+import com.itextpdf.text.Image;
 import communication.ClientProxy;
 import communication.IClient;
 import communication.IServer;
@@ -433,6 +435,31 @@ public class Server implements IServer {
 		return result;
 	}
 	
+
+	@Override
+	public void updateProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		// TODO mensajes
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			ProjectController.updateProject(sessionId, p);
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewProject_msg") + " " + p.getName());
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_NewProject_msg") + " '" + p.getName() + "': " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewProject_msg") + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRoleException npr) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewProject_msg") + " " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_NewProject_msg") + " " + e.toString());
+			throw e;
+		}
+	}
+	
 	@Override
 	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
@@ -454,6 +481,30 @@ public class Server implements IServer {
 			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("Exception_AddProjectsUser_msg") + " " + e.toString());
 			throw e;
 		}
+	}
+	
+	@Override
+	public void removeProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		// TODO: mensajes
+		String login = "";
+		try {
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			UsersController.removeProjectsUser(sessionId, user, project);
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("AddProjectsUser_msg") + " " + project.getName());		
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_AddProjectsUser_msg") + " " + project.getName() );
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_AddProjectsUser_msg") + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRoleException npr) {
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("NonPermission_AddProjectsUser_msg") + " " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("Exception_AddProjectsUser_msg") + " " + e.toString());
+			throw e;
+		}		
 	}
 	
 	@Override
@@ -1033,5 +1084,32 @@ public class Server implements IServer {
 			throw e;
 		}
 		return files;
+	}
+
+	/*** Methods used to generatePDF ***/
+	@Override
+	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		// TODO: mensajes
+		String login = "";
+		byte[] doc = null;
+		try{
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			doc = PDFComposer.createDocument(sessionId, configuration, headerImage, footImage);
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewAnswer_msg") + " " );
+		} catch(SQLException se) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newAnswer_msg") + " '" + "': " + se.getLocalizedMessage());
+			throw se;
+		} catch(NotLoggedException nte) {
+			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewAnswer_msg") + nte.getLocalizedMessage());
+			throw nte;
+		} catch(NonPermissionRoleException npr) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NonPermission_NewAnswer_msg") + " " + npr.getLocalizedMessage());
+			throw npr;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("Exception_newAnswer_msg") + " " + e.toString());
+			throw e;
+		}
+		return doc;
 	}
 }

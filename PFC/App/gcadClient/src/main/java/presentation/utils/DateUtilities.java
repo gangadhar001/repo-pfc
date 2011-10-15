@@ -14,7 +14,7 @@ public class DateUtilities {
 
 	public static String convert(Date date) {
 		DateFormat format = new SimpleDateFormat("d/M/yyyy");
-		return format.format(new Date());
+		return format.format(date);
 	}
 	
 	// Returns the years between two dates

@@ -1,12 +1,8 @@
 package presentation.panelsActions;
 
-import info.clearthought.layout.TableLayout;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -22,20 +18,20 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import model.business.knowledge.PDFConfiguration;
+import model.business.knowledge.PDFElement;
+import model.business.knowledge.PDFSection;
+import model.business.knowledge.PDFTable;
+import model.business.knowledge.PDFText;
+import model.business.knowledge.PDFTitle;
 
 import org.jdesktop.application.Application;
 
 import presentation.JDPdf;
 import presentation.JFMain;
-import presentation.PDFConfiguration;
-import presentation.PDFElement;
-import presentation.PDFSection;
-import presentation.PDFTable;
-import presentation.PDFText;
-import presentation.PDFTitle;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.PDFGen.panelPDFDragged;
 import presentation.customComponents.PDFGen.panelPDFDraggedTable;
@@ -44,7 +40,6 @@ import presentation.customComponents.PDFGen.panelPDFDraggedTitle;
 import presentation.customComponents.PDFGen.panelPDFElement;
 import presentation.dragdrop.DragAndDropTransferHandler;
 import presentation.dragdrop.PanelDropTargetListener;
-import presentation.utils.SpringUtilities;
 import resources.ImagesUtilities;
 
 

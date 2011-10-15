@@ -31,6 +31,8 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdesktop.application.SingleFrameApplication;
 
+import presentation.customComponents.panelChooseProject;
+
 import resources.IPValidator;
 import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
@@ -242,7 +244,7 @@ public class JFLogin extends SingleFrameApplication {
                 btnExpand.setPreferredSize(new java.awt.Dimension(25, 24));
                 btnExpand.addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent evt) {
-                                btnExpandMouseClicked(evt);
+                                btnExpandMouseClicked();
                         }
                 });
         }
@@ -299,7 +301,7 @@ public class JFLogin extends SingleFrameApplication {
 		txtServerPort.setVisible(b);		
 	}
     
-    private void btnExpandMouseClicked(MouseEvent evt) {
+    private void btnExpandMouseClicked() {
     	// Expand/contract the server options panel
     	Icon buttonIcon;
     	if (!isServerPanelExpanded){    

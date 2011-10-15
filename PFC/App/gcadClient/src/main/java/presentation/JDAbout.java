@@ -1,14 +1,14 @@
 package presentation;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
-import java.lang.reflect.Method;
-import javax.swing.JButton;
 
-import javax.swing.JDialog;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+
 import org.jdesktop.application.Application;
 
 import presentation.utils.AWTUtilitiesWrapper;
@@ -28,6 +28,11 @@ import presentation.utils.AWTUtilitiesWrapper;
 
 // REFERENCES: http://java.sun.com/developer/technicalArticles/GUI/translucent_shaped_windows/#Demo
 public class JDAbout extends javax.swing.JDialog {
+	/**
+	 * 
+	 */
+	// TODO: hacerlo
+	private static final long serialVersionUID = 2342089516245307105L;
 	private JPanel jPanel1;
 	private JButton btnOk;
 
@@ -55,6 +60,7 @@ public class JDAbout extends javax.swing.JDialog {
 						jPanel1.add(btnOk);
 						btnOk.setBounds(603, 324, 66, 25);
 						btnOk.setName("btnOk");
+						btnOk.setText(ApplicationInternationalization.getString("btnOK"));
 					}
 				}
 			}

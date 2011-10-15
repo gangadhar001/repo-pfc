@@ -22,6 +22,10 @@ import org.jdesktop.swingx.image.GaussianBlurFilter;
 
 import resources.ImagesUtilities;
 
+/**
+ * Custom GlassPane used to show the details of a company
+ *
+ */
 public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListener {
     /**
 	 * 

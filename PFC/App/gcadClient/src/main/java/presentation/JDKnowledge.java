@@ -3,8 +3,6 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -97,7 +95,6 @@ public class JDKnowledge extends javax.swing.JDialog {
 	private void initGUI() {
 		this.setTitle(ApplicationInternationalization.getString("titleJFKnowledge"));
 		this.setResizable(false);
-//		this.setUndecorated(true);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				closeWindow();

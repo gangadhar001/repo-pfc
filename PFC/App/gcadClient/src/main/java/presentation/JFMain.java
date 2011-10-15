@@ -7,7 +7,6 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -23,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -42,7 +40,6 @@ import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
-import presentation.dataVisualization.KnowledgeGraph;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelPDFGeneration;
@@ -113,9 +110,7 @@ public class JFMain extends SingleFrameApplication {
              public void willExit(EventObject event) {
             	 quit();
              }
-         });
-        
-       
+         });           
     	
     	try {			
 			getMainFrame().setPreferredSize(new java.awt.Dimension(WIDTH, HEIGHT));
@@ -286,8 +281,7 @@ public class JFMain extends SingleFrameApplication {
         // Includes operation "generate", if the user has permissions
         List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
         if (availableOps.contains(Operations.Generate.name()))
-        	toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Statistics.name()));
-                
+        	toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Statistics.name()));                
     }
 	
     // Method to add specific button for PDFGen view to the toolbar
@@ -434,9 +428,7 @@ public class JFMain extends SingleFrameApplication {
 				Thread performer = new Thread(new Runnable() {
 					public void run() {
 						createKnowledgeView();
-					}
-
-					
+					}					
 				}, "Performer");
 				performer.start();
 			}
@@ -531,8 +523,7 @@ public class JFMain extends SingleFrameApplication {
 				found = true;
 				((JButton)components[i]).setEnabled(enabled);
 			}
-		}
-		
+		}		
 	}
 
 	public void manageKnowledgeFromMenu() {

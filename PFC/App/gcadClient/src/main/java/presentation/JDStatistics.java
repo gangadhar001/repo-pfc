@@ -140,6 +140,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	
 	private void initGUI() {
 		try {
+			setTitle(ApplicationInternationalization.getString("createStatisticTitle"));
 			{
 				btnCreate = new JButton();
 				getContentPane().add(btnCreate);
@@ -280,6 +281,7 @@ public class JDStatistics extends javax.swing.JDialog {
 
 	private void createChartButtons() throws JDOMException, IOException {
 		// Get types of chart from XML
+		// TODO: hacer
 		List<String> types = StatisticsGenerator.getInstance().getChartsTypes();
 		for (String s: types) {		
 			JButton button = new JButton();
@@ -396,7 +398,7 @@ public class JDStatistics extends javax.swing.JDialog {
 			cbCharts.setBounds(83, 9, 229, 23);
 			cbCharts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-					cbChartsActionPerformed(evt);
+					cbChartsActionPerformed();
 				}
 			});
 		}
@@ -442,7 +444,7 @@ public class JDStatistics extends javax.swing.JDialog {
 			cbProjects.setName("cbProjects");
 			cbProjects.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-					cbProjectsActionPerformed(evt);
+					cbProjectsActionPerformed();
 				}
 			});
 		}
@@ -503,7 +505,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	}
 	
 	// Depending on the chosen chart, enabling or disabling components 
-	private void cbChartsActionPerformed(ActionEvent evt) {
+	private void cbChartsActionPerformed() {
 		try {
 			if (cbCharts.getSelectedIndex()!= -1) {
 				selectedChart = (ChartInfo) cbCharts.getSelectedItem();
@@ -523,7 +525,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	}
 	
 	// When a project is selected, load users from that project
-	private void cbProjectsActionPerformed(ActionEvent evt) {
+	private void cbProjectsActionPerformed() {
 		cbUsers.removeAllItems();
 		if (cbProjects.getSelectedIndex() != -1) {
 			List<User> users;

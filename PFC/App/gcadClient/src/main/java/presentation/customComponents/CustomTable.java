@@ -1,4 +1,4 @@
-package presentation.dataVisualization;
+package presentation.customComponents;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -16,6 +16,10 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 
+/** 
+ * Custom Knowledge Table
+ *
+ */
 public class CustomTable extends JTable {
 
 	/**

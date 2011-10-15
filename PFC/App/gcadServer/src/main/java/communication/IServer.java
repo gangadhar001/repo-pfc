@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itextpdf.text.Image;
+
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
@@ -17,6 +19,7 @@ import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
+import model.business.knowledge.PDFConfiguration;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -42,7 +45,7 @@ public interface IServer extends Remote {
 	public static final String NAME_SERVER = "gcadServer";
 
 	/*** Methods used to manage login and signout ***/
-	public ISession login (String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, Exception;
+	public ISession login(String user, String pass) throws RemoteException, IncorrectEmployeeException, SQLException, Exception;
 	
 	public void signout(long sessionID) throws RemoteException, SQLException, NotLoggedException, Exception ;
 
@@ -73,7 +76,11 @@ public interface IServer extends Remote {
 	/*** Methods used to manage projects ***/
 	public Project createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
+	public void updateProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	
 	public void addProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	
+	public void removeProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 		
 	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRoleException, NotLoggedException, SQLException, Exception;
 	
@@ -128,4 +135,7 @@ public interface IServer extends Remote {
 	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
 	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception;
+	
+	/*** Method used to generate the PDF ***/
+	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 }

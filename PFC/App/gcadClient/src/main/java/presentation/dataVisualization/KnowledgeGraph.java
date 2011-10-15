@@ -1,7 +1,5 @@
 package presentation.dataVisualization;
 
-import internationalization.ApplicationInternationalization;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Paint;
@@ -18,9 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.Icon;
-import javax.swing.JFileChooser;
 import javax.swing.JPopupMenu;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
@@ -30,12 +26,11 @@ import model.business.knowledge.TopicWrapper;
 
 import org.apache.commons.collections15.Transformer;
 
-import bussiness.control.ClientController;
-
-import presentation.dataVisualization.auxiliary.PopupVertexEdgeMenuMousePlugin;
-import presentation.dataVisualization.auxiliary.VertexMenu;
+import presentation.dataVisualization.graph.auxiliary.PopupVertexEdgeMenuMousePlugin;
+import presentation.dataVisualization.graph.auxiliary.VertexMenu;
 import presentation.panelsActions.panelKnowledgeView;
 import resources.ImagesUtilities;
+import bussiness.control.ClientController;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -55,6 +50,10 @@ import edu.uci.ics.jung.visualization.picking.PickedState;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
+/**
+ * This class is used to create a custom JUNG Graph. 
+ *
+ */
 public class KnowledgeGraph {
 
 	private VisualizationViewer<Knowledge,String> vv;
@@ -260,25 +259,18 @@ public class KnowledgeGraph {
 		         setAttachIconVertex(selectedVertex);
 		         clearSelection();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			} catch (NonPermissionRoleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			} catch (NotLoggedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	   	     	
+				parent.showMessage(e);
+			}	   	     	
 		}
 	}
 
@@ -288,11 +280,9 @@ public class KnowledgeGraph {
         	try {
 				((LayeredIcon)icon).add(ImagesUtilities.loadIcon("attach.png"));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				parent.showMessage(e);
 			}           
         }		
 	}

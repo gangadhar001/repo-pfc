@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class PasswordUtilities {
 
 	// REFERENCE: http://www.rgagnon.com/javadetails/java-0400.html
+	
 	public static String encryptPasswordSHA1(String password) throws NoSuchAlgorithmException {
 		MessageDigest key;
 		StringBuffer keyBuffer;

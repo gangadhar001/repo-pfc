@@ -1,6 +1,6 @@
 package presentation.dragdrop;
 
-
+// REFERENCE: http://www.bryanesmith.com/documents/drag-and-drop-panel-demo/index.html
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -35,8 +35,7 @@ public class PanelDropTargetListener implements DropTargetListener {
         this.panelWithDrop = sheet;
         this.parent = parent;
     }
-
-    // Could easily find uses for these, like cursor changes, etc.
+ 
     public void dragEnter(DropTargetDragEvent dtde) {}
     public void dragOver(DropTargetDragEvent dtde) {
         if (!this.panelWithDrop.getCursor().equals(droppableCursor)) {
@@ -53,7 +52,6 @@ public class PanelDropTargetListener implements DropTargetListener {
      * Drop Event
      */
     public void drop(DropTargetDropEvent dtde) {
-        // Done with cursors, dropping
         this.panelWithDrop.setCursor(Cursor.getDefaultCursor());
         
         DataFlavor dragAndDropPanelFlavor = null;

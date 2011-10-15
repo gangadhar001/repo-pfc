@@ -11,6 +11,9 @@ import java.util.List;
 
 import org.jdom.JDOMException;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+
 import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
@@ -22,6 +25,7 @@ import model.business.knowledge.ISession;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
+import model.business.knowledge.PDFConfiguration;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
@@ -39,7 +43,6 @@ import exceptions.WSResponseException;
  * Proxy used to connect to server
  *
  */
-// TODO: revisar
 public class ProxyServer implements IServer {
 
 	private IServer server;
@@ -199,84 +202,76 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public void createNotification(long arg0, Notification arg1)
-			throws SQLException, NonPermissionRoleException,
-			NotLoggedException, RemoteException, Exception {
-		server.createNotification(arg0, arg1);
-		
+	public void createNotification(long sessionId, Notification n) throws SQLException, NonPermissionRoleException, NotLoggedException, RemoteException, Exception {
+		server.createNotification(sessionId, n);		
 	}
 
 	@Override
-	public void deleteNotification(long arg0, Notification arg1)
-			throws RemoteException, SQLException, NonPermissionRoleException,
-			NotLoggedException, NonExistentNotificationException, Exception {
-		server.deleteNotification(arg0, arg1);
-		
+	public void deleteNotification(long sessionId, Notification n) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception {
+		server.deleteNotification(sessionId, n);		
 	}
 
 	@Override
-	public void deleteNotificationFromUser(long arg0, Notification arg1)
-			throws RemoteException, SQLException, NonPermissionRoleException,
-			NotLoggedException, NonExistentNotificationException, Exception {
-		server.deleteNotificationFromUser(arg0, arg1);
-		
+	public void deleteNotificationFromUser(long sessionId, Notification n) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception {
+		server.deleteNotificationFromUser(sessionId, n);		
 	}
 
 	@Override
-	public List<Project> executeAlgorithm(long arg0, EnumAlgorithmCBR arg1,
-			List<Project> arg2, Project arg3, ConfigCBR arg4, int arg5)
-			throws RemoteException, Exception {
+	// TODO: revisar
+	public List<Project> executeAlgorithm(long arg0, EnumAlgorithmCBR arg1, List<Project> arg2, Project arg3, ConfigCBR arg4, int arg5) throws RemoteException, Exception {
 		return server.executeAlgorithm(arg0, arg1, arg2, arg3, arg4, arg5);
 	}
 
 	@Override
-	public Coordinates getCoordinates(long arg0, Address arg1)
-			throws NonExistentAddressException, WSResponseException, Exception {
-		return server.getCoordinates(arg0, arg1);
+	public Coordinates getCoordinates(long sessionId, Address address) throws NonExistentAddressException, WSResponseException, Exception {
+		return server.getCoordinates(sessionId, address);
 	}
 
 	@Override
-	public ArrayList<Notification> getNotificationsProject(long arg0)
-			throws RemoteException, SQLException, NonPermissionRoleException,
-			NotLoggedException, Exception {
-		return server.getNotificationsProject(arg0);
+	public ArrayList<Notification> getNotificationsProject(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.getNotificationsProject(sessionId);
 	}
 
 	@Override
-	public ArrayList<Notification> getNotificationsUser(long arg0)
-			throws SQLException, NonPermissionRoleException,
-			NotLoggedException, RemoteException, Exception {
-		return server.getNotificationsUser(arg0);
+	public ArrayList<Notification> getNotificationsUser(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException, RemoteException, Exception { 
+		return server.getNotificationsUser(sessionId);
 	}
 
 	@Override
-	public void modifyNotification(long arg0, Notification arg1)
-			throws SQLException, NonPermissionRoleException,
-			NotLoggedException, NonExistentNotificationException, Exception {
-		server.modifyNotification(arg0, arg1);
+	public void modifyNotification(long sessionId, Notification n) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception {
+		server.modifyNotification(sessionId, n);
 		
 	}
 
 	@Override
-	public void modifyNotificationState(long arg0, Notification arg1)
-			throws NotLoggedException, SQLException,
-			NonPermissionRoleException, Exception {
-		server.modifyNotificationState(arg0, arg1);
+	public void modifyNotificationState(long sessionId, Notification n) throws NotLoggedException, SQLException, NonPermissionRoleException, Exception {
+		server.modifyNotificationState(sessionId, n);
 		
 	}
 
 	@Override
-	public int attachFile(long sessionId, File file) throws RemoteException,
-			SQLException, NonPermissionRoleException, NotLoggedException,
-			Exception {
-	 return server.attachFile(sessionId, file);
+	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.attachFile(sessionId, file);
 	}
 
 	@Override
-	public List<File> getAttachedFiles(long sessionId, Knowledge k)
-			throws RemoteException, SQLException, NonExistentFileException,
-			NonPermissionRoleException, NotLoggedException, Exception {
+	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception {
 		return server.getAttachedFiles(sessionId, k);
+	}
+
+	@Override
+	public byte[] composePDF(long sessionId, PDFConfiguration config, Image header, Image footer) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.composePDF(sessionId, config, header, footer);
+	}
+
+	@Override
+	public void removeProjectsUser(long sessionId, User u, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.removeProjectsUser(sessionId, u, p);		
+	}
+
+	@Override
+	public void updateProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.updateProject(sessionId, p);		
 	}
 
 

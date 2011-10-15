@@ -49,14 +49,14 @@ public class Client implements IClient {
 	}
 
 	@Override
+	public void notifyNotificationAvailable(Notification n) throws RemoteException {
+		controller.notifyNotificationAvailable(n);		
+	}
+	
+	@Override
 	public void approachlessServer() throws RemoteException {
 		controller.approachlessServer();
 		
-	}
-
-	@Override
-	public void notifyNotificationAvailable(Notification n) throws RemoteException {
-		controller.notifyNotificationAvailable(n);		
 	}
 
 }

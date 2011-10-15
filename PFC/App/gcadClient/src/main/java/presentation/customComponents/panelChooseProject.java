@@ -1,4 +1,4 @@
-package presentation;
+package presentation.customComponents;
 
 import internationalization.ApplicationInternationalization;
 

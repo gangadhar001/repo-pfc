@@ -1,7 +1,9 @@
-package presentation;
+package model.business.knowledge;
 
-import model.business.knowledge.Project;
-
+/**
+ * This class represents a PDF Table
+ *
+ */
 public class PDFTable extends PDFElement {
 
 	private Project project;

@@ -82,7 +82,7 @@ public class ExportedClient extends UnicastRemoteObject implements IClient{
         }
     }
     
-    public void disabled(String ip) throws RemoteException, MalformedURLException, NotBoundException {
+    public void disabled(String ip) throws RemoteException, MalformedURLException {
     	try {
     		unexportObject(this, false);
     	} catch(NoSuchObjectException ex) {

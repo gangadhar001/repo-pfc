@@ -68,6 +68,7 @@ public class JDLanguages extends javax.swing.JDialog {
 		try {
 			{
 				getContentPane().setLayout(null);
+				this.setTitle(ApplicationInternationalization.getString("changeLanguageTitle"));
 			}
 			{
 				lblChoose = new JLabel();
@@ -76,6 +77,7 @@ public class JDLanguages extends javax.swing.JDialog {
 				getContentPane().add(getBtnCancel());
 				lblChoose.setBounds(12, 14, 158, 16);
 				lblChoose.setName("lblChoose");
+				lblChoose.setText(ApplicationInternationalization.getString("chooseLabelLanguage"));
 			}
 			
 			// Take the languages defined in the server
@@ -150,6 +152,7 @@ public class JDLanguages extends javax.swing.JDialog {
 			btnOk.setBounds(128, 201, 82, 25);
 			btnOk.setName("btnOk");
 			btnOk.setAction(getAppActionMap().get("OK"));
+			btnOk.setText(ApplicationInternationalization.getString("btnOK"));
 		}
 		return btnOk;
 	}
@@ -159,6 +162,8 @@ public class JDLanguages extends javax.swing.JDialog {
 			btnCancel = new JButton();
 			btnCancel.setBounds(41, 201, 82, 25);
 			btnCancel.setName("btnCancel");
+			btnCancel.setAction(getAppActionMap().get("Cancel"));
+			btnOk.setText(ApplicationInternationalization.getString("CancelButton"));
 		}
 		return btnCancel;
 	}
