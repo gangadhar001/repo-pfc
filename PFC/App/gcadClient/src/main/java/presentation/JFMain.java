@@ -35,11 +35,13 @@ import model.business.knowledge.Operations;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
+import org.jfree.chart.ChartPanel;
 
 import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
 import presentation.customComponents.JPDetailsCompanyGlassPanel;
+import presentation.dataVisualization.InternalFStatistics;
 import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelPDFGeneration;
@@ -281,7 +283,7 @@ public class JFMain extends SingleFrameApplication {
         // Includes operation "generate", if the user has permissions
         List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Statistics.name());
         if (availableOps.contains(Operations.Generate.name()))
-        	toolbar.add(createToolbarButton(Operations.Add.name()+Groups.Statistics.name()));                
+        	toolbar.add(createToolbarButton(Operations.Generate.name()+Groups.Statistics.name()));                
     }
 	
     // Method to add specific button for PDFGen view to the toolbar
@@ -321,7 +323,17 @@ public class JFMain extends SingleFrameApplication {
 	
 	@Action
 	public void GenerateStatistics() {
-		
+		JDStatistics jds = new JDStatistics();
+		jds.setModal(true);
+		jds.setLocationRelativeTo(getMainFrame());
+		jds.setVisible(true);
+		// Take the generated chart and show it in the view of statistics
+        ChartPanel chartPanel = jds.getChartPanel();
+        if (chartPanel != null) {           
+            InternalFStatistics internalFrameStatistic = new InternalFStatistics();
+            internalFrameStatistic.addChartPanel(chartPanel);
+            panelStatistics.addStatistic(internalFrameStatistic);            
+        }
 	}	
 	
 	@Action
@@ -358,16 +370,16 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void notifyKnowledgeRemoved(Knowledge k) {
-//		int index = tabPanel.getSelectedIndex();
-//		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
-//			panelKnowledge.notifyKnowledgeRemoved(k);				
+		if (panelKnowledge != null && panelKnowledge.isVisible()) {
+			panelKnowledge.notifyKnowledgeRemoved(k);
+		}				
 	}
 
 	/*** Methods used to update the views with local changes ***/
 	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
-//		int index = tabPanel.getSelectedIndex();
-//		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
-//			panelKnowledge.notifyKnowledgeAdded(k, parentK);	
+		if (panelKnowledge != null && panelKnowledge.isVisible()) {
+			panelKnowledge.notifyKnowledgeAdded(k, parentK);
+		}	
 		
 	}
 

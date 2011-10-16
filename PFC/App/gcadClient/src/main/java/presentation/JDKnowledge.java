@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -153,10 +155,9 @@ public class JDKnowledge extends javax.swing.JDialog {
 	@SuppressWarnings("rawtypes")
 	private void createPanelActions() throws IOException {
 		ArrayList<String> subgroups = Collections.list(actionsKnowledge.keys()); 
-		GridLayout layout = new GridLayout(subgroups.size(), 1);
-		layout.setVgap(35);
-		layout.setHgap(20);
+		BoxLayout layout = new BoxLayout(panelActions, BoxLayout.Y_AXIS);
 		panelActions.setLayout(layout);
+		
 		for (final String subgroup: subgroups) {
 			if (!subgroup.equals(Subgroups.PDFGeneration.name())) {
 		    	// Load the subgroup image of the operation

@@ -217,10 +217,13 @@ public class panelKnowledgeView extends ImagePanel {
 
 	/*** Methods used to add, modify or delete knowledge, since toolbar ***/
 	public void operationAdd() {
-		// If an item is selected, show the knowledge window filled with data
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
-			operationKnowledge(k.getClass().getSimpleName(), k, Operations.Add.name());
+			if (k instanceof Topic)
+				operationKnowledge("Proposal", k, Operations.Add.name());
+			else if (k instanceof Proposal)
+				operationKnowledge("Answer", k, Operations.Add.name());
+			else ; // TODO: error
 		}
 	}
 	

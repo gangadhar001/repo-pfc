@@ -239,17 +239,17 @@ public class JPManageProposal extends javax.swing.JPanel {
 			if (data != null) {
 				fillData();
 				// Disable tabs not used for that operation
-				int indexModify = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Modify"));
-				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Add"));
+				int indexModify = getIndexTab(ApplicationInternationalization.getString("tabManageProposal_Modify"));
+				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageProposal_Add"));
 				if (operationToDo.equals(Operations.Add.name())) {
 					if (indexModify != -1)
-						tabPanelProposal.getTabComponentAt(indexModify).setEnabled(false);
+						tabPanelProposal.setEnabledAt(indexModify, false);
 					if (indexAdd != -1)
 						tabPanelProposal.setSelectedIndex(indexAdd);
 				}
 				else if (operationToDo.equals(Operations.Modify.name())) {
 					if (indexAdd != -1)
-						tabPanelProposal.getTabComponentAt(indexAdd).setEnabled(false);
+						tabPanelProposal.setEnabledAt(indexAdd, false);
 					if (indexModify != -1)
 						tabPanelProposal.setSelectedIndex(indexModify);
 				}
@@ -285,7 +285,12 @@ public class JPManageProposal extends javax.swing.JPanel {
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-		}		
+		}	
+		// In case to add a new proposal, fill the topic parent
+		else {
+			cbTopics.setSelectedItem(((Topic)data).getTitle());
+			cbTopics.setEnabled(false);				
+		}
 	}
 
 	private void setItemsComboTopics() {

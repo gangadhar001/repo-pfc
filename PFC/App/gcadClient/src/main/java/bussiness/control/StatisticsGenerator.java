@@ -49,7 +49,7 @@ public class StatisticsGenerator {
 		// Get values from XML using XPath
 		List<Attribute> result = XMLUtilities.selectAttributes(docCharts, "//@type"); 
 		for(Attribute att : result)
-			types.add(((Attribute)att).getValue());
+			types.add(att.getValue());
 		return types;
 	}
 	
@@ -64,7 +64,7 @@ public class StatisticsGenerator {
 		// Get values from XML using XPath
 		List<Element> result = XMLUtilities.selectNodes(docCharts, "/Charts/Chart[@type='"+chartType+"']/id");	
 		for(Element el : result)
-			id.add(((Element)el).getValue());
+			id.add(el.getValue());
 		return id;
 	}
 	
@@ -73,7 +73,7 @@ public class StatisticsGenerator {
 		// Get values from XML using XPath
 		List<Element> result = XMLUtilities.selectNodes(docCharts, "/Charts/Chart[@type='"+chartType+"']/name");	
 		for(Element el : result)
-			idNames.add(((Element)el).getValue());
+			idNames.add(el.getValue());
 		return idNames;
 	}
 	
@@ -82,7 +82,7 @@ public class StatisticsGenerator {
 		// Get values from XML using XPath
 		List<Element> result = XMLUtilities.selectNodes(docCharts, "/Charts/Chart[@type='"+chartType+"']/desc");	
 		for(Element el : result)
-			idDesc.add(((Element)el).getValue());
+			idDesc.add(el.getValue());
 		return idDesc;
 	}	
 
@@ -222,25 +222,29 @@ public class StatisticsGenerator {
 		
 		int totalCount = 0;
 		int knowledgeUserCount;
-		List<Integer> parcial_counts = new ArrayList<Integer>();
+		Hashtable<String, Integer> parcial_counts = new Hashtable<String, Integer>();
 		
 		// Get all projects
 		List<Project> projects = ClientController.getInstance().getProjects();
+		List<User> usersInProject; 
 		for (Project p: projects) {
-			// Get knowledge from user on each project
-			TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(p);
-			List<Knowledge> knowledgeUser = ClientController.getInstance().getKnowledgeUser(tw, u);  
-			knowledgeUserCount = knowledgeUser.size();
-			parcial_counts.add(knowledgeUserCount);
-			totalCount += knowledgeUserCount;
-			if (!percentage)
-				((DefaultCategoryDataset)dataset).addValue(knowledgeUserCount, p.getName(), p.getName());			
+			// Get the user of that project
+			usersInProject = ClientController.getInstance().getUsersProject(p);
+			if (usersInProject.contains(u)){
+				// Get knowledge from user on each project
+				TopicWrapper tw = ClientController.getInstance().getTopicsWrapper(p);
+				List<Knowledge> knowledgeUser = ClientController.getInstance().getKnowledgeUser(tw, u);  
+				knowledgeUserCount = knowledgeUser.size();
+				parcial_counts.put(p.getName(), knowledgeUserCount);
+				totalCount += knowledgeUserCount;
+				if (!percentage)
+					((DefaultCategoryDataset)dataset).addValue(knowledgeUserCount, p.getName(), p.getName());			
+			}
 		}
-		
 		if (percentage) {
-			for (int parcialCount: parcial_counts) {
-				double value = (parcialCount * 100.0 / totalCount);
-				((DefaultPieDataset)dataset).setValue(u.getName(), value);
+			for (String projectName: parcial_counts.keySet()) {
+				double value = ((parcial_counts.get(projectName) * 100.0) / totalCount);
+				((DefaultPieDataset)dataset).setValue(projectName, value);
 			}
 		}
 		return dataset;
@@ -265,7 +269,7 @@ public class StatisticsGenerator {
 				List<User> usersProject = ClientController.getInstance().getUsersProject(p);
 				totalResources = usersProject.size();
 			}
-			dataset.addValue(totalResources, resource, resource);		
+			dataset.addValue(totalResources, p.getName(), p.getName());		
 		}
 		
 		return dataset;
