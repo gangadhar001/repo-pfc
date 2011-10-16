@@ -142,8 +142,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 						panelModifyTopic.add(btnCancelModify);
 						btnCancelModify.setBounds(453, 217, 91, 24);
 						btnCancelModify.setName("btnCancelModify");
-						btnCancelAdd.setAction(getAppActionMap().get("Cancel"));
-						btnCancelAdd.setText(ApplicationInternationalization.getString("CancelButton"));
+						btnCancelModify.setAction(getAppActionMap().get("Cancel"));
+						btnCancelModify.setText(ApplicationInternationalization.getString("CancelButton"));
 					}
 					{
 						btnSaveModify = new JButton();
@@ -163,7 +163,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 					{
 						lblTopics = new JLabel();
 						panelModifyTopic.add(lblTopics);
-						lblTopics.setBounds(12, 12, 49, 16);
+						lblTopics.setBounds(12, 12, 62, 16);
 						lblTopics.setName("lblTopics");
 						lblTopics.setText(ApplicationInternationalization.getString("lblTopics"));
 					}
@@ -195,17 +195,17 @@ public class JPManageTopic extends javax.swing.JPanel {
 			if (data != null) {
 				fillData();
 				// Disable tabs not used for that operation
-				int indexModify = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Modify"));
-				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Add"));
+				int indexModify = getIndexTab(ApplicationInternationalization.getString("tabManageTopic_Modify"));
+				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageTopic_Add"));
 				if (operationToDo.equals(Operations.Add.name())) {
 					if (indexModify != -1)
-						tabPanelTopic.getTabComponentAt(indexModify).setEnabled(false);
+						tabPanelTopic.setEnabledAt(indexModify, false);
 					if (indexAdd != -1)
 						tabPanelTopic.setSelectedIndex(indexAdd);
 				}
 				else if (operationToDo.equals(Operations.Modify.name())) {
 					if (indexAdd != -1)
-						tabPanelTopic.getTabComponentAt(indexAdd).setEnabled(false);
+						tabPanelTopic.setEnabledAt(indexAdd, false);
 					if (indexModify != -1)
 						tabPanelTopic.setSelectedIndex(indexModify);
 				}
@@ -244,7 +244,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 		if (operationToDo.equals(Operations.Modify.name())) {
 			Topic t = (Topic)data;
 			panelTopicInfoModify.fillData(t);
-		}		
+		}	
+		
 	}
 	
 	/*** Actions for buttons ***/
@@ -278,7 +279,9 @@ public class JPManageTopic extends javax.swing.JPanel {
 	@Action
 	public void Modify() {
 		Topic oldTopic = topics.get(cbTopics.getSelectedIndex());
-		Topic newTopic = new Topic(panelTopicInfoAdd.getTopicTitle(), panelTopicInfoAdd.getTopicDescription(), new Date());
+		Topic newTopic = (Topic) oldTopic.clone();
+		newTopic.setTitle(panelTopicInfoModify.getTopicTitle());
+		newTopic.setDescription(panelTopicInfoModify.getTopicDescription());
 		newTopic.setId(oldTopic.getId());
 		try {
 			// Modify the old Topic

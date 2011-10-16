@@ -22,6 +22,7 @@ import javax.swing.JTabbedPane;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Proposal;
+import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -243,13 +244,13 @@ public class JPManageAnswer extends javax.swing.JPanel {
 				int indexAdd = getIndexTab(ApplicationInternationalization.getString("tabManageAnswer_Add"));
 				if (operationToDo.equals(Operations.Add.name())) {
 					if (indexModify != -1)
-						tabPanelAnswer.getComponentAt(indexModify).setEnabled(false);
+						tabPanelAnswer.setEnabledAt(indexModify, false);
 					if (indexAdd != -1)
 						tabPanelAnswer.setSelectedIndex(indexAdd);
 				}
 				else if (operationToDo.equals(Operations.Modify.name())) {
 					if (indexAdd != -1)
-						tabPanelAnswer.getComponentAt(indexAdd).setEnabled(false);
+						tabPanelAnswer.setEnabledAt(indexAdd, false);
 					if (indexModify != -1)
 						tabPanelAnswer.setSelectedIndex(indexModify);
 				}
@@ -285,6 +286,11 @@ public class JPManageAnswer extends javax.swing.JPanel {
 				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}		
+		// In case to add a new proposal, fill the topic parent
+		else {
+			cbProposalsAdd.setSelectedItem(((Proposal)data).getTitle());
+			cbProposalsAdd.setEnabled(false);				
+		}
 	}
 	
 	private void setItemsComboProposals() {

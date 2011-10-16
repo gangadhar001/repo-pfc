@@ -82,39 +82,39 @@ public class DAOTopic {
 	
 	public static void update (Topic topic) throws SQLException, NonExistentTopicException {		
 		// Get the proposal stores in database and update that reference 
-		HibernateQuery query;
-		List<?> data;
-		Topic old = null;
-		
+//		HibernateQuery query;
+//		List<?> data;
+//		Topic old = null;
+//		
 		try {
-			query = new HibernateQuery("From " + TOPIC_CLASS + " Where id = ?", topic.getId());
-			data = DBConnectionManager.query(query);
-	
-			if(data.size() > 0) {
-				old = (Topic)data.get(0);									
-			}
-			
-			else
-				throw new NonExistentTopicException(AppInternationalization.getString("NonExistentTopicException"));
-			
+//			query = new HibernateQuery("From " + TOPIC_CLASS + " Where id = ?", topic.getId());
+//			data = DBConnectionManager.query(query);
+//	
+//			if(data.size() > 0) {
+//				old = (Topic)data.get(0);									
+//			}
+//			
+//			else
+//				throw new NonExistentTopicException(AppInternationalization.getString("NonExistentTopicException"));
+//			
 			DBConnectionManager.initTransaction();	
-			
-			old.setDate(topic.getDate());
-			old.setProject(topic.getProject());
-			old.setDescription(topic.getDescription());
-			old.setTitle(topic.getTitle());
-			old.setUser(topic.getUser());
-			old.setProposals(topic.getProposals());
+//			
+//			old.setDate(topic.getDate());
+//			old.setProject(topic.getProject());
+//			old.setDescription(topic.getDescription());
+//			old.setTitle(topic.getTitle());
+//			old.setUser(topic.getUser());
+//			old.setProposals(topic.getProposals());
 
-			DBConnectionManager.update(old);
+			DBConnectionManager.update(topic.clone());
 		} finally {
 			DBConnectionManager.finishTransaction();
 		}
 		
-		// Clear cache
-		for(Object object : data) {
-			DBConnectionManager.clearCache(object);
-		}
+//		// Clear cache
+//		for(Object object : data) {
+//			DBConnectionManager.clearCache(object);
+//		}
 	}
 
 	public static void delete(Topic topic) throws SQLException, NonExistentTopicException {

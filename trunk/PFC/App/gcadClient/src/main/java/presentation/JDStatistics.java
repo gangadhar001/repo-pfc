@@ -128,9 +128,8 @@ public class JDStatistics extends javax.swing.JDialog {
 	/**
 	* Auto-generated main method to display this JDialog
 	*/
-	public JDStatistics(JFrame frame) {
-		super(frame);
-		this.frame = frame;
+	public JDStatistics() {
+		super();
 		initGUI();
 	}
 	
@@ -507,7 +506,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	// Depending on the chosen chart, enabling or disabling components 
 	private void cbChartsActionPerformed() {
 		try {
-			if (cbCharts.getSelectedIndex()!= -1) {
+			if (cbCharts.getSelectedIndex() != -1) {
 				selectedChart = (ChartInfo) cbCharts.getSelectedItem();
 				if (selectedChart.getId() != null) {
 					setConfigurationChart();
@@ -515,6 +514,9 @@ public class JDStatistics extends javax.swing.JDialog {
 					cbUsers.setEnabled(oneUser);
 					cbRange.setEnabled(historical);
 					txtDescription.setText(selectedChart.getDescription());
+					// Show all users
+					if (oneUser)
+						fillComboUsers(null);
 				}
 			}
 		} catch (JDOMException e) {
@@ -526,29 +528,36 @@ public class JDStatistics extends javax.swing.JDialog {
 	
 	// When a project is selected, load users from that project
 	private void cbProjectsActionPerformed() {
-		cbUsers.removeAllItems();
 		if (cbProjects.getSelectedIndex() != -1) {
-			List<User> users;
-			try {
-				users = ClientController.getInstance().getUsersProject((Project) cbProjects.getSelectedItem());
-				for (User u: users) {
-					cbUsers.addItem(u);
-				}
-				cbUsers.setSelectedIndex(-1);
-			} catch (RemoteException e) {
-				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRoleException e) {
-				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NotLoggedException e) {
-				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			}		
+			fillComboUsers((Project) cbProjects.getSelectedItem());
 		}
 	}	
 	
+	private void fillComboUsers(Project p) {
+		cbUsers.removeAllItems();		
+		List<User> users;
+		try {
+			if (p != null)
+				users = ClientController.getInstance().getUsersProject(p);
+			else
+				users = ClientController.getInstance().getUsers();
+			for (User u: users) {
+				cbUsers.addItem(u);
+			}
+			cbUsers.setSelectedIndex(-1);
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}				
+	}
+
 	private void setConfigurationChart() throws JDOMException, IOException {
 		oneProject = StatisticsGenerator.getInstance().isOneProject(selectedChart.getId());
 		oneUser = StatisticsGenerator.getInstance().isOneUser(selectedChart.getId());
@@ -598,8 +607,7 @@ public class JDStatistics extends javax.swing.JDialog {
 		if (valid) {
 		
 			if (cbRange.getSelectedIndex() == 1)
-				isAnnually = false;
-			
+				isAnnually = false;			
 			try {
 				if (oneProject) {
 					pro = (Project) cbProjects.getSelectedItem();
@@ -626,6 +634,7 @@ public class JDStatistics extends javax.swing.JDialog {
 				}
 				else {
 					if (oneUser) {
+						u = (User) cbUsers.getSelectedItem();
 						dataset = StatisticsGenerator.getInstance().createDatasetKnowledgeDeveloper(u, percentage); // Caso 3.2
 						if (percentage)
 							chart = generatePieChart(txtTitleChart.getText(), (DefaultPieDataset) dataset, false);

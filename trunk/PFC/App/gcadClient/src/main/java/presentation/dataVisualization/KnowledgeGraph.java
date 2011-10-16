@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
@@ -185,7 +187,8 @@ public class KnowledgeGraph {
 	}		
 	
 	public void addVertex(Knowledge k, Knowledge parentK) {
-		int cont = graph.getEdgeCount() + 1;
+		Random rn = new Random(new Date().getTime());
+		int cont = rn.nextInt();
 		Icon icon = null;
 		if (k instanceof Topic)
 			icon = getIcon("Topic");
@@ -202,7 +205,7 @@ public class KnowledgeGraph {
 			graph.addVertex(k);		
 		}
 		else {
-			graph.addEdge(String.valueOf(cont), parentK, k);	
+			graph.addEdge(k.getTitle() + "_" + String.valueOf(cont), parentK, k);	
 		}
 		
 		vv.repaint();		
@@ -210,17 +213,18 @@ public class KnowledgeGraph {
 	
 	// Remove the old vertex and add the new vertex
 	public void modifyVertex(Knowledge newK, Knowledge oldK) {	
-		int cont = graph.getEdgeCount() + 1;
+		Random rn = new Random(new Date().getTime());
+		int cont = rn.nextInt();
 		Collection<Knowledge> succesors = graph.getSuccessors(oldK);
 		Collection<Knowledge> predecessors = graph.getPredecessors(oldK);
 		graph.removeVertex(oldK);
 
 		for(Knowledge ob: succesors) {
-			graph.addEdge(String.valueOf(cont), newK, ob);
+			graph.addEdge(newK.getTitle() + "_" + String.valueOf(cont), newK, ob);
 			cont++;
 		}
 		for(Knowledge ob: predecessors) {
-			graph.addEdge(String.valueOf(cont), ob, newK);
+			graph.addEdge(newK.getTitle() + "_" + String.valueOf(cont), ob, newK);
 			cont++;
 		}
 
