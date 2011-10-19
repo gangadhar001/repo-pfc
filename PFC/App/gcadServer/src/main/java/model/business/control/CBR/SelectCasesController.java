@@ -20,7 +20,7 @@ public class SelectCasesController {
     // Selects top K cases
     public static List<Project> selectTopK(List<CaseEval> cases, int k) {
     	List<Project> res = new ArrayList<Project>();
-		for(int i=0; i<k; i++)
+		for(int i=0; i<k && i<res.size(); i++)
 			res.add(cases.get(i).getCaseP());
 		return res;    
     }

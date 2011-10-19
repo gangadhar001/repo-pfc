@@ -40,6 +40,7 @@ import presentation.JDAbout;
 import presentation.JDChooseProject;
 import presentation.JDLanguages;
 import presentation.JFMain;
+import presentation.CBR.panelConfigSimil;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
 import bussiness.control.OperationsUtilities;
@@ -281,8 +282,6 @@ public class CustomMenubar extends JMenuBar {
 //					JOptionPane.YES_OPTION)
 //			closeSessionConfirm();
 
-		// JDConfigSimil j = new JDConfigSimil(null);
-		// j.setVisible(true);/	
 	}
 
 	@Action
@@ -318,8 +317,14 @@ public class CustomMenubar extends JMenuBar {
 		jdl.setLocationRelativeTo(mainFrame.getMainFrame());
 		jdl.setVisible(true);
 	}
+	
+	@Action
+	public void Manage_CBR() {
+		mainFrame.manageCBRFromMenu();
+	}
 
-	/*** Actions used to manage actions for menu items ***/
+	
+	/*** Actions used to manage actions for view items ***/
 	@Action
 	// Show Knowledge view
 	public void View_Knowledge() {

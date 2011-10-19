@@ -1,4 +1,6 @@
 package presentation.CBR;
+import internationalization.ApplicationInternationalization;
+
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import javax.swing.ActionMap;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -63,12 +66,12 @@ import java.awt.event.ActionListener;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class JDConfigSimil extends javax.swing.JDialog {
+public class panelConfigSimil extends javax.swing.JPanel {
 	private JPanel pnlAlgorithm;
+	private JPanel panelConfigSimil;
 	private JLabel lblAlgorithm;
 	private JButton btnOK;
 	private JButton btnCancel;
-	private JPanel pnlButtons;
 	private JLabel lblParams;
 	private JLabel lblWeight;
 	private JLabel lblFunction;
@@ -93,11 +96,10 @@ public class JDConfigSimil extends javax.swing.JDialog {
 	private int numberAttributes;
 	private List<Attribute> attributes;
 	private Project caseToEval;
-	private JFrame frame;
+	private JDConfigProject parent;
 		
-	public JDConfigSimil(JFrame frame) {
-		super(frame);
-		this.frame = frame;
+	public panelConfigSimil(JDConfigProject parent) {
+		this.parent = parent;
 		initGUI();
 	}
 	
@@ -108,100 +110,99 @@ public class JDConfigSimil extends javax.swing.JDialog {
 	private void initGUI() {
 		try {
 			{
-				getContentPane().setLayout(null);
 				{
-					pnlAlgorithm = new JPanel();
-					getContentPane().add(pnlAlgorithm);
-					pnlAlgorithm.setBounds(0, 0, 574, 96);
-					pnlAlgorithm.setBorder(BorderFactory.createTitledBorder(""));
-					pnlAlgorithm.setLayout(null);
+					panelConfigSimil = new JPanel();
+					panelConfigSimil.setBounds(0, 0, 574, 585);
+					panelConfigSimil.setPreferredSize(new java.awt.Dimension(593, 620));
+					panelConfigSimil.setLayout(null);
+					panelConfigSimil.setSize(593, 620);
 					{
-						lblAlgorithm = new JLabel();
-						pnlAlgorithm.add(lblAlgorithm);
-						lblAlgorithm.setBounds(17, 20, 54, 16);
-						lblAlgorithm.setName("lblAlgorithm");
-					}
-					{
-						cbAlgorithm = new JComboBox();
-						pnlAlgorithm.add(cbAlgorithm);
-						for (EnumAlgorithmCBR ea : EnumAlgorithmCBR.values())
-							cbAlgorithm.addItem(ea.name());
-						cbAlgorithm.setBounds(89, 17, 210, 23);
-					}
-					{
-						lblNumberK = new JLabel();
-						pnlAlgorithm.add(lblNumberK);
-						lblNumberK.setBounds(17, 63, 65, 16);
-						lblNumberK.setName("lblNumberK");
-					}
-					{
-						txtNumberK = new JTextField();
-						pnlAlgorithm.add(txtNumberK);
-						txtNumberK.setBounds(89, 60, 210, 23);
-					}
-				}
-				{
-					pnlAttributes = new JPanel();
-					getContentPane().add(pnlAttributes);
-					pnlAttributes.setBounds(0, 108, 574, 420);
-					pnlAttributes.setBorder(BorderFactory.createTitledBorder(""));
-					pnlAttributes.setLayout(null);
-					{
-						lblAttributes = new JLabel();
-						pnlAttributes.add(lblAttributes);
-						lblAttributes.setBounds(17, 23, 77, 16);
+						pnlAlgorithm = new JPanel();
+						panelConfigSimil.add(pnlAlgorithm);
+						pnlAlgorithm.setBounds(-1, 0, 592, 104);
+						pnlAlgorithm.setBorder(BorderFactory.createTitledBorder(""));
+						pnlAlgorithm.setLayout(null);
+						{
+							lblAlgorithm = new JLabel();
+							pnlAlgorithm.add(lblAlgorithm);
+							lblAlgorithm.setBounds(17, 20, 54, 16);
+							lblAlgorithm.setName("lblAlgorithm");
+						}
+						{
+							cbAlgorithm = new JComboBox();
+							pnlAlgorithm.add(cbAlgorithm);
+							for (EnumAlgorithmCBR ea : EnumAlgorithmCBR.values())
+								cbAlgorithm.addItem(ea.name());
+							cbAlgorithm.setBounds(89, 17, 210, 23);
+						}
+						{
+							lblNumberK = new JLabel();
+							pnlAlgorithm.add(lblNumberK);
+							lblNumberK.setBounds(17, 63, 65, 16);
+							lblNumberK.setName("lblNumberK");
+						}
+						{
+							txtNumberK = new JTextField();
+							pnlAlgorithm.add(txtNumberK);
+							txtNumberK.setBounds(89, 60, 210, 23);
+						}
 					}
 					{
-						lblFunction = new JLabel();
-						pnlAttributes.add(lblFunction);
-						lblFunction.setBounds(132, 23, 99, 16);
-						lblFunction.setName("lblFunction");
+						pnlAttributes = new JPanel();
+						panelConfigSimil.add(pnlAttributes);
+						pnlAttributes.setBounds(0, 110, 591, 446);
+						pnlAttributes.setBorder(BorderFactory.createTitledBorder(""));
+						pnlAttributes.setLayout(null);
+						{
+							lblAttributes = new JLabel();
+							pnlAttributes.add(lblAttributes);
+							lblAttributes.setBounds(17, 23, 77, 16);
+						}
+						{
+							lblFunction = new JLabel();
+							pnlAttributes.add(lblFunction);
+							lblFunction.setBounds(132, 23, 99, 16);
+							lblFunction.setName("lblFunction");
+						}
+						{
+							lblWeight = new JLabel();
+							pnlAttributes.add(lblWeight);
+							lblWeight.setBounds(433, 23, 38, 16);
+							lblWeight.setName("lblWeight");
+						}
+						
+						// Change labels of slider
+						dic = new Hashtable<Integer, JLabel>();
+						for (int i=0; i<=100; i++) {
+							double aux = new Double(i);
+							double value = aux / 100.00;
+							dic.put(new Integer(i), new JLabel(String.valueOf(value)));
+						}
+						{
+							lblParams = new JLabel();
+							pnlAttributes.add(lblParams);
+							lblParams.setBounds(286, 23, 79, 16);
+							lblParams.setName("lblParams");
+						}
 					}
-					{
-						lblWeight = new JLabel();
-						pnlAttributes.add(lblWeight);
-						lblWeight.setBounds(433, 23, 38, 16);
-						lblWeight.setName("lblWeight");
-					}
-					
-					// Change labels of slider
-					dic = new Hashtable<Integer, JLabel>();
-					for (int i=0; i<=100; i++) {
-						double aux = new Double(i);
-						double value = aux / 100.00;
-						dic.put(new Integer(i), new JLabel(String.valueOf(value)));
-					}
-					setAttributesName();
-					{
-						lblParams = new JLabel();
-						pnlAttributes.add(lblParams);
-						lblParams.setBounds(286, 23, 79, 16);
-						lblParams.setName("lblParams");
-					}
-				}
-				{
-					pnlButtons = new JPanel();
-					getContentPane().add(pnlButtons);
-					pnlButtons.setBounds(0, 534, 574, 51);
-					pnlButtons.setLayout(null);
 					{
 						btnCancel = new JButton();
-						pnlButtons.add(btnCancel);
-						btnCancel.setBounds(490, 11, 74, 25);
+						panelConfigSimil.add(btnCancel);
+						btnCancel.setBounds(504, 568, 60, 23);
 						btnCancel.setName("btnCancel");
-						btnCancel.setAction(getAppActionMap().get("Cancel"));
+						btnCancel.setAction(getAppActionMap().get("Back"));
 					}
 					{
 						btnOK = new JButton();
-						pnlButtons.add(btnOK);
-						btnOK.setBounds(405, 11, 74, 25);
+						panelConfigSimil.add(btnOK);
+						btnOK.setBounds(422, 568, 67, 23);
 						btnOK.setName("btnOK");
 						btnOK.setAction(getAppActionMap().get("OK"));
 					}
 				}
 			}
 			this.setSize(590, 623);
-			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
 			// TODO
 			e.printStackTrace();
@@ -210,7 +211,6 @@ public class JDConfigSimil extends javax.swing.JDialog {
 
 	// Method used to retrieve all the attributes from one project (case) and show them in the UI
 	private void setAttributesName() throws RemoteException, Exception {
-		caseToEval = new Project("PrintPro", "Processor", new Date(), new Date(), 15000.0, 905, "bank", "C#", 11000);
 		attributes = ClientController.getInstance().getAttributesFromProject(caseToEval);
 		// Show attributes name 
 		numberAttributes = 1;
@@ -218,9 +218,8 @@ public class JDConfigSimil extends javax.swing.JDialog {
 			// Ignore id and UID
 			if (!att.getName().equals("id") && (!att.getName().equals("serialVersionUID"))) {
 				JLabel lblAtt = new JLabel ();
-				//TODO: internacionalizacion
 				lblAtt.setName("attribute_"+att.getName()+"_"+numberAttributes);
-				lblAtt.setText(att.getName());
+				lblAtt.setText(ApplicationInternationalization.getString(att.getName()));
 				pnlAttributes.add(lblAtt);
 				lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 57, 16);
 				
@@ -307,8 +306,9 @@ public class JDConfigSimil extends javax.swing.JDialog {
 	}
 	
 	@Action
-	public void Cancel() {
-		this.dispose();
+	public void Back() {
+		this.setVisible(false);
+		parent.getPanelCreateProject().setVisible(true);
 	}
 	
 	@Action 
@@ -356,8 +356,8 @@ public class JDConfigSimil extends javax.swing.JDialog {
 				List<Project> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
 				// TODO: mostrar numero de resultados encontrados
 				if (result.size() > 0) {
-					JDRetrievalCases showCases = new JDRetrievalCases(frame, cases);
-					this.dispose();
+					JDRetrievalCases showCases = new JDRetrievalCases(cases);
+					parent.dispose();
 					showCases.setModal(true);
 					showCases.setVisible(true);					
 				}
@@ -431,5 +431,18 @@ public class JDConfigSimil extends javax.swing.JDialog {
 			}
 		}
 		return result;
+	}
+
+	public void setProject(Project project) {
+		caseToEval = project;
+		try {
+			setAttributesName();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

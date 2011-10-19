@@ -298,8 +298,8 @@ public class ClientController {
 	}
 	
 	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
-		// TODO: return server.executeAlgorithm(k, algorithmName, cases, caseToEval, configCBR, k);
-		return null;
+		// TODO: 
+		return server.executeAlgorithm(session.getId(), algorithmName, cases, caseToEval, configCBR, k);
 	}
 	
 	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
