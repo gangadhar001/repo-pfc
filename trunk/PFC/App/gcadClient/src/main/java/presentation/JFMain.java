@@ -37,6 +37,7 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jfree.chart.ChartPanel;
 
+import presentation.CBR.panelConfigSimil;
 import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
@@ -561,6 +562,14 @@ public class JFMain extends SingleFrameApplication {
 		dialogProject.setLocationRelativeTo(getMainFrame());
 		dialogProject.setModal(true);
 		dialogProject.setVisible(true);		
+	}
+
+	public void manageCBRFromMenu() {
+		panelConfigSimil jdc = new panelConfigSimil(null);
+		jdc.setModal(true);
+		jdc.setLocationRelativeTo(getMainFrame());
+		jdc.setVisible(true);
+		
 	}
 
 }

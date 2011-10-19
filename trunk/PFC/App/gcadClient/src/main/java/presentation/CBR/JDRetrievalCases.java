@@ -60,8 +60,8 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private JTextArea txtAreaKnowledge;
 	private panelKnowledgeTree panelTree;
 	
-	public JDRetrievalCases(JFrame frame, List<Project> cases) {
-		super(frame);
+	public JDRetrievalCases(List<Project> cases) {
+		super();
 		this.cases = cases;
 		currentProject = 1;
 		initGUI();

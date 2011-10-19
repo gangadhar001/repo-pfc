@@ -215,8 +215,8 @@ public class ProxyServer implements IServer {
 
 	@Override
 	// TODO: revisar
-	public List<Project> executeAlgorithm(long arg0, EnumAlgorithmCBR arg1, List<Project> arg2, Project arg3, ConfigCBR arg4, int arg5) throws RemoteException, Exception {
-		return server.executeAlgorithm(arg0, arg1, arg2, arg3, arg4, arg5);
+	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
+		return server.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, configCBR, k);
 	}
 
 	@Override
