@@ -1,14 +1,11 @@
 package presentation.panelsActions;
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
-
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+
 import org.jdesktop.application.Application;
+
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -23,6 +20,11 @@ import org.jdesktop.application.Application;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class panelStatisticsView extends javax.swing.JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5958964221039291732L;
+	
 	private JDesktopPane desktopPane;
 
 	/**

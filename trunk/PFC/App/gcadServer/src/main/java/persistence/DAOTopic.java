@@ -80,7 +80,7 @@ public class DAOTopic {
 		}
 	}
 	
-	public static void update (Topic topic) throws SQLException, NonExistentTopicException {		
+	public static void update (Topic topic) throws SQLException {		
 		// Get the proposal stores in database and update that reference 
 //		HibernateQuery query;
 //		List<?> data;

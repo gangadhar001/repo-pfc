@@ -14,6 +14,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.customComponents.panelProjectInformation;
+import resources.InfiniteProgressPanel;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -34,15 +35,11 @@ public class JDConfigProject extends javax.swing.JDialog {
 	private static final long serialVersionUID = -6500564343875421781L;
 	private panelProjectInformation panelProjectInformationCreate;
 	private JPanel panelCreateProject;
-	private JButton btnOKCreate;
-	private JButton btnCancelCreate;
 	private panelConfigSimil panelConfigSimil;
 	private JButton btnCancel;
 	private JButton btnForward;
-
-	/**
-	* Auto-generated main method to display this JDialog
-	*/
+	
+	private InfiniteProgressPanel glassPane;
 		
 	public JDConfigProject(JFrame frame) {
 		super(frame);
@@ -56,35 +53,19 @@ public class JDConfigProject extends javax.swing.JDialog {
 	private void initGUI() {
 		try {
 			this.setResizable(false);
-			this.setTitle(ApplicationInternationalization.getString("manageProjectTitle"));
+			this.setTitle(ApplicationInternationalization.getString("configProjectTitle"));
 			{
 				getContentPane().setLayout(null);
 				{
 					// Create Project Panel
 					panelCreateProject = new JPanel();
 					getContentPane().add(panelCreateProject);
-					panelCreateProject.setBounds(14, 37, 557, 536);
+					panelConfigSimil.setBounds(14, 37, 380, 441);
 					panelCreateProject.setLayout(null);
 					{
 						panelProjectInformationCreate = new panelProjectInformation(this);
 						panelCreateProject.add(panelProjectInformationCreate);
 						panelProjectInformationCreate.setBounds(12, 12, 533, 450);
-					}
-					{
-						btnCancelCreate = new JButton();
-						panelCreateProject.add(btnCancelCreate);
-						btnCancelCreate.setBounds(467, 500, 79, 25);
-						btnCancelCreate.setName("btnCancelCreate");
-						btnCancelCreate.setAction(getAppActionMap().get("Cancel"));
-						btnCancelCreate.setText(ApplicationInternationalization.getString("CancelButton"));
-					}
-					{
-						btnOKCreate = new JButton();
-						panelCreateProject.add(btnOKCreate);
-						btnOKCreate.setBounds(372, 500, 79, 25);
-						btnOKCreate.setName("btnOKCreate");
-						btnOKCreate.setAction(getAppActionMap().get("Next"));
-						btnOKCreate.setText(ApplicationInternationalization.getString("btnNext"));
 					}
 				}
 				
@@ -102,12 +83,15 @@ public class JDConfigProject extends javax.swing.JDialog {
 				getContentPane().add(btnForward);
 				btnForward.setBounds(335, 502, 57, 23);
 				btnForward.setName("btnForward");
+				btnForward.setAction(getAppActionMap().get("Next"));
+				btnForward.setText(ApplicationInternationalization.getString("bntNext"));
 			}
 			{
 				btnCancel = new JButton();
 				getContentPane().add(btnCancel);
 				btnCancel.setBounds(265, 502, 50, 23);
 				btnCancel.setName("btnCancel");
+				btnCancel.setAction(getAppActionMap().get("Cancel"));
 				btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
 			}
 			this.setSize(415, 570);
@@ -120,6 +104,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	@Action
 	public void Next() {
 		panelCreateProject.setVisible(false);
+		this.setTitle(ApplicationInternationalization.getString("configSimiTitle"));
 		panelConfigSimil.setVisible(true);
 		panelConfigSimil.setProject(panelProjectInformationCreate.getProject());
 	}
@@ -137,4 +122,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 		this.panelCreateProject = panelCreateProject;
 	}
 
+	public InfiniteProgressPanel getGlassPane() {
+		return glassPane;
+	}	
 }

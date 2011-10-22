@@ -30,7 +30,6 @@ import model.business.knowledge.UserRole;
 import org.jdesktop.application.Application;
 import org.jdom.JDOMException;
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 
 import presentation.JFLogin;
