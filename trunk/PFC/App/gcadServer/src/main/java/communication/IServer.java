@@ -138,4 +138,6 @@ public interface IServer extends Remote {
 	
 	/*** Method used to generate the PDF ***/
 	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+
+	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception;
 }

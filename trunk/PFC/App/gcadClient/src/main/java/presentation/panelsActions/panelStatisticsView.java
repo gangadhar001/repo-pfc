@@ -1,6 +1,9 @@
 package presentation.panelsActions;
+import internationalization.ApplicationInternationalization;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 import org.jdesktop.application.Application;
 
@@ -52,8 +55,7 @@ public class panelStatisticsView extends javax.swing.JPanel {
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			// TODO:
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

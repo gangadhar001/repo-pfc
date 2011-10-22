@@ -321,4 +321,9 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		return server.composePDF(sessionId, configuration, headerImage, footImage);
 	}
+
+	@Override
+	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception {
+		return server.getCurrentProject(sessionId);		
+	}
 }

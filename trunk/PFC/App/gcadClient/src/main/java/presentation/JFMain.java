@@ -55,6 +55,7 @@ import bussiness.control.OperationsUtilities;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
@@ -353,7 +354,19 @@ public class JFMain extends SingleFrameApplication {
 	@Action
 	public void CompilePDF() {
 		if (panelPDF != null)
-			panelPDF.compile();
+			try {
+				panelPDF.compile();
+			} catch (RemoteException e) {
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRoleException e) {
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
 	}
 	
 	
@@ -398,7 +411,7 @@ public class JFMain extends SingleFrameApplication {
 		ClientController.getInstance().closeMainFrame();		
 	}	
 
-	private void closeSessionConfirm() {
+	public void closeSessionConfirm() {
 		try {
 			lblAction.setVisible(false);
 			lblRole.setText(ApplicationInternationalization.getString("lblStatusClose"));

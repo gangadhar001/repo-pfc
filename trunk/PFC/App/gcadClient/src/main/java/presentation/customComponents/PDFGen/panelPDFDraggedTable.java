@@ -1,19 +1,26 @@
 package presentation.customComponents.PDFGen;
+import internationalization.ApplicationInternationalization;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-import javax.swing.JTextField;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 
 import model.business.knowledge.Project;
 
 import org.jdesktop.application.Application;
 
-import exceptions.NotLoggedException;
-
-import bussiness.control.ClientController;
-
+import presentation.JDConfigurePDFTable;
 import presentation.customComponents.ImagePanel;
 import resources.ImagesUtilities;
+import bussiness.control.ClientController;
+import exceptions.NotLoggedException;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -53,26 +60,68 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 				} catch (IOException e) { }
 				this.add(imagePanel);
 				imagePanel.setBounds(12, 12, 82, 71);
+				this.addMouseListener(new MouseListener() {					
+					@Override
+					public void mousePressed(MouseEvent e){
+				        if (e.isPopupTrigger())
+				            doPop(e);
+				    }
+					
+					@Override
+				    public void mouseReleased(MouseEvent e){
+				        if (e.isPopupTrigger())
+				            doPop(e);
+				    }
+					
+					@Override
+					public void mouseExited(MouseEvent e) { }
+					
+					@Override
+					public void mouseEntered(MouseEvent e) { }
+					
+					@Override
+					public void mouseClicked(MouseEvent e) { }
+				});
 			}
 		}
 
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	
 	}
+	
+	// Show the pop up menu 
+	private void doPop(MouseEvent e){
+        JPopupMenu menu = new JPopupMenu();
+        JMenuItem item = new JMenuItem("Configure");
+        item.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				configurePDFTable();				
+			}
+		});
+        menu.add(item);
+        menu.show(e.getComponent(), e.getX(), e.getY());
+    }
+
+	// Show the dialog to choose a project 
+	private void configurePDFTable() {
+		JDConfigurePDFTable ct = new JDConfigurePDFTable();
+		ct.setLocationRelativeTo(this);
+		ct.setModal(true);
+		ct.setVisible(true);
+		// Get the selected project
+		project = ct.getSelectedProject();
+	}
 
 	public Project getProject() {
-		// TODO: quitar
 		try {
 			project = ClientController.getInstance().getProjectsFromCurrentUser().get(0);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 		return project;
 	}

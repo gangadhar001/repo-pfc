@@ -214,7 +214,6 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	// TODO: revisar
 	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
 		return server.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, configCBR, k);
 	}
@@ -269,6 +268,11 @@ public class ProxyServer implements IServer {
 	@Override
 	public void updateProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		server.updateProject(sessionId, p);		
+	}
+
+	@Override
+	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception {
+		return server.getCurrentProject(sessionId);
 	}
 
 

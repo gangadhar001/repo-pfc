@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DropTarget;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -27,8 +28,13 @@ import model.business.knowledge.PDFSection;
 import model.business.knowledge.PDFTable;
 import model.business.knowledge.PDFText;
 import model.business.knowledge.PDFTitle;
+import model.business.knowledge.UserRole;
 
 import org.jdesktop.application.Application;
+
+import exceptions.NotLoggedException;
+
+import bussiness.control.ClientController;
 
 import presentation.JDPdf;
 import presentation.JFMain;
@@ -257,7 +263,7 @@ public class panelPDFGeneration extends ImagePanel {
 		 }
 	 }
 	 
-	 public void compile() {
+	 public void compile() throws RemoteException, NotLoggedException, Exception {
 		 // Get sections and its elements
 		 List<PDFSection> sections = new ArrayList<PDFSection>();
 		 Enumeration<Integer> keys = panelsDragged.keys();
@@ -273,8 +279,13 @@ public class panelPDFGeneration extends ImagePanel {
 					 element = new PDFText(((panelPDFDraggedText)pd).getContent());
 				 }
 				 else if (pd instanceof panelPDFDraggedTable) {
-					 //TODO: si no es el chief, solo se hace para el proyecto donde trabaja el empleado
-					 element = new PDFTable(((panelPDFDraggedTable)pd).getProject());
+					 // If user is not the chief, it is only done for the employee's current project
+					 if (ClientController.getInstance().getLoggedUser().getRole().name().equals(UserRole.Employee)) {
+						 int index = ClientController.getInstance().getCurrentProject();
+						 element = new PDFTable(ClientController.getInstance().getProjectsFromCurrentUser().get(index));
+					 }
+					 else
+						 element = new PDFTable(((panelPDFDraggedTable)pd).getProject());
 				 }
 				 elementsInSection.add(element);
 			 }
