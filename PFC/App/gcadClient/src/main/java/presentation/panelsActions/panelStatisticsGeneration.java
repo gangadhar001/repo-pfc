@@ -2,6 +2,8 @@ package presentation.panelsActions;
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +11,8 @@ import java.io.IOException;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+
 import org.jdesktop.application.Application;
 
 import presentation.customComponents.ImagePanel;
@@ -42,10 +46,7 @@ public class panelStatisticsGeneration extends ImagePanel {
 		super();
 		try {
 			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		} catch (Exception e) { }		
 		initGUI();
 	}
 	
@@ -65,8 +66,7 @@ public class panelStatisticsGeneration extends ImagePanel {
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			// TODO:
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

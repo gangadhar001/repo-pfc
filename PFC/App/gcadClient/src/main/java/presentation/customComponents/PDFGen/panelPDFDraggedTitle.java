@@ -1,9 +1,12 @@
 package presentation.customComponents.PDFGen;
+import internationalization.ApplicationInternationalization;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.swing.ActionMap;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import javax.swing.JTextField;
 
@@ -75,13 +78,7 @@ public class panelPDFDraggedTitle extends panelPDFDragged {
 				btnDelete.setText("");
 				try {
 					btnDelete.setIcon(ImagesUtilities.loadIcon("menus/remove.png"));
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				} catch (Exception e) { }
 			}
 		}
 

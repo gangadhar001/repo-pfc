@@ -45,8 +45,7 @@ public class DAOFile {
 			result = ((File) ((File)data.get(0)).clone());			
 		}
 		else
-			//TODO: mensaje
-			throw new NonExistentFileException(AppInternationalization.getString("NonExistentProjectException"));
+			throw new NonExistentFileException(AppInternationalization.getString("NonExistentFileException"));
 		
 		// Clear cache
 		for(Object object : data) {
@@ -70,7 +69,7 @@ public class DAOFile {
 			}				
 		}	
 		else
-			throw new NonExistentFileException(AppInternationalization.getString("NonExistentProjectException"));
+			throw new NonExistentFileException(AppInternationalization.getString("NonExistentFileException"));
 		
 		// Clear cache
 		for(Object object : data) {

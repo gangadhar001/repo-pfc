@@ -79,4 +79,12 @@ public class panelChooseProject extends javax.swing.JPanel {
 		return result;
 	}
 
+	public Project getProject() {
+		Project result = null;
+		if (cbProjects.getSelectedItem() != null) {
+			result = (Project)cbProjects.getSelectedItem();
+		}
+		return result;
+	}
+
 }

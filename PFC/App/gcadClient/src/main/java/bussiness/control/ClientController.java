@@ -228,8 +228,7 @@ public class ClientController {
 	}
 
 	public void setCurrentProject(int selectedProject) throws RemoteException, NotLoggedException, Exception {
-		server.setCurrentProject(session.getId(), selectedProject);
-		
+		server.setCurrentProject(session.getId(), selectedProject);		
 	}
 
 	public Project createProject(Project project) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
@@ -297,7 +296,6 @@ public class ClientController {
 	}
 	
 	public List<Project> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
-		// TODO: 
 		return server.executeAlgorithm(session.getId(), algorithmName, cases, caseToEval, configCBR, k);
 	}
 	
@@ -421,6 +419,10 @@ public class ClientController {
 
 	public void updateProject(Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		server.updateProject(session.getId(), p);		
+	}
+
+	public int getCurrentProject() throws RemoteException, NotLoggedException, Exception {
+		return server.getCurrentProject(session.getId());
 	}	
 	
 }

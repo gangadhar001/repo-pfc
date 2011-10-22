@@ -258,7 +258,7 @@ public class JDPdf extends JDialog {
 				FileOutputStream doc = new FileOutputStream(path);
 				doc.write(document);
 				doc.close();
-				// TODO: dialogo informacion
+				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("PDFCorrect_msg"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			} catch(IOException e) {
 				if (path != null)
 					path.delete();

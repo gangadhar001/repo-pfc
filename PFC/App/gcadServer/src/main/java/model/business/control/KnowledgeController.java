@@ -134,7 +134,7 @@ public class KnowledgeController {
 	/**
 	 * Methods used to modify knowledge
 	 */	
-	public static void modifyTopic(long sessionId, User user, Topic newTopic) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentTopicException {
+	public static void modifyTopic(long sessionId, User user, Topic newTopic) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Modify.name()));
 

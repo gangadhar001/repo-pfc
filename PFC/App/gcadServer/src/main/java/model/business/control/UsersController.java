@@ -2,8 +2,6 @@ package model.business.control;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import exceptions.IncorrectEmployeeException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -25,7 +23,7 @@ public class UsersController {
 		return DAOUser.getUsers();
 	}
 
-	public static void addProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
+	public static void addProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
 		
@@ -34,7 +32,7 @@ public class UsersController {
 		SessionController.refreshUserInformation(user);
 	}
 	
-	public static void removeProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException, IncorrectEmployeeException {
+	public static void removeProjectsUser(long sessionId, User user, Project project) throws SQLException, NonPermissionRoleException, NotLoggedException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Add.name()));
 		
