@@ -22,13 +22,11 @@ import javax.swing.JTabbedPane;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.JFMain;
-
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 

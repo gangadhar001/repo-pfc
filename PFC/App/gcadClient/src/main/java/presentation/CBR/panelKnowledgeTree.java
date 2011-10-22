@@ -1,25 +1,21 @@
 package presentation.CBR;
 
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
-import javax.swing.WindowConstants;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import model.business.knowledge.TopicWrapper;
+
 import org.jdesktop.application.Application;
+
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
 
@@ -38,6 +34,10 @@ import presentation.utils.ImageKnowledgeTreeCellRenderer;
 */
 public class panelKnowledgeTree extends javax.swing.JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7404365058926776576L;
 	private JScrollPane jScrollPane1;
 	private JTree tree;
 	private DefaultTreeModel treeModel;
@@ -110,24 +110,6 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Knowledge");
 		TreeContentProvider.setContentRootNode(root, topicWrapper);
 		treeModel = new DefaultTreeModel(root);
-		// TODO: No es editable en esta vista
-		// TODO: hacer un panel aparte
-//		tree.addTreeSelectionListener(new TreeSelectionListener() {				
-//			@Override
-//			public void valueChanged(TreeSelectionEvent e) {
-//				// Get selected element in the tree
-//				Object val = ((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject();
-//				if (!(val instanceof TopicWrapper)) {
-//					knowledgeSelectedTree = (Knowledge) val;
-//				}
-//			}
-//		});
-		// TODO: para perder la seleccion. no aplicable en esta vista
-//		tree.addMouseListener(new MouseAdapter() {
-//			public void mouseClicked(MouseEvent evt) {
-//				treeMouseClicked(evt);
-//			}
-//		});
 
 		this.revalidate();
 		this.repaint();
@@ -140,14 +122,5 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		// TODO: añadir iconos de add, edit, delete
 		
 	}
-	
-//	private void treeMouseClicked(MouseEvent evt) {
-//		int row = tree.getRowForLocation(evt.getX(), evt.getY());
-//		// Click on empty surface. Clear selection from tree and graph
-//		if (row == -1) {
-//			clearSelectionTree();
-//			clearSelectionGraph();
-//		}
-//	}
 
 }

@@ -1,34 +1,28 @@
 package presentation.CBR;
+
 import internationalization.ApplicationInternationalization;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-
-import javax.swing.ActionMap;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -36,8 +30,6 @@ import model.business.control.CBR.Attribute;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.EnumSimilFunctions;
-import model.business.control.CBR.retrieveAlgorithms.NNMethod;
-
 import model.business.control.CBR.similarity.local.Equal;
 import model.business.control.CBR.similarity.local.Interval;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
@@ -46,13 +38,9 @@ import model.business.knowledge.Project;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
-
+import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
-
-import bussiness.control.ClientController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -67,6 +55,10 @@ import java.awt.event.ActionListener;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class panelConfigSimil extends javax.swing.JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3288470197499471033L;
 	private JPanel pnlAlgorithm;
 	private JPanel panelConfigSimil;
 	private JLabel lblAlgorithm;
@@ -127,6 +119,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 							pnlAlgorithm.add(lblAlgorithm);
 							lblAlgorithm.setBounds(17, 20, 54, 16);
 							lblAlgorithm.setName("lblAlgorithm");
+							lblAlgorithm.setText(ApplicationInternationalization.getString("lblAlgorithm"));
 						}
 						{
 							cbAlgorithm = new JComboBox();
@@ -140,6 +133,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 							pnlAlgorithm.add(lblNumberK);
 							lblNumberK.setBounds(17, 63, 65, 16);
 							lblNumberK.setName("lblNumberK");
+							lblNumberK.setText(ApplicationInternationalization.getString("lblKNumber"));
 						}
 						{
 							txtNumberK = new JTextField();
@@ -157,18 +151,21 @@ public class panelConfigSimil extends javax.swing.JPanel {
 							lblAttributes = new JLabel();
 							pnlAttributes.add(lblAttributes);
 							lblAttributes.setBounds(17, 23, 77, 16);
+							lblAttributes.setText(ApplicationInternationalization.getString("lblAttributes"));
 						}
 						{
 							lblFunction = new JLabel();
 							pnlAttributes.add(lblFunction);
 							lblFunction.setBounds(132, 23, 99, 16);
 							lblFunction.setName("lblFunction");
+							lblFunction.setText(ApplicationInternationalization.getString("lblFunction"));
 						}
 						{
 							lblWeight = new JLabel();
 							pnlAttributes.add(lblWeight);
 							lblWeight.setBounds(433, 23, 38, 16);
 							lblWeight.setName("lblWeight");
+							lblWeight.setText(ApplicationInternationalization.getString("lblWeight"));
 						}
 						
 						// Change labels of slider
@@ -183,6 +180,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 							pnlAttributes.add(lblParams);
 							lblParams.setBounds(286, 23, 79, 16);
 							lblParams.setName("lblParams");
+							lblParams.setText(ApplicationInternationalization.getString("lblParams"));
 						}
 					}
 					{
@@ -191,6 +189,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 						btnCancel.setBounds(504, 568, 60, 23);
 						btnCancel.setName("btnCancel");
 						btnCancel.setAction(getAppActionMap().get("Back"));
+						btnCancel.setText(ApplicationInternationalization.getString("btnBack"));
 					}
 					{
 						btnOK = new JButton();
@@ -198,14 +197,14 @@ public class panelConfigSimil extends javax.swing.JPanel {
 						btnOK.setBounds(422, 568, 67, 23);
 						btnOK.setName("btnOK");
 						btnOK.setAction(getAppActionMap().get("OK"));
+						btnOK.setText(ApplicationInternationalization.getString("bntFinish"));
 					}
 				}
 			}
 			this.setSize(590, 623);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			// TODO
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -307,6 +306,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	
 	@Action
 	public void Back() {
+		parent.setTitle(ApplicationInternationalization.getString("configProjectTitle"));
 		this.setVisible(false);
 		parent.getPanelCreateProject().setVisible(true);
 	}
@@ -314,71 +314,86 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	@Action 
 	public void OK() {
 		// Validate data and generate the configuration used to retrieve similar cases to the given case (project)
-		boolean valid = true;
+		boolean valid = true;		
+		if (cbAlgorithm.getSelectedIndex() == -1)
+			valid = false; 
+		if (valid) {
+			// Invoke a new thread in order to show the panel with the process
+			// spinner
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					parent.getGlassPane().setColorB(241);
+					parent.getGlassPane().setText(ApplicationInternationalization.getString("proccesing"));
+					parent.getGlassPane().start();
+					Thread performer = new Thread(new Runnable() {
+						public void run() {
+							processCases();
+						}
+					}, "Performer");
+					performer.start();
+				}
+			});
+		}
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("SelectAlgorithm"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private void processCases() {
 		int numberCases = Integer.parseInt(txtNumberK.getText());
 		ConfigCBR configCBR = new ConfigCBR();
 		
-		if (cbAlgorithm.getSelectedIndex() == -1)
-			valid = false; // TODO error
-		if (valid) {
-			// TODO: procesando ... -> spinner
-			
-			// Search values of similarity function and weights for each attribute
-			for(Object o : pnlAttributes.getComponents()) {
-				if (o instanceof JLabel) {
-					JLabel lbl = (JLabel)o;
-					// Search attribute
-					if (lbl.getName() != null && lbl.getName().contains("attribute")) {
-						int index = Integer.parseInt(lbl.getName().substring(lbl.getName().lastIndexOf("_")+1));
-						// Ignore id and SerialUID
-						Attribute att = attributes.get(index + 1);
-						// Get the values (similarity function, function parameter and weight) for that attribute
-						List<Object> values = searchValuesFromRow(index);
-						LocalSimilarityFunction function = null;
-						for (Object ob: values) {
-							// Weight
-							if (ob instanceof Double)
-								configCBR.setWeight(att, (Double)ob);
-							// Similarity Function
-							else if (ob instanceof LocalSimilarityFunction) {
-								function = (LocalSimilarityFunction)ob;
-								configCBR.addLocalSimFunction(att, function);
-							}														
-						}
+		// Search values of similarity function and weights for each attribute
+		for(Object o : pnlAttributes.getComponents()) {
+			if (o instanceof JLabel) {
+				JLabel lbl = (JLabel)o;
+				// Search attribute
+				if (lbl.getName() != null && lbl.getName().contains("attribute")) {
+					int index = Integer.parseInt(lbl.getName().substring(lbl.getName().lastIndexOf("_")+1));
+					// Ignore id and SerialUID
+					Attribute att = attributes.get(index + 1);
+					// Get the values (similarity function, function parameter and weight) for that attribute
+					List<Object> values = searchValuesFromRow(index);
+					LocalSimilarityFunction function = null;
+					for (Object ob: values) {
+						// Weight
+						if (ob instanceof Double)
+							configCBR.setWeight(att, (Double)ob);
+						// Similarity Function
+						else if (ob instanceof LocalSimilarityFunction) {
+							function = (LocalSimilarityFunction)ob;
+							configCBR.addLocalSimFunction(att, function);
+						}														
 					}
 				}
 			}
-			
-			// Launch the algorithm
-			List<Project> cases;
-			try {
-				cases = ClientController.getInstance().getProjects();
-				List<Project> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
-				// TODO: mostrar numero de resultados encontrados
-				if (result.size() > 0) {
-					JDRetrievalCases showCases = new JDRetrievalCases(cases);
-					parent.dispose();
-					showCases.setModal(true);
-					showCases.setVisible(true);					
-				}
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NonPermissionRoleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NotLoggedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}
+		
+		// Launch the algorithm
+		List<Project> cases;
+		try {
+			cases = ClientController.getInstance().getProjects();
+			List<Project> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
+			// TODO: mostrar numero de resultados encontrados
+			if (result.size() > 0) {
+				JDRetrievalCases showCases = new JDRetrievalCases(cases);
+				parent.getGlassPane().stop();
+				parent.dispose();
+				showCases.setModal(true);
+				showCases.setVisible(true);					
+			}
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}			
+		
 	}
 
 	private List<Object> searchValuesFromRow(int row) {
@@ -438,11 +453,9 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		try {
 			setAttributesName();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

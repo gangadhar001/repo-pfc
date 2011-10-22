@@ -40,7 +40,6 @@ import presentation.JDAbout;
 import presentation.JDChooseProject;
 import presentation.JDLanguages;
 import presentation.JFMain;
-import presentation.CBR.panelConfigSimil;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
 import bussiness.control.OperationsUtilities;

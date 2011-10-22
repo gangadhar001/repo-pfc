@@ -22,7 +22,6 @@ import org.jdom.JDOMException;
 
 import resources.LanguagesUtilities;
 
-import bussiness.Main;
 import bussiness.control.ClientController;
 
 /**

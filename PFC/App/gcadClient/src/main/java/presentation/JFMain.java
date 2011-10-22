@@ -37,6 +37,7 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jfree.chart.ChartPanel;
 
+import presentation.CBR.JDConfigProject;
 import presentation.CBR.panelConfigSimil;
 import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.ImagePanel;
@@ -565,7 +566,7 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void manageCBRFromMenu() {
-		panelConfigSimil jdc = new panelConfigSimil(null);
+		JDConfigProject jdc = new JDConfigProject(getMainFrame());
 		jdc.setModal(true);
 		jdc.setLocationRelativeTo(getMainFrame());
 		jdc.setVisible(true);

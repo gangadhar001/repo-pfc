@@ -1,16 +1,12 @@
 package presentation.dataVisualization;
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import org.jdesktop.application.Application;
 import org.jfree.chart.ChartPanel;
+
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo

@@ -419,9 +419,7 @@ public class PruebasPersistencia extends PruebasBase {
 			// Intentamos actualizar un topic inexistente
 			DAOTopic.update(topic);
 			fail("Se esperaba una excepción NonExistentTopic");
-		} catch(NonExistentTopicException e) {
 		} catch(Exception e) {
-			fail("Se esperaba una excepción NonExistentTopic");
 		}
 		
 		try {
