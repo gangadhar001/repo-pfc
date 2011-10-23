@@ -7,6 +7,11 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -19,6 +24,7 @@ import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import model.business.knowledge.Company;
+import model.business.knowledge.File;
 import model.business.knowledge.Groups;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
@@ -88,6 +95,7 @@ public class JFMain extends SingleFrameApplication {
 
 	private JLabel lblAction;
 	private JLabel lblPort;
+	private JButton btnDownloadAttached;
 	private JProgressBar jProgressBar;
 	private JLabel lblStatus;
 	private JPanel statusBar;
@@ -142,6 +150,13 @@ public class JFMain extends SingleFrameApplication {
 				getMainFrame().getContentPane().add(statusBar, new AnchorConstraint(942, 1000, 999, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 				statusBar.setPreferredSize(new java.awt.Dimension(1008, 39));
 				statusBar.setLayout(statusLayout);
+				{
+					btnDownloadAttached = new JButton();
+					statusBar.add(btnDownloadAttached, new AnchorConstraint(237, 148, 737, 120, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					btnDownloadAttached.setPreferredSize(new java.awt.Dimension(28, 20));
+					btnDownloadAttached.setName("btnDownloadAttached");
+					btnDownloadAttached.setAction(getAppActionMap().get("DownloadFiles"));
+				}
 				{
 					jProgressBar = new JProgressBar();
 					statusBar.add(jProgressBar, new AnchorConstraint(362, 269, 712, 108, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
@@ -396,6 +411,35 @@ public class JFMain extends SingleFrameApplication {
 	public void DeleteNotifications() {
 		if (panelNotifications != null)
 			panelNotifications.removeRow();
+	}
+	
+	@Action
+	public void DownloadFiles() {
+		if (panelKnowledge != null) {
+			List<File> files = panelKnowledge.getAttachedFiles();
+			// Select folder to save all files
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			int result = fileChooser.showOpenDialog(getMainFrame());
+			if (result == JFileChooser.APPROVE_OPTION) {
+				// Save files
+				for(File f: files){
+					FileOutputStream outFile;
+					try {
+						outFile = new FileOutputStream(fileChooser.getCurrentDirectory() + System.getProperty("file.separator") + f.getFileName());
+						outFile.write(f.getContent());
+						outFile.close();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
+				}
+			}
+		}
 	}
 	
 	/*** Methods used to update the views with changes made in other client.
@@ -673,6 +717,14 @@ public class JFMain extends SingleFrameApplication {
 			if (projects.get(i).getId() == currentProject)
 				result = projects.get(i);
 		return result;
+	}
+
+	public JButton getBtnDownloadAttached() {
+		return btnDownloadAttached;
+	}
+
+	public void setStatusText(String message) {
+		lblStatus.setText(message);		
 	}
 
 }
