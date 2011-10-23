@@ -8,14 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -100,8 +97,7 @@ public class panelKnowledgeView extends ImagePanel {
 
 	private Knowledge knowledgeSelectedGraph;
 	private JDKnowledge fKnowledge;
-	private KnowledgeGraph KnowGraph;
-	
+	private KnowledgeGraph KnowGraph;	
 	
 	public panelKnowledgeView(JFMain parent) {
 		super();
@@ -113,8 +109,7 @@ public class panelKnowledgeView extends ImagePanel {
 			// Get knowledge from current project
 			topicWrapper = ClientController.getInstance().getTopicsWrapper();
 			// Create custom graph
-			KnowGraph = new KnowledgeGraph(topicWrapper, this);
-			
+			KnowGraph = new KnowledgeGraph(topicWrapper, this);			
 			initGUI();
 			// Show knowledge tree			
 			showTree();
@@ -261,10 +256,13 @@ public class panelKnowledgeView extends ImagePanel {
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
 			if (k instanceof Topic)
+				// Add new proposal to topic
 				operationKnowledge("Proposal", k, Operations.Add.name());
 			else if (k instanceof Proposal)
+				// Add new answer to proposal
 				operationKnowledge("Answer", k, Operations.Add.name());
-			else 
+			else
+				// An answer can not have children
 				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("noAnswersChild"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
@@ -306,6 +304,8 @@ public class panelKnowledgeView extends ImagePanel {
 						ClientController.getInstance().deleteAnswer((Answer) k);
 					
 					notifyKnowledgeRemoved(k);
+					// Create the notification for all the users of the current project
+					parent.createNotification(k, Operations.Delete);
 				}
 				else
 					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorDelete"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -346,7 +346,7 @@ public class panelKnowledgeView extends ImagePanel {
 		clearSelectionTree();
 		clearSelectionGraph();
 	}
-	
+
 	// Refresh graph and tree
 	public void notifyKnowledgeRemoved(Knowledge k) {
 		refreshKnowledge();

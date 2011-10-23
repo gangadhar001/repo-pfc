@@ -262,6 +262,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 			Topic newTopicAdded = ClientController.getInstance().addTopic(newTopic);
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeAdded(newTopicAdded, null);
+			// Create the notification for all the users of the current project
+			mainFrame.createNotification(newTopicAdded, Operations.Add);
 			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -288,6 +290,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 			Topic newTopicModified = ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeEdited(newTopicModified, oldTopic);
+			// Create the notification for all the users of the current project
+			mainFrame.createNotification(newTopicModified, Operations.Modify);
 			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

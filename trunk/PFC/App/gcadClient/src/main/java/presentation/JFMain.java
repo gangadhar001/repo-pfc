@@ -8,11 +8,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.EventObject;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -29,8 +30,11 @@ import javax.swing.SwingUtilities;
 import model.business.knowledge.Company;
 import model.business.knowledge.Groups;
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
+import model.business.knowledge.Project;
+import model.business.knowledge.User;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -38,7 +42,6 @@ import org.jdesktop.application.SingleFrameApplication;
 import org.jfree.chart.ChartPanel;
 
 import presentation.CBR.JDConfigProject;
-import presentation.CBR.panelConfigSimil;
 import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.ImagePanel;
 import presentation.customComponents.JPDetailsCompany;
@@ -49,6 +52,7 @@ import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelPDFGeneration;
 import presentation.panelsActions.panelStatisticsGeneration;
 import resources.ImagesUtilities;
+import bussiness.control.Client;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
@@ -288,6 +292,25 @@ public class JFMain extends SingleFrameApplication {
         if (availableOps.contains(Operations.Generate.name()))
         	toolbar.add(createToolbarButton(Operations.Generate.name()+Groups.Statistics.name()));                
     }
+    
+    // Method to add specific button for Statistics view to the toolbar
+    public void createToolbarNotificationView() {
+    	toolbar.removeAll();
+    	
+        // Includes operations
+    	List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Notifications.name());
+    	// TODO: modificar algo aparte del estado (leido/no leido) ???
+//		if (availableOps.contains(Operations.Modify.name())) {
+//			JButton but = createToolbarButton(Operations.Modify.name() + Groups.Notifications.name());
+//          	but.setEnabled(false);
+//          	toolbar.add(but);      
+//		}
+		if (availableOps.contains(Operations.Delete.name())) {
+			JButton but = createToolbarButton(Operations.Delete.name() + Groups.Notifications.name());
+          	but.setEnabled(false);
+          	toolbar.add(but);  
+		}                
+    }
 	
     // Method to add specific button for PDFGen view to the toolbar
     public void createToolbarPDFGenView() {
@@ -369,15 +392,14 @@ public class JFMain extends SingleFrameApplication {
 			}
 	}
 	
+	@Action
+	public void DeleteNotifications() {
+		if (panelNotifications != null)
+			panelNotifications.removeRow();
+	}
 	
 	/*** Methods used to update the views with changes made in other client.
 	 * Only refresh the actual and visible view  ***/
-	public void notifyKnowledgeAdded(Knowledge k) {
-//		int index = tabPanel.getSelectedIndex();
-//		if(tabPanel.getTitleAt(index).equals(ApplicationInternationalization.getString("tabKnowledge")))
-//			panelKnowledge.notifyKnowledgeAdded(k);		
-	}
-
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
 		if (panelKnowledge != null && panelKnowledge.isVisible()) {
 			panelKnowledge.notifyKnowledgeEdited(newK, oldK);
@@ -390,12 +412,10 @@ public class JFMain extends SingleFrameApplication {
 		}				
 	}
 
-	/*** Methods used to update the views with local changes ***/
 	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
 		if (panelKnowledge != null && panelKnowledge.isVisible()) {
 			panelKnowledge.notifyKnowledgeAdded(k, parentK);
-		}	
-		
+		}			
 	}
 
 	// When closes session, return to the login frame
@@ -439,8 +459,6 @@ public class JFMain extends SingleFrameApplication {
 	       	ClientController.getInstance().closeController();			
 		} catch (MalformedURLException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotBoundException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (ClassCastException e) {
 			// Ignore
 		} catch (RemoteException e) {
@@ -463,13 +481,19 @@ public class JFMain extends SingleFrameApplication {
 	}
 	
 	public void showNotificationsView() {
-		mainPanel.setVisible(false);
-		clearViews();
-		//createToolbarNotificationsView();
-		panelNotifications = new panelNotificationsView();
-		
-		getMainFrame().getContentPane().add(panelNotifications, new AnchorConstraint(60, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelNotifications.setPreferredSize(new java.awt.Dimension(1008, 597));	
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				startProgressBar();
+				Thread performer = new Thread(new Runnable() {
+					public void run() {
+						createNotificationsView();
+					}
+
+					
+				}, "Performer");
+				performer.start();
+			}
+		});
 	}
 
 	public void showStatisticsView() {
@@ -519,6 +543,22 @@ public class JFMain extends SingleFrameApplication {
 		stopProgressBar();
 	}
 	
+	private void createNotificationsView() {		
+		// Remove other views, if any
+		clearViews();
+		createToolbarNotificationView();
+		panelNotifications = new panelNotificationsView(this);		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) { }
+		
+		getMainFrame().getContentPane().add(panelNotifications, new AnchorConstraint(58, 1000, 941, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		mainPanel.setVisible(false);
+		panelNotifications.setPreferredSize(new java.awt.Dimension(1008, 609));		
+		
+		stopProgressBar();
+	}
+		
 	private void clearViews() {
 		Component component = null;
 		for(Component c: getMainFrame().getContentPane().getComponents()) {
@@ -584,6 +624,55 @@ public class JFMain extends SingleFrameApplication {
 		jdc.setLocationRelativeTo(getMainFrame());
 		jdc.setVisible(true);
 		
+	}
+
+	public void notifyNotificationAvailable(Notification n) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// Create the notification for all the users of the current project
+	public void createNotification(Knowledge k, Operations operation) {
+		String message = "";
+		if (operation.name().equals(Operations.Modify.name()))
+			message = ApplicationInternationalization.getString("ModifiedKnowledgeNotification");
+		else if (operation.name().equals(Operations.Add.name()))
+			message = ApplicationInternationalization.getString("AddedKnowledgeNotification");
+		else if (operation.name().equals(Operations.Delete.name()))
+			message = ApplicationInternationalization.getString("DeletedKnowledgeNotification");
+			
+		Project currentProject;
+		try {
+			currentProject = searchCurrentProject(ClientController.getInstance().getProjects(), ClientController.getInstance().getCurrentProject());
+			Set<User> usersCurrentProject = new HashSet<User>(ClientController.getInstance().getUsersProject(currentProject));
+			Notification n = new Notification(k, "Unread", currentProject, message, usersCurrentProject);
+			ClientController.getInstance().createNotification(n);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRoleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	// Return the project that has a specified ID
+	private Project searchCurrentProject(List<Project> projects, int currentProject) {
+		Project result = null;
+		for(int i=0; i<projects.size() && result == null; i++)
+			if (projects.get(i).getId() == currentProject)
+				result = projects.get(i);
+		return result;
 	}
 
 }

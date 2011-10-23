@@ -345,6 +345,8 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			Answer newAnswerAdded = ClientController.getInstance().addAnwser(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
 			// Notify to main frame the new knowledge added
 			mainFrame.notifyKnowledgeAdded(newAnswerAdded, proposals.get(cbProposalsAdd.getSelectedIndex()));
+			// Create the notification for all the users of the current project
+			mainFrame.createNotification(newAnswerAdded, Operations.Add);
 			parentD.dispose();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -365,6 +367,8 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			Answer newAnswerModified = ClientController.getInstance().modifyAnswer(newAn, oldAn, proposals.get(cbProposals.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeEdited(newAnswerModified, answers[cbAnswers.getSelectedIndex()]);
+			// Create the notification for all the users of the current project
+			mainFrame.createNotification(newAnswerModified, Operations.Modify);
 			parentD.dispose();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

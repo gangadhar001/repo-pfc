@@ -112,8 +112,8 @@ public class ExportedClient extends UnicastRemoteObject implements IClient{
 	}
 
 	@Override
-	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
-		client.notifyKnowledgeAdded(k);		
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) throws RemoteException {
+		client.notifyKnowledgeAdded(k, parentK);		
 	}
 
 	@Override

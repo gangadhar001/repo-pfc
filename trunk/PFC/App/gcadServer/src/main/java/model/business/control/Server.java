@@ -172,7 +172,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.addTopic(sessionId, session.getUser(), project , topic);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewTopic_msg") + " " + topic.getTitle());
-			ClientsController.notifyKnowledgeAdded(sessionId, topic);
+			ClientsController.notifyKnowledgeAdded(sessionId, topic, null);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newTopic_msg") + " '" + topic.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -198,7 +198,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.addProposal(sessionId, session.getUser(), p, parent);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewProposal_msg") + " " + p.getTitle());
-			ClientsController.notifyKnowledgeAdded(sessionId, p);
+			ClientsController.notifyKnowledgeAdded(sessionId, p, parent);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newProposal_msg") + " '" + p.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -224,7 +224,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.addAnswer(sessionId, session.getUser(), a, parent);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewAnswer_msg") + " " + a.getTitle());
-			ClientsController.notifyKnowledgeAdded(sessionId, a);
+			ClientsController.notifyKnowledgeAdded(sessionId, a, parent);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_newAnswer_msg") + " '" + a.getTitle() + "': " + se.getLocalizedMessage());
 			throw se;
