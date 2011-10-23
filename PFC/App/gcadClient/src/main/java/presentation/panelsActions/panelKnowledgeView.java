@@ -7,10 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
+import model.business.knowledge.File;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -60,6 +61,7 @@ import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
+import exceptions.NonExistentFileException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -97,7 +99,9 @@ public class panelKnowledgeView extends ImagePanel {
 
 	private Knowledge knowledgeSelectedGraph;
 	private JDKnowledge fKnowledge;
-	private KnowledgeGraph KnowGraph;	
+	private KnowledgeGraph KnowGraph;
+
+	private List<File> attachedFiles;	
 	
 	public panelKnowledgeView(JFMain parent) {
 		super();
@@ -151,6 +155,8 @@ public class panelKnowledgeView extends ImagePanel {
 				if (!(val instanceof TopicWrapper)) {
 					knowledgeSelectedTree = (Knowledge) val;
 					showKnowledgeInfo();
+					// Show attached files, if any
+					showAttachedFiles(knowledgeSelectedTree);
 					// Enable delete an edit buttons in toolbar
 					activateToolbarButtons(true);
 				}
@@ -225,7 +231,6 @@ public class panelKnowledgeView extends ImagePanel {
 				{
 					scrollTree = new JScrollPane();
 					scrollTree.setPreferredSize(new java.awt.Dimension(205, 573));
-
 				}
 				this.add(getPnlUserInfo(), new AnchorConstraint(12, 10, 974, 791, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE));
 				this.add(panelTree, new AnchorConstraint(12, 172, 974, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
@@ -625,10 +630,40 @@ public class panelKnowledgeView extends ImagePanel {
 		if (this.knowledgeSelectedGraph != null) {
 			activateToolbarButtons(true);
 			showKnowledgeInfo();
+			// Show attached files, if any
+			showAttachedFiles(knowledgeSelectedGraph);
 		}
 		else {
 			activateToolbarButtons(false);
 		}
+	}
+
+	private void showAttachedFiles(Knowledge k) {
+		try {
+			attachedFiles = ClientController.getInstance().getAttachedFiles(k);
+			if (attachedFiles.size() > 0) {
+				String message = attachedFiles.size() + " ";
+				if (attachedFiles.size() == 1)
+					message = ApplicationInternationalization.getString("AttachedFile");
+				else
+					message = ApplicationInternationalization.getString("AttachedFiles");
+				parent.setStatusText(message);
+				parent.getBtnDownloadAttached().setVisible(true);
+			}
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonExistentFileException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 
 	private void activateToolbarButtons(boolean activate) {
@@ -640,10 +675,10 @@ public class panelKnowledgeView extends ImagePanel {
 	}
 
 	// Show a dialog to attach a file
-	public File showAttachFileDialog() {
+	public java.io.File showAttachFileDialog() {
 		JFileChooser fileChooser = new JFileChooser();       
 		int result = fileChooser.showOpenDialog(this);
-		File file = null;
+		java.io.File file = null;
 		if (result == JFileChooser.APPROVE_OPTION)
 			file = fileChooser.getSelectedFile();
 		
@@ -660,4 +695,9 @@ public class panelKnowledgeView extends ImagePanel {
 		return label;
 	}
 
+	public List<File> getAttachedFiles() {
+		return attachedFiles;
+	}
+
+	
 }

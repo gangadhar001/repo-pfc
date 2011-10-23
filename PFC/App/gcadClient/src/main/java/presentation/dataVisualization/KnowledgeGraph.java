@@ -250,10 +250,10 @@ public class KnowledgeGraph {
 		File file = parent.showAttachFileDialog();
 		if (file != null) {
 			byte[] bFile = new byte[(int) file.length()];
-	   	     FileInputStream fileInputStream;
+	   	    FileInputStream fileInputStream;
 			try {
-				fileInputStream = new FileInputStream(file);
-				// Convert file into array of bytes
+				 fileInputStream = new FileInputStream(file);
+				 // Convert file into array of bytes
 		   	     fileInputStream.read(bFile);
 		   	     fileInputStream.close();          
 		         model.business.knowledge.File f = new model.business.knowledge.File(selectedVertex, file.getName(), bFile);
