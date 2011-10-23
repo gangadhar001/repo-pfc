@@ -1,7 +1,6 @@
 package presentation.panelsActions;
 import internationalization.ApplicationInternationalization;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,8 +9,6 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -24,15 +21,13 @@ import javax.swing.table.DefaultTableModel;
 import model.business.knowledge.Notification;
 
 import org.jdesktop.application.Application;
-import org.jdesktop.swingx.border.DropShadowBorder;
 
+import presentation.JFMain;
 import presentation.customComponents.ImagePanel;
 import presentation.dataVisualization.NotificationsTable;
 import presentation.utils.DateUtilities;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -60,13 +55,15 @@ public class panelNotificationsView extends ImagePanel {
 	private JLabel lblDetail;
 	private JScrollPane scrollTable;
 	private ArrayList<Notification> notifications;
-	protected int rowSelected;
+	private int rowSelected;
 	
-	public panelNotificationsView() {
+	private JFMain parent;
+	
+	public panelNotificationsView(JFMain parent) {
 		super();
+		this.parent = parent;
 		try {
-			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
-			
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));			
 			// Get notifications for the actual project
 			notifications = ClientController.getInstance().getNotificationsProject();			
 		} catch (RemoteException e) {
@@ -85,6 +82,7 @@ public class panelNotificationsView extends ImagePanel {
 		showNotifications();
 	}
 	
+	// Show notification in the table
 	private void showNotifications() {
 		Notification n = null;
 		for (int i=0; i<notifications.size(); i++) {
@@ -93,10 +91,10 @@ public class panelNotificationsView extends ImagePanel {
 			notificationsTable.setValueAt(type, i, 1);
 			notificationsTable.setValueAt(n.getKnowledge().getTitle(), i, 2);
 			notificationsTable.setValueAt(n.getKnowledge().getDate(), i, 3);
-			notificationsTable.setValueAt(n.getKnowledge().getUser().getName(), i, 4);
+			notificationsTable.setValueAt(n.getSubject(), i, 4);
 			// If the notification state is "unread", colorize the row
-//			if (notifications.get(i).getState().equals("Unread"))
-//				notificationsTable.addRowToColorize(i);
+			if (notifications.get(i).getState().equals("Unread"))
+				notificationsTable.addRowToColorize(i);
 		}
 	}
 
@@ -117,7 +115,7 @@ public class panelNotificationsView extends ImagePanel {
 				this.add(scrollTable, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(10, 10, 0, 10), 0, 0));
 				scrollTable.setPreferredSize(new java.awt.Dimension(979, 344));
 				{					
-					notificationsTable = new NotificationsTable();
+					notificationsTable = new NotificationsTable(this);
 					DefaultTableModel model = new DefaultTableModel(notifications.size(), 5);
 					notificationsTable.setModel(model);
 					scrollTable.setViewportView(notificationsTable);
@@ -125,23 +123,32 @@ public class panelNotificationsView extends ImagePanel {
 					notificationsTable.setShowVerticalLines(false);
 					notificationsTable.setFillsViewportHeight(true);
 					notificationsTable.setIntercellSpacing(new Dimension(0,0));
-					//					notificationsTable.setPreferredSize(new java.awt.Dimension(844, 159));
 					notificationsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//					notificationsTable.setPreferredSize(new java.awt.Dimension(977, 348));
 					notificationsTable.bound();
 					notificationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-						
-						// When select a row, show the details and mark this notification as "read"
 						@Override
-						public void valueChanged(ListSelectionEvent e) {
-							// TODO: 
+						public void valueChanged(ListSelectionEvent ev) {
+							// When select a row, show the details and mark this notification as "read"
 							rowSelected = notificationsTable.getSelectedRow();
-//							notificationsTable.deleteRowToColorize(rowSelected);
-//							showDetailRow();
-							
+							if (rowSelected != -1) {
+								parent.enableToolbarButton("DeleteNotifications", true);
+								notificationsTable.deleteRowToColorize(rowSelected);
+								notifications.get(rowSelected).setState("Read");
+								try {
+									ClientController.getInstance().modifyNotificationState(notifications.get(rowSelected));
+								} catch (NotLoggedException e) {
+									JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+								} catch (SQLException e) {
+									JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+								} catch (NonPermissionRoleException e) {
+									JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+								} catch (Exception e) {
+									JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+								}
+								showDetailRow();
+							}
 						}
 					});
-//					updateBorder(scrollTable);
 				}			
 				
 			}
@@ -150,6 +157,7 @@ public class panelNotificationsView extends ImagePanel {
 				this.add(lblDetail, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 				lblDetail.setName("lblDetail");
 				lblDetail.setPreferredSize(new java.awt.Dimension(981, 34));
+				lblDetail.setText(ApplicationInternationalization.getString("DetailNotificationsTable"));
 			}
 			{
 				scrollText = new JScrollPane();
@@ -158,12 +166,9 @@ public class panelNotificationsView extends ImagePanel {
 				{
 					txtDetails = new JTextArea();
 					scrollText.setViewportView(txtDetails);
-//					txtDetails.setPreferredSize(new java.awt.Dimension(856, 130));
 					scrollText.setViewportView(txtDetails);
-					txtDetails.setPreferredSize(new java.awt.Dimension(855, 129));
 				}
 				
-//				updateBorder(scrollText);
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -171,7 +176,7 @@ public class panelNotificationsView extends ImagePanel {
 		}
 	}
 	
-	 protected void showDetailRow() {
+	private void showDetailRow() {
 		Notification n = notifications.get(rowSelected);
 		StringBuilder details = new StringBuilder();
 		details.append("Conocimiento añadido en: ");
@@ -189,13 +194,15 @@ public class panelNotificationsView extends ImagePanel {
 		txtDetails.setText(details.toString());
 		txtDetails.setCaretPosition(txtDetails.getText().length());
 	}
+	
+	public void removeRow() {
+		notificationsTable.removeRow(rowSelected);
+		parent.enableToolbarButton("DeleteNotifications", false);
+		notificationsTable.clearSelection();
+	}
 
-	private void updateBorder(JComponent comp) {
-		 comp.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(Color.BLACK, 9, 0.5f, 12, false, false, true, true), comp.getBorder()));
-//	        } else {
-//	            CompoundBorder border = (CompoundBorder)comp.getBorder();
-//	            comp.setBorder(border.getInsideBorder());
-//	        }
-	    }
+	public Notification getNotification(int row) {
+		return notifications.get(row); 
+	}
 
 }

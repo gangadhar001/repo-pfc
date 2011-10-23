@@ -118,7 +118,7 @@ public class ClientePrueba extends UnicastRemoteObject implements IClient {
 	}
 
 	@Override
-	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) throws RemoteException {
 		ultimoDato = k;
 	}
 

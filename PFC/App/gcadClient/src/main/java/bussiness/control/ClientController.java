@@ -43,6 +43,7 @@ import communication.ProxyServer;
 
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentFileException;
+import exceptions.NonExistentNotificationException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -260,10 +261,26 @@ public class ClientController {
 		return server.getProposals(session.getId());
 	}
 
-	public void removeNotification(Notification notification) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
-		// TODO: server.removeNotification(session.getId(), notification);
-		
+	public void createNotification(Notification n) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.createNotification(session.getId(), n);
 	}
+	
+	public void modifyNotification(Notification n) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception {
+		server.modifyNotification(session.getId(), n);		
+	}
+
+	public void modifyNotificationState(Notification n) throws NotLoggedException, SQLException, NonPermissionRoleException, Exception {
+		server.modifyNotificationState(session.getId(), n);		
+	}
+	
+	public void removeNotification(Notification notification) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		server.deleteNotification(session.getId(), notification);		
+	}
+	
+	public void removeNotificationFromUser(Notification notification) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		server.deleteNotificationFromUser(session.getId(), notification);
+	}
+	
 	public List<Operation> getAvailableOperations() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		// Only make the request to the server the first time
 		if (availableOperations.size() == 0)
@@ -339,9 +356,9 @@ public class ClientController {
 		
 	}
 
-	public void notifyKnowledgeAdded(Knowledge k) {
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
 		mainWindowUI = Application.getInstance(JFMain.class);
-		mainWindowUI.notifyKnowledgeAdded(k);
+		mainWindowUI.notifyKnowledgeAdded(k, parentK);
 	}
 
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
@@ -352,13 +369,12 @@ public class ClientController {
 	
 	public void notifyKnowledgeRemoved(Knowledge k)  {
 		mainWindowUI = Application.getInstance(JFMain.class);
-		mainWindowUI.notifyKnowledgeRemoved(k);
-		
+		mainWindowUI.notifyKnowledgeRemoved(k);		
 	}
 	
 	public void notifyNotificationAvailable(Notification n) {
-		// TODO Auto-generated method stub
-		
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.notifyNotificationAvailable(n);		
 	}
 
 	// Close main frame and show login frame
@@ -368,7 +384,7 @@ public class ClientController {
 	}
 	
 	// Close controller and application
-	public void closeController() throws RemoteException, MalformedURLException, NotBoundException {
+	public void closeController() throws RemoteException, MalformedURLException {
 		if(client != null) {
 			client.disabled(clientIP);
 		}

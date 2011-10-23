@@ -1,20 +1,35 @@
 package presentation.customComponents;
 
+import internationalization.ApplicationInternationalization;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import exceptions.NonPermissionRoleException;
+import exceptions.NotLoggedException;
+
+import presentation.panelsActions.panelNotificationsView;
+
+import bussiness.control.ClientController;
 
 /** 
  * Custom Knowledge Table
@@ -31,9 +46,14 @@ public class CustomTable extends JTable {
 	private Color STRIPED_COLOR = new Color(237, 242, 249);
 	// List used to store the row that has an associated color
 	private List<Integer> listRowsColor = new ArrayList<Integer>();
+
+	private int selectedRowPopup;
+	private panelNotificationsView parent;
 	
-	public CustomTable() {
+	public CustomTable(panelNotificationsView parent) {
 		super();
+		selectedRowPopup = -1;
+		this.parent = parent;
 	}
 	
 	public boolean isCellEditable(int row, int column) {
@@ -96,7 +116,8 @@ public class CustomTable extends JTable {
                     int w = width - 8;
                     int h = rowHeight - 4;
                     int arcSize = 12;
-                    ((Graphics2D)g).setPaint(new GradientPaint(x, y, Color.BLUE, x, y + h, new Color(200, 175, 170)));
+                    Color c = new Color(255, 235, 125);
+                    ((Graphics2D)g).setPaint(new GradientPaint(x, y, c, x, y + h, new Color(200, 175, 170)));
                     g.fillRoundRect(x, y, w, h, arcSize, arcSize);
                     g.setColor(new Color(250, 220, 220));
 				}
@@ -112,13 +133,17 @@ public class CustomTable extends JTable {
 	
 	protected void processMouseEvent(MouseEvent e) {
 		super.processMouseEvent(e);
-		if (!e.isConsumed() && e.isPopupTrigger())
+		if (!e.isConsumed() && e.isPopupTrigger()) {
+			Point p = new Point(e.getX(), e.getY());
+			selectedRowPopup = rowAtPoint(p);
 			showPopup(e);
+		}
 	}
 	
+	// Show the popup menu
 	private JPopupMenu getPopupMenu() {
 		JPopupMenu menu = new JPopupMenu();
-		JCheckBoxMenuItem striped = new JCheckBoxMenuItem("Table Striping");
+		JCheckBoxMenuItem striped = new JCheckBoxMenuItem(ApplicationInternationalization.getString("TableStriping"));
 		striped.setSelected(showDifferentColors);
 		striped.addActionListener(new ActionListener() {			
 			@Override
@@ -127,11 +152,41 @@ public class CustomTable extends JTable {
 				repaint();
 			}
 		});
+		JMenuItem item = new JMenuItem(ApplicationInternationalization.getString("DeleteRow"));
+		item.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeRow(selectedRowPopup);
+				repaint();
+			}
+		});
+		menu.add(item);
+		menu.addSeparator();
 		menu.add(striped);
 		return menu;
 	}
 
 	protected void setStripedTable() {
 		repaint();		
+	}
+	
+	public void removeRow (int row) {
+		if (row != -1) {
+			DefaultTableModel model = (DefaultTableModel)getModel();
+			model.removeRow(row);
+			try {
+				ClientController.getInstance().removeNotificationFromUser(parent.getNotification(row));
+			} catch (RemoteException e) {
+				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRoleException e) {
+				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 }

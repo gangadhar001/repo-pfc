@@ -348,6 +348,8 @@ public class JPManageProposal extends javax.swing.JPanel {
 			Proposal newProposalAdded = ClientController.getInstance().addProposal(newPro, topics.get(cbTopics.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeAdded(newProposalAdded, topics.get(cbTopics.getSelectedIndex()));
+			// Create the notification for all the users of the current project
+			mainFrame.createNotification(newProposalAdded, Operations.Add);
 			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -372,6 +374,8 @@ public class JPManageProposal extends javax.swing.JPanel {
 			Proposal newProposalModified = ClientController.getInstance().modifyProposal(newPro, proposals[cbProposals.getSelectedIndex()], topics.get(cbTopicsModify.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeEdited(newProposalModified, oldPro);
+			// Create the notification for all the users of the current project
+			mainFrame.createNotification(newProposalModified, Operations.Modify);
 			parentD.dispose();
 		} catch (NonPermissionRoleException e) {
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

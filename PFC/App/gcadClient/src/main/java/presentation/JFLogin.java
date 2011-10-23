@@ -520,8 +520,6 @@ public class JFLogin extends SingleFrameApplication {
 			ClientController.getInstance().closeController();
 		} catch (MalformedURLException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotBoundException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (ClassCastException e) {
 			// Ignore
 		} catch (RemoteException e) {

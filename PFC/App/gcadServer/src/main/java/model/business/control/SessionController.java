@@ -242,6 +242,7 @@ public class SessionController {
 			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
 			commonOperations.add(new Operation(Groups.Knowledge.name(), Subgroups.Answer.name(), Operations.Get.name()));
 			commonOperations.add(new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Get.name()));
+			commonOperations.add(new Operation(Groups.Project.name(), Subgroups.Project.name(), Operations.Get.name()));
 		}
 		return commonOperations;
 	}

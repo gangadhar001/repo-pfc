@@ -23,7 +23,7 @@ public interface IClient extends Remote, Serializable  {
 
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) throws RemoteException;
 
-	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException;	
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) throws RemoteException;	
 	
 	public void notifyNotificationAvailable(Notification n) throws RemoteException;
 	

@@ -31,8 +31,8 @@ public class Client implements IClient {
 	}
 	
 	@Override
-	public void notifyKnowledgeAdded(Knowledge k) throws RemoteException {
-		controller.notifyKnowledgeAdded(k);
+	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) throws RemoteException {
+		controller.notifyKnowledgeAdded(k, parentK);
 		
 	}
 

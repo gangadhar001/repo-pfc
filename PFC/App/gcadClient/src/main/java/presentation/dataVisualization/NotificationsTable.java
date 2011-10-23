@@ -1,8 +1,11 @@
 package presentation.dataVisualization;
 
+import internationalization.ApplicationInternationalization;
+
 import javax.swing.table.TableColumnModel;
 
 import presentation.customComponents.CustomTable;
+import presentation.panelsActions.panelNotificationsView;
 import presentation.utils.DateRenderer;
 import presentation.utils.ImageTableNotificationCellRenderer;
 
@@ -13,8 +16,8 @@ public class NotificationsTable extends CustomTable {
 	 */
 	private static final long serialVersionUID = -5937108279685817136L;	
 	
-	public NotificationsTable() {
-		super();
+	public NotificationsTable(panelNotificationsView parent) {
+		super(parent);
 	}	
 	
 	public void bound() {
@@ -23,13 +26,13 @@ public class NotificationsTable extends CustomTable {
 		TableColumnModel cm = getColumnModel();
         cm.getColumn(0).setMaxWidth(24);
         cm.getColumn(0).setHeaderValue("");
-        cm.getColumn(1).setHeaderValue("Type");
+        cm.getColumn(1).setHeaderValue(ApplicationInternationalization.getString("TypeNotification"));
         cm.getColumn(1).setCellRenderer(new ImageTableNotificationCellRenderer());
-        cm.getColumn(2).setHeaderValue("Title");
-        cm.getColumn(3).setHeaderValue("Date");
+        cm.getColumn(2).setHeaderValue(ApplicationInternationalization.getString("TitleNotification"));
+        cm.getColumn(3).setHeaderValue(ApplicationInternationalization.getString("DateNotification"));
         // Convert date to a custom format
         cm.getColumn(3).setCellRenderer(new DateRenderer());
-        cm.getColumn(4).setHeaderValue("Author");
+        cm.getColumn(4).setHeaderValue(ApplicationInternationalization.getString("SubjectNotification"));
 	}	
 
 }
