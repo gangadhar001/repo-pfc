@@ -1,0 +1,277 @@
+\chapter{Estado del Arte}
+\label{ch:estadodelarte}
+
+% En esta parte se deben mostrar los conocimientos obtenidos en la búsqueda bibliográfica y no ideas personales del autor; como mucho podrá aportar un comentario de algunas pocas ideas extraídas de las fuentes en que se ha basado.
+
+% Se articulará esta parte en diversas secciones, que permitan la exposición estructurada y didáctica de los conocimientos de la investigación bibliográfica.
+
+% Globalización
+% DGS
+% Gestión conocimiento
+% CBR
+% Perspectiva de en qué consiste y qué hay en la literatura ¡CUIDADO REFERENCIAS!
+% Herramientas relacionadas (si hay tiempo, secundario)
+
+
+%Ventajas:
+%* Obtener la mano de obra, en ocasiones escasa, necesaria para el proyecto en países donde se está avanzando notablemente en I+D.
+%* Disminuir las dificultades para construir los métodos necesarios para gestionar el conocimiento y coordinar los distintos grupos de trabajo, abstrayéndose de la distancia geográfica \cite{kobitzsch01}.
+%* Recortar costes y gastos derivados de los viajes a los países con los que se colabora.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%DESARROLLO GLOBAL SOFTWARE
+\section{Desarrollo Global de Software}
+
+En los últimos años, la globalización económica está provocando que la industria y el comercio se adapte nuevos modelos de negocios, en búsqueda de aumentar la competitividad y minimizar los costes, por lo que las empresas se han visto obligadas a evolucionar en su modo de trabajo. Así, se ha cambiado el concepto de \textit{mercado nacional} por el de \textit{mercado global} \cite{damian2006guest} \cite{herbsleb2002global}.
+
+Centrándose en el desarrollo de software, hasta hace unos años, el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio al mismo tiempo. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando en los últimos años, tendiendo a un desarrollo distribuido del mismo. Los CDS comenzaron a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés Global Software Development.
+
+EL GSD puede definirse como: ``\textit{el desarrollo de software que se realiza en localizaciones separadas geográficamente más allá de fronteras nacionales, de manera coordinada e involucrando participación en tiempo real (síncrona) e interacción asíncrona}'' \cite{wernerHeij}. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| p{3.5cm} | p{8cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.7}\textbf{Localización}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.7}\textbf{Tipo de desarrollo}} \\
+	\hline
+		\cellcolor[gray]{0.9}Mismo lugar &
+		Desarrollo tradicional (Co-localizado)\\
+	\hline
+		\cellcolor[gray]{0.9}Mismo país &
+		Desarrollo Distribuido de Software (DSD) \\
+	\hline
+		\cellcolor[gray]{0.9}Distintos países &
+		Desarrollo Global de Software (GSD) \\
+	\hline
+\end{tabular}
+\caption{Modelos de desarrollo de software según dispersión geográfica}
+\label{table:evolucionSD}
+\end{table}
+
+En este nuevo modelo de GSD, además de tener en cuenta que los \textit{stakeholders}\footnote{Stakeholders: \textit{aquellos que pueden afectar o son afectados por las actividades de una empresa} \cite{freeman2010strategic}.} se encuentran distribuidos geográficamente, hay que contar con el número de compañías que colaboran en un mismo proyecto. Un mismo proyecto bien puede ser desarrollado por una misma compañía, pero con CDS distribuidos en diferentes países, o bien puede llevarse a cabo por un conjunto de compañías que colaboran o están subcontratadas por la primera \cite{sangwan2006global}. Así, surgen los conceptos de outsourcing, offshoring y nearshoring.
+
+Por \textbf{outsourcing} se entiende la externalización o subcontratación de uno o varios servicios a terceros, ya que resulta más rentable, en términos de disminución de costes, que la compañía subcontratada realice estos servicios, ya que la mano de obra puedes ser más barata en un país diferente al país de la compañía contratante \cite{sahay:globalit}.
+
+Relacionado con el \textit{outsourcing}, está el concepto de \textbf{offshoring}, entendido como la relocalización de actividades de negocio, mediante empresas filiales de otros países \cite{aspray2006globalization}. Si estos países implicados en el proceso son relativamente cercanos al país de origen de la compañía que realiza el \textit{outsourcing}, se habla de \textbf{nearshoring} \cite{sahay:globalit}. 
+
+En GSD, estas prácticas son cada vez más utilizadas, debido a la rentabilidad que proporcionan a la compañía. En la Figura \ref{fig:beneficios} se puede observar el crecimiento del \textit{offshoring} de los últimos y la reducción de costes que conlleva.
+
+\imagenBorde{Cap3//beneficios}{0.60}{Crecimiento del \textit{offshoring} en los últimos años}{fig:beneficios}
+
+Como se puede apreciar, el GSD y sus prácticas introducen una serie de beneficios o ventajas, pero también de dificultades o inconvenientes a tener en cuenta. En el siguiente apartado se desarrollan los más importantes.
+
+\subsection{Beneficios del Desarrollo Global de Software}
+
+A continuación, se desarrollan los beneficios más destacables del Desarrollo Global de Software, según \cite{benefitsGSD} y \cite{cho2007globalization}.
+
+\paragraph{Reducción de costes}
+
+La diferencia de salarios entre países puede ser enorme. Por ejemplo, el salario de un ingeniero de software en Estados Unidos puede llegar a ser varias veces el salario de un ingeniero similar en Asia o Sudamérica, por lo que las compañías buscan localizaciones alternativas que permitan recortar el coste de la mano de obra.
+
+Gracias al GSD, las compañías tienen acceso a mano de obra más barata, debido a su deslocalización en diferentes países, pudiendo encontrar salarios mucho menores que en el país de origen. Ya que las compañías siempre buscan reducir el coste, éste ha sido el principal motivo que ha impulsado el GSD.
+
+\paragraph{Aumento de la competitividad}
+
+El GSD provee la posibilidad de poder encontrar mano de obra más cualificada o más experimentada en diferentes países, de modo que las compañías pueden contratar esos recursos personales y expandir su desarrollo a zonas más cualificadas y competitivas.
+
+\paragraph{Disminución de tiempo de lanzamiento al mercado}
+
+En GSD, existe el modelo de desarrollo ``\textit{follow-the-sun}''. Esto significa que, gracias a que existen varios centros de desarrollo en diferentes países, una compañía puede aprovechar las diferencias horarias entre sus diferentes centros de desarrollo para estar desarrollando software las 24 horas del día (ver Figura \ref{fig:sun}. De este modo, se consigue maximizar la productividad y disminuir el tiempo de salida al mercado (\textit{time-to-market)} de un producto software.
+
+De este modo, cada uno de los CDS localizados en cada país, pueden ir realizando diferentes actividades, como, por ejemplo, diseño, implementación, pruebas, etc. Para que este modelo de trabajo sea efectivo, debe existir una coordinación entre todos los CDS, que es una de las dificultades del GSD, como se comentará posteriormente.
+
+\imagenBorde{Cap3//follow_the_sun}{0.80}{Modelo de desarrollo \textit{Follow-the-sun}}{fig:sun}
+
+\paragraph{Proximidad al mercado y al cliente}
+
+Al establecer filiales en aquellos países donde se localizan potenciales clientes, el GSD permite el desarrollo de software de una manera más cercana a sus clientes, aprovechando el conocimiento del mercado local y, por tanto, conociendo mejor sus necesidades.
+
+\paragraph{Mejoras en la innovación}
+
+Al disponer de CDS en diferentes países, se puede tomar ventaja de las diferentes nacionalidades, culturas, experiencias y habilidades de cada uno de ellos, pudiendo así evolucionar, innovar y enriquecer la compartición de conocimiento.
+
+Como se ha visto, el GSD acarrea una serie de ventajas y beneficios que lo han convertido en un nuevo modelo de desarrollo utilizado por muchas empresas del sector. Sin embargo, existen también una serie de dificultades y problemas derivados de la deslocalización de los recursos, que se detallan en el siguiente apartado.
+
+\subsection{Dificultades del Desarrollo Global de Software}
+
+Como se ha visto, el GSD provee a las compañías y organizaciones unos beneficios muy prometedores. Sin embargo, existen dificultades a las que las compañías tienen que hacer frente, todas ellas debidas a la distancia y a la deslocalización (ver Figura \ref{fig:distances}) \cite{cho2007globalization} \cite{fitzgerald2010global}.
+
+Según \cite{fitzgerald2010global}, existen tres tipos de distancia que dificultan el GSD:
+
+\begin{itemize}
+	\item \textbf{Distancia geográfica}. En GSD, se define como ``la medida de esfuerzo que un individuo necesita realizar para visitar otro punto, alejado del primero''. Por ejemplo, dos lugares dentro del mismo país con un enlace aéreo directo y vuelos regulares, se pueden considerar relativamente cerca, aunque estén separados por grandes distancias kilométricas. Sin embargo, no se puede decir lo mismo de dos lugares que están cerca geográficamente (separación de pocos kilómetros) pero con poca infraestructura de transporte. Este último caso tendría una elevada distancia geográfica.
+	\item \textbf{Distancia temporal}. En GSD, se define como ``la medida de la deslocalización en tiempo, experimentada por dos individuos que desean interactuar''. Esta distancia normalmente va unida a la anterior, provocando que existan husos horarios diferentes entre dos puntos debidos a la distancia geográfica existente entre dichos puntos.
+	\item \textbf{Distancia socio-cultural}. Se define como ``la medida en que un individuo comprende las costumbres (símbolos, normas y valores sociales) y cultura de otro individuo''. Aunque esta distancia es muy frecuente en el GSD, también aparece en equipos de desarrollo co-localizados, ya que cada miembro del equipo puede tener nacionalidades y culturas diferentes. Este tipo de distancia es el mayor desafío a superar en el GSD, ya que con mucha frecuencia se producen conflictos y malentendidos entre los diferentes equipos de desarrollo, debido al carácter multicultural y multinacional del GSD.
+\end{itemize}
+
+\imagenBorde{Cap3//distances}{0.90}{Influencia de la distancia en el desarrollo de software}{fig:distances}
+
+Estas distancias afectan a los tres grandes procesos que intervienen en el proceso de desarrollo de software: comunicación, coordinación y control, siendo los de comunicación y control los más problemáticos en GSD, según \cite{benefitsGSD}. 
+
+Por tanto, los desafíos y dificultades del GSD se agrupan en tres categorías, lo que se conoce como las tres ``C'' \cite{conchúir2009global}:
+\begin{itemize}
+	\item Desafíos en la \textbf{\textit{Comunicación}}, es decir, en el proceso de intercambio de conocimiento e información entre individuos.
+	\item Desafíos en la \textbf{\textit{Coordinación}}, relacionados con objetivos e intereses comunes.
+	\item Desafíos en el \textbf{\textit{Control}}, relacionados con la gestión del proyecto, informes, progreso, etc.
+\end{itemize}
+
+En los siguientes apartados se resumen los desafíos más destacables en cada uno de los grupos de las tres ``C'' y el tipo de distancia que afecta.
+
+\subsubsection{Desafíos en la comunicación y la distancia geográfica}
+
+Debido a la distancia geográfica entre los distintos CDS, aparecen las siguientes dificultades en la comunicación \cite{fitzgerald2010global} \cite{cho2007globalization}.
+
+\paragraph{Falta de comunicación ``face-to-face''}
+
+La posibilidad de un intercambio de información \textit{face-to-face} (cara a cara, en español) desaparece o es prácticamente nula debido a la deslocalización de los equipos de desarrollo. Por ello, se depende casi en la totalidad de herramientas de comunicación, que son muy variadas y pueden no seguir estándares de comunicación, por lo que se provocan malentendidos.
+
+La distancia temporal también influye en este tipo de comunicación, ya que para que un intercambio de información cara a cara se produzca, es necesario estar ``en el mismo lugar, al mismo tiempo''.
+
+\paragraph{Aumento del esfuerzo en la comunicación} 
+
+Debido al uso de herramientas de comunicación, los tiempos de respuesta son altos, no se conoce personalmente en muchos casos a otros miembros que intervienen en la comunicación ni su disponibilidad, por lo que la comunicación cada vez se vuelve más escasa y de menor calidad.
+
+\paragraph{Coste de los viajes}
+
+En alguno casos, la necesidad de comunicarse cara a cara es indispensable, especialmente en fases tempranas del proyecto. Esto supone gastos de dinero y tiempo para realizar los viajes, además de ser necesario la ruptura de las barreras culturales y lingüísticas.
+
+\paragraph{Dependencia en las tecnologías y herramientas de comunicación}
+
+En GSD, la dependencia de este tipo de tecnología y herramientas es muy elevada ya que, como se ha comentado, la posibilidad de una comunicación cara a cara es escasa. Por lo tanto, la comunicación y su efectividad va a depender en gran medida de las funcionalidades que la herramienta permita a los equipos de desarrollo para comunicarse.
+
+
+\subsubsection{Desafíos en la comunicación y la distancia temporal}
+
+Debido a la distancia temporal entre los distintos CDS, aparecen las siguientes dificultades en la comunicación \cite{fitzgerald2010global} \cite{conchúir2009global}.
+
+\paragraph{Interrupciones}
+
+Al encontrarse muchas veces los CDS en diferentes husos horarios, resulta muy complicado el poder contactar con individuos de otros equipos de trabajo y, en multitud de ocasiones, se produce la comunicación en horarios no adecuados o se producen interrupciones en el trabajo de un equipo, lo que aumenta el malestar en el trabajo.
+
+\paragraph{Cambio de horario laboral}
+
+Si los diferentes CDS siguen horarios muy diferentes, debido a las grandes distancias geográficas, a veces es necesario ajustar el horario laboral de cada equipo, para poder cumplir el modelo ``follow-the-sun'' y favorecer la comunicación.
+
+Además de estas dificultades, al igual que en el caso anterior, se depende de herramientas de comunicación (asíncronas en su mayoría) y falta comunicación ``face-to-face''.
+
+
+\subsubsection{Desafíos en la comunicación y la distancia socio-cultural}
+
+Debido a la distancia socio-cultural entre los distintos CDS, aparecen las siguientes dificultades en la comunicación \cite{fitzgerald2010global}.
+
+\paragraph{Malentendidos debidos a diferencias lingüísticas}
+
+En multitud de ocasiones se producen malentendidos al comunicarse, debido a que los equipos de desarrollo hablan idiomas nativos diferentes. Estos fallos en la comunicación repercutirán posteriormente en el desarrollo, sobre todo si son malentendidos producidos durante la fase de análisis de requisitos del proyecto.
+
+\paragraph{Malentendidos culturales}
+
+Al establecer una comunicación entre personas que no conocen totalmente las costumbres y cultura de la otra parte, puede provocar situaciones incómodas de manera involuntaria. Por ejemplo, en USA, prefieren especificar cada detalle en un documento, utilizar el teléfono y el e-mail de manera informal, mientras que en Japón prefieren el uso de medios más formales y prefieren la comunicación verbal a documentos escritos \cite{cho2007globalization}.
+
+Por otro lado, en GSD el marco socio-cultural puede influir en opiniones diferentes sobre la propia naturaleza de llevar a cabo los procesos de desarrollo.
+
+
+\subsubsection{Desafíos en la coordinación y la distancia geográfica}
+
+Debido a la distancia geográfica entre los distintos CDS, aparecen las siguientes dificultades en la coordinación \cite{fitzgerald2010global} \cite{monasor}.
+
+\paragraph{Reducción de la confianza}
+
+La confianza mutua en los equipos de desarrollo es crucial para una colaboración y coordinación. Sin embargo, para llegar a tener confianza, es necesario una interacción cercana, para poder empatizar con la otra parte, lo que es muy difícil en GSD, debido a la distancia. Debido a esta falta de confianza, empeora la coordinación entre diferentes CDS.
+
+\paragraph{Falta de espíritu y conciencia de equipo}
+
+Los miembros de equipos virtuales, es decir, miembros de equipos separados por la distancia, tienden a ser menos productivos debido a los sentimientos de lejanía, indiferencia y aislamiento y falta de contacto informal. Por ello, se tiende menos a la colaboración, coordinación, resolución de tareas comunes, etc.
+
+\paragraph{Modularización del trabajo}
+
+La naturalez del GSD obliga a los distintos CDS a dividir su desarrollo en módulos bien definidos, de modo que puedan ser desarrollados de manera separada, lo que aumenta el coste de coordinación, para su posterior integración. 
+
+Además, relacionada con esta modularización del trabajo, aumenta también el esfuerzo para definir y estructurar todos los módulos, convirtiéndose en un gran reto para los jefes de proyecto.
+
+
+\paragraph{Aumento del esfuerzo en acuerdos de externalización}
+
+Debido al \textit{outsourcing}, aumenta el esfuerzo que debe hacerse al contratar recursos externos, contactar con ellos, coordinarlos, etc.
+
+
+\paragraph{Riesgo de alternativas de bajo coste}
+
+Debido a la gran variedad de mando de obra y recursos, los empleados con mayor coste se sienten amenazados por compañeros que resultan ser mano de obra más barata, creando una sensación de ``nosotros contra ellos'' (``we versus they'').
+
+
+\subsubsection{Desafíos en la coordinación y la distancia temporal}
+
+Debido a la distancia temporal entre los distintos CDS, aparecen las siguientes dificultades en la coordinación \cite{fitzgerald2010global}.
+
+\paragraph{Reducción de horas de colaboración}
+
+El número de horas se solapamiento en una jornada laboral entre diferentes CDS deslocalizados, varía mucho según el país donde se localice. Esto afecta a la realimentación (o ``feedback'' en inglés) entre equipos y complica su coordinación. 
+
+Del mismo modo, se reducen las horas efectivas de coordinación y comunicación síncrona entre equipos, lo que dificulta seguir el modelo de ``follow-the-sun'', que necesita una fuerte coordinación para poder aprovechar al máximo las diferencias horarias.
+
+\paragraph{Disponibilidad de infraestructura técnica}
+
+La tecnología es utilizada para la comunicación síncrona y asíncrona a través de los diferentes países. Sin embargo, la tecnología utilizada para la coordinación no es suficiente, lo que hace necesario un tipo de tecnología adaptada a procesos de coordinación y colaboración \cite{kobitzsch2001outsourcing}.
+
+Esto acarrea el aumento de esfuerzo que los equipos tienen que realizar para poder coordinarse correctamente, lo que puede provocar retrasos en el proyecto.
+
+\subsubsection{Desafíos en la coordinación y la distancia socio-cultural}
+
+Debido a la distancia socio-cultural entre los distintos CDS, aparecen las siguientes dificultades en la coordinación \cite{fitzgerald2010global} \cite{conchúir2009global}.
+
+
+\paragraph{Formación cultural y lingüística}
+
+Aumenta el coste dedicado a la formación del idioma y la cultura de los diferentes miembros de los CDS, necesario para mejorar la comunicación y coordinación en los proyectos.
+
+\paragraph{Falta de dominio de conocimiento}
+
+Las tareas de coordinación y desarrollo del proyecto requiere conocer el dominio de dicho proyecto, lo que algunos desarrolladores no conocen al provenir de diferentes culturas y países, teniendo cada uno de ellos diferentes puntos de vista sobre un mismo asunto.
+
+\subsubsection{Desafíos en el control y la distancia geográfica}
+
+Debido a la distancia geográfica entre los distintos CDS, aparecen las siguientes dificultades en el control \cite{fitzgerald2010global}.
+
+\paragraph{Asignación de roles y estructuras de equipo}
+
+La deslocalización de los equipos de desarrollo complica y aumenta los costes en la asignación de roles y estructuras de equipos, debido a la multitud de habilidades de todas las personas involucradas en diferentes países.
+
+\paragraph{Aplicación de principios de ingeniería del software concurrente}
+
+La ingeniería de software concurrente (en adelante CSE, por sus siglas en inglés Concurrent Software Engineering) es una técnica utilizada para disminuir el tiempo de lanzamiento al mercado (``time-to-market''), realizando varias actividades al mismo tiempo \cite{blackburn1996concurrent}.
+
+Implementar principios de CSE en GSD es muy complicado, debido a recursos no disponibles y falta de coordinación y comunicación.
+
+\paragraph{Riesgos organizacionales}
+
+En el GSD, parte del control y gestión de proyectos puede recaer sobre países emergentes, los cuáles, históricamente, han sido menos estables, predecibles y transparente. Por tanto pueden existir riesgos de terrorismo, guerra, expropiación, problemas de propiedades intelectuales, pérdida de datos, etc.
+
+\subsubsection{Desafíos en el control y la distancia temporal}
+
+Debido a la distancia temporal entre los distintos CDS, aparecen las siguientes dificultades en el control \cite{fitzgerald2010global} \cite{evaristo2000geographically}.
+
+\paragraph{Gestión de los artefactos del proyecto}
+
+Cuando un proyecto involucra miembros de diferentes compañías o de diferentes CDS de la misma organización, hacer cumplir los procesos y normas del artefacto software es particularmente importante para mantener la consistencia e interoperabilidad entre los diferentes artefactos del proyecto.
+
+
+\subsubsection{Desafíos en el control y la distancia socio-cultural}
+
+Debido a la distancia socio-cultural entre los distintos CDS, aparecen las siguientes dificultades en el control \cite{fitzgerald2010global}.
+
+\paragraph{Adaptación a normas y estructuras locales}
+
+Se deben aprender las normas y estructuras locales de cada país (tradiciones, regulaciones, leyes de exportación e importación, leyes aplicables, etc.), lo que puede afectar a los métodos de desarrollo de los proyectos.
+
+\paragraph{Diferentes percepciones de la autoridad}
+
+La naturaleza de la autoridad dentro de un proyecto puede variar entre las diferentes culturas, por lo que pueden surgir problemas en el control de un proyecto si los equipos en diferentes lugares esperan que se maneje de manera diferente, y si estas expectativas diferentes no se identifican desde el principio.
+
+
+%% Table 2-1. The distances affecting the software development processes.
+%% Tabla resumen de los problemas
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
