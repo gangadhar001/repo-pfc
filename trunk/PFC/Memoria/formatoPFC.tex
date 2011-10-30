@@ -6,6 +6,7 @@
 \usepackage[T1]{fontenc} % Codificación de fundiciones
 \usepackage{times} % Familia base de fundiciones
 \usepackage{microtype} % Mejoras para pdflatex
+\usepackage{enumerate}
 %====================================
 \usepackage{pifont} % Acceder a los caracteres de Zapf Dingbats con la orden \ding
 %====================================
@@ -80,8 +81,6 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 \usepackage{dtklogos} % Para logos como \BibTeX
 
 
-
-
 %====================================
 %====================================
 %====================================
@@ -128,6 +127,8 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
   \vspace{-10pt}
 \end{wrapfigure}}
 
+\setcounter{secnumdepth}{3}
+
 % ------------------ Macro para cambiar el interlineado ---------------------
 %       Uso: \interlineado{tamaño en puntos: 1.0 es normal, 2.0 doble...}
 % -----------------------------------------------------------------------------
@@ -156,7 +157,7 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 %====================================
 % Control de espaciado entre párrafos e indentación
 
-%\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 %\setlength{\parindent}{8ex}
 %====================================
 %====================================

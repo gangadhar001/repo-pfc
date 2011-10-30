@@ -106,7 +106,7 @@ Según \cite{fitzgerald2010global}, existen tres tipos de distancia que dificulta
 	\item \textbf{Distancia socio-cultural}. Se define como ``la medida en que un individuo comprende las costumbres (símbolos, normas y valores sociales) y cultura de otro individuo''. Aunque esta distancia es muy frecuente en el GSD, también aparece en equipos de desarrollo co-localizados, ya que cada miembro del equipo puede tener nacionalidades y culturas diferentes. Este tipo de distancia es el mayor desafío a superar en el GSD, ya que con mucha frecuencia se producen conflictos y malentendidos entre los diferentes equipos de desarrollo, debido al carácter multicultural y multinacional del GSD.
 \end{itemize}
 
-\imagenBorde{Cap3//distances}{0.90}{Influencia de la distancia en el desarrollo de software}{fig:distances}
+\imagenBorde{Cap3//distances}{1.0}{Influencia de la distancia en el desarrollo de software}{fig:distances}
 
 Estas distancias afectan a los tres grandes procesos que intervienen en el proceso de desarrollo de software: comunicación, coordinación y control, siendo los de comunicación y control los más problemáticos en GSD, según \cite{benefitsGSD}. 
 
@@ -272,6 +272,110 @@ La naturaleza de la autoridad dentro de un proyecto puede variar entre las difer
 
 %% Table 2-1. The distances affecting the software development processes.
 %% Tabla resumen de los problemas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% GESTIÓN DE CONOCIMIENTO
+\section{Gestión de conocimiento} \label{label:km}
+
+En la actualidad, nos encontramos sumidos en la era digital, en la era de la información, es decir, vivimos en la sociedad de la información y del conocimiento, que puede definirse como ``aquella sociedad en la que las tecnologías facilitan la creación, distribución, manipulación y reutilización de la información y el conocimiento'' \cite{burch2005sociedad} \cite{Hovland}.
+
+Debido a que vivimos en esta era digital, la información y el conocimiento se han convertido en el recurso más importante para las empresas, más incluso que los bienes materiales tangibles, dependiendo su economía, productividad y competitividad directamente de su capacidad para adquirir y utilizar la información y el conocimiento \cite{castells1999globalización} \cite{oscar} \cite{Davenport2000}.
+
+La \textbf{información} se puede definir como ``un conjunto de datos, organizados, que aportan un significado para el receptor que los recibe'' \cite{Davenport2000}. Por otra parte, el \textbf{conocimiento} puede definirse como ''\textit{una mezcla fluida de experiencias enmarcadas, valores, información contextual, y pericia que provee de un marco para evaluar e incorporar nuevas experiencias e información. Esto se origina y es aplicado en la mente de quienes conocen. En las organizaciones, con frecuencia viene embebido no solo en documentos o repositorios, sino también en
+rutinas, procesos, prácticas o normas de la organización}'' \cite{Davenport2000}. En la Figura \ref{fig:conocimiento} se puede observar la relación entre datos, información y conocimiento \cite{oscar}.
+
+\imagenBorde{Cap3//conocimiento}{0.55}{Relaciones entre datos, información y conocimiento}{fig:conocimiento}
+
+Por todo ello, las empresas están centrando sus esfuerzos en nueva infraestructura tecnológica, procesos y recursos necesarios para poder gestionar y utilizar el conocimiento y la información, vitales para que la empresa siga siendo competitiva en el mercado. Surge así lo que se conoce como \textit{economía informacional} \cite{castells1999globalización} y \textit{gestión del conocimiento} (en adelante KM, por sus siglas en inglés Knowledge Management) \cite{oscar}.
+
+En la actualidad, no existe un consenso acerca de la definición de gestión de conocimiento, ya que KM es un campo multidisciplinar con diferentes perspectivas y definiciones, según donde se aplique. En \cite{dalkir2007knowledge} se presentan tres perspectivas de KM:
+
+\begin{enumerate}
+	\item Desde la perspectiva de \textit{negocio}, donde el KM se considera parte de la estrategia, políticas y prácticas del negocio. En este sentido, KM is un enfoque colaborativo e integrado para la captura, creación y acceso de activos de negocio \cite{barclay1997knowledge}.
+	\item Desde la perspectiva de la \textit{ciencia cognitiva}, donde el conocimiento es el recurso fundamental para la inteligencia. 
+	\item Desde la perspectiva \textit{tecnológica y de procesos}, donde KM es el concepto por el cual la información se convierte en conocimiento potencialmente utilizable y útil para las personas.  
+	\end{enumerate}
+	
+Desde este último punto de vista, en el que nos centraremos en este documento, la gestión de conocimiento se podría definir como ``un proceso que permite crear, capturar, identificar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización'' \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. En el caso concreto de una organización dedicada al desarrollo software, el conocimiento que más interesa gestionar son las alternativas y decisiones planteadas en las fases de desarrollo de un producto software, los diferentes diagramas, la documentación, las pruebas del software, etc. 
+
+Para que la adquisición y manipulación de conocimiento sea efectiva, las organizaciones y compañías deben integrar entre sus procesos de negocio un marco de trabajo para la gestión de conocimiento, que involucra una serie de pasos a seguir \cite{alavi2001review}, desarrollado en el siguiente apartado.
+
+\subsection{Marco de trabajo para la gestión de conocimiento}
+
+Atendiendo a la definición de KM en la perspectiva tecnológica y de procesos, en \cite{alavi2001review} y \cite{holzner1979knowledge} se definen cuatro tareas que componen un marco de trabajo organizacional para la gestión de conocimiento. Éstas son:
+
+\begin{itemize}
+	\item Creación (o construcción).
+	\item Almacenamiento/Recuperación.
+	\item Transmisión.
+	\item Aplicación.
+\end{itemize}
+
+Se detallan a continuación cada uno de estos procesos.
+
+
+\subsubsection{Creación de conocimiento}
+
+La creación de conocimiento organizacional involucra crear nuevo conocimiento, o reemplazar ciertos contenidos con nuevo conocimiento tácito y explícito, obtenido tanto a través de colaboraciones e interacciones sociales, como a partir del propio proceso cognitivo de cada empleado \cite{alavi2001review}.
+
+Por conocimiento \textit{tácito} se entiende como aquel conocimiento personal de cada individuo que necesita para realizar sus tareas. Por otra parte, el conocimiento \textit{explícito} es aquel expresado de manera formal (palabras, números, etc.) por lo que se puede comunicar y transferir de manera sencilla \cite{oscar}.
+
+Existen cuatro modos identificados para la creación de conocimiento \cite{oscar} \cite{alavi2001review} \cite{nonaka1994dynamic}:
+
+\begin{itemize}
+	\item \textbf{Socialización}: proceso por el cual se convierte el conocimiento tácito en nuevo conocimiento tácito a partir de interacciones sociales y experiencias compartidas. De este modo, los individuos comparten sus conocimiento tácito.
+	\item \textbf{Exteriorización}: proceso por el cual el conocimiento tácito se convierte en conocimiento explícito, convirtiéndolo a medios formales como documentos, gráficos, imágenes, etc.
+	\item \textbf{Interiorización}: proceso por el cual se convierte el conocimiento explícito en tácito, consultando reiteradamente conocimiento explícito en sus actividades diarias.
+	\item \textbf{Combinación}: proceso por el cual se crea nuevo conocimiento explícito mezclando, clasificando y sintetizando otro conocimiento explícito.
+\end{itemize}
+
+En la Figura \ref{fig:Creacionconocimiento} se muestra un resumen del ciclo de creación de conocimiento \cite{oscar}.
+
+\imagenBorde{Cap3//CreacionConocimiento}{0.4}{Mecanismos de creación de conocimiento}{fig:Creacionconocimiento}
+
+
+\subsubsection{Almacenamiento y recuperación del conocimiento}
+
+Del mismo modo que las organizaciones generan y aprenden nuevo conocimiento, también pueden olvidarlo. Por ello, para una gestión de conocimiento eficaz, es necesario que las empresas almacenen y utilicen su conocimiento generado \cite{alavi2001review}. La memoria organizacional de conocimiento suele formarse a partir de documentos, bases de datos estructuradas, procesos y procedimientos de negocio, vídeos, etc. Por lo general, a la hora de almacenar el conocimiento, hay que tener en cuenta el tipo de almacenamiento, el alcance (personal, grupal, organizacional o inter-organizacional) y el tipo de conocimiento a almacenar.
+
+Una vez almacenado el conocimiento de la empresa, éste puede ser utilizado, en cualquier momento (e incluso en cualquier lugar, dependiendo del tipo de almacenamiento) por los individuos, utilizando herramientas como consultas de bases de datos, una intranet para procesos y documentos internos, wikis, etc.
+
+
+\subsubsection{Transmisión del conocimiento}
+
+El objetivo primordial de KM es que el conocimiento pueda ser utilizado y conocido por las empresas, para que puedan ser competitivas en el marco de globalización y sociedad de la información en el que nos encontramos, por lo que los mecanismos de transferencia de conocimiento, tanto a nivel interno como inter-organizacional, son de vital importancia en KM.
+
+La transmisión de conocimiento principalmente se produce por procesos de socialización, donde un grupo de individuos, normalmente con intereses comunes, comparten el conocimiento e intentar aprender y resolver problemas juntos \cite{wenger1998communities}.
+
+Un aspecto a tener en cuenta en este proceso de transmisión, es que el conocimiento debe poder ser accesible desde cualquier momento y lugar, por lo que las tecnologías de comunicación son cruciales, así como los métodos utilizas para esta transmisión (e-mail, wikis, conferencias, etc.).
+
+
+\subsubsection{Aplicación del conocimiento}
+
+Las organizaciones no llegan a ser competitivas sólo por poder crear, almacenar, recuperar y transferir conocimiento, sino por la aplicación de dicho conocimiento. Así, una empresa puede utilizarlo para la toma de decisiones, para mejorar sus procesos de negocio, para crear productos mejores, para conocer el mercado y adaptarse más rápidamente a sus necesidades, etc.
+
+Aplicar el conocimiento supone ejecutar todos los procesos anteriores ya que, por ejemplo, en el caso de tomar decisiones, primero se debe obtener todo el conocimiento necesario para llevar a cabo esa decisión. Además, este proceso de aplicación, genera nuevo conocimiento, haciendo que el conocimiento organizacional crezca y evolucione para futuras aplicaciones, formando un ciclo (ver Figura \ref{fig:KMCycle}).
+
+En el caso particular del desarrollo software, ya sea localizado, distribuido o global, la gestión y aplicación de conocimiento provee beneficios como reducción de costes, reducción de errores, mejora en la calidad del producto, etc. Esto se debe a que se puede aprender y reutilizar conocimiento (código, documentos, pruebas, diagramas, etc.) de otros productos software. 
+
+\imagenBorde{Cap3//KMCycle}{0.4}{Ciclo de gestión de conocimiento}{fig:KMCycle}
+
+
+\subsection{Beneficios y desafíos de la gestión de conocimiento}
+
+En esta sección se resaltan algunos de los beneficios y dificultades de KM al utilizarse en las organizaciones.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CBR
+\section{Razonamiento basado en casos}
+
+Estrechamente relacionado con la gestión de conocimiento desarrollada en la sección \ref{label:km}, está el concepto de razonamiento basado en casos (en adelante CBR, por sus siglas en ingles Case-Based Reasoning).
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
