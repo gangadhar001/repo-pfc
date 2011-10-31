@@ -1,6 +1,68 @@
-\chapter{Manual de Usuario}
-\label{ch:manualdeusuario}
+\chapter{Manual de usuario de GCADServer}
+\label{ch:manualServer}
+
+\textit{GCADServer} es el servidor que debe encontrarse en ejecución para poder ejecutar la mayoría de las funcionalidades de la herramienta \textit{GCADClient}. 
+
+Esta herramienta necesitará un servidor de bases de datos MySQL activo, bien en la misma máquina o en otra.
+
+ 
+
+\chapter{Manual de usuario de GCADClient}
+\label{ch:manualClient}
+
+
+
+\chapter{Manual de configuración del entorno}
+\label{ch:manualEntorno}
+
+Las dos aplicaciones que forman parte del sistema cliente/servidor se han desarrollado bajo el lenguaje de programación Java para hacer posible su portabilidad entre distintos sistemas, siempre y cuando éstos tengan instalada una máquina virtual de Java. De este modo, las aplicaciones son compatibles tanto en entornos basados en Windows 98/NT/XP/Vista/7 como en entornos GNU/Linux.
+
+%Si observamos el diagrama despliegue (ver \diagrama{sistema}{despliegue}{Despliegue}) se aprecia que el
+El sistema desarrollado es altamente distribuido ya que se pueden utilizar máquinas dedicadas a soportar los sistemas gestores de bases de datos, otra máquina separada para el servidor y una o varias máquinas para cada uno de los clientes que se deseen.
+
+La máquina destinada a soportar el sistema gestor de bases de datos deberá tener instalado como servicio el servidor MySQL y las máquinas sobre las cuales se ejecutarán las distintas aplicaciones cliente o servidor deberán tener instalado el entorno de ejecución de Java. A continuación se dan instrucciones de cómo instalar y configurar los entornos en sistemas basados en Windows.
+
+En las siguientes secciones se indica como configurar los entornos necesarios, bajo el sistema operativo Windows.
+
+\section{Configuración del entorno de Java}
+
+Para comprobar si ya dispone de una instalación del entorno de ejecución de Java en el equipo y que está configurado correctamente, abra una ventana de comandos \textit{(Inicio -\textgreater Ejecutar -\textgreater cmd)} y escriba ``java -version''. Debe obtener un resultado similar al de la Figura \ref{fig:java-version}:
+
+\imagenBorde{Apendices//java-version}{0.80}{Cómo averiguar la versión de Java}{fig:java-version}
+
+Si aparece un mensaje de error, pruebe lo siguiente: 
+\begin{itemize}
+	\item Compruebe si tiene instalado Java. Para ello compruebe que exista el directorio Java en \textit{C:\textbackslash Archivos de programa} (típicamente). Si lo está, configúrelo como se indica más abajo.
+	\item Si no existe, vaya a la siguiente dirección de Internet y descargue la última versión del Java SE Development Kit (JDK) \cite{download-jdk}
+\end{itemize}
+
+Una vez descargado, ejecute el archivo, elija el directorio de instalación y siga los pasos para completar la instalación. Tras instalarlo, debe configurarlo. Para ello vaya a \textit{Inicio} y haga clic derecho en \textit{Mi PC}. En las opciones, elija la pestaña de \textit{Opciones Avanzadas} y haga clic en \textit{Variables de entorno}. En la nueva ventana que aparece, busque la variable \textit{Path} y añada al final \texttt{;C:\textbackslash Archivos de programa\textbackslash Java\textbackslash jdk1.x.x\_xx\textbackslash bin}, donde ``x'' hace referencia a la versión que tiene instalada de Java.
+
+Ese es el directorio de instalación por defecto de Java. Si en la instalación eligió otro diferente, debe introducir el que eligió al instalarlo.
+
+Tras esto, pruebe de nuevo a ejecutar ``java -versión'' en una ventana de comandos.
+
+
+\section{Configuración del servidor MySQL}
+
+Descargue el servidor de MySQL de \cite{download-mysql}. Ejecute el fichero de instalación y siga los pasos que se indican. Recuerde la contraseña que establezca para el usuario \textbf{root}.
+
+A continuación descargue e instale el \textit{toolkit} MySQL Workbench \cite{download-workbench} que contiene la aplicación \textit{MySQL Administrator}. Ejecute \textbf{MySQL Administrator} e introduzca los datos de conexión al servidor MySQL instalado en el paso anterior (ver Figura \ref{fig:mysql-admin-connection-settings}).
+
+\imagenBorde{Apendices//mysql-administrator1}{0.80}{Conexión de \textit{MySQL Administrator} con el servidor MySQL}{fig:mysql-admin-connection-settings}
+
+Si ha introducido correctamente la dirección IP del servidor, el nombre del usuario y la contraseña, se le abrirá una nueva ventana desde la cual podrá configurar cualquier aspecto relacionado con el servidor MySQL. A continuación se realizarán tres pasos para configurar la base de datos a utilizar en la aplicación: 
+\begin{enumerate}
+	\item \textbf{Creación de la base de datos}. En la barra de menús de la parte superior de la aplicación seleccione \textit{Tools -\textgreater{} MySQL Query Browser} y, en la nueva aplicación que se iniciará, elija \textit{File -\textgreater{} Open Script...}. Se mostrará un cuadro de diálogo en el que tendrá que abrir el fichero \textbf{BaseDatos.sql} del servidor. A continuación, pulse el botón \textit{Execute} que se encuentra en la barra de herramientas para crear la base de datos.
+	\item \textbf{Creación del usuario}. En el menú de la izquierda de la aplicación \textit{MySQL Administrator} diríjase a la sección \textbf{User Administration}. Una vez allí, cree el usuario necesario para poder gestionar la base de datos. Los datos de dicho usuarios son: Nombre de Usuario \textit{gcad}; Contraseña \textit{gcad}.
+	\item \textbf{Configuración de los permisos de usuario}. Por último, debe dotar al usuario que acaba de crear de los permisos necesarios para manipular la base de datos que ha creado en el primer paso. Para ello, manténgase en la sección \textbf{User Administration} y seleccione el usuario que acaba crear. Observe que aparece una pestaña con tres columnas. En la primera columna seleccione la base de datos que ha creado en el primer paso. A continuación seleccione los permisos \textit{SELECT}, \textit{INSERT}, \textit{UPDATE} y \textit{DELETE} y muévalos a la columna central. Por último, aplique los cambios realizados (ver Figura \ref{fig:mysql-admin-configure-privileges}).
+\end{enumerate}
+
+\imagen{Apendices//mysql-administrator2}{0.70}{Configuración de los privilegios de usuario}{fig:mysql-admin-configure-privileges}
+
+
 
 % Utilización de la herramienta
 % ANEXO II: Manual de configuración del entorno (secundario)
 % ANEXO III: Manual de despliegue
+
