@@ -1,40 +1,28 @@
 \chapter{Estado del Arte}
 \label{ch:estadodelarte}
 
-% En esta parte se deben mostrar los conocimientos obtenidos en la búsqueda bibliográfica y no ideas personales del autor; como mucho podrá aportar un comentario de algunas pocas ideas extraídas de las fuentes en que se ha basado.
+A lo largo de este capítulo se presenta el estado del arte existente en la literatura sobre Desarrollo Global de Software, exponiendo lo que este concepto implica en el desarrollo de software, así como sus beneficios y desafíos existentes.
 
-% Se articulará esta parte en diversas secciones, que permitan la exposición estructurada y didáctica de los conocimientos de la investigación bibliográfica.
+Se expone también el concepto de Gestión de Conocimiento, así como un marco de trabajo que las empresas pueden adoptar para gestionar su conocimiento interno.
 
-% Globalización
-% DGS
-% Gestión conocimiento
-% CBR
-% Perspectiva de en qué consiste y qué hay en la literatura ¡CUIDADO REFERENCIAS!
-% Herramientas relacionadas (si hay tiempo, secundario)
-
-
-%Ventajas:
-%* Obtener la mano de obra, en ocasiones escasa, necesaria para el proyecto en países donde se está avanzando notablemente en I+D.
-%* Disminuir las dificultades para construir los métodos necesarios para gestionar el conocimiento y coordinar los distintos grupos de trabajo, abstrayéndose de la distancia geográfica \cite{kobitzsch01}.
-%* Recortar costes y gastos derivados de los viajes a los países con los que se colabora.
-
+Para terminar, se introduce el Razonamiento Basado en Casos, una técnica de inteligencia artificial que puede resolver problemas en base a experiencias pasadas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%DESARROLLO GLOBAL SOFTWARE
 \section{Desarrollo Global de Software}
 
-En los últimos años, la globalización económica está provocando que la industria y el comercio se adapte nuevos modelos de negocios, en búsqueda de aumentar la competitividad y minimizar los costes, por lo que las empresas se han visto obligadas a evolucionar en su modo de trabajo. Así, se ha cambiado el concepto de \textit{mercado nacional} por el de \textit{mercado global} \cite{damian2006guest} \cite{herbsleb2002global}.
+En los últimos años, la globalización económica está provocando que la industria y el comercio se adapten a nuevos modelos de negocios, en búsqueda de aumentar la competitividad y minimizar los costes, por lo que las empresas se han visto obligadas a evolucionar en su modo de trabajo. Así, se ha cambiado el concepto de \textit{mercado nacional} por el de \textit{mercado global} \cite{damian2006guest} \cite{herbsleb2002global}.
 
-Centrándose en el desarrollo de software, hasta hace unos años, el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio al mismo tiempo. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando en los últimos años, tendiendo a un desarrollo distribuido del mismo. Los CDS comenzaron a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés Global Software Development.
+Centrándose en el desarrollo de software, hasta hace unos años el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio al mismo tiempo. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando en los últimos años, tendiendo a un desarrollo distribuido del mismo. Los CDS comenzaron a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés Global Software Development. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
 
-EL GSD puede definirse como: ``\textit{el desarrollo de software que se realiza en localizaciones separadas geográficamente más allá de fronteras nacionales, de manera coordinada e involucrando participación en tiempo real (síncrona) e interacción asíncrona}'' \cite{wernerHeij}. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
+EL GSD puede definirse como: ``\textit{el desarrollo de software que se realiza en localizaciones separadas geográficamente más allá de fronteras nacionales, de manera coordinada e involucrando participación en tiempo real (síncrona) e interacción asíncrona}'' \cite{wernerHeij}.
 
 \begin{table}[h]%
 \centering
 \begin{tabular}{| p{3.5cm} | p{8cm} |}
 	\hline
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.7}\textbf{Localización}} &
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.7}\textbf{Tipo de desarrollo}} \\
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Localización}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tipo de desarrollo}} \\
 	\hline
 		\cellcolor[gray]{0.9}Mismo lugar &
 		Desarrollo tradicional (Co-localizado)\\
@@ -56,7 +44,7 @@ Por \textbf{outsourcing} se entiende la externalización o subcontratación de uno
 
 Relacionado con el \textit{outsourcing}, está el concepto de \textbf{offshoring}, entendido como la relocalización de actividades de negocio, mediante empresas filiales de otros países \cite{aspray2006globalization}. Si estos países implicados en el proceso son relativamente cercanos al país de origen de la compañía que realiza el \textit{outsourcing}, se habla de \textbf{nearshoring} \cite{sahay:globalit}. 
 
-En GSD, estas prácticas son cada vez más utilizadas, debido a la rentabilidad que proporcionan a la compañía. En la Figura \ref{fig:beneficios} se puede observar el crecimiento del \textit{offshoring} de los últimos y la reducción de costes que conlleva.
+En GSD, estas prácticas son cada vez más utilizadas, debido a la rentabilidad que proporcionan a la compañía. En la Figura \ref{fig:beneficios} se puede observar el crecimiento del \textit{offshoring} de los últimos años y la reducción de costes que conlleva.
 
 \imagenBorde{Cap3//beneficios}{0.60}{Crecimiento del \textit{offshoring} en los últimos años}{fig:beneficios}
 
@@ -64,7 +52,7 @@ Como se puede apreciar, el GSD y sus prácticas introducen una serie de beneficio
 
 \subsection{Beneficios del Desarrollo Global de Software}
 
-A continuación, se desarrollan los beneficios más destacables del Desarrollo Global de Software, según \cite{benefitsGSD} y \cite{cho2007globalization}.
+A continuación se desarrollan los beneficios más destacables del Desarrollo Global de Software, según \cite{benefitsGSD} y \cite{cho2007globalization}.
 
 \paragraph{Reducción de costes}
 
@@ -78,7 +66,7 @@ El GSD provee la posibilidad de poder encontrar mano de obra más cualificada o m
 
 \paragraph{Disminución de tiempo de lanzamiento al mercado}
 
-En GSD, existe el modelo de desarrollo ``\textit{follow-the-sun}''. Esto significa que, gracias a que existen varios centros de desarrollo en diferentes países, una compañía puede aprovechar las diferencias horarias entre sus diferentes centros de desarrollo para estar desarrollando software las 24 horas del día (ver Figura \ref{fig:sun}. De este modo, se consigue maximizar la productividad y disminuir el tiempo de salida al mercado (\textit{time-to-market)} de un producto software.
+En GSD, existe el modelo de desarrollo ``\textit{follow-the-sun}''. Esto significa que, gracias a que existen varios centros de desarrollo en diferentes países, una compañía puede aprovechar las diferencias horarias entre sus diferentes centros de desarrollo para estar desarrollando software las 24 horas del día (ver Figura \ref{fig:sun}). De este modo, se consigue maximizar la productividad y disminuir el tiempo de salida al mercado (\textit{time-to-market)} de un producto software.
 
 De este modo, cada uno de los CDS localizados en cada país, pueden ir realizando diferentes actividades, como, por ejemplo, diseño, implementación, pruebas, etc. Para que este modelo de trabajo sea efectivo, debe existir una coordinación entre todos los CDS, que es una de las dificultades del GSD, como se comentará posteriormente.
 
@@ -96,19 +84,19 @@ Como se ha visto, el GSD acarrea una serie de ventajas y beneficios que lo han c
 
 \subsection{Dificultades del Desarrollo Global de Software}
 
-Como se ha visto, el GSD provee a las compañías y organizaciones unos beneficios muy prometedores. Sin embargo, existen dificultades a las que las compañías tienen que hacer frente, todas ellas debidas a la distancia y a la deslocalización (ver Figura \ref{fig:distances}) \cite{cho2007globalization} \cite{fitzgerald2010global}.
+El GSD provee a las compañías y organizaciones unos beneficios muy prometedores. Sin embargo, existen dificultades a las que las compañías tienen que hacer frente, todas ellas debidas a la distancia y a la deslocalización (ver Figura \ref{fig:distances}) \cite{cho2007globalization} \cite{fitzgerald2010global}.
 
 Según \cite{fitzgerald2010global}, existen tres tipos de distancia que dificultan el GSD:
 
 \begin{itemize}
-	\item \textbf{Distancia geográfica}. En GSD, se define como ``la medida de esfuerzo que un individuo necesita realizar para visitar otro punto, alejado del primero''. Por ejemplo, dos lugares dentro del mismo país con un enlace aéreo directo y vuelos regulares, se pueden considerar relativamente cerca, aunque estén separados por grandes distancias kilométricas. Sin embargo, no se puede decir lo mismo de dos lugares que están cerca geográficamente (separación de pocos kilómetros) pero con poca infraestructura de transporte. Este último caso tendría una elevada distancia geográfica.
-	\item \textbf{Distancia temporal}. En GSD, se define como ``la medida de la deslocalización en tiempo, experimentada por dos individuos que desean interactuar''. Esta distancia normalmente va unida a la anterior, provocando que existan husos horarios diferentes entre dos puntos debidos a la distancia geográfica existente entre dichos puntos.
-	\item \textbf{Distancia socio-cultural}. Se define como ``la medida en que un individuo comprende las costumbres (símbolos, normas y valores sociales) y cultura de otro individuo''. Aunque esta distancia es muy frecuente en el GSD, también aparece en equipos de desarrollo co-localizados, ya que cada miembro del equipo puede tener nacionalidades y culturas diferentes. Este tipo de distancia es el mayor desafío a superar en el GSD, ya que con mucha frecuencia se producen conflictos y malentendidos entre los diferentes equipos de desarrollo, debido al carácter multicultural y multinacional del GSD.
+	\item \textbf{Distancia geográfica}. En GSD, se define como ``\textit{la medida de esfuerzo que un individuo necesita realizar para visitar otro punto, alejado del primero}''. Por ejemplo, dos lugares dentro del mismo país con un enlace aéreo directo y vuelos regulares, se pueden considerar relativamente cercanos, aunque estén separados por grandes distancias kilométricas. Sin embargo, no se puede decir lo mismo de dos lugares que están cerca geográficamente (separación de pocos kilómetros) pero con poca infraestructura de transporte. Este último caso tendría una elevada distancia geográfica.
+	\item \textbf{Distancia temporal}. En GSD, se define como ``\textit{la medida de la deslocalización en tiempo, experimentada por dos individuos que desean interactuar}''. Esta distancia normalmente va unida a la anterior, provocando que existan husos horarios diferentes entre dos puntos debidos a la distancia geográfica existente entre dichos puntos.
+	\item \textbf{Distancia socio-cultural}. Se define como ``\textit{la medida en que un individuo comprende las costumbres (símbolos, normas y valores sociales) y cultura de otro individuo}''. Aunque esta distancia es muy frecuente en el GSD, también aparece en equipos de desarrollo co-localizados, ya que cada miembro del equipo puede tener nacionalidades y culturas diferentes. Este tipo de distancia es el mayor desafío a superar en el GSD, ya que con mucha frecuencia se producen conflictos y malentendidos entre los diferentes equipos de desarrollo, debido al carácter multicultural y multinacional del GSD.
 \end{itemize}
 
 \imagenBorde{Cap3//distances}{1.0}{Influencia de la distancia en el desarrollo de software}{fig:distances}
 
-Estas distancias afectan a los tres grandes procesos que intervienen en el proceso de desarrollo de software: comunicación, coordinación y control, siendo los de comunicación y control los más problemáticos en GSD, según \cite{benefitsGSD}. 
+Estas distancias afectan a los tres grandes procesos que intervienen en el proceso de desarrollo de software: \textbf{comunicación}, \textbf{coordinación} y \textbf{control}, siendo los de comunicación y control los más problemáticos en GSD, según \cite{benefitsGSD}. 
 
 Por tanto, los desafíos y dificultades del GSD se agrupan en tres categorías, lo que se conoce como las tres ``C'' \cite{conchúir2009global}:
 \begin{itemize}
@@ -116,6 +104,28 @@ Por tanto, los desafíos y dificultades del GSD se agrupan en tres categorías, lo
 	\item Desafíos en la \textbf{\textit{Coordinación}}, relacionados con objetivos e intereses comunes.
 	\item Desafíos en el \textbf{\textit{Control}}, relacionados con la gestión del proyecto, informes, progreso, etc.
 \end{itemize}
+
+En la Tabla \ref{table:distanciasGSD} se observa como afecta cada una de las distancias a los procesos de desarrollo software.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{2.5cm} | >{\centering\arraybackslash}m{3.5cm} | >{\centering\arraybackslash}m{3.5cm} | >{\centering\arraybackslash}m{3.5cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Proceso}} &
+		\multicolumn{3}{|c|}{\cellcolor[gray]{0.4}\textbf{Distancia}} \\
+	\hline
+		 & \cellcolor[gray]{0.9}Geográfica & \cellcolor[gray]{0.9}Temporal & \cellcolor[gray]{0.9}Socio-Cultural\\
+	\hline
+		\cellcolor[gray]{0.9}Comunicación & Dependiente de la tecnología & Uso de comunicación asíncrona & Malentendidos\\
+	\hline
+		\cellcolor[gray]{0.9}Coordinación & Falta de conciencia de equipo & Modificación de calendarios laborales & Falta de confianza\\
+	\hline
+		\cellcolor[gray]{0.9}Control & Incrementa la dificultad de gestión y control & Control asíncrono sobre rescursos remotos & Diferencias culturales en mecanismos de control\\
+	\hline
+\end{tabular}
+\caption{Procesos de desarrollo software afectados por las distancias en GSD}
+\label{table:distanciasGSD}
+\end{table}
 
 En los siguientes apartados se resumen los desafíos más destacables en cada uno de los grupos de las tres ``C'' y el tipo de distancia que afecta.
 
@@ -170,6 +180,32 @@ En multitud de ocasiones se producen malentendidos al comunicarse, debido a que 
 Al establecer una comunicación entre personas que no conocen totalmente las costumbres y cultura de la otra parte, puede provocar situaciones incómodas de manera involuntaria. Por ejemplo, en USA, prefieren especificar cada detalle en un documento, utilizar el teléfono y el e-mail de manera informal, mientras que en Japón prefieren el uso de medios más formales y prefieren la comunicación verbal a documentos escritos \cite{cho2007globalization}.
 
 Por otro lado, en GSD el marco socio-cultural puede influir en opiniones diferentes sobre la propia naturaleza de llevar a cabo los procesos de desarrollo.
+
+En la Tabla \ref{table:desafiosComunicacion} se resumen los desafíos encontrados en el proceso de comunicación en GSD.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{3.5cm} | >{\arraybackslash}m{8.5cm} |}
+		\cline{2-2}
+		\multicolumn{1}{c|}{} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Comunicación}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Geográfica} & Falta de comunicación \textit{face-to-face} \newline 
+		 Aumento del esfuerzo en comunicación \newline
+		 Coste de los viajes \newline
+		 Dependencia en tecnologías de comunicación \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Temporal} & Interrupciones \newline 
+		 Cambio de horario laboral \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Socio-cultural} & Malentendidos por diferencias lingüísticas \newline 
+		 Malentendidos culturales \\
+	\hline
+\end{tabular}
+\caption{Desafíos en el proceso de comunicación en GSD}
+\label{table:desafiosComunicacion}
+\end{table}
+
 
 
 \subsubsection{Desafíos en la coordinación y la distancia geográfica}
@@ -230,6 +266,34 @@ Aumenta el coste dedicado a la formación del idioma y la cultura de los diferent
 
 Las tareas de coordinación y desarrollo del proyecto requiere conocer el dominio de dicho proyecto, lo que algunos desarrolladores no conocen al provenir de diferentes culturas y países, teniendo cada uno de ellos diferentes puntos de vista sobre un mismo asunto.
 
+
+En la Tabla \ref{table:desafiosCoordinación} se resumen los desafíos encontrados en el proceso de coordinación en GSD.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{3.5cm} | >{\arraybackslash}m{9cm} |}
+		\cline{2-2}
+		\multicolumn{1}{c|}{} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Coordinación}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Geográfica} & Reducción de la confianza \newline 
+		 Falta de espíritu y conciencia de equipo \newline
+		 Modularización del trabajo \newline
+		 Aumento del esfuerzo en acuerdos de externalización \newline 
+		 Riesgo de alternativas de bajo coste \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Temporal} & Reducción de horas de colaboración \newline 
+		 Disponibilidad de infraestructura técnica \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Socio-cultural} & Formación cultural y lingüística \newline 
+		 Falta de dominio de conocimiento\\
+	\hline
+\end{tabular}
+\caption{Desafíos en el proceso de coordinación en GSD}
+\label{table:desafiosCoordinación}
+\end{table}
+
+
 \subsubsection{Desafíos en el control y la distancia geográfica}
 
 Debido a la distancia geográfica entre los distintos CDS, aparecen las siguientes dificultades en el control \cite{fitzgerald2010global}.
@@ -269,35 +333,60 @@ Se deben aprender las normas y estructuras locales de cada país (tradiciones, re
 
 La naturaleza de la autoridad dentro de un proyecto puede variar entre las diferentes culturas, por lo que pueden surgir problemas en el control de un proyecto si los equipos en diferentes lugares esperan que se maneje de manera diferente, y si estas expectativas diferentes no se identifican desde el principio.
 
+En la Tabla \ref{table:desafiosControl} se resumen los desafíos encontrados en el proceso de control en GSD.
 
-%% Table 2-1. The distances affecting the software development processes.
-%% Tabla resumen de los problemas
+\begin{table}[h]%
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{3.5cm} | >{\arraybackslash}m{10cm} |}
+		\cline{2-2}
+		\multicolumn{1}{c|}{} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Coordinación}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Geográfica} & Asignación de roles y estructuras de equipo \newline 
+		 Aplicación de principios de ingeniería del software concurrente \newline
+		 Modularización del trabajo \newline
+		 Riesgos organizacionales \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Temporal} & Gestión de los artefactos del proyecto \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Socio-cultural} & Adaptación a normas y estructuras locales \newline 
+		 Diferentes percepciones de la autoridad \\
+	\hline
+\end{tabular}
+\caption{Desafíos en el proceso de control en GSD}
+\label{table:desafiosControl}
+\end{table}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% GESTIÓN DE CONOCIMIENTO
 \section{Gestión de conocimiento} \label{label:km}
 
-En la actualidad, nos encontramos sumidos en la era digital, en la era de la información, es decir, vivimos en la sociedad de la información y del conocimiento, que puede definirse como ``aquella sociedad en la que las tecnologías facilitan la creación, distribución, manipulación y reutilización de la información y el conocimiento'' \cite{burch2005sociedad} \cite{Hovland}.
+En la actualidad, nos encontramos sumidos en la era digital, en la era de la información, es decir, vivimos en la sociedad de la información y del conocimiento, que puede definirse como ``\textit{aquella sociedad en la que las tecnologías facilitan la creación, distribución, manipulación y reutilización de la información y el conocimiento}'' \cite{burch2005sociedad} \cite{Hovland}.
 
 Debido a que vivimos en esta era digital, la información y el conocimiento se han convertido en el recurso más importante para las empresas, más incluso que los bienes materiales tangibles, dependiendo su economía, productividad y competitividad directamente de su capacidad para adquirir y utilizar la información y el conocimiento \cite{castells1999globalización} \cite{oscar} \cite{Davenport2000}.
 
-La \textbf{información} se puede definir como ``un conjunto de datos, organizados, que aportan un significado para el receptor que los recibe'' \cite{Davenport2000}. Por otra parte, el \textbf{conocimiento} puede definirse como ''\textit{una mezcla fluida de experiencias enmarcadas, valores, información contextual, y pericia que provee de un marco para evaluar e incorporar nuevas experiencias e información. Esto se origina y es aplicado en la mente de quienes conocen. En las organizaciones, con frecuencia viene embebido no solo en documentos o repositorios, sino también en
+La \textbf{información} se puede definir como ``\textit{un conjunto de datos, organizados, que aportan un significado para el receptor que los recibe}'' \cite{Davenport2000}. Por otra parte, el \textbf{conocimiento} puede definirse como ''\textit{una mezcla fluida de experiencias enmarcadas, valores, información contextual, y pericia que provee de un marco para evaluar e incorporar nuevas experiencias e información. Esto se origina y es aplicado en la mente de quienes conocen. En las organizaciones, con frecuencia viene embebido no solo en documentos o repositorios, sino también en
 rutinas, procesos, prácticas o normas de la organización}'' \cite{Davenport2000}. En la Figura \ref{fig:conocimiento} se puede observar la relación entre datos, información y conocimiento \cite{oscar}.
 
 \imagenBorde{Cap3//conocimiento}{0.55}{Relaciones entre datos, información y conocimiento}{fig:conocimiento}
 
-Por todo ello, las empresas están centrando sus esfuerzos en nueva infraestructura tecnológica, procesos y recursos necesarios para poder gestionar y utilizar el conocimiento y la información, vitales para que la empresa siga siendo competitiva en el mercado. Surge así lo que se conoce como \textit{economía informacional} \cite{castells1999globalización} y \textit{gestión del conocimiento} (en adelante KM, por sus siglas en inglés Knowledge Management) \cite{oscar}.
+Por todo ello, las empresas están centrando sus esfuerzos en nueva infraestructura tecnológica, procesos y recursos necesarios para poder gestionar y utilizar el conocimiento y la información, vitales para que la empresa siga siendo competitiva en el mercado. Surge así lo que se conoce como \textit{economía informacional} \cite{castells1999globalización} y \textbf{Gestión del Conocimiento} (en adelante KM, por sus siglas en inglés Knowledge Management) \cite{oscar}.
 
 En la actualidad, no existe un consenso acerca de la definición de gestión de conocimiento, ya que KM es un campo multidisciplinar con diferentes perspectivas y definiciones, según donde se aplique. En \cite{dalkir2007knowledge} se presentan tres perspectivas de KM:
 
 \begin{enumerate}
-	\item Desde la perspectiva de \textit{negocio}, donde el KM se considera parte de la estrategia, políticas y prácticas del negocio. En este sentido, KM is un enfoque colaborativo e integrado para la captura, creación y acceso de activos de negocio \cite{barclay1997knowledge}.
+	\item Desde la perspectiva de \textit{negocio}, donde el KM se considera parte de la estrategia, políticas y prácticas del negocio. En este sentido, KM es un enfoque colaborativo e integrado para la captura, creación y acceso de activos de negocio \cite{barclay1997knowledge}.
 	\item Desde la perspectiva de la \textit{ciencia cognitiva}, donde el conocimiento es el recurso fundamental para la inteligencia. 
 	\item Desde la perspectiva \textit{tecnológica y de procesos}, donde KM es el concepto por el cual la información se convierte en conocimiento potencialmente utilizable y útil para las personas.  
 	\end{enumerate}
 	
-Desde este último punto de vista, en el que nos centraremos en este documento, la gestión de conocimiento se podría definir como ``un proceso que permite crear, capturar, identificar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización'' \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. En el caso concreto de una organización dedicada al desarrollo software, el conocimiento que más interesa gestionar son las alternativas y decisiones planteadas en las fases de desarrollo de un producto software, los diferentes diagramas, la documentación, las pruebas del software, etc. 
+Desde este último punto de vista, en el que nos centraremos en este documento, la gestión de conocimiento se podría definir como ``u\textit{n proceso que permite crear, capturar, identificar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización}'' \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. En la Figura \ref{fig:KMModel}, se puede apreciar un modelo básico de KM.
+
+\imagenBorde{Cap3//KMModel}{0.4}{Modelo básico de gestión del conocimiento}{fig:KMModel}
+
+En el caso concreto de una organización dedicada al desarrollo software, el conocimiento que más interesa gestionar son las alternativas y decisiones planteadas en las fases de desarrollo de un producto software, los diferentes diagramas, la documentación, las pruebas del software, etc. 
 
 Para que la adquisición y manipulación de conocimiento sea efectiva, las organizaciones y compañías deben integrar entre sus procesos de negocio un marco de trabajo para la gestión de conocimiento, que involucra una serie de pasos a seguir \cite{alavi2001review}, desarrollado en el siguiente apartado.
 
@@ -339,16 +428,16 @@ En la Figura \ref{fig:Creacionconocimiento} se muestra un resumen del ciclo de c
 
 Del mismo modo que las organizaciones generan y aprenden nuevo conocimiento, también pueden olvidarlo. Por ello, para una gestión de conocimiento eficaz, es necesario que las empresas almacenen y utilicen su conocimiento generado \cite{alavi2001review}. La memoria organizacional de conocimiento suele formarse a partir de documentos, bases de datos estructuradas, procesos y procedimientos de negocio, vídeos, etc. Por lo general, a la hora de almacenar el conocimiento, hay que tener en cuenta el tipo de almacenamiento, el alcance (personal, grupal, organizacional o inter-organizacional) y el tipo de conocimiento a almacenar.
 
-Una vez almacenado el conocimiento de la empresa, éste puede ser utilizado, en cualquier momento (e incluso en cualquier lugar, dependiendo del tipo de almacenamiento) por los individuos, utilizando herramientas como consultas de bases de datos, una intranet para procesos y documentos internos, wikis, etc.
+Una vez almacenado el conocimiento de la empresa, éste puede ser utilizado en cualquier momento (e incluso en cualquier lugar, dependiendo del tipo de almacenamiento) por los individuos, utilizando herramientas como consultas de bases de datos, una intranet para procesos y documentos internos, wikis, etc.
 
 
 \subsubsection{Transmisión del conocimiento}
 
 El objetivo primordial de KM es que el conocimiento pueda ser utilizado y conocido por las empresas, para que puedan ser competitivas en el marco de globalización y sociedad de la información en el que nos encontramos, por lo que los mecanismos de transferencia de conocimiento, tanto a nivel interno como inter-organizacional, son de vital importancia en KM.
 
-La transmisión de conocimiento principalmente se produce por procesos de socialización, donde un grupo de individuos, normalmente con intereses comunes, comparten el conocimiento e intentar aprender y resolver problemas juntos \cite{wenger1998communities}.
+La transmisión de conocimiento principalmente se produce por procesos de socialización, donde un grupo de individuos, normalmente con intereses comunes, comparten el conocimiento e intentan aprender y resolver problemas juntos \cite{wenger1998communities}.
 
-Un aspecto a tener en cuenta en este proceso de transmisión, es que el conocimiento debe poder ser accesible desde cualquier momento y lugar, por lo que las tecnologías de comunicación son cruciales, así como los métodos utilizas para esta transmisión (e-mail, wikis, conferencias, etc.).
+Un aspecto a tener en cuenta en este proceso de transmisión, es que el conocimiento debe poder ser accesible desde cualquier momento y lugar, por lo que las tecnologías de comunicación son cruciales, así como los métodos utilizados para esta transmisión (e-mail, wikis, conferencias, etc.).
 
 
 \subsubsection{Aplicación del conocimiento}
@@ -359,14 +448,36 @@ Aplicar el conocimiento supone ejecutar todos los procesos anteriores ya que, po
 
 En el caso particular del desarrollo software, ya sea localizado, distribuido o global, la gestión y aplicación de conocimiento provee beneficios como reducción de costes, reducción de errores, mejora en la calidad del producto, etc. Esto se debe a que se puede aprender y reutilizar conocimiento (código, documentos, pruebas, diagramas, etc.) de otros productos software. 
 
-\imagenBorde{Cap3//KMCycle}{0.4}{Ciclo de gestión de conocimiento}{fig:KMCycle}
+\imagenBorde{Cap3//KMCycle}{0.6}{Ciclo de gestión de conocimiento}{fig:KMCycle}
 
 
 \subsection{Beneficios y desafíos de la gestión de conocimiento}
 
-En esta sección se resaltan algunos de los beneficios y dificultades de KM al utilizarse en las organizaciones.
+En esta sección se resaltan algunos de los beneficios y dificultades de KM al utilizarse en las organizaciones \cite{Bornemann2003} \cite{dingsyr2004benefits} \cite{alavi1999knowledge} \cite{nunes2006knowledge}.
+
+\paragraph{Beneficios}
+
+\begin{itemize}
+	\item Incremento de la competitividad.
+	\item EN GSD, suple la carencia de interacción ``face-to-face'' y provee mecanismos de coordinación y aprendizaje mutuo.
+	\item Mejora la toma de decisiones de la empresa.
+	\item Mayor motivación del equipo, al estar involucrados en la creación y aprendizaje del conocimiento.
+	\item La organización puede disponer del conocimiento adecuado en el momento adecuado.
+	\item Reduce el tiempo para resolver problemas y del ciclo de desarrollo de productos.
+	\item Mayor cercanía a las necesidades del mercado.
+	\item Incremento de ventas.
+\end{itemize}
 
 
+\paragraph{Problemas}
+
+\begin{itemize}
+	\item Mantener el conocimiento en constante evolución y actualización.
+	\item Integrar tecnologías en la empresa para la gestión de conocimiento.
+	\item Barreras y diferencias culturales y de trabajo entre diferentes miembros de los equipos, especialmente en GSD.
+	\item Falta de estandarización para el conocimiento almacenado.
+	\item Inversión de tiempo para la generación de conocimiento.
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -374,8 +485,27 @@ En esta sección se resaltan algunos de los beneficios y dificultades de KM al ut
 %% CBR
 \section{Razonamiento basado en casos}
 
-Estrechamente relacionado con la gestión de conocimiento desarrollada en la sección \ref{label:km}, está el concepto de razonamiento basado en casos (en adelante CBR, por sus siglas en ingles Case-Based Reasoning).
+Estrechamente relacionado con la gestión de conocimiento desarrollada en la sección \ref{label:km}, está el concepto de \textbf{Razonamiento Basado en Casos} (en adelante CBR, por sus siglas en inglés Case-Based Reasoning).
 
+El CBR puede definirse como ``\textit{un proceso en el que experiencias específicas son recuperadas, reutilizadas, revisadas y almacenadas para utilizarse en la solución de problemas similares}'' \cite{CBRCommentaries}. De este modo, se pueden encontrar soluciones a nuevos problemas basándose en soluciones de problemas similares anteriores. Dichas soluciones puede que sea necesario adaptarlas para resolver el nuevo problema y se almacenarán en forma de nuevas experiencias (casos) para poder reutilizarlas en un futuro. Es por esto que un sistema CBR puede ``aprender'' a partir de nuevas soluciones \cite{kolodner1992introduction}.
 
+A diferencia de otras técnicas y algoritmos de Inteligencia Artificial, como pueden ser Razonamiento Basado en Reglas o Algoritmos Genéticos, CBR no se considera como una tecnología, sino más bien como una metodología, que indica cómo resolver problemas a partir de soluciones previas almacenadas en el sistema, pero sin detallar una tecnología concreta \cite{watson1998cbr}. Por tanto, un sistema CBR se define por lo que hace, pero no cómo se hace o se implementa.
+
+Conceptualmente, el CBR se describe como un ciclo (ver Figura \ref{fig:CBRCycle}) con cuatro grandes etapas \cite{lopez2005retrieval} \cite{watson1998cbr}:
+
+\begin{itemize}
+	\item \textbf{Recuperación (\textit{Retrieve})} de casos similares al problema planteado.
+	\item \textbf{Reutilización (\textit{Reuse})} de una solución propuesta por un caso similar.
+	\item \textbf{Revisión (\textit{Revise})} de la solución propuesta, para adaptarla mejor a las condiciones del nuevo problema.
+	\item \textbf{Retención (\textit{Retain})} de la nueva solución, pasando a formar un nuevo caso.
+\end{itemize}
+
+\imagenBorde{Cap3//CBRCycle}{0.5}{Ciclo del CBR}{fig:CBRCycle}
+
+Estas cuatro etapas son las que constituyen la metodología del CBR. Así, para solucionar un nuevo problema, primero se debe obtener una descripción de éste, midiendo la similitud del nuevo problema con otros problemas previos almacenados en el sistema. A continuación, se recuperan las soluciones de estos problemas similares y se reutiliza la solución de uno de estos casos, adaptándola si es necesario. Para terminar, este nuevo problema, junto a la solución encontrada, se almacena en el sistema, formando un nuevo caso. 
+
+Uno de los puntos críticos en el CBR es la función de similitud que se va a utilizar para buscar casos similares a uno dado. Por ejemplo, un problema se podría describir como una serie de atributos (o características) que pueden ser cuantificadas con un ``peso'' numérico, obteniendo un vector numérico, y utilizar como función de similitud la distancia Euclídea entre los vectores que representan cada problema. 
+
+Como se puede apreciar, el ciclo que se ha visto anteriormente encaja perfectamente con un sistema de gestión del conocimiento (KMS, por sus siglas en inglés Knowledge Management System), pues en este tipo de sistemas también existen fases de creación, recuperación, reutilización y aplicación, en este caso de conocimiento, como se ha visto en la sección anterior. El CBR se basa en conocimiento previo (casos) para buscar soluciones a un nuevo problema, generando nuevo conocimiento, que son los nuevos casos producidos en la fase de retención. Por lo tanto, el CBR y KM están estrechamente relacionados.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
