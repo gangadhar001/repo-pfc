@@ -1,21 +1,306 @@
 \chapter{Método de Trabajo}
 \label{ch:metododetrabajo}
 
-% MOISES
+Para el desarrollo de este producto software se ha optado por utilizar la metodología genérica descrita por el \textbf{Proceso Unificado de Desarrollo} (en adelante PUD), propuesta por Rumbaugh, Booch y Jacobson.
 
-% Explicar cómo se ha solucionado el problema.
+Para el modelado de los diagramas del producto software se utilizará el Lenguaje Unificado de Modelado (UML, por sus siglas en inglés Unified Modelling Language).
 
-%\section{Metodología de desarrollo}
-%\subsection{Proceso Unificado de Desarrollo (PUD)}
-%\section{... ¿monolítico o en iteraciones? ...}
+En un primer apartado, se describirá el PUD, para terminar mostrando como está metodología se ha aplicado en el desarrollo de este producto software.
 
-% MARIAN
+\section{Proceso Unificado de Desarrollo} \label{sec:pud}
 
-% Cómo vamos/hemos a aplicar/aplicado el RUP para resolver el problema (enfoque práctico)
+El Proceso unificado de Desarrollo es una evolución del Proceso Unificado de Rational (RUP), que define un ``\textit{conjunto de actividades necesarias para transformar los requisitos de usuario en un sistema software}'' \cite{jac00}. Más concretamente se puede definir como ``\textit{un marco de trabajo marco genérico que puede especializarse para una gran variedad de sistemas de software,
+para diferentes áreas de aplicación, diferentes tipos de organizaciones, diferentes niveles de
+aptitud y diferentes tamaños de proyectos.}'' \cite{jac00}.
+
+Las principales características del PUD son:
+
+\begin{itemize}
+	\item \textbf{Dirigido por casos de uso}. Un caso de uso representa un requisito funcional al cuál el sistema debe dar soporte para proporcionar un resultado de valor al usuario. Los casos de uso guían el proceso de desarrollo, ya que basándose en los casos de uso, los desarrolladores
+crean una serie de modelos para poder llevarlos a cabo. Todos los casos de uso juntos constituyen el \textbf{modelo de casos de uso}.
+	\item \textbf{Centrado en la arquitectura}. Un sistema software puede contemplarse desde varios
+puntos de vista. Por tanto, la arquitectura software incluye los aspectos estáticos y
+dinámicos más significativos del sistema y debe estar profundamente relacionada con
+los casos de uso, ya que debe permitir el desarrollo de los mismos.
+	\item \textbf{Iterativo e incremental}. El esfuerzo de desarrollar un proyecto de software se divide en partes más
+pequeñas, llamadas \textbf{mini-proyectos}. Cada mini-proyecto es una \textbf{iteración}, compuesta por una serie de requisitos funcionales representados por casos de uso, y que abarcan entre dos y seis semanas de duración. Las iteraciones deben estar controladas y deben seleccionarse y
+ejecutarse de una forma planificada, siguiendo el esquema \textit{requisitos, análisis, diseño, implementación y pruebas}, que es conocido como \textbf{flujo de trabajo}.
+En cada iteración, los desarrolladores identifican y especifican los casos de uso relevantes, crean un diseño utilizando la arquitectura seleccionada como guía, implementan el diseño mediante componentes y verifican que los componentes satisfacen los casos de uso.
+Finalmente, cada iteración aporta un \textbf{incremento} en la funcionalidad del sistema, por eso que el PUD se considere un proceso incremental (ver Figura \ref{fig:incremental}) \cite{kruchten2004rational}.
+\end{itemize}
+
+\imagenBorde{Cap4//incremental}{0.50}{Proceso iterativo e incremental}{fig:incremental}
 
 
-\section{PUD}
+\subsection{Fases de desarrollo basado en PUD} \label{sec:fasesPUD}
 
-\section{Patrones}
+En PUD, el ciclo de vida de un producto software se divide en ciclos, donde cada uno de estos ciclos compone una versión del producto, totalmente operativa y preparada para su implantación. Cada ciclo se compone de cuatro fases (Inicio, Elaboración, Construcción y Transición) y éstas, a su vez, se dividen en iteraciones que siguen el flujo de trabajo \textit{requisitos, análisis, diseño, implementación y pruebas} (ver Figura \ref{fig:PUD}).
 
-\section{Marco tecnológico}
+\imagenBorde{Cap4//PUD}{1.0}{Fases y flujo de trabajo del PUD}{fig:PUD}
+
+A continuación se detallan cada una de las cuatro fases de cada ciclo del PUD \cite{jac00} \cite{torossi}.
+
+\subsubsection{Fase de Inicio}
+
+En esta fase es donde se determina el alcance del proyecto, su viabilidad, riesgos potenciales y donde se realiza una planificación del proyecto. Normalmente, esta fase abarca una única iteración y los artefactos más relevantes utilizados son:
+
+\begin{itemize}
+	\item \textbf{Modelo de Casos de Uso}: se obtiene un primer modelo de casos de uso simplificado, representando los requisitos funcionales del sistema.
+	\item \textbf{Descripción de Riesgos}: se obtiene un documento que recoge posibles riesgos que pueden aparecer y afectar al ciclo de vida del producto.
+	\item \textbf{Glosario}: se elabora un glosario de términos del dominio de aplicación.
+	\item \textbf{Plan de Proyecto}: se elabora un plan de iteraciones a seguir para el desarrollo del producto software.
+\end{itemize}
+
+\subsubsection{Fase de Elaboración}
+
+En esta fase, compuesta de una una o más iteraciones, se especifican en detalle la mayoría de los casos de
+uso identificados en la fase de inicio y diseña la arquitectura del sistema, obteniendo la línea base de la arquitectura. Por arquitectura se entiende el ``\textit{conjunto de decisiones significativas acerca de
+la organización de un sistema software, la selección de los elementos estructurales a partir
+de los cuales se compone el sistema, las interfaces entre ellos, su comportamiento, sus
+colaboraciones, y su composición}'' \cite{torossi}.
+
+En esta fase, se construyen los siguientes artefactos:
+
+\begin{itemize}
+	\item \textbf{Arquitectura}: se obtiene el diseño de la arquitectura del sistema.
+	\item \textbf{Modelo de Casos de Uso}: se obtiene un modelo de casos más detallados y con todos los requisitos funcionales.
+	\item \textbf{Modelo de Análisis}: es un modelo compuesto de diagramas de clases de análisis y de secuencia, más detallado que el de casos de usos pero menos que el de diseño.
+	\item \textbf{Modelo de Diseño}: es un modelo compuesto de diagramas de clases de diseño que describen el funcionamiento del sistema.
+\end{itemize}
+
+
+\subsubsection{Fase de Construcción}
+
+En la fase de construcción es donde se lleva a cabo la implementación de cada una de las iteraciones en las que se ha dividido el desarrollo del producto software, a partir de los artefactos generados en la fase de elaboración. Aunque esta fase se centra en la implementación, puede haber iteraciones donde también haya tareas de requisitos, análisis y diseño, refinando modelos de etapas anteriores, pero éstas serán prácticamente nulas en iteraciones avanzadas de esta fase. Cada iteración se cierra con las pruebas realizadas al código implementado.
+
+Esta fase abarca un número muy variable de iteraciones y suele ser la fase de más larga duración en el ciclo de vida del producto software. En esta fase se obtienen los siguientes artefactos:
+
+\begin{itemize}
+	\item \textbf{Modelo de Diseño}: a partir del modelo de diseño de la fase anterior, se obtiene otro modelo refinado durante iteraciones de esta fase.
+	\item \textbf{Modelo de Implementación}: es un modelo compuesto por diagramas de componentes, junto a sus relaciones y dependencias.
+	\item \textbf{Modelo de Pruebas}: es el conjunto de casos de pruebas unitarias que cierran cada iteración de esta fase.
+	\item \textbf{Modelo de Despliegue}: modelo que refleja los aspectos físicos y como se ejecutarán los componentes identificados en el modelo de implementación.
+\end{itemize}
+
+
+\subsubsection{Fase de Transición}
+
+La fase de transición es el período en el cual el producto se convierte en una versión beta, es decir, se procede a su implantación pero se seguirá probando y, quizás, incrementando su funcionalidad. En esta fase se obtienen los siguientes artefactos:
+
+\begin{itemize}
+	\item \textbf{Modelo de Despliegue}: se obtiene el modelo final a partir del de la fase anterior.
+	\item \textbf{Modelo de Distribución}: es un modelo que muestra el funcionamiento físico del sistema.
+	\item \textbf{Manuales}: el sistema se documenta y se generan los manuales de usuario para explicar su funcionamiento.
+\end{itemize}
+
+
+\subsection{Flujo de trabajo en el PUD}
+
+Como se ha comentado en la sección \ref{sec:fasesPUD}, en cada una de las fases desarrolladas anteriormente se sigue un flujo de trabajo, compuesto por las disciplinas de captura de requisitos, análisis, diseño, implementación y pruebas.
+
+Según en la fase e iteración en la que se encuentre el desarrollo, estas disciplinas serán más o menos relevantes en dicha iteración dentro de esa fase (ver Figura \ref{fig:pud}).
+
+En los siguientes apartados se comentan las actividades a realizar en cada una de las disciplinas que forman el flujo de trabajo de cada fase del PUD \cite{jac00} \cite{torossi}.
+
+\subsubsection{Captura de requisitos}
+
+Esta disciplina tiene una mayor relevancia en las fases de Inicio y Elaboración y tiene como objetivo el identificar los requisitos del producto para guiar su posterior desarrollo. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se identifican los requisitos funcionales del sistema a desarrollar.
+	\item Se identifica el contexto o dominio de aplicación, para comprender los requisitos.
+	\item Se identifican los requisitos no funcionales del sistema, como comunicación con otros sistemas, entorno de funcionamiento, etc.
+	\item Los requisitos identificados se modelan utilizando un diagrama de casos de usa, que será más o menos detallado según la fase del PUD en la que nos encontremos.
+\end{itemize}
+
+
+\subsubsection{Análisis}
+
+Esta disciplina tiene una mayor relevancia en la fase de Elaboración y tiene como objetivo la especificación detallada de los casos de uso obtenidos anteriormente, refinándolos con posibles nuevos requisitos. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se detallan los casos de uso obtenidos en fases anteriores.
+	\item Se realiza el diagrama de clases de análisis.
+	\item Se identifican nuevos requisitos que puedan surgir al refinar los casos de uso y generar los diagramas de análisis.
+\end{itemize}
+
+\subsubsection{Diseño}
+
+Esta disciplina tiene una mayor relevancia en las fases de Elaboración y Construcción y tiene como objetivo el modela del sistema y de su arquitectura para soportar los requisitos, tanto funcionales como no funcionales. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se realiza el modelo de diseño, con diagramas de clases detallados y las relaciones entre clases.
+	\item Se identifica la arquitectura del sistema.
+	\item Se realiza el modelo de despliegue.
+\end{itemize}
+
+\subsubsection{Implementación}
+
+Esta disciplina tiene una mayor relevancia en la fase de Construcción y tiene como objetivo generar la herramienta software. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se realiza el modelo de implementación.
+	\item Se detalla y refina la arquitectura del sistema.
+	\item Se detalla y refina el modelo de despliegue.
+	\item Se codifican todos los requisitos del sistema, obteniendo código ejecutable que le da soporte a dichos requisitos.
+\end{itemize}
+
+\subsubsection{Pruebas}
+
+Esta disciplina afecta a todas las iteraciones y fases donde se haya producido una implementación, ya que es necesario probar que dicha codificación funciona correctamente. Su objetivo es crear los casos de prueba para cada iteración y crear un plan de pruebas del sistema global. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se realiza el modelo de pruebas, creando casos de prueba unitarios, de integración y de sistema.
+\end{itemize}
+
+\subsection{Resumen del Proceso Unificado de Desarrollo}
+
+El PUD está compuesto de ciclos, donde cada ciclo consta de cuatro fases y cada fase, a su vez, se divide en una o varias iteraciones, donde se aplica un flujo de trabajo compuesto por cinco disciplinas. En la Tabla \ref{table:pud} se resumen las cuatro fases de un ciclo presentes en el PUD.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{2cm} | >{\arraybackslash}m{7cm} | >{\arraybackslash}m{5cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Resumen}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Artefactos generados}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Inicio} & 
+		 Se identifican los requisitos \newline 
+		 Se crea un glosario de términos \newline
+		 Se analiza la viabilidad del proyecto \newline
+		 Se realiza el plan de iteraciones &
+		 Modelo de casos de uso \newline 
+		 Glosario de términos \newline
+		 Descripción de riesgos \newline
+		 Plan de proyecto \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Elaboración} & 
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño &
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Construcción} & 
+		 Se implementan los requisitos del sistema \newline 
+		 Se definen pruebas \newline
+		 Se crea un modelo de despliegue &
+		 Modelo de implementación \newline 
+		 Modelo de pruebas \newline
+		 Modelo de despliegue \newline
+		 Ejecutables del sistema \\		 
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Transición} & 
+		 Se escribe la documentación y manuales de usuario \newline 
+		 Se explica como instalar e implantar el sistema &
+		 Documentación \newline 
+		 Manuales de usuario \newline
+		 Modelo de distribución \\
+	\hline
+\end{tabular}
+\caption{Resumen de las fases de un ciclo del PUD}
+\label{table:pud}
+\end{table}
+
+%\section{Patrones}
+
+\section{Marco tecnológico de trabajo}
+\label{sec:marco}
+
+En esta sección se expondrán las herramientas, tecnologías y librerías utilizadas durante todo el ciclo de vida del proyecto.
+
+\subsection{Herramienta para la planificación del proyecto}
+
+%% MICROSOFT PROJECT, si la utilizo
+
+
+\subsection{Herramientas para la gestión del proyecto}
+
+\subsubsection{Subversion}
+
+Subversion es un sistema de control de versiones donde, a diferencia de CVS (Concurrent Versions System), los archivos versionados del repositorio no tienen cada uno un número de versión distinto, sino que todo el repositorio tiene un único numero de revisión. Además Subversion permite acceder a repositorios de red.
+
+En el proyecto, se utilizará un repositorio Subversión (o SVN) para gestionar las diferentes versiones del mismo. El repositorio SVN estará alojado en \textit{Google Code}, de manera que será accesible en red. Para acceder a dicho repositorio, se utilizará la herramienta \textbf{TortoiseSVN}, que es un cliente de Subversion implementado como una extensión del shell de sistemas Windows y que permite gestionar el repositorio. En la Figura \ref{fig:tortosise} se puede observar esta herramienta.
+ 
+\subsubsection{Maven}
+
+Maven es una herramienta de gestión y construcción de proyectos, creada por Jason van Zyl en 2002. Maven permite describir el proyecto a construir, sus dependencias con otros módulos y el orden de construcción utilizando un Modelo de Objetos del Proyecto (POM, por sus siglas del inglés Project Object Model), que es un fichero XML donde se describe el proyecto, sus dependencias, etc.
+
+Maven tiene una arquitectura dinámica basada en \textit{plugins} que son descargables desde su repositorio central, de tal modo que permite la reutilización para diferentes proyectos, cambiando los plugins a utilizar y su configuración y manteniendo patrones similares en diferentes proyectos. 
+
+Se utilizará esta herramienta, en su versión 2.2.1, para la gestión del proyecto y sus dependencias con otras librerías y módulos, usando el plugin de Maven para Eclipse llamado \textbf{m2eclipse}. En la Figura \ref{fig:m2Eclipse} se puede observar la interfaz de este plugin sobre Eclipse.
+
+
+\subsection{Herramienta para el modelado}
+
+\subsubsection{Visual Paradigm}
+
+Visual Paradigm es una herramienta CASE (Computer Aided Software Engineering o Ingeniería de Software Asistida por Computador) profesional para el modelado UML (Unified Modeling Language o Lenguaje Unificado de Modelado) que soporta el ciclo de vida del desarrollo de un producto software. Permite crear diferentes tipos de diagramas y también permite la ingeniería inversa, es decir, a partir de código, generar diferentes diagramas.
+
+Esta herramienta se utilizará para realizar los diagramas de casos de uso, de secuencia, de clases, etc. En la Figura \ref{fig:VisualParadigm} se puede observar la interfaz de esta herramienta.
+
+\subsection{Herramientas y tecnologías para el desarrollo del proyecto}
+
+\subsubsection{Eclipse Helios}
+
+\subsubsection{Yahoo! PlaceFinder API}
+
+\subsubsection{OpenStreetMap}
+
+\subsubsection{Java Reflection}
+
+\subsubsection{JAXB}
+
+\subsubsection{JDOM}
+
+\subsubsection{Jaxen}
+
+\subsubsection{Hibernate}
+
+\subsubsection{Swing}
+
+\subsubsection{JUNG}
+
+\subsubsection{iText}
+
+\subsubsection{Japura}
+
+\subsubsection{JFreeChart}
+
+\subsection{Herramientas y tecnologías para bases de datos}
+
+\subsubsection{MySQL Community Server}
+
+\subsubsection{MySQL WorkBench}
+
+\subsection{Herramientas para la documentación del proyecto}
+
+\subsubsection{\LaTeX{}}
+
+\subsubsection{\BibTeX{}}
+
+
+		\item \textbf{Subversion}: sistema de control de versiones utilizado durante todo el ciclo de vida del proyecto.
+	\item \textbf{MySQL Community Server} 5.1.11: sistema de gestión de bases de datos utilizado para almacenar los datos persistentes de la aplicación.
+	\item \textbf{Yahoo! PlaceFinder API}: es el API del servicio Web llamado \textit{Yahoo! PlaceFinder}, el cuál proporciona servicios de geolocalización.
+	\item \textbf{OpenStreetMap}: proporciona los mapas mundiales que se muestran en la aplicación.
+	\item \textbf{Java Reflection API}: técnica que consiste en la habilidad de los programas para examinar o modificar su comportamiento y estructura en tiempo de ejecución.
+	\item \textbf{JAXB API} 2.2.4: \textit{Java Architecture for XML Binding} es una tecnología de Java que permite la transformación de una jerarquía de objetos en un fichero XML, y viceversa. El proceso de serialización recibe el nombre de \textit{marshalling}, mientras que el proceso inverso recibe el nombre de \textit{unmarshalling}.
+	\item \textbf{JDOM} 1.1: librería de Java para el acceso y manipulación de ficheros XML utilizando Java.
+	\item \textbf{Jaxen} 1.1.1: librería de Java que permite trabajar con XPath (XML Path Language) y ficheros XML.
+	\item \textbf{Hibernate} 3.5.4: \textit{framework} de persistencia que permite almacenar y recuperar objetos estableciendo relaciones (mapeo) entre las clases Java y las tablas de una base de datos relacional. Proporciona también un lenguaje de consultas sobre la base de datos, llamado HQL (Hibernate Query Language).
+	\item \textbf{iText} 5.1.0: librería (disponible para Java y C\#) que permite la creación y manipulación de ficheros PDF.
+	\item \textbf{Swing}: librería gráfica para Java, utilizada para el desarrollo de la interfaz de usuario de la aplicacioón. Se ha utilizado también \textbf{swingx}, que proporciona una extensión a \textit{Swing}, y \textbf{Swing Application Framework}, que proporciona un \textit{framework} para la disposición, reutilización y gestión de los elementos gráficos de Swing. Destacar que la interfaz se ha diseñado con el plug-in de eclipse \textbf{Jigloo}.
+	\item \textbf{JUNG} 2.0: \textit{Java Universal Network/Graph Framework} es un \textit{framework} basado en Java que permite el modelado y visualización de datos que pueden representarse en un grafo o en una red.
+	\item \textbf{Japura}: librería gráfica basada en Java que extiende los componentes visuales proporcionados por Swing.
+	\item \textbf{JFreeChart} 1.0.13: librería de Java que permite visualizar de manera sencilla gráficos estadísticos.	
+	\item \textbf{MySQL Workbench} 5.2 CE: herramienta CASE  que permite el modelado de la base de datos en un entorno visual.
+	\item \textbf{\LaTeX{}}: es un lenguaje utilizada para la composición de textos, orientado especialmente a la creación de libros y documentos científicos y técnicos.
+	\item \textbf{\BibTeX}: herramienta utilizada para dar formato a la bibliografía y referencias de documentos generados con \LaTeX{}.
+\end{itemize}
+
+Todas las herramientas fueron usadas con las convenientes licencias y respetando sus correspondientes términos de uso.
