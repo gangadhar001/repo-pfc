@@ -247,17 +247,42 @@ Esta herramienta se utilizará para realizar los diagramas de casos de uso, de se
 
 \subsubsection{Eclipse Helios}
 
-\subsubsection{Yahoo! PlaceFinder API}
+Eclipse es un IDE (Integrated Development Environment o Entorno Integrado de Desarrollo) multiplataforma, de código abierto y basado en plugins para aumentar su funcionalidad.
+
+Es el entorno de desarrollo utilizado para la codificación de proyecto utilizando el lenguaje de programación Java, junto a plugins utilizados para la gestión de proyectos con Maven (plugin \textbf{m2eclipse}) y diseño de interfaces gráficas con Swing (plugin \textbf{Jigloo}). En la Figura \ref{fig:eclipse} se muestra una captura de pantalla de este IDE.
+
+
+\subsubsection{Yahoo! PlaceFinder} \label{label:web}
+
+Yahoo! PlaceFinder es un servicio web de geocodificación que permite la conversión de direcciones de calles o nombres de lugares en coordenadas geográficas, y viceversa. La respuesta a una petición de este servicio Web viene dada por un fichero XML, como el mostrado en la Figura \ref{fig:YahooWeb}.
+
+Se utilizará para obtener y localizar en mapas las coordenadas geográficas a partir de direcciones postales.
 
 \subsubsection{OpenStreetMap}
+
+OpenStreetMap, conocido también como OSM, es un proyecto colaborativo para crear mapas del mundo libres y editables. Los mapas se crean utilizando GPS para capturar información geográfica, a través de ortofotografías y a través de otras fuentes libres. 
+
+Se utilizará para mostrar mapas y poder localizar posiciones geográficas en ellos, usando el servicio Web comentado en el apartado \ref{label:web}.
 
 \subsubsection{Java Reflection}
 
 \subsubsection{JAXB}
 
+\textit{Java Architecture for XML Binding} es una tecnología de Java que permite la transformación de una jerarquía de objetos Java a un fichero XML, y viceversa. El proceso de serialización recibe el nombre de \textit{marshalling}, mientras que el proceso inverso recibe el nombre de \textit{unmarshalling} (ver Figura \ref{fig:jaxb}).
+
+Se utilizará, en su versión 2.2.4, para poder convertir objetos del dominio de aplicación en ficheros XML, y viceversa.
+
 \subsubsection{JDOM}
 
+JDOM es una librería de Java de código abierto para el acceso y manipulación de ficheros XML optimizados para Java. Se creó para ser específicamente utilizado con Java, por lo que incluye sobrecarga de métodos, colecciones, etc, a diferencia del DOM creado por el consorcio W3C (World Wide Web), creado inicialmente para manipulación de páginas HTML con JavaScript. Señalar que JDOM no es un acrónimo de \textit{Java Document Object Model}.
+
+Dicha librería, en su versión 1.1, se utilizará para gestionar ficheros XML presentes en la aplicación, como, por ejemplo, los ficheros de perfiles.
+
 \subsubsection{Jaxen}
+
+Jaxen es una librería de Java de código abierto escrita en Java, adaptable a diferentes modelos de objetos como DOM, XOM, dom4j y JDOM, y que permite trabajar con expresiones \textit{XPath} (XML Path Language).
+
+Se utilizará en su versión 1.1.1 para la búsqueda de nodos en ficheros XML utilizando expresiones \textit{XPath}.
 
 \subsubsection{Hibernate}
 
@@ -270,6 +295,8 @@ Esta herramienta se utilizará para realizar los diagramas de casos de uso, de se
 \subsubsection{Japura}
 
 \subsubsection{JFreeChart}
+
+\subsubsection{RMI}
 
 \subsection{Herramientas y tecnologías para bases de datos}
 
@@ -284,23 +311,16 @@ Esta herramienta se utilizará para realizar los diagramas de casos de uso, de se
 \subsubsection{\BibTeX{}}
 
 
-		\item \textbf{Subversion}: sistema de control de versiones utilizado durante todo el ciclo de vida del proyecto.
-	\item \textbf{MySQL Community Server} 5.1.11: sistema de gestión de bases de datos utilizado para almacenar los datos persistentes de la aplicación.
-	\item \textbf{Yahoo! PlaceFinder API}: es el API del servicio Web llamado \textit{Yahoo! PlaceFinder}, el cuál proporciona servicios de geolocalización.
-	\item \textbf{OpenStreetMap}: proporciona los mapas mundiales que se muestran en la aplicación.
-	\item \textbf{Java Reflection API}: técnica que consiste en la habilidad de los programas para examinar o modificar su comportamiento y estructura en tiempo de ejecución.
-	\item \textbf{JAXB API} 2.2.4: \textit{Java Architecture for XML Binding} es una tecnología de Java que permite la transformación de una jerarquía de objetos en un fichero XML, y viceversa. El proceso de serialización recibe el nombre de \textit{marshalling}, mientras que el proceso inverso recibe el nombre de \textit{unmarshalling}.
-	\item \textbf{JDOM} 1.1: librería de Java para el acceso y manipulación de ficheros XML utilizando Java.
-	\item \textbf{Jaxen} 1.1.1: librería de Java que permite trabajar con XPath (XML Path Language) y ficheros XML.
-	\item \textbf{Hibernate} 3.5.4: \textit{framework} de persistencia que permite almacenar y recuperar objetos estableciendo relaciones (mapeo) entre las clases Java y las tablas de una base de datos relacional. Proporciona también un lenguaje de consultas sobre la base de datos, llamado HQL (Hibernate Query Language).
-	\item \textbf{iText} 5.1.0: librería (disponible para Java y C\#) que permite la creación y manipulación de ficheros PDF.
-	\item \textbf{Swing}: librería gráfica para Java, utilizada para el desarrollo de la interfaz de usuario de la aplicacioón. Se ha utilizado también \textbf{swingx}, que proporciona una extensión a \textit{Swing}, y \textbf{Swing Application Framework}, que proporciona un \textit{framework} para la disposición, reutilización y gestión de los elementos gráficos de Swing. Destacar que la interfaz se ha diseñado con el plug-in de eclipse \textbf{Jigloo}.
-	\item \textbf{JUNG} 2.0: \textit{Java Universal Network/Graph Framework} es un \textit{framework} basado en Java que permite el modelado y visualización de datos que pueden representarse en un grafo o en una red.
-	\item \textbf{Japura}: librería gráfica basada en Java que extiende los componentes visuales proporcionados por Swing.
-	\item \textbf{JFreeChart} 1.0.13: librería de Java que permite visualizar de manera sencilla gráficos estadísticos.	
-	\item \textbf{MySQL Workbench} 5.2 CE: herramienta CASE  que permite el modelado de la base de datos en un entorno visual.
-	\item \textbf{\LaTeX{}}: es un lenguaje utilizada para la composición de textos, orientado especialmente a la creación de libros y documentos científicos y técnicos.
-	\item \textbf{\BibTeX}: herramienta utilizada para dar formato a la bibliografía y referencias de documentos generados con \LaTeX{}.
-\end{itemize}
+%	\item \textbf{Java Reflection API}: técnica que consiste en la habilidad de los programas para examinar o modificar su comportamiento y estructura en tiempo de ejecución.
+%	\item \textbf{Hibernate} 3.5.4: \textit{framework} de persistencia que permite almacenar y recuperar objetos estableciendo relaciones (mapeo) entre las clases Java y las tablas de una base de datos relacional. Proporciona también un lenguaje de consultas sobre la base de datos, llamado HQL (Hibernate Query Language).
+%	\item \textbf{iText} 5.1.0: librería (disponible para Java y C\#) que permite la creación y manipulación de ficheros PDF.
+%	\item \textbf{Swing}: librería gráfica para Java, utilizada para el desarrollo de la interfaz de usuario de la aplicacioón. Se ha utilizado también \textbf{swingx}, que proporciona una extensión a \textit{Swing}, y \textbf{Swing Application Framework}, que proporciona un \textit{framework} para la disposición, reutilización y gestión de los elementos gráficos de Swing. Destacar que la interfaz se ha diseñado con el plug-in de eclipse \textbf{Jigloo}.
+%	\item \textbf{JUNG} 2.0: \textit{Java Universal Network/Graph Framework} es un \textit{framework} basado en Java que permite el modelado y visualización de datos que pueden representarse en un grafo o en una red.
+%	\item \textbf{Japura}: librería gráfica basada en Java que extiende los componentes visuales proporcionados por Swing.
+%	\item \textbf{JFreeChart} 1.0.13: librería de Java que permite visualizar de manera sencilla gráficos estadísticos.	
+%	\item \textbf{MySQL Workbench} 5.2 CE: herramienta CASE  que permite el modelado de la base de datos en un entorno visual.
+%	\item \textbf{\LaTeX{}}: es un lenguaje utilizada para la composición de textos, orientado especialmente a la creación de libros y documentos científicos y técnicos.
+%	\item \textbf{\BibTeX}: herramienta utilizada para dar formato a la bibliografía y referencias de documentos generados con \LaTeX{}.
+%\end{itemize}
 
 Todas las herramientas fueron usadas con las convenientes licencias y respetando sus correspondientes términos de uso.
