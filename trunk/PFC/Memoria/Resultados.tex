@@ -1,13 +1,491 @@
 \chapter{Resultados}
 \label{ch:resultados}
 
-% En esta sección se describirá la aplicación del método de trabajo presentado en el capítulo 4 en este caso concreto, mostrando los elementos (modelos, diagramas, especificaciones, etc.) más importantes.
+En este capítulo se expondrán los resultados obtenidos al aplicar la metodología descrita en el capítulo \ref{ch:metododetrabajo} para el desarrollo del presente PFC.
 
-% Explicación del desarrollo de la herramienta
-% Casos de uso más importantes
-% Diagramas más importantes
-% Arquitectura/Estructura de la herramienta
-% Medidas
-% Niveles (factoría y proyecto)
-% Seguridad con Spring Security
-% ...
+Se muestra todo el proceso de desarrollo real que se ha seguido hasta la obtención del sistema real, desde su fase de inicio hasta su finalización, mostrando la evolución del sistema de manera incremental y la evolución de requisitos funcionales que ha sufrido.
+
+Siguiendo la metodología propuesta por el Proceso Unificado de Desarrollo, el ciclo de vida de desarrollo del sistema se ha dividido en las cuatro fases que el PUD propone: Inicio, Elaboración, Construcción y Transición. Cada una de esas fases, a su vez, se ha dividido en una o más iteraciones, donde intervienen las disciplinas de Captura de Requisitos, Análisis, Diseño, Implementación y Pruebas. De este modo, el sistema va incrementando su funcionalidad al terminar cada una de estas iteraciones.
+
+En las sucesivas secciones se detallan cada una de las fases del PUD aplicadas al desarrollo del sistema, las iteraciones que abarca y se expondrá la evolución que ha ido sufriendo el proyecto hasta obtener el resultado final. 
+
+\section{Fase de Inicio}
+
+La fase de inicio abarca una única iteración, en la cuál, como se indica en esta fase del PUD (ver sección \ref{lbl:inicio}), se llevarán a cabo las siguientes tareas:
+
+\begin{itemize}
+	\item Identificación de requisitos funcionales y no funcionales del sistema a desarrollar.
+	\item Elaboración de un primer modelo de casos de uso.
+  \item Análisis de viabilidad y riesgos.
+  \item Elaboración del plan de iteraciones (o plan de proyecto) para el resto de fases.
+\end{itemize}
+
+En esta fase, como se muestra en la Figura \ref{fig:pudInicio}, interviene principalmente la disciplina de Captura de Requisitos. 
+
+\imagenBorde{Cap5//pudInicio}{1.0}{Fase de inicio en el PUD}{fig:pudInicio}
+
+En los siguientes apartados se exponen las tareas realizadas en esta fase.
+
+\subsection{Identificación de requisitos}
+
+Para la identificación de requisitos del sistema, se estudió la literatura existente relacionada con el tema y se fueron extrayendo requisitos funcionales que pudieran resolver o mitigar los desafíos encontrados en la literatura, desarrollados en el capítulo \ref{ch:estadodelarte}. 
+
+Por otra parte, para que el sistema obtenido como resultado del desarrollo de este proyecto pudiera tener una aplicación real, era necesario conocer realmente el funcionamiento de las empresas que siguen el paradigma de GSD y qué información es relevante para los miembros de los equipos de desarrollo. La información que interesaba conocer era cómo se distribuyen los proyectos, los tipos de roles que participan en el desarrollo, experiencia de los desarrolladores, cómo se distribuyen los equipos en los países, cómo se comunican e intercambian información, etc.
+
+Para poder conocer esta información acerca del dominio de aplicación del sistema, se realizaron reuniones con expertos, en este caso la directora del presenta PFC para poder conocer dicha información. Además, también se ha utilizado la propia experiencia del autor y desarrollador del presente PFC en una empresa con centros de desarrollo distribuidos en diferentes países.
+
+Una vez estudiada la literatura, conocidos los problemas del GSD y con conocimiento del dominio de la aplicación del sistema, se pasó a elaborar una serie de requisitos funcionales que el sistema debe cumplir para alcanzar los objetivos propuestos (ver Capítulo \ref{ch:motivacionyobjetivos}).
+
+
+\subsubsection{Requisitos funcionales}
+
+A continuación, se enumera el conjunto de requisitos funcionales que es sistema debe cumplir.
+
+\begin{itemize}
+	\item Se debe permitir que diferentes miembros de los equipos de desarrollo de una compañía puedan acceder al sistema, mediante un nombre de usuario y contraseña, proporcionada por la empresa.
+	\item Como en los equipos de desarrollo existen diferentes roles entre sus miembros, el sistema debe adaptarse a las acciones que cada miembro del equipo (en adelante, usuario) puede realizar, según su rol.
+	\item La herramienta debe mostrar, de una manera gráfica e intuitiva, el conjunto de decisiones (conocimiento, en este caso) que han sido tomadas en un proyecto software. Además, se deberá proporcionar diferente información acerca de esas decisiones: su autor, centro de desarrollo y compañía donde pertenece, detalles de esa decisión, etc.
+	\item Los usuarios pueden participar activamente en las decisiones que se van tomando durante el ciclo de vida de los proyectos en los que participan, de tal modo que la herramienta debe permitir gestionar estas decisiones. Así, se podrán crear, modificar y eliminar dichas decisiones, agrupadas en tres categorías: \textit{Temas}, \textit{Propuestas} y \textit{Respuestas}.
+	\item Se deben poder dar de alta nuevos proyectos en el sistema, así como modificar los existentes.
+	\item La herramienta debe proveer mecanismos de comunicación síncrona y asíncrona que faciliten la comunicación entre usuarios.
+	\begin{itemize}
+	\item Se debe crear un sistema de notificaciones, informando al usuario cuando se producen cambios sobre las decisiones de los proyectos donde trabaja.
+	\item Se deben mostrar cambios en tiempo real, es decir, si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su
+vista. 
+	\end{itemize}
+	\item La herramienta debe poder configurarse y mostrarse en diferentes idiomas.
+	\item La herramienta debe generar \textbf{logs} con las acciones que se van realizando en el sistema.
+	\item Se debe poder exportar el conocimiento a un fichero XML.
+\end{itemize}
+
+Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:roles}, los cuales pueden realizar las acciones mostradas en la Tabla \ref{table:acciones1}.
+
+
+\subsubsection{Requisitos no funcionales} \label{label:reqnofuncionales}
+
+A continuación, se enumera el conjunto de requisitos no funcionales del sistema, dependientes del entorno tecnológico de la aplicación.
+
+\begin{itemize}
+	\item El sistema debe ser distribuido, para facilitar su uso entre los diferentes miembros de los equipos de desarrollo que se encuentran geográficamente deslocalizados. Por tanto, es un sistema cliente/servidor, formado por dos subsistemas.
+	\item Debe existir una base de datos que permita almacenar todas las decisiones tomadas en los proyectos, la información de los proyectos, la información de usuarios, etc. 
+\end{itemize}
+
+\subsection{Modelo de casos de uso}
+
+% Agrupar los requisitos anteriores en casos de uso
+
+Una vez identificados los requisitos funcionales del sistema, éstos se modelan en un diagrama de casos de uso con un alto nivel de abstracción, solamente mostrando los diferentes grupos funcionales de la herramienta, como se observa en la Figura \ref{fig:casosUsoAlto1}.
+
+A continuación, se muestran los diagramas de casos de uso cada uno de los grandes grupos funcionales de manera más detallada.
+
+% Tener en cuenta los dos sistemas
+
+\paragraph{Acceso al sistema}
+
+\paragraph{Visualización de conocimiento}
+
+\paragraph{Generación de decisiones}
+
+\paragraph{Gestión de proyectos}
+
+\paragraph{Gestión de notificaciones}
+
+\paragraph{Gestión de idiomas}
+
+%% Quizas solo poner los que se pueden desglosar en varios casos de uso
+\paragraph{Generación de logs}
+
+
+\subsection{Análisis de riesgos}
+
+% Preguntar a Aurora
+
+\subsection{Plan de iteraciones}
+
+Dado que el PUD es centrado en los casos de uso, se utilizan los casos de uso modelados en el paso anterior para poder crear el plan de proyecto, o plan de iteraciones, y llevar a cabo el desarrollo de estos casos de uso en las fases posteriores. Así, se obtienen las siguientes iteraciones, mostradas en la Tabla \ref{table:iteraciones1}. 
+
+\begin{center}
+\begin{longtable}%[h]%
+%\centering
+%\begin{logn}
+{| >{\centering\arraybackslash}m{4cm} | >{\arraybackslash}m{2cm} | >{\arraybackslash}m{8cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+		\hline
+		\endhead
+		
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Inicio} & 1 &
+		 Se identifican los requisitos \newline 
+		 Se crea un glosario de términos \newline
+		 Se analiza la viabilidad del proyecto \newline
+		 Se realiza el plan de iteraciones 
+		 Modelo de casos de uso \newline 
+		 Glosario de términos \newline
+		 Descripción de riesgos \newline
+		 Plan de proyecto \\
+	\hline
+	\multirow{-2}{*}{Elaboración} \cellcolor[gray]{0.9} & 2 &
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ \hline
+		 \cellcolor[gray]{0.9} & 3 & Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\
+	\hline
+	\multirow{-3}{*}{Construcción} \cellcolor[gray]{0.9} & 4 &
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ \hline
+		 \cellcolor[gray]{0.9} & 5 & 
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ \hline
+		 \cellcolor[gray]{0.9} & 6 & 
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ 
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Transición} & 7 &
+		 Se identifican los requisitos \newline 
+		 Se crea un glosario de términos \newline
+		 Se analiza la viabilidad del proyecto \newline
+		 Se realiza el plan de iteraciones 
+		 Modelo de casos de uso \newline 
+		 Glosario de términos \newline
+		 Descripción de riesgos \newline
+		 Plan de proyecto \\
+	\hline
+
+\caption{Plan de iteraciones}
+\label{table:iteraciones1} 
+\end{longtable}
+\end{center}
+
+
+
+\section{Fase de Elaboración}
+
+En esta fase intervienen las disciplinas de Captura de Requisitos, Análisis, Diseño, Implementación y Pruebas, con mayor o menor influencia, según la iteración donde nos encontremos (ver Figura \ref{fig:pudElaboracion}). 
+
+\imagenBorde{Cap5//pudElaboracion}{1.0}{Fase de elaboración en el PUD}{fig:pudElaboracion}
+
+Por ello, esta fase se ha divido en dos iteraciones: la primera de ellas se centra de nuevo en la captura de requisitos, en el análisis y en algunas tareas de diseño. La segunda iteración se centra en el diseño, la implementación y pruebas de un requisito funcional básico del sistema.
+
+Las tareas que se llevan a cabo en esta fase son:
+
+\begin{itemize}
+	\item \textbf{Primera iteración}
+	\begin{itemize}
+		\item Identificación de nuevos requisitos funcionales del sistema.
+		\item Elaboración del modelo de casos de uso definitivo.
+		\item Elaboración del plan de proyecto definitivo.
+	  \item Modelo de clases de análisis de los casos de uso.
+	  \item Definición y diseño de la arquitectura del sistema.
+	\end{itemize}
+	\item \textbf{Segunda iteración}
+	\begin{itemize}
+		\item Modelo de alto nivel de clases de diseño.
+		\item Definición del diagrama de secuencia correspondiente a la funcionalidad de acceso al sistema.
+		\item Implementación de la funcionalidad de acceso al sistema.
+		\item Creación de casos de prueba para dicho caso de uso implementado.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Primera iteración}
+
+\subsubsection{Identificación de requisitos}
+
+Al terminar la iteración de la fase anterior, obteniendo un primer modelo de casos de uso con los requisitos identificados, se llevó a cabo una reunión de seguimiento, para revisar la planificación realizada y poder identificar nuevos requisitos funcionales, si los hubiera.
+
+Como resultado de esta reunión, se identificaron nuevos requisitos funcionales para añadir el sistema y que servirán para mitigar o resolver más problemas que aparecen en GSD. Estos nuevos requisitos son:
+
+\begin{itemize}
+	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder acepar o rechazar dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
+	\item Para aumentar el conocimiento que se genera al crear nuevas decisiones de un proyecto, se debe poder adjuntar ficheros a dichas decisiones, para potenciar y ampliar la información que producen al proyecto. Del mismo modo, se deben poder descargar esos archivos adjuntos, si los hay.
+	\item Cuando se presenta un nuevo proyecto, se debe poder aconsejar decisiones tomadas en proyectos ya terminados, que tuviesen características similares.
+	\item Se deben poder generar de manera automática estadísticas que ayuden a llevar un control sobre los proyectos que se están desarrollando por los diferentes centros de desarrollo software de una compañía. También se podrán generar estadísticas acerca de los miembros de los equipos.
+	\item Se deben poder generar informes de las decisiones tomadas en un proyecto, en forma de tabla y de manera automática. Dicho informe debe generarse como un documento PDF.
+\end{itemize}
+
+Con estos nuevos requisitos, se actualizan las acciones que pueden realizar los diferentes roles de usuarios (ver Tabla \ref{table:acciones2}), así como el modelo de casos de uso, explicado en el siguiente apartado.
+
+\subsubsection{Modelo de casos de uso}
+
+En la Figura \ref{fig:casosUsoAlto2} se muestra el diagrama de casos de usos global, incluyendo los nuevos requisitos.
+
+A continuación se detallan los nuevos casos de uso.
+
+\paragraph{Aceptación de decisiones}
+
+\paragraph{Adjuntar ficheros}
+
+\paragraph{Aconsejar decisiones}
+
+\paragraph{Generación de estadísticas}
+
+\paragraph{Generación de informes}
+
+
+\subsubsection{Plan de iteraciones}
+
+Una vez identificados nuevos requisitos y modelados los casos de uso del sistema con esos nuevos requisitos, se reorganiza el plan de proyecto con nuevas iteraciones, para poder tener en cuenta el desarrollo de los nuevos casos de uso. Por tanto, a partir de las iteraciones planificadas en la Tabla \ref{table:iteraciones1}, se obtiene el nuevo plan de iteraciones mostrado en la Tabla \ref{table:iteraciones2} (teniendo en cuenta que la fase de inicio ya se ha completado).
+
+\begin{center}
+\begin{longtable}%[h]%
+%\centering
+%\begin{logn}
+{| >{\centering\arraybackslash}m{4cm} | >{\arraybackslash}m{2cm} | >{\arraybackslash}m{8cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+		\hline
+		\endhead
+		
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Inicio} & 1 &
+		 Se identifican los requisitos \newline 
+		 Se crea un glosario de términos \newline
+		 Se analiza la viabilidad del proyecto \newline
+		 Se realiza el plan de iteraciones 
+		 Modelo de casos de uso \newline 
+		 Glosario de términos \newline
+		 Descripción de riesgos \newline
+		 Plan de proyecto \\
+	\hline
+	\multirow{-2}{*}{Elaboración} \cellcolor[gray]{0.9} & 2 &
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ \hline
+		 \cellcolor[gray]{0.9} & 3 & Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\
+	\hline
+	\multirow{-3}{*}{Construcción} \cellcolor[gray]{0.9} & 4 &
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ \hline
+		 \cellcolor[gray]{0.9} & 5 & 
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ \hline
+		 \cellcolor[gray]{0.9} & 6 & 
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño 
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\ 
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Transición} & 7 &
+		 Se identifican los requisitos \newline 
+		 Se crea un glosario de términos \newline
+		 Se analiza la viabilidad del proyecto \newline
+		 Se realiza el plan de iteraciones 
+		 Modelo de casos de uso \newline 
+		 Glosario de términos \newline
+		 Descripción de riesgos \newline
+		 Plan de proyecto \\
+	\hline
+
+\caption{Plan de iteraciones actualizado}
+\label{table:iteraciones2} 
+\end{longtable}
+\end{center}
+
+
+\subsubsection{Análisis de casos de uso}
+
+El modelo de casos de uso obtenido se especifica de manera más formal y en detalle, describiendo el funcionamiento de cada caso de uso y sus escenarios. Además, para cada uno de ellos, se crea el diagrama de clases de análisis, que representa las acciones que se llevan a cabo entre las clases identificadas para dar soporte a cada caso de uso. Existen tres tipos de clase: 
+
+\begin{enumerate}
+	\item Interfaz o \textit{Boundary}: representa clases utilizadas para la comunicación entre el actor y el sistema.
+	\item Control: representa clases y objetos de control. Es la que controla y coordina el flujo (o escenario) de funcionamiento del caso de uso.
+	\item Entidad o \textit{Entity}: son clases que representan objetos de información persistentes del sistema.
+\end{enumerate}
+
+
+% Para algunos casos de uso (los primeros), poner en tabla el flujo (escenarios) y el diagrama de análisis
+\paragraph{Acceso al sistema}
+
+\paragraph{Visualización de conocimiento}
+
+\paragraph{Generación de decisiones}
+
+\paragraph{Gestión de proyectos}
+
+\paragraph{Gestión de notificaciones}
+
+\paragraph{Gestión de idiomas}
+
+
+Del mismo modo se definen los escenarios de los casos de uso y sus diagramas de clases de análisis en los siguientes grupos funcionales:
+
+% LISTA
+
+Se ha decidido no incorporar todos los diagramas al documento por la gran cantidad de diagramas que existen, para no aumentar excesivamente la longitud del documento.
+
+
+\subsubsection{Arquitectura del sistema}
+
+Al final de esta primera iteración de la fase de elaboración, se comienza con el diseño del sistema. En este caso se define y diseña su arquitectura. En posteriores iteraciones y fases, se continuará con la labor de diseño del sistema, creando los diagramas de secuencia para cada caso de uso y el diagrama de clases de diseño, siendo la base para la posterior implementación.
+
+\paragraph{Arquitectura cliente-servidor}
+
+Como se comentó en el apartado \ref{label:reqnofuncionales}, el sistema a desarrollar debe ser distribuido, para poder ser utilizado desde localizaciones diferentes, por lo que se ha decidido utilizar una arquitectura cliente-servidor. De esta forma, el sistema completo se divide en dos subsistemas:
+
+\begin{itemize}
+	\item \textbf{Subsistema Cliente}: este subsistema es el utilizado por los miembros de los equipos de desarrollo deslocalizados. Este subsistema es que se encarga de mostrar la interfaz gráfica de usuario, recoger las acciones que el usuario desea hacer y enviar dicha acción al servidor, esperando su respuesta para actualizar la interfaz gráfica en consecuencia.
+	\item \textbf{Subsistema Servidor}: este subsistema se encarga de recibir las peticiones del
+subsistema cliente, procesarlas, almacenar y recuperar información de su base de datos y enviar
+la respuesta al cliente. También se encarga de que todas las acciones queden registradas.
+\end{itemize}
+
+Así, cada uno de los subsistemas se puede encontrar en máquinas diferentes, pues, siguiendo la
+arquitectura cliente-servidor, se comunican a través de \textbf{RMI} (ver sección \ref{sec:marco}). Además,
+la base de datos utilizada por el servidor también se pueden encontrar en una máquina
+diferente a la máquina donde se encuentre el servidor. 
+
+Por tanto, algunas ventajas de utilizar este enfoque distribuido siguiendo la arquitectura cliente-servidor son:
+
+\begin{itemize}
+	\item Centralización del control: toda la lógica de dominio y control está centralizada en el servidor, por lo que el sistema cliente es totalmente independiente de la implementación
+del servidor. Del mismo modo, el sistema cliente es independiente de como se realiza la gestión
+del conocimiento en el servidor. Además, los accesos, recursos y la integridad de los datos son
+controlados por el servidor de forma que un cliente defectuoso o no autorizado no pueda dañar
+el sistema.
+	\item Escalabilidad: se pueden añadir nuevos tipos de sistemas clientes para que se comuniquen
+con el servidor.
+	\item Fácil mantenimiento: al estar los sistemas distribuidos en diferentes máquinas, es posible
+reemplazar, reparar o actualizar el servidor, mientras que sus clientes no se verán afectados
+por ese cambio.
+\end{itemize}
+
+En la Figura \ref{fig:despliegue} se muestra una vista de los subsistemas que integran el sistema global y
+como se comunican dichos sistemas a través de interfaces, facilitando la distribución de cada uno
+de los sistemas en diferentes máquinas. 
+
+\paragraph{Arquitectura multicapa}
+
+En cuanto a la arquitectura de implementación, ambos sistemas, cliente y servidor, serán desarrollados siguiendo una arquitectura multicapa, de modo que se pueda aislar la capa de presentación de la de la lógica de dominio y ésta de la capa de persistencia. 
+
+De este modo, las capas con las que cuenta cada subsistema son las siguientes:
+
+\begin{itemize}
+	\item Cliente: comunicaciones, dominio y presentación.
+	\item Servidor: comunicaciones, dominio, persistencia y presentación.
+\end{itemize}
+
+Más concretamente, estas capas se traducirán a paquetes de la arquitectura, donde cada uno agrupara los siguientes elementos:
+
+\begin{itemize}
+	\item \textbf{Comunicaciones}
+	\item \textbf{Dominio}
+	\item \textbf{Persistencia}
+	\item \textbf{Presentación}
+\end{itemize}
+
+En la Figura \ref{fig:paquetes} puede observarse esta arquitectura multicapa y las relaciones entre dichas capas.
+
+
+Utilizando este enfoque multicapa, se sigue el principio de mínimo acoplamiento y máxima
+cohesión, desacoplando los elementos de una capa de los de otra. De este modo, se facilita el
+mantenimiento y extensibilidad del sistema, pues cuando se realice el cambio en algún elemento
+de una capa, el resto de capas no se verán afectadas.
+
+
+% Patrones utilizados
+
+
+\subsection{Segunda iteración}
+
+\subsubsection{Diagrama de clases de diseño}
+
+\subsubsection{Diagrama de secuencia}
+
+\subsubsection{Implementación}
+
+\subsubsection{Pruebas}
+		
+		
+		
+		
+		
+		
+		
+		
+\section{Fase de Construcción}
+
+
+
+
+
+
+\section{Fase de Transición}
+
+En esta fase, compuesta de una única iteración, es donde el producto software se prepara para su entrega al cliente, incluyendo los últimos detalles de implementación y pruebas (ver Figura \ref{fig:pudTransicion}).
+
+Al alcanzar esta última iteración, se prepara la versión ejecutable del producto al cliente, así como se realizan las últimas pruebas globales para comprobar el correcto funcionamiento del sistema. 
+
+Además, se realiza la documentación del producto software y se redactan los manuales de configuración y manuales de usuario del sistema. Dichos manuales pueden encontrarse en los apéndices XXX.

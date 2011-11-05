@@ -15,8 +15,10 @@
 %\usepackage{eurosym}
 % Incompatible con el paquete textcomp
 \usepackage{marvosym,pifont}
+\usepackage{longtable}
 \usepackage{url} % Conveniente para escribir URL
 \usepackage{array}
+\usepackage{multirow}
 %====================================
 %====================================
 % PAQUETES PARA AJUSTE DE MÁRGENES, ESPACIOS
@@ -128,7 +130,9 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
   \vspace{-10pt}
 \end{wrapfigure}}
 
+% Para llegar hasta subsubsecciones en el indice
 \setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 % ------------------ Macro para cambiar el interlineado ---------------------
 %       Uso: \interlineado{tamaño en puntos: 1.0 es normal, 2.0 doble...}
