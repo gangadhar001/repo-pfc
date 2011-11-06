@@ -47,7 +47,7 @@ A continuación, se enumera el conjunto de requisitos funcionales que es sistema 
 	\item La herramienta debe mostrar, de una manera gráfica e intuitiva, el conjunto de decisiones (conocimiento, en este caso) que han sido tomadas en un proyecto software. Además, se deberá proporcionar diferente información acerca de esas decisiones: su autor, centro de desarrollo y compañía donde pertenece, detalles de esa decisión, etc.
 	\item Los usuarios pueden participar activamente en las decisiones que se van tomando durante el ciclo de vida de los proyectos en los que participan, de tal modo que la herramienta debe permitir gestionar estas decisiones. Así, se podrán crear, modificar y eliminar dichas decisiones, agrupadas en tres categorías: \textit{Temas}, \textit{Propuestas} y \textit{Respuestas}.
 	\item Se deben poder dar de alta nuevos proyectos en el sistema, así como modificar los existentes.
-	\item La herramienta debe proveer mecanismos de comunicación síncrona y asíncrona que faciliten la comunicación entre usuarios.
+	\item La herramienta debe proveer mecanismos de comunicación síncrona y asíncrona que faciliten la comunicación entre usuarios:
 	\begin{itemize}
 	\item Se debe crear un sistema de notificaciones, informando al usuario cuando se producen cambios sobre las decisiones de los proyectos donde trabaja.
 	\item Se deben mostrar cambios en tiempo real, es decir, si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su
@@ -218,6 +218,7 @@ Las tareas que se llevan a cabo en esta fase son:
 	\item \textbf{Segunda iteración}
 	\begin{itemize}
 		\item Modelo de alto nivel de clases de diseño.
+		\item Modelado y diseño de la base de datos.
 		\item Definición del diagrama de secuencia correspondiente a la funcionalidad de acceso al sistema.
 		\item Implementación de la funcionalidad de acceso al sistema.
 		\item Creación de casos de prueba para dicho caso de uso implementado.
@@ -234,7 +235,7 @@ Al terminar la iteración de la fase anterior, obteniendo un primer modelo de cas
 Como resultado de esta reunión, se identificaron nuevos requisitos funcionales para añadir el sistema y que servirán para mitigar o resolver más problemas que aparecen en GSD. Estos nuevos requisitos son:
 
 \begin{itemize}
-	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder acepar o rechazar dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
+	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder aceptar o rechazar dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
 	\item Para aumentar el conocimiento que se genera al crear nuevas decisiones de un proyecto, se debe poder adjuntar ficheros a dichas decisiones, para potenciar y ampliar la información que producen al proyecto. Del mismo modo, se deben poder descargar esos archivos adjuntos, si los hay.
 	\item Cuando se presenta un nuevo proyecto, se debe poder aconsejar decisiones tomadas en proyectos ya terminados, que tuviesen características similares.
 	\item Se deben poder generar de manera automática estadísticas que ayuden a llevar un control sobre los proyectos que se están desarrollando por los diferentes centros de desarrollo software de una compañía. También se podrán generar estadísticas acerca de los miembros de los equipos.
@@ -428,7 +429,9 @@ de los sistemas en diferentes máquinas.
 
 \paragraph{Arquitectura multicapa}
 
-En cuanto a la arquitectura de implementación, ambos sistemas, cliente y servidor, serán desarrollados siguiendo una arquitectura multicapa, de modo que se pueda aislar la capa de presentación de la de la lógica de dominio y ésta de la capa de persistencia. 
+En cuanto a la arquitectura de implementación, ambos sistemas, cliente y servidor, serán desarrollados siguiendo una arquitectura multicapa, de modo que se pueda aislar la capa de presentación de la de la lógica de dominio y ésta de la capa de persistencia (ver Figura \ref{fig:multicapa}).
+
+\imagenBorde{Cap5//multicapa}{1.0}{Arquitectura multicapa}{fig:multicapa}
 
 De este modo, las capas con las que cuenta cada subsistema son las siguientes:
 
@@ -437,13 +440,13 @@ De este modo, las capas con las que cuenta cada subsistema son las siguientes:
 	\item Servidor: comunicaciones, dominio, persistencia y presentación.
 \end{itemize}
 
-Más concretamente, estas capas se traducirán a paquetes de la arquitectura, donde cada uno agrupara los siguientes elementos:
+Más concretamente, estas capas se traducirán a paquetes de implementación, donde cada uno agrupara los siguientes elementos:
 
 \begin{itemize}
-	\item \textbf{Comunicaciones}
-	\item \textbf{Dominio}
-	\item \textbf{Persistencia}
-	\item \textbf{Presentación}
+	\item \textbf{Comunicaciones}: contiene las clases e interfaces necesarias para la comunicación de los subsistemas a través de RMI.
+	\item \textbf{Dominio}: contiene todos los objetos del dominio de la aplicación.
+	\item \textbf{Persistencia}: contiene las clases encargadas de gestionar la persistencia de los objetos de dominio.
+	\item \textbf{Presentación}: contiene todas las vistas de la interfaz gráfica de usuario, organizadas en subpaquetes. 
 \end{itemize}
 
 En la Figura \ref{fig:paquetes} puede observarse esta arquitectura multicapa y las relaciones entre dichas capas.
@@ -457,14 +460,96 @@ de una capa, el resto de capas no se verán afectadas.
 
 % Patrones utilizados
 
-
 \subsection{Segunda iteración}
+
+Al finalizar la iteración anterior, en la que se identificaron nuevos requisitos, éstos se añadieron como nuevos casos de uso, se crearon las clases de análisis y se especificó a arquitectura del sistema, se realizó otra reunión de seguimiento, antes de comenzar la nueva iteración, para revisar y validar todos estos artefactos obtenidos.
+
+En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones y resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comienza con el diseño, implementación y pruebas de los casos de uso identificados.
 
 \subsubsection{Diagrama de clases de diseño}
 
+En esta segunda iteración de la fase de elaboración, se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
+
+En la Figura \ref{fig:clasesDiseño} se puede observar este diagrama de clases de diseño.
+
+
+\subsubsection{Diseño de la base de datos}
+
+A partir de las clases de dominio y sus relaciones, se modela y diseña la base de datos para que los objetos de dominio puedan ser persistentes y almacenarse en una base de datos. En los siguientes apartados se muestra el modela conceptual y lógico de la base de datos utilizada en el sistema.
+
+\paragraph{Diseño conceptual}
+
+El diseño conceptual de la base de datos del sistema está basado en las clases persistentes de
+la lógica del dominio, representando dichas clases y sus relaciones en
+un modelo ER (Entidad-Interrelación).
+
+Como dicho modelo es el modelo conceptual (de más alto nivel) en el diseño de una base
+de datos, las entidades se corresponden prácticamente con las clases del modelo de dominio, los
+atributos de dichas entidades se corresponden con los atributos de las clases, y las relaciones se
+corresponden con las asociaciones que existen entre las diferentes clases del modelo de conocimiento
+o dominio.
+
+Algunas diferencias que existen entre el modelo de dominio y el modelo ER son:
+%• No existe una entidad ”Sustitución”, ya que, en el modelo ER, esto se puede modelar como
+%una relación entre médicos, con determinados atributos en dicha relación.
+%• Los diferentes tipos de médico se modelan como una jerarquía de herencia de la entidad Médico,
+%no apareciendo la entidad TipoMédico correspondiente a la clase de dominio, pues esta clase
+%aparece por la aplicación del patrón Estado, como ya se vió en la capa de dominio del servidor
+%front-end (ver sección 3.1.3).
+
+El modelo ER de la base de datos se muestra en la Figura \ref{fig:modeloER}.
+
+
+\paragraph{Diseño lógico}
+
+Una vez se ha realizado el diagrama ER a partir de las clases y asociaciones del modelo de
+dominio del sistema, se debe traducir dicho diagrama a un modelo relacional o de tablas.
+
+Para realizar esto, se han tenido en cuenta las siguientes consideraciones:
+%• Para representar la jerarquía de herencia de la entidad Usuario y las entidades Administrador,
+%Citador y Médico, se ha utilizado el patrón de persistencia \textbf{1 árbol de herencia, 1 tabla},
+%por lo que sólo se creará la tabla Usuarios, que agrupará los atributos de todas las entidades
+%anteriores. Sin embargo, es necesario añadir un nuevo atributo a la tabla Usuarios para indicar
+%el rol del usuario, correspondiente a cada una de las subclases.
+%La razón de utilizar dicho patrón es agrupar en única tabla toda la jerarquía de herencia que
+%existe entre esas clases en el modelo de dominio, pues ninguna de las clases Administrador,
+%Citador ni Médico añaden nuevos atributos a la clase Usuario, por lo que no se van a obtener
+%atributos (columnas) nulas en la tabla resultante.
+%• Para representar los dferentes tipos de médico, aunque en el modelo ER se represente con
+%una herencia, por ser un modelo conceptual, la tabla que se obtiene es la tabla TiposMedico,
+%obtenida al aplicar el patrón de persistencia 1 árbol de herencia, 1 tabla sobre la clase Tipo
+%Médico que aparece en el modelo de dominio. Esta clase, a su vez, proviene de la aplicación del
+%patrón Estado, como ya se comentó en la sección frontend.
+%• En la tabla EntradasLog, obtenida al transformar la entidad EntradaLog en una tabla, la columna
+%”usuario” puede ser vacia, pues hay acciones que no están asociadas a ningún usuario
+%del sistema, como, por ejemplo, iniciar el servidor front-end. Además, si se borra el usuario
+%asociado a la acción que se realizado, esta columna tomará el valor NULL, pues no se puede
+%borrar la entrada de log correspondiente, ya que es un requisito el ir almacenando todas las
+%acciones realizadas.
+
+% Trigger
+
+
 \subsubsection{Diagrama de secuencia}
 
+Una vez se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar el caso de uso planificado para esta iteración, que es el caso de uso de acceso al sistema.
+
+Para ello, en primer lugar se modela el funcionamiento de este caso de uso a través de diagramas de secuencia, mostrado en la Figura \ref{fig:secuenciaLogin}.
+
+% Comentar q el usuario y conraseña es porporcionado por la empresa 
+% quizas, solo en este diagrama, explicar como funcioan
+Una vez se ha modelo el funcionamiento de caso de uso con el diagrama de secuencia, dicho comportamiento se implementa y se prueba, finalizando esta iteración de la fase de elaboración.
+
 \subsubsection{Implementación}
+
+% Comentar que es una funcionalidad básica, de login y logout.
+% Que se implemente siguiendo el escenario del diagrama de secuencia
+% Modelo de entrada al sistema
+% Que en proximas iteractiones no se detallara ranro por extension y se iran obteniendo nuevos incrementos
+
+%Durante esta disciplina se implementan los requisitos de la pila del Sprint
+%correspondientes con la Tabla 31. Al finalizar esta disciplina se obtuvieron las clases Java
+%que contenían las funcionalidades que hacían posible los requisitos seleccionados.
 
 \subsubsection{Pruebas}
 		
