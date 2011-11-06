@@ -1,4 +1,4 @@
-﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -168,7 +168,7 @@ DROP TABLE IF EXISTS `dbgcad`.`proposals` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`proposals` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `category` ENUM('Analysis', 'Design') NOT NULL ,
+  `category` ENUM('Analysis', 'Design', 'Development', 'Testing') NOT NULL ,
   `topicId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_proposal_topic` (`topicId` ASC) ,
@@ -193,7 +193,7 @@ DROP TABLE IF EXISTS `dbgcad`.`answers` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`answers` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `argument` ENUM('Pro', 'Contra') NOT NULL ,
+  `argument` ENUM('Agree', 'Disagree', 'Neutral') NOT NULL ,
   `proposalId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_anwser_proposal` (`proposalId` ASC) ,
@@ -328,7 +328,7 @@ END$$
 
 DELIMITER ;
 
-
+;
 CREATE USER `gcad` IDENTIFIED BY 'gcad';
 
 grant ALL on TABLE `dbgcad`.`addresses` to gcad;
