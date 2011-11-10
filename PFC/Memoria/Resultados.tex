@@ -58,8 +58,114 @@ vista.
 	\item Se debe poder exportar el conocimiento a un fichero XML.
 \end{itemize}
 
+Una vez identificada esta lista de funciones a las que el sistema debe dar soporte, éstas se agruparon en diferentes categorías de requisitos, como se muestra en la tabla \ref{table:categorias}.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{6cm} | >{\arraybackslash}m{5.5cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Requisito}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Tareas asociadas}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\colorCelda Acceso Sistema} & 
+		 Login (acceso) \newline 
+		 Logout (desconexión) \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Decisiones} & 
+		 Consultar decisiones \newline 
+		 Crear nueva decisión \newline
+		 Modificar decisión \newline
+		 Eliminar decisión \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Visualizar Decisiones} & 
+		 Visualizar decisiones \newline 
+		 Visualizar información usuario \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Notificaciones} & 
+		 Consultar notificaciones \newline 
+		 Modificar notificación \newline 
+		 Eliminar notificación \\ 
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Proyectos} & 
+		 Dar de alta un proyecto \newline 
+		 Modificar datos proyecto  \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Idiomas} & 
+		 Consultar idiomas \newline
+		 Cambiar idioma \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Exportar conocimiento} & 
+		 Exportar conocimiento \\
+	\hline
+\end{tabular}
+\caption{Requisitos funcionales}
+\label{table:categorias}
+\end{table}
+
 Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:roles}, los cuales pueden realizar las acciones mostradas en la Tabla \ref{table:acciones1}.
 
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{4.5cm} | >{\arraybackslash}m{13cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Rol}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Descripción}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\colorCelda Empleado} & 
+		 Es un usuario del sistema que representa a un miembro de un equipo de desarrollo de una compañía. \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Jefe de Proyecto} & 
+		 Es un usuario del sistema que representa a un jefe de proyecto de un equipo de desarrollo de una compañía. \\
+	\hline
+\end{tabular}
+\caption{Roles identificados en el sistema}
+\label{table:roles}
+\end{table}
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{6cm} | >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{3cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Requisito}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Empleado}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Jefe Proyecto}} \\
+	\hline
+		 \textbf{Login} & X & X \\
+		 \hline
+		 \textbf{Logout} & X & X \\
+		 \hline
+		 \textbf{Consultar decisiones} & X & X \\
+		 \hline
+		 \textbf{Crear decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Modificar decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Eliminar decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Visualizar decisiones} & X & X \\
+		 \hline
+		 \textbf{Visualizar información usuario} & X & X \\
+		 \hline
+		 \textbf{Consultar notificaciones} & X & X \\
+		 \hline
+		 \textbf{Modificar notificación} & X & X \\
+		 \hline
+		 \textbf{Eliminar notificación} & X & X \\
+		 \hline
+		 \textbf{Dar de alta proyecto} &  & X \\
+		 \hline
+		 \textbf{Modificar proyecto} &  & X \\
+		 \hline
+		 \textbf{Consultar idiomas} & X & X \\
+		 \hline
+		 \textbf{Cambiar idioma} & X & X \\
+		 \hline
+		 \textbf{Exportar conocimiento} &  & X \\
+		 \hline
+\end{tabular}
+\caption{Acciones que un usuario puede realizar en el sistema}
+\label{table:acciones1}
+\end{table}
 
 \subsubsection{Requisitos no funcionales} \label{label:reqnofuncionales}
 
@@ -76,24 +182,26 @@ A continuación, se enumera el conjunto de requisitos no funcionales del sistema,
 
 Una vez identificados los requisitos funcionales del sistema, éstos se modelan en un diagrama de casos de uso con un alto nivel de abstracción, solamente mostrando los diferentes grupos funcionales de la herramienta, como se observa en la Figura \ref{fig:casosUsoAlto1}.
 
+
+
+
 A continuación, se muestran los diagramas de casos de uso cada uno de los grandes grupos funcionales de manera más detallada.
 
 % Tener en cuenta los dos sistemas
 
 \paragraph{Acceso al sistema}
 
-\paragraph{Visualización de conocimiento}
+\paragraph{Gestión de decisiones}
 
-\paragraph{Generación de decisiones}
-
-\paragraph{Gestión de proyectos}
+\paragraph{Visualización de decisiones}
 
 \paragraph{Gestión de notificaciones}
 
+\paragraph{Gestión de proyectos}
+
 \paragraph{Gestión de idiomas}
 
-%% Quizas solo poner los que se pueden desglosar en varios casos de uso
-\paragraph{Generación de logs}
+
 
 
 \subsection{Análisis de riesgos}
