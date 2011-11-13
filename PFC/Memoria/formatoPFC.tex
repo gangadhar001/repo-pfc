@@ -94,7 +94,7 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 % Macro para insertar una imagen
 %       Uso: \imagen{nombreFichero}{Factor escala}{Caption (leyenda)}{Label (identificador para referenciarla)}
 \def\imagen#1#2#3#4{
- \begin{figure}[h]
+ \begin{figure}[!htbp]
  \begin{center}
    \includegraphics[keepaspectratio,scale=#2]{#1}
  \caption {#3}
@@ -108,7 +108,7 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 \def\imagenBorde#1#2#3#4{
 \setlength\fboxsep{0pt}
 \setlength\fboxrule{0.5pt}
- \begin{figure}[h]
+ \begin{figure}[!htbp]
  \begin{center}
   \fbox{\includegraphics[keepaspectratio,scale=#2]{#1}}
  \caption{#3}
