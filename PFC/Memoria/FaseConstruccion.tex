@@ -1,0 +1,94 @@
+\section{Fase de construcción} \label{sec:faseConstrucción}
+
+En esta fase intervienen las disciplinas de Diseño, Implementación y Pruebas con mayor influencia, como se muestra en la Figura \ref{fig:pudConstruccion}. Esta fase, formada por 5 iteraciones, es la fase de más duración del desarrollo del producto software. 
+
+\imagenBorde{Cap5//pudConstruccion}{1.0}{Fase de construcción en el PUD}{fig:pudConstruccion}
+
+Durante las diferentes iteraciones, se irán diseñando e implementando las funcionalidades planificadas para cada iteración (ver Tabla \ref{table:categorias2}), obteniendo incrementos en la funcionalidad del sistema hasta llegar a tener el producto totalmente implementado y probado.
+
+\subsection{Tercera iteración} 
+
+\subsubsection{Funcionalidad de \textit{Visualizar decisiones}}
+
+Durante esta iteración, se diseña, implementa y prueba los casos de uso que componen la funcionalidad de \textit{Visualizar decisiones}, mostrados en la Figura \ref{fig:CduVisualizarDecisiones2Server}.
+
+\paragraph{Diagramas de secuencia}
+
+En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
+
+\subparagraph{Consultar decisiones}
+
+En la Figura \ref{fig:secuenciaConsultarDecisionesCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar decisiones} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarDecisionesServer} se muestra el diagrama de secuencia para el servidor.
+
+%\imagen{Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente}{1.0}{Diagrama de secuencia - Cliente - Consultar decisiones}{fig:secuenciaConsultarDecisionesCliente}
+
+%\imagen{Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer}{1.0}{Diagrama de secuencia - Servidor - Consultar decisiones}{fig:secuenciaConsultarDecisionesServer}
+
+
+\subparagraph{Consultar decisiones}
+
+En la Figura \ref{fig:secuenciaConsultarCompañiaCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar compañía} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarCompañiaServer} se muestra el diagrama de secuencia para el servidor.
+
+%\imagen{Cap5/Cliente2//secuenciaConsultarCompañiaPrincipalCliente}{2.5}{Diagrama de secuencia - Cliente - Consultar compañía}{fig:secuenciaConsultarCompañiaCliente}
+
+%\imagen{Cap5/Server2//secuenciaConsultarCompañiaPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Consultar compañía}{fig:secuenciaConsultarCompañiaServer}
+
+
+\subparagraph{Descargar ficheros adjuntos}
+
+
+En la Figura \ref{fig:secuenciaConsultarAdjuntosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Descargar ficheros adjuntos} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarAdjuntosServer} se muestra el diagrama de secuencia para el servidor.
+
+%\imagen{Cap5/Cliente2//secuenciaConsultarAdjuntosPrincipalCliente}{2.5}{Diagrama de secuencia - Cliente - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosCliente}
+
+%\imagen{Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosServer}
+
+
+\paragraph{Diseño e implementación}
+
+Siguiendo los diagramas de secuencia, se realiza el diseño de los casos de uso utilizando un diagrama de clases de análisis y se procede a la implementación de dichos casos de uso, para obtener las clases Java que dan soporte a estas funcionalidades. A continuación se destacan algunos aspectos tenidos en cuenta al diseñar e implementar estos casos de uso.
+
+Cabe destacar que para mantener la seguridad en el sistema, siempre se comprobará en el servidor la sesión del usuario antes de realizar cualquier operación, tanto para comprobar que esa sesión existe como para validar si se tiene permiso para ejecutar dicha acción en el sistema. Por ello, los gestores (o controladores) de ésta y del resto de funcionalidades del sistema tendrán una relación con el gestor de sesiones, descrito en segunda iteración de la fase anterior (ver Figura \ref{fig:clasesSessionController}).
+
+\subparagraph{Servidor}
+
+Como se puede apreciar en la Figura \ref{fig:clasesKnowledge}, las decisiones (o conocimiento) de un proyecto siguen una jerarquía de herencia, existiendo la clase abstracta \textit{Knowledge} de las que heredan otras tres clases: \textit{Topic}, \textit{Proposal} y \textit{Answer}. Se ha decidido diseñar esta herencia para facilitar la futura extensibilidad del sistema, ya que se podría incluir nuevo tipo de conocimiento creando una nueva subclase. Además, para mejorar la organización de las decisiones, estas tres subclases están asociadas de una manera jerárquica, del siguiente modo:
+
+\begin{itemize}
+	\item \textbf{Topic} (o Tema): esta clase, que representa un Tema, está compuesta por un conjunto de decisiones del tipo \textit{Proposal} dentro de un proyecto.
+	\item \textbf{Topic} (o Tema): esta clase, que representa una Propuesta, esta compuesta por un conjunto de decisiones del tipo \textit{Answer}, y están agrupadas bajo un \textit{Topic} común.
+	\item \textbf{Topic} (o Tema): esta clase, que representa una Respuesta están agrupadas bajo una \textit{Proposal} común y ya no pueden tener más hijos.
+\end{itemize}
+
+De este modo, para cada proyecto, existirán una serie de \textit{Topics}, donde cada \textit{Topic} estará compuesto por una serie de \textit{Proposals} y éstas, a su vez, estarán compuestas por un conjunto de \textit{Answers}. Por tanto, se sigue una estructura de composición y jerarquía de conocimiento. Un ejemplo de esta estructura jerárquica puede encontrarse en los foros de debate de la Web (ver Figura \ref{fig:foros}). Además, existe la clase \textit{TopicsWrapper}, que engloba todos los \textit{Topic} de un proyecto, facilitando su recuperación y necesario además para exportar todo el conocimiento a un fichero XML, como se detallará en el posterior apartado \ref{sec:exportarConocimiento}.
+
+Siguiendo esta estructura descrita, en lo que respecta al caso de uso \textit{Consultar Decisiones}, se recupera y visualiza esta composición jerárquica de decisiones y toda su información asociada, como es el usuario, la compañía y los posibles ficheros adjuntos (ver diagrama de la Figura \ref{fig:clasesKnowledge}). Sin embargo, al utilizar el framework de persistencia \textit{Hibernate}, no hace falta hacer varias consultas para recuperar toda esta información ya que, al existir asociaciones entre los objetos, Hibernate se encargará de recuperar todos ellos al consultar las decisiones existentes en un proyecto.
+
+En lo que concierne al caso de uso \textit{Consultar Compañía}, que sirve para consultar y mostrar los detalles de una compañía, cabe destacar como aspecto de implementación que se ha utilizado un servicio Web para obtener la posición geográfica de la dirección de la compañía, para poder mostrarla posteriormente en un mapa, en el subsistema cliente. Para ello, como se vio en el marco tecnológico de la sección \ref{sec:marco}, se ha utilizado el servicio web \textbf{Yahoo! PlaceFinder} para obtener las coordenadas geográficas a partir de una dirección.
+
+En un primer momento se pensó en utilizar el API de geolocalización de Google para realizar esta tarea. Sin embargo, atendiendo a las condiciones de uso de Google \cite{condicionesGoogle}, esta API debe usarse en conjunto con el API de \textit{Google Maps}, que a su vez sólo se puede utilizar en aplicaciones Web. Por tanto, se descartó esta opción para no violar las condiciones de uso de Google y se buscó una alternativa, encontrando el servicio web de Yahoo!, cuyos términos de uso permitían utilizarlo en el sistema \cite{condicionesYahoo}. 
+%
+%Para invocar el servicio \textit{Yahoo! PlaceFinder}, se necesita una URL del tipo \texttt{http://where.yahooapis.com/geocode?[parameters]\&appid=APPID}, donde \textit{APPID} es un código proporcionado para desarrolladores, y \textit{parameters} es la dirección, parametrizada, a buscar. Un ejemplo de URL sería: \texttt{http://where.yahooapis.com/geocode?location=701+First+Ave,+Sunnyvale,+CA\&appid=APPID}. Al invocar el servicio web, éste devuelve una respuesta en formato XML indicando una serie de parámetros, como se muestra en el Listado \ref{xmlYahoo}. Entre ellos, interesa el código de error y las coordenadas geográficas de la dirección, con su longitud y latitud.
+
+\texttt{\lstinputlisting[caption=xmlYahoo, label=xmlYahoo, breaklines=true, inputencoding=latin1, style=XMLStyle]{Codigo//RespuestaYDN.xml}}
+
+En el Listado \ref{codigoGeoCoder} se muestra un fragmento de código utilizado para invocar el servicio web desde Java y obtener su respuesta XML, que será tratada con JDOM para extraer los datos necesarios (las coordenadas) para poder mostrar en un mapa la posición exacta de la compañía.
+
+\texttt{\lstinputlisting[caption=codigoGeoCoder, breaklines=true, label=codigoGeoCoder, inputencoding=latin1, style=JavaStyle]{Codigo//GeoCoder.java}}
+
+% FICHEROS ADJUNTOS
+
+
+
+% Codigo java
+\subparagraph{Cliente}
+
+% MAPAS
+% GRAFO
+% ARBOL
+% JAPURA
+
+
+En lo que respecta al caso de uso de \textit{Consultar decisiones}, al consultar las decisiones existentes para los proyectos en el sistema, se consulta toda la información asociada a esa decisión, como es la información del usuario que la creó, la compañía a la que pertenece ese usuario y los archivos adjuntos que pudieran existir. Todo 
+
+\paragraph{Pruebas}

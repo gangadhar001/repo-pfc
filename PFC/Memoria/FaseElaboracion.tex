@@ -297,7 +297,7 @@ Una vez identificados nuevos requisitos y modelados los casos de uso del sistema
 \end{center}
 
 
-\subsubsection{Análisis de casos de uso}
+\subsubsection{Análisis de casos de uso} \label{sec:analisis}
 
 Los casos de uso obtenidos anteriormente se especifican de manera más formal y en detalle, describiendo el funcionamiento de cada uno de ellos y sus escenarios. Además, para cada uno de ellos, se crea el diagrama de clases de análisis, que representa las acciones que se llevan a cabo entre las clases de dominio identificadas para dar soporte a cada caso de uso. Existen tres tipos de clases: 
 
@@ -961,15 +961,15 @@ Para realizar esto, se han tenido en cuenta las siguientes consideraciones:
 
 
 % Trigger
+\subsubsection{Funcionalidad de \textit{Acceso al sistema}}
 
+Una vez se ha definido la arquitectura del sistema, se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar la funcionalidad planificada para esta iteración, que es el acceso al sistema. Por tanto, durante esta iteración, se diseña, implementa y prueba los casos de uso que componen la funcionalidad de \textit{Acceso al sistema}, mostrados en la Figura \ref{fig:CduAccesoSistema2Server}.
 
-\subsubsection{Diagrama de secuencia} \label{sec:secuencias}
+\paragraph{Diagramas de secuencia} \label{sec:secuencias}
 
-Una vez se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar la funcionalidad planificada para esta iteración, que es el acceso al sistema.
+En primer lugar se modela el funcionamiento de los casos de uso que la componen (ver Tabla \ref{table:categorias2}) a través de diagramas de secuencia, tanto para el subsistema cliente como para el servidor.
 
-Para ello, en primer lugar se modela el funcionamiento de los casos de uso que la componen (ver Tabla \ref{table:categorias2}) a través de diagramas de secuencia, tanto para el subsistema cliente como para el servidor.
-
-\paragraph{Login}
+\subparagraph{Login}
 
 En la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Login} en el cliente, mientras que en la Figura \ref{fig:secuenciaLoginServer} se muestra el diagrama de secuencia para el servidor.
 
@@ -978,7 +978,7 @@ En la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia
 \imagen{Cap5/Server2//secuenciaLoginPrincipalServer}{1.0}{Diagrama de secuencia - Servidor - Login}{fig:secuenciaLoginServer}
 
 
-\paragraph{Logout}
+\subparagraph{Logout}
 
 En la Figura \ref{fig:secuenciaLogoutCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Logout} en el cliente, mientras que en la Figura \ref{fig:secuenciaLogoutServer} se muestra el diagrama de secuencia para el servidor.
 
@@ -987,17 +987,12 @@ En la Figura \ref{fig:secuenciaLogoutCliente} se muestra el diagrama de secuenci
 \imagen{Cap5/Server2//secuenciaLogoutPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Logout}{fig:secuenciaLogoutServer}
 
 
-Una vez se ha modelo el funcionamiento de los casos de uso con los diagrama de secuencia, dicho comportamiento se implementa y se prueba, finalizando esta iteración de la fase de elaboración.
 
-\subsubsection{Diseño e Implementación}
+\paragraph{Diseño e Implementación de la arquitectura cliente-servidor}
 
-Antes de comenzar con la implementación de la funcionalidad del acceso al sistema, es necesario diseñar e implementar la comunicación entre los subsistemas cliente y servidor, y la comunicación entre el servidor y su base de datos.
+Antes de comenzar con la implementación de la funcionalidad del acceso al sistema, es necesario diseñar e implementar la comunicación entre los subsistemas cliente y servidor, siguiendo la arquitectura cliente-servidor definida anteriormente, así como la comunicación entre el servidor y su base de datos.
 
-Por tanto, a continuación se comentan los aspectos reseñables del diseño e implementación de la comunicación entre sistemas, así como de este primer requisito funcional de acceso al sistema.
-
-
-
-\paragraph{Diseño e implementación de la capa de comunicaciones}
+Por tanto, a continuación se comentan los aspectos reseñables del diseño e implementación de la comunicación entre sistemas.
 
 \subparagraph{Comunicación entre cliente y servidor}
 
@@ -1051,7 +1046,7 @@ De un modo similar al anterior, se ha utilizado también el patrón Observador par
 
 \paragraph{Diseño e implementación de acceso al sistema}
 
-Una vez diseñados e implementados los aspectos anteriores y teniendo ya la comunicación entre sistemas y con la base de datos, se siguen los los diagramas de secuencia mostrados en el apartado \label{sec:secuencias} para diseñar e implementar esos casos de uso de la funcionalidad de acceso al sistema en ambos sistemas. A continuación se muestran algunos aspectos a destacar al implementar esta funcionalidad.
+Una vez implementada la arquitectura cliente-servidor, y teniendo ya la comunicación entre sistemas y con la base de datos, se siguen los diagramas de secuencia mostrados en el apartado \label{sec:secuencias} para diseñar e implementar esos casos de uso de la funcionalidad de acceso al sistema en ambos sistemas. A continuación se muestran algunos aspectos a destacar al implementar esta funcionalidad.
 
 La clase \textit{Usuario} es abstracta ya que no se van a instanciar objetos directamente de esa clase, sino de una de sus subclases, que representan
 los diferentes usuarios que pueden existir en el sistema, según la especificación de requisitos (ver
@@ -1083,8 +1078,10 @@ En la Figura \ref{fig:clasesSessionController} se muestra el diagrama de clases 
  
 \imagen{Cap5/Server2//clasesSessionController}{1.5}{Diagrama de clases - Gestor de sesiones}{fig:clasesSessionController}
  
- 
-Para terminar, señalar que para mantener la seguridad en el sistema, siempre se comprobará la sesión del usuario antes de realizar cualquier otra operación, tanto para comprobar que esa sesión existe como para validar si se tiene permiso para ejecutar una acción en el sistema. Por ello, los gestores (o controladores) del resto de funcionalidades tendrán una relación con el gestor de sesiones.
+% CLIENTE:
+
+% Interfaz avanzada
+% Timing para animacion de espera
 
 
 \subsubsection{Pruebas}
