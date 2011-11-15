@@ -219,22 +219,57 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 %====================================
 %====================================
 % Declaraciones para paquete listings
-\lstset{ % Las opciones aquí incluidas deben servir de ejemplo, ya que para una lista exhaustiva se debe consultar la doucmentación del paquete.
-language=Java,           % Lenguaje de programación del código
-basicstyle=\footnotesize,       
-numbers=left,                   
-numberstyle=\footnotesize,      
-stepnumber=1,                   
-numbersep=6pt,                  
-showspaces=false,        % muestra los espacio en blanco
-showstringspaces=true,   % subraya los espacios en el interior de cadenas
-showtabs=true,           % muestra los tabuladores
-frame=single,	                  
-tabsize=2,	                    
-captionpos=b,            % ajusta la posición de títulos
-breaklines=true,         % ajusta la división automática de líneas
-breakatwhitespace=false,
-xleftmargin=1cm,xrightmargin=1cm
+\lstdefinelanguage{xml}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morekeywords={<?, ?>, xml, encoding, xmlns,version,type}% list your attributes here
+}
+
+\lstdefinestyle{JavaStyle}
+{ 
+  language=Java,           % Lenguaje de programación del código
+  basicstyle=\scriptsize,
+  % numbers=left,
+  % numberstyle=\footnotesize,
+  % stepnumber=2,
+  % numbersep=5pt,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=3,   
+  captionpos=b,
+  breaklines=true,
+  frame=single,
+  breaklines=true,         % ajusta la división automática de líneas
+  breakatwhitespace=false,
+  keywordstyle=\color[rgb]{0,0,1},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  stringstyle=\color[rgb]{0.627,0.126,0.941}
+}
+
+\lstdefinestyle{XMLStyle}
+{
+	language=xml,           % Lenguaje de programación del código
+	basicstyle=\scriptsize,
+  % numbers=left,
+  % numberstyle=\footnotesize,
+  % stepnumber=2,
+  % numbersep=5pt,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=3,   
+  captionpos=b,
+  breaklines=true,
+  frame=single,
+  breaklines=true,         % ajusta la división automática de líneas
+  breakatwhitespace=false,
+  stringstyle=\color[rgb]{0,0,0},
+  identifierstyle=\color[rgb]{0,0,1},
+  keywordstyle=\color[rgb]{1,0,0},
 }
 
 %====================================
@@ -247,3 +282,24 @@ xleftmargin=1cm,xrightmargin=1cm
 {listado}{Verbatim}{numbers=left,numbersep=6pt,frame=single,%
 fontsize=\footnotesize,commandchars=\#\[\],%
 xleftmargin=1cm,xrightmargin=1cm}
+
+
+% Salto de línea tras título de secciones \paragraph
+\makeatletter % necesario para que reconozca a '@' como carácter normal
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}{-3.25ex \@plus
+-1ex \@minus -.2ex}{1.5ex \@plus .2ex}{\normalfont\normalsize\bfseries}}
+\makeatother % necesario para que restablezca '@' como carácter especial
+
+% Salto de línea tras título de secciones \subparagraph
+\makeatletter % necesario para que reconozca a '@' como carácter normal
+\renewcommand{\subparagraph}{\@startsection{subparagraph}{5}{\z@}{-3.25ex \@plus
+-1ex \@minus -.2ex}{1.5ex \@plus .2ex}{\normalfont\bfseries}}
+\makeatother % necesario para que restablezca '@' como carácter especial
+
+\stepcounter{secnumdepth}
+\stepcounter{tocdepth}
+
+
+
+
+                                     
