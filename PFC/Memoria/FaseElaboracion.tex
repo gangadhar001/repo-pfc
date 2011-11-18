@@ -1031,7 +1031,7 @@ Para ello, se ha creado una interfaz que agrupa las operaciones típicas de una b
 
 \imagen{Cap5/Server2//clasesObservadorBD}{1.5}{Diagrama de clases - Capa de comunicación para bases de datos}{fig:comunicacionesBD}
 
-En el caso del sistema a desarrollar, sólo existe una base de datos, cuyas operaciones CRUD y conexión con la base de datos MySQL es gestionada por \textbf{Hibernate}. Cabe señalar algunos problemas que se detectaron al trabajar con RMI e Hibernate:
+En el caso del sistema a desarrollar, sólo existe una base de datos, cuyas operaciones \textit{CRUD} y conexión con la base de datos MySQL es gestionada por \textbf{Hibernate}. Cabe señalar algunos problemas que se detectaron al trabajar con RMI e Hibernate:
 \begin{itemize}
 	\item Hay que clonar las referencias que devuelve Hibernate, para que sean serializables por RMI.
   \item Al actualizar un objeto, hay que buscarlo primero en la base de datos, pues la referencia que llega por RMI es diferente a la que utiliza Hibernate.  
@@ -1047,6 +1047,8 @@ De un modo similar al anterior, se ha utilizado también el patrón Observador par
 \paragraph{Diseño e implementación de acceso al sistema}
 
 Una vez implementada la arquitectura cliente-servidor, y teniendo ya la comunicación entre sistemas y con la base de datos, se siguen los diagramas de secuencia mostrados en el apartado \label{sec:secuencias} para diseñar e implementar esos casos de uso de la funcionalidad de acceso al sistema en ambos sistemas. A continuación se muestran algunos aspectos a destacar al implementar esta funcionalidad.
+
+\subparagraph{Servidor} 
 
 La clase \textit{Usuario} es abstracta ya que no se van a instanciar objetos directamente de esa clase, sino de una de sus subclases, que representan
 los diferentes usuarios que pueden existir en el sistema, según la especificación de requisitos (ver
@@ -1077,12 +1079,13 @@ De este modo, además de permitir una interfaz de usuario totalmente flexible y a
 En la Figura \ref{fig:clasesSessionController} se muestra el diagrama de clases para el gestor de sesiones.
  
 \imagen{Cap5/Server2//clasesSessionController}{1.5}{Diagrama de clases - Gestor de sesiones}{fig:clasesSessionController}
+
  
-% CLIENTE:
+\subparagraph{Cliente}
 
 % Interfaz avanzada
 % Timing para animacion de espera
-
+% Menus adaptados e internacionalizados
 
 \subsubsection{Pruebas}
 		
