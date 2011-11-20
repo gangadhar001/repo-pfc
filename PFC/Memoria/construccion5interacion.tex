@@ -1,8 +1,18 @@
 \subsection{Quinta iteración} 
 
-En esta última iteración de la fase de construcción, se diseñan, implementan y prueban los casos de uso que componen la funcionalidad de \textit{Exportar conocimiento}, mostrados en la Figura \ref{fig:CduExportarConocimientoServer}, y la funcionalidad de \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomasServer}).
+En esta última iteración de la fase de construcción, se diseñan, implementan y prueban los casos de uso que componen la funcionalidad de \textit{Exportar conocimiento}, mostrados en la Figura \ref{fig:CduExportarConocimiento2Server}, y la funcionalidad de \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomas2Server}).
 
-\subsubsection{Funcionalidad de \textit{Exportar conocimiento}}
+\subsubsection{Funcionalidad de \textit{Exportar conocimiento}} \label{sec:exportarConocimiento}
+
+\paragraph{Diagramas de secuencia}
+
+En la Figura \ref{fig:secuenciaExportarConocimientoCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Adjuntar ficheros} en el cliente, mientras que en la Figura \ref{fig:secuenciaExportarConocimientoServer} se muestra el diagrama de secuencia para el servidor.
+
+%\imagen{Cap5/Cliente2//secuenciaConsultarNotificacionCliente}{1.0}{Diagrama de secuencia - Cliente - Consultar notificaciones ficheros}{fig:secuenciaConsultarNotificacionCliente}
+
+%\imagen{Cap5/Server2//secuenciaConsultarNotificacionServer}{1.0}{Diagrama de secuencia - Servidor - Consultar notificaciones}{fig:secuenciaConsultarNotificacionServer}
+
+
 
 \paragraph{Diseño e implementación}
 
@@ -12,7 +22,7 @@ En el diseño e implementación de esta funcionalidad, cabe destacar la utilizació
 
 En el fragmento de código \ref{list:JAXBTopics} se muestran las anotaciones de JAXB realizadas sobre la clase \textit{TopicWrapper}, que engloba a todos los \textit{topics} de un proyecto. En el fragmento de código \ref{list:JAXBKnowledge} se muestran las anotaciones de JAXB para la clase \textit{Knowledge}, para poder serializar sus atributos. Del mismo modo se realizan las anotaciones en el resto de clases que componen el diagrama de clases mostrado en la Figura \ref{fig:clasesKnowledge}.
 
-\texttt{\lstinputlisting[caption=Anotaciones de JAXB sobre la clase \textit{TopicWrapper}, breaklines=true, label=list:JAXBKnowledge, inputencoding=latin1, style=JavaStyle]{Codigo//JAXBTopics.java}}
+\texttt{\lstinputlisting[caption=Anotaciones de JAXB sobre la clase \textit{TopicWrapper}, breaklines=true, label=list:JAXBTopics, inputencoding=latin1, style=JavaStyle]{Codigo//JAXBTopics.java}}
 
 \texttt{\lstinputlisting[caption=Anotaciones de JAXB sobre la clase \textit{Knowledge}, breaklines=true, label=list:JAXBKnowledge, inputencoding=latin1, style=JavaStyle]{Codigo//JAXBKnowledge.java}}
 
@@ -26,6 +36,16 @@ En el fragmento de código \ref{list:JAXBTopics} se muestran las anotaciones de J
 
 \subsubsection{Funcionalidad de \textit{Gestión de idiomas}}
 
+\paragraph{Diagramas de secuencia}
+
+En la Figura \ref{fig:secuenciaCambiarIdiomaCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Adjuntar ficheros} en el cliente, mientras que en la Figura \ref{fig:secuenciaCambiarIdiomaServer} se muestra el diagrama de secuencia para el servidor.
+
+
+\imagen{Cap5/Cliente2//secuenciaCambiarIdiomaCliente}{0.6}{Diagrama de secuencia - Cliente - Gestión de idiomas}{fig:secuenciaCambiarIdiomaCliente}
+
+\imagen{Cap5/Server2//secuenciaCambiarIdiomaServer}{2.0}{Diagrama de secuencia - Servidor - Gestión de idiomas}{fig:secuenciaCambiarIdiomaServer}
+
+
 \paragraph{Diseño e implementación}
 
 Ambos subsistemas, tanto el cliente como el servidor, deben soportar multi-idioma, por lo que se ha diseñado e implementado un gestor de lenguajes. Dicho gestor será el encargado de, según el idioma elegido en la aplicación, mostrar la diferente información de la interfaz gráfica de usuario en ese idioma. Para ello, se han creado ficheros de propiedades (o \textit{properties)} que contienen las cadenas de texto a internacionalizar, utilizando uno u otro según el idioma escogido. El nombre de dichos ficheros terminan con el código del idioma de cada país, para poder cargar uno u otro según el idioma.
@@ -38,12 +58,3 @@ Para terminar, señalar que los idiomas disponibles para configurar la aplicación
 
 
 \paragraph{Pruebas}
-
-
-%\paragraph{Diagramas de secuencia}
-%
-%En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
-%
-%
-%\subparagraph{Consultar decisiones}
-

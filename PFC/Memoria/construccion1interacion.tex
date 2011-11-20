@@ -12,18 +12,18 @@ En los siguientes apartados se muestran los diagramas de secuencia para el clien
 
 En la Figura \ref{fig:secuenciaConsultarDecisionesCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar decisiones} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarDecisionesServer} se muestra el diagrama de secuencia para el servidor.
 
-%\imagen{Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente}{1.0}{Diagrama de secuencia - Cliente - Consultar decisiones}{fig:secuenciaConsultarDecisionesCliente}
+\imagen{Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente}{0.8}{Diagrama de secuencia - Cliente - Consultar decisiones}{fig:secuenciaConsultarDecisionesCliente}
 
-%\imagen{Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer}{1.0}{Diagrama de secuencia - Servidor - Consultar decisiones}{fig:secuenciaConsultarDecisionesServer}
+\imagen{Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Consultar decisiones}{fig:secuenciaConsultarDecisionesServer}
 
 
 \subparagraph{Consultar compañía}
 
-En la Figura \ref{fig:secuenciaConsultarCompañiaCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar compañía} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarCompañiaServer} se muestra el diagrama de secuencia para el servidor.
+En la Figura \ref{fig:secuenciaConsultarCompanyiaCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar compañía} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarCompanyiaServer} se muestra el diagrama de secuencia para el servidor.
 
-%\imagen{Cap5/Cliente2//secuenciaConsultarCompañiaPrincipalCliente}{2.5}{Diagrama de secuencia - Cliente - Consultar compañía}{fig:secuenciaConsultarCompañiaCliente}
+\imagen{Cap5/Cliente2//secuenciaConsultarCompanyiaCliente}{0.8}{Diagrama de secuencia - Cliente - Consultar compañía}{fig:secuenciaConsultarCompanyiaCliente}
 
-%\imagen{Cap5/Server2//secuenciaConsultarCompañiaPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Consultar compañía}{fig:secuenciaConsultarCompañiaServer}
+\imagen{Cap5/Server2//secuenciaConsultarCompanyiaServer}{2.0}{Diagrama de secuencia - Servidor - Consultar compañía}{fig:secuenciaConsultarCompanyiaServer}
 
 
 \subparagraph{Descargar ficheros adjuntos}
@@ -31,28 +31,35 @@ En la Figura \ref{fig:secuenciaConsultarCompañiaCliente} se muestra el diagrama 
 
 En la Figura \ref{fig:secuenciaConsultarAdjuntosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Descargar ficheros adjuntos} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarAdjuntosServer} se muestra el diagrama de secuencia para el servidor.
 
-%\imagen{Cap5/Cliente2//secuenciaConsultarAdjuntosPrincipalCliente}{2.5}{Diagrama de secuencia - Cliente - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosCliente}
+\imagen{Cap5/Cliente2//secuenciaConsultarAdjuntosPrincipalCliente}{0.8}{Diagrama de secuencia - Cliente - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosCliente}
 
-%\imagen{Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosServer}
+\imagen{Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosServer}
 
 
 \paragraph{Diseño e implementación}
 
-Siguiendo los diagramas de secuencia, se realiza el diseño de los casos de uso utilizando un diagrama de clases de análisis y se procede a la implementación de dichos casos de uso, para obtener las clases Java que dan soporte a estas funcionalidades. A continuación se destacan algunos aspectos tenidos en cuenta al diseñar e implementar estos casos de uso.
+Siguiendo los diagramas de secuencia, se realiza el diseño de los casos de uso utilizando un diagrama de clases de diseño y se procede a la implementación de dichos casos de uso, para obtener las clases Java que dan soporte a estas funcionalidades. A continuación se destacan algunos aspectos tenidos en cuenta al diseñar e implementar estos casos de uso.
 
-Cabe destacar que para mantener la seguridad en el sistema, siempre se comprobará en el servidor la sesión del usuario antes de realizar cualquier operación, tanto para comprobar que esa sesión existe como para validar si se tiene permiso para ejecutar dicha acción en el sistema. Por ello, los gestores (o controladores) de ésta y del resto de funcionalidades del sistema tendrán una relación con el gestor de sesiones, descrito en segunda iteración de la fase anterior (ver Figura \ref{fig:clasesSessionController}).
+Cabe destacar que para mantener la seguridad en el sistema, siempre se comprobará en el servidor la sesión del usuario antes de realizar cualquier operación, tanto para comprobar que esa sesión existe como para validar si se tiene permiso para ejecutar dicha acción en el sistema. Por ello, los gestores (o controladores) de ésta y del resto de funcionalidades del sistema tendrán una relación con el gestor de sesiones, descrito en la segunda iteración de la fase anterior (ver Figura \ref{fig:clasesSessionController}).
 
 \subparagraph{Servidor}
 
-Como se puede apreciar en la Figura \ref{fig:clasesKnowledge}, las decisiones (o conocimiento) de un proyecto siguen una jerarquía de herencia, existiendo la clase abstracta \textit{Knowledge} de las que heredan otras tres clases: \textit{Topic}, \textit{Proposal} y \textit{Answer}. Se ha decidido diseñar esta herencia para facilitar la futura extensibilidad del sistema, ya que se podría incluir nuevo tipo de conocimiento creando una nueva subclase. Además, para mejorar la organización de las decisiones, estas tres subclases están asociadas de una manera jerárquica, del siguiente modo:
+Como se puede apreciar en el diagrama de clases de la Figura \ref{fig:clasesKnowledge}, las decisiones (o conocimiento) de un proyecto siguen una jerarquía de herencia, existiendo la clase abstracta \textit{Knowledge} de las que heredan otras tres clases: \textit{Topic}, \textit{Proposal} y \textit{Answer}. Se ha decidido diseñar esta herencia para facilitar la futura extensibilidad del sistema, ya que se podría incluir nuevo tipo de conocimiento creando una nueva subclase. Además, para mejorar la organización de las decisiones, estas tres subclases están asociadas de una manera jerárquica, del siguiente modo:
 
 \begin{itemize}
 	\item \textbf{Topic} (o Tema): esta clase, que representa un Tema, está compuesta por un conjunto de decisiones del tipo \textit{Proposal} dentro de un proyecto.
-	\item \textbf{Topic} (o Tema): esta clase, que representa una Propuesta, esta compuesta por un conjunto de decisiones del tipo \textit{Answer}, y están agrupadas bajo un \textit{Topic} común.
-	\item \textbf{Topic} (o Tema): esta clase, que representa una Respuesta están agrupadas bajo una \textit{Proposal} común y ya no pueden tener más hijos.
+	\item \textbf{Proposal} (o Propuesta): esta clase, que representa una Propuesta, esta compuesta por un conjunto de decisiones del tipo \textit{Answer}, y están agrupadas bajo un \textit{Topic} común.
+	\item \textbf{Answer} (o Respuesta): esta clase, que representa una Respuesta están agrupadas bajo una \textit{Proposal} común y ya no pueden tener más hijos.
 \end{itemize}
 
-De este modo, para cada proyecto, existirán una serie de \textit{Topics}, donde cada \textit{Topic} estará compuesto por una serie de \textit{Proposals} y éstas, a su vez, estarán compuestas por un conjunto de \textit{Answers}. Por tanto, se sigue una estructura de composición y jerarquía de conocimiento. Un ejemplo de esta estructura jerárquica puede encontrarse en los foros de debate de la Web (ver Figura \ref{fig:foros}). Además, existe la clase \textit{TopicsWrapper}, que engloba todos los \textit{Topic} de un proyecto, facilitando su recuperación y necesario además para exportar todo el conocimiento a un fichero XML, como se detallará en el posterior apartado \ref{sec:exportarConocimiento}.
+\imagen{Cap5/Server2//clasesKnowledge}{2.0}{Diagrama de clases - Jerarquía de decisiones}{fig:clasesKnowledge}
+
+
+De este modo, como se muestra en la Figura \ref{fig:clasesKnowledge}, para cada proyecto, existirán una serie de \textit{Topics}, donde cada \textit{Topic} estará compuesto por una serie de \textit{Proposals} y éstas, a su vez, estarán compuestas por un conjunto de \textit{Answers}. Por tanto, se sigue una estructura de composición y jerarquía de conocimiento. Un ejemplo de esta estructura jerárquica puede encontrarse en los foros de debate presentes en la Web (ver Figura \ref{fig:foros}). 
+
+\imagenBorde{Cap5//foros}{0.5}{Ejemplo de jerarquía de decisiones en foros de debates}{fig:foros}
+
+Además, existe la clase \textit{TopicsWrapper}, que engloba todos los \textit{Topic} de un proyecto, facilitando su recuperación y necesario además para exportar todo el conocimiento a un fichero XML, como se detallará en el posterior apartado \ref{sec:exportarConocimiento}.
 
 Siguiendo esta estructura descrita, en lo que respecta al caso de uso \textit{Consultar Decisiones}, se recupera y visualiza esta composición jerárquica de decisiones y toda su información asociada, como es el usuario, la compañía y los posibles ficheros adjuntos (ver diagrama de la Figura \ref{fig:clasesKnowledge}). Sin embargo, al utilizar el framework de persistencia \textit{Hibernate}, no hace falta hacer varias consultas para recuperar toda esta información ya que, al existir asociaciones entre los objetos, Hibernate se encargará de recuperar todos ellos al consultar las decisiones existentes en un proyecto.
 
@@ -60,9 +67,9 @@ En lo que concierne al caso de uso \textit{Consultar Compañía}, que sirve para c
 
 En un primer momento se pensó en utilizar el API de geolocalización de Google para realizar esta tarea. Sin embargo, atendiendo a las condiciones de uso de Google \cite{condicionesGoogle}, esta API debe usarse en conjunto con el API de \textit{Google Maps}, que a su vez sólo se puede utilizar en aplicaciones Web. Por tanto, se descartó esta opción para no violar las condiciones de uso de Google y se buscó una alternativa, encontrando el servicio web de Yahoo!, cuyos términos de uso permitían utilizarlo en el sistema \cite{condicionesYahoo}. 
 
-Para invocar el servicio \textit{Yahoo! PlaceFinder}, se necesita una URL del tipo: \footnotesize{\begin{verbatim}http://where.yahooapis.com/geocode?[parameters]&appid=APPID \end{verbatim}} donde \textit{APPID} es un código proporcionado para desarrolladores para poder utilizar su API, y \textit{parameters} es la dirección a buscar. 
+Para invocar el servicio \textit{Yahoo! PlaceFinder}, se necesita una URL del tipo: {\footnotesize{\begin{verbatim}http://where.yahooapis.com/geocode?[parameters]&appid=APPID \end{verbatim}}} donde \textit{APPID} es un código proporcionado para desarrolladores para poder utilizar su API, y \textit{parameters} es la dirección a buscar. 
 
-Un ejemplo de URL sería: \footnotesize{\begin{verbatim}http://where.yahooapis.com/geocode?location=701+First+Sunnyvale&APPID\end{verbatim}} Al invocar el servicio web, éste devuelve una respuesta en formato XML indicando una serie de parámetros, como se muestra en el Listado \ref{list:Yahoo}. Entre ellos, interesa el código de error y las coordenadas geográficas de la dirección, formadas por longitud y latitud.
+Un ejemplo de URL sería: {\footnotesize{\begin{verbatim}http://where.yahooapis.com/geocode?location=701+First+Sunnyvale&APPID\end{verbatim}}} Al invocar el servicio web, éste devuelve una respuesta en formato XML indicando una serie de parámetros, como se muestra en el Listado \ref{list:Yahoo}. Entre ellos, interesa el código de error y las coordenadas geográficas de la dirección, formadas por longitud y latitud.
 
 \texttt{\lstinputlisting[caption=Respuesta del servicio Web Yahoo! PlaceFinder, label=list:Yahoo, breaklines=true, inputencoding=latin1, style=XMLStyle]{Codigo//RespuestaYDN.xml}}
 
@@ -73,14 +80,15 @@ En el Listado \ref{list:GeoCoder} se muestra un fragmento de código utilizado pa
 
 \subparagraph{Cliente}
 
-En el subsistema cliente, cuando se consultan las decisiones, éstas se muestran de manera jerárquica (en árbol) y en forma de grafo, utilizando \textbf{JUNG} (ver sección \ref{sec:marco}). Se ha decidido utilizar ambos tipos de visualización para ofrecer una mayor flexibilidad e información al usuario, ya que gracias a la representación jerárquica, se puede apreciar toda la estructura de decisiones de un simple vistazo, mientras que con el grafo, se pueden observar cómo están asociadas dichas decisiones, mostrándose de manera mas detallada. Además de mostrar las decisiones, también se muestra toda su información asociada (ver Figura \ref{fig:clasesKnowledge}), utilizando paneles expandibles, para flexibilizar y personalizar la información que en cada momento el usuario quiere mostrar.  
+En el subsistema cliente, cuando se consultan las decisiones, éstas se muestran de manera jerárquica (en árbol) y en forma de grafo, utilizando \textbf{JUNG} (ver sección \ref{sec:marco}). Se ha decidido utilizar ambos tipos de visualización para ofrecer una mayor flexibilidad e información al usuario, ya que gracias a la representación jerárquica, se puede apreciar toda la estructura de decisiones de un simple vistazo, mientras que con el grafo, se pueden observar cómo están asociadas dichas decisiones, mostrándose de manera mas detallada. Además de mostrar las decisiones, también se muestra toda su información asociada, utilizando paneles expandibles, para flexibilizar y personalizar la información que en cada momento el usuario quiere mostrar.  
 
-Una de la información que se muestra para cada decisión, son los archivos adjuntos que tiene, que pueden ser descargados por el usuario, guardando una copia local que envía el sistema servidor al hacer la petición.
+Un tipo de información que se muestra para cada decisión, son los archivos adjuntos que tiene, que pueden ser descargados por el usuario, guardando una copia local que envía el sistema servidor al hacer la petición.
 
-Cabe destacar que para representar toda esta información, y la del resto del sistema, la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. En el diagrama de la Figura \ref{fig:clasesUIDecisiones} se puede apreciar esta organización de clases de interfaz gráfica. Para el resto de funcionalidades del sistema, el diseño de la interfaz sigue una estructura similar a la mostrada, por lo que no se mostrarán sus diagramas de clases si no hay algo que destacar, para no extender excesivamente la longitud del presenta capítulo.
+Cabe destacar que para representar toda esta información, y la del resto del sistema, la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. En el diagrama de la Figura \ref{fig:clasesUIDecisiones} se puede apreciar esta organización de clases de la interfaz gráfica. 
 
+\imagen{Cap5/Cliente2//clasesUIDecisiones}{0.7}{Diagrama de clases - Composición de clases de interfaz gráfica}{fig:clasesUIDecisiones}
 
-%% METER DIAGRAMA DE CLASES DE PANEL KNOWLEDGE VIEW, PARA VER LA ORGANIZACION ESCALONADA DE LA INTERFAZ
+Para el resto de funcionalidades del sistema, el diseño de la interfaz sigue una estructura similar a la mostrada, por lo que no se mostrarán sus diagramas de clases si no hay algo que destacar, para no extender excesivamente la longitud del presente capítulo.
 
 Para terminar, en lo que se refiere al caso de uso de \textit{Consultar compañía}, se ha decidido mostrar en un mapa la posición geográfica (además de otros datos) de la compañía consultada, para poder conocer su información exacta y real. Para ello se han utilizado los mapas proporcionados por \textbf{OpenStreetMaps} (ver sección \ref{sec:marco}), ya que, como se comentó anteriormente, debido a los términos de uso de Google, los mapas proporcionados por \textit{Google Maps} sólo pueden utilizarse en aplicaciones Web, por lo que se decidió optar por esta alternativa.
 
