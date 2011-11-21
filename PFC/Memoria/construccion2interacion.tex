@@ -39,13 +39,13 @@ En la Figura \ref{fig:secuenciaAceptarDecisionesCliente} se muestra el diagrama 
 
 En la Figura \ref{fig:secuenciaAdjuntarFicherosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Adjuntar ficheros} en el cliente, mientras que en la Figura \ref{fig:secuenciaAdjuntarFicherosServer} se muestra el diagrama de secuencia para el servidor.
 
-\imagen{Cap5/Cliente2//secuenciaAdjuntarFicherosCliente}{1.0}{Diagrama de secuencia - Cliente - Adjuntar ficheros}{fig:secuenciaAdjuntarFicherosCliente}
+\imagen{Cap5/Cliente2//secuenciaAdjuntarFicherosCliente}{0.6}{Diagrama de secuencia - Cliente - Adjuntar ficheros}{fig:secuenciaAdjuntarFicherosCliente}
 
-\imagen{Cap5/Server2//secuenciaAdjuntarFicherosServer}{1.0}{Diagrama de secuencia - Servidor - Adjuntar ficheros}{fig:secuenciaAdjuntarFicherosServer}
+\imagen{Cap5/Server2//secuenciaAdjuntarFicherosServer}{2.0}{Diagrama de secuencia - Servidor - Adjuntar ficheros}{fig:secuenciaAdjuntarFicherosServer}
 
 
 
-\paragraph{Diseño e implementación}
+\paragraph{Diseño e implementación} \label{sec:crearDecision}
 
 \subparagraph{Servidor}
 
@@ -76,6 +76,8 @@ En el fragmento de código \ref{list:observador} se muestra parte de la implement
 
 \subparagraph{Cliente}
 
+% Interfaz flexible
+% Refrescar vistas
 
 
 \subsubsection{Funcionalidad de \textit{Gestión de notificaciones}}
@@ -86,6 +88,42 @@ En el fragmento de código \ref{list:observador} se muestra parte de la implement
 
 En la Figura \ref{fig:secuenciaConsultarNotificacionCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar notificaciones} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarNotificacionServer} se muestra el diagrama de secuencia para el servidor.
 
-\imagen{Cap5/Cliente2//secuenciaConsultarNotificacionCliente}{1.0}{Diagrama de secuencia - Cliente - Consultar notificaciones}{fig:secuenciaConsultarNotificacionCliente}
+\imagen{Cap5/Cliente2//secuenciaConsultarNotificacionCliente}{0.6}{Diagrama de secuencia - Cliente - Consultar notificaciones}{fig:secuenciaConsultarNotificacionCliente}
 
-\imagen{Cap5/Server2//secuenciaConsultarNotificacionServer}{1.0}{Diagrama de secuencia - Servidor - Consultar notificaciones}{fig:secuenciaConsultarNotificacionServer}
+\imagen{Cap5/Server2//secuenciaConsultarNotificacionServer}{2.0}{Diagrama de secuencia - Servidor - Consultar notificaciones}{fig:secuenciaConsultarNotificacionServer}
+
+
+\subparagraph{Modificar notificaciones}
+
+En la Figura \ref{fig:secuenciaModificarNotificacionCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Modificar notificaciones} en el cliente, mientras que en la Figura \ref{fig:secuenciaModificarNotificacionServer} se muestra el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaModificarNotificacionCliente}{0.6}{Diagrama de secuencia - Cliente - Modificar notificaciones}{fig:secuenciaModificarNotificacionCliente}
+
+\imagen{Cap5/Server2//secuenciaModificarNotificacionServer}{2.0}{Diagrama de secuencia - Servidor - Modificar notificaciones}{fig:secuenciaModificarNotificacionServer}
+
+
+
+\subparagraph{Eliminar notificaciones}
+
+En la Figura \ref{fig:secuenciaEliminarNotificacionCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Eliminar notificaciones} en el cliente, mientras que en la Figura \ref{fig:secuenciaEliminarNotificacionServer} se muestra el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaEliminarNotificacionCliente}{0.6}{Diagrama de secuencia - Cliente - Eliminar notificaciones}{fig:secuenciaEliminarNotificacionCliente}
+
+\imagen{Cap5/Server2//secuenciaEliminarNotificacionServer}{2.0}{Diagrama de secuencia - Servidor - Eliminar notificaciones}{fig:secuenciaEliminarNotificacionServer}
+
+
+
+\paragraph{Diseño e implementación}
+
+\subparagraph{Servidor}
+
+Como se ha detallado en el apartado \ref{sec:crearDecision}, se crean alertas (o notificaciones) de manera automática para todos los usuarios del proyecto que ha sufrido cambios en sus decisiones, como se muestra en el diagrama de la Figura \ref{fig:clasesGestionDecisiones}. Por tanto, la misma alerta debe crearse para todos los usuarios de ese proyecto, pero, para evitar que la información de esa alerta esté repetida, la base de datos se ha diseñado de tal modo que la alerta sólo se crea una vez y se hace referencia a ella para todos los usuarios, utilizando la tabla \textit{notificationsUsers} con claves ajenas, como se muestra en el diseño de base de datos de la Figura \ref{fig:diagramaBD}.
+
+De este modo, cada usuario podrá editar y eliminar su propia alerta, sólo eliminando la alerta original cuando ningún usuario tenga ya referencias a ella, es decir, cuando todos los usuarios del proyecto hayan borrado esa alerta. Esta tarea se ha delegado al SGBD de MySQL, mediante la creación de un \textit{trigger}, mostrado en el fragmento de código \ref{list:trigger}. Dicho trigger será el encargado de borrar la alerta original cuando ya no existan referencias a ella por parte de ningún usuario.
+
+\texttt{\lstinputlisting[caption=Trigger de base de datos para gestionar la eliminación de alertas, breaklines=true, label=list:trigger, inputencoding=latin1, style=MySQLStyle]{Codigo//trigger.sql}}
+
+
+\subparagraph{Cliente}
+
+Siguiendo los diagramas de secuencia para este subsistema, se diseña e implementa la interfaz gráfica de usuario para dar soporte a cada caso de uso, enviando peticiones al servidor y obteniendo los datos que éste devuelve, mostrándolos en la interfaz.

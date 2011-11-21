@@ -559,7 +559,7 @@ En la Figura \ref{fig:analisisConsultarDecisionesCliente} se muestra el diagrama
 En la Figura \ref{fig:analisisConsultarCompanyiaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarCompanyiaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
 
 
-\imagen{Cap5/Cliente2//analisisConsultarCompanyiaCliente}{2.0}{Diagrama de clases de análisis - Cliente - Consultar compañía}{fig:analisisConsultarCompanyiaCliente}
+\imagen{Cap5/Cliente2//analisisConsultarCompanyiaCliente}{0.64}{Diagrama de clases de análisis - Cliente - Consultar compañía}{fig:analisisConsultarCompanyiaCliente}
 
 \imagen{Cap5/Server2//analisisConsultarCompanyiaServer}{2.0}{Diagrama de clases de análisis - Servidor - Consultar compañía}{fig:analisisConsultarCompanyiaServer}
 
@@ -780,6 +780,7 @@ En la Tabla \ref{table:flujosCrearRespuesta} se describe el caso de uso \textit{
 En la Figura \ref{fig:analisisCrearRespuestaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisCrearRespuestaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
 
 \imagen{Cap5/Cliente2//analisisCrearRespuestaCliente}{2.0}{Diagrama de clases de análisis - Cliente - Crear Respuesta}{fig:analisisCrearRespuestaCliente}
+
 \imagen{Cap5/Server2//analisisCrearRespuestaServer}{2.0}{Diagrama de clases de análisis - Servidor - Crear Respuesta}{fig:analisisCrearRespuestaServer}
 
 
@@ -872,6 +873,9 @@ En la Figura \ref{fig:despliegue} se muestra una vista de los subsistemas que in
 como se comunican dichos sistemas a través de interfaces, facilitando la distribución de cada uno
 de los sistemas en diferentes máquinas. 
 
+\imagen{Cap5/Server2//Despliegue}{2.0}{Arquitectura cliente-servidor}{fig:despliegue}
+
+
 \paragraph{Arquitectura multicapa}
 
 En cuanto a la arquitectura de implementación, ambos sistemas, cliente y servidor, serán desarrollados siguiendo una arquitectura multicapa, de modo que se pueda aislar la capa de presentación de la de la lógica de dominio y ésta de la capa de persistencia (ver Figura \ref{fig:multicapa}).
@@ -896,6 +900,7 @@ Más concretamente, estas capas se traducirán a paquetes de implementación, donde
 
 En la Figura \ref{fig:paquetes} puede observarse esta arquitectura multicapa y las relaciones entre dichas capas.
 
+\imagen{Cap5/Server2//DivisionCapas}{2.0}{Arquitectura multicapa}{fig:paquetes}
 
 Utilizando este enfoque multicapa, se sigue el principio de mínimo acoplamiento y máxima
 cohesión, desacoplando los elementos de una capa de los de otra. De este modo, se facilita el
@@ -933,18 +938,51 @@ Para terminar, señalar que la implementación de ambos subsistemas se irá haciend
 
 En esta segunda iteración de la fase de elaboración, se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
 
-Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, se han modelado las siguientes
-clases de conocimiento, junto con sus relaciones:
+Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, se han modelado las siguientes clases de conocimiento, junto con sus relaciones:
 
 \begin{itemize}
-	\item \textbf{Usuario}
+	\item \textbf{User}: una una clase abstracta que representa los usuarios que pueden acceder y hacer uso del sistema. De ella heredan dos clases, que son \textit{Employee} y \textit{ChiefProject}, representando los diferentes roles de usuarios que existen en el sistema. Estas clases concretas implementan el método abstracto \textit{getRole()}, devolviendo el rol correspondiente a cada clase.
+	\item \textbf{Company}: clase que representa una sede de una compañía donde trabajan los diferentes usuarios del sistema.
+	\item \textbf{Address}: representa la dirección física de una sede de una compañía.
+	\item \textbf{Project}: es la clase que representa un proyecto software donde trabajan los usuarios del sistema.
+	\item \textbf{Session}: es la clase encargada de almacenar toda la información sobre las sesiones que se inicien en el sistema.
+	\item \textbf{Knowledge}: es una clase abstracta que representa el conocimiento del sistema. En este caso, son las decisiones tomadas en cada proyecto por los diferentes usuarios que en participan en los proyectos. De esta clase heredan las clases concretas \textit{Topic}, \textit{Proposal} y \textit{Answer}, formando la jerarquía de decisiones que se detallará en el apartado \ref{sec:visualizarDecisiones}.
+	\item \textbf{TopicWrapper}: es una clase que representa el conjunto de temas (\textit{topics}) presentes en un proyecto.
+	\item \textbf{File}: clase que representa un fichero que puede adjuntarse a una decisión.
+	\item \textbf{Notification}: clase que representa una notificación o alerta que se crea en el sistema cuando se provoca un cambio en las decisiones de un proyecto.
+	\item \textbf{PDFElement}: esta clase representa los elementos que van a componer un documento PDF. De ella heredan los diferentes elementos usados en un documento PDF, como son \textit{PDFTable}, \textit{PDFText} y \textit{PDFTitle}. Gracias a esta herencia, se podrá usar el polimorfismo a la hora de componer las secciones del documento PDF.
+	\item \textbf{PDFSection}: representa una sección de un documento PDF, compuesta de diferentes elementos.
+	\item \textbf{PDFConfiguration}: clase que representa la información de un documento PDF, compuesto de un conjunto de secciones.
+	\item \textbf{Coordinates}: esta clase representa las coordenadas geográficas de una dirección de una sede de una compañía.
+	\item \textbf{Operation}: clase que representa las acciones que se pueden realizar en el sistema.
+	\item \textbf{LogEntry}: por la especificación de requisitos, se debe mantener un histórico de todas las
+acciones realizadas en el sistema. Por tanto, esta es la clase que almacena información sobre
+quién, cuándo y qué acción se ha realizado.
+\end{itemize}
+
+En cuanto a las relaciones entre las clases anteriores, se han modelado las siguientes:
+
+\begin{itemize}
+	\item Un usuario se relaciona con una compañía en la que trabaja, y se relaciona con uno o más proyectos en los que participa.
+	\item Una compañía se asocia con una dirección.
+	\item Una sesión se relaciona con un usuario, que es el que se identifica e inicia sesión en el sistema.
+	\item Cada clase que representa una decisión (\textit{Knowledge}) se asocia con un usuario, que es el autor que la crea.
+	\item Cada tema (\textit{Topic}) se asocia con 0 o más propuestas (\textit{Proposal}) y con un proyecto, que es donde se crea.
+	\item Cada propuesta se asocia con 0 o más respuestas (\textit{Answer}).
+	\item El conjunto de temas (\textit{TopicWrapper)} se asocia con 0 o más temas.
+	\item Un fichero se adjunta para una decisión, y cada decisión puede tener 0 o más ficheros adjuntos.
+	\item Una notificación se asocia con una decisión, un proyecto y uno o más usuarios (todos los que trabajan en ese proyecto).
+	\item Una tabla del documento PDF (\textit{PDFTable}) se asocia con un proyecto, para conocer y generar toda la información de ese proyecto.
+	\item Una sección del documento PDF (\textit{PDFSection}) se compone de uno o más elementos del documento PDF (\textit{PDFElement)}, para componer la sección.
+	\item Un documento PDF (\textit{PDFConfiguration}) se compone de una o más secciones del documento (\textit{PDFSection}).
+	\item La clase \textit{LogEntry} utiliza la clase usuario para consultar el nombre de usuario que ha realizado una acción en el sistema.
 \end{itemize}
 
 En la Figura \ref{fig:clasesDominio} se puede observar este diagrama de clases de dominio.
 
 \begin{figure}[!htbp]
  \begin{center}
-   \includegraphics[keepaspectratio,angle=90]{Cap5/Server2//clasesDominio}
+   \includegraphics[scale=0.6,angle=90]{Cap5/Server2//clasesDominio}
  \caption {Diagrama de clases de dominio}
  \label{fig:clasesDominio}
  \end{center}
@@ -974,7 +1012,9 @@ Algunas diferencias que existen entre el modelo de dominio y el modelo ER son:
 %aparece por la aplicación del patrón Estado, como ya se vió en la capa de dominio del servidor
 %front-end (ver sección 3.1.3).
 
-El modelo ER de la base de datos se muestra en la Figura \ref{fig:modeloER}.
+El modelo EER (Entidad-Interrelación Extendido) de la base de datos se muestra en la Figura \ref{fig:diagramaBD}.
+
+\imagenBorde{Cap5//diagramaBD}{0.38}{Diagrama EER de la base de datos}{fig:diagramaBD}
 
 
 \paragraph{Diseño lógico}
