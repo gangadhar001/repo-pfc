@@ -227,6 +227,12 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
   morekeywords={<?, ?>, xml, encoding, xmlns,version,type}% list your attributes here
 }
 
+\lstdefinelanguage{mysql}
+{
+  morestring=[b]",
+  morekeywords={CREATE, TRIGGER, AFTER, DELETE, ON, FOR, EACH, ROW, BEGIN, DECLARE, INT, IF, SELECT, COUNT, INTO, FROM, WHERE, old, THEN, DELETE, OLD, END, END\$\$}% list your attributes here
+}
+
 \lstdefinestyle{JavaStyle}
 { 
   language=Java,           % Lenguaje de programación del código
@@ -270,7 +276,30 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
   breakatwhitespace=false,
   stringstyle=\color[rgb]{0,0,0},
   identifierstyle=\color[rgb]{0,0,1},
-  keywordstyle=\color[rgb]{1,0,0},
+  keywordstyle=\color[rgb]{1,0,0}
+}
+
+\lstdefinestyle{MySQLStyle}
+{
+	language=mysql,           % Lenguaje de programación del código
+	basicstyle=\scriptsize,
+  % numbers=left,
+  % numberstyle=\footnotesize,
+  % stepnumber=2,
+  % numbersep=5pt,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=3,   
+  captionpos=b,
+  breaklines=true,
+  frame=single,
+  breaklines=true,         % ajusta la división automática de líneas
+  breakatwhitespace=false,
+  keywordstyle=\color[rgb]{0,0,1},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  stringstyle=\color[rgb]{0.627,0.126,0.941}
 }
 
 %====================================
