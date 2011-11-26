@@ -36,7 +36,7 @@ En la Figura \ref{fig:secuenciaConsultarAdjuntosCliente} se muestra el diagrama 
 \imagen{Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Descargar ficheros adjuntos}{fig:secuenciaConsultarAdjuntosServer}
 
 
-\paragraph{Diseño e implementación} \ref{sec:visualizarDecisiones}
+\paragraph{Diseño e implementación} \label{sec:visualizarDecisiones}
 
 Siguiendo los diagramas de secuencia, se realiza el diseño de los casos de uso utilizando un diagrama de clases de diseño y se procede a la implementación de dichos casos de uso, para obtener las clases Java que dan soporte a estas funcionalidades. A continuación se destacan algunos aspectos tenidos en cuenta al diseñar e implementar estos casos de uso.
 
@@ -84,7 +84,7 @@ En el subsistema cliente, cuando se consultan las decisiones, éstas se muestran 
 
 Un tipo de información que se muestra para cada decisión, son los archivos adjuntos que tiene, que pueden ser descargados por el usuario, guardando una copia local que envía el sistema servidor al hacer la petición.
 
-Cabe destacar que para representar toda esta información, y la del resto del sistema, la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. En el diagrama de la Figura \ref{fig:clasesUIDecisiones} se puede apreciar esta organización de clases de la interfaz gráfica. 
+Cabe destacar que para representar toda esta información, y la del resto de funcionalidades del sistema, la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. En el diagrama de la Figura \ref{fig:clasesUIDecisiones} se puede apreciar esta organización de clases de la interfaz gráfica. 
 
 \imagen{Cap5/Cliente2//clasesUIDecisiones}{0.7}{Diagrama de clases - Composición de clases de interfaz gráfica}{fig:clasesUIDecisiones}
 

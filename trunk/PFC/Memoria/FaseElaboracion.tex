@@ -202,12 +202,9 @@ En la Figura \ref{fig:CduGestionProyectos2Cliente} se muestra el diagrama de cas
 
 \paragraph{Generación de estadísticas}
 
-En la Figura \ref{fig:CduGeneracionEstadisticas2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGeneracionEstadisticas2Server} se muestra el diagrama de casos de uso para el servidor.
+En la Figura \ref{fig:CduGeneracionEstadisticas2Cliente} se muestra el diagrama de casos de uso para el cliente. Esta funcionalidad es exclusiva del cliente, ya que, utilizando los datos que proporciona el servidor, las gráficas se generan y muestran en el cliente, ya que los tipos de gráficas son independientes del servidor y dependen de la tecnología utilizada para representarlas en el cliente.
 
 \imagen{Cap5/Cliente2//CduGeneracionEstadisticas}{2.0}{Diagrama de casos de uso - Cliente - Generación Estadísticas - v2.0}{fig:CduGeneracionEstadisticas2Cliente}
-
-
-\imagen{Cap5/Server2//CduGeneracionEstadisticas}{2.0}{Diagrama de casos de uso - Servidor - Generación Estadísticas - v2.0}{fig:CduGeneracionEstadisticas2Server}
 
 
 \paragraph{Generación de informes}
@@ -614,7 +611,7 @@ En la Tabla \ref{table:flujosCrearTema} se describe el caso de uso \textit{Crear
 	\end{enumerate}	
 	\\
 	\hline
-	\textbf{Flujo alternativo 1: Tema ya existente}:
+	\textbf{Flujo alternativo 2: Tema ya existente}:
 	\begin{enumerate}
 	\vspace{-4mm}
 	\setlength{\itemsep}{-7.5pt}
@@ -685,7 +682,7 @@ En la Tabla \ref{table:flujosCrearPropuesta} se describe el caso de uso \textit{
 	\end{enumerate}	
 	\\
 	\hline
-	\textbf{Flujo alternativo 1: Propuesta ya existente}:
+	\textbf{Flujo alternativo 2: Propuesta ya existente}:
 	\begin{enumerate}
 	\vspace{-4mm}
 	\setlength{\itemsep}{-7.5pt}
@@ -701,7 +698,7 @@ En la Tabla \ref{table:flujosCrearPropuesta} se describe el caso de uso \textit{
 	\\
 	\hline
 \end{tabular}
-\caption{Especificación del caso de uso \textit{Crear decisión - Crear Tema}}
+\caption{Especificación del caso de uso \textit{Crear decisión - Crear Propuesta}}
 \label{table:flujosCrearPropuesta}
 \end{table}
 
@@ -757,7 +754,7 @@ En la Tabla \ref{table:flujosCrearRespuesta} se describe el caso de uso \textit{
 	\end{enumerate}	
 	\\
 	\hline
-	\textbf{Flujo alternativo 1: Respuesta ya existente}:
+	\textbf{Flujo alternativo 2: Respuesta ya existente}:
 	\begin{enumerate}
 	\vspace{-4mm}
 	\setlength{\itemsep}{-7.5pt}
@@ -934,22 +931,22 @@ Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al uti
 Para terminar, señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
 
 
-\subsubsection{Diagrama de clases de dominio}
+\subsubsection{Diagrama de clases de dominio} \ref{modeloDominio}
 
 En esta segunda iteración de la fase de elaboración, se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
 
 Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, se han modelado las siguientes clases de conocimiento, junto con sus relaciones:
 
 \begin{itemize}
-	\item \textbf{User}: una una clase abstracta que representa los usuarios que pueden acceder y hacer uso del sistema. De ella heredan dos clases, que son \textit{Employee} y \textit{ChiefProject}, representando los diferentes roles de usuarios que existen en el sistema. Estas clases concretas implementan el método abstracto \textit{getRole()}, devolviendo el rol correspondiente a cada clase.
-	\item \textbf{Company}: clase que representa una sede de una compañía donde trabajan los diferentes usuarios del sistema.
-	\item \textbf{Address}: representa la dirección física de una sede de una compañía.
-	\item \textbf{Project}: es la clase que representa un proyecto software donde trabajan los usuarios del sistema.
+	\item \textbf{User}: una una clase abstracta que representa los usuarios que pueden acceder y hacer uso del sistema. De ella heredan dos clases, que son \textit{Employee} y \textit{ChiefProject}, representando los diferentes roles de usuarios que existen en el sistema. Estas clases concretas implementan el método abstracto \textit{getRole()}, devolviendo el rol correspondiente a cada clase. Es una clase persistente.
+	\item \textbf{Company}: clase que representa una sede de una compañía donde trabajan los diferentes usuarios del sistema. Es una clase persistente.
+	\item \textbf{Address}: representa la dirección física de una sede de una compañía. Es una clase persistente.
+	\item \textbf{Project}: es la clase que representa un proyecto software donde trabajan los usuarios del sistema. Es una clase persistente.
 	\item \textbf{Session}: es la clase encargada de almacenar toda la información sobre las sesiones que se inicien en el sistema.
-	\item \textbf{Knowledge}: es una clase abstracta que representa el conocimiento del sistema. En este caso, son las decisiones tomadas en cada proyecto por los diferentes usuarios que en participan en los proyectos. De esta clase heredan las clases concretas \textit{Topic}, \textit{Proposal} y \textit{Answer}, formando la jerarquía de decisiones que se detallará en el apartado \ref{sec:visualizarDecisiones}.
+	\item \textbf{Knowledge}: es una clase abstracta que representa el conocimiento del sistema. En este caso, son las decisiones tomadas en cada proyecto por los diferentes usuarios que en participan en los proyectos. De esta clase heredan las clases concretas \textit{Topic}, \textit{Proposal} y \textit{Answer}, formando la jerarquía de decisiones que se detallará en el apartado \ref{sec:visualizarDecisiones}. Es una clase persistente.
 	\item \textbf{TopicWrapper}: es una clase que representa el conjunto de temas (\textit{topics}) presentes en un proyecto.
-	\item \textbf{File}: clase que representa un fichero que puede adjuntarse a una decisión.
-	\item \textbf{Notification}: clase que representa una notificación o alerta que se crea en el sistema cuando se provoca un cambio en las decisiones de un proyecto.
+	\item \textbf{File}: clase que representa un fichero que puede adjuntarse a una decisión. Es una clase persistente.
+	\item \textbf{Notification}: clase que representa una notificación o alerta que se crea en el sistema cuando se provoca un cambio en las decisiones de un proyecto. Es una clase persistente.
 	\item \textbf{PDFElement}: esta clase representa los elementos que van a componer un documento PDF. De ella heredan los diferentes elementos usados en un documento PDF, como son \textit{PDFTable}, \textit{PDFText} y \textit{PDFTitle}. Gracias a esta herencia, se podrá usar el polimorfismo a la hora de componer las secciones del documento PDF.
 	\item \textbf{PDFSection}: representa una sección de un documento PDF, compuesta de diferentes elementos.
 	\item \textbf{PDFConfiguration}: clase que representa la información de un documento PDF, compuesto de un conjunto de secciones.
@@ -957,13 +954,13 @@ Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, s
 	\item \textbf{Operation}: clase que representa las acciones que se pueden realizar en el sistema.
 	\item \textbf{LogEntry}: por la especificación de requisitos, se debe mantener un histórico de todas las
 acciones realizadas en el sistema. Por tanto, esta es la clase que almacena información sobre
-quién, cuándo y qué acción se ha realizado.
+quién, cuándo y qué acción se ha realizado. Es una clase persistente.
 \end{itemize}
 
 En cuanto a las relaciones entre las clases anteriores, se han modelado las siguientes:
 
 \begin{itemize}
-	\item Un usuario se relaciona con una compañía en la que trabaja, y se relaciona con uno o más proyectos en los que participa.
+	\item Un usuario se relaciona con una compañía en la que trabaja, y se relaciona con uno o más proyectos en los que participa. A su vez, en cada proyecto trabajan varios usuarios.
 	\item Una compañía se asocia con una dirección.
 	\item Una sesión se relaciona con un usuario, que es el que se identifica e inicia sesión en el sistema.
 	\item Cada clase que representa una decisión (\textit{Knowledge}) se asocia con un usuario, que es el autor que la crea.
@@ -990,62 +987,31 @@ En la Figura \ref{fig:clasesDominio} se puede observar este diagrama de clases d
 
 \subsubsection{Diseño de la base de datos}
 
-A partir de las clases de dominio y sus relaciones, se modela y diseña la base de datos para que los objetos de dominio puedan ser persistentes y almacenarse en una base de datos. En los siguientes apartados se muestra el modelo conceptual y lógico de la base de datos utilizada en el sistema.
+A partir de las clases de dominio persistentes y sus relaciones, se modela y diseña la base de datos para que los objetos de dominio puedan ser persistentes. Para realizar esto, se han tenido en cuenta las siguientes consideraciones a la hora de diseñar la base de datos:
 
-\paragraph{Diseño conceptual}
+\begin{itemize}
+	\item Para representar la jerarquía de herencia de las clases \textit{User}, \textit{Employee} y \textit{ChiefProject}, se ha utilizado el patrón de persistencia \textbf{1 árbol de herencia, 1 tabla},
+por lo que sólo se creará la tabla \textit{Users}, que agrupará los atributos de todas las entidades
+anteriores. Sin embargo, es necesario añadir un nuevo atributo a la tabla \textit{Users} para indicar
+el rol del usuario, correspondiente a cada una de las subclases.
+La razón de utilizar dicho patrón es agrupar en única tabla toda la jerarquía de herencia que
+existe entre esas clases en el modelo de dominio, pues ninguna de las clases \textit{Employee} ni \textit{ChiefProject}
+añaden nuevos atributos a la clase \textit{User}, por lo que no se van a obtener
+atributos (columnas) nulas en la tabla resultante.
+	\item En la tabla \textit{LogEntries}, obtenida al transformar la clase \textit{LogEntry} en una tabla, la columna
+”usuario” puede ser vacía, pues hay acciones que no están asociadas a ningún usuario
+del sistema, como, por ejemplo, iniciar o detener el servidor.
+	\item Debido a las asociaciones n:m (o \textit{muchos a muchos}) entre las clases de \textit{User} y \textit{Project}, y entre las de \textit{Notification} y \textit{User}, es necesario modelar tablas adicionales que permitan modelar dichas asociaciones, utilizando claves ajenas a las tablas que representan las clases que participan en esas asociaciones.
+	\item En la tabla \textit{NotificationsUsers}, que modela la relacion \textit{muchos a muchos} entre usuarios y notificaciones, se ha creado un \textit{trigger} para borrar automáticamente una notificación cuando todos los usuarios a los que iba dirigida ya la han borrado. Esto se comentará más en detalle en el apartado \ref{sec:notificaciones}.
+\end{itemize}
 
-El diseño conceptual de la base de datos del sistema está basado en las clases persistentes de
-la lógica del dominio, representando dichas clases y sus relaciones en
-un modelo ER (Entidad-Interrelación).
+Teniendo en cuenta dichas consideraciones, se obtiene el modelo EER (Entidad-Interrelación Extendido) de la base de datos, mostrado en la Figura \ref{fig:diagramaBD}.
 
-Como dicho modelo es el modelo conceptual (de más alto nivel) en el diseño de una base
-de datos, las entidades se corresponden prácticamente con las clases del modelo de dominio, los
-atributos de dichas entidades se corresponden con los atributos de las clases, y las relaciones se
-corresponden con las asociaciones que existen entre las diferentes clases del modelo de conocimiento
-o dominio.
-
-Algunas diferencias que existen entre el modelo de dominio y el modelo ER son:
-%• No existe una entidad ”Sustitución”, ya que, en el modelo ER, esto se puede modelar como
-%una relación entre médicos, con determinados atributos en dicha relación.
-%• Los diferentes tipos de médico se modelan como una jerarquía de herencia de la entidad Médico,
-%no apareciendo la entidad TipoMédico correspondiente a la clase de dominio, pues esta clase
-%aparece por la aplicación del patrón Estado, como ya se vió en la capa de dominio del servidor
-%front-end (ver sección 3.1.3).
-
-El modelo EER (Entidad-Interrelación Extendido) de la base de datos se muestra en la Figura \ref{fig:diagramaBD}.
+Para terminar, cabe destacar que este modelo se ha creado utilizando la herramienta \textbf{MySQL Workbench} (ver sección \ref{sec:marco}), la cuál permite generar el código SQL necesario para crear las tablas y relaciones de la base de datos a partir de ese modelo, aplicando ingeniería directa.
 
 \imagenBorde{Cap5//diagramaBD}{0.38}{Diagrama EER de la base de datos}{fig:diagramaBD}
 
 
-\paragraph{Diseño lógico}
-
-Una vez se ha realizado el diagrama ER a partir de las clases y asociaciones del modelo de
-dominio del sistema, se debe traducir dicho diagrama a un modelo relacional o de tablas.
-
-Para realizar esto, se han tenido en cuenta las siguientes consideraciones:
-%• Para representar la jerarquía de herencia de la entidad Usuario y las entidades Administrador,
-%Citador y Médico, se ha utilizado el patrón de persistencia \textbf{1 árbol de herencia, 1 tabla},
-%por lo que sólo se creará la tabla Usuarios, que agrupará los atributos de todas las entidades
-%anteriores. Sin embargo, es necesario añadir un nuevo atributo a la tabla Usuarios para indicar
-%el rol del usuario, correspondiente a cada una de las subclases.
-%La razón de utilizar dicho patrón es agrupar en única tabla toda la jerarquía de herencia que
-%existe entre esas clases en el modelo de dominio, pues ninguna de las clases Administrador,
-%Citador ni Médico añaden nuevos atributos a la clase Usuario, por lo que no se van a obtener
-%atributos (columnas) nulas en la tabla resultante.
-%• Para representar los dferentes tipos de médico, aunque en el modelo ER se represente con
-%una herencia, por ser un modelo conceptual, la tabla que se obtiene es la tabla TiposMedico,
-%obtenida al aplicar el patrón de persistencia 1 árbol de herencia, 1 tabla sobre la clase Tipo
-%Médico que aparece en el modelo de dominio. Esta clase, a su vez, proviene de la aplicación del
-%patrón Estado, como ya se comentó en la sección frontend.
-%• En la tabla EntradasLog, obtenida al transformar la entidad EntradaLog en una tabla, la columna
-%”usuario” puede ser vacia, pues hay acciones que no están asociadas a ningún usuario
-%del sistema, como, por ejemplo, iniciar el servidor front-end. Además, si se borra el usuario
-%asociado a la acción que se realizado, esta columna tomará el valor NULL, pues no se puede
-%borrar la entrada de log correspondiente, ya que es un requisito el ir almacenando todas las
-%acciones realizadas.
-
-
-% Trigger
 \subsubsection{Funcionalidad de \textit{Acceso al sistema}}
 
 Una vez se ha definido la arquitectura del sistema, se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar la funcionalidad planificada para esta iteración, que es el acceso al sistema. Por tanto, durante esta iteración, se diseña, implementa y prueba los casos de uso que componen la funcionalidad de \textit{Acceso al sistema}, mostrados en la Figura \ref{fig:CduAccesoSistema1Server}.
@@ -1106,7 +1072,12 @@ sólo es necesario indicar la IP al exportar los objetos, sino que también hace f
 propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, que
 representa la IP del servidor RMI que contiene los objetos.
 
+
+
 %% PONER CODIGO
+
+
+
 
 \subparagraph{Comunicación entre servidor y base de datos}
 
@@ -1172,7 +1143,7 @@ En la Figura \ref{fig:clasesSessionController} se muestra el diagrama de clases 
 % Timing para animacion de espera
 % Menus adaptados e internacionalizados
 
-\subsubsection{Pruebas}
+\paragraph{Pruebas}
 		
 		
 		

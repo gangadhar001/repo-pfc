@@ -1,0 +1,43 @@
+\subsection{Cuarta iteración} 
+
+Durante esta iteración, se diseñan, implementan y prueban los casos de uso que componen la funcionalidad de \textit{Generación de informes}, mostrados en la Figura \ref{fig:CduGeneracionInformes2Server}, y la funcionalidad de \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}).
+
+\subsubsection{Funcionalidad de \textit{Generación de informes}}
+
+\paragraph{Diagramas de secuencia}
+
+En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
+
+\subparagraph{Generar informe}
+
+Como se puede observar en el modelo de casos de uso de la Figura \ref{fig:CduGeneracionInformes2Server}, este caso de uso cuenta con un punto de extensión, donde el caso de uso \textit{Consultar proyectos} extiende su funcionalidad. Por tanto, en la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia para el comportamiento normal de este caso de uso en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento normal en el servidor.
+
+Por otra parte, en la Figura \ref{fig:secuenciaGenerarInformeExtendidoCliente} se muestra el diagrama de secuencia para el comportamiento extendido de este caso de uso en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeExtendidoServer} se muestra su comportamiento extendido en el servidor.
+
+Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
+
+
+\imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)}{fig:secuenciaGenerarInformeNormalCliente}
+
+\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)}{fig:secuenciaGenerarInformeNormalServer}
+
+\imagen{Cap5/Cliente2//secuenciaGenerarInformeExtendidoCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento extendido)}{fig:secuenciaGenerarInformeExtendidoCliente}
+
+\imagen{Cap5/Server2//secuenciaGenerarInformeExtendidoServer}{2.0}{Diagrama de secuencia - Servidor -Generar informe (comportamiento extendido)}{fig:secuenciaGenerarInformeExtendidoServer}
+
+
+
+
+\subsubsection{Funcionalidad de \textit{Generación de estadísticas}}
+
+\paragraph{Diagramas de secuencia}
+
+En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
+
+\subparagraph{Generar estadísticas}
+
+En la Figura \ref{fig:secuenciaGenerarEstadisticasCliente} se muestra el diagrama de secuencia para el caso de uso \textit{generar estadísticas} en el cliente. 
+
+En este caso, se incluyen los comportamientos de los casos de uso \textit{consultar usuarios}, \textit{consultar proyectos} y \textit{consultar decisiones}, ya definidos, por lo que dichos comportamientos se muestran de manera simplificada en este diagrama de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaGenerarEstadisticasCliente}{0.6}{Diagrama de secuencia - Cliente - Generar estadísticas}{fig:secuenciaGenerarEstadisticasCliente}
