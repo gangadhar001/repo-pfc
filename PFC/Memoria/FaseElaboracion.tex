@@ -922,7 +922,7 @@ En cuanto a los los patrones de diseño, se han utilizado los siguientes para el 
 
 \subsection{Segunda iteración} 
 
-Al finalizar la iteración anterior, en la que se identificaron nuevos requisitos, éstos se añadieron como nuevos casos de uso, se crearon las clases de análisis, y se especificó la arquitectura del sistema, se realizó otra reunión de seguimiento antes de comenzar la nueva iteración, para revisar y validar todos estos artefactos obtenidos.
+Al finalizar la iteración anterior, en la que se identificaron nuevos requisitos, éstos se añadieron como nuevos casos de uso, se crearon las clases de análisis y se especificó la arquitectura del sistema, se realizó otra reunión de seguimiento antes de comenzar la nueva iteración, para revisar y validar todos estos artefactos obtenidos.
 
 En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones y resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comienza con el diseño, implementación y pruebas de los casos de uso identificados.
 
@@ -931,7 +931,7 @@ Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al uti
 Para terminar, señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
 
 
-\subsubsection{Diagrama de clases de dominio} \ref{modeloDominio}
+\subsubsection{Diagrama de clases de dominio} \label{modeloDominio}
 
 En esta segunda iteración de la fase de elaboración, se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
 
@@ -1024,7 +1024,7 @@ En primer lugar, se modela el funcionamiento de los casos de uso que la componen
 
 En la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Login} en el cliente, mientras que en la Figura \ref{fig:secuenciaLoginServer} se muestra el diagrama de secuencia para el servidor.
 
-\imagen{Cap5/Cliente2//secuenciaLoginPrincipalCliente}{0.6}{Diagrama de secuencia - Cliente - Login}{fig:secuenciaLoginCliente}
+\imagen{Cap5/Cliente2//secuenciaLoginPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Login}{fig:secuenciaLoginCliente}
 
 \imagen{Cap5/Server2//secuenciaLoginPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Login}{fig:secuenciaLoginServer}
 
@@ -1033,7 +1033,7 @@ En la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia
 
 En la Figura \ref{fig:secuenciaLogoutCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Logout} en el cliente, mientras que en la Figura \ref{fig:secuenciaLogoutServer} se muestra el diagrama de secuencia para el servidor.
 
-\imagen{Cap5/Cliente2//secuenciaLogoutPrincipalCliente}{0.6}{Diagrama de secuencia - Cliente - Logout}{fig:secuenciaLogoutCliente}
+\imagen{Cap5/Cliente2//secuenciaLogoutPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Logout}{fig:secuenciaLogoutCliente}
 
 \imagen{Cap5/Server2//secuenciaLogoutPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Logout}{fig:secuenciaLogoutServer}
 
@@ -1072,10 +1072,14 @@ sólo es necesario indicar la IP al exportar los objetos, sino que también hace f
 propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, que
 representa la IP del servidor RMI que contiene los objetos.
 
+En el fragmento de código \ref{list:RMIServer} se muestra como se exporta el objeto que representa al servidor y como se modifica la propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, para que el servidor sea accesible y sus métodos puedan ser invocados por el cliente. 
+
+\texttt{\lstinputlisting[caption=Proceso para exportar un objeto utilizando RMI, breaklines=true, label=list:RMIServer, inputencoding=latin1, style=JavaStyle]{Codigo//RMIServer.java}}
+
+Como se puede observar en el fragmento anterior, para exportar el objeto del servidor se utiliza el método \textit{bind} de la clase \textit{Naming} de RMI, indicando la IP, el puerto y el nombre del objeto exportado. De este modo, en el cliente se utiliza el método \textit{lookup} de la clase \textit{Naming} para localizar ese objeto exportado, utilizando la IP, el puerto y el nombre con el que se exportó. En el fragmento de código \ref{list:RMICliente} se muestra un ejemplo de cómo realizar esta acción.
 
 
-%% PONER CODIGO
-
+\texttt{\lstinputlisting[caption=Proceso para localizar un objeto remoto utilizando RMI, breaklines=true, label=list:RMICliente, inputencoding=latin1, style=JavaStyle]{Codigo//RMICliente.java}}
 
 
 
@@ -1139,9 +1143,17 @@ En la Figura \ref{fig:clasesSessionController} se muestra el diagrama de clases 
  
 \subparagraph{Cliente}
 
-% Interfaz avanzada
-% Timing para animacion de espera
-% Menus adaptados e internacionalizados
+Cabe destacar que la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. 
+
+Gracias a esta estructura, según el rol del usuario que accede al sistema, los menús y diferentes elementos de la interfaz gráfica son fácilmente adaptables a las operaciones que ese usuario pueda realizar en el sistema. Además, para tener en cuenta el multi-idioma, la interfaz se adaptará al idioma elegido y todos sus menús, etiquetas, texto, etc, se mostrarán en el idioma preferido. Este aspecto de internacionalización se detallará en la fase de Construcción.
+
+Para terminar, en lo que respecta a esta funcionalidad de acceso al sistema en el cliente, se ha diseñado e implementado una ventana para que el usuario pueda introducir sus datos, validarlos y enviarlos al servidor, accediendo al sistema si todo es correcto. En este aspecto cabe destacar el uso del método \textit{invokeLater} de la librería Swing (ver sección \ref{sec:marco}) que permite manipular la interfaz gráfica mientras se realiza una tarea de larga duración en un hilo separado. Por tanto, la acción de validar los datos para acceder al sistema y enviarlos al servidor, se realiza en un hilo separado, mientras que en la interfaz gráfica se muestra un panel con un \textit{spinner} de carga (ver Figura \ref{fig:spinner}) animado, para proporcionar al usuario un \textit{feedback} visual y saber que la operación se está realizando y que debe esperar. 
+
+\imagenBorde{Cap5//spinner}{0.5}{Ejemplo de \textit{spinner} de carga}{fig:spinner}
+
+En el fragmento de código \ref{list:login} se muestra como se ha utilizado el método \textit{invokeLater} para crear un nuevo hilo para realizar el acceso al sistema, mostrando el panel con el \textit{spinner} animado.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para acceder al sistema en el cliente, breaklines=true, label=list:login, inputencoding=latin1, style=JavaStyle]{Codigo//login.java}}
 
 \paragraph{Pruebas}
 		
