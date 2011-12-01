@@ -1,6 +1,6 @@
 \section{Fase de Elaboración} \label{sec:faseElaboracion}
 
-En esta fase intervienen las disciplinas de Captura de Requisitos, Análisis, Diseño, Implementación y Pruebas, con mayor o menor influencia, según la iteración donde nos encontremos (ver Figura \ref{fig:pudElaboracion}). 
+En esta fase intervienen la Captura de Requisitos, Análisis, Diseño, Implementación y Pruebas, con mayor o menor influencia, según la iteración donde nos encontremos (ver Figura \ref{fig:pudElaboracion}). 
 
 \imagenBorde{Cap5//pudElaboracion}{1.0}{Fase de elaboración en el PUD}{fig:pudElaboracion}
 
@@ -30,23 +30,25 @@ Las tareas que se llevan a cabo en esta fase son:
 
 \subsection{Primera iteración}
 
+%% Resumen de lo que viene a continuacion
+
 \subsubsection{Identificación de requisitos}
 
 Al terminar la iteración de la fase anterior, obteniendo un primer modelo de casos de uso con los requisitos identificados, se llevó a cabo una reunión de seguimiento, para revisar la planificación realizada en el plan de proyecto y poder identificar nuevos requisitos funcionales, si los hubiera.
 
-Como resultado de esta reunión, se identificaron nuevos requisitos funcionales para añadir al sistema, y que servirán para mitigar o resolver más problemas que aparecen en GSD. Estos nuevos requisitos son:
+Como resultado de esta reunión, se identificaron nuevos requisitos funcionales para añadir al sistema, y que servirán para mitigar o resolver más problemas que aparecen en GSD. Estos nuevos requisitos fueron:
 
 \begin{itemize}
 	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder aceptar o rechazar dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
-	\item Para aumentar el conocimiento que se genera al crear nuevas decisiones de un proyecto, se debe poder adjuntar ficheros a dichas decisiones, para potenciar y ampliar la información que producen al proyecto. Del mismo modo, se deben poder descargar esos archivos adjuntos, si los hubiera.
+	\item Para aumentar la información que se añade al crear nuevas decisiones de un proyecto, se debe poder adjuntar ficheros a dichas decisiones. Del mismo modo, se deben poder descargar esos archivos adjuntos, si los hubiera.
 	\item Cuando se presenta un nuevo proyecto, se debe poder aconsejar decisiones tomadas en proyectos ya terminados, que tuviesen características similares.
-	\item Se deben poder generar de manera automática estadísticas que ayuden a llevar un control sobre los proyectos que se están desarrollando por los diferentes centros de desarrollo software de una compañía. También se podrán generar estadísticas acerca de los miembros de los equipos.
+	\item Se deben poder generar de manera automática estadísticas que ayuden a llevar un control sobre los proyectos que se están desarrollando por los diferentes centros de desarrollo software de una compañía. También, se podrán generar estadísticas acerca de los miembros de los equipos.
 	\item Se deben poder generar informes de las decisiones tomadas en un proyecto, en forma de tabla y de manera automática. Dicho informe debe generarse como un documento PDF.
 \end{itemize}
 
 Con estos nuevos requisitos, se actualizan los grupos funcionales creados en la fase de inicio, las acciones que pueden realizar los diferentes roles de usuarios y el modelo de casos de uso, explicado en el siguiente apartado.
 
-En la Tabla \ref{table:categorias2} se muestran los nuevos grupos de requisitos, incluyendo estos nuevos que se han identificado.
+En la Tabla \ref{table:categorias2} se muestran los nuevos grupos de requisitos, incluyendo los nuevos requisitos que se han identificado.
 
 \begin{table}[!htbp]%
 \centering
@@ -168,12 +170,12 @@ En la Figura \ref{fig:casos2Cliente} se muestra el diagrama de casos de usos glo
 \imagen{Cap5/Server2/casos2Server}{2.0}{Diagrama de casos de uso - Servidor - v2.0}{fig:casos2Server}
 
 
-A continuación se muestran, para cada uno de los grupos funcionales del sistema, sus diagramas de casos de uso detallados para cada subsistema. Se muestran aquellos que han sufrido un cambio respecto a los casos de uso descritos en la fase de Inicio.
+A continuación, para cada uno de los grupos funcionales del sistema, se representan los diagramas de casos de uso detallados que han sufrido un cambio respecto a los casos de uso descritos en la fase de Inicio.
 
 
 \paragraph{Visualización de decisiones}
 
-En la Figura \ref{fig:CduVisualizarDecisiones2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduVisualizarDecisiones2Server} se muestra el diagrama de casos de uso para el servidor.
+En la Figura \ref{fig:CduVisualizarDecisiones2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduVisualizarDecisiones2Server} se observa el diagrama de casos de uso para el servidor.
 
 \imagen{Cap5/Cliente2//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Cliente - Visualizar decisiones - v2.0}{fig:CduVisualizarDecisiones2Cliente}
 

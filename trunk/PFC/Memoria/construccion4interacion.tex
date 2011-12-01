@@ -60,7 +60,7 @@ En este aspecto de configuración de las secciones, cabe destacar el uso de la té
 
 En la Figura \ref{fig:clasesGenerarPDF} se muestra el diagrama de clases para esta funcionalidad en el sistema cliente.
 
-\imagen{Cap5/Cliente2//clasesGenerarPdf}{2.0}{Diagrama de clases - Generación de documentos PDF - Cliente}{fig:clasesGenerarPdf}
+\imagen{Cap5/Cliente2//clasesGenerarPdf}{2.0}{Diagrama de clases - Generación de documentos PDF - Cliente}{fig:clasesGenerarPDF}
 
 A continuación, se explican las clases involucradas en el proceso de \textit{Drag \& Drop}:
 
@@ -87,7 +87,7 @@ Una vez detalladas las clases involucradas en el proceso \textit{Drag \& Drop}, 
 
 En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& Drop}, de manera simplificada.
 
-\imagen{Cap5//DnD}{2.0}{Proceso simplificado de \textit{Drag \& Drop}}{fig:DnD}
+\imagen{Cap5//DnD}{0.6}{Proceso simplificado de \textit{Drag \& Drop}}{fig:DnD}
 
 
 
@@ -99,14 +99,39 @@ En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& 
 
 \subsubsection{Funcionalidad de \textit{Generación de estadísticas}}
 
-\paragraph{Diagramas de secuencia}
-
-En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
-
-\subparagraph{Generar estadísticas}
+\paragraph{Diagrama de secuencia}
 
 En la Figura \ref{fig:secuenciaGenerarEstadisticasCliente} se muestra el diagrama de secuencia para el caso de uso \textit{generar estadísticas} en el cliente. 
 
 En este caso, se incluyen los comportamientos de los casos de uso \textit{consultar usuarios}, \textit{consultar proyectos} y \textit{consultar decisiones}, ya definidos, por lo que dichos comportamientos se muestran de manera simplificada en este diagrama de secuencia.
 
-\imagen{Cap5/Cliente2//secuenciaGenerarEstadisticasCliente}{0.6}{Diagrama de secuencia - Cliente - Generar estadísticas}{fig:secuenciaGenerarEstadisticasCliente}
+\imagen{Cap5/Cliente2//secuenciaGenerarEstadisticasCliente}{2.0}{Diagrama de secuencia - Cliente - Generar estadísticas}{fig:secuenciaGenerarEstadisticasCliente}
+
+\paragraph{Diseño e implementación}
+
+Como se ha comentado anteriormente, la generación de los gráficos estadísticos es una funcionalidad exclusiva del cliente, ya que los gráficos dependen de la tecnología empleada para representarlos, que en este caso es la librería de gráficos \textbf{JFreeChart} (ver sección \ref{sec:marco}). Por tanto, el cliente, consultando los datos necesarios para crear un gráfico al servidor, es el encargado de generar dichos gráficos y visualizarlos.
+
+En primer lugar, cabe destacar que el tipo de gráficos que pueden generarse y visualizarse están definidos en un fichero XML, por lo que fácilmente se podrán añadir nuevos tipos de gráficos, añadiéndolos en este XML, facilitando su extensibilidad. En este XML se define el tipo de gráfico (de barras, pastel, líneas, etc), un icono, su nombre y descripción.
+
+Para la creación de los gráficos estadísticos, se hace uso del concepto de \textit{dataset}, que representa el conjunto de datos que se van a representar en un gráfico. En este caso, se han utilizado tres tipos de \textit{dataset}, proporcionados por la librería JFreeChart:
+
+\begin{itemize}
+	\item \textit{DefaultPieDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de tipo pastel (o \textit{pie}). Contiene los datos que representan cada una de las porciones del gráfico. Hereda de la clase \textit{AbstractDataSet}.
+	\item \textit{DefaultCategoryDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de barras. Contiene los datos que corresponden a un valor del eje X en el eje Y. Hereda de la clase \textit{AbstractDataSet}.
+	\item \textit{CategoryDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de líneas. Contiene los datos que corresponden a un valor del eje X en el eje Y. Hereda de la clase \textit{AbstractDataSet}.
+\end{itemize}
+
+En la Figura \ref{fig:clasesGenerarEstadísticas} se muestra el diagrama de clases de diseño para esta funcionalidad, donde se puede observar como la clase controladora de esta funcionalidad (\textit{StatisticsGenerator}) hace uso de estos \textit{datasets}. Además, hace uso de una clase que permite leer y extraer información de archivos XML, utilizada para leer y extraer la información de los gráficos definidos en el fichero XML comentado con anterioridad.
+
+\imagen{Cap5/Cliente2//clasesGenerarEstadísticas}{2.0}{Diagrama de clases - Cliente - Generar estadísticas}{fig:clasesGenerarEstadísticas}
+
+Por tanto, la clase controladora se encarga de realizar las peticiones al servidor para consultar los datos que se necesitan para poder componer los \textit{datasets} necesarios para generar los gráficos. Los datos consultados dependerán del tipo de gráfico a generar, pudiendo representar la cantidad de decisiones realizadas por un usuario, la cantidad de decisiones realizadas en un proyecto, un histórico de un proyecto, etc. En el fragmento de código \ref{list:dataset} se muestra un ejemplo de como generar un \textit{dataset} para un diagrama de barras y de pastel que sirve para representar el número de decisiones que un determinado usuario ha realizado en todos los proyectos en los que participa.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para la generación de \textit{datasets}, breaklines=true, label=list:dataset, inputencoding=latin1, style=JavaStyle]{Codigo//dataset.java}}
+
+Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear y representar el gráfico estadístico cuando ya se ha generado su \textit{dataset}. Para ello, se hace uso de la clase \textit{ChartFactory} de la librería JFreeChart.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para la generación de gráficos, breaklines=true, label=list:chart, inputencoding=latin1, style=JavaStyle]{Codigo//chart.java}}
+
+
+\paragraph{Pruebas}
