@@ -51,14 +51,11 @@ En la Figura \ref{fig:secuenciaAdjuntarFicherosCliente} se muestra el diagrama d
 
 En el diseño e implementación de estos casos de uso, cabe destacar la creación de una alerta o notificación de manera automática por parte del servidor al realizar cualquier acción sobre las decisiones. Dicha alerta se crea para el proyecto en el cuál se ha creado, modificado o eliminado una decisión, y para todos los usuarios que en dicho proyecto participan. De este modo, se notifica a los empleados que trabajan en ese proyecto que nuevo conocimiento está disponible, indicando en la alerta el tipo de decisión afectada, su autor, fecha y otros detalles. Esto facilita la comunicación asíncrona, ya que cuando un usuario vuelva a iniciar sesión, podrá comprobar sus nuevas alertas y adquirir conciencia de los cambios y nuevo conocimiento disponible o modificado.
 
-En la Figura \ref{fig:clasesGestionDecisiones} se muestra el diagrama de clases para la funcionalidad de gestión de decisiones, mostrando las asociaciones entre clases y entre los controladores de decisiones y de notificaciones.
+En la Figura \ref{fig:clasesGestionDecisiones} se muestra el diagrama de clases para la funcionalidad de gestión de decisiones, mostrando las asociaciones entre clases y entre los controladores de decisiones y de notificaciones. Como en el resto de casos, las operaciones de bases de datos se delegan en el gestor de bases de datos y éste, a su vez, delega en el framework \textbf{Hibernate}.
 
 \imagen{Cap5/Server2//clasesGestionDecisiones}{2.0}{Diagrama de clases - Gestión de decisiones}{fig:clasesGestionDecisiones}
 
-
-Como en el resto de casos, las operaciones de bases de datos se delegan en el gestor de bases de datos y éste, a su vez, delega en el framework \textbf{Hibernate}.
-
-También cabe destacar otra decisión de diseño que se ha tenido en cuenta para implementar otro de los requisitos del sistema, que es la comunicación síncrona. Para ello, cuando un cliente crea, modifica o elimina una decisión y envía la petición al servidor, éste, además de crear la alerta, notifica a los clientes conectados que se ha producido un cambio, para que éstos puedan actualizar su vista de la interfaz gráfica y puedan reflejar los cambios sobre esa decisión en tiempo real. Para ello, el servidor lanza un hilo por cada uno de los clientes registrados en el sistema y les envía la información necesaria. Se utilizan hilos para no bloquear el servidor mientras manda actualizaciones a los clientes y pueda seguir atendiendo otras peticiones. 
+También cabe destacar otra decisión de diseño que se ha tenido en cuenta para implementar otro de los requisitos del sistema, que es la notificación de información de manera síncrona. Para ello, cuando un cliente crea, modifica o elimina una decisión y envía la petición al servidor, éste, además de crear la alerta, notifica a los clientes conectados que se ha producido un cambio, para que éstos puedan actualizar su vista de la interfaz gráfica y puedan reflejar los cambios sobre esa decisión en tiempo real. Para ello, el servidor lanza un hilo por cada uno de los clientes registrados en el sistema y les envía la información necesaria. Se utilizan hilos para no bloquear el servidor mientras manda actualizaciones a los clientes y pueda seguir atendiendo otras peticiones. 
 
 La clase controlador encargada de realizar esta tarea constituye además un patrón \textbf{observador}, el cuál se utiliza para registrar los clientes autenticados en el sistema y notificar y actualizar su estado. En el diagrama de la Figura \ref{fig:clasesObservadorClientes} se muestra este patrón y las clases que lo forman.
 
@@ -76,8 +73,16 @@ En el fragmento de código \ref{list:observador} se muestra parte de la implement
 
 \subparagraph{Cliente}
 
-% Interfaz flexible
-% Refrescar vistas
+En el subsistema cliente cabe destacar la utilización del API de Java \textbf{Reflection} para poder configurar el diálogo para gestionar las decisiones (creación y modificación) en tiempo de ejecución. Así, cuando el usuario selecciona una decisión a crear o modificar (\textit{tema}, \textit{Propuesta} o \textit{Respuesta}), la interfaz se adaptará a ese tipo de decisión, mostrando los elementos oportunos. Por tanto, se utiliza la reflexión de Java para instanciar el panel gráfico correspondiente y visualizarlo cuando el usuario haya elegido una acción, en tiempo de ejecución.
+
+En el fragmento de código \ref{list:reflection} se presenta un ejemplo de uso de la reflexión para crear un componente visual conocido en tiempo de ejecución, según el valor de la variable \textit{subgroup}.
+
+\texttt{\lstinputlisting[caption=Fragmento de código utilizando \textit{reflection}, breaklines=true, label=list:reflection, inputencoding=latin1, style=JavaStyle]{Codigo//reflection.java}}
+
+
+Por otra parte, en el cliente, cuando el servidor le notifica que se ha producido un cambio en las decisiones, producido por otro cliente, se refrescan las decisiones en la vista de visualización de decisiones (comentada en la iteración anterior), para poder reflejar este cambio de manera síncrona, refrescando el grafo y árbol de decisiones, así como la información asociada a cada una de ellas.
+
+Para terminar, en lo que concierne a la gestión de notificaciones o alertas, se ha diseñado e implementado una vista en el cliente para poder mostrar esas alertas, de manera similar a una vista de correo electrónico, mostrando las alertas leídas y no leídas, la información de dichas alertas, su autor, etc.
 
 
 \subsubsection{Funcionalidad de \textit{Gestión de notificaciones}}
