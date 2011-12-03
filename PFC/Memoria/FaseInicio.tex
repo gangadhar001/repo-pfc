@@ -37,11 +37,11 @@ A continuación, se enumera el conjunto de requisitos funcionales que el sistema 
 	\item Los miembros del equipo de desarrollo normalmente trabajan en varios proyectos, por lo que el sistema deberá permitir escoger el proyecto en el cuál se van a gestionar las decisiones.	
 	\item Los usuarios pueden participar activamente en las decisiones que se van tomando durante el ciclo de vida de los proyectos en los que participan, de tal modo que la herramienta debe permitir gestionar estas decisiones. Así, se podrán crear, modificar y eliminar dichas decisiones, agrupadas en tres categorías: \textit{Temas}, \textit{Propuestas} y \textit{Respuestas}.
 	\item La herramienta debe mostrar, de una manera gráfica e intuitiva, el conjunto de decisiones que han sido tomadas en un proyecto software. Además, se deberá proporcionar diferente información acerca de esas decisiones: su autor, centro de desarrollo y compañía donde pertenece, detalles de esa decisión, etc.
+	\item Cuando se presenta un nuevo proyecto, se debe poder aconsejar decisiones tomadas en proyectos ya terminados, que tuviesen características similares.
 	\item La herramienta debe proveer mecanismos de notificación síncrona y asíncrona que faciliten la comunicación de las últimas modificaciones:
 	\begin{itemize}
 	\item Se debe crear un sistema de notificaciones o alertas, informando al usuario cuando se producen cambios sobre las decisiones de los proyectos donde trabaja.
-	\item Se deben mostrar cambios en tiempo real, es decir, si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su
-vista. 
+	\item Se deben mostrar cambios en tiempo real, es decir, si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su vista. 
 	\end{itemize}
 	\item La herramienta debe poder configurarse y mostrarse en diferentes idiomas.
 	\item La herramienta debe generar \textit{logs} con las acciones que se van realizando en el sistema.
@@ -61,9 +61,9 @@ Una vez identificada esta lista de funciones a las que el sistema debe dar sopor
 		 Login (acceso) \newline 
 		 Logout (desconexión) \\
 	\hline
-	\multicolumn{1}{|c|}{\colorCelda Visualizar Decisiones} & 
+	\multicolumn{1}{|c|}{\colorCelda Visualizar información} & 
 		 Consultar decisiones \newline 
-		 Consultar detalles compañía \\
+		 Visualizar compañía \\
 	\hline
 	\multicolumn{1}{|c|}{\colorCelda Gestión Decisiones} & 
 		 Crear nueva decisión \newline
@@ -78,14 +78,15 @@ Una vez identificada esta lista de funciones a las que el sistema debe dar sopor
 	\multicolumn{1}{|c|}{\colorCelda Gestión Proyectos} & 
 		 Dar de alta un proyecto \newline 
 		 Modificar datos proyecto  \newline
-		 Seleccionar proyecto sobre el que trabajar \\
+		 Seleccionar proyecto sobre el que trabajar \newline
+		 Aconsejar decisiones de proyectos similares \\
 	\hline
 	\multicolumn{1}{|c|}{\colorCelda Gestión Idiomas} & 
 		 Consultar idiomas \newline
 		 Cambiar idioma \\
 	\hline
-	\multicolumn{1}{|c|}{\colorCelda Exportar conocimiento} & 
-		 Exportar conocimiento \\
+	\multicolumn{1}{|c|}{\colorCelda Exportar información} & 
+		 Exportar información \\
 	\hline
 \end{tabular}
 \caption{Requisitos funcionales - v1.0}
@@ -132,7 +133,7 @@ Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:r
 		 \hline
 		 \textbf{Consultar decisiones} & X & X \\
 		 \hline
-		 \textbf{Consultar detalles compañía} & X & X \\
+		 \textbf{Visualizar compañía} & X & X \\
 		 \hline
 		 \textbf{Consultar notificaciones} & X & X \\
 		 \hline
@@ -145,6 +146,8 @@ Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:r
 		 \textbf{Modificar proyecto} &  & X \\
 		 \hline
 		 \textbf{Seleccionar proyecto activo} & X & X \\
+		 \hline
+		 \textbf{Aconsejar decisiones de proyectos similares} & & X \\
 		 \hline
 		 \textbf{Consultar idiomas} & X & X \\
 		 \hline
@@ -257,7 +260,7 @@ En la Figura \ref{fig:CduGestionIdiomas1Cliente} se muestra el diagrama de casos
 \imagen{Cap5/Server1//CduGestionIdiomas}{2.0}{Diagrama de casos de uso - Servidor - Gestión Idiomas - v1.0}{fig:CduGestionIdiomas1Server}
 
 
-\paragraph{Exportar conocimiento}
+\paragraph{Exportar información}
 
 En la Figura \ref{fig:CduExportarConocimiento1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduExportarConocimiento1Server} se muestra el diagrama de casos de uso para el servidor.
 
@@ -313,9 +316,9 @@ Dado que el PUD es centrado y dirigido por casos de uso, se utilizan los casos d
 	\hline
 	\multirow{-2}{*}{\colorCelda Construcción}
 		 \colorCelda & 1 & 
-		 Diseñar caso de uso \textbf{Visualizar decisiones} \newline
-		 Implementar caso de uso \textbf{Visualizar decisiones} \newline
-		 Probar caso de uso \textbf{Visualizar decisiones} \\
+		 Diseñar caso de uso \textbf{Visualizar información} \newline
+		 Implementar caso de uso \textbf{Visualizar información} \newline
+		 Probar caso de uso \textbf{Visualizar información} \\
 		 \cline{2-3}
 		 \colorCelda & 2 &
 		 Diseñar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \newline
@@ -328,9 +331,9 @@ Dado que el PUD es centrado y dirigido por casos de uso, se utilizan los casos d
 		 Probar caso de uso \textbf{Gestión proyectos} \\
 		\cline{2-3}
 		\colorCelda & 4 & 
-	   Diseñar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar conocimiento} \newline
-		 Implementar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar conocimiento} \newline
-		 Probar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar conocimiento} \\
+	   Diseñar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
+		 Implementar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
+		 Probar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \\
 		 \hline
 	\multicolumn{1}{|c|}{\colorCelda Transición} & 1 &
 		 Preparar entregables \newline

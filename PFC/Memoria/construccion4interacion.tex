@@ -121,9 +121,9 @@ Para la creación de los gráficos estadísticos, se hace uso del concepto de \text
 	\item \textit{CategoryDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de líneas. Contiene los datos que corresponden a un valor del eje X en el eje Y. Hereda de la clase \textit{AbstractDataSet}.
 \end{itemize}
 
-En la Figura \ref{fig:clasesGenerarEstadísticas} se muestra el diagrama de clases de diseño para esta funcionalidad, donde se puede observar como la clase controladora de esta funcionalidad (\textit{StatisticsGenerator}) hace uso de estos \textit{datasets}. Además, hace uso de una clase que permite leer y extraer información de archivos XML, utilizada para leer y extraer la información de los gráficos definidos en el fichero XML comentado con anterioridad.
+En la Figura \ref{fig:clasesGenerarEstadisticas} se muestra el diagrama de clases de diseño para esta funcionalidad, donde se puede observar como la clase controladora de esta funcionalidad (\textit{StatisticsGenerator}) hace uso de estos \textit{datasets}. Además, hace uso de una clase que permite leer y extraer información de archivos XML, utilizada para leer y extraer la información de los gráficos definidos en el fichero XML comentado con anterioridad.
 
-\imagen{Cap5/Cliente2//clasesGenerarEstadísticas}{2.0}{Diagrama de clases - Cliente - Generar estadísticas}{fig:clasesGenerarEstadísticas}
+\imagen{Cap5/Cliente2//clasesGenerarEstadisticas}{2.0}{Diagrama de clases - Cliente - Generar estadísticas}{fig:clasesGenerarEstadísticas}
 
 Por tanto, la clase controladora se encarga de realizar las peticiones al servidor para consultar los datos que se necesitan para poder componer los \textit{datasets} necesarios para generar los gráficos. Los datos consultados dependerán del tipo de gráfico a generar, pudiendo representar la cantidad de decisiones realizadas por un usuario, la cantidad de decisiones realizadas en un proyecto, un histórico de un proyecto, etc. En el fragmento de código \ref{list:dataset} se muestra un ejemplo de como generar un \textit{dataset} para un diagrama de barras y de pastel que sirve para representar el número de decisiones que un determinado usuario ha realizado en todos los proyectos en los que participa.
 
