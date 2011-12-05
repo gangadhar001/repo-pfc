@@ -19,6 +19,7 @@ public abstract class Knowledge implements Serializable {
 	protected String title;
 	protected Date date;
 	protected String description;
+	protected KnowledgeStatus status;
 	@XmlElement( name = "Author" ) protected User user;
 		
 	public Knowledge() {
@@ -28,6 +29,7 @@ public abstract class Knowledge implements Serializable {
 		this.title = title;
 		this.description = description;
 		this.date = date;
+		this.status = KnowledgeStatus.Open;
 	}
 	
 	public int getId() {
@@ -68,8 +70,16 @@ public abstract class Knowledge implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
+	}	
 	
+	public KnowledgeStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(KnowledgeStatus status) {
+		this.status = status;
+	}
+
 	public abstract Object clone();
 	
 	public abstract boolean equals(Object o);

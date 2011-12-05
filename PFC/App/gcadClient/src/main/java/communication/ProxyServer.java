@@ -281,5 +281,9 @@ public class ProxyServer implements IServer {
 		return server.exportInformation(sessionId, className, obj);
 	}
 
+	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception {
+		server.changeStatusKnowledge(sessionId, k);		
+	}
+
 
 }

@@ -143,4 +143,6 @@ public interface IServer extends Remote {
 	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception;
 
 	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception;
+
+	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception;
 }

@@ -63,6 +63,7 @@ public class Answer extends Knowledge  {
 		Answer a;
 		a = new Answer(getTitle(), getDescription(), getDate(), getArgument());
 		a.setId(getId());
+		a.setStatus(getStatus());
 		a.setUser((User)getUser().clone());
 		return a;
 	}		

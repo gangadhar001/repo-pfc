@@ -1132,4 +1132,25 @@ public class Server implements IServer {
 		return baos;
 	}
 	
+	@Override
+	// TODO: mensajes
+	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception{
+		String login = "";
+		try{
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			KnowledgeController.changeStatusKnowledge(sessionId,k);
+			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("ComposePDF_msg") );
+		} catch(NonPermissionRoleException nea) {
+			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("NonPermission_ComposePDF_msg"));
+			throw nea;
+		} catch(NotLoggedException wsre) {
+			LogManager.putMessage(IMessageTypeLog.INFO, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ComposePDF_msg"));
+			throw wsre;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("Exception_ComposePDF_msg"));
+			throw e;
+		}
+	}
+	
 }

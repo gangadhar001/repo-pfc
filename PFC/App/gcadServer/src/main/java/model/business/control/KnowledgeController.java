@@ -306,4 +306,17 @@ public class KnowledgeController {
 		
 		return (XMLUtilities.marshal(className, obj)).toByteArray();
 	}
+
+	public static void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException, Exception {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
+		
+		if (k instanceof Topic)
+			DAOTopic.update((Topic)k);
+		else if (k instanceof Proposal)
+			DAOProposal.update((Proposal)k);
+		else 
+			DAOAnswer.update((Answer)k);
+		
+	}
 }

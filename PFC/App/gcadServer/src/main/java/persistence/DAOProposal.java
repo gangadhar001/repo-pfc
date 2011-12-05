@@ -104,6 +104,7 @@ public class DAOProposal {
 			old.setDate(p.getDate());
 			old.setDescription(p.getDescription());
 			old.setTitle(p.getTitle());
+			old.setStatus(p.getStatus());
 			old.setUser(p.getUser());	
 			old.setId(p.getId());
 

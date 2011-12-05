@@ -82,6 +82,7 @@ public class DAOAnswer {
 			old.setDescription(answer.getDescription());
 			old.setTitle(answer.getTitle());
 			old.setUser(answer.getUser());	
+			old.setStatus(answer.getStatus());
 			old.setId(answer.getId());
 
 			DBConnectionManager.update(old);
