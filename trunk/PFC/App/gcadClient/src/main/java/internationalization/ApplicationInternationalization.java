@@ -10,7 +10,7 @@ import resources.LanguagesUtilities;
 
 
 /**
- * This class is used to internationalize the server
+ * This class is used to internationalize the client
  */
 public class ApplicationInternationalization {
 

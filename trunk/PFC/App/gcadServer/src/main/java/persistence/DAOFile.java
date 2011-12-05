@@ -55,7 +55,7 @@ public class DAOFile {
 		return result;
 	}
 	
-	public static List<File> queryAllFiles(int knowledgeId) throws SQLException, NonExistentFileException {
+	public static List<File> queryAllFiles(int knowledgeId) throws SQLException {
 		HibernateQuery query;
 		List<?> data;
 		List<File> result = new ArrayList<File>();
@@ -68,8 +68,6 @@ public class DAOFile {
 				result.add((File) ((File)o).clone());
 			}				
 		}	
-		else
-			throw new NonExistentFileException(AppInternationalization.getString("NonExistentFileException"));
 		
 		// Clear cache
 		for(Object object : data) {

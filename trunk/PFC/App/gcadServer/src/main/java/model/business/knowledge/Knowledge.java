@@ -19,7 +19,7 @@ public abstract class Knowledge implements Serializable {
 	protected String title;
 	protected Date date;
 	protected String description;
-	@XmlElement protected User user;
+	@XmlElement( name = "Author" ) protected User user;
 		
 	public Knowledge() {
 	}

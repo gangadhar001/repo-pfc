@@ -17,7 +17,7 @@ import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
 import model.business.knowledge.Project;
 
 /**
-* Class used to apply the Nearest Neighbour algorithm
+* Class used to apply the Nearest Neighbor algorithm
 */
 public class NNMethod {
 

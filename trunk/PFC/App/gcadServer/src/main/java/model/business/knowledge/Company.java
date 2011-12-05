@@ -19,7 +19,7 @@ public class Company implements Serializable {
 	private String cif; 
 	private String name;
 	private String information;
-	@XmlElement private Address address;
+	@XmlElement( name = "Address" ) private Address address;
 	
 	public Company () {
 	}

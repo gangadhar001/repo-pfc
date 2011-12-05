@@ -8,6 +8,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -32,6 +34,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.xml.bind.JAXBException;
 
 import model.business.knowledge.Company;
 import model.business.knowledge.File;
@@ -41,12 +44,14 @@ import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Project;
+import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jfree.chart.ChartPanel;
+import org.jfree.ui.ExtensionFileFilter;
 
 import presentation.CBR.JDConfigProject;
 import presentation.customComponents.CustomMenubar;
@@ -59,6 +64,7 @@ import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelPDFGeneration;
 import presentation.panelsActions.panelStatisticsGeneration;
 import resources.ImagesUtilities;
+import resources.XMLUtilities;
 import bussiness.control.Client;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
@@ -725,6 +731,48 @@ public class JFMain extends SingleFrameApplication {
 
 	public void setStatusText(String message) {
 		lblStatus.setText(message);		
+	}
+
+	public void manageExportInformation() {
+		byte[] baos;
+		java.io.File f;
+		try {
+			JFileChooser fc = new JFileChooser();
+			ExtensionFileFilter filter = new ExtensionFileFilter("XML File", "XML");
+			fc.setFileFilter(filter);
+			fc.showSaveDialog(getMainFrame());
+			if ((f = fc.getSelectedFile()) != null)  {
+				baos = ClientController.getInstance().exportInformation();		
+				if (baos != null) {
+					String path = f.getAbsolutePath();
+					if (!path.endsWith("."))
+						path += ".xml";
+			        FileOutputStream fos = new FileOutputStream(path);
+			        fos.write(baos);
+				}
+				else ; // TODO: error
+			}
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRoleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

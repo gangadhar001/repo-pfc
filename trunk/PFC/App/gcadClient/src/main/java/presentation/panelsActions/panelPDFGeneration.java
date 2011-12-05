@@ -263,6 +263,7 @@ public class panelPDFGeneration extends ImagePanel {
 		 }
 	 }
 	 
+	 // Create the sections of PDF Document
 	 public void compile() throws RemoteException, NotLoggedException, Exception {
 		 // Get sections and its elements
 		 List<PDFSection> sections = new ArrayList<PDFSection>();
@@ -279,7 +280,8 @@ public class panelPDFGeneration extends ImagePanel {
 					 element = new PDFText(((panelPDFDraggedText)pd).getContent());
 				 }
 				 else if (pd instanceof panelPDFDraggedTable) {
-					 // If user is not the chief, it is only done for the employee's current project
+					 // By default, select the current project
+					 // TODO:
 					 if (ClientController.getInstance().getLoggedUser().getRole().name().equals(UserRole.Employee)) {
 						 int index = ClientController.getInstance().getCurrentProject();
 						 element = new PDFTable(ClientController.getInstance().getProjectsFromCurrentUser().get(index));

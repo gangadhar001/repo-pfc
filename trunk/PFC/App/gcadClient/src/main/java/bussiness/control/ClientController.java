@@ -2,6 +2,7 @@ package bussiness.control;
 
 import internationalization.ApplicationInternationalization;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -36,6 +37,7 @@ import presentation.JFLogin;
 import presentation.JFMain;
 import resources.LanguagesUtilities;
 import resources.Language;
+import resources.XMLUtilities;
 
 import communication.CommunicationsUtilities;
 import communication.ExportedClient;
@@ -439,6 +441,11 @@ public class ClientController {
 
 	public int getCurrentProject() throws RemoteException, NotLoggedException, Exception {
 		return server.getCurrentProject(session.getId());
+	}
+
+	public byte[] exportInformation() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		TopicWrapper tw = ClientController.getInstance().getTopicsWrapper();
+		return server.exportInformation(session.getId(), tw.getClass(), tw);
 	}	
 	
 }

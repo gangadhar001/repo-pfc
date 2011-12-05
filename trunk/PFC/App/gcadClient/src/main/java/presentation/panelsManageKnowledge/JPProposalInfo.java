@@ -68,7 +68,7 @@ public class JPProposalInfo extends javax.swing.JPanel {
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
-								new String[] { "Analysis", "Design" });
+								new String[] { "Analysis", "Design", "Development", "Testing"});
 					cbCategories = new JComboBox();
 					panelProposalInfo.add(cbCategories, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					cbCategories.setModel(cbCategoriesModel);
