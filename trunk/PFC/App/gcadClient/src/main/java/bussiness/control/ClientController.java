@@ -446,6 +446,11 @@ public class ClientController {
 	public byte[] exportInformation() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
 		TopicWrapper tw = ClientController.getInstance().getTopicsWrapper();
 		return server.exportInformation(session.getId(), tw.getClass(), tw);
+	}
+
+	public void changeStatusKnowledge(Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception {
+		server.changeStatusKnowledge(session.getId(), k);
+		
 	}	
 	
 }

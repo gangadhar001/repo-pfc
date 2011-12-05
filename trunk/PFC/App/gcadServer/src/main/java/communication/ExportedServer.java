@@ -332,4 +332,10 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
 		return server.exportInformation(sessionId, className, obj);
 	}
+
+	@Override
+	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception {
+		server.changeStatusKnowledge(sessionId, k);
+		
+	}
 }

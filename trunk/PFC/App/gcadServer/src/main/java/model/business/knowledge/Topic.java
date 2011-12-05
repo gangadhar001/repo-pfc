@@ -106,6 +106,7 @@ public class Topic extends Knowledge {
 		Set<Proposal> proposals = new HashSet<Proposal>();
 		t = new Topic(getTitle(), getDescription(), getDate());
 		t.setId(getId());
+		t.setStatus(getStatus());
 		if (getProject() != null)
 			t.setProject((Project)getProject().clone());
 		if (getUser() != null)

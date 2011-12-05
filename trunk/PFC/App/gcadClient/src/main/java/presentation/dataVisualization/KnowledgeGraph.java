@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
@@ -22,6 +23,7 @@ import javax.swing.JPopupMenu;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.KnowledgeStatus;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
@@ -277,6 +279,28 @@ public class KnowledgeGraph {
 			}	   	     	
 		}
 	}
+	
+	public static void setStatus(KnowledgeStatus status) {
+		selectedVertex.setStatus(status);
+		try {
+			ClientController.getInstance().changeStatusKnowledge(selectedVertex);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NonPermissionRoleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotLoggedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	private static void setAttachIconVertex(Knowledge selectedVertex) {
 		Icon icon = vertexIconTransformer.transform(selectedVertex);
@@ -294,6 +318,10 @@ public class KnowledgeGraph {
 	public static void setSelectedVertex(Knowledge selectedVertex) {
 		KnowledgeGraph.selectedVertex = selectedVertex;
 		parent.setKnowledgeSelectedGraph(selectedVertex);				
+	}
+
+	public static Object getSelectedVertex() {
+		return selectedVertex;
 	}	
 	
 }

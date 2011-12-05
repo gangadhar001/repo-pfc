@@ -90,6 +90,7 @@ public class Proposal extends Knowledge {
 		HashSet<Answer> answers = new HashSet<Answer>();
 		p = new Proposal(getTitle(), getDescription(), getDate(), getCategory());
 		p.setId(getId());
+		p.setStatus(getStatus());
 		if (getUser() != null)
 			p.setUser((User)getUser().clone());
 		for (Answer a: getAnswers())
