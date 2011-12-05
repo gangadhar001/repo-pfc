@@ -68,7 +68,7 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
-								new String[] { "Pro", "Contra" });
+								new String[] { "Agree", "Disagree", "Neutral" });
 					cbArgument = new JComboBox();
 					panelAnswerInfo.add(cbArgument, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					cbArgument.setModel(cbCategoriesModel);

@@ -352,7 +352,6 @@ public class JFLogin extends SingleFrameApplication {
 				ip = txtServerIP.getText();
 				port = txtServerPort.getText();
 			}
-
 		
 			btnLogin.setEnabled(false);
 			// Invoke a new thread in order to show the panel with the loading

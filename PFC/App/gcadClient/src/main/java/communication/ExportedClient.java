@@ -76,9 +76,9 @@ public class ExportedClient extends UnicastRemoteObject implements IClient{
         }
         try {
         	
-            Naming.bind("rmi://" + ip + ":" + String.valueOf(port) + "/" + "cliente", this);
+            Naming.bind("rmi://" + ip + ":" + String.valueOf(port) + "/" + CLIENT_NAME, this);
         } catch(AlreadyBoundException ex) {
-            Naming.rebind("rmi://" + ip + ":" + String.valueOf(port) + "/" + "cliente", this);
+            Naming.rebind("rmi://" + ip + ":" + String.valueOf(port) + "/" + CLIENT_NAME, this);
         }
     }
     

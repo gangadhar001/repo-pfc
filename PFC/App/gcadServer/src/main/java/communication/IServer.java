@@ -1,5 +1,6 @@
 package communication;
 
+import java.io.ByteArrayOutputStream;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -140,4 +141,6 @@ public interface IServer extends Remote {
 	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 
 	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception;
+
+	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception;
 }

@@ -1,5 +1,6 @@
 package communication;
 
+import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
@@ -325,5 +326,10 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	@Override
 	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception {
 		return server.getCurrentProject(sessionId);		
+	}
+
+	@Override
+	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.exportInformation(sessionId, className, obj);
 	}
 }

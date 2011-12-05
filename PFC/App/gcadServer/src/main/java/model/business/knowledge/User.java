@@ -32,7 +32,7 @@ public abstract class User implements Serializable {
 	protected int seniority;
 	@XmlElement( name = "Project" )
 	private Set<Project> projects = new HashSet<Project>();
-	@XmlElement private Company company;
+	@XmlElement( name = "Company" ) private Company company;
 	
 	public User () {
 		

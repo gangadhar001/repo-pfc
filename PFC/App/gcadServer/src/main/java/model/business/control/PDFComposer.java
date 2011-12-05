@@ -78,8 +78,10 @@ public class PDFComposer {
 	
 	private static void composePDF (long sessionId, Document doc, PDFConfiguration config) throws NumberFormatException, RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		int count = 1;
+		// Create the chapter 
 		Chapter ch = new Chapter(count);
 		ch.setNumberDepth(0);
+		// Create the different sections
 		for (PDFSection section : config.getSections()) {	
 			Section s = ch.addSection(4f, "");
 			generateContent(sessionId, s, section);

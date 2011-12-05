@@ -1,6 +1,6 @@
 package resources;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -19,14 +19,16 @@ import org.jdom.xpath.XPath;
 public class XMLUtilities {
 
 	// Marshal domain class into XML file, using JAXB
-	public static <E> void marshal(String fileName, Class<E> className, Object obj) throws JAXBException {
+	public static <E> ByteArrayOutputStream marshal(Class<E> className, Object obj) throws JAXBException {
     
 	    JAXBContext jaxbContent = JAXBContext.newInstance(className);
 	
 	    Marshaller marshaller = jaxbContent.createMarshaller();
 	    marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); 
 	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-	    marshaller.marshal(obj, new File (fileName));    
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    marshaller.marshal(obj, baos);
+	    return baos;
     }
     
     /*** Methods used to read and parse XML, using JDOM and XPath  ***/

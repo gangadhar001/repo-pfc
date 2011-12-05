@@ -34,7 +34,6 @@ public class JDConfigProject extends javax.swing.JDialog {
 	 */
 	private static final long serialVersionUID = -6500564343875421781L;
 	private panelProjectInformation panelProjectInformationCreate;
-	private JPanel panelCreateProject;
 	private panelConfigSimil panelConfigSimil;
 	private JButton btnCancel;
 	private JButton btnForward;
@@ -57,16 +56,9 @@ public class JDConfigProject extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				{
-					// Create Project Panel
-					panelCreateProject = new JPanel();
-					getContentPane().add(panelCreateProject);
-					panelConfigSimil.setBounds(14, 37, 380, 441);
-					panelCreateProject.setLayout(null);
-					{
-						panelProjectInformationCreate = new panelProjectInformation(this);
-						panelCreateProject.add(panelProjectInformationCreate);
-						panelProjectInformationCreate.setBounds(12, 12, 533, 450);
-					}
+					panelProjectInformationCreate = new panelProjectInformation(this);
+					getContentPane().add(panelProjectInformationCreate);
+					panelProjectInformationCreate.setBounds(14, 12, 380, 466);
 				}
 				
 				panelProjectInformationCreate.showData(new Project(), true);
@@ -74,7 +66,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 				// Config Simil Panel
 				panelConfigSimil = new panelConfigSimil(this);
 				getContentPane().add(panelConfigSimil);
-				panelConfigSimil.setBounds(14, 37, 380, 441);
+				panelConfigSimil.setBounds(14, 12, 380, 466);
 				panelConfigSimil.setVisible(false);
 
 			}
@@ -103,10 +95,12 @@ public class JDConfigProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Next() {
-		panelCreateProject.setVisible(false);
+		panelProjectInformationCreate.setVisible(false);
 		this.setTitle(ApplicationInternationalization.getString("configSimiTitle"));
 		panelConfigSimil.setVisible(true);
 		panelConfigSimil.setProject(panelProjectInformationCreate.getProject());
+		this.validate();
+		this.repaint();
 	}
 	
 	@Action
@@ -115,11 +109,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	}
 
 	public JPanel getPanelCreateProject() {
-		return panelCreateProject;
-	}
-
-	public void setPanelCreateProject(JPanel panelCreateProject) {
-		this.panelCreateProject = panelCreateProject;
+		return panelProjectInformationCreate;
 	}
 
 	public InfiniteProgressPanel getGlassPane() {

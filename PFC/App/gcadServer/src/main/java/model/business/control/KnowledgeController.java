@@ -1,8 +1,11 @@
 package model.business.control;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.JAXBException;
 
 import model.business.knowledge.Answer;
 import model.business.knowledge.File;
@@ -20,8 +23,8 @@ import persistence.DAOAnswer;
 import persistence.DAOFile;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
+import resources.XMLUtilities;
 import exceptions.NonExistentAnswerException;
-import exceptions.NonExistentFileException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
 import exceptions.NonPermissionRoleException;
@@ -162,11 +165,11 @@ public class KnowledgeController {
 				newProposal.setAnswers(oldProposal.getAnswers());
 				newParent.add(newProposal);
 			} catch(NonExistentProposalException e) {
-				// Restaure parent
+				// Restore parent
 				newParent = (Topic) auxParent.clone();
 				throw e;
 			} catch(NonExistentTopicException e) {
-				// Restaure parent
+				// Restore parent
 				newParent = (Topic) auxParent.clone();
 				throw e;				
 			} catch(SQLException e) {
@@ -181,10 +184,11 @@ public class KnowledgeController {
 			try {
 				DAOProposal.update(newProposal);
 			} catch(NonExistentProposalException e) {
-				// Restaure parent
+				// Restore parent
 				newParent = (Topic) auxParent.clone();
 				throw e;				
 			} catch(SQLException e) {
+				// Restore parent
 				newParent = (Topic) auxParent.clone();
 				throw e;	
 			}			
@@ -207,14 +211,15 @@ public class KnowledgeController {
 				newParent.add(newAnswer);
 		
 			} catch(NonExistentProposalException e) {
-				// Restaure parent
+				// Restore parent
 				newParent = (Proposal) auxParent.clone();
 				throw e;
 			} catch(NonExistentAnswerException e) {
-				// Restaure parent
+				// Restore parent
 				newParent = (Proposal) auxParent.clone();
 				throw e;				
 			} catch(SQLException e) {
+				// Restore parent
 				newParent = (Proposal) auxParent.clone();
 				throw e;	
 			}
@@ -225,10 +230,11 @@ public class KnowledgeController {
 				newParent.add(newAnswer);
 				DAOAnswer.update(newAnswer);
 			} catch(NonExistentAnswerException e) {
-				// Restaure parent
+				// Restore parent
 				newParent = (Proposal) auxParent.clone();
 				throw e;				
 			} catch(SQLException e) {
+				// Restore parent
 				newParent = (Proposal) auxParent.clone();
 				throw e;	
 			}
@@ -281,15 +287,23 @@ public class KnowledgeController {
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Add.name()));
 
 		DAOFile.insert(file);
+		
 		// Return the auto-assigned id
 		return file.getId();
 	}
 
-	public static List<File> getAttachedFiles(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException, NonExistentFileException {
+	public static List<File> getAttachedFiles(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
 
 		return DAOFile.queryAllFiles(k.getId());
 		
-	}		
+	}	
+	
+	public static <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws NonPermissionRoleException, NotLoggedException, JAXBException {
+		// Check if have permission to perform the operation
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
+		
+		return (XMLUtilities.marshal(className, obj)).toByteArray();
+	}
 }

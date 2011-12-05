@@ -31,6 +31,7 @@ import javax.swing.border.EtchedBorder;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
+import model.business.knowledge.Operations;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.application.Action;
@@ -75,6 +76,7 @@ public class CustomMenubar extends JMenuBar {
 		super();
 		
 		this.mainFrame = mainFrame;
+		List<String> groups = OperationsUtilities.getAllGroupsMenu(operations);
 		
 		// Set layout to menu bar
 		setLayout(new MigLayout("align left"));
@@ -92,19 +94,24 @@ public class CustomMenubar extends JMenuBar {
 		menuFile.add(menuFileCloseSession);
 		menuFile.addSeparator();
 		
+		// Add "Export" operation
+		if (groups.contains(Operations.Export.name())) {
+			menuFile.add(createMenuItem(Operations.Export.name()));
+			menuFile.addSeparator();
+		}
+		
 		JMenuItem menuFileExit = new JMenuItem();
-		menuFile.add(menuFileExit);
 		menuFileExit.setName("menuFileExit");
 		menuFileExit.setAction(getAppActionMap().get("Exit"));
 		menuFileExit.setText(ApplicationInternationalization.getString("menuItemExit"));
 		menuFileExit.setIcon(ImagesUtilities.loadIcon("menus/exit.png"));
+		menuFile.add(menuFileExit);
 
 		menuTools = new JMenu(ApplicationInternationalization.getString("menuTools"));
 		menuTools.setName("menuTools");
 
 		// Add menu items to "Tools" menu. Each menu item is a group of
 		// operations
-		List<String> groups = OperationsUtilities.getAllGroupsMenu(operations);
 		for (String group : groups) {
 			createToolMenuItem(group);
 		}
@@ -168,20 +175,26 @@ public class CustomMenubar extends JMenuBar {
 		
 	}
 	
+	// Create menu item
+	private JMenuItem createMenuItem(String groupName) {
+		JMenuItem item = new JMenuItem();	        
+		item.setName("Manage_"+groupName);
+        item.setAction(getAppActionMap().get(item.getName()));
+        item.setText(ApplicationInternationalization.getString("manage"+groupName));
+        ImageIcon icon = null;
+		try {
+			icon = ImagesUtilities.loadIcon("menus/" + item.getName() + ".png");
+		} catch (Exception e) { }
+        if (icon != null)
+        	item.setIcon(icon);
+        
+        return item;        
+    }
+	
 	// Create all submenus for one menu (one group of operations)
 	private void createToolMenuItem(String groupName) {
-        if (!groupName.equals(Groups.Notifications.name())) {
-	        JMenuItem item = new JMenuItem();
-            item.setName("Manage_"+groupName);
-            item.setAction(getAppActionMap().get(item.getName()));
-            item.setText(ApplicationInternationalization.getString("manage"+groupName));
-            ImageIcon icon = null;
-			try {
-				icon = ImagesUtilities.loadIcon("menus/" + item.getName() + ".png");
-			} catch (Exception e) { }
-            if (icon != null)
-            	item.setIcon(icon);
-            menuTools.add(item);
+        if (!groupName.equals(Groups.Notifications.name())) {	        
+            menuTools.add(createMenuItem(groupName));
         }
     }
 
@@ -279,6 +292,11 @@ public class CustomMenubar extends JMenuBar {
 					ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
 					JOptionPane.YES_OPTION)
 			mainFrame.closeSessionConfirm();
+	}	
+
+	@Action
+	public void Manage_Export() {
+		mainFrame.manageExportInformation();
 	}
 
 	@Action

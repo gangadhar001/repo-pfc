@@ -69,5 +69,12 @@
 				</Operations>
 			</Subgroup>
 		</Group>
+		<Group id="Export" view="False">
+			<Subgroup id="Export">
+				<Operations>
+					<id>Export</id>
+				</Operations>
+			</Subgroup>
+		</Group>
 	</Profile>	
 </Profiles>

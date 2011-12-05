@@ -2,6 +2,7 @@ package model.business.control;
 
 import internationalization.AppInternationalization;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -43,7 +44,6 @@ import communication.IServer;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentAnswerException;
-import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
@@ -1059,7 +1059,7 @@ public class Server implements IServer {
 		return id;
 	}
 	
-	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception {
+	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		List<File> files = new ArrayList<File>();
 		try{
@@ -1108,4 +1108,28 @@ public class Server implements IServer {
 		}
 		return doc;
 	}
+	
+	@Override
+	// TODO: mensajes
+	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
+		String login = "";
+		byte[] baos;
+		try{
+			Session session = SessionController.getSession(sessionId);
+			login = session.getUser().getLogin();
+			baos = KnowledgeController.exportInformation(sessionId, className, obj);
+			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("ComposePDF_msg") );
+		} catch(NonPermissionRoleException nea) {
+			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("NonPermission_ComposePDF_msg"));
+			throw nea;
+		} catch(NotLoggedException wsre) {
+			LogManager.putMessage(IMessageTypeLog.INFO, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ComposePDF_msg"));
+			throw wsre;
+		} catch(Exception e) {
+			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("Exception_ComposePDF_msg"));
+			throw e;
+		}
+		return baos;
+	}
+	
 }
