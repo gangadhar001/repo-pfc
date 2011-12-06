@@ -31,6 +31,8 @@ import model.business.knowledge.PDFConfiguration;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import resources.CursorUtilities;
+
 import bussiness.control.ClientController;
 
 import com.itextpdf.text.DocumentException;
@@ -88,14 +90,13 @@ public class JDPdf extends JDialog {
 	public JDPdf(PDFConfiguration config) {
 		super();
 		this.configuration = config;
-		setTitle(ApplicationInternationalization.getString("PDFDialog_Title"));
+		this.setTitle(ApplicationInternationalization.getString("PDFDialog_Title"));
 		initGUI();			
 	}
 
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			setTitle(ApplicationInternationalization.getString("TitleJFPdf"));
 			getContentPane().setLayout(null);
 			{
 				panelData = new JPanel();
@@ -159,7 +160,7 @@ public class JDPdf extends JDialog {
 					{
 						chkHeader = new JCheckBox();
 						panelContent.add(chkHeader, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 122, 0, 0), 0, 0));
-						chkHeader.setBounds(141, 4, 14, 17);
+						chkHeader.setBounds(141, 4, 18, 17);
 						chkHeader.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								chkHeaderActionPerformed();
@@ -170,20 +171,20 @@ public class JDPdf extends JDialog {
 						txtPathHeader = new JTextField();
 						panelContent.add(txtPathHeader, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 						txtPathHeader.setName("txtPathHeader");
-						txtPathHeader.setBounds(5, 29, 334, 23);
+						txtPathHeader.setBounds(5, 29, 322, 23);
 					}
 					{
 						txtPathFoot = new JTextField();
 						panelContent.add(txtPathFoot, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 						txtPathFoot.setName("txtPathFoot");
-						txtPathFoot.setBounds(5, 101, 334, 23);
+						txtPathFoot.setBounds(5, 101, 322, 23);
 					}
 					{
 						btnBrowseHeader = new JButton();
 						panelContent.add(btnBrowseHeader, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 						btnBrowseHeader.setName("btnBrowseHeader");
 						btnBrowseHeader.setText(ApplicationInternationalization.getString("btnBrowse"));
-						btnBrowseHeader.setBounds(356, 29, 65, 23);
+						btnBrowseHeader.setBounds(339, 29, 82, 23);
 						btnBrowseHeader.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnBrowseHeaderActionPerformed();
@@ -195,7 +196,7 @@ public class JDPdf extends JDialog {
 						panelContent.add(btnBrowseFoot, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 						btnBrowseFoot.setName("btnBrowseFoot");
 						btnBrowseFoot.setText(ApplicationInternationalization.getString("btnBrowse"));
-						btnBrowseFoot.setBounds(356, 101, 67, 23);
+						btnBrowseFoot.setBounds(339, 101, 84, 23);
 						btnBrowseFoot.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								btnBrowseFootActionPerformed();
@@ -205,7 +206,7 @@ public class JDPdf extends JDialog {
 					{
 						chkFoot = new JCheckBox();
 						panelContent.add(chkFoot, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 122, 0, 0), 0, 0));
-						chkFoot.setBounds(141, 75, 14, 17);
+						chkFoot.setBounds(141, 75, 18, 17);
 						chkFoot.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								chkFootActionPerformed();
@@ -246,54 +247,81 @@ public class JDPdf extends JDialog {
 	@Action
 	public void save() {
 		File path = null;	
-		// TODO: añadir metadatos del PDF (autor, hora, asunto ...). Validarlos
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(ApplicationInternationalization.getString("PDFFile"), "pdf", "PDF");
-		JFileChooser fileChooser = new JFileChooser();       
-		fileChooser.setFileFilter(filter);
-		int result = fileChooser.showSaveDialog(this);
-		if (result == JFileChooser.APPROVE_OPTION ) {
-			path = fileChooser.getSelectedFile().getAbsoluteFile();
-			try {
-				byte[] document = ClientController.getInstance().composePDF(configuration, getImage(headerImagePath), getImage(footImagePath));
-				FileOutputStream doc = new FileOutputStream(path);
-				doc.write(document);
-				doc.close();
-				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("PDFCorrect_msg"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-			} catch(IOException e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);			
-			} catch (DocumentException e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NumberFormatException e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (SQLException e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRoleException e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NotLoggedException e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (Exception e) {
-				if (path != null)
-					path.delete();
-				JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		if (validData()){
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(ApplicationInternationalization.getString("PDFFile"), "pdf", "PDF");
+			JFileChooser fileChooser = new JFileChooser();       
+			fileChooser.setFileFilter(filter);
+			int result = fileChooser.showSaveDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION ) {
+				path = fileChooser.getSelectedFile().getAbsoluteFile();
+				String outputPath = path.getAbsolutePath();
+				if (!path.getAbsolutePath().endsWith(".pdf"))
+					outputPath = path.getAbsolutePath() + ".pdf";
+				try {
+					byte[] document = ClientController.getInstance().composePDF(configuration, getImage(headerImagePath), getImage(footImagePath));
+					FileOutputStream doc = new FileOutputStream(outputPath);
+					doc.write(document);
+					doc.close();
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("PDFCorrect_msg"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);				
+				} catch(IOException e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);			
+				} catch (DocumentException e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (SQLException e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NonPermissionRoleException e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (NotLoggedException e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				} catch (Exception e) {
+					CursorUtilities.showDefaultCursor(this);
+					JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				}
+				this.dispose();
 			}
-			this.dispose();
         }
 	}
 	
+	private boolean validData() {
+		boolean valid = true;
+		if (txtSubject.getText().isEmpty()) 
+		{
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("SubjectNotEmpty"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			valid = false;
+		}
+		else if (txtTitle.getText().isEmpty())
+		{
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("TitleNotEmpty"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			valid = false;
+		}
+		else if (txtPathFoot.getText().isEmpty() && chkFoot.isSelected()){
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("FootNotEmpty"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			valid = false;
+		}
+		else if (txtPathHeader.getText().isEmpty() && chkHeader.isSelected()){
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("HeaderNotEmpty"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			valid = false;
+		}
+			
+		return valid;
+	}
+
 	@Action
 	public void Cancel () {
+		CursorUtilities.showDefaultCursor(this);
 		this.dispose();
 	}
 	

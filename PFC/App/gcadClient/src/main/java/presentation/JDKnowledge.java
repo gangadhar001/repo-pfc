@@ -26,15 +26,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Subgroups;
 
 import org.jdesktop.application.Application;
-
-import edu.uci.ics.jung.visualization.decorators.EdgeShape.Box;
 
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;

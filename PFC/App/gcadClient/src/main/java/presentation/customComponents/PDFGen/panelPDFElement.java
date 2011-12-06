@@ -1,6 +1,7 @@
 package presentation.customComponents.PDFGen;
 import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
+
+import exceptions.NotLoggedException;
 
 // REFERENCE: http://www.codeproject.com/KB/java/rounded-jpanel.aspx
 
@@ -8,9 +9,11 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import org.jdesktop.application.Application;
@@ -105,13 +108,21 @@ public class panelPDFElement extends RoundedPanel {
 
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	 
 	 private void btnAddActionPerformed() {
-		 parent.addPanelToSection(this);
+		 try {
+			parent.addPanelToSection(this);
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
 	 }
 
 	public String getTitle() {

@@ -4,24 +4,17 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.EventObject;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -44,9 +37,6 @@ import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
-import model.business.knowledge.Project;
-import model.business.knowledge.TopicWrapper;
-import model.business.knowledge.User;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -66,8 +56,6 @@ import presentation.panelsActions.panelPDFGeneration;
 import presentation.panelsActions.panelStatisticsGeneration;
 import resources.CursorUtilities;
 import resources.ImagesUtilities;
-import resources.XMLUtilities;
-import bussiness.control.Client;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
@@ -410,19 +398,7 @@ public class JFMain extends SingleFrameApplication {
 	@Action
 	public void CompilePDF() {
 		if (panelPDF != null)
-			try {
-				panelPDF.compile();
-			} catch (RemoteException e) {
-				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRoleException e) {
-				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NotLoggedException e) {
-				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			}
+			panelPDF.compile();
 	}
 	
 	@Action
@@ -626,11 +602,27 @@ public class JFMain extends SingleFrameApplication {
 		
 		stopProgressBar();
 	}
+	
+	private void createPdfView() 
+	{
+		clearViews();
+		createToolbarPDFGenView();
+		panelPDF = new panelPDFGeneration(this);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) { }
+		
+		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(60, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		mainPanel.setVisible(false);
+		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 609));
+		
+		stopProgressBar();
+	}
 		
 	private void clearViews() {
 		Component component = null;
 		for(Component c: getMainFrame().getContentPane().getComponents()) {
-			// only exists one at same time
+			// Only exists one at same time
 			if (c instanceof panelNotificationsView || c instanceof panelKnowledgeView || c instanceof panelStatisticsGeneration || c instanceof panelPDFGeneration)
 				component = c;
 		}
@@ -638,15 +630,18 @@ public class JFMain extends SingleFrameApplication {
 			getMainFrame().getContentPane().remove(component);
 	}
 
-	public void showPDFView() {
-		mainPanel.setVisible(false);
-		clearViews();
-		createToolbarPDFGenView();
-		panelPDF = new panelPDFGeneration(this);
-		
-		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(60, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 604));
-		
+	public void showPDFView() {		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				startProgressBar();
+				Thread performer = new Thread(new Runnable() {
+					public void run() {
+						createPdfView();
+					}					
+				}, "Performer");
+				performer.start();
+			}
+		});	
 	}
 
 	// Method to enable or disable a toolbar button

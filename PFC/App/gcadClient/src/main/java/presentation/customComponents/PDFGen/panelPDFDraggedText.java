@@ -1,12 +1,16 @@
 package presentation.customComponents.PDFGen;
 import java.io.IOException;
+import javax.swing.JButton;
+
+import javax.swing.ActionMap;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import javax.swing.JTextField;
+import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.customComponents.ImagePanel;
+import presentation.panelsActions.panelPDFGeneration;
 import resources.ImagesUtilities;
 
 /**
@@ -30,37 +34,55 @@ public class panelPDFDraggedText extends panelPDFDragged {
 	private ImagePanel imagePanel;
 	private JTextArea txtDescription;
 	private JScrollPane jScrollPane1;
+	private JButton btnDelete;
+	private panelPDFGeneration parent;
 
-	public panelPDFDraggedText() {
+	public panelPDFDraggedText(panelPDFGeneration parent) {
 		super();
+		this.parent = parent;
 		initGUI();
 	}
 
 	private void initGUI() {
 		{
-			this.setPreferredSize(new java.awt.Dimension(646, 117));
+			this.setPreferredSize(new java.awt.Dimension(646, 95));
 			this.setLayout(null);
-			this.setSize(646, 117);
-			this.setMinimumSize(new java.awt.Dimension(646, 117));
-			this.setMaximumSize(new java.awt.Dimension(646, 117));
+			this.setSize(646, 95);
+			this.setMinimumSize(new java.awt.Dimension(646, 95));
+			this.setMaximumSize(new java.awt.Dimension(646, 95));
 			{
 				imagePanel = new ImagePanel();
 				try {
 					imagePanel.setImage(ImagesUtilities.loadCompatibleImage("PDFElements/Text.png"));
 				} catch (IOException e) { }
 				this.add(imagePanel);
-				imagePanel.setBounds(12, 33, 50, 45);
+				imagePanel.setBounds(12, 27, 52, 45);
 			}
 			{
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1);
-				jScrollPane1.setBounds(79, 12, 555, 93);
+				jScrollPane1.setBounds(79, 6, 536, 83);
 				{
 					txtDescription = new JTextArea();
 					jScrollPane1.setViewportView(txtDescription);
 					txtDescription.setBounds(79, 12, 555, 93);
 					txtDescription.setName("txtDescription");
+					txtDescription.setPreferredSize(new java.awt.Dimension(525, 74));
 				}
+			}
+			{
+				btnDelete = new JButton();
+				this.add(btnDelete);
+				btnDelete.setAction(getAppActionMap().get("Delete"));
+				btnDelete.setName("btnDelete");
+				try {
+					btnDelete.setIcon(ImagesUtilities.loadIcon("menus/remove.png"));
+				} catch (Exception e) { }
+			}
+			{
+				btnDelete.setText("");
+				btnDelete.setBounds(621, 5, 20, 15);
+				btnDelete.setSize(20, 20);
 			}
 		}
 
@@ -69,5 +91,14 @@ public class panelPDFDraggedText extends panelPDFDragged {
 
 	public String getContent() {
 		return txtDescription.getText().trim();
+	}
+	
+	private ActionMap getAppActionMap() {
+        return Application.getInstance().getContext().getActionMap(this);
+    }
+	
+	@Action
+	public void Delete () {
+		parent.removeDragged(this);
 	}
 }

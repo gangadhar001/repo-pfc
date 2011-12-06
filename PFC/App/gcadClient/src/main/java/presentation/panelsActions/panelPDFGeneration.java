@@ -3,6 +3,7 @@ package presentation.panelsActions;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,7 +18,10 @@ import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -28,17 +32,13 @@ import model.business.knowledge.PDFSection;
 import model.business.knowledge.PDFTable;
 import model.business.knowledge.PDFText;
 import model.business.knowledge.PDFTitle;
-import model.business.knowledge.UserRole;
 
 import org.jdesktop.application.Application;
-
-import exceptions.NotLoggedException;
-
-import bussiness.control.ClientController;
 
 import presentation.JDPdf;
 import presentation.JFMain;
 import presentation.customComponents.ImagePanel;
+import presentation.customComponents.RoundedPanel;
 import presentation.customComponents.PDFGen.panelPDFDragged;
 import presentation.customComponents.PDFGen.panelPDFDraggedTable;
 import presentation.customComponents.PDFGen.panelPDFDraggedText;
@@ -46,7 +46,9 @@ import presentation.customComponents.PDFGen.panelPDFDraggedTitle;
 import presentation.customComponents.PDFGen.panelPDFElement;
 import presentation.dragdrop.DragAndDropTransferHandler;
 import presentation.dragdrop.PanelDropTargetListener;
+import resources.CursorUtilities;
 import resources.ImagesUtilities;
+import exceptions.NotLoggedException;
 
 
 /**
@@ -68,8 +70,11 @@ public class panelPDFGeneration extends ImagePanel {
 	private static final long serialVersionUID = 3144486182937579912L;
 	
 	private JPanel panelElements;
+	private JPanel panelHeader;
+	private JScrollPane scrollSection1;
 	private JPanel sectionPanel_1;
 	private panelPDFElement panelPDFElementTable;
+	private JLabel lblHeader;
 	private panelPDFElement panelPDFElementText;
 	private panelPDFElement panelPDFElementTitle;
 	private JTabbedPane tabbedPane;
@@ -109,8 +114,9 @@ public class panelPDFGeneration extends ImagePanel {
 			thisLayout.columnWeights = new double[] {0.0, 0.9};
 			thisLayout.columnWidths = new int[] {7, 7};
 			{
-				panelElements = new JPanel();
-				this.add(panelElements, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20, 60, 20, 80), 0, 0));
+				panelElements = new RoundedPanel();
+				panelElements.setOpaque(false);
+				this.add(panelElements, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 60, 20, 80), 0, 0));
 				panelElements.setLayout(null);
 				panelElements.setSize(133, 522);
 				panelElements.setPreferredSize(new java.awt.Dimension(133, 522));
@@ -119,17 +125,18 @@ public class panelPDFGeneration extends ImagePanel {
 				{
 					panelPDFElementTitle = new panelPDFElement("Title", this);
 					panelElements.add(panelPDFElementTitle);
-					panelPDFElementTitle.setBounds(20, 38, 96, 102);
+					panelPDFElementTitle.setBounds(20, 89, 96, 102);
 				}
 				{
 					panelPDFElementText = new panelPDFElement("Text", this);
 					panelElements.add(panelPDFElementText);
-					panelPDFElementText.setBounds(20, 197, 96, 102);
+					panelPDFElementText.setBounds(20, 231, 96, 102);
 				}
 				{
 					panelPDFElementTable = new panelPDFElement("Table", this);
 					panelElements.add(panelPDFElementTable);
-					panelPDFElementTable.setBounds(20, 356, 96, 102);
+					panelElements.add(getPanelHeader());
+					panelPDFElementTable.setBounds(20, 370, 96, 102);
 				}			
 			}
 			{
@@ -139,14 +146,15 @@ public class panelPDFGeneration extends ImagePanel {
 				tabbedPane.setPreferredSize(new java.awt.Dimension(618, 543));
 				tabbedPane.setSize(618, 543);
 				tabbedPane.setMinimumSize(new java.awt.Dimension(618, 543));
-				tabbedPane.addTab(ApplicationInternationalization.getString("Section_tab") +  " 1", null, getSectionPanel_1(), null);
-				// Register a change listener
+				int count = tabbedPane.getTabCount();
+				tabbedPane.addTab(ApplicationInternationalization.getString("Section_tab") + " " + (count + 1), null, getJScrollPane1(), null);
+				// Register a tab change listener
 				tabbedPane.addChangeListener(new ChangeListener() {					
 					@Override
 					public void stateChanged(ChangeEvent evt) {
-				        JTabbedPane pane = (JTabbedPane)evt.getSource();
+				        JTabbedPane tabPanel = (JTabbedPane)evt.getSource();
 				        // Add drop event
-				        JPanel sectionPanel = (JPanel) pane.getComponentAt(pane.getSelectedIndex());
+				        JPanel sectionPanel = (JPanel) ((JScrollPane)tabPanel.getComponentAt(tabPanel.getSelectedIndex())).getViewport().getComponent(0);
 				        sectionPanel.setTransferHandler(new DragAndDropTransferHandler());		        
 				        // Create the listener to do the work when dropping on this object
 				        sectionPanel.setDropTarget(new DropTarget(sectionPanel, new PanelDropTargetListener(sectionPanel, panelPDFGeneration.this)));
@@ -166,17 +174,18 @@ public class panelPDFGeneration extends ImagePanel {
 	}	
 	 
 	// Method to add a new PDF element to the current section panel
-	public void addPanelToSection(panelPDFElement panelPDFElement) {
+	public void addPanelToSection(panelPDFElement panelPDFElement) throws RemoteException, NotLoggedException, Exception {
 		panelPDFDragged element = null;
 		if (panelPDFElement.getTitle().equals("Title")) {
 			element = new panelPDFDraggedTitle(this);
 			panelPDFElement.enableAddButton(false);
 		}
 		else if (panelPDFElement.getTitle().equals("Text")) {
-			element = new panelPDFDraggedText();
+			element = new panelPDFDraggedText(this);
 		}
 		else if (panelPDFElement.getTitle().equals("Table")) {
-			element = new panelPDFDraggedTable();
+			element = new panelPDFDraggedTable(this);
+			((panelPDFDraggedTable)element).configureRole();
 		}
 		
 		if(element != null) {
@@ -196,7 +205,7 @@ public class panelPDFGeneration extends ImagePanel {
 		}
 	}
 	
-	// Return the panles of the current section
+	// Return the panels of the current section
 	public List<panelPDFDragged> getSectionDraggedPanels() {
 		return panelsDragged.get(tabbedPane.getSelectedIndex());
 	}
@@ -209,7 +218,7 @@ public class panelPDFGeneration extends ImagePanel {
      */
 	public void relayout() {
         // Clear out all previously added items in current section
-        JPanel sectionPanel = (JPanel)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
+        JPanel sectionPanel = (JPanel)((JScrollPane)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex())).getViewport().getComponent(0);
         sectionPanel.removeAll();
 
         // Add the panels, if any
@@ -217,6 +226,8 @@ public class panelPDFGeneration extends ImagePanel {
         sectionPanel.add(Box.createVerticalStrut(20));
         for (panelPDFDragged p : panels) {
             sectionPanel.add(p);
+            sectionPanel.add(Box.createVerticalStrut(20));
+            p.setAlignmentX(CENTER_ALIGNMENT);
         }       
 
         this.validate();
@@ -234,23 +245,16 @@ public class panelPDFGeneration extends ImagePanel {
 		return dragAndDropPanelDataFlavor;
 	}
 	 
-	 private JPanel getSectionPanel_1() {
-		 if(sectionPanel_1 == null) {
-			 sectionPanel_1 = new JPanel();			 
-			 sectionPanel_1.setName("sectionPanel_1");
-			 sectionPanel_1.setLayout(new BoxLayout(sectionPanel_1,BoxLayout.Y_AXIS));
-			 sectionPanel_1.setPreferredSize(new java.awt.Dimension(613, 462));
-		 }
-		 return sectionPanel_1;
-	 }
-	 
 	 public void addSection() {
-		 JPanel sectionPanel = new JPanel();		 
-		 sectionPanel.setPreferredSize(new java.awt.Dimension(613, 462));
+		 JPanel sectionPanel = new JPanel();	
+		 JScrollPane scrollSection = new JScrollPane();
+		 scrollSection.setPreferredSize(new java.awt.Dimension(670, 533));
+		 scrollSection.setViewportView(sectionPanel);
+		 //sectionPanel.setPreferredSize(new java.awt.Dimension(613, 462));
 		 sectionPanel.setBackground(new Color(255, 255, 255));
 		 sectionPanel.setLayout(new BoxLayout(sectionPanel,BoxLayout.Y_AXIS));
 		 int count = tabbedPane.getTabCount();
-		 tabbedPane.addTab(ApplicationInternationalization.getString("Section_tab") + " " + (count + 1), null, sectionPanel, null);
+		 tabbedPane.addTab(ApplicationInternationalization.getString("Section_tab") + " " + (count + 1), null, scrollSection, null);
 		 parent.enableToolbarButton("DeleteSection", true);
 		 tabbedPane.setSelectedIndex(count);
 	 }
@@ -264,7 +268,8 @@ public class panelPDFGeneration extends ImagePanel {
 	 }
 	 
 	 // Create the sections of PDF Document
-	 public void compile() throws RemoteException, NotLoggedException, Exception {
+	 public void compile() {
+		 CursorUtilities.showWaitCursor(this);
 		 // Get sections and its elements
 		 List<PDFSection> sections = new ArrayList<PDFSection>();
 		 Enumeration<Integer> keys = panelsDragged.keys();
@@ -280,14 +285,7 @@ public class panelPDFGeneration extends ImagePanel {
 					 element = new PDFText(((panelPDFDraggedText)pd).getContent());
 				 }
 				 else if (pd instanceof panelPDFDraggedTable) {
-					 // By default, select the current project
-					 // TODO:
-					 if (ClientController.getInstance().getLoggedUser().getRole().name().equals(UserRole.Employee)) {
-						 int index = ClientController.getInstance().getCurrentProject();
-						 element = new PDFTable(ClientController.getInstance().getProjectsFromCurrentUser().get(index));
-					 }
-					 else
-						 element = new PDFTable(((panelPDFDraggedTable)pd).getProject());
+					 element = new PDFTable(((panelPDFDraggedTable)pd).getProject());
 				 }
 				 elementsInSection.add(element);
 			 }
@@ -301,13 +299,64 @@ public class panelPDFGeneration extends ImagePanel {
 			 dialog.setModal(true);
 			 dialog.setVisible(true);
 		 }
+		 else {
+			 CursorUtilities.showDefaultCursor(this);
+			 JOptionPane.showMessageDialog(this, config.getErrorMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		 }
 	 }
 
-	public void removeDragged(panelPDFDraggedTitle panelPDFDraggedTitle) {
-		JPanel sectionPanel = (JPanel)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
-        sectionPanel.remove(panelPDFDraggedTitle);
-        panelsDragged.get(tabbedPane.getSelectedIndex()).remove(panelPDFDraggedTitle);
+	public void removeDragged(panelPDFDragged panelPDFDragged) {
+		JPanel sectionPanel = (JPanel)((JScrollPane)tabbedPane.getComponentAt(tabbedPane.getSelectedIndex())).getViewport().getComponent(0);
+        sectionPanel.remove(panelPDFDragged);
+        panelsDragged.get(tabbedPane.getSelectedIndex()).remove(panelPDFDragged);
 		relayout();
 	}
+	
+	private JScrollPane getJScrollPane1() {
+		if(scrollSection1 == null) {
+			scrollSection1 = new JScrollPane();
+			scrollSection1.setPreferredSize(new java.awt.Dimension(670, 533));
+			scrollSection1.setViewportView(getSectionPanel_1());
+		}
+		return scrollSection1;
+	}
+	
+	 private JPanel getSectionPanel_1() {
+		 if(sectionPanel_1 == null) {
+			 sectionPanel_1 = new JPanel();			 
+			 sectionPanel_1.setName("sectionPanel_1");
+			 sectionPanel_1.setLayout(new BoxLayout(sectionPanel_1,BoxLayout.Y_AXIS));
+			 //sectionPanel_1.setPreferredSize(new java.awt.Dimension(613, 462));
+		 }
+		 return sectionPanel_1;
+	 }
+	 
+	 private JPanel getPanelHeader() {
+		 if(panelHeader == null) {
+			 try {
+				panelHeader = new RoundedPanel(false, ImagesUtilities.loadCompatibleImage("fondoPDF.png"));
+			} catch (IOException e) {
+				panelHeader = new RoundedPanel();
+			}
+			 panelHeader.setBounds(0, 0, 128, 45);
+			 panelHeader.setName("panelHeader");
+			 panelHeader.setLayout(null);
+			 panelHeader.add(getLblHeader());
+			 panelHeader.setOpaque(false);
+		 }
+		 return panelHeader;
+	 }
+	 
+	 private JLabel getLblHeader() {
+		 if(lblHeader == null) {
+			 lblHeader = new JLabel();
+			 lblHeader.setBounds(29, 10, 87, 23);
+			 Font font = new Font("Times New Roman", Font.BOLD, 16);
+			 lblHeader.setForeground(Color.WHITE);
+			 lblHeader.setFont(font);
+			 lblHeader.setText(ApplicationInternationalization.getString("PDFElements"));
+		 }
+		 return lblHeader;
+	 }
 
 }

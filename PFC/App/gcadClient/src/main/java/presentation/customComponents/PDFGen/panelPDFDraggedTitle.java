@@ -1,19 +1,12 @@
 package presentation.customComponents.PDFGen;
-import internationalization.ApplicationInternationalization;
-
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import javax.swing.ActionMap;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
-
 import javax.swing.JTextField;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
-
-import com.jhlabs.image.ImageUtils;
 
 import presentation.customComponents.ImagePanel;
 import presentation.panelsActions.panelPDFGeneration;

@@ -1,6 +1,5 @@
 package communication;
 
-import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;

@@ -1,5 +1,7 @@
 package model.business.knowledge;
 
+import internationalization.AppInternationalization;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class PDFConfiguration implements Serializable {
 	 * 
 	 */
 	private List<PDFSection> sections;
+	private String errormessage;
 
 	public PDFConfiguration(List<PDFSection> sections) {
 		super();
@@ -33,6 +36,7 @@ public class PDFConfiguration implements Serializable {
 
 	public boolean isValid() {
 		boolean valid = true;
+		int cont = 1;
 		for(PDFSection section : sections) {
 			if (valid) {
 				valid = section.getElements().size() > 0;
@@ -44,20 +48,36 @@ public class PDFConfiguration implements Serializable {
 							if (valid) {
 								if (element instanceof PDFText) {
 									valid = ((PDFText)element).getContent().length() > 0;
+									if (!valid)
+										errormessage = AppInternationalization.getString("textNotEmpty")+ " " + String.valueOf(cont);
 								}
 								else if (element instanceof PDFTable) {
 									valid = ((PDFTable)element).getProject() != null;
+									if (!valid)
+										errormessage = AppInternationalization.getString("tableNotEmpty")+ " " + String.valueOf(cont);
 								}
 								else if (element instanceof PDFTitle) {
 									valid = ((PDFTitle)element).getTitle().length() > 0;
+									if (!valid)
+										errormessage = AppInternationalization.getString("titleNotEmpty")+ " " + String.valueOf(cont);
 								}
 							}
 						}
 					}
+					else
+						errormessage = AppInternationalization.getString("titleNotFirstElement")+ " " + String.valueOf(cont);
 				}
+				else
+					errormessage = AppInternationalization.getString("sectionNotEmpty")+ " " + String.valueOf(cont);
+				
+				cont++;
 			}
 		}
 		return valid;
+	}
+	
+	public String getErrorMessage() {
+		return errormessage;
 	}
 	
 
