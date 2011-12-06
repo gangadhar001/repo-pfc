@@ -81,6 +81,7 @@ public class JDConfigurePDFTable extends JDialog {
 	public void Ok() {
 		if (pnlChooseProject.getProjectId() != -1) {
 			selectedProject = pnlChooseProject.getProject();		
+			this.dispose();
 		}
 	}
 

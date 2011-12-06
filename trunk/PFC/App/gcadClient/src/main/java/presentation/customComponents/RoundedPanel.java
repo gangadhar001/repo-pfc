@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 
 /**
  * Custom panel with rounded corners
@@ -32,6 +33,8 @@ public class RoundedPanel extends javax.swing.JPanel {
     protected int shadowOffset = 4;
     /** The transparency value of shadow. ( 0 - 255) */
     protected int shadowAlpha = 150;
+
+	private BufferedImage img;
     
 	public RoundedPanel() {
 		super();	
@@ -41,6 +44,11 @@ public class RoundedPanel extends javax.swing.JPanel {
 	 public RoundedPanel(boolean enableShadow) {
 		this.shady = enableShadow;
 	}
+	 
+	public RoundedPanel(boolean enableShadow, BufferedImage image) {
+			this.img = image;
+			this.shady = enableShadow;
+	 }
 
 	protected void paintComponent(Graphics g) {
 	        super.paintComponent(g);
@@ -79,6 +87,10 @@ public class RoundedPanel extends javax.swing.JPanel {
 
 	        //Sets strokes to default, is better.
 	        graphics.setStroke(new BasicStroke());
+	        
+	        if (img != null) {
+	        	graphics.drawImage(img, 0,0, img.getWidth(), img.getHeight(),this);
+	        }
 	    }
 
 }
