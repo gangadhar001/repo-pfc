@@ -188,6 +188,7 @@ public class KnowledgeGraph {
 		this.vv = vv;
 	}		
 	
+	// Method used to add a new vertex
 	public void addVertex(Knowledge k, Knowledge parentK) {
 		Random rn = new Random(new Date().getTime());
 		int cont = rn.nextInt();
@@ -248,6 +249,7 @@ public class KnowledgeGraph {
 	   	graph.removeVertex(vertex);		
 	}
 
+	// Method used to attach a new file to a vertex
 	public static void attachFile() {
 		File file = parent.showAttachFileDialog();
 		if (file != null) {
@@ -280,26 +282,22 @@ public class KnowledgeGraph {
 		}
 	}
 	
+	// Method used to change the knowledge status
 	public static void setStatus(KnowledgeStatus status) {
 		selectedVertex.setStatus(status);
 		try {
 			ClientController.getInstance().changeStatusKnowledge(selectedVertex);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NonPermissionRoleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			parent.showMessage(e);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			parent.showMessage(e);
+		} catch (NonPermissionRoleException e) {
+			parent.showMessage(e);
 		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			parent.showMessage(e);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			parent.showMessage(e);
+		}	
 	}
 
 	private static void setAttachIconVertex(Knowledge selectedVertex) {

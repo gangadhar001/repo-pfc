@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import model.business.control.auxiliary.DateAdapter;
 
 /**
  * This class represents the knowledge to manage, which can be a Topic, a Proposal or an Answer. 
@@ -17,6 +20,7 @@ public abstract class Knowledge implements Serializable {
 	
 	protected int id;
 	protected String title;
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	protected Date date;
 	protected String description;
 	protected KnowledgeStatus status;

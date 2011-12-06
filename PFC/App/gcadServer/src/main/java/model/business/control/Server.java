@@ -1035,6 +1035,7 @@ public class Server implements IServer {
 	}	
 	
 	/*** Methods used to manage Files ***/
+	//TODO: como notificarlo a los clientes
 	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		int id = -1;
@@ -1043,6 +1044,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			id = KnowledgeController.attachFile(sessionId, file);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("AttachFile_msg") + " " + file.getFileName());
+			ClientsController.notifyKnowledgeEdited(sessionId, file.getKnowledge(), file.getKnowledge());
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_AttachFile_msg") + " '" + file.getFileName() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -1134,6 +1136,7 @@ public class Server implements IServer {
 	
 	@Override
 	// TODO: mensajes
+	// TODO: como notificarlo a los clientes
 	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception{
 		String login = "";
 		try{
@@ -1141,6 +1144,7 @@ public class Server implements IServer {
 			login = session.getUser().getLogin();
 			KnowledgeController.changeStatusKnowledge(sessionId,k);
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("ComposePDF_msg") );
+			ClientsController.notifyKnowledgeEdited(sessionId, k, k);
 		} catch(NonPermissionRoleException nea) {
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("NonPermission_ComposePDF_msg"));
 			throw nea;
