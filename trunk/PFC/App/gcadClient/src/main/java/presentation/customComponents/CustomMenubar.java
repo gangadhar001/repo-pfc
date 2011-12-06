@@ -115,6 +115,8 @@ public class CustomMenubar extends JMenuBar {
 		for (String group : groups) {
 			createToolMenuItem(group);
 		}
+		// Remove last separator
+		menuTools.remove(menuTools.getMenuComponentCount()-1);
 
 		// Add "Options" menu
 		JMenu menuOptions = new JMenu();
@@ -193,8 +195,9 @@ public class CustomMenubar extends JMenuBar {
 	
 	// Create all submenus for one menu (one group of operations)
 	private void createToolMenuItem(String groupName) {
-        if (!groupName.equals(Groups.Notifications.name())) {	        
+        if (!groupName.equals(Groups.Notifications.name()) && !groupName.equals(Operations.Export.name())) {	        
             menuTools.add(createMenuItem(groupName));
+            menuTools.addSeparator();
         }
     }
 
@@ -272,8 +275,8 @@ public class CustomMenubar extends JMenuBar {
 				});
 			   
 				viewsPanel.add(button);
-				shownGroups.add(op.getGroup());
-			}				
+				shownGroups.add(op.getGroup());		
+			}
 		}		
 	}
 	

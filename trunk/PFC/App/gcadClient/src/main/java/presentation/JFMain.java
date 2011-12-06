@@ -4,6 +4,7 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -63,6 +64,7 @@ import presentation.panelsActions.panelKnowledgeView;
 import presentation.panelsActions.panelNotificationsView;
 import presentation.panelsActions.panelPDFGeneration;
 import presentation.panelsActions.panelStatisticsGeneration;
+import resources.CursorUtilities;
 import resources.ImagesUtilities;
 import resources.XMLUtilities;
 import bussiness.control.Client;
@@ -158,10 +160,17 @@ public class JFMain extends SingleFrameApplication {
 				statusBar.setLayout(statusLayout);
 				{
 					btnDownloadAttached = new JButton();
-					statusBar.add(btnDownloadAttached, new AnchorConstraint(237, 148, 737, 120, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-					btnDownloadAttached.setPreferredSize(new java.awt.Dimension(28, 20));
+					statusBar.add(btnDownloadAttached, new AnchorConstraint(237, 156, 737, 119, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					btnDownloadAttached.setPreferredSize(new java.awt.Dimension(37, 20));
 					btnDownloadAttached.setName("btnDownloadAttached");
 					btnDownloadAttached.setAction(getAppActionMap().get("DownloadFiles"));
+					btnDownloadAttached.setText("");
+					btnDownloadAttached.setContentAreaFilled(false);
+					try {
+						btnDownloadAttached.setIcon(ImagesUtilities.loadIcon("menus/download.png"));
+					}
+					catch (Exception e) {}
+					btnDownloadAttached.setToolTipText(ApplicationInternationalization.getString("tooltipDownload"));
 				}
 				{
 					jProgressBar = new JProgressBar();
@@ -172,8 +181,8 @@ public class JFMain extends SingleFrameApplication {
 				}
 				{
 					lblStatus = new JLabel();
-					statusBar.add(lblStatus, new AnchorConstraint(312, 111, 712, 7, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-					lblStatus.setPreferredSize(new java.awt.Dimension(105, 16));
+					statusBar.add(lblStatus, new AnchorConstraint(212, 450, 712, 7, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					lblStatus.setPreferredSize(new java.awt.Dimension(447, 20));
 					lblStatus.setName("lblStatus");
 				}
 			}
@@ -275,10 +284,13 @@ public class JFMain extends SingleFrameApplication {
         
     // Methods used to show and hide the glass panel, with "fade" effect
     public void fadeIn(Company c) {
+		CursorUtilities.showWaitCursor(getMainFrame());
+		companyDetailGlassPanel.setLocation(companyDetailGlassPanel.getLocation().x, companyDetailGlassPanel.getLocation().y + 500);
 		companyDetailGlassPanel.fadeIn(c);
 	}
 
 	public void fadeOut() {		
+		CursorUtilities.showDefaultCursor(getMainFrame());
 		companyDetailGlassPanel.fadeOut();		
 	}
 		
@@ -426,22 +438,27 @@ public class JFMain extends SingleFrameApplication {
 			// Select folder to save all files
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			fileChooser.setAcceptAllFileFilterUsed(false);
+			fileChooser.setDialogTitle(ApplicationInternationalization.getString("chooseFolder"));
+			//fileChooser.setAcceptAllFileFilterUsed(false);
 			int result = fileChooser.showOpenDialog(getMainFrame());
 			if (result == JFileChooser.APPROVE_OPTION) {
+				CursorUtilities.showWaitCursor(getMainFrame());
 				// Save files
 				for(File f: files){
 					FileOutputStream outFile;
 					try {
-						outFile = new FileOutputStream(fileChooser.getCurrentDirectory() + System.getProperty("file.separator") + f.getFileName());
+						outFile = new FileOutputStream(fileChooser.getSelectedFile().getAbsolutePath() + System.getProperty("file.separator") + f.getFileName());
 						outFile.write(f.getContent());
+						outFile.flush();
 						outFile.close();
+						CursorUtilities.showDefaultCursor(getMainFrame());
+						JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("savedAttachedFiles"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						CursorUtilities.showDefaultCursor(getMainFrame());
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+						CursorUtilities.showDefaultCursor(getMainFrame());
 					}					
 				}
 			}
@@ -537,9 +554,7 @@ public class JFMain extends SingleFrameApplication {
 				Thread performer = new Thread(new Runnable() {
 					public void run() {
 						createNotificationsView();
-					}
-
-					
+					}					
 				}, "Performer");
 				performer.start();
 			}
@@ -591,6 +606,9 @@ public class JFMain extends SingleFrameApplication {
 		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 609));		
 		
 		stopProgressBar();
+		
+		if (panelKnowledge.getTopicWrapper().getTopics().size() == 0)
+			JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("emptyTopics"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void createNotificationsView() {		
@@ -647,17 +665,16 @@ public class JFMain extends SingleFrameApplication {
 		panelKnowledge.manageKnowledgeFromMenu();		
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void stopProgressBar() {
-		getMainFrame().setCursor(Cursor.DEFAULT_CURSOR);
+		CursorUtilities.showDefaultCursor(getMainFrame());
 		jProgressBar.setVisible(false);
-		lblStatus.setText("View Created.");
+		lblStatus.setText(ApplicationInternationalization.getString("viewCreated"));
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void startProgressBar() {
-		getMainFrame().setCursor(Cursor.WAIT_CURSOR);
+		CursorUtilities.showWaitCursor(getMainFrame());
 		jProgressBar.setVisible(true);
+		lblStatus.setText(ApplicationInternationalization.getString("creatingView"));
 		lblStatus.setVisible(true);
 	}
 
@@ -677,60 +694,11 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void notifyNotificationAvailable(Notification n) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 	
-	// Create the notification for all the users of the current project
-	public void createNotification(Knowledge k, Operations operation) {
-		String message = "";
-		if (operation.name().equals(Operations.Modify.name()))
-			message = ApplicationInternationalization.getString("ModifiedKnowledgeNotification");
-		else if (operation.name().equals(Operations.Add.name()))
-			message = ApplicationInternationalization.getString("AddedKnowledgeNotification");
-		else if (operation.name().equals(Operations.Delete.name()))
-			message = ApplicationInternationalization.getString("DeletedKnowledgeNotification");
-			
-		Project currentProject;
-		try {
-			currentProject = searchCurrentProject(ClientController.getInstance().getProjects(), ClientController.getInstance().getCurrentProject());
-			Set<User> usersCurrentProject = new HashSet<User>(ClientController.getInstance().getUsersProject(currentProject));
-			Notification n = new Notification(k, "Unread", currentProject, message, usersCurrentProject);
-			ClientController.getInstance().createNotification(n);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NonPermissionRoleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
-	// Return the project that has a specified ID
-	private Project searchCurrentProject(List<Project> projects, int currentProject) {
-		Project result = null;
-		for(int i=0; i<projects.size() && result == null; i++)
-			if (projects.get(i).getId() == currentProject)
-				result = projects.get(i);
-		return result;
-	}
-
 	public JButton getBtnDownloadAttached() {
 		return btnDownloadAttached;
-	}
-
-	public void setStatusText(String message) {
-		lblStatus.setText(message);		
 	}
 
 	public void manageExportInformation() {
@@ -742,6 +710,7 @@ public class JFMain extends SingleFrameApplication {
 			fc.setFileFilter(filter);
 			fc.showSaveDialog(getMainFrame());
 			if ((f = fc.getSelectedFile()) != null)  {
+				CursorUtilities.showWaitCursor(getMainFrame());
 				baos = ClientController.getInstance().exportInformation();		
 				if (baos != null) {
 					String path = f.getAbsolutePath();
@@ -749,30 +718,37 @@ public class JFMain extends SingleFrameApplication {
 						path += ".xml";
 			        FileOutputStream fos = new FileOutputStream(path);
 			        fos.write(baos);
+			        CursorUtilities.showDefaultCursor(getMainFrame());
+			        showStatusBar(ApplicationInternationalization.getString("exportStatus"));
+			        
+			        JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("exportSuccessfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 				}
-				else ; // TODO: error
+				else
+					JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("informationExport"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotLoggedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();			
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
+	}
+
+	public void showStatusBar(String message) {
+		lblStatus.setText(message);
+		lblStatus.setVisible(true);		
+	}
+
+	public void hideStatusBar() {
+		lblStatus.setText("");
+		lblStatus.setVisible(false);		
 	}
 
 }

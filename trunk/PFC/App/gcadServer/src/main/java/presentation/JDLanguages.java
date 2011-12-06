@@ -152,7 +152,7 @@ public class JDLanguages extends javax.swing.JDialog {
 	private JButton getBtnOk() {
 		if(btnOk == null) {
 			btnOk = new JButton();
-			btnOk.setBounds(128, 201, 82, 25);
+			btnOk.setBounds(31, 201, 82, 25);
 			btnOk.setName("btnOk");
 			btnOk.setAction(getAppActionMap().get("OK"));
 			btnOk.setText(AppInternationalization.getString("btn_OK_Text"));
@@ -163,7 +163,7 @@ public class JDLanguages extends javax.swing.JDialog {
 	private JButton getBtnCancel() {
 		if(btnCancel == null) {
 			btnCancel = new JButton();
-			btnCancel.setBounds(41, 201, 82, 25);
+			btnCancel.setBounds(124, 201, 82, 25);
 			btnCancel.setName("btnCancel");
 			btnCancel.setAction(getAppActionMap().get("Cancel"));
 			btnCancel.setText(AppInternationalization.getString("btn_Cancel_Text"));

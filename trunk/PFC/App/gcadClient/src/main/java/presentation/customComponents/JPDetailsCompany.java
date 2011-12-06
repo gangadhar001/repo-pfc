@@ -5,6 +5,7 @@ import internationalization.ApplicationInternationalization;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -26,6 +27,8 @@ import model.business.control.GeoCoder;
 import model.business.knowledge.Company;
 import model.business.knowledge.Coordinates;
 
+import org.japura.gui.WrapLabel;
+import org.jdesktop.application.Application;
 import org.jdesktop.swingx.JXMapKit;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.graphics.ShadowRenderer;
@@ -84,16 +87,21 @@ public class JPDetailsCompany extends JXPanel {
 	public JPDetailsCompany(JFMain frame) {
         setOpaque(false);
         this.parent = frame;
-
+        Font font = new Font("Times New Roman", Font.PLAIN, 14);
+        
 		try {
-			this.setPreferredSize(new java.awt.Dimension(586, 343));
+			this.setPreferredSize(new java.awt.Dimension(850, 388));
 			this.setLayout(null);
 			{
 				lblTitle = new JLabel();
 				this.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 				lblTitle.setName("lblTitle");
 				lblTitle.setText(ApplicationInternationalization.getString("companyTitle"));
-				lblTitle.setBounds(189, 12, 226, 20);
+				lblTitle.setBounds(85, 47, 282, 40);
+				Font newFont = new Font("Times New Roman", Font.BOLD, 20);  
+				lblTitle.setFont(newFont);  
+				
+				
 			}
 			{
 				panelInfo = new JPanel();
@@ -109,42 +117,42 @@ public class JPDetailsCompany extends JXPanel {
 					{
 						lblCountry = new JLabel();
 						panelDetailsCompany.add(lblCountry, new AnchorConstraint(718, 708, 815, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						lblCountry.setPreferredSize(new java.awt.Dimension(176, 17));
 						lblCountry.setName("lblCountry");
 						lblCountry.setText(ApplicationInternationalization.getString("companyCountry"));
-						lblCountry.setBounds(21, 140, 172, 18);
+						lblCountry.setBounds(21, 132, 269, 17);
+						lblCountry.setFont(font); 
 					}
 					{
 						lblZip = new JLabel();
 						panelDetailsCompany.add(lblZip, new AnchorConstraint(593, 694, 684, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						lblZip.setPreferredSize(new java.awt.Dimension(173, 16));
 						lblZip.setName("lblZip");
 						lblZip.setText(ApplicationInternationalization.getString("companyZip"));
-						lblZip.setBounds(21, 115, 168, 18);
+						lblZip.setBounds(21, 108, 268, 18);
+						lblZip.setFont(font); 
 					}
 					{
 						lblAddress = new JLabel();
 						panelDetailsCompany.add(lblAddress, new AnchorConstraint(474, 672, 559, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						lblAddress.setPreferredSize(new java.awt.Dimension(167, 15));
 						lblAddress.setName("lblAddress");
 						lblAddress.setText(ApplicationInternationalization.getString("companyAddress"));
-						lblAddress.setBounds(21, 92, 163, 17);
+						lblAddress.setBounds(21, 84, 268, 26);
+						lblAddress.setFont(font); 
 					}
 					{
 						lblCif = new JLabel();
 						panelDetailsCompany.add(lblCif, new AnchorConstraint(281, 667, 372, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						lblCif.setPreferredSize(new java.awt.Dimension(165, 16));
 						lblCif.setName("lblCif");
 						lblCif.setText(ApplicationInternationalization.getString("companyCif"));
-						lblCif.setBounds(21, 54, 161, 18);
+						lblCif.setBounds(21, 48, 274, 20);
+						lblCif.setFont(font); 
 					}
 					{
-						lblNameCompany = new JLabel();
+						lblNameCompany = new WrapLabel();
 						panelDetailsCompany.add(lblNameCompany, new AnchorConstraint(150, 663, 247, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-						lblNameCompany.setPreferredSize(new java.awt.Dimension(164, 17));
 						lblNameCompany.setName("lblNameCompany");
-						lblCif.setText(ApplicationInternationalization.getString("companyName"));
-						lblNameCompany.setBounds(21, 29, 160, 19);
+						lblNameCompany.setText(ApplicationInternationalization.getString("companyName"));
+						lblNameCompany.setBounds(21, 29, 274, 19);
+						lblNameCompany.setFont(font); 
 					}
 				}
 				{
@@ -161,7 +169,7 @@ public class JPDetailsCompany extends JXPanel {
 			        jXMapKit.setZoomButtonsVisible(false);
 				       
 			        panelImageCompany.add(jXMapKit, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-			        jXMapKit.setBounds(0, 0, 255, 195);
+			        jXMapKit.setBounds(0, 0, 385, 231);
 				}
 			}
 			{
@@ -181,15 +189,15 @@ public class JPDetailsCompany extends JXPanel {
 			}
 			
 			panelInfo.setOpaque(false);
-			panelInfo.setBounds(40, 73, 668, 195);
+			panelInfo.setBounds(12, 44, 815, 268);
 			panelDetailsCompany.setOpaque(false);
-			panelDetailsCompany.setBounds(0, 0, 206, 195);
+			panelDetailsCompany.setBounds(55, 34, 307, 233);
 			panelImageCompany.setOpaque(false);
-			panelImageCompany.setBounds(226, 0, 341, 195);
-			btnOK.setBounds(457, 282, 66, 23);
+			panelImageCompany.setBounds(368, 18, 385, 235);
+			btnOK.setBounds(702, 324, 66, 23);
 
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -207,12 +215,12 @@ public class JPDetailsCompany extends JXPanel {
 	    Graphics2D g2 = (Graphics2D) g.create();
 	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-	    // Cyan color for background
-	    g2.setColor(new Color(161, 255, 207, 120));
+	    // Color for background
+	    g2.setColor(new Color(160, 208, 222, 140));
 	    g2.fillRoundRect(x, y, w, h, arc, arc);
 
 	    g2.setStroke(new BasicStroke(3f));
-	    g2.setColor(Color.BLUE);
+	    g2.setColor(Color.DARK_GRAY);
 	    g2.drawRoundRect(x, y, w, h, arc, arc); 
 
 	    g2.dispose();
@@ -259,6 +267,7 @@ public class JPDetailsCompany extends JXPanel {
 	}
 
 	private void setDetailsCompany() {
+		lblTitle.setText(company.getName() + ", " + company.getAddress().getCountry());
 		lblCif.setText(ApplicationInternationalization.getString("companyCif") + ": " + company.getCif());
 		lblNameCompany.setText(ApplicationInternationalization.getString("companyName") + ": " + company.getName());
 		lblCountry.setText(ApplicationInternationalization.getString("companyCountry") + ": " + company.getAddress().getCountry());

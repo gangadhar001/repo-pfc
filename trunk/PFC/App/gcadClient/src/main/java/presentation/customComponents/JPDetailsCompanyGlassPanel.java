@@ -20,6 +20,7 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.image.GaussianBlurFilter;
 
+import resources.CursorUtilities;
 import resources.ImagesUtilities;
 
 /**
@@ -87,7 +88,7 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 	    repaint();
 	}
 	
-	public void fadeIn(Company c) {
+	public void fadeIn(Company c) {		
 		// Set the company details in the dialog
 		this.detailPanel.setCompanyDetails(c);
 		
@@ -105,9 +106,10 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 	            animator.start();
 	        }
 	    });
+	    CursorUtilities.showDefaultCursor(this);
 	}	
 	
-	public void fadeOut() {			
+	public void fadeOut() {	
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	            Animator animator = PropertySetter.createAnimator(
@@ -124,9 +126,10 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 		timer.start();
 	}
 	
+	// Close window
 	public void actionPerformed(ActionEvent e) {
 	    ++value;
-	    if (value == 80) {
+	    if (value == 1000) {
 	    	setVisible(false);
 	    	timer.stop();
 	    	value=0;

@@ -39,6 +39,7 @@ import org.jdesktop.application.Application;
 import presentation.customComponents.CheckListRenderer;
 import presentation.customComponents.CheckableItem;
 import presentation.customComponents.panelProjectInformation;
+import resources.CursorUtilities;
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -147,7 +148,7 @@ public class JDManageProject extends javax.swing.JDialog {
 							{
 								jScrollPane1 = new JScrollPane();
 								pnlUsersCreate.add(jScrollPane1);
-								jScrollPane1.setBounds(17, 21, 217, 250);
+								jScrollPane1.setBounds(17, 21, 217, 256);
 								{
 									listUsers = new JList();
 									jScrollPane1.setViewportView(listUsers);
@@ -161,29 +162,29 @@ public class JDManageProject extends javax.swing.JDialog {
 											item.setSelected(!item.isSelected());
 											Rectangle rect = listUsers.getCellBounds(index, index);
 											listUsers.repaint(rect);
+											txtUserInfo.setText("");
+											txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
+													+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
+															+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
+											Font f = txtUserInfo.getFont();
+											txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
 											if (item.isSelected()) {
-												txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
-														+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
-																+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
-												Font f = txtUserInfo.getFont();
-												txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
 												selectedUsersCreate.add(item.getUser());
 											}
 											else {
-												txtUserInfo.setText("");
 												selectedUsersCreate.remove(item.getUser());
 											}
 										}
 									});
 									
 									listUsers.setBounds(5, 131, 247, 128);
-									listUsers.setPreferredSize(new java.awt.Dimension(213, 232));
+									listUsers.setPreferredSize(new java.awt.Dimension(214, 239));
 								}
 							}
 							{
 								lblUserInfo = new JLabel();
 								pnlUsersCreate.add(lblUserInfo);
-								lblUserInfo.setBounds(17, 283, 47, 16);
+								lblUserInfo.setBounds(17, 289, 217, 16);
 								lblUserInfo.setName("lblUserInfo");
 								lblUserInfo.setText(ApplicationInternationalization.getString("userInfo"));
 							}
@@ -238,14 +239,10 @@ public class JDManageProject extends javax.swing.JDialog {
 							{
 								jScrollPane4 = new JScrollPane();
 								panelUsersModify.add(jScrollPane4);
-								jScrollPane4.setBounds(17, 21, 217, 250);
+								jScrollPane4.setBounds(17, 21, 223, 262);
 								{
-									ListModel jList1Model = 
-										new DefaultComboBoxModel(
-												new String[] { "Item One", "Item Two" });
 									listUsersModify = new JList();
 									jScrollPane4.setViewportView(listUsersModify);
-									listUsersModify.setModel(jList1Model);
 									listUsersModify.setCellRenderer(new CheckListRenderer());
 									listUsersModify.setPreferredSize(new java.awt.Dimension(213, 232));
 									listUsersModify.setBounds(5, 131, 247, 128);
@@ -256,16 +253,16 @@ public class JDManageProject extends javax.swing.JDialog {
 											item.setSelected(!item.isSelected());
 											Rectangle rect = listUsersModify.getCellBounds(index, index);
 											listUsersModify.repaint(rect);
+											txtUserInfoModify.setText("");
+											txtUserInfoModify.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
+													+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
+															+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
+											Font f = txtUserInfoModify.getFont();
+											txtUserInfoModify.setFont(new Font(f.getName(), f.getStyle(), 11));
 											if (item.isSelected()) {
-												txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
-														+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
-																+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
-												Font f = txtUserInfo.getFont();
-												txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
 												selectedUsersModify.add(item.getUser());
 											}
 											else {
-												txtUserInfo.setText("");
 												selectedUsersModify.remove(item.getUser());
 											}
 										}
@@ -276,7 +273,7 @@ public class JDManageProject extends javax.swing.JDialog {
 								lblUserInfoModify = new JLabel();
 								panelUsersModify.add(lblUserInfoModify);
 								lblUserInfoModify.setName("lblUserInfo");
-								lblUserInfoModify.setBounds(17, 283, 47, 16);
+								lblUserInfoModify.setBounds(17, 289, 217, 16);
 								lblUserInfoModify.setText(ApplicationInternationalization.getString("userInfo"));
 							}
 						}
@@ -311,6 +308,7 @@ public class JDManageProject extends javax.swing.JDialog {
 								
 								@Override
 								public void actionPerformed(ActionEvent e) {
+									txtUserInfoModify.setText("");
 									fillProjectData();		
 									showUsers();
 								}
@@ -437,6 +435,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Create() {
+		CursorUtilities.showWaitCursor(this);
 		// Create project and update users
 		Project newProject = panelProjectInformationCreate.getProject();
 		try {
@@ -447,22 +446,30 @@ public class JDManageProject extends javax.swing.JDialog {
 			for (User u : selectedUsersCreate) {
                 ClientController.getInstance().addProjectsUser(u, p);
 			}
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+			CursorUtilities.showDefaultCursor(this);
 			this.dispose();
 		} catch (RemoteException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	@Action
 	public void Modify() {
+		CursorUtilities.showWaitCursor(this);
 		// Modify project and update users
 		Project oldProject = (Project)cbProjects.getSelectedItem();
 		Project projectModified = panelProjectInformationModify.getProject();
@@ -483,16 +490,23 @@ public class JDManageProject extends javax.swing.JDialog {
 					ClientController.getInstance().removeProjectsUser(u, projectModified);
 				}
 			}
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+			CursorUtilities.showDefaultCursor(this);
 			this.dispose();
 		} catch (RemoteException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}

@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import model.business.control.auxiliary.DateAdapter;
 
 /**
  * This class represents a Project from a Company
@@ -17,7 +20,9 @@ public class Project implements Serializable {
 	private int id;
 	private String name;
 	private String description;
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	private Date startDate;
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	private Date endDate;
 	private double budget;
 	private int quantityLines;

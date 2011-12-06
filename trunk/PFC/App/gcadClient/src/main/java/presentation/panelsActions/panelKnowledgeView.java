@@ -309,8 +309,6 @@ public class panelKnowledgeView extends ImagePanel {
 						ClientController.getInstance().deleteAnswer((Answer) k);
 					
 					notifyKnowledgeRemoved(k);
-					// Create the notification for all the users of the current project
-					parent.createNotification(k, Operations.Delete);
 				}
 				else
 					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorDelete"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -638,17 +636,21 @@ public class panelKnowledgeView extends ImagePanel {
 		}
 	}
 
+	// Method used to show the attached files to a knowledge
 	private void showAttachedFiles(Knowledge k) {
 		try {
 			attachedFiles = ClientController.getInstance().getAttachedFiles(k);
 			if (attachedFiles.size() > 0) {
 				String message = attachedFiles.size() + " ";
 				if (attachedFiles.size() == 1)
-					message = ApplicationInternationalization.getString("AttachedFile");
+					message += ApplicationInternationalization.getString("AttachedFile");
 				else
-					message = ApplicationInternationalization.getString("AttachedFiles");
-				parent.setStatusText(message);
+					message += ApplicationInternationalization.getString("AttachedFiles");
+				parent.showStatusBar(message);
 				parent.getBtnDownloadAttached().setVisible(true);
+			}
+			else {
+				parent.hideStatusBar();
 			}
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -697,6 +699,10 @@ public class panelKnowledgeView extends ImagePanel {
 
 	public List<File> getAttachedFiles() {
 		return attachedFiles;
+	}
+
+	public TopicWrapper getTopicWrapper() {
+		return topicWrapper;
 	}
 
 	

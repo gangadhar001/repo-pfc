@@ -26,6 +26,7 @@ import org.japura.gui.model.DateDocument;
 import org.japura.util.date.DateSeparator;
 import org.jdesktop.application.Application;
 
+import resources.ImagesUtilities;
 import resources.NotEmptyValidator;
 
 import bussiness.control.ClientController;
@@ -115,16 +116,17 @@ public class panelProjectInformation extends javax.swing.JPanel {
 						tbNumericAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
 						if (attField.get(project) != null) {
 							tbNumericAttValue.setText(attField.get(project).toString());
-							tbNumericAttValue.setEditable(editable);
 						}
 
+						tbNumericAttValue.setEditable(editable);
 						tbAttValue = tbNumericAttValue;
 						this.add(tbNumericAttValue);
 						tbNumericAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);						
 					}
-					else if (att.getType() == java.util.Date.class) {
+					else if (att.getType() == java.util.Date.class) {						 
 						DateDocument dd = new DateDocument(Locale.getDefault(), DateSeparator.SLASH); 
 						tbDateAttValue = new CalendarField(dd); 
+						tbDateAttValue.setCalendarButtonIcon(ImagesUtilities.class.getClassLoader().getResource("images/menus/calendar.png"));
 						GregorianCalendar gc = new GregorianCalendar();
 						tbDateAttValue.getDateDocument().setDate(gc.getTimeInMillis());
 						tbDateAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
@@ -134,9 +136,10 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							gc.set(GregorianCalendar.MONTH, date.getMonth()); 
 							gc.set(GregorianCalendar.DAY_OF_MONTH, date.getDate()); 
 							tbDateAttValue.getDateDocument().setDate(gc.getTimeInMillis());
-							tbDateAttValue.setEnabled(editable);
 						}
 
+						//tbDateAttValue.setEnabled(editable);
+						//tbDateAttValue.setFocusable(editable);
 						tbAttValue = tbDateAttValue;
 						this.add(tbDateAttValue);
 						tbDateAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);						
@@ -146,9 +149,9 @@ public class panelProjectInformation extends javax.swing.JPanel {
 						tbStringAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
 						if (attField.get(project) != null) {	
 							tbStringAttValue.setText(attField.get(project).toString());
-							tbStringAttValue.setEditable(editable);
 						}
 
+						tbStringAttValue.setEditable(editable);
 						tbAttValue = tbStringAttValue;
 						this.add(tbStringAttValue);
 						tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);						

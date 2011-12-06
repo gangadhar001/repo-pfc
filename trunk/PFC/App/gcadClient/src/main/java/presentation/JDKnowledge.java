@@ -26,12 +26,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Subgroups;
 
 import org.jdesktop.application.Application;
+
+import edu.uci.ics.jung.visualization.decorators.EdgeShape.Box;
 
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
@@ -163,6 +166,8 @@ public class JDKnowledge extends javax.swing.JDialog {
 				// Create button
 				JButton button = new JButton();
 				button.setPreferredSize(button.getSize());
+				panelActions.add(javax.swing.Box.createVerticalStrut(15));
+				button.setAlignmentX(Component.CENTER_ALIGNMENT);
 				// Set the subgroup id as name of the button
 				button.setName("btn_"+subgroup);
 				button.setText(subgroup);

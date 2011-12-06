@@ -27,6 +27,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.JFMain;
+import resources.CursorUtilities;
 import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
@@ -339,26 +340,31 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	
 	@Action
 	public void Save() {
+		CursorUtilities.showWaitCursor(this);
 		Answer newAn = new Answer(panelAnswerInfoAdd.getAnswerTitle(), panelAnswerInfoAdd.getAnswerDescription(), new Date(), panelAnswerInfoAdd.getAnswerArgument());
 		try {
 			// Create and insert new Answer
 			Answer newAnswerAdded = ClientController.getInstance().addAnwser(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
 			// Notify to main frame the new knowledge added
 			mainFrame.notifyKnowledgeAdded(newAnswerAdded, proposals.get(cbProposalsAdd.getSelectedIndex()));
-			// Create the notification for all the users of the current project
-			mainFrame.createNotification(newAnswerAdded, Operations.Add);
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			parentD.dispose();
 		} catch (RemoteException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	@Action
 	public void Modify() {
+		CursorUtilities.showWaitCursor(this);
 		Answer oldAn = answers[cbAnswers.getSelectedIndex()];
 		Answer newAn = new Answer(panelAnswerInfoModify.getAnswerTitle(), panelAnswerInfoModify.getAnswerDescription(), new Date(), panelAnswerInfoModify.getAnswerArgument());
 		newAn.setId(oldAn.getId());
@@ -367,18 +373,23 @@ public class JPManageAnswer extends javax.swing.JPanel {
 			Answer newAnswerModified = ClientController.getInstance().modifyAnswer(newAn, oldAn, proposals.get(cbProposals.getSelectedIndex()));
 			// Notify to main frame the new knowledge
 			mainFrame.notifyKnowledgeEdited(newAnswerModified, answers[cbAnswers.getSelectedIndex()]);
-			// Create the notification for all the users of the current project
-			mainFrame.createNotification(newAnswerModified, Operations.Modify);
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			parentD.dispose();
 		} catch (RemoteException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}	
 	}
