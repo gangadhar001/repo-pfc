@@ -115,6 +115,7 @@ public class panelPDFGeneration extends ImagePanel {
 			thisLayout.columnWidths = new int[] {7, 7};
 			{
 				panelElements = new RoundedPanel();
+				panelElements.setBackground(new Color(227, 219, 237));
 				panelElements.setOpaque(false);
 				this.add(panelElements, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 60, 20, 80), 0, 0));
 				panelElements.setLayout(null);
@@ -126,17 +127,20 @@ public class panelPDFGeneration extends ImagePanel {
 					panelPDFElementTitle = new panelPDFElement("Title", this);
 					panelElements.add(panelPDFElementTitle);
 					panelPDFElementTitle.setBounds(20, 89, 96, 102);
+					panelPDFElementTitle.setOpaque(false);
 				}
 				{
 					panelPDFElementText = new panelPDFElement("Text", this);
 					panelElements.add(panelPDFElementText);
 					panelPDFElementText.setBounds(20, 231, 96, 102);
+					panelPDFElementText.setOpaque(false);
 				}
 				{
 					panelPDFElementTable = new panelPDFElement("Table", this);
 					panelElements.add(panelPDFElementTable);
 					panelElements.add(getPanelHeader());
 					panelPDFElementTable.setBounds(20, 370, 96, 102);
+					panelPDFElementTable.setOpaque(false);
 				}			
 			}
 			{

@@ -1,12 +1,8 @@
 package presentation.dataVisualization;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 import org.jdesktop.application.Application;
 import org.jfree.chart.ChartPanel;
-
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -26,7 +22,6 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 7190463711080941025L;
-	private JToolBar toolBar;
 	private JPanel panelChart;
 
 	/**
@@ -44,22 +39,15 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 		setClosable(true);
 		
 		try {
-			this.setPreferredSize(new java.awt.Dimension(420, 288));
-			this.setBounds(0, 0, 705, 403);
+			this.setPreferredSize(new java.awt.Dimension(176, 171));
+			this.setBounds(0, 0, 176, 171);
 			setVisible(true);
-			AnchorLayout thisLayout = new AnchorLayout();
 			this.setName("this");
-			getContentPane().setLayout(thisLayout);
-			{
-				toolBar = new JToolBar();
-				getContentPane().add(toolBar, new AnchorConstraint(1, 1013, 131, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS));
-				toolBar.setPreferredSize(new java.awt.Dimension(420, 32));
-			}
+			getContentPane().setLayout(null);
 			{
 				panelChart = new JPanel();
-				getContentPane().add(panelChart, new AnchorConstraint(39, 996, 995, -1, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-				panelChart.setPreferredSize(new java.awt.Dimension(420, 266));
-				panelChart.setSize(420, 266);
+				getContentPane().add(panelChart);
+				panelChart.setBounds(0, 0, 175, 146);
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -68,10 +56,13 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	}
 
 	public void addChartPanel(ChartPanel chartPanel) {
-		chartPanel.setPreferredSize(new java.awt.Dimension(420, 266));
+		panelChart.setSize(chartPanel.getPreferredSize());
+		this.setSize(chartPanel.getPreferredSize().width + 20, chartPanel.getPreferredSize().height + 20);
 		panelChart.add(chartPanel);
 		panelChart.revalidate();
 		panelChart.repaint();
+		this.revalidate();
+		this.repaint();
 	}
 
 }

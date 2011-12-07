@@ -510,47 +510,53 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void showKnowledgeView() {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				startProgressBar();
-				Thread performer = new Thread(new Runnable() {
-					public void run() {
-						createKnowledgeView();
-					}					
-				}, "Performer");
-				performer.start();
-			}
-		});
+		if (!contains(getMainFrame().getContentPane().getComponents(), panelKnowledge)) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					startProgressBar();
+					Thread performer = new Thread(new Runnable() {
+						public void run() {
+							createKnowledgeView();
+						}					
+					}, "Performer");
+					performer.start();
+				}
+			});
+		}
 	}
 	
 	public void showNotificationsView() {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				startProgressBar();
-				Thread performer = new Thread(new Runnable() {
-					public void run() {
-						createNotificationsView();
-					}					
-				}, "Performer");
-				performer.start();
-			}
-		});
+		if (!contains(getMainFrame().getContentPane().getComponents(), panelNotifications)) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					startProgressBar();
+					Thread performer = new Thread(new Runnable() {
+						public void run() {
+							createNotificationsView();
+						}					
+					}, "Performer");
+					performer.start();
+				}
+			});
+		}
 	}
 
 	public void showStatisticsView() {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				startProgressBar();
-				Thread performer = new Thread(new Runnable() {
-					public void run() {
-						createStatisticsView();
-					}
-
-					
-				}, "Performer");
-				performer.start();
-			}
-		});
+		if (!contains(getMainFrame().getContentPane().getComponents(), panelStatistics)) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					startProgressBar();
+					Thread performer = new Thread(new Runnable() {
+						public void run() {
+							createStatisticsView();
+						}
+	
+						
+					}, "Performer");
+					performer.start();
+				}
+			});
+		}
 	}
 	
 	private void createStatisticsView() {
@@ -631,17 +637,19 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void showPDFView() {		
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				startProgressBar();
-				Thread performer = new Thread(new Runnable() {
-					public void run() {
-						createPdfView();
-					}					
-				}, "Performer");
-				performer.start();
-			}
-		});	
+		if (!contains(getMainFrame().getContentPane().getComponents(), panelPDF)) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					startProgressBar();
+					Thread performer = new Thread(new Runnable() {
+						public void run() {
+							createPdfView();
+						}					
+					}, "Performer");
+					performer.start();
+				}
+			});	
+		}
 	}
 
 	// Method to enable or disable a toolbar button
@@ -743,7 +751,19 @@ public class JFMain extends SingleFrameApplication {
 
 	public void hideStatusBar() {
 		lblStatus.setText("");
-		lblStatus.setVisible(false);		
+		lblStatus.setVisible(false);	
+		btnDownloadAttached.setVisible(false);
+	}
+	
+	private boolean contains(Component[] components, Component panel) {
+		boolean found = false;
+		if (panel != null){
+			for(int i=0; i<components.length && !found; i++) {
+				if (components[i].equals(panel))
+					found = true;
+			}
+		}
+		return found;
 	}
 
 }

@@ -129,7 +129,7 @@ public class JPDetailsCompanyGlassPanel extends JXPanel  implements ActionListen
 	// Close window
 	public void actionPerformed(ActionEvent e) {
 	    ++value;
-	    if (value == 1000) {
+	    if (value == 600) {
 	    	setVisible(false);
 	    	timer.stop();
 	    	value=0;

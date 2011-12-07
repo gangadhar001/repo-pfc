@@ -38,6 +38,8 @@ import model.business.knowledge.Project;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import resources.CursorUtilities;
+
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -60,7 +62,6 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	 */
 	private static final long serialVersionUID = -3288470197499471033L;
 	private JPanel pnlAlgorithm;
-	private JPanel panelConfigSimil;
 	private JLabel lblAlgorithm;
 	private JButton btnOK;
 	private JButton btnCancel;
@@ -78,7 +79,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	*/
 	
 	private final int POSX_COLUMN1 = 17;
-	private final int POSX_COLUMN2 = 132;
+	private final int POSX_COLUMN2 = 145;
 	private final int POSX_COLUMN3 = 286;
 	private final int POSX_COLUMN4 = 413;
 	
@@ -102,106 +103,103 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	private void initGUI() {
 		try {
 			{
+			}
+			this.setLayout(null);
+			this.setSize(520, 557);
+			this.setPreferredSize(new java.awt.Dimension(520, 557));
+			{
 				{
-					panelConfigSimil = new JPanel();
-					panelConfigSimil.setBounds(0, 0, 574, 585);
-					panelConfigSimil.setPreferredSize(new java.awt.Dimension(593, 620));
-					panelConfigSimil.setLayout(null);
-					panelConfigSimil.setSize(593, 620);
+					pnlAlgorithm = new JPanel();
+					this.add(pnlAlgorithm);
+					pnlAlgorithm.setBounds(-1, 0, 520, 100);
+					pnlAlgorithm.setBorder(BorderFactory.createTitledBorder(""));
+					pnlAlgorithm.setLayout(null);
 					{
-						pnlAlgorithm = new JPanel();
-						panelConfigSimil.add(pnlAlgorithm);
-						pnlAlgorithm.setBounds(-1, 0, 592, 104);
-						pnlAlgorithm.setBorder(BorderFactory.createTitledBorder(""));
-						pnlAlgorithm.setLayout(null);
-						{
-							lblAlgorithm = new JLabel();
-							pnlAlgorithm.add(lblAlgorithm);
-							lblAlgorithm.setBounds(17, 20, 54, 16);
-							lblAlgorithm.setName("lblAlgorithm");
-							lblAlgorithm.setText(ApplicationInternationalization.getString("lblAlgorithm"));
-						}
-						{
-							cbAlgorithm = new JComboBox();
-							pnlAlgorithm.add(cbAlgorithm);
-							for (EnumAlgorithmCBR ea : EnumAlgorithmCBR.values())
-								cbAlgorithm.addItem(ea.name());
-							cbAlgorithm.setBounds(89, 17, 210, 23);
-						}
-						{
-							lblNumberK = new JLabel();
-							pnlAlgorithm.add(lblNumberK);
-							lblNumberK.setBounds(17, 63, 65, 16);
-							lblNumberK.setName("lblNumberK");
-							lblNumberK.setText(ApplicationInternationalization.getString("lblKNumber"));
-						}
-						{
-							txtNumberK = new JTextField();
-							pnlAlgorithm.add(txtNumberK);
-							txtNumberK.setBounds(89, 60, 210, 23);
-						}
+						lblAlgorithm = new JLabel();
+						pnlAlgorithm.add(lblAlgorithm);
+						lblAlgorithm.setBounds(17, 20, 54, 16);
+						lblAlgorithm.setName("lblAlgorithm");
+						lblAlgorithm.setText(ApplicationInternationalization.getString("lblAlgorithm"));
 					}
 					{
-						pnlAttributes = new JPanel();
-						panelConfigSimil.add(pnlAttributes);
-						pnlAttributes.setBounds(0, 110, 591, 446);
-						pnlAttributes.setBorder(BorderFactory.createTitledBorder(""));
-						pnlAttributes.setLayout(null);
-						{
-							lblAttributes = new JLabel();
-							pnlAttributes.add(lblAttributes);
-							lblAttributes.setBounds(17, 23, 77, 16);
-							lblAttributes.setText(ApplicationInternationalization.getString("lblAttributes"));
-						}
-						{
-							lblFunction = new JLabel();
-							pnlAttributes.add(lblFunction);
-							lblFunction.setBounds(132, 23, 99, 16);
-							lblFunction.setName("lblFunction");
-							lblFunction.setText(ApplicationInternationalization.getString("lblFunction"));
-						}
-						{
-							lblWeight = new JLabel();
-							pnlAttributes.add(lblWeight);
-							lblWeight.setBounds(433, 23, 38, 16);
-							lblWeight.setName("lblWeight");
-							lblWeight.setText(ApplicationInternationalization.getString("lblWeight"));
-						}
-						
-						// Change labels of slider
-						dic = new Hashtable<Integer, JLabel>();
-						for (int i=0; i<=100; i++) {
-							double aux = new Double(i);
-							double value = aux / 100.00;
-							dic.put(new Integer(i), new JLabel(String.valueOf(value)));
-						}
-						{
-							lblParams = new JLabel();
-							pnlAttributes.add(lblParams);
-							lblParams.setBounds(286, 23, 79, 16);
-							lblParams.setName("lblParams");
-							lblParams.setText(ApplicationInternationalization.getString("lblParams"));
-						}
+						cbAlgorithm = new JComboBox();
+						pnlAlgorithm.add(cbAlgorithm);
+						for (EnumAlgorithmCBR ea : EnumAlgorithmCBR.values())
+							cbAlgorithm.addItem(ea.name());
+						cbAlgorithm.setBounds(89, 17, 210, 23);
 					}
 					{
-						btnCancel = new JButton();
-						panelConfigSimil.add(btnCancel);
-						btnCancel.setBounds(504, 568, 60, 23);
-						btnCancel.setName("btnCancel");
-						btnCancel.setAction(getAppActionMap().get("Back"));
-						btnCancel.setText(ApplicationInternationalization.getString("btnBack"));
+						lblNumberK = new JLabel();
+						pnlAlgorithm.add(lblNumberK);
+						lblNumberK.setBounds(17, 63, 65, 16);
+						lblNumberK.setName("lblNumberK");
+						lblNumberK.setText(ApplicationInternationalization.getString("lblKNumber"));
 					}
 					{
-						btnOK = new JButton();
-						panelConfigSimil.add(btnOK);
-						btnOK.setBounds(422, 568, 67, 23);
-						btnOK.setName("btnOK");
-						btnOK.setAction(getAppActionMap().get("OK"));
-						btnOK.setText(ApplicationInternationalization.getString("bntFinish"));
+						txtNumberK = new JTextField();
+						pnlAlgorithm.add(txtNumberK);
+						txtNumberK.setBounds(89, 60, 210, 23);
 					}
 				}
+				{
+					pnlAttributes = new JPanel();
+					this.add(pnlAttributes);
+					pnlAttributes.setBounds(0, 110, 520, 400);
+					pnlAttributes.setBorder(BorderFactory.createTitledBorder(""));
+					pnlAttributes.setLayout(null);
+					{
+						lblAttributes = new JLabel();
+						pnlAttributes.add(lblAttributes);
+						lblAttributes.setBounds(17, 23, 77, 16);
+						lblAttributes.setText(ApplicationInternationalization.getString("lblAttributes"));
+					}
+					{
+						lblFunction = new JLabel();
+						pnlAttributes.add(lblFunction);
+						lblFunction.setBounds(POSX_COLUMN2 + 10, 23, 99, 16);
+						lblFunction.setName("lblFunction");
+						lblFunction.setText(ApplicationInternationalization.getString("lblFunction"));
+					}
+					{
+						lblWeight = new JLabel();
+						pnlAttributes.add(lblWeight);
+						lblWeight.setBounds(433, 23, 38, 16);
+						lblWeight.setName("lblWeight");
+						lblWeight.setText(ApplicationInternationalization.getString("lblWeight"));
+					}
+					
+					// Change labels of slider
+					dic = new Hashtable<Integer, JLabel>();
+					for (int i=0; i<=100; i++) {
+						double aux = new Double(i);
+						double value = aux / 100.00;
+						dic.put(new Integer(i), new JLabel(String.valueOf(value)));
+					}
+					{
+						lblParams = new JLabel();
+						pnlAttributes.add(lblParams);
+						lblParams.setBounds(POSX_COLUMN3, 23, 79, 16);
+						lblParams.setName("lblParams");
+						lblParams.setText(ApplicationInternationalization.getString("lblParams"));
+					}
+				}
+				{
+					btnCancel = new JButton();
+					this.add(btnCancel);
+					btnCancel.setBounds(429, 522, 91, 23);
+					btnCancel.setName("btnCancel");
+					btnCancel.setAction(getAppActionMap().get("Back"));
+					btnCancel.setText(ApplicationInternationalization.getString("btnBack"));
+				}
+				{
+					btnOK = new JButton();
+					this.add(btnOK);
+					btnOK.setBounds(327, 522, 91, 23);
+					btnOK.setName("btnOK");
+					btnOK.setAction(getAppActionMap().get("OK"));
+					btnOK.setText(ApplicationInternationalization.getString("btnFinish"));
+				}
 			}
-			this.setSize(590, 623);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -220,7 +218,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 				lblAtt.setName("attribute_"+att.getName()+"_"+numberAttributes);
 				lblAtt.setText(ApplicationInternationalization.getString(att.getName()));
 				pnlAttributes.add(lblAtt);
-				lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 57, 16);
+				lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 120, 16);
 				
 				// Show local similarity function supported for that attribute type
 				JComboBox cbFunctions = new JComboBox();
@@ -306,13 +304,12 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	
 	@Action
 	public void Back() {
-		parent.setTitle(ApplicationInternationalization.getString("configProjectTitle"));
-		this.setVisible(false);
-		parent.getPanelCreateProject().setVisible(true);
+		parent.back();
 	}
 	
 	@Action 
 	public void OK() {
+		CursorUtilities.showWaitCursor(this);
 		// Validate data and generate the configuration used to retrieve similar cases to the given case (project)
 		boolean valid = true;		
 		if (cbAlgorithm.getSelectedIndex() == -1)
@@ -323,7 +320,6 @@ public class panelConfigSimil extends javax.swing.JPanel {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					parent.getGlassPane().setColorB(241);
-					parent.getGlassPane().setText(ApplicationInternationalization.getString("proccesing"));
 					parent.getGlassPane().start();
 					Thread performer = new Thread(new Runnable() {
 						public void run() {
@@ -335,12 +331,18 @@ public class panelConfigSimil extends javax.swing.JPanel {
 			});
 		}
 		else {
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("SelectAlgorithm"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	private void processCases() {
-		int numberCases = Integer.parseInt(txtNumberK.getText());
+		int numberCases = 0;
+		try {
+			 numberCases = Integer.parseInt(txtNumberK.getText());
+		}
+		catch (NumberFormatException e) { }
+		
 		ConfigCBR configCBR = new ConfigCBR();
 		
 		// Search values of similarity function and weights for each attribute
@@ -379,6 +381,8 @@ public class panelConfigSimil extends javax.swing.JPanel {
 				JDRetrievalCases showCases = new JDRetrievalCases(cases);
 				parent.getGlassPane().stop();
 				parent.dispose();
+				CursorUtilities.showDefaultCursor(this);
+				showCases.setLocationRelativeTo(null);
 				showCases.setModal(true);
 				showCases.setVisible(true);					
 			}
