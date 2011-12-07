@@ -72,7 +72,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(269, 418));
+			this.setPreferredSize(new java.awt.Dimension(349, 418));
 			this.setLayout(null);
 			this.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelProject")));
 			
@@ -101,7 +101,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 					lblAtt.setName("attribute_"+att.getName()+"_"+numberAttributes);
 					lblAtt.setText(ApplicationInternationalization.getString(att.getName()));
 					this.add(lblAtt);
-					lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 100, 20);
+					lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 150, 20);
 					
 					// Create the textbox, depends of the attribute type (using reflection)
 					Field attField = Project.class.getDeclaredField(att.getName());
@@ -118,10 +118,10 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							tbNumericAttValue.setText(attField.get(project).toString());
 						}
 
-						tbNumericAttValue.setEditable(editable);
 						tbAttValue = tbNumericAttValue;
 						this.add(tbNumericAttValue);
-						tbNumericAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);						
+						tbNumericAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);
+						tbNumericAttValue.setEditable(editable);
 					}
 					else if (att.getType() == java.util.Date.class) {						 
 						DateDocument dd = new DateDocument(Locale.getDefault(), DateSeparator.SLASH); 
@@ -138,11 +138,12 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							tbDateAttValue.getDateDocument().setDate(gc.getTimeInMillis());
 						}
 
-						//tbDateAttValue.setEnabled(editable);
 						//tbDateAttValue.setFocusable(editable);
 						tbAttValue = tbDateAttValue;
 						this.add(tbDateAttValue);
-						tbDateAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);						
+						tbDateAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);
+						if (!editable)
+							tbDateAttValue.setEnabled(editable);
 					}
 					else {
 						tbStringAttValue = new JTextField();
@@ -151,10 +152,10 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							tbStringAttValue.setText(attField.get(project).toString());
 						}
 
-						tbStringAttValue.setEditable(editable);
 						tbAttValue = tbStringAttValue;
 						this.add(tbStringAttValue);
-						tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 100, 20);						
+						tbStringAttValue.setEditable(editable);
+						tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);						
 					}
 					
 					

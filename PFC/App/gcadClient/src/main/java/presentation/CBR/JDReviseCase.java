@@ -72,7 +72,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 		// Show tree of knowledge for this project
 		try {
 			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
-			panelTree.setEditable();
+			//panelTree.setEditable();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -159,7 +159,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 			currentPanel.showData(cases.get(currentProject-1), true);
 			try {
 				panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
-				panelTree.setEditable();
+				//panelTree.setEditable();
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
@@ -186,7 +186,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 			currentPanel.showData(cases.get(currentProject-1), true);
 			try {
 				panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
-				panelTree.setEditable();
+				//panelTree.setEditable();
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {

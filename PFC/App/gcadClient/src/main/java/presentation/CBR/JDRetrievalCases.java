@@ -2,9 +2,12 @@ package presentation.CBR;
 
 import internationalization.ApplicationInternationalization;
 
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
@@ -58,6 +61,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private List<Project> cases;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	private JPanel pnlProject;
 	private JLabel lblUserInfo;
 	private JList listUsers;
 	private JTextArea txtUserInfo;
@@ -105,11 +109,6 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				{
-					currentPanel = new panelProjectInformation(this);
-					getContentPane().add(currentPanel);
-					currentPanel.setBounds(12, 12, 272, 480);
-				}
-				{
 					lblNumberCases = new JLabel();
 					getContentPane().add(lblNumberCases);
 					lblNumberCases.setBounds(12, 541, 95, 13);
@@ -144,59 +143,82 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnOk = new JButton();
 					getContentPane().add(btnOk);
-					btnOk.setBounds(764, 542, 82, 25);
+					btnOk.setBounds(820, 530, 82, 25);
 					btnOk.setName("btnOk");
+					btnOk.setAction(getAppActionMap().get("OK"));
 					btnOk.setText(ApplicationInternationalization.getString("btnOK"));
 				}
 				{
 					panelTree = new panelKnowledgeTree();
 					getContentPane().add(panelTree);
-					panelTree.setBounds(620, 0, 227, 500);
+					panelTree.setBounds(622, 5, 283, 507);
 				}
 				{
-					pnlUsersCreate = new JPanel();
-					getContentPane().add(pnlUsersCreate);
-					pnlUsersCreate.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
-					pnlUsersCreate.setLayout(null);
-					pnlUsersCreate.setBounds(350, 12, 243, 488);
+					pnlProject = new JPanel();
+					getContentPane().add(pnlProject);
+					pnlProject.setBounds(6, 5, 639, 507);
+					pnlProject.setLayout(null);
 					{
-						jScrollPane2 = new JScrollPane();
-						pnlUsersCreate.add(jScrollPane2);
-						jScrollPane2.setBounds(12, 329, 222, 137);
-						{
-							txtUserInfo = new JTextArea();
-							jScrollPane2.setViewportView(txtUserInfo);
-							txtUserInfo.setPreferredSize(new java.awt.Dimension(219, 130));
-							txtUserInfo.setBounds(17, 306, 220, 92);
-							txtUserInfo.setName("txtUserInfo");
-						}
+						currentPanel = new panelProjectInformation(this);
+						pnlProject.add(currentPanel);
+						currentPanel.setBounds(0, 5, 355, 501);
 					}
 					{
-						jScrollPane1 = new JScrollPane();
-						pnlUsersCreate.add(jScrollPane1);
-						jScrollPane1.setBounds(12, 21, 222, 268);
+						pnlUsersCreate = new JPanel();
+						pnlProject.add(pnlUsersCreate);
+						pnlUsersCreate.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
+						pnlUsersCreate.setLayout(null);
+						pnlUsersCreate.setBounds(363, 0, 243, 506);
 						{
-							listUsers = new JList();
-							jScrollPane1.setViewportView(listUsers);
-							listUsers.setCellRenderer(new CheckListRenderer());
-							listUsers.setPreferredSize(new java.awt.Dimension(213,232));
-							listUsers.setBounds(5, 131, 247, 128);
-							listUsers.setEnabled(false);
+							jScrollPane2 = new JScrollPane();
+							pnlUsersCreate.add(jScrollPane2);
+							jScrollPane2.setBounds(12, 346, 222, 149);
+							{
+								txtUserInfo = new JTextArea();
+								jScrollPane2.setViewportView(txtUserInfo);
+								txtUserInfo.setPreferredSize(new java.awt.Dimension(219, 130));
+								txtUserInfo.setBounds(17, 306, 220, 92);
+								txtUserInfo.setName("txtUserInfo");
+							}
 						}
-					}
-					{
-						lblUserInfo = new JLabel();
-						pnlUsersCreate.add(lblUserInfo);
-						lblUserInfo.setName("lblUserInfo");
-						lblUserInfo.setBounds(12, 301, 112, 16);
-						lblUserInfo.setText(ApplicationInternationalization.getString("lblUserInfo"));
+						{
+							jScrollPane1 = new JScrollPane();
+							pnlUsersCreate.add(jScrollPane1);
+							jScrollPane1.setBounds(12, 21, 222, 291);
+							{
+								listUsers = new JList();
+								jScrollPane1.setViewportView(listUsers);
+								listUsers.setCellRenderer(new CheckListRenderer());
+								listUsers.setPreferredSize(new java.awt.Dimension(213,232));
+								listUsers.setBounds(5, 131, 247, 128);
+								listUsers.addMouseListener(new MouseAdapter() {
+									public void mouseClicked(MouseEvent e) {
+										int index = listUsers.locationToIndex(e.getPoint());
+										CheckableItem item = (CheckableItem) listUsers.getModel().getElementAt(index);
+										txtUserInfo.setText("");
+										txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
+												+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
+														+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
+										Font f = txtUserInfo.getFont();
+										txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
+									}
+								});
+							}
+						}
+						{
+							lblUserInfo = new JLabel();
+							pnlUsersCreate.add(lblUserInfo);
+							lblUserInfo.setName("lblUserInfo");
+							lblUserInfo.setBounds(12, 324, 110, 15);
+							lblUserInfo.setText(ApplicationInternationalization.getString("lblUserInfo"));
+						}
 					}
 				}
 				{
 					
 				}
 			}
-			this.setSize(873, 618);
+			this.setSize(929, 604);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -214,6 +236,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				model.add(cont, chkItem);
 				cont++;
 			}
+			listUsers.setModel(model);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -228,8 +251,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	}
 	
 	// Method used to show the users that work in a project
-	protected void showUsers(Project p) {
-	
+	protected void showUsers(Project p) {	
 			try {
 				List<User> users = ClientController.getInstance().getUsersProject(p);
 				for (User u: users) {
@@ -279,6 +301,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 			showCaseInformation();
 			lblNumberCases.setText(ApplicationInternationalization.getString("lblNumberCases") + " " + currentProject+"/"+cases.size());
 		}
+		
 		if(currentProject == cases.size()) {
 			btnForward.setEnabled(false);
 		}
@@ -296,5 +319,10 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		if(currentProject == 1) {
 			btnBackward.setEnabled(false);
 		}
+	}
+	
+	@Action
+	public void OK() {
+		this.dispose();	
 	}
 }

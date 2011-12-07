@@ -3,9 +3,13 @@ package presentation;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -14,8 +18,8 @@ import java.util.List;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +44,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import resources.CursorUtilities;
+import resources.ImagesUtilities;
 import resources.NotEmptyValidator;
 
 import bussiness.control.ClientController;
@@ -79,8 +85,6 @@ public class JDStatistics extends javax.swing.JDialog {
 	private JLabel lblCharType;
 	private JButton btnCreate;
 	private JButton btnCancel;
-	private JCheckBox chk3D;
-	private JLabel lblEffect;
 	private JRadioButton rbHideLegend;
 	private JRadioButton rbShowLegend;
 	private JPanel panelCustomize;
@@ -143,7 +147,7 @@ public class JDStatistics extends javax.swing.JDialog {
 			{
 				btnCreate = new JButton();
 				getContentPane().add(btnCreate);
-				btnCreate.setBounds(333, 378, 88, 23);
+				btnCreate.setBounds(329, 345, 88, 23);
 				btnCreate.setName("btnCreate");
 				btnCreate.setAction(getAppActionMap().get("Generate"));
 				btnCreate.setText(ApplicationInternationalization.getString("GenerateButton"));
@@ -151,7 +155,7 @@ public class JDStatistics extends javax.swing.JDialog {
 			{
 				btnCancel = new JButton();
 				getContentPane().add(btnCancel);
-				btnCancel.setBounds(432, 378, 79, 23);
+				btnCancel.setBounds(428, 345, 79, 23);
 				btnCancel.setName("btnCancel");
 				btnCancel.setAction(getAppActionMap().get("Cancel"));
 				btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
@@ -161,18 +165,18 @@ public class JDStatistics extends javax.swing.JDialog {
 				{
 					jScrollPane1 = new JScrollPane();
 					getContentPane().add(jScrollPane1);
-					jScrollPane1.setBounds(12, 12, 157, 352);
+					jScrollPane1.setBounds(12, 12, 157, 321);
 					{
 						panelCharts = new JPanel();
 						jScrollPane1.setViewportView(panelCharts);
 						panelCharts.setBounds(12, 12, 151, 286);
-						panelCharts.setPreferredSize(new java.awt.Dimension(148, 255));
+						panelCharts.setPreferredSize(new java.awt.Dimension(153, 311));
 					}
 				}
 				{
 					panelConfigurationChart = new JPanel();
 					getContentPane().add(panelConfigurationChart);
-					panelConfigurationChart.setBounds(175, 12, 335, 360);
+					panelConfigurationChart.setBounds(175, 12, 335, 321);
 					panelConfigurationChart.setLayout(null);
 					{
 						panelConfiguration = new JPanel();
@@ -195,7 +199,7 @@ public class JDStatistics extends javax.swing.JDialog {
 					{
 						panelCustomize = new JPanel();
 						panelConfigurationChart.add(panelCustomize);
-						panelCustomize.setBounds(12, 252, 322, 100);
+						panelCustomize.setBounds(12, 252, 322, 67);
 						panelCustomize.setLayout(null);
 						panelCustomize.setBorder(BorderFactory.createTitledBorder(""));
 						{
@@ -232,20 +236,6 @@ public class JDStatistics extends javax.swing.JDialog {
 							rbHideLegend.setName("rbHideLegend");
 							rbHideLegend.setText(ApplicationInternationalization.getString("hideLegendChart"));
 						}
-						{
-							lblEffect = new JLabel();
-							panelCustomize.add(lblEffect);
-							lblEffect.setBounds(11, 66, 77, 21);
-							lblEffect.setName("lblEffect");
-							lblEffect.setText(ApplicationInternationalization.getString("effectChart"));
-						}
-						{
-							chk3D = new JCheckBox();
-							panelCustomize.add(chk3D);
-							chk3D.setBounds(88, 64, 52, 23);
-							chk3D.setName("chk3D");
-							chk3D.setText(ApplicationInternationalization.getString("chk3D"));
-						}
 					}
 					getButtonGroup().add(rbHideLegend);
 					getButtonGroup().add(rbShowLegend);
@@ -258,7 +248,7 @@ public class JDStatistics extends javax.swing.JDialog {
 					
 				}
 			}
-			this.setSize(538, 451);
+			this.setSize(538, 418);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -280,7 +270,6 @@ public class JDStatistics extends javax.swing.JDialog {
 
 	private void createChartButtons() throws JDOMException, IOException {
 		// Get types of chart from XML
-		// TODO: hacer
 		List<String> types = StatisticsGenerator.getInstance().getChartsTypes();
 		for (String s: types) {		
 			JButton button = new JButton();
@@ -288,25 +277,26 @@ public class JDStatistics extends javax.swing.JDialog {
 			button.setPreferredSize(button.getSize());
 			button.setName(s);
 			button.setText(ApplicationInternationalization.getString(s+"Chart"));
-//			button.setIcon(new ImageIcon(image));
+			BufferedImage image = ImagesUtilities.loadCompatibleImage("statistics/"+s+"Chart.png");
+			button.setIcon(new ImageIcon(image));
 			button.setHorizontalTextPosition(JButton.CENTER);
 			button.setVerticalTextPosition(JButton.BOTTOM);
 			button.setContentAreaFilled(false);
 			button.setFocusPainted(false);
 			button.setBorderPainted(true);					
 			// Save button icon
-//			ImagesUtilities.addImageButton(button.getName(), image);
-//			button.addMouseListener(new MouseAdapter() {
-//				public void mouseExited(MouseEvent evt) {
-//					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
-//					ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
-//				}
-//	
-//				public void mouseEntered(MouseEvent evt) {
-//					setCursor(new Cursor(Cursor.HAND_CURSOR));  
-//					ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
-//				}
-//			});
+			ImagesUtilities.addImageButton(button.getName(), image);
+			button.addMouseListener(new MouseAdapter() {
+				public void mouseExited(MouseEvent evt) {
+					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));  
+					ImagesUtilities.decreaseImageBrightness((JButton) evt.getSource());
+				}
+	
+				public void mouseEntered(MouseEvent evt) {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));  
+					ImagesUtilities.increaseImageBrightness((JButton) evt.getSource());
+				}
+			});
 			button.addActionListener(new ActionListener() {		
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -336,9 +326,6 @@ public class JDStatistics extends javax.swing.JDialog {
 						JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-					}
-					if (((JButton)e.getSource()).getName().equals("pie")) {
-						setRenderVisibility(true);
 					}
 				}
 			});
@@ -498,11 +485,6 @@ public class JDStatistics extends javax.swing.JDialog {
 		return jScrollPane2;
 	}
 
-	public void setRenderVisibility(boolean visible) {
-		lblEffect.setVisible(visible);
-		chk3D.setVisible(visible);
-	}
-	
 	// Depending on the chosen chart, enabling or disabling components 
 	private void cbChartsActionPerformed() {
 		try {
@@ -575,6 +557,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	// Action used to generate a chart
 	@Action
 	public void Generate () {		
+		CursorUtilities.showWaitCursor(this);
 		Project pro = null;
 		User u = null;
 		boolean isAnnually = true;
@@ -584,28 +567,38 @@ public class JDStatistics extends javax.swing.JDialog {
 		boolean valid = true;
 		if (cbCharts.getSelectedItem() == null) {
 			valid = false;
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectChart"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		}
 		if (valid && cbProjects.isEnabled() && cbProjects.getSelectedItem() == null) {
 			valid = false;
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectProject"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		}
 		if (valid && cbUsers.isEnabled() && cbUsers.getSelectedItem() == null) {
 			valid = false;
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectUser"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		}
 		if (valid && cbRange.isEnabled() && cbRange.getSelectedItem() == null) {
 			valid = false;
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectRange"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+		}
+		
+		if (valid && txtTitleChart.getText().isEmpty()){
+			valid = false;
+			CursorUtilities.showDefaultCursor(this);
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectTitle"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		}
 		
 		if (valid && !rbHideLegend.isSelected() && !rbShowLegend.isSelected()) {
 			valid = false;
+			CursorUtilities.showDefaultCursor(this);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_selectLegend"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
 		}
 		
-		if (valid) {
-		
+		if (valid) {		
 			if (cbRange.getSelectedIndex() == 1)
 				isAnnually = false;			
 			try {
@@ -646,6 +639,7 @@ public class JDStatistics extends javax.swing.JDialog {
 						chart = generateBarChart(txtTitleChart.getText(), (DefaultCategoryDataset) dataset, "", "", false);
 					}
 				}
+				CursorUtilities.showDefaultCursor(this);
 				chartPanel = new ChartPanel(chart);
 				this.dispose();
 			} catch (RemoteException e) {

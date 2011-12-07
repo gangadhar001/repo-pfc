@@ -1,23 +1,32 @@
 package presentation.CBR;
 
-import java.awt.Component;
+import internationalization.ApplicationInternationalization;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JToolBar;
+import javax.swing.JTextPane;
 import javax.swing.JTree;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import model.business.knowledge.Knowledge;
 import model.business.knowledge.TopicWrapper;
 
 import org.jdesktop.application.Application;
 
 import presentation.dataVisualization.TreeContentProvider;
 import presentation.utils.ImageKnowledgeTreeCellRenderer;
+import presentation.utils.TextPaneUtilities;
 
 
 /**
@@ -38,13 +47,12 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 7404365058926776576L;
-	private JScrollPane jScrollPane1;
 	private JTree tree;
 	private DefaultTreeModel treeModel;
-	private Component txtAreaKnowledge;
-	private JLabel lblInfo;
-	private JScrollPane jScrollPane2;
-	private JToolBar toolbar;
+	private JScrollPane scrollTree;
+	private JLabel lblKnowledgeInformation;
+	private JScrollPane scrollText;
+	private JTextPane txtAreaKnowledge;
 
 	/**
 	* Auto-generated main method to display this 
@@ -54,73 +62,126 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 	public panelKnowledgeTree() {
 		super();
 		initGUI();
-		toolbar.setVisible(false);
 	}
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(223, 334));
+			this.setPreferredSize(new java.awt.Dimension(282, 505));
 			this.setLayout(null);
-			this.setSize(227, 480);
-			this.setBorder(BorderFactory.createTitledBorder(""));
+			this.setSize(282, 505);
+			this.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("decissionsPanel")));
+			{
+				scrollText = new JScrollPane();
+				this.add(scrollText);
+				scrollText.setBounds(10, 340, 265, 158);
 				{
-					jScrollPane1 = new JScrollPane();
-					this.add(jScrollPane1);
-					jScrollPane1.setBounds(4, 367, 218, 109);
-					{
-						txtAreaKnowledge = new JTextArea();
-						jScrollPane1.setViewportView(txtAreaKnowledge);
-						txtAreaKnowledge.setBounds(0, 368, 233, 112);
-						txtAreaKnowledge.setPreferredSize(new java.awt.Dimension(213, 102));
-					}
+					txtAreaKnowledge = new JTextPane();
+					scrollText.setViewportView(txtAreaKnowledge);
+					txtAreaKnowledge.setBounds(10, 336, 265, 162);
+					txtAreaKnowledge.setName("txtAreaKnowledge");
+					txtAreaKnowledge.setAutoscrolls(true);
+					txtAreaKnowledge.setEditable(false);
 				}
+			}
 				{
-					jScrollPane2 = new JScrollPane();
-					this.add(jScrollPane2);
-					jScrollPane2.setBounds(5, 17, 217, 322);
-					tree = new JTree(treeModel);
-					jScrollPane2.setViewportView(tree);
-					tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-					tree.setCellRenderer(new ImageKnowledgeTreeCellRenderer());
-					tree.setName("tree");
-				}
-				{
-					lblInfo = new JLabel();
-					this.add(lblInfo);
-					lblInfo.setBounds(5, 345, 114, 16);
-					lblInfo.setName("lblInfo");
-				}
-				{
-					toolbar = new JToolBar();
-					this.add(toolbar);
-					toolbar.setBounds(5, 17, 217, 26);
-					toolbar.setSize(217, 30);
+					scrollTree = new JScrollPane();
+					scrollTree.setBounds(10, 21, 265, 289);
 				}
 
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
 	// Method used to show knowledge tree
 	public void showTree(TopicWrapper topicWrapper) {	
-		this.removeAll();
+		this.remove(scrollTree);
 		
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Knowledge");
 		TreeContentProvider.setContentRootNode(root, topicWrapper);
 		treeModel = new DefaultTreeModel(root);
-
-		this.revalidate();
-		this.repaint();
-	}
-
-	// Enable toolbar in order to modify the tree
-	public void setEditable() {
-		jScrollPane2.setBounds(jScrollPane2.getBounds().x, (int)(jScrollPane2.getBounds().y + toolbar.getSize().getHeight()), jScrollPane2.getBounds().width, (int)(jScrollPane2.getBounds().height - toolbar.getSize().getHeight()));
-		toolbar.setVisible(true);
-		// TODO: añadir iconos de add, edit, delete
+		tree = new JTree(treeModel);
+		tree.setBorder(new EmptyBorder(5, 10, 5, 5));
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.setCellRenderer(new ImageKnowledgeTreeCellRenderer());
+		tree.setPreferredSize(new java.awt.Dimension(262, 285));
+		tree.addTreeSelectionListener(new TreeSelectionListener() {				
+			@Override
+			public void valueChanged(TreeSelectionEvent e) {
+				// Get selected element in the tree
+				Object val = ((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject();
+				if (!(val instanceof TopicWrapper) && (val instanceof Knowledge)) {
+					showKnowledgeInfo((Knowledge) val);
+				}
+			}
+		});
+		tree.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				treeMouseClicked(evt);
+			}
+		});
 		
+		
+		scrollTree.setViewportView(tree);
+		this.add(scrollTree);	
+		{
+			lblKnowledgeInformation = new JLabel();
+			lblKnowledgeInformation.setText(ApplicationInternationalization.getString("knowInfo"));
+			this.add(lblKnowledgeInformation);
+			lblKnowledgeInformation.setBounds(10, 316, 265, 18);
+		}
+		validate();
+		repaint();
 	}
+	
+	protected void showKnowledgeInfo(Knowledge val) {
+		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		// Create text and styles for TxetPane
+		String[] initString = {
+				ApplicationInternationalization.getString("nameKnowledge")+ ": ", 
+				val.getTitle(),	
+				"\n",
+				ApplicationInternationalization.getString("descripKnowledge") + ": ",
+				val.getDescription(),
+				"\n",
+				ApplicationInternationalization.getString("dateKnowledge") + ": ",
+				format.format(val.getDate()),
+				"\n",
+				ApplicationInternationalization.getString("statusKnowledge") + ": ",
+				val.getStatus().name(),
+				"\n",
+				ApplicationInternationalization.getString("authorKnowledge") + ": ",
+				"\n",
+				"   " + ApplicationInternationalization.getString("nameUserKnowledge") + ": ",
+				val.getUser().getName(),
+				"\n",
+				ApplicationInternationalization.getString("countryUserKnowledge") + ": ",
+				val.getUser().getCompany().getName() + "(" + val.getUser().getCompany().getAddress().getCountry() + ")"
+				
+		};
+		
+		String[] initStyles = { 
+				"bold", "regular", "regular",
+				"bold", "regular", "regular",
+				"bold", "regular", "regular",
+				"bold", "regular", "regular",
+				"bold", "regular", "bold",
+				"regular", "regular", 
+				"bold", "regular"
+		};
+		
+		TextPaneUtilities.setStyledText(txtAreaKnowledge, initString, initStyles);
+	}
+	 		
+	private void treeMouseClicked(MouseEvent evt) {
+		int row = tree.getRowForLocation(evt.getX(), evt.getY());
+		// Click on empty surface. Clear selection from tree and graph
+		if (row == -1) {
+			tree.clearSelection();
+			txtAreaKnowledge.setText("");
+		}		
+	}
+
+
 
 }
