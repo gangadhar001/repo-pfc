@@ -39,7 +39,7 @@ Al terminar la iteración de la fase anterior, obteniendo un primer modelo de cas
 Como resultado de esta reunión, se identificaron nuevos requisitos funcionales para añadir al sistema, y que servirán para mitigar o resolver más problemas que aparecen en GSD. Estos nuevos requisitos fueron:
 
 \begin{itemize}
-	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder aceptar o rechazar dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
+	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder cambiar el estado de éstas, aceptando o rechazando dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
 	\item Para aumentar la información que se añade al crear nuevas decisiones de un proyecto, se debe poder adjuntar ficheros a dichas decisiones. Del mismo modo, se deben poder descargar esos archivos adjuntos, si los hubiera.
 	\item Se deben poder generar de manera automática estadísticas que ayuden a llevar un control sobre los proyectos que se están desarrollando por los diferentes centros de desarrollo software de una compañía. También, se podrán generar estadísticas acerca de los miembros de los equipos.
 	\item Se deben poder generar informes de las decisiones tomadas en un proyecto, en forma de tabla y de manera automática. Dicho informe debe generarse como un documento PDF.
@@ -60,17 +60,17 @@ En la Tabla \ref{table:categorias2} se muestran los nuevos grupos de requisitos,
 		 Login (acceso) \newline 
 		 Logout (desconexión) \\
 	\hline
+	\multicolumn{1}{|c|}{\colorCelda Visualizar información} & 
+		 Consultar decisiones \newline 
+		 Visualizar compañía \newline
+		 Descargar ficheros adjuntos \\
+	\hline
 	\multicolumn{1}{|c|}{\colorCelda Gestión Decisiones} & 
 		 Crear nueva decisión \newline
 		 Modificar decisión \newline
 		 Eliminar decisión \newline
 		 Adjuntar ficheros \newline
 		 Aceptar o rechazar decisiones \\
-	\hline
-	\multicolumn{1}{|c|}{\colorCelda Visualizar información} & 
-		 Consultar decisiones \newline 
-		 Visualizar compañía \newline
-		 Descargar ficheros adjuntos \\
 	\hline
 	\multicolumn{1}{|c|}{\colorCelda Gestión Notificaciones} & 
 		 Consultar notificaciones \newline 
@@ -80,7 +80,9 @@ En la Tabla \ref{table:categorias2} se muestran los nuevos grupos de requisitos,
 	\multicolumn{1}{|c|}{\colorCelda Gestión Proyectos} & 
 		 Dar de alta un proyecto \newline 
 		 Modificar datos proyecto  \newline
-		 Seleccionar proyecto sobre el que trabajar \\
+		 Consultar usuarios \newline
+		 Seleccionar proyecto sobre el que trabajar \newline
+		 Aconsejar decisiones de proyectos similares \\
 	\hline
 		\multicolumn{1}{|c|}{\colorCelda Generación Estadísticas} & 
 		 Generación estadísticas \\
@@ -138,6 +140,8 @@ Por otra parte, en la Tabla \ref{table:acciones2} se muestran las acciones que s
 		 \hline
 		 \textbf{Modificar proyecto} &  & X \\
 		 \hline
+		 \textbf{Consultar usuarios} & X & X \\
+		 \hline
 		 \textbf{Seleccionar proyecto activo} & X & X \\
 		 \hline
 		 \textbf{Aconsejar decisiones de proyectos similares} & & X \\
@@ -150,7 +154,7 @@ Por otra parte, en la Tabla \ref{table:acciones2} se muestran las acciones que s
 		 \hline
 		 \textbf{Cambiar idioma} & X & X \\
 		 \hline
-		 \textbf{Exportar conocimiento} &  & X \\
+		 \textbf{Exportar información} &  & X \\
 		 \hline
 \end{tabular}
 \caption{Acciones que un usuario puede realizar en el sistema - v2.0}
@@ -163,7 +167,7 @@ Por otra parte, en la Tabla \ref{table:acciones2} se muestran las acciones que s
 En la Figura \ref{fig:casos2Cliente} se muestra el diagrama de casos de usos global del cliente, incluyendo los nuevos requisitos. Del mismo modo, en la Figura \ref{fig:casos2Server} se muestra el diagrama de casos de uso actualizado del subsistema servidor.
 
 
-\imagen{Cap5/Cliente2/casos2Cliente}{2.0}{Diagrama de casos de uso - Cliente - v2.0}{fig:casos2Cliente}
+\imagen{Cap5/Cliente2/casos2Cliente}{1.0}{Diagrama de casos de uso - Cliente - v2.0}{fig:casos2Cliente}
 
 \imagen{Cap5/Server2/casos2Server}{2.0}{Diagrama de casos de uso - Servidor - v2.0}{fig:casos2Server}
 
@@ -175,29 +179,19 @@ A continuación, para cada uno de los grupos funcionales del sistema, se represen
 
 En la Figura \ref{fig:CduVisualizarDecisiones2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduVisualizarDecisiones2Server} se observa el diagrama de casos de uso para el servidor.
 
-\imagen{Cap5/Cliente2//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Cliente - Visualizar decisiones - v2.0}{fig:CduVisualizarDecisiones2Cliente}
+\imagen{Cap5/Cliente2//CduVisualizarDecisiones}{1.0}{Diagrama de casos de uso - Cliente - Visualizar información - v2.0}{fig:CduVisualizarDecisiones2Cliente}
 
-\imagen{Cap5/Server2//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Visualizar decisiones - v2.0}{fig:CduVisualizarDecisiones2Server}
+\imagen{Cap5/Server2//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Visualizar información - v2.0}{fig:CduVisualizarDecisiones2Server}
 
 
 \paragraph{Gestión de decisiones}
 
 En la Figura \ref{fig:CduGestionDecisiones2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionDecisiones2Server} se muestra el diagrama de casos de uso para el servidor.
 
-\imagen{Cap5/Cliente2//CduGestionDecisiones}{2.0}{Diagrama de casos de uso - Cliente - Gestión decisiones - v2.0}{fig:CduGestionDecisiones2Cliente}
+\imagen{Cap5/Cliente2//CduGestionDecisiones}{1.0}{Diagrama de casos de uso - Cliente - Gestión decisiones - v2.0}{fig:CduGestionDecisiones2Cliente}
 
 
 \imagen{Cap5/Server2//CduGestionDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Gestión decisiones - v2.0}{fig:CduGestionDecisiones2Server}
-
-
-\paragraph{Gestión de proyectos}
-
-En la Figura \ref{fig:CduGestionProyectos2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionProyectos2Server} se muestra el diagrama de casos de uso para el servidor.
-
-\imagen{Cap5/Cliente2//CduGestionProyectos}{2.0}{Diagrama de casos de uso - Cliente - Gestión Proyectos - v2.0}{fig:CduGestionProyectos2Cliente}
-
-
-\imagen{Cap5/Server2//CduGestionProyectos}{2.0}{Diagrama de casos de uso - Servidor - Gestión Proyectos - v2.0}{fig:CduGestionProyectos2Server}
 
 
 \paragraph{Generación de estadísticas}
@@ -281,7 +275,7 @@ Una vez identificados nuevos requisitos y modelados los casos de uso del sistema
 		 \cline{2-3}
 		 \colorCelda & 5 & 
 	   Diseñar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
-		 Implementar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar coinformaciónnocimiento} \newline
+		 Implementar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
 		 Probar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \\
 		 \hline
 	\multicolumn{1}{|c|}{\colorCelda Transición} & 1 &

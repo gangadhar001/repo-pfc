@@ -33,7 +33,7 @@ A continuación, se enumera el conjunto de requisitos funcionales que el sistema 
 \begin{itemize}
 	\item Se debe permitir que diferentes miembros de los equipos de desarrollo de una compañía puedan acceder al sistema, mediante un nombre de usuario y contraseña, proporcionados por la empresa.
 	\item Como en los equipos de desarrollo existen diferentes roles entre sus miembros, el sistema debe adaptarse a las acciones que cada miembro del equipo (en adelante, usuario) puede realizar, según su rol.
-	\item Se deben poder dar de alta nuevos proyectos en el sistema, así como modificar los existentes.
+	\item Se deben poder dar de alta nuevos proyectos en el sistema, así como modificar los existentes, permitiendo seleccionar los usuarios que en dichos proyectos participarán.
 	\item Los miembros del equipo de desarrollo normalmente trabajan en varios proyectos, por lo que el sistema deberá permitir escoger el proyecto en el cuál se van a gestionar las decisiones.	
 	\item Los usuarios pueden participar activamente en las decisiones que se van tomando durante el ciclo de vida de los proyectos en los que participan, de tal modo que la herramienta debe permitir gestionar estas decisiones. Así, se podrán crear, modificar y eliminar dichas decisiones, agrupadas en tres categorías: \textit{Temas}, \textit{Propuestas} y \textit{Respuestas}.
 	\item La herramienta debe mostrar, de una manera gráfica e intuitiva, el conjunto de decisiones que han sido tomadas en un proyecto software. Además, se deberá proporcionar diferente información acerca de esas decisiones: su autor, centro de desarrollo y compañía donde pertenece, detalles de esa decisión, etc.
@@ -45,7 +45,7 @@ A continuación, se enumera el conjunto de requisitos funcionales que el sistema 
 	\end{itemize}
 	\item La herramienta debe poder configurarse y mostrarse en diferentes idiomas.
 	\item La herramienta debe generar \textit{logs} con las acciones que se van realizando en el sistema.
-	\item Se debe poder exportar todo el conocimiento a un fichero XML.
+	\item Se debe poder exportar todas las decisiones realizadas en un proyecto a un fichero XML, así como toda la información asociada a dichas decisiones.
 \end{itemize}
 
 Una vez identificada esta lista de funciones a las que el sistema debe dar soporte, éstas se agruparon en diferentes categorías de requisitos, como se muestra en la tabla \ref{table:categorias}.
@@ -78,6 +78,7 @@ Una vez identificada esta lista de funciones a las que el sistema debe dar sopor
 	\multicolumn{1}{|c|}{\colorCelda Gestión Proyectos} & 
 		 Dar de alta un proyecto \newline 
 		 Modificar datos proyecto  \newline
+		 Consultar usuarios \newline
 		 Seleccionar proyecto sobre el que trabajar \newline
 		 Aconsejar decisiones de proyectos similares \\
 	\hline
@@ -145,6 +146,8 @@ Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:r
 		 \hline
 		 \textbf{Modificar proyecto} &  & X \\
 		 \hline
+		 \textbf{Consultar usuarios}& X & X \\
+		 \hline
 		 \textbf{Seleccionar proyecto activo} & X & X \\
 		 \hline
 		 \textbf{Aconsejar decisiones de proyectos similares} & & X \\
@@ -153,7 +156,7 @@ Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:r
 		 \hline
 		 \textbf{Cambiar idioma} & X & X \\
 		 \hline
-		 \textbf{Exportar conocimiento} &  & X \\
+		 \textbf{Exportar información} &  & X \\
 		 \hline
 \end{tabular}
 \caption{Acciones que un usuario puede realizar en el sistema - v1.0}
@@ -186,7 +189,7 @@ diferentes roles del sistema, y el servidor.
 
 Para terminar, cabe señalar que se ha utilizado una jerarquía de herencia entre los diferentes tipos de usuarios, pues hay operaciones que pueden realizar varios de ellos. Por ejemplo, el empleado y el jefe de proyecto pueden ambos consultar las decisiones de un proyecto.
 
-\imagen{Cap5/Cliente1//casos1Cliente}{1.6}{Diagrama de casos de uso - Cliente - v1.0}{fig:casos1Cliente}
+\imagen{Cap5/Cliente1//casos1Cliente}{2.0}{Diagrama de casos de uso - Cliente - v1.0}{fig:casos1Cliente}
 
 \subsubsection{Modelo de casos de uso para el subsistema servidor}
 
@@ -219,9 +222,9 @@ En la Figura \ref{fig:CduAccesoSistema1Cliente} se muestra el diagrama de casos 
 
 En la Figura \ref{fig:CduVisualizarDecisiones1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduVisualizarDecisiones1Server} se muestra el diagrama de casos de uso para el servidor.
 
-\imagen{Cap5/Cliente1//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Cliente - Visualizar decisiones - v.10}{fig:CduVisualizarDecisiones1Cliente}
+\imagen{Cap5/Cliente1//CduVisualizarDecisiones}{1.0}{Diagrama de casos de uso - Cliente - Visualizar información - v1.0}{fig:CduVisualizarDecisiones1Cliente}
 
-\imagen{Cap5/Server1//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Visualizar decisiones - v1.0}{fig:CduVisualizarDecisiones1Server}
+\imagen{Cap5/Server1//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Visualizar información - v1.0}{fig:CduVisualizarDecisiones1Server}
 
 
 \paragraph{Gestión de decisiones}
@@ -246,7 +249,7 @@ En la Figura \ref{fig:CduGestionNotificaciones1Cliente} se muestra el diagrama d
 
 En la Figura \ref{fig:CduGestionProyectos1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionProyectos1Server} se muestra el diagrama de casos de uso para el servidor.
 
-\imagen{Cap5/Cliente1//CduGestionProyectos}{2.0}{Diagrama de casos de uso - Cliente - Gestión Proyectos - v1.0}{fig:CduGestionProyectos1Cliente}
+\imagen{Cap5/Cliente1//CduGestionProyectos}{0.8}{Diagrama de casos de uso - Cliente - Gestión Proyectos - v1.0}{fig:CduGestionProyectos1Cliente}
 
 \imagen{Cap5/Server1//CduGestionProyectos}{2.0}{Diagrama de casos de uso - Servidor - Gestión Proyectos - v1.0}{fig:CduGestionProyectos1Server}
 
@@ -264,10 +267,10 @@ En la Figura \ref{fig:CduGestionIdiomas1Cliente} se muestra el diagrama de casos
 
 En la Figura \ref{fig:CduExportarConocimiento1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduExportarConocimiento1Server} se muestra el diagrama de casos de uso para el servidor.
 
-\imagen{Cap5/Cliente1//CduExportarConocimiento}{2.0}{Diagrama de casos de uso - Cliente - Exportar Conocimiento - v1.0}{fig:CduExportarConocimiento1Cliente}
+\imagen{Cap5/Cliente1//CduExportarConocimiento}{2.0}{Diagrama de casos de uso - Cliente - Exportar información - v1.0}{fig:CduExportarConocimiento1Cliente}
 
 
-\imagen{Cap5/Server1//CduExportarConocimiento}{2.0}{Diagrama de casos de uso - Servidor - Exportar Conocimiento - v1.0}{fig:CduExportarConocimiento1Server}
+\imagen{Cap5/Server1//CduExportarConocimiento}{2.0}{Diagrama de casos de uso - Servidor - Exportar información - v1.0}{fig:CduExportarConocimiento1Server}
 
 
 
