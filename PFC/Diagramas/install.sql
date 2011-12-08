@@ -1,4 +1,4 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+﻿SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
@@ -51,14 +51,14 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`companies` (
   `cif` CHAR(9) NOT NULL ,
   `name` TEXT NOT NULL ,
   `information` TEXT NOT NULL ,
-  `addressId` INT NULL DEFAULT -1 ,
+  `addressId` INT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `cif_UNIQUE` (`cif` ASC) ,
-  INDEX `fk_companies_address` (`addressId` ASC) ,
-  CONSTRAINT `fk_companies_address`
+  INDEX `fk_address` (`addressId` ASC) ,
+  CONSTRAINT `fk_address`
     FOREIGN KEY (`addressId` )
     REFERENCES `dbgcad`.`addresses` (`id` )
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -126,6 +126,7 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`knowledge` (
   `title` VARCHAR(255) NOT NULL ,
   `description` VARCHAR(255) NOT NULL ,
   `date` DATETIME NOT NULL ,
+  `status` ENUM('Open', 'Accepted', 'Rejected') NOT NULL ,
   `userId` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_knowledge_user` (`userId` ASC) ,
@@ -290,13 +291,30 @@ DROP TABLE IF EXISTS `dbgcad`.`files` ;
 
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`files` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `knowledgeId` INT NOT NULL ,
   `fileName` VARCHAR(255) NOT NULL ,
   `content` LONGBLOB NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_fileKnowledge_knowledge` (`knowledgeId` ASC) ,
-  CONSTRAINT `fk_fileKnowledge_knowledge`
-    FOREIGN KEY (`knowledgeId` )
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `dbgcad`.`filesKnowledge`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dbgcad`.`filesKnowledge` ;
+
+CREATE  TABLE IF NOT EXISTS `dbgcad`.`filesKnowledge` (
+  `idfile` INT NOT NULL ,
+  `idknowledge` INT NOT NULL ,
+  PRIMARY KEY (`idfile`, `idknowledge`) ,
+  INDEX `fk_idfile_files` (`idfile` ASC) ,
+  INDEX `fk_idknowledge_knowledge` (`idknowledge` ASC) ,
+  CONSTRAINT `fk_idfile_files`
+    FOREIGN KEY (`idfile` )
+    REFERENCES `dbgcad`.`files` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_idknowledge_knowledge`
+    FOREIGN KEY (`idknowledge` )
     REFERENCES `dbgcad`.`knowledge` (`id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -328,7 +346,7 @@ END$$
 
 DELIMITER ;
 
-;
+
 CREATE USER `gcad` IDENTIFIED BY 'gcad';
 
 grant ALL on TABLE `dbgcad`.`addresses` to gcad;
@@ -344,6 +362,7 @@ grant ALL on TABLE `dbgcad`.`notifications` to gcad;
 grant ALL on TABLE `dbgcad`.`LogEntry` to gcad;
 grant ALL on TABLE `dbgcad`.`notificationsUsers` to gcad;
 grant ALL on TABLE `dbgcad`.`files` to gcad;
+grant ALL on TABLE `dbgcad`.`filesKnowledge` to gcad;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -440,68 +459,68 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('1', 'Patterns', 'Topic to group decisions about design patterns', '2007-01-22', '10');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('2', 'Frameworks', 'Topic to group decisions about frameworks to use', '2011-01-21', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('3', 'Design', 'Topic to group design decisions ', '2009-12-01', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('4', 'Web Application', 'Topic to group decisions about Web tecnologies', '2011-06-01', '10');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('5', 'Analysis', 'Topic to group analysis decisions ', '2006-01-12', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('6', 'Communications', 'Topic to group communication decisions ', '2011-01-11', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('7', 'GUI', 'Topic to group decisiones about GUI tecnologies', '2011-04-01', '7');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('8', 'Frameworks', 'Topic to group decisions about frameworks to use', '2011-07-15', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('9', 'Web Application', 'Topic to group decisions about Web tecnologies', '2010-12-04', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('10', 'Uses RMI', 'Proposal 1 from topic 6', '2011-01-15', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('11', 'Uses ICE', 'Proposal 2 from topic 6', '2011-08-08', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('12', 'Client/Server', 'Proposal 1 from topic 3', '2009-12-22', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('13', 'Plugin ', 'Proposal 2 from topic 3', '2010-06-06', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('14', 'Web Application', 'Proposal 3 from topic 3', '2011-02-21', '9');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('15', 'Uses Swing', 'Proposal 1 from topic 7', '2011-04-02', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('16', 'Uses WPF', 'Proposal 2 from topic 7', '2011-05-15', '7');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('17', 'Uses GOF', 'Proposal 1 from topic 1', '2007-06-17', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('18', 'Uses Persistence', 'Proposal 2 from topic 1', '2008-01-12', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('19', 'Uses Struts', 'Proposal 1 from topic 2', '2011-01-22', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('20', 'Uses Spring', 'Proposal 2 from topic 2', '2011-01-23', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('21', 'Uses Hibernate', 'Proposal 3 from topic 2', '2011-04-15', '4');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('22', 'Uses WSDL', 'Proposal 4 from topic 2', '2011-03-15', '8');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('23', 'Uses HTML5', 'Proposal 1 from topic 4', '2011-06-01', '8');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('24', 'Uses CSS3', 'Proposal 2 from topic 4', '2011-06-02', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('25', 'Not uses IE', 'Proposal 3 from topic 4', '2011-07-01', '9');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('26', 'Makes requirements specification', 'Proposal 1 from topic 5', '2006-01-13', '5');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('27', 'Makes Gant Diagram', 'Proposal 2 from topic 5', '2007-06-15', '5');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('28', 'Makes Use Cases Diagram', 'Proposal 3 from topic 5', '2007-06-29', '6');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('29', 'Uses Swing Framework', 'Proposal 1 from topic 8', '2011-07-16', '10');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('30', 'Uses .NET 4.0', 'Proposal 2 from topic 8', '2011-08-01', '10');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('31', 'Uses ASP.NET', 'Proposal 1 from topic 9', '2011-09-05', '5');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('32', 'Security Problems', 'Answer 1 from proposal 6.1', '2011-02-15', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('33', 'Serialize Problems', 'Answer 2 from proposal 6.1', '2011-02-15', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('34', 'Scalability', 'Answer 1 from proposal 3.1', '2010-02-01', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('35', 'Limited UI', 'Answer 1 from proposal 3.2', '2010-07-01', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('36', 'Not works RMI', 'Answer 2 from proposal 3.2', '2010-08-15', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('37', 'ClassLoader', 'Answer 3 from proposal 3.2', '2010-09-26', '9');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('38', 'User experience', 'Answer 1 from proposal 3.3', '2011-03-15', '8');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('39', 'Limited UI', 'Answer 1 from proposal 7.1', '2011-04-03', '9');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('40', 'Extensible', 'Answer 2 from proposal 7.1', '2011-05-01', '8');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('41', 'Dynamic', 'Answer 1 from proposal 7.2', '2011-06-17', '2');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('42', 'Extensible', 'Answer 2 from proposal 7.2', '2011-06-18', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('43', 'Powerful', 'Answer 3 from proposal 7.2', '2011-09-01', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('44', 'Very used', 'Answer 1 from proposal 1.1', '2007-07-01', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('45', 'Powerful', 'Answer 1 from proposal 2.1', '2011-05-15', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('46', 'Java Based', 'Answer 2 from proposal 2.1', '2011-09-01', '4');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('47', 'Object Oriented', 'Answer 1 from proposal 2.3', '2011-04-16', '4');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('48', 'Serialize Problem', 'Answer 2 from proposal 2.3', '2011-04-17', '6');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('49', 'Powerful', 'Answer 3 from proposal 2.3', '2011-06-16', '4');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('50', 'Difficult', 'Answer 4 from proposal 2.3', '2011-04-26', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('51', 'Independent', 'Answer 1 from proposal 2.4', '2011-03-31', '8');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('52', 'Not uses flash', 'Answer 1 from proposal 4.1', '2011-07-01', '9');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('53', 'Compatibilities Problems', 'Answer 1 from proposal 4.1', '2011-08-01', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('54', 'Compatibilities Problems', 'Answer 2 from proposal 4.2', '2011-06-03', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('55', 'Compatibilities Problems', 'Answer 1 from proposal 4.3', '2011-07-04', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('56', 'Crashes', 'Answer 2 from proposal 4.3', '2011-09-05', '1');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('57', 'Planification', 'Answer 1 from proposal 5.2', '2007-07-28', '11');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('58', 'Planification', 'Answer 1 from proposal 5.3', '2008-01-15', '3');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('59', 'Iterative', 'Answer 2 from proposal 5.3', '2007-12-12', '6');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('60', 'Easy', 'Answer 1 from proposal 8.1', '2011-07-18', '10');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('61', 'Very Used', 'Answer 1 from proposal 8.2', '2011-08-02', '6');
-INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `userId`) VALUES ('62', 'Microsoft', 'Answer 2 from proposal 8.2', '2011-08-02', '6');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('1', 'Patterns', 'Topic to group decisions about design patterns', '2007-01-22', 'Open', '10');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('2', 'Frameworks', 'Topic to group decisions about frameworks to use', '2011-01-21', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('3', 'Design', 'Topic to group design decisions ', '2009-12-01', 'Open', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('4', 'Web Application', 'Topic to group decisions about Web tecnologies', '2011-06-01', 'Open', '10');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('5', 'Analysis', 'Topic to group analysis decisions ', '2006-01-12', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('6', 'Communications', 'Topic to group communication decisions ', '2011-01-11', 'Open', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('7', 'GUI', 'Topic to group decisiones about GUI tecnologies', '2011-04-01', 'Open', '7');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('8', 'Frameworks', 'Topic to group decisions about frameworks to use', '2011-07-15', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('9', 'Web Application', 'Topic to group decisions about Web tecnologies', '2010-12-04', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('10', 'Uses RMI', 'Proposal 1 from topic 6', '2011-01-15', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('11', 'Uses ICE', 'Proposal 2 from topic 6', '2011-08-08', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('12', 'Client/Server', 'Proposal 1 from topic 3', '2009-12-22', 'Open', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('13', 'Plugin ', 'Proposal 2 from topic 3', '2010-06-06', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('14', 'Web Application', 'Proposal 3 from topic 3', '2011-02-21', 'Open', '9');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('15', 'Uses Swing', 'Proposal 1 from topic 7', '2011-04-02', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('16', 'Uses WPF', 'Proposal 2 from topic 7', '2011-05-15', 'Open', '7');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('17', 'Uses GOF', 'Proposal 1 from topic 1', '2007-06-17', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('18', 'Uses Persistence', 'Proposal 2 from topic 1', '2008-01-12', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('19', 'Uses Struts', 'Proposal 1 from topic 2', '2011-01-22', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('20', 'Uses Spring', 'Proposal 2 from topic 2', '2011-01-23', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('21', 'Uses Hibernate', 'Proposal 3 from topic 2', '2011-04-15', 'Open', '4');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('22', 'Uses WSDL', 'Proposal 4 from topic 2', '2011-03-15', 'Open', '8');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('23', 'Uses HTML5', 'Proposal 1 from topic 4', '2011-06-01', 'Open', '8');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('24', 'Uses CSS3', 'Proposal 2 from topic 4', '2011-06-02', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('25', 'Not uses IE', 'Proposal 3 from topic 4', '2011-07-01', 'Open', '9');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('26', 'Makes requirements specification', 'Proposal 1 from topic 5', '2006-01-13', 'Open', '5');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('27', 'Makes Gant Diagram', 'Proposal 2 from topic 5', '2007-06-15', 'Open', '5');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('28', 'Makes Use Cases Diagram', 'Proposal 3 from topic 5', '2007-06-29', 'Open', '6');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('29', 'Uses Swing Framework', 'Proposal 1 from topic 8', '2011-07-16', 'Open', '10');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('30', 'Uses .NET 4.0', 'Proposal 2 from topic 8', '2011-08-01', 'Open', '10');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('31', 'Uses ASP.NET', 'Proposal 1 from topic 9', '2011-09-05', 'Open', '5');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('32', 'Security Problems', 'Answer 1 from proposal 6.1', '2011-02-15', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('33', 'Serialize Problems', 'Answer 2 from proposal 6.1', '2011-02-15', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('34', 'Scalability', 'Answer 1 from proposal 3.1', '2010-02-01', 'Open', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('35', 'Limited UI', 'Answer 1 from proposal 3.2', '2010-07-01', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('36', 'Not works RMI', 'Answer 2 from proposal 3.2', '2010-08-15', 'Open', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('37', 'ClassLoader', 'Answer 3 from proposal 3.2', '2010-09-26', 'Open', '9');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('38', 'User experience', 'Answer 1 from proposal 3.3', '2011-03-15', 'Open', '8');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('39', 'Limited UI', 'Answer 1 from proposal 7.1', '2011-04-03', 'Open', '9');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('40', 'Extensible', 'Answer 2 from proposal 7.1', '2011-05-01', 'Open', '8');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('41', 'Dynamic', 'Answer 1 from proposal 7.2', '2011-06-17', 'Open', '2');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('42', 'Extensible', 'Answer 2 from proposal 7.2', '2011-06-18', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('43', 'Powerful', 'Answer 3 from proposal 7.2', '2011-09-01', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('44', 'Very used', 'Answer 1 from proposal 1.1', '2007-07-01', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('45', 'Powerful', 'Answer 1 from proposal 2.1', '2011-05-15', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('46', 'Java Based', 'Answer 2 from proposal 2.1', '2011-09-01', 'Open', '4');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('47', 'Object Oriented', 'Answer 1 from proposal 2.3', '2011-04-16', 'Open', '4');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('48', 'Serialize Problem', 'Answer 2 from proposal 2.3', '2011-04-17', 'Open', '6');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('49', 'Powerful', 'Answer 3 from proposal 2.3', '2011-06-16', 'Open', '4');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('50', 'Difficult', 'Answer 4 from proposal 2.3', '2011-04-26', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('51', 'Independent', 'Answer 1 from proposal 2.4', '2011-03-31', 'Open', '8');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('52', 'Not uses flash', 'Answer 1 from proposal 4.1', '2011-07-01', 'Open', '9');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('53', 'Compatibilities Problems', 'Answer 1 from proposal 4.1', '2011-08-01', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('54', 'Compatibilities Problems', 'Answer 2 from proposal 4.2', '2011-06-03', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('55', 'Compatibilities Problems', 'Answer 1 from proposal 4.3', '2011-07-04', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('56', 'Crashes', 'Answer 2 from proposal 4.3', '2011-09-05', 'Open', '1');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('57', 'Planification', 'Answer 1 from proposal 5.2', '2007-07-28', 'Open', '11');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('58', 'Planification', 'Answer 1 from proposal 5.3', '2008-01-15', 'Open', '3');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('59', 'Iterative', 'Answer 2 from proposal 5.3', '2007-12-12', 'Open', '6');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('60', 'Easy', 'Answer 1 from proposal 8.1', '2011-07-18', 'Open', '10');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('61', 'Very Used', 'Answer 1 from proposal 8.2', '2011-08-02', 'Open', '6');
+INSERT INTO `dbgcad`.`knowledge` (`id`, `title`, `description`, `date`, `status`, `userId`) VALUES ('62', 'Microsoft', 'Answer 2 from proposal 8.2', '2011-08-02', 'Open', '6');
 
 COMMIT;
 
@@ -557,37 +576,37 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('32', 'Contra', '10');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('33', 'Contra', '10');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('34', 'Pro', '12');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('35', 'Contra', '13');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('36', 'Contra', '13');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('37', 'Pro', '13');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('38', 'Pro', '14');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('39', 'Contra', '15');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('40', 'Pro', '15');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('41', 'Pro', '16');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('42', 'Pro', '16');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('43', 'Pro', '16');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('44', 'Pro', '17');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('45', 'Pro', '19');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('46', 'Pro', '19');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('47', 'Pro', '21');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('48', 'Contra', '21');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('49', 'Pro', '21');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('50', 'Contra', '21');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('51', 'Pro', '22');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('52', 'Contra', '23');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('53', 'Contra', '23');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('54', 'Contra', '24');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('55', 'Contra', '25');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('56', 'Contra', '25');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('57', 'Pro', '27');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('58', 'Pro', '28');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('59', 'Pro', '28');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('60', 'Pro', '29');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('61', 'Pro', '30');
-INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('62', 'Pro', '30');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('32', 'Disagree', '10');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('33', 'Disagree', '10');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('34', 'Agree', '12');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('35', 'Disagree', '13');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('36', 'Disagree', '13');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('37', 'Agree', '13');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('38', 'Agree', '14');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('39', 'Disagree', '15');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('40', 'Agree', '15');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('41', 'Agree', '16');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('42', 'Agree', '16');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('43', 'Neutral', '16');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('44', 'Agree', '17');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('45', 'Neutral', '19');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('46', 'Agree', '19');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('47', 'Agree', '21');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('48', 'Disagree', '21');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('49', 'Agree', '21');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('50', 'Disagree', '21');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('51', 'Agree', '22');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('52', 'Disagree', '23');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('53', 'Disagree', '23');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('54', 'Disagree', '24');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('55', 'Disagree', '25');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('56', 'Disagree', '25');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('57', 'Agree', '27');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('58', 'Agree', '28');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('59', 'Neutral', '28');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('60', 'Neutral', '29');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('61', 'Agree', '30');
+INSERT INTO `dbgcad`.`answers` (`id`, `argument`, `proposalId`) VALUES ('62', 'Neutral', '30');
 
 COMMIT;
 
