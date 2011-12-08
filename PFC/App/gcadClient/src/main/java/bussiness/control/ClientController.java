@@ -417,12 +417,8 @@ public class ClientController {
 		server.addProjectsUser(session.getId(), user, p);
 	}
 
-	public int attachFile(File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.attachFile(session.getId(), file);
-	}
-
-	public List<File> getAttachedFiles(Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.getAttachedFiles(session.getId(), k);
+	public int attachFile(Knowledge k, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.attachFile(session.getId(), k, file);
 	}
 
 	public byte[] composePDF(PDFConfiguration config, Image header, Image footer) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {

@@ -15,6 +15,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.EventObject;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -410,7 +411,7 @@ public class JFMain extends SingleFrameApplication {
 	@Action
 	public void DownloadFiles() {
 		if (panelKnowledge != null) {
-			List<File> files = panelKnowledge.getAttachedFiles();
+			Set<File> files = panelKnowledge.getAttachedFiles();
 			// Select folder to save all files
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

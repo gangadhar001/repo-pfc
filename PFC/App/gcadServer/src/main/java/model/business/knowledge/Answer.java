@@ -1,6 +1,8 @@
 package model.business.knowledge;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -65,6 +67,10 @@ public class Answer extends Knowledge  {
 		a.setId(getId());
 		a.setStatus(getStatus());
 		a.setUser((User)getUser().clone());
+		Set<File> files = new HashSet<File>();
+		for (File f: getFiles())
+			files.add((File)f.clone());
+		a.setFiles(files);
 		return a;
 	}		
 	

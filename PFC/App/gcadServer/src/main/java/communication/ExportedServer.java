@@ -309,13 +309,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.attachFile(sessionId, file);
-	}
-
-	@Override
-	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.getAttachedFiles(sessionId, k);		
+	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.attachFile(sessionId, k, file);
 	}
 
 	@Override

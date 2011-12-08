@@ -13,9 +13,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.Icon;
@@ -76,17 +78,23 @@ public class KnowledgeGraph {
 		
 		// Map for the Icons
         iconMap = new HashMap<Knowledge,Icon>();
+        
+        List<Knowledge> knowledgeAttachedFiles = new ArrayList<Knowledge>();
 		
         Icon icon = null;
         // Auxiliary count uses to creates edges with unique ID
         int cont = 1;
         // Make vertex and edges
-		for (Topic t: topicWrapper.getTopics()) {		
+		for (Topic t: topicWrapper.getTopics()) {	
+			if (t.getFiles().size() > 0)
+				knowledgeAttachedFiles.add(t);
 			icon = getIcon("Topic");
 			if (icon != null)
 				iconMap.put(t, icon);
 			
 			for (Proposal p: t.getProposals()) {
+				if (p.getFiles().size() > 0)
+					knowledgeAttachedFiles.add(p);
 				icon = getIcon("Proposal");
 				if (icon != null)
 					iconMap.put(p, icon);
@@ -95,6 +103,8 @@ public class KnowledgeGraph {
 				cont ++;
 				
 				for (Answer a : p.getAnswers()) {
+					if (a.getFiles().size() > 0)
+						knowledgeAttachedFiles.add(a);
 					icon = getIcon("Answer");
 					if (icon != null)
 						iconMap.put(a, icon);
@@ -152,15 +162,27 @@ public class KnowledgeGraph {
 					if (pickedState.isPicked(selectedVertex)) 
 						parent.setKnowledgeSelectedGraph(selectedVertex);
 					else
-						parent.setKnowledgeSelectedGraph(null);					
+						clearSelection();					
 				}
+				else
+					clearSelection();
 			}
 		});		
+		
+		// Show attach file icon to vertex, if any
+		for(Knowledge k: knowledgeAttachedFiles)
+			setAttachIconVertex(k);
+		
+		// Show status icon of each vertex
+		for(Knowledge k: graph.getVertices()) {
+			setStatusIconVertex(k, k.getStatus());
+		}
 	}
 
 	public static void clearSelection() {
 		pickedState.clear();
-		parent.setKnowledgeSelectedGraph(null);				
+		parent.setKnowledgeSelectedGraph(null);
+		parent.clearSelectionGraph();
 	}
 	
 	private Icon getIcon(String node) {
@@ -260,11 +282,12 @@ public class KnowledgeGraph {
 				 // Convert file into array of bytes
 		   	     fileInputStream.read(bFile);
 		   	     fileInputStream.close();          
-		         model.business.knowledge.File f = new model.business.knowledge.File(selectedVertex, file.getName(), bFile);
+		         model.business.knowledge.File f = new model.business.knowledge.File(file.getName(), bFile);
 		         // Insert file into database
-		         f.setId(ClientController.getInstance().attachFile(f));	
+		         f.setId(ClientController.getInstance().attachFile(selectedVertex, f));	
 		         // Draw the icon
 		         setAttachIconVertex(selectedVertex);
+		         selectedVertex.getFiles().add(f);
 		         clearSelection();
 			} catch (FileNotFoundException e) {
 				parent.showMessage(e);
@@ -287,6 +310,8 @@ public class KnowledgeGraph {
 		selectedVertex.setStatus(status);
 		try {
 			ClientController.getInstance().changeStatusKnowledge(selectedVertex);
+			 // Draw the icon
+	         setStatusIconVertex(selectedVertex, status);
 		} catch (RemoteException e) {
 			parent.showMessage(e);
 		} catch (SQLException e) {
@@ -304,7 +329,23 @@ public class KnowledgeGraph {
 		Icon icon = vertexIconTransformer.transform(selectedVertex);
         if(icon != null && icon instanceof LayeredIcon) {           
         	try {
-				((LayeredIcon)icon).add(ImagesUtilities.loadIcon("attach.png"));
+				((LayeredIcon)icon).add(ImagesUtilities.loadIcon("graph/attach.png"));
+			} catch (MalformedURLException e) {
+				parent.showMessage(e);
+			} catch (IOException e) {
+				parent.showMessage(e);
+			}           
+        }		
+	}
+	
+	private static void setStatusIconVertex(Knowledge selectedVertex, KnowledgeStatus status) {
+		Icon icon = vertexIconTransformer.transform(selectedVertex);
+        if(icon != null && icon instanceof LayeredIcon) {           
+        	try {
+        		if (status.equals(KnowledgeStatus.Accepted))
+        			((LayeredIcon)icon).add(ImagesUtilities.loadIcon("graph/accept.png"));
+        		else if (status.equals(KnowledgeStatus.Rejected))
+        			((LayeredIcon)icon).add(ImagesUtilities.loadIcon("graph/reject.png"));
 			} catch (MalformedURLException e) {
 				parent.showMessage(e);
 			} catch (IOException e) {
@@ -320,6 +361,11 @@ public class KnowledgeGraph {
 
 	public static Object getSelectedVertex() {
 		return selectedVertex;
+	}
+
+	public static void clearPickedVertex() {
+		pickedState.clear();
+		parent.setKnowledgeSelectedGraph(null);		
 	}	
 	
 }

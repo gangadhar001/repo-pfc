@@ -11,6 +11,5 @@
 		</id>	
 		<property name="fileName" column="fileName" type="string" not-null="true" />
 		<property name="content" column="content" type="binary" not-null="true" />
-		<many-to-one name="knowledge" column="knowledgeId" class="Knowledge" not-null="true" lazy="false" />	
 	</class>
 </hibernate-mapping>
