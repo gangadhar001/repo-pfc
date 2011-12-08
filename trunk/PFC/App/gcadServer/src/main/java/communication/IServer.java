@@ -133,9 +133,7 @@ public interface IServer extends Remote {
 	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k)	throws RemoteException, Exception;	
 	
 	/*** Methods used to manage Files ***/
-	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
-	
-	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonExistentFileException, NonPermissionRoleException, NotLoggedException, Exception;
+	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
 	/*** Method used to generate the PDF ***/
 	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;

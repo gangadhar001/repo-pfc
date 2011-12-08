@@ -89,9 +89,6 @@ public class Topic extends Knowledge {
 			result = false;
 		else if (obj instanceof Topic) {
 			Topic other = (Topic) obj;
-//			result = (title.equals(other.getTitle()) && date.equals(other.getDate()) &&
-//					description.equals(other.getDescription()) && user.equals(other.getUser()) && proposals.equals(other.getProposals()) 
-//					&& project.equals(other.getProject()));
 			result = (id == other.getId());
 			}
 		return result;
@@ -114,6 +111,10 @@ public class Topic extends Knowledge {
 		for (Proposal p: getProposals())
 			proposals.add((Proposal)p.clone());
 		t.setProposals(proposals);
+		Set<File> files = new HashSet<File>();
+		for (File f: getFiles())
+			files.add((File)f.clone());
+		t.setFiles(files);
 		return t;
 	}
 	

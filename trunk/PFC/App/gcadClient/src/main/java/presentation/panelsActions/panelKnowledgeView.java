@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -107,7 +108,7 @@ public class panelKnowledgeView extends ImagePanel {
 	private JDKnowledge fKnowledge;
 	private KnowledgeGraph KnowGraph;
 
-	private List<File> attachedFiles;
+	private Set<File> attachedFiles;
 
 	private JPanel panelUserKnowledge;
 	private JPanel panelUserCompany;
@@ -558,14 +559,16 @@ public class panelKnowledgeView extends ImagePanel {
 		knowledgeSelectedTree = null;
 		clearPanelsInfo();
 		activateToolbarButtons(false);
+		parent.hideStatusBar();
 	}
 
 	// Clear selection from graph
-	private void clearSelectionGraph() {
-		KnowledgeGraph.clearSelection();
+	public void clearSelectionGraph() {
+		KnowledgeGraph.clearPickedVertex();
 		knowledgeSelectedGraph = null;	
 		clearPanelsInfo();
 		activateToolbarButtons(false);
+		parent.hideStatusBar();
 	}
 
 	// Clear user information
@@ -667,34 +670,19 @@ public class panelKnowledgeView extends ImagePanel {
 
 	// Method used to show the attached files to a knowledge
 	private void showAttachedFiles(Knowledge k) {
-		try {
-			attachedFiles = ClientController.getInstance().getAttachedFiles(k);
-			if (attachedFiles.size() > 0) {
-				String message = attachedFiles.size() + " ";
-				if (attachedFiles.size() == 1)
-					message += ApplicationInternationalization.getString("AttachedFile");
-				else
-					message += ApplicationInternationalization.getString("AttachedFiles");
-				parent.showStatusBar(message);
-				parent.getBtnDownloadAttached().setVisible(true);
-			}
-			else {
-				parent.hideStatusBar();
-			}
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonExistentFileException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		attachedFiles = k.getFiles();
+		if (attachedFiles.size() > 0) {
+			String message = attachedFiles.size() + " ";
+			if (attachedFiles.size() == 1)
+				message += ApplicationInternationalization.getString("AttachedFile");
+			else
+				message += ApplicationInternationalization.getString("AttachedFiles");
+			parent.showStatusBar(message);
+			parent.getBtnDownloadAttached().setVisible(true);
 		}
-		
+		else {
+			parent.hideStatusBar();
+		}
 	}
 
 	private void activateToolbarButtons(boolean activate) {
@@ -720,11 +708,6 @@ public class panelKnowledgeView extends ImagePanel {
 		JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
 	}
 	
-
-	public List<File> getAttachedFiles() {
-		return attachedFiles;
-	}
-
 	public TopicWrapper getTopicWrapper() {
 		return topicWrapper;
 	}
@@ -763,5 +746,9 @@ public class panelKnowledgeView extends ImagePanel {
 		 }
 		 return panelUserKnowledge;
 	 }
+
+	public Set<File> getAttachedFiles() {
+		return attachedFiles;
+	}
 
 }

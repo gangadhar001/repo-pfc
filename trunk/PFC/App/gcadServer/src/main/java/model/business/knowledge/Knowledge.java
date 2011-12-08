@@ -2,6 +2,8 @@ package model.business.knowledge;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,6 +27,8 @@ public abstract class Knowledge implements Serializable {
 	protected String description;
 	protected KnowledgeStatus status;
 	@XmlElement( name = "Author" ) protected User user;
+	@XmlElement( name = "File" )
+	private Set<File> files = new HashSet<File>();
 		
 	public Knowledge() {
 	}
@@ -82,6 +86,14 @@ public abstract class Knowledge implements Serializable {
 
 	public void setStatus(KnowledgeStatus status) {
 		this.status = status;
+	}
+
+	public Set<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(Set<File> files) {
+		this.files = files;
 	}
 
 	public abstract Object clone();

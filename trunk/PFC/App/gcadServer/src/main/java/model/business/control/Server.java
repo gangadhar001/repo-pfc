@@ -1036,15 +1036,15 @@ public class Server implements IServer {
 	
 	/*** Methods used to manage Files ***/
 	//TODO: como notificarlo a los clientes
-	public int attachFile(long sessionId, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
+	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		int id = -1;
 		try{
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
-			id = KnowledgeController.attachFile(sessionId, file);
+			id = KnowledgeController.attachFile(sessionId, k, file);
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("AttachFile_msg") + " " + file.getFileName());
-			ClientsController.notifyKnowledgeEdited(sessionId, file.getKnowledge(), file.getKnowledge());
+			ClientsController.notifyKnowledgeEdited(sessionId, k, k);
 		} catch(SQLException se) {
 			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_AttachFile_msg") + " '" + file.getFileName() + "': " + se.getLocalizedMessage());
 			throw se;
@@ -1059,30 +1059,6 @@ public class Server implements IServer {
 			throw e;
 		}
 		return id;
-	}
-	
-	public List<File> getAttachedFiles(long sessionId, Knowledge k) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		String login = "";
-		List<File> files = new ArrayList<File>();
-		try{
-			Session session = SessionController.getSession(sessionId);
-			login = session.getUser().getLogin();
-			files = KnowledgeController.getAttachedFiles(sessionId, k);
-			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("GetAttachedFiles_msg") + " " + k.getTitle());
-		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("SQL_GetAttachedFiles_msg") + " '" + k.getTitle() + "': " + se.getLocalizedMessage());
-			throw se;
-		} catch(NotLoggedException nte) {
-			LogManager.putMessage(IMessageTypeLog.READ, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_GetAttachedFiles_msg") + nte.getLocalizedMessage());
-			throw nte;
-		} catch(NonPermissionRoleException npr) {
-			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("NonPermission_GetAttachedFiles_msg") + " " + npr.getLocalizedMessage());
-			throw npr;
-		} catch(Exception e) {
-			LogManager.putMessage(login, IMessageTypeLog.READ, AppInternationalization.getString("Exception_GetAttachedFiles_msg") + " " + e.toString());
-			throw e;
-		}
-		return files;
 	}
 
 	/*** Methods used to generatePDF ***/

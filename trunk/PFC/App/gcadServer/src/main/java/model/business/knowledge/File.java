@@ -12,15 +12,13 @@ public class File implements Serializable {
 	 */
 	private static final long serialVersionUID = 3741536334685997137L;
 	private int id;
-	private Knowledge knowledge;
 	private String fileName;
 	private byte[] content;
 	
 	public File () {
 	}
 	
-	public File(Knowledge knowledge, String fileName, byte[] content) {
-		this.knowledge = knowledge;
+	public File(String fileName, byte[] content) {
 		this.fileName = fileName;
 		this.content = content;
 	}
@@ -31,14 +29,6 @@ public class File implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Knowledge getKnowledge() {
-		return knowledge;
-	}
-
-	public void setKnowledge(Knowledge knowledge) {
-		this.knowledge = knowledge;
 	}
 
 	public String getFileName() {
@@ -76,15 +66,14 @@ public class File implements Serializable {
 			result = false;
 		else if (obj instanceof File) {
 			File other = (File) obj;
-			result = (fileName.equals(other.getFileName()) && content.equals(other.getContent()) &&
-					knowledge.equals(other.getKnowledge()));
+			result = (fileName.equals(other.getFileName()) && content.equals(other.getContent()));
 		}
 		return result;
 	}
 	
 	public Object clone () {
 		File a;
-		a = new File((Knowledge)getKnowledge().clone(), getFileName(), getContent());
+		a = new File(getFileName(), getContent());
 		a.setId(getId());
 		return a;
 	}

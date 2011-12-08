@@ -107,6 +107,7 @@ public class DAOProposal {
 			old.setStatus(p.getStatus());
 			old.setUser(p.getUser());	
 			old.setId(p.getId());
+			old.setFiles(p.getFiles());
 
 			DBConnectionManager.update(old);
 		} finally {

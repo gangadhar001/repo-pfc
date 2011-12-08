@@ -84,7 +84,7 @@ public class DAOAnswer {
 			old.setUser(answer.getUser());	
 			old.setStatus(answer.getStatus());
 			old.setId(answer.getId());
-
+			old.setFiles(answer.getFiles());
 			DBConnectionManager.update(old);
 		} finally {
 			DBConnectionManager.finishTransaction();

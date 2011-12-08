@@ -96,6 +96,10 @@ public class Proposal extends Knowledge {
 		for (Answer a: getAnswers())
 			answers.add((Answer)a.clone());
 		p.setAnswers(answers);
+		Set<File> files = new HashSet<File>();
+		for (File f: getFiles())
+			files.add((File)f.clone());
+		p.setFiles(files);
 		return p;
 	}	
 	

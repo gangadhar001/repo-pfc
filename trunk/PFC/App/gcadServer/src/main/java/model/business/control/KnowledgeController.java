@@ -24,7 +24,6 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 import persistence.DAOAnswer;
-import persistence.DAOFile;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
 import resources.XMLUtilities;
@@ -327,23 +326,22 @@ public class KnowledgeController {
 		return result;
 	}
 
-	public static int attachFile(long sessionId, File file) throws SQLException, NonPermissionRoleException, NotLoggedException {
+	public static int attachFile(long sessionId, Knowledge k, File file) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentProposalException, NonExistentAnswerException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Add.name()));
 
-		DAOFile.insert(file);
+		k.getFiles().add(file);
+//		DAOFile.insert(file);
+		if (k instanceof Topic)
+			DAOTopic.update((Topic)k);
+		else if (k instanceof Proposal)
+			DAOProposal.update((Proposal)k);
+		else 
+			DAOAnswer.update((Answer)k);
 		
 		// Return the auto-assigned id
 		return file.getId();
 	}
-
-	public static List<File> getAttachedFiles(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException {
-		// Check if have permission to perform the operation
-		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
-
-		return DAOFile.queryAllFiles(k.getId());
-		
-	}	
 	
 	public static <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws NonPermissionRoleException, NotLoggedException, JAXBException {
 		// Check if have permission to perform the operation
