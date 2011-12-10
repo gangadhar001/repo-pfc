@@ -1,0 +1,151 @@
+\subsection{Tercera iteración} 
+
+Siguiendo los casos de uso de la funcionalidad de \textit{Gestión de proyectos} (ver Figura \ref{fig:CduGestionProyectos2Server}), así como su análisis realizado, se abordan las siguientes tareas en esta iteración:
+
+\begin{itemize}
+	\item Diseño de la funcionalidad relativa a la gestión de proyectos.
+	\item Implementación de dicha funcionalidad.
+	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la gestión de proyectos.
+\end{itemize}
+
+\subsubsection{Funcionalidad de \textit{Gestión de proyectos}}
+
+\paragraph{Diagramas de secuencia}
+
+En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
+
+\subparagraph{Consultar proyectos}
+
+En la Figura \ref{fig:secuenciaConsultarProyectosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar proyectos} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarProyectosServer} se muestra el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaConsultarProyectosCliente}{0.6}{Diagrama de secuencia - Cliente - Consultar proyectos}{fig:secuenciaConsultarProyectosCliente}
+
+\imagen{Cap5/Server2//secuenciaConsultarProyectosServer}{2.0}{Diagrama de secuencia - Servidor - Consultar proyectos}{fig:secuenciaConsultarProyectosServer}
+
+
+\subparagraph{Consultar usuarios}
+
+En la Figura \ref{fig:secuenciaConsultarUsuariosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar usuarios} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarUsuariosServer} se muestra el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaConsultarUsuariosCliente}{0.6}{Diagrama de secuencia - Cliente - Consultar usuarios}{fig:secuenciaConsultarUsuariosCliente}
+
+\imagen{Cap5/Server2//secuenciaConsultarUsuariosServer}{2.0}{Diagrama de secuencia - Servidor - Consultar usuarios}{fig:secuenciaConsultarUsuariosServer}
+
+
+\subparagraph{Crear proyecto}
+
+En la Figura \ref{fig:secuenciaCrearProyectosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Crear proyecto} en el cliente, mientras que en la Figura \ref{fig:secuenciaCrearProyectosServer} se muestra el diagrama de secuencia para el servidor. 
+
+En este caso, se incluye el comportamiento del caso de uso \textit{consultar usuarios}, por lo que ese comportamiento se muestra de manera simplificada en este diagrama de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaCrearProyectosCliente}{0.6}{Diagrama de secuencia - Cliente - Crear proyecto}{fig:secuenciaCrearProyectosCliente}
+
+\imagen{Cap5/Server2//secuenciaCrearProyectosServer}{2.0}{Diagrama de secuencia - Servidor - Crear proyecto}{fig:secuenciaCrearProyectosServer}
+
+\subparagraph{Modificar proyecto}
+
+En la Figura \ref{fig:secuenciaModificarProyectoCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar proyectos} en el cliente, mientras que en la Figura \ref{fig:secuenciaModificarProyectoServer} se muestra el diagrama de secuencia para el servidor. 
+
+En este caso, se incluye el comportamiento de los casos de uso \textit{consultar proyectos} y \textit{consultar usuarios}, por lo que dichos comportamientos se muestran de manera simplificada en este diagrama de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaModificarProyectoCliente}{0.6}{Diagrama de secuencia - Cliente - Modificar proyecto}{fig:secuenciaModificarProyectoCliente}
+
+\imagen{Cap5/Server2//secuenciaModificarProyectoServer}{2.0}{Diagrama de secuencia - Servidor - Modificar proyecto}{fig:secuenciaModificarProyectoServer}
+
+
+\subparagraph{Seleccionar proyecto activo}
+
+En la Figura \ref{fig:secuenciaProyectoActivoCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar proyectos} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarProyectosServer} se muestra el diagrama de secuencia para el servidor.
+
+En este caso, se incluye el comportamiento del caso de uso \textit{consultar proyectos}, por lo que ese comportamiento se muestra de manera simplificada en este diagrama de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaProyectoActivoCliente}{0.6}{Diagrama de secuencia - Cliente - Seleccionar proyecto activo}{fig:secuenciaProyectoActivoCliente}
+
+\imagen{Cap5/Server2//secuenciaProyectoActivoServer}{2.0}{Diagrama de secuencia - Servidor - Seleccionar proyecto activo}{fig:secuenciaProyectoActivoServer}
+
+
+\subparagraph{Aconsejar decisiones}
+
+En la Figura \ref{fig:secuenciaConsultarProyectosCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Consultar proyectos} en el cliente, mientras que en la Figura \ref{fig:secuenciaConsultarProyectosServer} se observa el diagrama de secuencia para el servidor.
+
+%\imagen{Cap5/Cliente2//secuenciaConsultarProyectosCliente}{0.6}{Diagrama de secuencia - Cliente - Consultar proyectos}{fig:secuenciaConsultarProyectosCliente}
+
+%\imagen{Cap5/Server2//secuenciaConsultarProyectosServer}{2.0}{Diagrama de secuencia - Servidor - Consultar proyectos}{fig:secuenciaConsultarProyectosServer}
+
+
+\paragraph{Diseño e implementación} \label{sec:gestionProyectos}
+
+\subparagraph{Servidor}
+
+Como se comentó en el modelo de negocio en el apartado \ref{sec:modeloDominio}, cada usuario trabaja en 1 o más proyectos, y en cada proyecto participan varios usuarios, por lo que, como se refleja en los diagramas de secuencia anteriores, para crear y modificar un proyecto hay que asignar los usuarios que en dicho proyecto trabajan. En el diagrama de la Figura \ref{fig:clasesGestionProyecto} se observan las clases que participan en la gestión de proyectos y las asociaciones que existen entre los usuarios y los proyectos, y sus clases controladoras correspondientes.
+
+Sin embargo, en esta funcionalidad, lo que cabe destacar es el diseño e implementación del caso de uso de \textit{Aconsejar decisiones}. Este caso de uso representa el requisito de recuperar proyectos similares a uno dado, para poder mostrar las decisiones que en él se tomaron, cuáles fueron aceptadas o rechazadas, etc, para poder tenerlas en cuenta en un nuevo proyecto. De este modo, a partir de un nuevo proyecto, y basándose en proyectos anteriores ya terminados, se recuperan aquellos que sean más similares al proyecto dado y se muestran sus decisiones. Para ello, se utiliza el Razonamiento Basado en Casos, o CBR, detallado en la sección \ref{sec:CBR}.
+
+Cada caso del CBR representará un proyecto, definido por un conjunto de atributos, que serán los utilizados para poder comparar proyectos y calcular la semejanza entre casos.
+
+En lo que respecta al CBR en el subsistema servidor, éste recibe la configuración definida en el cliente, el tipo de algoritmo a utilizar, la lista de proyectos terminados (los casos o experiencias pasadas), el proyecto a evaluar y el número de proyectos (o casos) que se desean recuperar y visualizar. A continuación, se explican cada uno de estos elementos que recibe el método del servidor encargado de esta funcionalidad de CBR.
+
+\begin{itemize}
+	\item Número de proyectos a recuperar, definidos por una variable \textit{k}. Es el número de proyectos similares que se recuperan en la fase de \textit{Recuperación} del CBR. Pueden recuperarse todos los proyectos similares, o sólo algunos, según el valor de \textit{k}.
+	\item El proyecto a evaluar es el nuevo proyecto, o caso, del que se desean obtener sus decisiones, basándose en proyectos ya pasados y similares a éste.
+	\item La lista de proyectos ya terminados, que componen lo que se llama la \textit{base de casos} en CBR. Son todos los proyectos pasados con los que se calculará la semejanza o similitud con el caso nuevo a evaluar.
+	\item El algoritmo a utilizar para calcular la semejanza entre el nuevo caso y cada uno de los casos pasados.
+	\item La configuración necesaria para utilizar en los algoritmos de CBR.
+\end{itemize}
+
+
+Cabe destacar este último elemento, que es la configuración utilizada en los algoritmos del CBR. Dicha configuración contiene el conjunto de pesos que dichos atributos van a tomar al calcular el valor final de la semejanza entre casos. Además contiene, para cada atributo, una función que indica como valorar y comparar dicho atributo entre casos, llamada \textit{función de semejanza local}. Dicha función establece como comparar los atributos entre dos casos, devolviendo el valor de semejanza entre esos atributos. Existen tres tipos de función:
+
+\begin{itemize}
+\item \textbf{Diferencia}: esta función devuelve la diferencia entre dos valores numéricos o fechas. Si los valores son de tipo cadena, devuelve 1 si las cadenas son iguales, o 0 en caso contrario.
+\item \textbf{Igualdad}: función que devuelve 1 si los valores son iguales, y en caso contrario.
+\item \textbf{Intervalo}: función utilizada para evaluar si la diferencia de dos valores numéricos se encuentran en un determinado margen, devolviendo la desviación con respecto a ese margen.
+\end{itemize}
+
+En lo que respecta a los algoritmos utilizados para calcular el valor de la semejanza final, o global, entre casos, se han diseñado e implementado diferentes algoritmos, basándose en la literatura estudiada y comentada en la sección \ref{sec:CBR}. Dichos algoritmos son:
+
+\begin{itemize}
+\item \textbf{Nearest neighbor}: este algoritmo, conocido también como \textit{NN Method}, calcula el valor de semejanza global entre dos casos realizando la media aritmética de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) por su peso, y se divide por la suma del peso total de todos los atributos. En la ecuación \ref{eq:media} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
+\item \textbf{Euclidean Distance}; este algoritmo calcula el valor de semejanza global entre dos casos realizando la distancia euclídea de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) elevado al cuadrado, por su peso. En la ecuación \ref{eq:eucl} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
+\end{itemize}
+
+
+%% OTRO METODO
+
+
+\begin{equation} \label{eq:media}
+	sem(c1, c2) = \sum_{i=1}^n(w_i * sem(att1_i, att2_i)) / \sum_{i=1}^n w_i
+ \end{equation}
+ 
+ 
+\begin{equation} \label{eq:eucl}
+	sem(c1, c2) =  \sum_{i=1}^n(w_i * sem(att1_i - att2_i)^2)
+\end{equation}
+
+
+Una vez calculada la semejanza global entre el caso a evaluar (el nuevo proyecto) y cada uno de los proyectos pasados, obteniendo una lista de proyectos con su valor de semejanza, dicha lista se ordena de mayor a menor y se toman los \textit{k} primeros, en caso de haber establecido el valor de \textit{k}. Con ello, termina esta fase del CBR, que es la fase de \textbf{Recuperación}, de la que se encarga el sistema servidor. Acto seguido, esta lista de proyectos, ordenados de mayor a menor semejanza con el nuevo caso a evaluar, se devuelven al cliente.
+
+
+En la Figura \ref{fig:clasesCBR} se muestra el diagrama de clases de diseño de la funcionalidad del CBR. Como se puede observar, se han diseñado interfaces para implementar las funciones de semejanza local y global. De este modo, se podrían extender estas funciones, añadiendo nuevos métodos de comparación, simplemente implementando estas interfaces, consiguiendo que el controlador de CBR sea extensible a nuevas funciones de semejanza. 
+
+\begin{figure}[!htbp]
+ \begin{center}
+   \includegraphics[scale=0.9,angle=90]{Cap5/Server2//clasesCBR}
+ \caption {Diagrama de clases - Servidor - Razonamiento Basado en Casos}
+ \label{fig:clasesCBR}
+ \end{center}
+ \end{figure}
+
+
+%\imagen{Cap5/Server2//clasesCBR}{2.0}{Diagrama de clases - Servidor - Razonamiento Basado en Casos}{fig:clasesCBR}
+
+Para terminar, en el fragmento de código \ref{list:cbr} se muestra la implementación del algoritmo \textit{NN}, haciendo uso del diseño y elementos comentados anteriormente. Un aspecto a señalar es el uso del API de relexión de Java, utilizado para acceder a los atributos de un proyecto en tiempo de ejecución.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para el algoritmo \textit{NN} del CBR, breaklines=true, label=list:cbr, inputencoding=latin1, style=JavaStyle]{Codigo//cbr.java}}
+
+
+\subparagraph{Cliente}
+
+%% EXPLICAR COMO CONFIGURAR EL CBR
+
+\paragraph{Pruebas}

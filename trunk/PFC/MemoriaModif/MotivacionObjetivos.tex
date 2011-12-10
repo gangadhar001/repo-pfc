@@ -1,0 +1,73 @@
+\chapter{Motivación y Objetivos del Proyecto}
+\label{ch:motivacionyobjetivos}
+
+% Anteproyecto más algún detalle
+
+% Concretar y exponer el problema a resolver describiendo el entorno de trabajo, la situación y detalladamente qué se pretende obtener. Limitaciones y condicionantes a considerar para la resolución del problema (lenguaje de construcción, equipo físico, equipo lógico de base o de apoyo, etc.).
+
+\section{Motivación}
+
+La globalización y competitividad de los mercados ha obligado, y está obligando, a que las empresas vayan evolucionando y adaptando sus procesos de negocio y sus procesos de gestión de proyectos para adaptarse a esta nueva tendencia de mercados globales. Estas nuevas estrategias requieren de cooperación intensiva entre las compañías, de nuevos procesos de gestión de proyectos, de mejoras en las comunicaciones entre organizaciones que se encuentran en diferentes husos horarios, etc. Todo ello ha provocado que aparezcan nuevas organizaciones, llamadas \textit{organizaciones virtuales}, que son aquellas que se encuentran deslocalizadas, con proyectos en los que participan empleados de cualquier parte del mundo y que utilizan las tecnologías de la información para sus procesos de comunicación, coordinación y control \cite{evaristo1999typology}.
+
+Anteriormente a este marco de globalización, las empresas gestionaban sus proyectos de manera co-localizada, es decir, en el mismo lugar y al mismo tiempo. Sin embargo, ahora se ven obligadas a desarrollar procesos de gestión que permitan la gestión de \textit{proyectos virtuales}, es decir, proyectos que ya no están centralizados en un único lugar y se realizan de manera distribuida. En la Figura \ref{fig:projects-locations} se muestran las dimensiones de los proyectos que las compañías deben gestionar \cite{evaristo1999typology}.
+
+\imagenBorde{Cap2//projects-locations}{0.35}{Proyectos según su localización}{fig:projects-locations}
+
+Sin embargo, este marco de globalización, de \textit{proyectos virtuales} y, por tanto, del desarrollo de los proyectos de manera distribuida, acarrea una serie de dificultades, siendo las más destacables los problemas de comunicación, coordinación y control entre las diferentes localizaciones de los centro de desarrollo de las  organizaciones. 
+
+Otro de los problemas encontrados, muy relacionado con el anterior, es como las empresas, que ahora se encuentran en localizaciones diferentes y que tienen mayor problema para la comunicación y control, pueden crear, organizar y gestionar su conocimiento organizacional, recurso intangible imprescindible para que la empresa pueda innovar y ser competitiva.
+
+Por tanto, la motivación de este PFC viene dada por la necesidad de resolver o minimizar estos problemas que aparecen en las compañías que desarrollan de manera global. Particularmente, la herramienta estará enfocada a la gestión de conocimiento en desarrollo global, intentando minimizar todo lo posible los problemas de comunicación y control que aparecen en esta nueva forma de desarrollo global (ver Capítulo \ref{ch:estadodelarte} para una revisión de la literatura acerca del Desarrollo Global, Gestión de Conocimiento, así como sus beneficios y problemas).
+
+\section{Objetivos}
+
+El objetivo principal del PFC consistirá en el diseño y construcción de una herramienta visual que permita dar soporte a la gestión de conocimiento en el paradigma de Desarrollo Global de Software. Concretamente, el conocimiento que se desea gestionar son las decisiones y alternativas planteadas en las fases del ciclo de vida de un producto software, desarrollado de manera global.
+
+Como se ha comentado anteriormente, con esta herramienta visual se intenta reducir o eliminar una de las problemáticas que aparece en el desarrollo global, como es la falta de comunicación y control entre los equipos de desarrollo, así como los malentendidos que pueden surgir debido a las diferencias socio-culturales de los participantes en el desarrollo de los proyectos. 
+
+A continuación, se desglosan los objetivos que se deben alcanzar para atenuar estos desafíos del desarrollo global de software.
+
+\subsection{Objetivos a alcanzar con el desafío de la comunicación}
+
+Para poder minimizar los desafíos de comunicación que aparecen en el desarrollo global de software, la herramienta debe permitir representar el conocimiento almacenado por las organizaciones de una manera visual, clara e intuitiva, evitando malentendidos. De este modo, se representa el conocimiento de la misma manera para todos los equipos de desarrollo y empleados, facilitando su transmisión y evitando confusiones.
+
+%  El conocimiento almacenado se visualizará en forma de árbol y grafo, contando con una vista extendida donde se muestran más detalles del conocimiento en cuestión.
+
+A la hora de crear y almacenar nuevo conocimiento, la herramienta debe proveer formularios para crear dicho conocimiento, evitando por tanto formatos e información diferentes, estandarizando el conocimiento y facilitando su posterior comunicación.
+
+La herramienta también debe poseer una comunicación implícita síncrona, es decir, que si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su vista. Además, deberá crearse una notificación automática, favoreciendo también de este modo la comunicación asíncrona.
+
+Otro punto a tener en cuenta para facilitar la comunicación, es que la herramienta pueda configurarse en diferentes idiomas. Es por ello que debe tenerse en cuenta la internacionalización de la aplicación.
+
+\subsection{Objetivos a alcanzar con el desafío del control}
+
+Uno de los grandes problemas de control en desarrollo global, es que los jefes o encargados de proyectos muchas veces no controlan correctamente la situación del proyecto, a los miembros de los equipos que trabajan en él, cuál es la situación del proyecto, etc. Por ello, la herramienta debe permitir la generación de gráficos estadísticos a partir del conocimiento almacenado, informando de la situación de los proyectos.
+
+Relacionado con lo anterior, es necesario que la aplicación pueda generar informes en PDF, resumiendo el conocimiento almacenado en un determinado proyecto. Además, se debe poder controlar cuales de las decisiones y alternativas tomadas durante el ciclo de vida del proyecto están aprobadas por el jefe de proyecto y cuáles no.
+
+Para favorecer una estructura de proyectos común y facilitar así un posterior control entre los diferentes equipos de desarrollo, la herramienta será capaz de proveer formularios para la creación de nuevos proyectos, así como de su posterior modificación.
+
+Para terminar, otro de los puntos principales a tener en cuenta es que el conocimiento almacenado pueda controlarse y utilizarse en proyectos futuros que sean similares a proyectos ya pasados. Para ello, la herramienta debe permitir la búsqueda de esta información en base a proyectos pasados ya finalizados, utilizando técnicas de inteligencia artificial.
+
+
+\subsection{Resumen de objetivos}
+
+En modo de síntesis, la herramienta debe cumplir con los siguientes objetivos y requisitos funcionales:
+
+\begin{itemize}
+	\item Crear y almacenar conocimiento en forma de alternativas y decisiones planteadas en las fases del ciclo de vida de un proyecto software. 
+	\item Mostrar de una forma visual e intuitiva las diferentes alternativas y decisiones que han sido almacenadas.
+	\item Aceptar o rechazar alternativas y decisiones.
+	\item Notificar a los empleados de las organizaciones nuevas contribuciones y conocimiento disponible. 
+	\item Proporcionar información acerca de quién aporta una alternativa o decisión. Dicha información puede ser el rol de esa persona, el país donde se encuentra trabajando, experiencia acumulada en desarrollo de software, antigüedad en la empresa, etcétera.
+	\item Aconsejar decisiones y alternativas que hayan sido exitosas en otros proyectos con características similares, basándose en proyectos ya finalizados.
+	\item Generar estadísticas que ayuden a llevar control sobre los proyectos: proyectos con mayor conocimiento almacenado, qué empleado participa más, histórico de decisiones planteadas, etc.
+	\item Exportar el conocimiento disponible utilizando un estándar para el intercambio de información estructurada, como es XML. También se permitirá exportar imágenes de los gráficos generados en formato PNG.
+	\item Crear y modificar proyectos.
+	\item Generar documentos PDF a partir del conocimiento almacenado en los proyectos, creando automáticamente tablas con las decisiones y alternativas planteadas para ese proyecto.
+	\item Internacionalización de la herramienta.
+	\item La herramienta debe poder ser accedida desde diferentes localizaciones.
+	\item Soporte para diferentes perfiles y roles de usuarios.
+\end{itemize}
+
+No se debe olvidar que esta herramienta, aunque enfocada y con aplicación en el desarrollo global de software, constituye también un sistema para la gestión de conocimiento, ya que como se verá en el Capítulo \ref{ch:estadodelarte}, permite la creación, almacenamiento, recuperación, transmisión y aplicación del conocimiento, procesos que se llevan a cabo en la gestión de conocimiento. En nuestro caso concreto, el conocimiento son las decisiones y alternativas planteadas durante las fases del ciclo de vida de los proyectos software.
