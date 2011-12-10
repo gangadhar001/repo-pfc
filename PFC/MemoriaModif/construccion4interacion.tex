@@ -1,0 +1,143 @@
+\subsection{Cuarta iteración} 
+
+Siguiendo los casos de uso de la funcionalidad de \textit{Generación de informes} (ver Figura \ref{fig:CduGeneracionInformes2Server}) y \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+
+\begin{itemize}
+	\item Diseño de la funcionalidad relativa a la generación de informes y gráficos estadísticos.
+	\item Implementación de dichas funcionalidades.
+	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la generación de informes y gráficos estadísticos.
+\end{itemize}
+
+\subsubsection{Funcionalidad de \textit{Generación de informes}}
+
+\paragraph{Diagramas de secuencia}
+
+En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
+
+\subparagraph{Generar informe}
+
+Como se puede observar en el modelo de casos de uso de la Figura \ref{fig:CduGeneracionInformes2Server}, este caso de uso cuenta con un punto de extensión, donde el caso de uso \textit{Consultar proyectos} extiende su funcionalidad. Por tanto, en la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia para el comportamiento normal de este caso de uso en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento normal en el servidor.
+
+Por otra parte, en la Figura \ref{fig:secuenciaGenerarInformeExtendidoCliente} se muestra el diagrama de secuencia para el comportamiento extendido de este caso de uso en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeExtendidoServer} se muestra su comportamiento extendido en el servidor.
+
+Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)}{fig:secuenciaGenerarInformeNormalCliente}
+
+\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)}{fig:secuenciaGenerarInformeNormalServer}
+
+\imagen{Cap5/Cliente2//secuenciaGenerarInformeExtendidoCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento extendido)}{fig:secuenciaGenerarInformeExtendidoCliente}
+
+\imagen{Cap5/Server2//secuenciaGenerarInformeExtendidoServer}{2.0}{Diagrama de secuencia - Servidor -Generar informe (comportamiento extendido)}{fig:secuenciaGenerarInformeExtendidoServer}
+
+
+
+
+\paragraph{Diseño e implementación} \label{sec:diseñoGenerarPDF}
+
+\subparagraph{Servidor}
+
+Siguiendo los diagramas de secuencia, se realiza el diseño de los casos de uso utilizando un diagrama de clases de diseño y se procede a la implementación de dichos casos de uso, para obtener las clases Java que dan soporte a estas funcionalidades. En la Figura \ref{fig:clasesGenerarPdf} se muestra el diagrama de clases de diseño para la funcionalidad de generación de informes en PDF. 
+
+\imagen{Cap5/Server2//clasesGenerarPdf}{2.0}{Diagrama de clases - Generación de documentos PDF - Servidor}{fig:clasesGenerarPdf}
+
+Se ha utilizado una jerarquía de herencia para diseñar los elementos que forman parte de las secciones que componen un documento PDF, para poder utilizar la capacidad de polimorfismo de las clases de Java y poder componer una sección del PDF de diferentes elementos, con una superclase de la que heredan. De este modo, una sección se puede componer de:
+
+\begin{itemize}
+	\item Un título de sección, que tiene un tipo de fuente determinada.
+	\item Texto, que compone el texto de la sección, también con un tipo de fuente determinada.
+	\item Una tabla, donde se van a mostrar el conjunto de decisiones y toda su información asociada del proyecto seleccionado.
+\end{itemize}
+
+En cuanto al comportamiento normal o extendido de esta funcionalidad que se comentó en el apartado anterior, ésto depende si se selecciona o no proyecto para generar su tabla de decisiones e información asociada. Por tanto, el comportamiento por defecto es trabajar con el proyecto activo del usuarios en ese momento, pudiendo seleccionar otro proyecto para generar la tabla de decisiones en el informe PDF.
+
+Por otra parte, como se observa en la Figura \ref{fig:clasesGenerarPdf}, cabe señalar el uso de la clase \textit{HeaderFooter} para colocar una imagen en el encabezado y pie de página de cada página del documento PDF. Esto es útil, por ejemplo, para colocar el logo de una compañía en cada página del informe.
+
+En cuanto a aspectos de implementación, se utiliza \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las componen, según hayan sido configuradas en el cliente. En el listado de código \ref{list:s} se muestra un fragmento de código de como crear el documento y como se insertan en él los elementos.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para la generación de documentos PDF, breaklines=true, label=list:generarPDF, inputencoding=latin1, style=JavaStyle]{Codigo//generarPDF.java}}
+
+
+\subparagraph{Cliente}
+
+Para configurar los elementos que van a formar las secciones del PDF, se han utilizado paneles para representar cada uno de los tres elementos que componen el PDF (tabla, título y texto) y éstos se irán insertando en los paneles que representan las secciones, de tal modo que se pueden ir configurando dichas secciones de una manera visual e intuitiva. 
+
+En este aspecto de configuración de las secciones, cabe destacar el uso de la técnica de \textit{Drag \& Drop} (\textit{arrastrar y soltar}), que permite la reordenación de los paneles que ya se han insertado en una sección. De este modo, por ejemplo, si en una sección ya se han incorporado los paneles que representan un título, un texto y una tabla, se puede arrastrar y soltar el panel que representa el texto para colocarlo antes que la tabla. Esto es útil para configurar de manera sencilla el orden en que se quiere que aparezcan los diferentes elementos en las secciones que componen el informe PDF.
+
+En la Figura \ref{fig:clasesGenerarPDF} se muestra el diagrama de clases para esta funcionalidad en el sistema cliente.
+
+\imagen{Cap5/Cliente2//clasesGenerarPdf}{2.0}{Diagrama de clases - Generación de documentos PDF - Cliente}{fig:clasesGenerarPDF}
+
+A continuación, se explican las clases involucradas en el proceso de \textit{Drag \& Drop}:
+
+\begin{itemize}
+	\item \textbf{panelPDFGeneration}: es el panel que representa la vista de la interfaz gráfica para configurar las secciones del PDF con los elementos que en ellas pueden colocarse. Por tanto, se compone de paneles que representan las secciones, y hace uso de la clase \textit{panelPDFElement}, para mostrar los elementos que en dichas secciones pueden insertarse.
+	\item \textbf{panelPDFElement}: esta clase representa los elementos que pueden insertarse en las secciones, pero que aún no han sido colocados en el panel que representa una sección.
+	\item \textbf{panelPDFDragged}: esta clase representa los elementos del PDF que ya han sido insertados en las secciones, y por lo tanto ya tienen una configuración (texto, fuente, proyecto asignado, etc). Esta clase es la superclase de las clases \textit{panelPDFDraggedTitle}, \textit{panelPDFDraggedText} y \textit{panelPDFDraggedTable}, que representan los tres elementos que se utilizan para componer las secciones del PDF. Esta superclase implementa la interfaz \textit{Transferable}.
+	\item \textbf{Transferable}: es una interfaz que deben implementar los objetos sujetos a realizar un \textit{Drag}, y que permite conocer cuál es su \textit{DataFlavor} asociado y devolver el objeto correspondiente cuando se realice el evento de \textit{Drop}.
+	\item \textbf{DataFlavor}: es una clase de Java, del paquete \textit{java.awt.transfer}, que indica que datos se transmiten cuando el evento del \textit{Drop} se produce.
+	\item \textbf{DraggableMouseListener}: es una clase que cuando detecta el evento del ratón \textit{pressed} inicia el proceso de \textit{Drag \& Drop}, creando el objeto que implementa la interfaz \textit{Transferable}, que será el origen del \textit{Drag}.
+	\item \textbf{DragandDropTransferHandler}: clase controladora del proceso \textit{Drag \& Drop} que devuelve el objeto \textit{Transferable} apropiado y controla el modo del proceso (copia o movimiento).
+	\item \textbf{DropTargetListener}: es la clase que contiene la lógica para manejar el evento del \textit{Drop}.
+\end{itemize}
+
+Una vez detalladas las clases involucradas en el proceso \textit{Drag \& Drop}, éste se detalla:
+
+\begin{enumerate}
+	\item Se muestra la vista de la interfaz gráfica que permite la configuración del informe PDF. En ella, se muestran los paneles que representan las secciones y los paneles que representan los elementos que en ellas se pueden insertar (\textit{panelPDFElement}).
+	\item Se inserta un elemento a una de las secciones, creándose un objeto de la clase \textit{panelPDFDragged}. Este objeto es el que implementa la interfaz \textit{Transferable} y el que iniciará el evento de \textit{Drag}.
+	\item Se hace clic con el ratón en uno de los paneles (\textit{panelPDFDragged}) que ya están insertados en una sección. En ese momento, se inicia el proceso de \textit{Drag \& Drop}, siendo ese panel el origen del \textit{Drag}. Por tanto, se crea un \textit{DataFlavor}, conteniendo dicho panel y se asocia con la clase \textit{DragandDropTransferHandler}, en modo copia.
+	\item El panel se va arrastrando hasta colocarlo en la posición deseada dentro de la sección. Durante este arrastre, la clase \textit{DragandDropTransferHandler} va controlando el objeto \textit{Transferable} que se está moviendo.
+	\item Cuando se suelta el ratón, se produce el evento \textit{Drop}. En ese momento, se extrae el objeto del \textit{DataFlavor}, que era el panel que se estaba arrastrando y se coloca en la nueva posición dentro del panel de la sección, recolocando el resto de elementos que pudieran estar insertados.
+\end{enumerate}
+
+En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& Drop}, de manera simplificada.
+
+\imagen{Cap5//DnD}{0.6}{Proceso simplificado de \textit{Drag \& Drop}}{fig:DnD}
+
+
+
+\paragraph{Pruebas}
+
+
+
+
+
+\subsubsection{Funcionalidad de \textit{Generación de estadísticas}}
+
+\paragraph{Diagrama de secuencia}
+
+En la Figura \ref{fig:secuenciaGenerarEstadisticasCliente} se muestra el diagrama de secuencia para el caso de uso \textit{generar estadísticas} en el cliente. 
+
+En este caso, se incluyen los comportamientos de los casos de uso \textit{consultar usuarios}, \textit{consultar proyectos} y \textit{consultar decisiones}, ya definidos, por lo que dichos comportamientos se muestran de manera simplificada en este diagrama de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaGenerarEstadisticasCliente}{2.0}{Diagrama de secuencia - Cliente - Generar estadísticas}{fig:secuenciaGenerarEstadisticasCliente}
+
+\paragraph{Diseño e implementación}
+
+Como se ha comentado anteriormente, la generación de los gráficos estadísticos es una funcionalidad exclusiva del cliente, ya que los gráficos dependen de la tecnología empleada para representarlos, que en este caso es la librería de gráficos \textbf{JFreeChart} (ver sección \ref{sec:marco}). Por tanto, el cliente, consultando los datos necesarios para crear un gráfico al servidor, es el encargado de generar dichos gráficos y visualizarlos.
+
+En primer lugar, cabe destacar que el tipo de gráficos que pueden generarse y visualizarse están definidos en un fichero XML, por lo que fácilmente se podrán añadir nuevos tipos de gráficos, añadiéndolos en este XML, facilitando su extensibilidad. En este XML se define el tipo de gráfico (de barras, pastel, líneas, etc), un icono, su nombre y descripción.
+
+Para la creación de los gráficos estadísticos, se hace uso del concepto de \textit{dataset}, que representa el conjunto de datos que se van a representar en un gráfico. En este caso, se han utilizado tres tipos de \textit{dataset}, proporcionados por la librería JFreeChart:
+
+\begin{itemize}
+	\item \textit{DefaultPieDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de tipo pastel (o \textit{pie}). Contiene los datos que representan cada una de las porciones del gráfico. Hereda de la clase \textit{AbstractDataSet}.
+	\item \textit{DefaultCategoryDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de barras. Contiene los datos que corresponden a un valor del eje X en el eje Y. Hereda de la clase \textit{AbstractDataSet}.
+	\item \textit{CategoryDataset}: es el conjunto de datos utilizado para crear y visualizar un gráfico de líneas. Contiene los datos que corresponden a un valor del eje X en el eje Y. Hereda de la clase \textit{AbstractDataSet}.
+\end{itemize}
+
+En la Figura \ref{fig:clasesGenerarEstadisticas} se muestra el diagrama de clases de diseño para esta funcionalidad, donde se puede observar como la clase controladora de esta funcionalidad (\textit{StatisticsGenerator}) hace uso de estos \textit{datasets}. Además, hace uso de una clase que permite leer y extraer información de archivos XML, utilizada para leer y extraer la información de los gráficos definidos en el fichero XML comentado con anterioridad.
+
+\imagen{Cap5/Cliente2//clasesGenerarEstadisticas}{2.0}{Diagrama de clases - Cliente - Generar estadísticas}{fig:clasesGenerarEstadísticas}
+
+Por tanto, la clase controladora se encarga de realizar las peticiones al servidor para consultar los datos que se necesitan para poder componer los \textit{datasets} necesarios para generar los gráficos. Los datos consultados dependerán del tipo de gráfico a generar, pudiendo representar la cantidad de decisiones realizadas por un usuario, la cantidad de decisiones realizadas en un proyecto, un histórico de un proyecto, etc. En el fragmento de código \ref{list:dataset} se muestra un ejemplo de como generar un \textit{dataset} para un diagrama de barras y de pastel que sirve para representar el número de decisiones que un determinado usuario ha realizado en todos los proyectos en los que participa.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para la generación de \textit{datasets}, breaklines=true, label=list:dataset, inputencoding=latin1, style=JavaStyle]{Codigo//dataset.java}}
+
+Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear y representar el gráfico estadístico cuando ya se ha generado su \textit{dataset}. Para ello, se hace uso de la clase \textit{ChartFactory} de la librería JFreeChart.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para la generación de gráficos, breaklines=true, label=list:chart, inputencoding=latin1, style=JavaStyle]{Codigo//chart.java}}
+
+
+\paragraph{Pruebas}

@@ -1,0 +1,138 @@
+\select@language {spanish}
+\select@language {english}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {spanish}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Proyectos seg\'un su localizaci\'on\relax }}{4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Crecimiento del \textit {offshoring} en los \'ultimos a\~nos\relax }}{11}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Modelo de desarrollo \textit {Follow-the-sun}\relax }}{12}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Influencia de la distancia en el desarrollo de software\relax }}{14}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Relaciones entre datos, informaci\'on y conocimiento\relax }}{24}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Modelo b\'asico de gesti\'on del conocimiento\relax }}{25}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Mecanismos de creaci\'on de conocimiento\relax }}{27}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Ciclo de gesti\'on de conocimiento\relax }}{29}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Ciclo del CBR\relax }}{31}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Proceso iterativo e incremental\relax }}{34}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Fases y flujo de trabajo del PUD\relax }}{35}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Herramienta \textit {TortoiseSVN}\relax }}{42}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Plugin de Maven sobre Eclipse Helios\relax }}{43}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Herramienta Visual Paradigm\relax }}{43}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Eclipse Helios\relax }}{44}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Respuesta XML del servicio Web Yahoo! PlaceFinder\relax }}{45}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Ejemplo de mapa de OpenStreetMap\relax }}{46}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces JAXB\relax }}{47}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Ejemplo de grafo generado con JUNG\relax }}{49}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Ejemplo de gr\'aficos generados con JFreeChart\relax }}{50}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces MySQL Workbench\relax }}{54}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Editor TeXnicCenter\relax }}{55}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Herramienta JabRef\relax }}{56}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Fase de inicio en el PUD\relax }}{58}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagrama de casos de uso - Cliente - v1.0\relax }}{64}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de casos de uso - Servidor - v1.0\relax }}{65}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Diagrama de casos de uso - Cliente - Acceso al sistema - v1.0\relax }}{66}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Diagrama de casos de uso - Servidor - Acceso al sistema - v1.0\relax }}{66}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Diagrama de casos de uso - Cliente - Visualizar informaci\'on - v1.0\relax }}{66}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Diagrama de casos de uso - Servidor - Visualizar informaci\'on - v1.0\relax }}{67}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on decisiones - v1.0\relax }}{67}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on decisiones - v1.0\relax }}{68}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on notificaciones - v1.0\relax }}{68}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on notificaciones - v1.0\relax }}{69}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on Proyectos - v1.0\relax }}{69}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on Proyectos - v1.0\relax }}{70}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on Idiomas - v1.0\relax }}{70}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on Idiomas - v1.0\relax }}{70}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Diagrama de casos de uso - Cliente - Exportar informaci\'on - v1.0\relax }}{71}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Diagrama de casos de uso - Servidor - Exportar informaci\'on - v1.0\relax }}{71}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Fase de elaboraci\'on en el PUD\relax }}{74}
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Diagrama de casos de uso - Cliente - v2.0\relax }}{79}
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Diagrama de casos de uso - Servidor - v2.0\relax }}{80}
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Diagrama de casos de uso - Cliente - Visualizar informaci\'on - v2.0\relax }}{80}
+\contentsline {figure}{\numberline {5.22}{\ignorespaces Diagrama de casos de uso - Servidor - Visualizar informaci\'on - v2.0\relax }}{81}
+\contentsline {figure}{\numberline {5.23}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on decisiones - v2.0\relax }}{82}
+\contentsline {figure}{\numberline {5.24}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on decisiones - v2.0\relax }}{83}
+\contentsline {figure}{\numberline {5.25}{\ignorespaces Diagrama de casos de uso - Cliente - Generaci\'on Estad\IeC {\'\i }sticas - v2.0\relax }}{83}
+\contentsline {figure}{\numberline {5.26}{\ignorespaces Diagrama de casos de uso - Cliente - Generaci\'on Informes - v2.0\relax }}{84}
+\contentsline {figure}{\numberline {5.27}{\ignorespaces Diagrama de casos de uso - Servidor - Generaci\'on Informes - v2.0\relax }}{84}
+\contentsline {figure}{\numberline {5.28}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Login\relax }}{87}
+\contentsline {figure}{\numberline {5.29}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Login\relax }}{87}
+\contentsline {figure}{\numberline {5.30}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Logout\relax }}{89}
+\contentsline {figure}{\numberline {5.31}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Logout\relax }}{89}
+\contentsline {figure}{\numberline {5.32}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Consultar Decisiones\relax }}{91}
+\contentsline {figure}{\numberline {5.33}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Consultar Decisiones\relax }}{91}
+\contentsline {figure}{\numberline {5.34}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Consultar compa\~n\IeC {\'\i }a\relax }}{91}
+\contentsline {figure}{\numberline {5.35}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Consultar compa\~n\IeC {\'\i }a\relax }}{92}
+\contentsline {figure}{\numberline {5.36}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Crear Tema\relax }}{94}
+\contentsline {figure}{\numberline {5.37}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Crear Tema\relax }}{94}
+\contentsline {figure}{\numberline {5.38}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Crear Propuesta\relax }}{96}
+\contentsline {figure}{\numberline {5.39}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Crear Propuesta\relax }}{96}
+\contentsline {figure}{\numberline {5.40}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Crear Respuesta\relax }}{96}
+\contentsline {figure}{\numberline {5.41}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Crear Respuesta\relax }}{98}
+\contentsline {figure}{\numberline {5.42}{\ignorespaces Arquitectura cliente-servidor\relax }}{101}
+\contentsline {figure}{\numberline {5.43}{\ignorespaces Arquitectura multicapa\relax }}{102}
+\contentsline {figure}{\numberline {5.44}{\ignorespaces Arquitectura multicapa\relax }}{103}
+\contentsline {figure}{\numberline {5.45}{\ignorespaces Diagrama de clases de dominio\relax }}{108}
+\contentsline {figure}{\numberline {5.46}{\ignorespaces Diagrama EER de la base de datos\relax }}{110}
+\contentsline {figure}{\numberline {5.47}{\ignorespaces Diagrama de secuencia - Cliente - Login\relax }}{111}
+\contentsline {figure}{\numberline {5.48}{\ignorespaces Diagrama de secuencia - Servidor - Login\relax }}{112}
+\contentsline {figure}{\numberline {5.49}{\ignorespaces Diagrama de secuencia - Cliente - Logout\relax }}{113}
+\contentsline {figure}{\numberline {5.50}{\ignorespaces Diagrama de secuencia - Servidor - Logout\relax }}{113}
+\contentsline {figure}{\numberline {5.51}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on cliente-servidor\relax }}{115}
+\contentsline {figure}{\numberline {5.52}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on para bases de datos\relax }}{118}
+\contentsline {figure}{\numberline {5.53}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on para gestionar el log\relax }}{119}
+\contentsline {figure}{\numberline {5.54}{\ignorespaces Diagrama de clases - Gestor de sesiones\relax }}{121}
+\contentsline {figure}{\numberline {5.55}{\ignorespaces Ejemplo de \textit {spinner} de carga\relax }}{122}
+\contentsline {figure}{\numberline {5.56}{\ignorespaces Fase de construcci\'on en el PUD\relax }}{124}
+\contentsline {figure}{\numberline {5.57}{\ignorespaces Diagrama de secuencia - Cliente - Consultar decisiones\relax }}{126}
+\contentsline {figure}{\numberline {5.58}{\ignorespaces Diagrama de secuencia - Servidor - Consultar decisiones\relax }}{126}
+\contentsline {figure}{\numberline {5.59}{\ignorespaces Diagrama de secuencia - Cliente - Consultar compa\~n\IeC {\'\i }a\relax }}{127}
+\contentsline {figure}{\numberline {5.60}{\ignorespaces Diagrama de secuencia - Servidor - Consultar compa\~n\IeC {\'\i }a\relax }}{127}
+\contentsline {figure}{\numberline {5.61}{\ignorespaces Diagrama de secuencia - Cliente - Descargar ficheros adjuntos\relax }}{128}
+\contentsline {figure}{\numberline {5.62}{\ignorespaces Diagrama de secuencia - Servidor - Descargar ficheros adjuntos\relax }}{128}
+\contentsline {figure}{\numberline {5.63}{\ignorespaces Diagrama de clases - Jerarqu\IeC {\'\i }a de decisiones\relax }}{130}
+\contentsline {figure}{\numberline {5.64}{\ignorespaces Ejemplo de jerarqu\IeC {\'\i }a de decisiones en foros de debates\relax }}{130}
+\contentsline {figure}{\numberline {5.65}{\ignorespaces Diagrama de clases - Composici\'on de clases de interfaz gr\'afica\relax }}{135}
+\contentsline {figure}{\numberline {5.66}{\ignorespaces Diagrama de secuencia - Cliente - Crear decisi\'on (\textit {Topic})\relax }}{139}
+\contentsline {figure}{\numberline {5.67}{\ignorespaces Diagrama de secuencia - Cliente - Crear decisi\'on (\textit {Topic})\relax }}{139}
+\contentsline {figure}{\numberline {5.68}{\ignorespaces Diagrama de secuencia - Cliente - Crear decisi\'on (\textit {Topic})\relax }}{139}
+\contentsline {figure}{\numberline {5.69}{\ignorespaces Diagrama de secuencia - Servidor - Crear decisi\'on\relax }}{139}
+\contentsline {figure}{\numberline {5.70}{\ignorespaces Diagrama de secuencia - Cliente - Adjuntar ficheros\relax }}{140}
+\contentsline {figure}{\numberline {5.71}{\ignorespaces Diagrama de secuencia - Servidor - Adjuntar ficheros\relax }}{140}
+\contentsline {figure}{\numberline {5.72}{\ignorespaces Diagrama de clases - Gesti\'on de decisiones\relax }}{141}
+\contentsline {figure}{\numberline {5.73}{\ignorespaces Diagrama de clases - Observador para actualizar clientes conectados\relax }}{142}
+\contentsline {figure}{\numberline {5.74}{\ignorespaces Diagrama de secuencia - Cliente - Consultar notificaciones\relax }}{147}
+\contentsline {figure}{\numberline {5.75}{\ignorespaces Diagrama de secuencia - Servidor - Consultar notificaciones\relax }}{147}
+\contentsline {figure}{\numberline {5.76}{\ignorespaces Diagrama de secuencia - Cliente - Modificar notificaciones\relax }}{148}
+\contentsline {figure}{\numberline {5.77}{\ignorespaces Diagrama de secuencia - Servidor - Modificar notificaciones\relax }}{148}
+\contentsline {figure}{\numberline {5.78}{\ignorespaces Diagrama de secuencia - Cliente - Eliminar notificaciones\relax }}{148}
+\contentsline {figure}{\numberline {5.79}{\ignorespaces Diagrama de secuencia - Servidor - Eliminar notificaciones\relax }}{149}
+\contentsline {figure}{\numberline {5.80}{\ignorespaces Diagrama de secuencia - Cliente - Consultar proyectos\relax }}{151}
+\contentsline {figure}{\numberline {5.81}{\ignorespaces Diagrama de secuencia - Servidor - Consultar proyectos\relax }}{152}
+\contentsline {figure}{\numberline {5.82}{\ignorespaces Diagrama de secuencia - Cliente - Consultar usuarios\relax }}{152}
+\contentsline {figure}{\numberline {5.83}{\ignorespaces Diagrama de secuencia - Servidor - Consultar usuarios\relax }}{152}
+\contentsline {figure}{\numberline {5.84}{\ignorespaces Diagrama de secuencia - Cliente - Crear proyecto\relax }}{153}
+\contentsline {figure}{\numberline {5.85}{\ignorespaces Diagrama de secuencia - Servidor - Crear proyecto\relax }}{153}
+\contentsline {figure}{\numberline {5.86}{\ignorespaces Diagrama de secuencia - Cliente - Modificar proyecto\relax }}{154}
+\contentsline {figure}{\numberline {5.87}{\ignorespaces Diagrama de secuencia - Servidor - Modificar proyecto\relax }}{154}
+\contentsline {figure}{\numberline {5.88}{\ignorespaces Diagrama de secuencia - Cliente - Seleccionar proyecto activo\relax }}{155}
+\contentsline {figure}{\numberline {5.89}{\ignorespaces Diagrama de secuencia - Servidor - Seleccionar proyecto activo\relax }}{155}
+\contentsline {figure}{\numberline {5.90}{\ignorespaces Diagrama de clases - Servidor - Razonamiento Basado en Casos\relax }}{159}
+\contentsline {figure}{\numberline {5.91}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)\relax }}{163}
+\contentsline {figure}{\numberline {5.92}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)\relax }}{163}
+\contentsline {figure}{\numberline {5.93}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe (comportamiento extendido)\relax }}{163}
+\contentsline {figure}{\numberline {5.94}{\ignorespaces Diagrama de secuencia - Servidor -Generar informe (comportamiento extendido)\relax }}{164}
+\contentsline {figure}{\numberline {5.95}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Servidor\relax }}{165}
+\contentsline {figure}{\numberline {5.96}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Cliente\relax }}{169}
+\contentsline {figure}{\numberline {5.97}{\ignorespaces Proceso simplificado de \textit {Drag \& Drop}\relax }}{171}
+\contentsline {figure}{\numberline {5.98}{\ignorespaces Diagrama de secuencia - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{171}
+\contentsline {figure}{\numberline {5.99}{\ignorespaces Diagrama de clases - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{173}
+\contentsline {figure}{\numberline {5.100}{\ignorespaces Diagrama de secuencia - Cliente - Gesti\'on de idiomas\relax }}{178}
+\contentsline {figure}{\numberline {5.101}{\ignorespaces Diagrama de secuencia - Servidor - Gesti\'on de idiomas\relax }}{178}
+\addvspace {10\p@ }
+\select@language {english}
+\select@language {spanish}

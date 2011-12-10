@@ -1,0 +1,2895 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  9 DEC 2011 22:10
+entering extended mode
+**D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/PlantillaPFC.tex
+(D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/PlantillaPFC.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\book.cls"
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\bk12.clo"
+File: bk12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\formatoPFC.tex
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2008/07/08 v3.8m The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\spanish.ldf"
+Language: spanish.ldf 2009/01/02 v5.0h Spanish support from the babel system
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2008/07/08 v3.8m Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\es@datefmt=\count89
+\es@quottoks=\toks14
+\es@quotdepth=\count90
+Package babel Info: Making " an active character on input line 492.
+Package babel Info: Making . an active character on input line 585.
+Package babel Info: Making < an active character on input line 630.
+Package babel Info: Making > an active character on input line 630.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
+Language: english 2005/03/30 v3.3o English support from the babel system
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\inputenx.sty"
+Package: inputenx 2011/04/10 v1.8 Enhanced input encoding handling (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\ix-alias.def"
+File: ix-alias.def 2011/04/10 v1.8 Alias list (inputenx)
+)
+Package inputenx Info: Encoding name: ansinew
+(inputenx)             Encoding file: x-cp1252.def
+(inputenx)              on input line 171.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\x-cp1252.def"
+File: x-cp1252.def 2011/04/10 v1.8 Input encoding cp1252 (inputenx)
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\times.sty"
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\microtype.sty"
+Package: microtype 2010/01/10 v2.4 Micro-typography with pdfTeX (RS)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\MT@toks=\toks18
+\MT@count=\count91
+LaTeX Info: Redefining \lsstyle on input line 1597.
+LaTeX Info: Redefining \lslig on input line 1597.
+\MT@outer@space=\skip43
+LaTeX Info: Redefining \textls on input line 1605.
+\MT@outer@kern=\dimen104
+LaTeX Info: Redefining \textmicrotypecontext on input line 2156.
+Package microtype Info: Loading configuration file microtype.cfg.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\microtype.cfg"
+File: microtype.cfg 2010/01/10 v2.4 microtype main configuration file (RS)
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\enumerate.sty"
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks19
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\pifont.sty"
+Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\upzd.fd"
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\upsy.fd"
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\marvosym\marvosym.sty"
+Package: marvosym 2011/07/20 v2.2 Martin Vogel's Symbols font definitions
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip44
+\LTright=\skip45
+\LTpre=\skip46
+\LTpost=\skip47
+\LTchunksize=\count92
+\LTcapwidth=\dimen105
+\LT@head=\box26
+\LT@firsthead=\box27
+\LT@foot=\box28
+\LT@lastfoot=\box29
+\LT@cols=\count93
+\LT@rows=\count94
+\c@LT@tables=\count95
+\c@LT@chunks=\count96
+\LT@p@ftn=\toks20
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen106
+\extrarowheight=\dimen107
+\NC@list=\toks21
+\extratabsurround=\skip48
+\backup@length=\skip49
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+\bigstrutjot=\dimen108
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count97
+\Gm@cntv=\count98
+\c@Gm@tempcnt=\count99
+\Gm@bindingoffset=\dimen109
+\Gm@wd@mp=\dimen110
+\Gm@odd@mp=\dimen111
+\Gm@even@mp=\dimen112
+\Gm@layoutwidth=\dimen113
+\Gm@layoutheight=\dimen114
+\Gm@layouthoffset=\dimen115
+\Gm@layoutvoffset=\dimen116
+\Gm@dimlist=\toks22
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+\fancy@headwidth=\skip50
+\f@ncyO@elh=\skip51
+\f@ncyO@erh=\skip52
+\f@ncyO@olh=\skip53
+\f@ncyO@orh=\skip54
+\f@ncyO@elf=\skip55
+\f@ncyO@erf=\skip56
+\f@ncyO@olf=\skip57
+\f@ncyO@orf=\skip58
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty"
+Package: titlesec 2011/08/28 v2.9.1 Sectioning titles
+\ttl@box=\box30
+\beforetitleunit=\skip59
+\aftertitleunit=\skip60
+\ttl@plus=\dimen117
+\ttl@minus=\dimen118
+\ttl@toksa=\toks23
+\titlewidth=\dimen119
+\titlewidthlast=\dimen120
+\titlewidthfirst=\dimen121
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty"
+Package: caption 2011/08/18 v3.2b Customizing captions (AR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2011/08/18 v1.3b caption3 kernel (AR)
+\captionmargin=\dimen122
+\captionmargin@=\dimen123
+\captionwidth=\dimen124
+\caption@indent=\dimen125
+\caption@parindent=\dimen126
+\caption@hangindent=\dimen127
+)
+\c@ContinuedFloat=\count100
+Package caption Info: longtable package is loaded.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\ltcaption.sty"
+Package: ltcaption 2011/01/01 v1.2a longtable captions (AR)
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count101
+))
+\Gin@req@height=\dimen128
+\Gin@req@width=\dimen129
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\subfigure\subfigure.sty"
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip61
+\subfigcapskip=\skip62
+\subfigcaptopadj=\dimen130
+\subfigbottomskip=\skip63
+\subfigcapmargin=\dimen131
+\subfiglabelskip=\skip64
+\c@subfigure=\count102
+\c@lofdepth=\count103
+\c@subtable=\count104
+\c@lotdepth=\count105
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\subfigure\subfigure.cfg")
+\subfig@top=\skip65
+\subfig@bottom=\skip66
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
+\lst@mode=\count106
+\lst@gtempboxa=\box31
+\lst@token=\toks24
+\lst@length=\count107
+\lst@currlwidth=\dimen132
+\lst@column=\count108
+\lst@pos=\count109
+\lst@lostspace=\dimen133
+\lst@width=\dimen134
+\lst@newlines=\count110
+\lst@lineno=\count111
+\lst@maxwidth=\dimen135
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count112
+\lst@skipnumbers=\count113
+\lst@framebox=\box32
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancyvrb\fancyvrb.sty"
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count114
+\FV@InFile=\read1
+\FV@TabBox=\box33
+\c@FancyVerbLine=\count115
+\FV@StepNumber=\count116
+\FV@OutFile=\write3
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\algorithm2e\algorithm2e.sty"
+Package: algorithm2e 2008/00/00 v3.10 algorithms environments
+\c@AlgoLine=\count117
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\xspace.sty"
+Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\relsize.sty"
+Package: relsize 2003/07/04 ver 3.1
+)
+********************************************************
+Package `algorithm2e' Release 4.01 -- december 14 2009 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (fiorio@lirmm.fr)
+********************************************************
+\skiptotal=\skip67
+\skiplinenumber=\skip68
+\skiprule=\skip69
+\skiphlne=\skip70
+\skiptext=\skip71
+\skiplength=\skip72
+\algomargin=\skip73
+\skipalgocfslide=\skip74
+\algowidth=\dimen136
+\inoutsize=\dimen137
+\inoutline=\dimen138
+\interspacetitleruled=\dimen139
+\interspacealgoruled=\dimen140
+\interspacetitleboxruled=\dimen141
+\algocf@inoutbox=\box34
+\algocf@inputbox=\box35
+\AlCapSkip=\skip75
+\AlCapHSkip=\skip76
+\algocf@nlbox=\box36
+\algocf@hangingbox=\box37
+\algocf@capbox=\box38
+\algoheightruledefault=\skip77
+\algoheightrule=\skip78
+\algotitleheightruledefault=\skip79
+\algotitleheightrule=\skip80
+\c@algocfline=\count118
+\c@algocfproc=\count119
+\c@algocf=\count120
+\algocf@algoframe=\box39
+\algocf@algobox=\box40
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babelbib\babelbib.sty"
+Package: babelbib 2009/10/10 v1.29 babelbib: multilingual bibliographies (HH)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\makeidx.sty"
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+\@indexfile=\write4
+
+Writing index file PlantillaPFC.idx
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\framed\framed.sty"
+Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
+\fb@frw=\dimen142
+\fb@frh=\dimen143
+\FrameRule=\dimen144
+\FrameSep=\dimen145
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty"
+Package: colortbl 2001/02/13 v0.1j Color table columns (DPC)
+\everycr=\toks25
+\minrowclearance=\skip81
+)
+\rownum=\count121
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+Package: pdfpages 2011/03/10 v0.4n Insert pages of external PDF documents (AM)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count122
+\calc@Bcount=\count123
+\calc@Adimen=\dimen146
+\calc@Bdimen=\dimen147
+\calc@Askip=\skip82
+\calc@Bskip=\skip83
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count124
+\calc@Cskip=\skip84
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+Package: eso-pic 2010/10/06 v2.0c eso-pic (RN)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\atbegshi.sty"
+Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
+File: pppdftex.def 2011/03/10 v0.4n Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box41
+\AM@toc@title=\toks26
+\c@AM@survey=\count125
+\AM@templatesizebox=\box42
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count126
+\float@exts=\toks27
+\float@box=\box43
+\@float@everytoks=\toks28
+\@floatcapt=\box44
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\wrapfig\wrapfig.sty"
+\wrapoverhang=\dimen148
+\WF@size=\dimen149
+\c@WF@wrappedlines=\count127
+\WF@box=\box45
+\WF@everypar=\toks29
+Package: wrapfig 2003/01/31  v 3.6
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\dtk\dtklogos.sty"
+Package: dtklogos 2010/06/19 1.9b gene
+LaTeX Info: Redefining \XeTeX on input line 282.
+LaTeX Info: Redefining \XeLaTeX on input line 291.
+))
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.aux
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Portadas.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Previos.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Listas.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Resultados.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseInicio.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseElaboracion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseConstruccion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion1interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion2interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion3interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion4interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion5interacion.aux))
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 16.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 16.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1ptm.fd"
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
+LaTeX Info: Redefining \microtypecontext on input line 16.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+Package microtype Info: No tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\mt-ptm.cfg"
+File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(99.58464pt, 441.01773pt, 56.9055pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=441.01773pt
+* \textheight=702.78308pt
+* \oddsidemargin=27.31465pt
+* \evensidemargin=-15.36449pt
+* \topmargin=-33.0119pt
+* \headheight=18.0pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=88.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: subfigure package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count128
+\scratchdimen=\dimen150
+\scratchbox=\box46
+\nofMPsegments=\count129
+\nofMParguments=\count130
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count131
+\MPscratchDim=\dimen151
+\MPnumerator=\count132
+\makeMPintoPDFobject=\count133
+\everyMPtoPDFconversion=\toks31
+)
+\c@lstlisting=\count134
+
+babelbib: Use citation-dependent languages in bibliography
+babelbib: Set bibliography fall-back language to english
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babelbib\english.bdf"
+File: english.bdf 2009/10/10 v1.29 babelbib: multilingual bibliographies (HH)
+
+babelbib extension \bibsenglish added to \extrasenglish
+babelbib extension \btxifchangecaseon added to \extrasenglish
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babelbib\spanish.bdf"
+File: spanish.bdf 2009/10/10 v1.29 babelbib: multilingual bibliographies (HH)
+
+babelbib extension \bibsspanish added to \extrasspanish
+babelbib extension \btxifchangecaseoff added to \extrasspanish
+)
+\AtBeginShipoutBox=\box47
+ (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Portadas.tex
+<Figuras//logoesi.pdf, id=1, 597.23125pt x 702.625pt>
+File: Figuras//logoesi.pdf Graphic file (type pdf)
+
+<use Figuras//logoesi.pdf>
+Package pdftex.def Info: Figuras//logoesi.pdf used on input line 11.
+(pdftex.def)             Requested size: 99.58464pt x 117.15033pt.
+LaTeX Font Info:    Font shape `T1/ptm/bx/sc' in size <20.74> not available
+(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 17.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 19.
+ [1
+
+
+
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <D:/UCLM/5Curso/PFC/repo-p
+fc/PFC/Memoria/Figuras//logoesi.pdf>] [2
+
+]
+File: Figuras//logoesi.pdf Graphic file (type pdf)
+
+<use Figuras//logoesi.pdf>
+Package pdftex.def Info: Figuras//logoesi.pdf used on input line 33.
+(pdftex.def)             Requested size: 99.58464pt x 117.15033pt.
+ [3]
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 63.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
+
+ []
+
+[4] ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\mt-cmr.cfg"
+File: mt-cmr.cfg 2009/11/09 v2.0 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 71.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 71.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 71.
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--76
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 82.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 82.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 82.
+
+Overfull \hbox (6.79778pt too wide) in paragraph at lines 82--86
+ [] 
+ []
+
+[5
+
+] [6
+
+] [7] [8
+
+]) (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Previos.tex
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 6.
+ [9
+
+
+
+]
+[10
+
+] [11] [12
+
+]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 28.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 28.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 28.
+) [13] [14
+
+
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.toc [15])
+\tf@toc=\write5
+
+[16] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Listas.tex
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.lof [17
+
+
+] [18] [19]
+[20])
+\tf@lof=\write6
+ [21] [22
+
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.lot)
+\tf@lot=\write7
+
+[23] [24
+
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.lol)
+\tf@lol=\write8
+ [25]
+[26
+
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.loa)
+\tf@loa=\write9
+) [27] [28
+
+
+]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Introduccion.tex
+Cap\'{\i }tulo 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+) [1
+
+
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\MotivacionObjetivos.tex [2
+
+
+
+]
+Cap\'{\i }tulo 2.
+
+LaTeX Warning: Citation `evaristo1999typology' on page 3 undefined on input lin
+e 10.
+
+
+LaTeX Warning: Reference `fig:projects-locations' on page 3 undefined on input 
+line 12.
+
+
+LaTeX Warning: Citation `evaristo1999typology' on page 3 undefined on input lin
+e 12.
+
+<Figuras//Cap2//projects-locations.png, id=187, 1178.4025pt x 687.56876pt>
+File: Figuras//Cap2//projects-locations.png Graphic file (type png)
+
+<use Figuras//Cap2//projects-locations.png>
+Package pdftex.def Info: Figuras//Cap2//projects-locations.png used on input li
+ne 14.
+(pdftex.def)             Requested size: 412.44705pt x 240.65266pt.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
+ [3]
+
+LaTeX Warning: Reference `ch:estadodelarte' on page 4 undefined on input line 2
+0.
+
+[4 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap2//projects-locations.p
+ng>]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 30.
+ [5] [6]
+
+LaTeX Warning: Reference `ch:estadodelarte' on page 7 undefined on input line 7
+3.
+
+) [7] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\EstadoArte.tex [8
+
+
+
+]
+Cap\'{\i }tulo 3.
+
+LaTeX Warning: Citation `damian2006guest' on page 9 undefined on input line 14.
+
+
+
+LaTeX Warning: Citation `herbsleb2002global' on page 9 undefined on input line 
+14.
+
+
+LaTeX Warning: Reference `table:evolucionSD' on page 9 undefined on input line 
+16.
+
+[9]
+
+LaTeX Warning: Citation `wernerHeij' on page 10 undefined on input line 18.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 41.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 41.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 41.
+
+LaTeX Warning: Citation `freeman2010strategic' on page 10 undefined on input li
+ne 41.
+
+
+LaTeX Warning: Citation `sangwan2006global' on page 10 undefined on input line 
+41.
+
+
+LaTeX Warning: Citation `sahay:globalit' on page 10 undefined on input line 43.
+
+
+
+LaTeX Warning: Citation `aspray2006globalization' on page 10 undefined on input
+ line 45.
+
+
+LaTeX Warning: Citation `sahay:globalit' on page 10 undefined on input line 45.
+
+
+
+LaTeX Warning: Reference `fig:beneficios' on page 10 undefined on input line 47
+.
+
+<Figuras//Cap3//beneficios.jpg, id=211, 621.82312pt x 421.575pt>
+File: Figuras//Cap3//beneficios.jpg Graphic file (type jpg)
+
+<use Figuras//Cap3//beneficios.jpg>
+Package pdftex.def Info: Figuras//Cap3//beneficios.jpg used on input line 49.
+(pdftex.def)             Requested size: 373.09674pt x 252.94695pt.
+ [10]
+
+LaTeX Warning: Citation `benefitsGSD' on page 11 undefined on input line 55.
+
+
+LaTeX Warning: Citation `cho2007globalization' on page 11 undefined on input li
+ne 55.
+
+[11 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//beneficios.jpg>]
+
+LaTeX Warning: Reference `fig:sun' on page 12 undefined on input line 69.
+
+<Figuras//Cap3//follow_the_sun.jpg, id=218, 321.2pt x 205.76875pt>
+File: Figuras//Cap3//follow_the_sun.jpg Graphic file (type jpg)
+
+<use Figuras//Cap3//follow_the_sun.jpg>
+Package pdftex.def Info: Figuras//Cap3//follow_the_sun.jpg used on input line 7
+3.
+(pdftex.def)             Requested size: 256.96034pt x 164.6152pt.
+
+Underfull \vbox (badness 2027) has occurred while \output is active []
+
+ [12 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//follow_the_sun.jpg
+>]
+
+LaTeX Warning: Reference `fig:distances' on page 13 undefined on input line 87.
+
+
+
+LaTeX Warning: Citation `cho2007globalization' on page 13 undefined on input li
+ne 87.
+
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 13 undefined on input li
+ne 87.
+
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 13 undefined on input li
+ne 89.
+
+[13] <Figuras//Cap3//distances.png, id=225, 229.95pt x 203.9985pt>
+File: Figuras//Cap3//distances.png Graphic file (type png)
+
+<use Figuras//Cap3//distances.png>
+Package pdftex.def Info: Figuras//Cap3//distances.png used on input line 97.
+(pdftex.def)             Requested size: 229.94943pt x 203.998pt.
+
+
+LaTeX Warning: Citation `benefitsGSD' on page 14 undefined on input line 99.
+
+
+LaTeX Warning: Citation `conchúir2009global' on page 14 undefined on input line
+ 101.
+
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 103.
+[14 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//distances.png>]
+
+LaTeX Warning: Reference `table:distanciasGSD' on page 15 undefined on input li
+ne 108.
+
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 15 undefined on input li
+ne 134.
+
+
+LaTeX Warning: Citation `cho2007globalization' on page 15 undefined on input li
+ne 134.
+
+[15]
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 16 undefined on input li
+ne 156.
+
+
+LaTeX Warning: Citation `conchúir2009global' on page 16 undefined on input line
+ 156.
+
+[16]
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 17 undefined on input li
+ne 171.
+
+
+LaTeX Warning: Citation `cho2007globalization' on page 17 undefined on input li
+ne 179.
+
+
+LaTeX Warning: Reference `table:desafiosComunicacion' on page 17 undefined on i
+nput line 183.
+
+[17]
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 18 undefined on input li
+ne 212.
+
+
+LaTeX Warning: Citation `monasor' on page 18 undefined on input line 212.
+
+[18]
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 19 undefined on input li
+ne 241.
+
+
+LaTeX Warning: Citation `kobitzsch2001outsourcing' on page 19 undefined on inpu
+t line 251.
+
+[19]
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 20 undefined on input li
+ne 257.
+
+
+LaTeX Warning: Citation `conchúir2009global' on page 20 undefined on input line
+ 257.
+
+
+LaTeX Warning: Reference `table:desafiosCoordinaci\'on' on page 20 undefined on
+ input line 269.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 20 undefined on input li
+ne 298.
+
+[20]
+
+LaTeX Warning: Citation `blackburn1996concurrent' on page 21 undefined on input
+ line 306.
+
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 21 undefined on input li
+ne 316.
+
+
+LaTeX Warning: Citation `evaristo2000geographically' on page 21 undefined on in
+put line 316.
+
+[21]
+
+LaTeX Warning: Citation `fitzgerald2010global' on page 22 undefined on input li
+ne 325.
+
+
+LaTeX Warning: Reference `table:desafiosControl' on page 22 undefined on input 
+line 335.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Citation `burch2005sociedad' on page 22 undefined on input line 
+365.
+
+
+LaTeX Warning: Citation `Hovland' on page 22 undefined on input line 365.
+
+[22]
+
+LaTeX Warning: Citation `castells1999globalización' on page 23 undefined on inp
+ut line 367.
+
+
+LaTeX Warning: Citation `oscar' on page 23 undefined on input line 367.
+
+
+LaTeX Warning: Citation `Davenport2000' on page 23 undefined on input line 367.
+
+
+
+LaTeX Warning: Citation `Davenport2000' on page 23 undefined on input line 369.
+
+
+
+LaTeX Warning: Citation `Davenport2000' on page 23 undefined on input line 370.
+
+
+
+LaTeX Warning: Reference `fig:conocimiento' on page 23 undefined on input line 
+370.
+
+
+LaTeX Warning: Citation `oscar' on page 23 undefined on input line 370.
+
+<Figuras//Cap3//conocimiento.png, id=258, 758.835pt x 328.22626pt>
+File: Figuras//Cap3//conocimiento.png Graphic file (type png)
+
+<use Figuras//Cap3//conocimiento.png>
+Package pdftex.def Info: Figuras//Cap3//conocimiento.png used on input line 372
+.
+(pdftex.def)             Requested size: 417.36055pt x 180.525pt.
+
+
+LaTeX Warning: Citation `castells1999globalización' on page 23 undefined on inp
+ut line 374.
+
+
+LaTeX Warning: Citation `oscar' on page 23 undefined on input line 374.
+
+[23]
+
+LaTeX Warning: Citation `dalkir2007knowledge' on page 24 undefined on input lin
+e 376.
+
+
+LaTeX Warning: Citation `barclay1997knowledge' on page 24 undefined on input li
+ne 379.
+
+
+LaTeX Warning: Citation `Bornemann2003' on page 24 undefined on input line 384.
+
+
+
+LaTeX Warning: Citation `Hovland' on page 24 undefined on input line 384.
+
+
+LaTeX Warning: Citation `Kanagasabapathy2006' on page 24 undefined on input lin
+e 384.
+
+
+LaTeX Warning: Reference `fig:KMModel' on page 24 undefined on input line 384.
+
+<Figuras//Cap3//KMModel.png, id=262, 1147.28625pt x 729.72626pt>
+File: Figuras//Cap3//KMModel.png Graphic file (type png)
+
+<use Figuras//Cap3//KMModel.png>
+Package pdftex.def Info: Figuras//Cap3//KMModel.png used on input line 386.
+(pdftex.def)             Requested size: 458.90637pt x 291.88533pt.
+
+Overfull \hbox (18.88864pt too wide) in paragraph at lines 386--386
+ [] 
+ []
+
+[24 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//conocimiento.png>]
+
+LaTeX Warning: Citation `alavi2001review' on page 25 undefined on input line 39
+0.
+
+
+LaTeX Warning: Citation `alavi2001review' on page 25 undefined on input line 39
+4.
+
+
+LaTeX Warning: Citation `holzner1979knowledge' on page 25 undefined on input li
+ne 394.
+
+[25 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//KMModel.png>]
+
+LaTeX Warning: Citation `alavi2001review' on page 26 undefined on input line 40
+8.
+
+
+LaTeX Warning: Citation `oscar' on page 26 undefined on input line 410.
+
+
+LaTeX Warning: Citation `oscar' on page 26 undefined on input line 412.
+
+
+LaTeX Warning: Citation `alavi2001review' on page 26 undefined on input line 41
+2.
+
+
+LaTeX Warning: Citation `nonaka1994dynamic' on page 26 undefined on input line 
+412.
+
+
+LaTeX Warning: Reference `fig:Creacionconocimiento' on page 26 undefined on inp
+ut line 421.
+
+
+LaTeX Warning: Citation `oscar' on page 26 undefined on input line 421.
+
+<Figuras//Cap3//CreacionConocimiento.png, id=269, 937.5025pt x 337.26pt>
+File: Figuras//Cap3//CreacionConocimiento.png Graphic file (type png)
+
+<use Figuras//Cap3//CreacionConocimiento.png>
+Package pdftex.def Info: Figuras//Cap3//CreacionConocimiento.png used on input 
+line 423.
+(pdftex.def)             Requested size: 374.99435pt x 134.9016pt.
+
+
+LaTeX Warning: Citation `alavi2001review' on page 26 undefined on input line 42
+8.
+
+[26]
+
+LaTeX Warning: Citation `wenger1998communities' on page 27 undefined on input l
+ine 437.
+
+[27 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//CreacionConocimient
+o.png>]
+
+LaTeX Warning: Reference `fig:KMCycle' on page 28 undefined on input line 446.
+
+<Figuras//Cap3//KMCycle.jpg, id=277, 461.725pt x 391.4625pt>
+File: Figuras//Cap3//KMCycle.jpg Graphic file (type jpg)
+
+<use Figuras//Cap3//KMCycle.jpg>
+Package pdftex.def Info: Figuras//Cap3//KMCycle.jpg used on input line 450.
+(pdftex.def)             Requested size: 277.03714pt x 234.8793pt.
+
+
+LaTeX Warning: Citation `Bornemann2003' on page 28 undefined on input line 455.
+
+
+
+LaTeX Warning: Citation `dingsyr2004benefits' on page 28 undefined on input lin
+e 455.
+
+
+LaTeX Warning: Citation `alavi1999knowledge' on page 28 undefined on input line
+ 455.
+
+
+LaTeX Warning: Citation `nunes2006knowledge' on page 28 undefined on input line
+ 455.
+
+[28] [29 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//KMCycle.jpg>]
+
+LaTeX Warning: Reference `label:km' on page 30 undefined on input line 487.
+
+
+LaTeX Warning: Citation `CBRCommentaries' on page 30 undefined on input line 48
+9.
+
+
+LaTeX Warning: Citation `kolodner1992introduction' on page 30 undefined on inpu
+t line 489.
+
+
+LaTeX Warning: Citation `watson1998cbr' on page 30 undefined on input line 491.
+
+
+
+LaTeX Warning: Reference `fig:CBRCycle' on page 30 undefined on input line 493.
+
+
+
+LaTeX Warning: Citation `lopez2005retrieval' on page 30 undefined on input line
+ 493.
+
+
+LaTeX Warning: Citation `watson1998cbr' on page 30 undefined on input line 493.
+
+
+<Figuras//Cap3//CBRCycle.png, id=284, 500.87125pt x 647.41875pt>
+File: Figuras//Cap3//CBRCycle.png Graphic file (type png)
+
+<use Figuras//Cap3//CBRCycle.png>
+Package pdftex.def Info: Figuras//Cap3//CBRCycle.png used on input line 502.
+(pdftex.def)             Requested size: 250.435pt x 323.70857pt.
+ [30] [31 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap3//CBRCycle.png>
+]) [32]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\MetodoTrabajo.tex
+Cap\'{\i }tulo 4.
+
+LaTeX Warning: Citation `jac00' on page 33 undefined on input line 4.
+
+
+LaTeX Warning: Citation `jac00' on page 33 undefined on input line 10.
+
+
+LaTeX Warning: Citation `jac00' on page 33 undefined on input line 12.
+
+[33
+
+
+
+]
+
+LaTeX Warning: Reference `fig:incremental' on page 34 undefined on input line 2
+7.
+
+
+LaTeX Warning: Citation `kruchten2004rational' on page 34 undefined on input li
+ne 27.
+
+<Figuras//Cap4//incremental.png, id=299, 626.34pt x 470.75874pt>
+File: Figuras//Cap4//incremental.png Graphic file (type png)
+
+<use Figuras//Cap4//incremental.png>
+Package pdftex.def Info: Figuras//Cap4//incremental.png used on input line 30.
+(pdftex.def)             Requested size: 313.16922pt x 235.3788pt.
+
+
+LaTeX Warning: Reference `fig:PUD' on page 34 undefined on input line 35.
+
+
+Underfull \vbox (badness 3646) has occurred while \output is active []
+
+ [34 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//incremental.png>]
+<Figuras//Cap4//PUD.png, id=303, 376.40625pt x 234.8775pt>
+File: Figuras//Cap4//PUD.png Graphic file (type png)
+
+<use Figuras//Cap4//PUD.png>
+Package pdftex.def Info: Figuras//Cap4//PUD.png used on input line 37.
+(pdftex.def)             Requested size: 376.40532pt x 234.87692pt.
+
+
+LaTeX Warning: Citation `jac00' on page 35 undefined on input line 39.
+
+
+LaTeX Warning: Citation `torossi' on page 35 undefined on input line 39.
+
+[35 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//PUD.png>]
+
+LaTeX Warning: Citation `torossi' on page 36 undefined on input line 58.
+
+[36]
+
+LaTeX Warning: Reference `sec:fasesPUD' on page 37 undefined on input line 97.
+
+
+LaTeX Warning: Reference `fig:PUD' on page 37 undefined on input line 99.
+
+
+LaTeX Warning: Citation `jac00' on page 37 undefined on input line 101.
+
+
+LaTeX Warning: Citation `torossi' on page 37 undefined on input line 101.
+
+[37] [38]
+
+LaTeX Warning: Reference `table:pud' on page 39 undefined on input line 156.
+
+[39]
+Overfull \hbox (2.01065pt too wide) in paragraph at lines 160--203
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [40]
+
+LaTeX Warning: Reference `fig:tortoise' on page 41 undefined on input line 225.
+
+
+<Figuras//Cap4//tortoise.png, id=323, 720.6925pt x 488.82625pt>
+File: Figuras//Cap4//tortoise.png Graphic file (type png)
+
+<use Figuras//Cap4//tortoise.png>
+Package pdftex.def Info: Figuras//Cap4//tortoise.png used on input line 227.
+(pdftex.def)             Requested size: 432.41884pt x 293.298pt.
+
+
+LaTeX Warning: Reference `fig:m2eclipse' on page 41 undefined on input line 235
+.
+
+[41] <Figuras//Cap4//m2eclipse.png, id=327, 1365.1pt x 836.12375pt>
+File: Figuras//Cap4//m2eclipse.png Graphic file (type png)
+
+<use Figuras//Cap4//m2eclipse.png>
+Package pdftex.def Info: Figuras//Cap4//m2eclipse.png used on input line 237.
+(pdftex.def)             Requested size: 409.53316pt x 250.83905pt.
+
+
+LaTeX Warning: Reference `fig:visualparadigm' on page 42 undefined on input lin
+e 245.
+
+<Figuras//Cap4//visualparadigm.png, id=328, 863.225pt x 647.41875pt>
+File: Figuras//Cap4//visualparadigm.png Graphic file (type png)
+
+<use Figuras//Cap4//visualparadigm.png>
+Package pdftex.def Info: Figuras//Cap4//visualparadigm.png used on input line 2
+47.
+(pdftex.def)             Requested size: 431.61145pt x 323.70857pt.
+
+Underfull \vbox (badness 4805) has occurred while \output is active []
+
+ [42 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//tortoise.png>] [43
+ <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//m2eclipse.png> <D:/UCL
+M/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//visualparadigm.png>]
+
+LaTeX Warning: Reference `fig:eclipse' on page 44 undefined on input line 256.
+
+<Figuras//Cap4//eclipse.png, id=337, 1365.1pt x 836.12375pt>
+File: Figuras//Cap4//eclipse.png Graphic file (type png)
+
+<use Figuras//Cap4//eclipse.png>
+Package pdftex.def Info: Figuras//Cap4//eclipse.png used on input line 258.
+(pdftex.def)             Requested size: 409.53316pt x 250.83905pt.
+
+
+LaTeX Warning: Reference `fig:YahooWeb' on page 44 undefined on input line 262.
+
+
+<Figuras//Cap4//yahoo.png, id=338, 355.3275pt x 777.90625pt>
+File: Figuras//Cap4//yahoo.png Graphic file (type png)
+
+<use Figuras//Cap4//yahoo.png>
+Package pdftex.def Info: Figuras//Cap4//yahoo.png used on input line 266.
+(pdftex.def)             Requested size: 213.19814pt x 466.74734pt.
+ [44 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//eclipse.png>]
+
+LaTeX Warning: Reference `fig:openmap' on page 45 undefined on input line 270.
+
+
+LaTeX Warning: Reference `label:web' on page 45 undefined on input line 272.
+
+[45 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//yahoo.png>]
+<Figuras//Cap4//map.jpg, id=346, 760.8425pt x 527.9725pt>
+File: Figuras//Cap4//map.jpg Graphic file (type jpg)
+
+<use Figuras//Cap4//map.jpg>
+Package pdftex.def Info: Figuras//Cap4//map.jpg used on input line 274.
+(pdftex.def)             Requested size: 380.42032pt x 263.9856pt.
+
+
+LaTeX Warning: Reference `fig:jaxb' on page 46 undefined on input line 279.
+
+<Figuras//Cap4//jaxb.png, id=347, 431.6125pt x 159.59625pt>
+File: Figuras//Cap4//jaxb.png Graphic file (type png)
+
+<use Figuras//Cap4//jaxb.png>
+Package pdftex.def Info: Figuras//Cap4//jaxb.png used on input line 283.
+(pdftex.def)             Requested size: 388.44765pt x 143.63527pt.
+ [46 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//map.jpg>] [47 <D:/
+UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//jaxb.png>]
+
+LaTeX Warning: Reference `fig:JUNG' on page 48 undefined on input line 322.
+
+[48] <Figuras//Cap4//jung.jpg, id=358, 628.3475pt x 696.6025pt>
+File: Figuras//Cap4//jung.jpg Graphic file (type jpg)
+
+<use Figuras//Cap4//jung.jpg>
+Package pdftex.def Info: Figuras//Cap4//jung.jpg used on input line 326.
+(pdftex.def)             Requested size: 377.0114pt x 417.96472pt.
+ [49 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//jung.jpg>]
+
+LaTeX Warning: Reference `fig:jfreechart' on page 50 undefined on input line 34
+4.
+
+<Figuras//Cap4//jfreechart.png, id=362, 1067.99pt x 335.2525pt>
+File: Figuras//Cap4//jfreechart.png Graphic file (type png)
+
+<use Figuras//Cap4//jfreechart.png>
+Package pdftex.def Info: Figuras//Cap4//jfreechart.png used on input line 355.
+(pdftex.def)             Requested size: 427.18845pt x 134.09862pt.
+ [50 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//jfreechart.png>] [
+51] [52]
+
+LaTeX Warning: Reference `fig:mysqlWorkbench' on page 53 undefined on input lin
+e 418.
+
+
+Overfull \hbox (15.84431pt too wide) in paragraph at lines 421--422
+[]\T1/ptm/b/n/12 Modelado\T1/ptm/m/n/12 (-20) : pro-por-cio-na las he-rra-mien-
+tas ne-ce-sa-rias pa-ra el mo-de-la-do Entidad-Interrelación
+ []
+
+<Figuras//Cap4//mysqlWorkbench.png, id=374, 1230.5975pt x 856.19875pt>
+File: Figuras//Cap4//mysqlWorkbench.png Graphic file (type png)
+
+<use Figuras//Cap4//mysqlWorkbench.png>
+Package pdftex.def Info: Figuras//Cap4//mysqlWorkbench.png used on input line 4
+26.
+(pdftex.def)             Requested size: 430.71558pt x 299.67404pt.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 433.
+ [53]
+
+LaTeX Warning: Reference `fig:texnicCenter' on page 54 undefined on input line 
+441.
+
+
+Underfull \vbox (badness 1005) has occurred while \output is active []
+
+ [54 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//mysqlWorkbench.png
+>]
+<Figuras//Cap4//texnicCenter.png, id=382, 1012.78375pt x 1043.9pt>
+File: Figuras//Cap4//texnicCenter.png Graphic file (type png)
+
+<use Figuras//Cap4//texnicCenter.png>
+Package pdftex.def Info: Figuras//Cap4//texnicCenter.png used on input line 443
+.
+(pdftex.def)             Requested size: 354.47963pt x 365.37047pt.
+
+
+LaTeX Warning: Reference `fig:jabref' on page 55 undefined on input line 451.
+
+[55 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//texnicCenter.png>]
+<Figuras//Cap4//jabref.jpg, id=386, 451.6875pt x 369.38pt>
+File: Figuras//Cap4//jabref.jpg Graphic file (type jpg)
+
+<use Figuras//Cap4//jabref.jpg>
+Package pdftex.def Info: Figuras//Cap4//jabref.jpg used on input line 453.
+(pdftex.def)             Requested size: 316.17908pt x 258.56422pt.
+) [56 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap4//jabref.jpg>]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Resultados.tex
+Cap\'{\i }tulo 5.
+
+LaTeX Warning: Reference `ch:metododetrabajo' on page 57 undefined on input lin
+e 4.
+
+) [57
+
+
+
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseInicio.tex
+
+LaTeX Warning: Reference `lbl:inicio' on page 58 undefined on input line 3.
+
+<Figuras//Cap5//pudInicio.png, id=394, 376.40625pt x 234.8775pt>
+File: Figuras//Cap5//pudInicio.png Graphic file (type png)
+
+<use Figuras//Cap5//pudInicio.png>
+Package pdftex.def Info: Figuras//Cap5//pudInicio.png used on input line 14.
+(pdftex.def)             Requested size: 376.40532pt x 234.87692pt.
+
+
+LaTeX Warning: Reference `ch:estadodelarte' on page 58 undefined on input line 
+20.
+
+[58
+
+
+ <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//pudInicio.png>]
+
+LaTeX Warning: Reference `ch:motivacionyobjetivos' on page 59 undefined on inpu
+t line 26.
+
+[59]
+Overfull \hbox (33.25531pt too wide) in paragraph at lines 101--113
+ [][] 
+ []
+
+[60] [61] [62]
+<Figuras//Cap5/Cliente1//casos1Cliente.png, id=410, 194.8881pt x 143.5764pt>
+File: Figuras//Cap5/Cliente1//casos1Cliente.png Graphic file (type png)
+
+<use Figuras//Cap5/Cliente1//casos1Cliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//casos1Cliente.png used on inpu
+t line 192.
+(pdftex.def)             Requested size: 389.77524pt x 287.15207pt.
+ [63] [64 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente1//caso
+s1Cliente.png>]
+<Figuras//Cap5/Server1//casos1Server.png, id=419, 246.6816pt x 210.7875pt>
+File: Figuras//Cap5/Server1//casos1Server.png Graphic file (type png)
+
+<use Figuras//Cap5/Server1//casos1Server.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//casos1Server.png used on input 
+line 207.
+(pdftex.def)             Requested size: 394.69107pt x 337.26045pt.
+
+<Figuras//Cap5/Cliente1//CduAccesoSistema.png, id=420, 129.1224pt x 78.5334pt>
+File: Figuras//Cap5/Cliente1//CduAccesoSistema.png Graphic file (type png)
+
+<use Figuras//Cap5/Cliente1//CduAccesoSistema.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduAccesoSistema.png used on i
+nput line 216.
+(pdftex.def)             Requested size: 258.24417pt x 157.0664pt.
+
+<Figuras//Cap5/Server1//CduAccesoSistema.png, id=421, 87.2058pt x 54.4434pt>
+File: Figuras//Cap5/Server1//CduAccesoSistema.png Graphic file (type png)
+
+<use Figuras//Cap5/Server1//CduAccesoSistema.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduAccesoSistema.png used on in
+put line 218.
+(pdftex.def)             Requested size: 174.41113pt x 108.8865pt.
+
+<Figuras//Cap5/Cliente1//CduVisualizarDecisiones.png, id=422, 338.76563pt x 215
+.30438pt>
+File: Figuras//Cap5/Cliente1//CduVisualizarDecisiones.png Graphic file (type pn
+g)
+ <use Figuras//Cap5/Cliente1//CduVisualizarDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduVisualizarDecisiones.png us
+ed on input line 225.
+(pdftex.def)             Requested size: 338.76479pt x 215.30385pt.
+
+<Figuras//Cap5/Server1//CduVisualizarDecisiones.png, id=423, 156.1032pt x 78.53
+34pt>
+File: Figuras//Cap5/Server1//CduVisualizarDecisiones.png Graphic file (type png
+)
+ <use Figuras//Cap5/Server1//CduVisualizarDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduVisualizarDecisiones.png use
+d on input line 227.
+(pdftex.def)             Requested size: 312.2056pt x 157.0664pt.
+
+<Figuras//Cap5/Cliente1//CduGestionDecisiones.png, id=424, 202.1151pt x 158.030
+4pt>
+File: Figuras//Cap5/Cliente1//CduGestionDecisiones.png Graphic file (type png)
+ <use Figuras//Cap5/Cliente1//CduGestionDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduGestionDecisiones.png used 
+on input line 234.
+(pdftex.def)             Requested size: 404.22919pt x 316.06pt.
+ [65 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server1//casos1Serv
+er.png>] [66 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente1//C
+duAccesoSistema.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Ser
+ver1//CduAccesoSistema.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//C
+ap5/Cliente1//CduVisualizarDecisiones.png (PNG copy)>]
+<Figuras//Cap5/Server1//CduGestionDecisiones.png, id=434, 202.356pt x 153.2124p
+t>
+File: Figuras//Cap5/Server1//CduGestionDecisiones.png Graphic file (type png)
+ <use Figuras//Cap5/Server1//CduGestionDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduGestionDecisiones.png used o
+n input line 236.
+(pdftex.def)             Requested size: 404.711pt x 306.42401pt.
+
+<Figuras//Cap5/Cliente1//CduGestionNotificaciones.png, id=435, 115.1502pt x 85.
+7604pt>
+File: Figuras//Cap5/Cliente1//CduGestionNotificaciones.png Graphic file (type p
+ng)
+ <use Figuras//Cap5/Cliente1//CduGestionNotificaciones.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduGestionNotificaciones.png u
+sed on input line 243.
+(pdftex.def)             Requested size: 230.29984pt x 171.52036pt.
+
+Underfull \vbox (badness 1728) has occurred while \output is active []
+
+ [67 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server1//CduVisuali
+zarDecisiones.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Clien
+te1//CduGestionDecisiones.png>]
+<Figuras//Cap5/Server1//CduGestionNotificaciones.png, id=441, 160.9212pt x 85.7
+604pt>
+File: Figuras//Cap5/Server1//CduGestionNotificaciones.png Graphic file (type pn
+g)
+ <use Figuras//Cap5/Server1//CduGestionNotificaciones.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduGestionNotificaciones.png us
+ed on input line 245.
+(pdftex.def)             Requested size: 321.84161pt x 171.52036pt.
+
+<Figuras//Cap5/Cliente1//CduGestionProyectos.png, id=442, 123.3408pt x 136.3494
+pt>
+File: Figuras//Cap5/Cliente1//CduGestionProyectos.png Graphic file (type png)
+ <use Figuras//Cap5/Cliente1//CduGestionProyectos.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduGestionProyectos.png used o
+n input line 252.
+(pdftex.def)             Requested size: 98.67276pt x 109.07965pt.
+ [68 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server1//CduGestion
+Decisiones.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente1
+//CduGestionNotificaciones.png>]
+<Figuras//Cap5/Server1//CduGestionProyectos.png, id=448, 168.1482pt x 105.0324p
+t>
+File: Figuras//Cap5/Server1//CduGestionProyectos.png Graphic file (type png)
+ <use Figuras//Cap5/Server1//CduGestionProyectos.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduGestionProyectos.png used on
+ input line 254.
+(pdftex.def)             Requested size: 336.29553pt x 210.06427pt.
+
+<Figuras//Cap5/Cliente1//CduGestionIdiomas.png, id=449, 84.0741pt x 54.4434pt>
+File: Figuras//Cap5/Cliente1//CduGestionIdiomas.png Graphic file (type png)
+
+<use Figuras//Cap5/Cliente1//CduGestionIdiomas.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduGestionIdiomas.png used on 
+input line 261.
+(pdftex.def)             Requested size: 168.14774pt x 108.8865pt.
+
+<Figuras//Cap5/Server1//CduGestionIdiomas.png, id=450, 87.2058pt x 54.4434pt>
+File: Figuras//Cap5/Server1//CduGestionIdiomas.png Graphic file (type png)
+
+<use Figuras//Cap5/Server1//CduGestionIdiomas.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduGestionIdiomas.png used on i
+nput line 263.
+(pdftex.def)             Requested size: 174.41113pt x 108.8865pt.
+
+<Figuras//Cap5/Cliente1//CduExportarConocimiento.png, id=451, 134.6631pt x 37.5
+804pt>
+File: Figuras//Cap5/Cliente1//CduExportarConocimiento.png Graphic file (type pn
+g)
+ <use Figuras//Cap5/Cliente1//CduExportarConocimiento.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente1//CduExportarConocimiento.png us
+ed on input line 270.
+(pdftex.def)             Requested size: 269.32553pt x 75.16058pt.
+
+<Figuras//Cap5/Server1//CduExportarConocimiento.png, id=452, 134.4222pt x 100.2
+144pt>
+File: Figuras//Cap5/Server1//CduExportarConocimiento.png Graphic file (type png
+)
+ <use Figuras//Cap5/Server1//CduExportarConocimiento.png>
+Package pdftex.def Info: Figuras//Cap5/Server1//CduExportarConocimiento.png use
+d on input line 273.
+(pdftex.def)             Requested size: 268.84372pt x 200.42828pt.
+ [69 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server1//CduGestion
+Notificaciones.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Clie
+nte1//CduGestionProyectos.png>] [70 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Fi
+guras//Cap5/Server1//CduGestionProyectos.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/
+Memoria/Figuras//Cap5/Cliente1//CduGestionIdiomas.png> <D:/UCLM/5Curso/PFC/repo
+-pfc/PFC/Memoria/Figuras//Cap5/Server1//CduGestionIdiomas.png>] [71 <D:/UCLM/5C
+urso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente1//CduExportarConocimiento.p
+ng> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server1//CduExportar
+Conocimiento.png>] [72]) [73] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseElab
+oracion.tex
+<Figuras//Cap5//pudElaboracion.png, id=476, 376.40625pt x 234.8775pt>
+File: Figuras//Cap5//pudElaboracion.png Graphic file (type png)
+
+<use Figuras//Cap5//pudElaboracion.png>
+Package pdftex.def Info: Figuras//Cap5//pudElaboracion.png used on input line 5
+.
+(pdftex.def)             Requested size: 376.40532pt x 234.87692pt.
+ [74
+
+
+ <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//pudElaboracion.png>] [
+75]
+<Figuras//Cap5/Cliente2/casos2Cliente.png, id=484, 654.94687pt x 546.54187pt>
+File: Figuras//Cap5/Cliente2/casos2Cliente.png Graphic file (type png)
+
+<use Figuras//Cap5/Cliente2/casos2Cliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2/casos2Cliente.png used on input
+ line 176.
+(pdftex.def)             Requested size: 654.94528pt x 546.54053pt.
+
+Overfull \hbox (213.92755pt too wide) in paragraph at lines 176--176
+ [] 
+ []
+
+<Figuras//Cap5/Server2/casos2Server.png, id=485, 194.6472pt x 172.0026pt>
+File: Figuras//Cap5/Server2/casos2Server.png Graphic file (type png)
+
+<use Figuras//Cap5/Server2/casos2Server.png>
+Package pdftex.def Info: Figuras//Cap5/Server2/casos2Server.png used on input l
+ine 178.
+(pdftex.def)             Requested size: 389.29343pt x 344.00433pt.
+
+<Figuras//Cap5/Cliente2//CduVisualizarDecisiones.png, id=486, 436.63126pt x 237
+.88875pt>
+File: Figuras//Cap5/Cliente2//CduVisualizarDecisiones.png Graphic file (type pn
+g)
+ <use Figuras//Cap5/Cliente2//CduVisualizarDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//CduVisualizarDecisiones.png us
+ed on input line 188.
+(pdftex.def)             Requested size: 436.63019pt x 237.88815pt.
+
+<Figuras//Cap5/Server2//CduVisualizarDecisiones.png, id=487, 187.4202pt x 102.6
+234pt>
+File: Figuras//Cap5/Server2//CduVisualizarDecisiones.png Graphic file (type png
+)
+ <use Figuras//Cap5/Server2//CduVisualizarDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//CduVisualizarDecisiones.png use
+d on input line 190.
+(pdftex.def)             Requested size: 374.83948pt x 205.24628pt.
+
+<Figuras//Cap5/Cliente2//CduGestionDecisiones.png, id=488, 587.19376pt x 578.16
+pt>
+File: Figuras//Cap5/Cliente2//CduGestionDecisiones.png Graphic file (type png)
+ <use Figuras//Cap5/Cliente2//CduGestionDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//CduGestionDecisiones.png used 
+on input line 197.
+(pdftex.def)             Requested size: 587.19232pt x 578.15858pt.
+
+Overfull \hbox (146.17459pt too wide) in paragraph at lines 197--197
+ [] 
+ []
+
+
+<Figuras//Cap5/Server2//CduGestionDecisiones.png, id=489, 204.5241pt x 184.5294
+pt>
+File: Figuras//Cap5/Server2//CduGestionDecisiones.png Graphic file (type png)
+ <use Figuras//Cap5/Server2//CduGestionDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//CduGestionDecisiones.png used o
+n input line 200.
+(pdftex.def)             Requested size: 409.04715pt x 369.05789pt.
+ [76] [77] [78]
+[79 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2/casos2Clien
+te.png (PNG copy)>] [80 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/
+Server2/casos2Server.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap
+5/Cliente2//CduVisualizarDecisiones.png (PNG copy)>]
+<Figuras//Cap5/Cliente2//CduGeneracionEstadisticas.png, id=506, 134.6631pt x 90
+.5784pt>
+File: Figuras//Cap5/Cliente2//CduGeneracionEstadisticas.png Graphic file (type 
+png)
+ <use Figuras//Cap5/Cliente2//CduGeneracionEstadisticas.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//CduGeneracionEstadisticas.png 
+used on input line 207.
+(pdftex.def)             Requested size: 269.32553pt x 181.15634pt.
+
+<Figuras//Cap5/Cliente2//CduGeneracionInformes.png, id=507, 134.6631pt x 64.079
+4pt>
+File: Figuras//Cap5/Cliente2//CduGeneracionInformes.png Graphic file (type png)
+
+ <use Figuras//Cap5/Cliente2//CduGeneracionInformes.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//CduGeneracionInformes.png used
+ on input line 215.
+(pdftex.def)             Requested size: 269.32553pt x 128.15848pt.
+
+<Figuras//Cap5/Server2//CduGeneracionInformes.png, id=508, 132.0132pt x 78.5334
+pt>
+File: Figuras//Cap5/Server2//CduGeneracionInformes.png Graphic file (type png)
+ <use Figuras//Cap5/Server2//CduGeneracionInformes.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//CduGeneracionInformes.png used 
+on input line 217.
+(pdftex.def)             Requested size: 264.02573pt x 157.0664pt.
+ [81 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//CduVisuali
+zarDecisiones.png>]
+[82 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//CduGestion
+Decisiones.png (PNG copy)>] [83 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figura
+s//Cap5/Server2//CduGestionDecisiones.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Mem
+oria/Figuras//Cap5/Cliente2//CduGeneracionEstadisticas.png>] [84 <D:/UCLM/5Curs
+o/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//CduGeneracionInformes.png> <
+D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//CduGeneracionInf
+ormes.png>] [85] [86]
+
+LaTeX Warning: Float too large for page by 24.90286pt on input line 411.
+
+
+<Figuras//Cap5/Cliente2//analisisLoginCliente.png, id=533, 201.3924pt x 61.6704
+pt>
+File: Figuras//Cap5/Cliente2//analisisLoginCliente.png Graphic file (type png)
+ <use Figuras//Cap5/Cliente2//analisisLoginCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisLoginCliente.png used 
+on input line 415.
+(pdftex.def)             Requested size: 402.78378pt x 123.34045pt.
+
+<Figuras//Cap5/Server2//analisisLoginServer.png, id=534, 200.1879pt x 70.1019pt
+>
+File: Figuras//Cap5/Server2//analisisLoginServer.png Graphic file (type png)
+ <use Figuras//Cap5/Server2//analisisLoginServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisLoginServer.png used on
+ input line 416.
+(pdftex.def)             Requested size: 400.37479pt x 140.20343pt.
+ [87 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//analisisL
+oginCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2
+//analisisLoginServer.png>] [88]
+<Figuras//Cap5/Cliente2//analisisLogoutCliente.png, id=544, 200.1879pt x 54.443
+4pt>
+File: Figuras//Cap5/Cliente2//analisisLogoutCliente.png Graphic file (type png)
+
+ <use Figuras//Cap5/Cliente2//analisisLogoutCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisLogoutCliente.png used
+ on input line 457.
+(pdftex.def)             Requested size: 400.37479pt x 108.8865pt.
+
+<Figuras//Cap5/Server2//analisisLogoutServer.png, id=545, 209.3421pt x 54.4434p
+t>
+File: Figuras//Cap5/Server2//analisisLogoutServer.png Graphic file (type png)
+ <use Figuras//Cap5/Server2//analisisLogoutServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisLogoutServer.png used o
+n input line 458.
+(pdftex.def)             Requested size: 418.68317pt x 108.8865pt.
+
+Underfull \vbox (badness 6428) has occurred while \output is active []
+
+ [89 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//analisisL
+ogoutCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server
+2//analisisLogoutServer.png>]
+<Figuras//Cap5/Cliente2//analisisConsultarDecisionesCliente.png, id=551, 182.12
+04pt x 88.1694pt>
+File: Figuras//Cap5/Cliente2//analisisConsultarDecisionesCliente.png Graphic fi
+le (type png)
+
+<use Figuras//Cap5/Cliente2//analisisConsultarDecisionesCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisConsultarDecisionesCli
+ente.png used on input line 517.
+(pdftex.def)             Requested size: 364.2399pt x 176.33835pt.
+
+<Figuras//Cap5/Server2//analisisConsultarDecisionesServer.png, id=552, 181.1568
+pt x 102.6234pt>
+File: Figuras//Cap5/Server2//analisisConsultarDecisionesServer.png Graphic file
+ (type png)
+
+<use Figuras//Cap5/Server2//analisisConsultarDecisionesServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisConsultarDecisionesServ
+er.png used on input line 519.
+(pdftex.def)             Requested size: 362.31268pt x 205.24628pt.
+
+<Figuras//Cap5/Cliente2//analisisConsultarCompanyiaCliente.png, id=553, 569.126
+25pt x 230.36063pt>
+File: Figuras//Cap5/Cliente2//analisisConsultarCompanyiaCliente.png Graphic fil
+e (type png)
+
+<use Figuras//Cap5/Cliente2//analisisConsultarCompanyiaCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisConsultarCompanyiaClie
+nte.png used on input line 559.
+(pdftex.def)             Requested size: 364.23956pt x 147.43028pt.
+
+<Figuras//Cap5/Server2//analisisConsultarCompanyiaServer.png, id=554, 193.2018p
+t x 56.8524pt>
+File: Figuras//Cap5/Server2//analisisConsultarCompanyiaServer.png Graphic file 
+(type png)
+
+<use Figuras//Cap5/Server2//analisisConsultarCompanyiaServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisConsultarCompanyiaServe
+r.png used on input line 561.
+(pdftex.def)             Requested size: 386.40262pt x 113.7045pt.
+
+Underfull \vbox (badness 1845) has occurred while \output is active []
+
+ [90]
+[91 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//analisisCo
+nsultarDecisionesCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras/
+/Cap5/Server2//analisisConsultarDecisionesServer.png> <D:/UCLM/5Curso/PFC/repo-
+pfc/PFC/Memoria/Figuras//Cap5/Cliente2//analisisConsultarCompanyiaCliente.png (
+PNG copy)>] [92 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2/
+/analisisConsultarCompanyiaServer.png>]
+<Figuras//Cap5/Cliente2//analisisCrearTemaCliente.png, id=567, 209.3421pt x 73.
+7154pt>
+File: Figuras//Cap5/Cliente2//analisisCrearTemaCliente.png Graphic file (type p
+ng)
+ <use Figuras//Cap5/Cliente2//analisisCrearTemaCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisCrearTemaCliente.png u
+sed on input line 635.
+(pdftex.def)             Requested size: 418.68317pt x 147.43039pt.
+
+<Figuras//Cap5/Server2//analisisCrearTemaServer.png, id=568, 202.8378pt x 74.91
+99pt>
+File: Figuras//Cap5/Server2//analisisCrearTemaServer.png Graphic file (type png
+)
+ <use Figuras//Cap5/Server2//analisisCrearTemaServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisCrearTemaServer.png use
+d on input line 636.
+(pdftex.def)             Requested size: 405.67459pt x 149.83942pt.
+ [93] [94 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//anal
+isisCrearTemaCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap
+5/Server2//analisisCrearTemaServer.png>]
+<Figuras//Cap5/Cliente2//analisisCrearPropuestaCliente.png, id=578, 204.765pt x
+ 76.1244pt>
+File: Figuras//Cap5/Cliente2//analisisCrearPropuestaCliente.png Graphic file (t
+ype png)
+ <use Figuras//Cap5/Cliente2//analisisCrearPropuestaCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisCrearPropuestaCliente.
+png used on input line 707.
+(pdftex.def)             Requested size: 409.52896pt x 152.24841pt.
+
+<Figuras//Cap5/Server2//analisisCrearPropuestaServer.png, id=579, 201.8742pt x 
+77.3289pt>
+File: Figuras//Cap5/Server2//analisisCrearPropuestaServer.png Graphic file (typ
+e png)
+ <use Figuras//Cap5/Server2//analisisCrearPropuestaServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisCrearPropuestaServer.pn
+g used on input line 708.
+(pdftex.def)             Requested size: 403.7474pt x 154.65741pt.
+
+<Figuras//Cap5/Cliente2//analisisCrearRespuestaCliente.png, id=580, 206.2104pt 
+x 73.7154pt>
+File: Figuras//Cap5/Cliente2//analisisCrearRespuestaCliente.png Graphic file (t
+ype png)
+ <use Figuras//Cap5/Cliente2//analisisCrearRespuestaCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//analisisCrearRespuestaCliente.
+png used on input line 779.
+(pdftex.def)             Requested size: 412.41977pt x 147.43039pt.
+
+<Figuras//Cap5/Server2//analisisCrearRespuestaServer.png, id=581, 201.8742pt x 
+77.3289pt>
+File: Figuras//Cap5/Server2//analisisCrearRespuestaServer.png Graphic file (typ
+e png)
+ <use Figuras//Cap5/Server2//analisisCrearRespuestaServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//analisisCrearRespuestaServer.pn
+g used on input line 781.
+(pdftex.def)             Requested size: 403.7474pt x 154.65741pt.
+
+[95] [96 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//anali
+sisCrearPropuestaCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras/
+/Cap5/Server2//analisisCrearPropuestaServer.png> <D:/UCLM/5Curso/PFC/repo-pfc/P
+FC/Memoria/Figuras//Cap5/Cliente2//analisisCrearRespuestaCliente.png>] [97]
+[98 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//analisisCre
+arRespuestaServer.png>] [99
+
+]
+
+LaTeX Warning: Reference `sec:marco' on page 100 undefined on input line 850.
+
+[100] <Figuras//Cap5/Server2//Despliegue.png, id=605, 216.81pt x 61.4295pt>
+File: Figuras//Cap5/Server2//Despliegue.png Graphic file (type png)
+
+<use Figuras//Cap5/Server2//Despliegue.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//Despliegue.png used on input li
+ne 873.
+(pdftex.def)             Requested size: 433.61893pt x 122.85867pt.
+
+<Figuras//Cap5//multicapa.png, id=606, 387.4475pt x 666.49pt>
+File: Figuras//Cap5//multicapa.png Graphic file (type png)
+
+<use Figuras//Cap5//multicapa.png>
+Package pdftex.def Info: Figuras//Cap5//multicapa.png used on input line 880.
+(pdftex.def)             Requested size: 154.97624pt x 266.59128pt.
+ [101 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//Despliegu
+e.png>]
+<Figuras//Cap5/Server2//DivisionCapas.png, id=611, 186.9384pt x 109.8504pt>
+File: Figuras//Cap5/Server2//DivisionCapas.png Graphic file (type png)
+
+<use Figuras//Cap5/Server2//DivisionCapas.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//DivisionCapas.png used on input
+ line 900.
+(pdftex.def)             Requested size: 373.87589pt x 219.70023pt.
+ [102 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//multicapa.png>] [
+103 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//DivisionCap
+as.png>] [104] [105] [106]
+<Figuras//Cap5/Server2//clasesDominio.jpg, id=629, 1027.84pt x 621.32124pt>
+File: Figuras//Cap5/Server2//clasesDominio.jpg Graphic file (type jpg)
+
+<use Figuras//Cap5/Server2//clasesDominio.jpg>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesDominio.jpg used on input
+ line 991.
+(pdftex.def)             Requested size: 616.70876pt x 372.79562pt.
+ [107] [108 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//cla
+sesDominio.jpg>]
+Overfull \hbox (7.77542pt too wide) in paragraph at lines 1017--1018
+[]\T1/ptm/m/n/12 (-20) Teniendo en cuen-ta di-chas con-si-de-ra-cio-nes, se ob-
+tie-ne el mo-de-lo EER (Entidad-Interrelación
+ []
+
+
+LaTeX Warning: Reference `sec:marco' on page 109 undefined on input line 1019.
+
+<Figuras//Cap5//diagramaBD.png, id=636, 1132.23pt x 877.2775pt>
+File: Figuras//Cap5//diagramaBD.png Graphic file (type png)
+
+<use Figuras//Cap5//diagramaBD.png>
+Package pdftex.def Info: Figuras//Cap5//diagramaBD.png used on input line 1021.
+
+(pdftex.def)             Requested size: 430.25188pt x 333.36891pt.
+ [109] [110 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//diagramaBD.
+png>]
+<Figuras//Cap5/Cliente2//secuenciaLoginPrincipalCliente.png, id=643, 216.81pt x
+ 168.1482pt>
+File: Figuras//Cap5/Cliente2//secuenciaLoginPrincipalCliente.png Graphic file (
+type png)
+ <use Figuras//Cap5/Cliente2//secuenciaLoginPrincipalCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaLoginPrincipalCliente
+.png used on input line 1036.
+(pdftex.def)             Requested size: 433.61893pt x 336.29553pt.
+
+<Figuras//Cap5/Server2//secuenciaLoginPrincipalServer.png, id=644, 216.81pt x 1
+58.994pt>
+File: Figuras//Cap5/Server2//secuenciaLoginPrincipalServer.png Graphic file (ty
+pe png)
+ <use Figuras//Cap5/Server2//secuenciaLoginPrincipalServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaLoginPrincipalServer.p
+ng used on input line 1038.
+(pdftex.def)             Requested size: 433.61893pt x 317.98721pt.
+
+<Figuras//Cap5/Cliente2//secuenciaLogoutPrincipalCliente.png, id=645, 175.1343p
+t x 88.1694pt>
+File: Figuras//Cap5/Cliente2//secuenciaLogoutPrincipalCliente.png Graphic file 
+(type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaLogoutPrincipalCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaLogoutPrincipalClient
+e.png used on input line 1045.
+(pdftex.def)             Requested size: 350.26773pt x 176.33835pt.
+ [111 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenci
+aLoginPrincipalCliente.png>] [112 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figu
+ras//Cap5/Server2//secuenciaLoginPrincipalServer.png>]
+<Figuras//Cap5/Server2//secuenciaLogoutPrincipalServer.png, id=655, 141.1674pt 
+x 85.7604pt>
+File: Figuras//Cap5/Server2//secuenciaLogoutPrincipalServer.png Graphic file (t
+ype png)
+ <use Figuras//Cap5/Server2//secuenciaLogoutPrincipalServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaLogoutPrincipalServer.
+png used on input line 1047.
+(pdftex.def)             Requested size: 352.91759pt x 214.40044pt.
+
+[113 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuencia
+LogoutPrincipalCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//C
+ap5/Server2//secuenciaLogoutPrincipalServer.png>]
+<Figuras//Cap5/Server2//clasesComunicaciones.png, id=661, 196.3335pt x 185.0112
+pt>
+File: Figuras//Cap5/Server2//clasesComunicaciones.png Graphic file (type png)
+ <use Figuras//Cap5/Server2//clasesComunicaciones.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesComunicaciones.png used o
+n input line 1067.
+(pdftex.def)             Requested size: 392.66602pt x 370.02148pt.
+ [114] [115 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//cla
+sesComunicaciones.png>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 1086.
+
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//RMIServer.java [116])
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//RMICliente.java) [117]
+<Figuras//Cap5/Server2//clasesObservadorBD.png, id=677, 196.5744pt x 145.9854pt
+>
+File: Figuras//Cap5/Server2//clasesObservadorBD.png Graphic file (type png)
+ <use Figuras//Cap5/Server2//clasesObservadorBD.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesObservadorBD.png used on 
+input line 1101.
+(pdftex.def)             Requested size: 393.14783pt x 291.97006pt.
+ [118 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clasesObs
+ervadorBD.png>]
+<Figuras//Cap5/Server2//clasesObservadorLog.png, id=682, 216.81pt x 123.0999pt>
+File: Figuras//Cap5/Server2//clasesObservadorLog.png Graphic file (type png)
+<use Figuras//Cap5/Server2//clasesObservadorLog.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesObservadorLog.png used on
+ input line 1113.
+(pdftex.def)             Requested size: 433.61893pt x 246.19916pt.
+
+Underfull \vbox (badness 5231) has occurred while \output is active []
+
+ [119 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clasesObs
+ervadorLog.png>]
+
+LaTeX Warning: Reference `sec:marco' on page 120 undefined on input line 1146.
+
+[120]
+<Figuras//Cap5/Server2//clasesSessionController.png, id=690, 216.81pt x 117.318
+3pt>
+File: Figuras//Cap5/Server2//clasesSessionController.png Graphic file (type png
+)
+ <use Figuras//Cap5/Server2//clasesSessionController.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesSessionController.png use
+d on input line 1150.
+(pdftex.def)             Requested size: 433.61893pt x 234.63602pt.
+
+
+LaTeX Warning: Reference `sec:marco' on page 121 undefined on input line 1159.
+
+[121 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clasesSess
+ionController.png>]
+<Figuras//Cap5//spinner.png, id=695, 100.375pt x 100.375pt>
+File: Figuras//Cap5//spinner.png Graphic file (type png)
+
+<use Figuras//Cap5//spinner.png>
+Package pdftex.def Info: Figuras//Cap5//spinner.png used on input line 1161.
+(pdftex.def)             Requested size: 50.18736pt x 50.18736pt.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//login.java [122 <D:/UCLM/5Curs
+o/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//spinner.png>])) [123]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseConstruccion.tex
+<Figuras//Cap5//pudConstruccion.png, id=704, 376.40625pt x 234.8775pt>
+File: Figuras//Cap5//pudConstruccion.png Graphic file (type png)
+
+<use Figuras//Cap5//pudConstruccion.png>
+Package pdftex.def Info: Figuras//Cap5//pudConstruccion.png used on input line 
+7.
+(pdftex.def)             Requested size: 376.40532pt x 234.87692pt.
+) [124
+
+
+ <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//pudConstruccion.png>]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion1interacion.tex
+<Figuras//Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente.png, id=7
+08, 163.0893pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente.png 
+Graphic file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaConsultarDecisionesPr
+incipalCliente.png used on input line 21.
+(pdftex.def)             Requested size: 326.17776pt x 214.88226pt.
+
+<Figuras//Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer.png, id=709
+, 216.81pt x 112.9821pt>
+File: Figuras//Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer.png Gr
+aphic file (type png)
+
+<use Figuras//Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaConsultarDecisionesPri
+ncipalServer.png used on input line 23.
+(pdftex.def)             Requested size: 433.61893pt x 225.96362pt.
+
+<Figuras//Cap5/Cliente2//secuenciaConsultarCompanyiaCliente.png, id=710, 162.60
+75pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaConsultarCompanyiaCliente.png Graphic fi
+le (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaConsultarCompanyiaCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaConsultarCompanyiaCli
+ente.png used on input line 30.
+(pdftex.def)             Requested size: 325.2142pt x 214.88226pt.
+
+<Figuras//Cap5/Server2//secuenciaConsultarCompanyiaServer.png, id=711, 216.81pt
+ x 99.7326pt>
+File: Figuras//Cap5/Server2//secuenciaConsultarCompanyiaServer.png Graphic file
+ (type png)
+
+<use Figuras//Cap5/Server2//secuenciaConsultarCompanyiaServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaConsultarCompanyiaServ
+er.png used on input line 32.
+(pdftex.def)             Requested size: 433.61893pt x 199.46469pt.
+ [125
+
+
+]
+[126 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuencia
+ConsultarDecisionesPrincipalCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memor
+ia/Figuras//Cap5/Server2//secuenciaConsultarDecisionesPrincipalServer.png>]
+[127 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuencia
+ConsultarCompanyiaCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras
+//Cap5/Server2//secuenciaConsultarCompanyiaServer.png>]
+<Figuras//Cap5/Cliente2//secuenciaConsultarAdjuntosPrincipalCliente.png, id=725
+, 184.2885pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaConsultarAdjuntosPrincipalCliente.png Gr
+aphic file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaConsultarAdjuntosPrincipalCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaConsultarAdjuntosPrin
+cipalCliente.png used on input line 40.
+(pdftex.def)             Requested size: 368.57608pt x 214.88226pt.
+
+<Figuras//Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer.png, id=726, 
+216.81pt x 88.1694pt>
+File: Figuras//Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer.png Grap
+hic file (type png)
+
+<use Figuras//Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaConsultarAdjuntosPrinc
+ipalServer.png used on input line 42.
+(pdftex.def)             Requested size: 433.61893pt x 176.33835pt.
+
+[128 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuencia
+ConsultarAdjuntosPrincipalCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria
+/Figuras//Cap5/Server2//secuenciaConsultarAdjuntosPrincipalServer.png>]
+<Figuras//Cap5/Server2//clasesKnowledge.png, id=732, 209.583pt x 111.0549pt>
+File: Figuras//Cap5/Server2//clasesKnowledge.png Graphic file (type png)
+
+<use Figuras//Cap5/Server2//clasesKnowledge.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesKnowledge.png used on inp
+ut line 61.
+(pdftex.def)             Requested size: 419.16495pt x 222.10922pt.
+
+<Figuras//Cap5//foros.png, id=733, 798.985pt x 355.3275pt>
+File: Figuras//Cap5//foros.png Graphic file (type png)
+
+<use Figuras//Cap5//foros.png>
+Package pdftex.def Info: Figuras//Cap5//foros.png used on input line 66.
+(pdftex.def)             Requested size: 399.49152pt x 177.6633pt.
+ [129] [130 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//cla
+sesKnowledge.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//foros
+.png>]
+
+LaTeX Warning: Reference `sec:marco' on page 131 undefined on input line 72.
+
+
+LaTeX Warning: Citation `condicionesGoogle' on page 131 undefined on input line
+ 74.
+
+
+LaTeX Warning: Citation `condicionesYahoo' on page 131 undefined on input line 
+74.
+
+[131] ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//RespuestaYDN.xml) [132]
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//GeoCoder.java [133])
+
+LaTeX Warning: Reference `sec:marco' on page 134 undefined on input line 89.
+
+
+<Figuras//Cap5/Cliente2//clasesUIDecisiones.png, id=752, 570.63188pt x 578.16pt
+>
+File: Figuras//Cap5/Cliente2//clasesUIDecisiones.png Graphic file (type png)
+ <use Figuras//Cap5/Cliente2//clasesUIDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//clasesUIDecisiones.png used on
+ input line 95.
+(pdftex.def)             Requested size: 399.43959pt x 404.70924pt.
+ [134] [135 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//cl
+asesUIDecisiones.png (PNG copy)>]
+
+LaTeX Warning: Reference `sec:marco' on page 136 undefined on input line 99.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//GeoMap.java [136])) [137]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion2interacion.tex
+
+LaTeX Warning: Reference `fig:CduGestionNotificaciones2Server' on page 138 unde
+fined on input line 3.
+
+
+<Figuras//Cap5/Cliente2//secuenciaCrearTopicCliente.png, id=766, 203.5605pt x 1
+31.5314pt>
+File: Figuras//Cap5/Cliente2//secuenciaCrearTopicCliente.png Graphic file (type
+ png)
+ <use Figuras//Cap5/Cliente2//secuenciaCrearTopicCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaCrearTopicCliente.png
+ used on input line 21.
+(pdftex.def)             Requested size: 122.13724pt x 78.91943pt.
+
+<Figuras//Cap5/Cliente2//secuenciaCrearProposalCliente.png, id=767, 206.4513pt 
+x 131.5314pt>
+File: Figuras//Cap5/Cliente2//secuenciaCrearProposalCliente.png Graphic file (t
+ype png)
+ <use Figuras//Cap5/Cliente2//secuenciaCrearProposalCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaCrearProposalCliente.
+png used on input line 23.
+(pdftex.def)             Requested size: 123.87172pt x 78.91943pt.
+
+<Figuras//Cap5/Cliente2//secuenciaCrearAnswerCliente.png, id=768, 206.4513pt x 
+131.5314pt>
+File: Figuras//Cap5/Cliente2//secuenciaCrearAnswerCliente.png Graphic file (typ
+e png)
+ <use Figuras//Cap5/Cliente2//secuenciaCrearAnswerCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaCrearAnswerCliente.pn
+g used on input line 25.
+(pdftex.def)             Requested size: 123.87172pt x 78.91943pt.
+
+<Figuras//Cap5/Server2//secuenciaCrearDecisionServer.png, id=769, 216.81pt x 99
+.2508pt>
+File: Figuras//Cap5/Server2//secuenciaCrearDecisionServer.png Graphic file (typ
+e png)
+ <use Figuras//Cap5/Server2//secuenciaCrearDecisionServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaCrearDecisionServer.pn
+g used on input line 27.
+(pdftex.def)             Requested size: 433.61893pt x 198.50107pt.
+
+
+LaTeX Warning: Reference `fig:secuenciaAceptarDecisionesCliente' on page 138 un
+defined on input line 37.
+
+
+LaTeX Warning: Reference `fig:secuenciaAceptarDecisionesServer' on page 138 und
+efined on input line 37.
+
+[138
+
+
+] [139 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenc
+iaCrearTopicCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5
+/Cliente2//secuenciaCrearProposalCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/
+Memoria/Figuras//Cap5/Cliente2//secuenciaCrearAnswerCliente.png> <D:/UCLM/5Curs
+o/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//secuenciaCrearDecisionServer.
+png>]
+<Figuras//Cap5/Cliente2//secuenciaAdjuntarFicherosCliente.png, id=780, 182.3613
+pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaAdjuntarFicherosCliente.png Graphic file
+ (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaAdjuntarFicherosCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaAdjuntarFicherosClien
+te.png used on input line 48.
+(pdftex.def)             Requested size: 109.4176pt x 64.46533pt.
+
+<Figuras//Cap5/Server2//secuenciaAdjuntarFicherosServer.png, id=781, 216.81pt x
+ 96.8418pt>
+File: Figuras//Cap5/Server2//secuenciaAdjuntarFicherosServer.png Graphic file (
+type png)
+ <use Figuras//Cap5/Server2//secuenciaAdjuntarFicherosServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaAdjuntarFicherosServer
+.png used on input line 50.
+(pdftex.def)             Requested size: 433.61893pt x 193.68307pt.
+
+Underfull \vbox (badness 6125) has occurred while \output is active []
+
+ [140 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenci
+aAdjuntarFicherosCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras/
+/Cap5/Server2//secuenciaAdjuntarFicherosServer.png>]
+<Figuras//Cap5/Server2//clasesGestionDecisiones.png, id=787, 209.583pt x 105.51
+42pt>
+File: Figuras//Cap5/Server2//clasesGestionDecisiones.png Graphic file (type png
+)
+ <use Figuras//Cap5/Server2//clasesGestionDecisiones.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesGestionDecisiones.png use
+d on input line 62.
+(pdftex.def)             Requested size: 419.16495pt x 211.0279pt.
+ [141 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clasesGes
+tionDecisiones.png>]
+<Figuras//Cap5/Server2//clasesObservadorClientes.png, id=793, 216.81pt x 137.55
+39pt>
+File: Figuras//Cap5/Server2//clasesObservadorClientes.png Graphic file (type pn
+g)
+ <use Figuras//Cap5/Server2//clasesObservadorClientes.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesObservadorClientes.png us
+ed on input line 69.
+(pdftex.def)             Requested size: 433.61893pt x 275.10709pt.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//observadorClientes.java
+[142 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clasesObse
+rvadorClientes.png>])
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//hilos.java [143]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [144])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [145]
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//reflection.java)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [146]
+<Figuras//Cap5/Cliente2//secuenciaConsultarNotificacionCliente.png, id=810, 162
+.6075pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaConsultarNotificacionCliente.png Graphic
+ file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaConsultarNotificacionCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaConsultarNotificacion
+Cliente.png used on input line 102.
+(pdftex.def)             Requested size: 97.56525pt x 64.46533pt.
+
+<Figuras//Cap5/Server2//secuenciaConsultarNotificacionServer.png, id=811, 216.8
+1pt x 84.5559pt>
+File: Figuras//Cap5/Server2//secuenciaConsultarNotificacionServer.png Graphic f
+ile (type png)
+
+<use Figuras//Cap5/Server2//secuenciaConsultarNotificacionServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaConsultarNotificacionS
+erver.png used on input line 104.
+(pdftex.def)             Requested size: 433.61893pt x 169.11133pt.
+
+<Figuras//Cap5/Cliente2//secuenciaModificarNotificacionCliente.png, id=812, 162
+.6075pt x 88.1694pt>
+File: Figuras//Cap5/Cliente2//secuenciaModificarNotificacionCliente.png Graphic
+ file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaModificarNotificacionCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaModificarNotificacion
+Cliente.png used on input line 111.
+(pdftex.def)             Requested size: 97.56525pt x 52.90204pt.
+
+<Figuras//Cap5/Server2//secuenciaModificarNotificacionServer.png, id=813, 216.8
+1pt x 96.8418pt>
+File: Figuras//Cap5/Server2//secuenciaModificarNotificacionServer.png Graphic f
+ile (type png)
+
+<use Figuras//Cap5/Server2//secuenciaModificarNotificacionServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaModificarNotificacionS
+erver.png used on input line 113.
+(pdftex.def)             Requested size: 433.61893pt x 193.68307pt.
+ [147 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenci
+aConsultarNotificacionCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Fig
+uras//Cap5/Server2//secuenciaConsultarNotificacionServer.png>]
+<Figuras//Cap5/Cliente2//secuenciaEliminarNotificacionCliente.png, id=820, 162.
+6075pt x 88.1694pt>
+File: Figuras//Cap5/Cliente2//secuenciaEliminarNotificacionCliente.png Graphic 
+file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaEliminarNotificacionCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaEliminarNotificacionC
+liente.png used on input line 121.
+(pdftex.def)             Requested size: 97.56525pt x 52.90204pt.
+
+<Figuras//Cap5/Server2//secuenciaEliminarNotificacionServer.png, id=821, 216.81
+pt x 96.8418pt>
+File: Figuras//Cap5/Server2//secuenciaEliminarNotificacionServer.png Graphic fi
+le (type png)
+
+<use Figuras//Cap5/Server2//secuenciaEliminarNotificacionServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaEliminarNotificacionSe
+rver.png used on input line 123.
+(pdftex.def)             Requested size: 433.61893pt x 193.68307pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [148 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenci
+aModificarNotificacionCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Fig
+uras//Cap5/Server2//secuenciaModificarNotificacionServer.png> <D:/UCLM/5Curso/P
+FC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenciaEliminarNotificacionCl
+iente.png>] ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//trigger.sql [149 <D:/UCLM/5Cur
+so/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//secuenciaEliminarNotificacio
+nServer.png>])) [150]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion3interacion.tex
+
+LaTeX Warning: Reference `fig:CduGestionProyectos2Server' on page 151 undefined
+ on input line 3.
+
+
+<Figuras//Cap5/Cliente2//secuenciaConsultarProyectosCliente.png, id=835, 163.08
+93pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaConsultarProyectosCliente.png Graphic fi
+le (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaConsultarProyectosCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaConsultarProyectosCli
+ente.png used on input line 21.
+(pdftex.def)             Requested size: 97.85432pt x 64.46533pt.
+
+<Figuras//Cap5/Server2//secuenciaConsultarProyectosServer.png, id=836, 216.81pt
+ x 75.1608pt>
+File: Figuras//Cap5/Server2//secuenciaConsultarProyectosServer.png Graphic file
+ (type png)
+
+<use Figuras//Cap5/Server2//secuenciaConsultarProyectosServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaConsultarProyectosServ
+er.png used on input line 23.
+(pdftex.def)             Requested size: 433.61893pt x 150.3212pt.
+
+<Figuras//Cap5/Cliente2//secuenciaConsultarUsuariosCliente.png, id=837, 162.607
+5pt x 107.4414pt>
+File: Figuras//Cap5/Cliente2//secuenciaConsultarUsuariosCliente.png Graphic fil
+e (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaConsultarUsuariosCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaConsultarUsuariosClie
+nte.png used on input line 30.
+(pdftex.def)             Requested size: 97.56525pt x 64.46533pt.
+ [151
+
+
+ <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenciaCons
+ultarProyectosCliente.png>]
+<Figuras//Cap5/Server2//secuenciaConsultarUsuariosServer.png, id=842, 216.81pt 
+x 86.2422pt>
+File: Figuras//Cap5/Server2//secuenciaConsultarUsuariosServer.png Graphic file 
+(type png)
+ <use Figuras//Cap5/Server2//secuenciaConsultarUsuariosServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaConsultarUsuariosServe
+r.png used on input line 32.
+(pdftex.def)             Requested size: 433.61893pt x 172.48395pt.
+
+[152 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//secuenciaC
+onsultarProyectosServer.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//
+Cap5/Cliente2//secuenciaConsultarUsuariosCliente.png> <D:/UCLM/5Curso/PFC/repo-
+pfc/PFC/Memoria/Figuras//Cap5/Server2//secuenciaConsultarUsuariosServer.png>]
+<Figuras//Cap5/Cliente2//secuenciaCrearProyectosCliente.png, id=849, 160.1985pt
+ x 160.4394pt>
+File: Figuras//Cap5/Cliente2//secuenciaCrearProyectosCliente.png Graphic file (
+type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaCrearProyectosCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaCrearProyectosCliente
+.png used on input line 41.
+(pdftex.def)             Requested size: 96.11983pt x 96.26437pt.
+
+<Figuras//Cap5/Server2//secuenciaCrearProyectosServer.png, id=850, 216.81pt x 1
+20.6909pt>
+File: Figuras//Cap5/Server2//secuenciaCrearProyectosServer.png Graphic file (ty
+pe png)
+ <use Figuras//Cap5/Server2//secuenciaCrearProyectosServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaCrearProyectosServer.p
+ng used on input line 43.
+(pdftex.def)             Requested size: 433.61893pt x 241.3812pt.
+
+<Figuras//Cap5/Cliente2//secuenciaModificarProyectoCliente.png, id=851, 163.571
+1pt x 162.8484pt>
+File: Figuras//Cap5/Cliente2//secuenciaModificarProyectoCliente.png Graphic fil
+e (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaModificarProyectoCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaModificarProyectoClie
+nte.png used on input line 51.
+(pdftex.def)             Requested size: 98.1434pt x 97.7098pt.
+
+<Figuras//Cap5/Server2//secuenciaModificarProyectoServer.png, id=852, 216.81pt 
+x 118.5228pt>
+File: Figuras//Cap5/Server2//secuenciaModificarProyectoServer.png Graphic file 
+(type png)
+
+<use Figuras//Cap5/Server2//secuenciaModificarProyectoServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaModificarProyectoServe
+r.png used on input line 53.
+(pdftex.def)             Requested size: 433.61893pt x 237.04498pt.
+ [153 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenci
+aCrearProyectosCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//C
+ap5/Server2//secuenciaCrearProyectosServer.png>] [154 <D:/UCLM/5Curso/PFC/repo-
+pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenciaModificarProyectoCliente.png> 
+<D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//secuenciaModifi
+carProyectoServer.png>]
+<Figuras//Cap5/Cliente2//secuenciaProyectoActivoCliente.png, id=864, 167.9073pt
+ x 165.2574pt>
+File: Figuras//Cap5/Cliente2//secuenciaProyectoActivoCliente.png Graphic file (
+type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaProyectoActivoCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaProyectoActivoCliente
+.png used on input line 62.
+(pdftex.def)             Requested size: 100.74515pt x 99.15518pt.
+
+<Figuras//Cap5/Server2//secuenciaProyectoActivoServer.png, id=865, 185.2521pt x
+ 153.2124pt>
+File: Figuras//Cap5/Server2//secuenciaProyectoActivoServer.png Graphic file (ty
+pe png)
+ <use Figuras//Cap5/Server2//secuenciaProyectoActivoServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaProyectoActivoServer.p
+ng used on input line 64.
+(pdftex.def)             Requested size: 370.5033pt x 306.42401pt.
+
+[155 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuencia
+ProyectoActivoCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Ca
+p5/Server2//secuenciaProyectoActivoServer.png>]
+
+LaTeX Warning: Reference `sec:modeloDominio' on page 156 undefined on input lin
+e 80.
+
+
+LaTeX Warning: Reference `fig:clasesGestionProyecto' on page 156 undefined on i
+nput line 80.
+
+
+LaTeX Warning: Reference `sec:CBR' on page 156 undefined on input line 82.
+
+[156]
+
+LaTeX Warning: Reference `sec:CBR' on page 157 undefined on input line 105.
+
+[157] <Figuras//Cap5/Server2//clasesCBR.png, id=877, 770.88pt x 335.75438pt>
+File: Figuras//Cap5/Server2//clasesCBR.png Graphic file (type png)
+
+<use Figuras//Cap5/Server2//clasesCBR.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesCBR.png used on input lin
+e 133.
+(pdftex.def)             Requested size: 693.7856pt x 302.17615pt.
+
+
+LaTeX Warning: Float too large for page by 34.40251pt on input line 137.
+
+[158] [159 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clas
+esCBR.png (PNG copy)>]
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//cbr.java
+Underfull \vbox (badness 1472) has occurred while \output is active []
+
+ [160]))
+[161] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion4interacion.tex
+<Figuras//Cap5/Cliente2//secuenciaGenerarInformeNormalCliente.png, id=897, 184.
+2885pt x 117.0774pt>
+File: Figuras//Cap5/Cliente2//secuenciaGenerarInformeNormalCliente.png Graphic 
+file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaGenerarInformeNormalCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaGenerarInformeNormalC
+liente.png used on input line 25.
+(pdftex.def)             Requested size: 110.57394pt x 70.24696pt.
+
+<Figuras//Cap5/Server2//secuenciaGenerarInformeNormalServer.png, id=898, 203.31
+96pt x 136.3494pt>
+File: Figuras//Cap5/Server2//secuenciaGenerarInformeNormalServer.png Graphic fi
+le (type png)
+
+<use Figuras//Cap5/Server2//secuenciaGenerarInformeNormalServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaGenerarInformeNormalSe
+rver.png used on input line 27.
+(pdftex.def)             Requested size: 121.99269pt x 81.81026pt.
+
+<Figuras//Cap5/Cliente2//secuenciaGenerarInformeExtendidoCliente.png, id=899, 1
+86.6975pt x 160.4394pt>
+File: Figuras//Cap5/Cliente2//secuenciaGenerarInformeExtendidoCliente.png Graph
+ic file (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaGenerarInformeExtendidoCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaGenerarInformeExtendi
+doCliente.png used on input line 29.
+(pdftex.def)             Requested size: 112.01935pt x 96.26437pt.
+
+<Figuras//Cap5/Server2//secuenciaGenerarInformeExtendidoServer.png, id=900, 216
+.81pt x 134.4222pt>
+File: Figuras//Cap5/Server2//secuenciaGenerarInformeExtendidoServer.png Graphic
+ file (type png)
+
+<use Figuras//Cap5/Server2//secuenciaGenerarInformeExtendidoServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaGenerarInformeExtendid
+oServer.png used on input line 31.
+(pdftex.def)             Requested size: 433.61893pt x 268.84372pt.
+
+[162
+
+
+] [163 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenc
+iaGenerarInformeNormalCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Fig
+uras//Cap5/Server2//secuenciaGenerarInformeNormalServer.png> <D:/UCLM/5Curso/PF
+C/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenciaGenerarInformeExtendido
+Cliente.png>]
+<Figuras//Cap5/Server2//clasesGenerarPdf.png, id=910, 216.81pt x 93.2283pt>
+File: Figuras//Cap5/Server2//clasesGenerarPdf.png Graphic file (type png)
+
+<use Figuras//Cap5/Server2//clasesGenerarPdf.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//clasesGenerarPdf.png used on in
+put line 42.
+(pdftex.def)             Requested size: 433.61893pt x 186.45615pt.
+ [164 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//secuencia
+GenerarInformeExtendidoServer.png>]
+
+LaTeX Warning: Reference `sec:marco' on page 165 undefined on input line 56.
+
+
+LaTeX Warning: Reference `list:s' on page 165 undefined on input line 56.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//generarPDF.java [165 <D:/UCLM/
+5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Server2//clasesGenerarPdf.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [166]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [167])
+<Figuras//Cap5/Cliente2//clasesGenerarPdf.png, id=926, 216.81pt x 106.4778pt>
+File: Figuras//Cap5/Cliente2//clasesGenerarPdf.png Graphic file (type png)
+
+<use Figuras//Cap5/Cliente2//clasesGenerarPdf.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//clasesGenerarPdf.png used on i
+nput line 69.
+(pdftex.def)             Requested size: 433.61893pt x 212.95505pt.
+ [168] [169 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//cl
+asesGenerarPdf.png>]
+<Figuras//Cap5//DnD.png, id=934, 313.17pt x 142.5325pt>
+File: Figuras//Cap5//DnD.png Graphic file (type png)
+
+<use Figuras//Cap5//DnD.png>
+Package pdftex.def Info: Figuras//Cap5//DnD.png used on input line 96.
+(pdftex.def)             Requested size: 187.90344pt x 85.52014pt.
+
+Underfull \vbox (badness 3525) has occurred while \output is active []
+
+ [170]
+<Figuras//Cap5/Cliente2//secuenciaGenerarEstadisticasCliente.png, id=938, 216.8
+1pt x 127.9179pt>
+File: Figuras//Cap5/Cliente2//secuenciaGenerarEstadisticasCliente.png Graphic f
+ile (type png)
+
+<use Figuras//Cap5/Cliente2//secuenciaGenerarEstadisticasCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaGenerarEstadisticasCl
+iente.png used on input line 114.
+(pdftex.def)             Requested size: 433.61893pt x 255.83514pt.
+
+
+LaTeX Warning: Reference `sec:marco' on page 171 undefined on input line 118.
+
+[171 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5//DnD.png> <D:/UCLM/
+5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuenciaGenerarEstadis
+ticasCliente.png>]
+
+LaTeX Warning: Reference `fig:clasesGenerarEstadisticas' on page 172 undefined 
+on input line 130.
+
+
+<Figuras//Cap5/Cliente2//clasesGenerarEstadisticas.png, id=945, 216.81pt x 126.
+2316pt>
+File: Figuras//Cap5/Cliente2//clasesGenerarEstadisticas.png Graphic file (type 
+png)
+ <use Figuras//Cap5/Cliente2//clasesGenerarEstadisticas.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//clasesGenerarEstadisticas.png 
+used on input line 132.
+(pdftex.def)             Requested size: 433.61893pt x 252.46255pt.
+ [172]
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//dataset.java [173 <D:/UCLM/5Cu
+rso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//clasesGenerarEstadisticas.
+png>]) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//chart.java) [174]) [175]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion5interacion.tex
+
+LaTeX Warning: Reference `fig:CduExportarConocimiento2Server' on page 176 undef
+ined on input line 3.
+
+
+LaTeX Warning: Reference `fig:CduGestionIdiomas2Server' on page 176 undefined o
+n input line 3.
+
+
+LaTeX Warning: Reference `fig:secuenciaExportarConocimientoCliente' on page 176
+ undefined on input line 16.
+
+
+LaTeX Warning: Reference `fig:secuenciaExportarConocimientoServer' on page 176 
+undefined on input line 16.
+
+
+LaTeX Warning: Reference `sec:marco' on page 176 undefined on input line 28.
+
+[176
+
+
+] ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//JAXBTopics.java)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//JAXBKnowledge.java)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [177]
+<Figuras//Cap5/Cliente2//secuenciaCambiarIdiomaCliente.png, id=966, 162.3666pt 
+x 102.6234pt>
+File: Figuras//Cap5/Cliente2//secuenciaCambiarIdiomaCliente.png Graphic file (t
+ype png)
+ <use Figuras//Cap5/Cliente2//secuenciaCambiarIdiomaCliente.png>
+Package pdftex.def Info: Figuras//Cap5/Cliente2//secuenciaCambiarIdiomaCliente.
+png used on input line 53.
+(pdftex.def)             Requested size: 97.4207pt x 61.57451pt.
+
+<Figuras//Cap5/Server2//secuenciaCambiarIdiomaServer.png, id=967, 162.3666pt x 
+102.6234pt>
+File: Figuras//Cap5/Server2//secuenciaCambiarIdiomaServer.png Graphic file (typ
+e png)
+ <use Figuras//Cap5/Server2//secuenciaCambiarIdiomaServer.png>
+Package pdftex.def Info: Figuras//Cap5/Server2//secuenciaCambiarIdiomaServer.pn
+g used on input line 55.
+(pdftex.def)             Requested size: 324.73239pt x 205.24628pt.
+
+[178 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap5/Cliente2//secuencia
+CambiarIdiomaCliente.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria/Figuras//Cap
+5/Server2//secuenciaCambiarIdiomaServer.png>]
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Codigo//internacionalizacion.java))
+[179] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\ConclusionesPropuestas.tex
+[180
+
+
+
+]
+Cap\'{\i }tulo 6.
+) [181] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.bbl [182
+
+
+]
+babelbib: Using the BibTeX style's default font for `name'.
+babelbib: Using the BibTeX style's default font for `lastname'.
+babelbib: Using the BibTeX style's default font for `title'.
+babelbib: Using the BibTeX style's default font for `jtitle'.
+babelbib: Using the BibTeX style's default font for `etal'.
+babelbib: Using the BibTeX style's default font for `journal'.
+babelbib: Using the BibTeX style's default font for `volume'.
+babelbib: Using the BibTeX style's default font for `ISBN'.
+babelbib: Using the BibTeX style's default font for `ISSN'.
+babelbib: Using the BibTeX style's default font for `url'.
+babelbib: Using the BibTeX style's default font for `numeral'.
+
+LaTeX Warning: Empty `thebibliography' environment on input line 15.
+
+) [183] [184
+
+]
+No file PlantillaPFC.ind.
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.aux
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Portadas.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Previos.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Listas.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Introduccion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\MotivacionObjetivos.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\EstadoArte.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\MetodoTrabajo.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\Resultados.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseInicio.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseElaboracion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\FaseConstruccion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion1interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion2interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion3interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion4interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\construccion5interacion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\ConclusionesPropuestas.aux))
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 62 ({)
+### bottom level 
+Here is how much of TeX's memory you used:
+ 13642 strings out of 494045
+ 226795 string characters out of 3145971
+ 683852 words of memory out of 3000000
+ 16069 multiletter control sequences out of 15000+200000
+ 108658 words of font info for 270 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 44i,13n,62p,1347b,3314s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.
+enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pf
+b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pr
+ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program 
+Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
+/type1/urw/times/utmbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw
+/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr
+i8a.pfb>
+Output written on PlantillaPFC.pdf (212 pages, 4254519 bytes).
+PDF statistics:
+ 1037 PDF objects out of 1200 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 46706 words of extra memory for PDF output out of 51595 (max. 10000000)
+

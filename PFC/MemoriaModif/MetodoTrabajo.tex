@@ -1,0 +1,453 @@
+\chapter{Método de Trabajo}
+\label{ch:metododetrabajo}
+
+Para el desarrollo de este producto software se ha optado por utilizar la metodología genérica descrita por el \textbf{Proceso Unificado de Desarrollo} (en adelante PUD), propuesta por Rumbaugh, Booch y Jacobson \cite{jac00}.
+
+Para el modelado de los diagramas del producto software se utilizará el Lenguaje Unificado de Modelado (UML, por sus siglas en inglés Unified Modelling Language).
+
+\section{Proceso Unificado de Desarrollo} \label{sec:pud}
+
+El Proceso Unificado de Desarrollo es una evolución del Proceso Unificado de Rational (RUP), que define un ``\textit{conjunto de actividades necesarias para transformar los requisitos de usuario en un sistema software}'' \cite{jac00}. Más concretamente se puede definir como ``\textit{un marco de trabajo marco genérico que puede especializarse para una gran variedad de sistemas de software,
+para diferentes áreas de aplicación, diferentes tipos de organizaciones, diferentes niveles de
+aptitud y diferentes tamaños de proyectos.}'' \cite{jac00}.
+
+Las principales características del PUD son:
+
+\begin{itemize}
+	\item \textbf{Dirigido por casos de uso}. Un caso de uso representa un requisito funcional al cuál el sistema debe dar soporte para proporcionar un resultado de valor al usuario. Los casos de uso guían el proceso de desarrollo, ya que basándose en los casos de uso, los desarrolladores
+crean una serie de modelos para poder llevarlos a cabo. Todos los casos de uso juntos constituyen el \textbf{modelo de casos de uso}.
+	\item \textbf{Centrado en la arquitectura}. Un sistema software puede contemplarse desde varios
+puntos de vista. Por tanto, la arquitectura software incluye los aspectos estáticos y
+dinámicos más significativos del sistema y debe estar profundamente relacionada con
+los casos de uso, ya que debe permitir el desarrollo de los mismos.
+	\item \textbf{Iterativo e incremental}. El esfuerzo de desarrollar un proyecto de software se divide en partes más
+pequeñas, llamadas \textbf{mini-proyectos}. Cada mini-proyecto es una \textbf{iteración}, compuesta por una serie de requisitos funcionales representados por casos de uso, y que abarcan entre dos y seis semanas de duración. Las iteraciones deben estar controladas y deben seleccionarse y
+ejecutarse de una forma planificada, siguiendo el esquema \textit{requisitos, análisis, diseño, implementación y pruebas}, que es conocido como \textbf{flujo de trabajo}.
+En cada iteración, los desarrolladores identifican y especifican los casos de uso relevantes, crean un diseño utilizando la arquitectura seleccionada como guía, implementan el diseño mediante componentes y verifican que los componentes satisfacen los casos de uso.
+Finalmente, cada iteración aporta un \textbf{incremento} en la funcionalidad del sistema, por eso que el PUD se considere un proceso incremental (ver Figura \ref{fig:incremental}) \cite{kruchten2004rational}.
+\end{itemize}
+
+\imagenBorde{Cap4//incremental}{0.50}{Proceso iterativo e incremental}{fig:incremental}
+
+
+\subsection{Fases de desarrollo basado en PUD} \label{sec:fasesPUD}
+
+En PUD, el ciclo de vida de un producto software se divide en ciclos, donde cada uno de estos ciclos compone una versión del producto, totalmente operativa y preparada para su implantación. Cada ciclo se compone de cuatro fases (Inicio, Elaboración, Construcción y Transición) y éstas, a su vez, se dividen en iteraciones que siguen el flujo de trabajo \textit{requisitos, análisis, diseño, implementación y pruebas} (ver Figura \ref{fig:PUD}).
+
+\imagenBorde{Cap4//PUD}{1.0}{Fases y flujo de trabajo del PUD}{fig:PUD}
+
+A continuación se detallan cada una de las cuatro fases de cada ciclo del PUD \cite{jac00} \cite{torossi}.
+
+\subsubsection{Fase de Inicio} \label{lbl:inicio}
+
+En esta fase es donde se determina el alcance del proyecto, su viabilidad, riesgos potenciales y donde se realiza una planificación del proyecto. Normalmente, esta fase abarca una única iteración y los artefactos más relevantes utilizados son:
+
+\begin{itemize}
+	\item \textbf{Modelo de Casos de Uso}: se obtiene un primer modelo de casos de uso simplificado, representando los requisitos funcionales del sistema.
+	\item \textbf{Descripción de Riesgos}: se obtiene un documento que recoge posibles riesgos que pueden aparecer y afectar al ciclo de vida del producto.
+	\item \textbf{Glosario}: se elabora un glosario de términos del dominio de aplicación.
+	\item \textbf{Plan de Proyecto}: se elabora un plan de iteraciones a seguir para el desarrollo del producto software.
+\end{itemize}
+
+\subsubsection{Fase de Elaboración}
+
+En esta fase, compuesta de una una o más iteraciones, se especifican en detalle la mayoría de los casos de
+uso identificados en la fase de inicio y se diseña la arquitectura del sistema, obteniendo la línea base de la arquitectura. Por arquitectura se entiende el ``\textit{conjunto de decisiones significativas acerca de
+la organización de un sistema software, la selección de los elementos estructurales a partir
+de los cuales se compone el sistema, las interfaces entre ellos, su comportamiento, sus
+colaboraciones, y su composición}'' \cite{torossi}.
+
+En esta fase, se construyen los siguientes artefactos:
+
+\begin{itemize}
+	\item \textbf{Arquitectura}: se obtiene el diseño de la arquitectura del sistema.
+	\item \textbf{Modelo de Casos de Uso}: se obtiene un modelo de casos más detallados y con todos los requisitos funcionales.
+	\item \textbf{Modelo de Análisis}: es un modelo compuesto de diagramas de clases de análisis y de secuencia, más detallado que el de casos de usos pero menos que el de diseño.
+	\item \textbf{Modelo de Diseño}: es un modelo compuesto de diagramas de clases de diseño que describen el funcionamiento del sistema.
+\end{itemize}
+
+
+\subsubsection{Fase de Construcción}
+
+En la fase de construcción es donde se lleva a cabo la implementación de cada una de las iteraciones en las que se ha dividido el desarrollo del producto software, a partir de los artefactos generados en la fase de elaboración. Aunque esta fase se centra en la implementación, puede haber iteraciones donde también haya tareas de requisitos, análisis y diseño, refinando modelos de etapas anteriores, pero éstas serán prácticamente nulas en iteraciones avanzadas de esta fase. Cada iteración se cierra con las pruebas realizadas al código implementado.
+
+Esta fase abarca un número muy variable de iteraciones y suele ser la fase de más larga duración en el ciclo de vida del producto software. En esta fase se obtienen los siguientes artefactos:
+
+\begin{itemize}
+	\item \textbf{Modelo de Diseño}: a partir del modelo de diseño de la fase anterior, se obtiene otro modelo refinado durante iteraciones de esta fase.
+	\item \textbf{Modelo de Implementación}: es un modelo compuesto por diagramas de componentes, junto a sus relaciones y dependencias.
+	\item \textbf{Modelo de Pruebas}: es el conjunto de casos de pruebas unitarias que cierran cada iteración de esta fase.
+	\item \textbf{Modelo de Despliegue}: modelo que refleja los aspectos físicos y como se ejecutarán los componentes identificados en el modelo de implementación.
+\end{itemize}
+
+
+\subsubsection{Fase de Transición}
+
+La fase de transición es el período en el cual el producto se convierte en una versión beta, es decir, se procede a su implantación pero se seguirá probando y, quizás, incrementando su funcionalidad. En esta fase se obtienen los siguientes artefactos:
+
+\begin{itemize}
+	\item \textbf{Modelo de Despliegue}: se obtiene el modelo final a partir del de la fase anterior.
+	\item \textbf{Modelo de Distribución}: es un modelo que muestra el funcionamiento físico del sistema.
+	\item \textbf{Manuales}: el sistema se documenta y se generan los manuales de usuario para explicar su funcionamiento.
+\end{itemize}
+
+
+\subsection{Flujo de trabajo en el PUD}
+
+Como se ha comentado en la sección \ref{sec:fasesPUD}, en cada una de las fases desarrolladas anteriormente se sigue un flujo de trabajo, compuesto por las disciplinas de captura de requisitos, análisis, diseño, implementación y pruebas.
+
+Según en la fase e iteración en la que se encuentre el desarrollo, estas disciplinas serán más o menos relevantes en dicha iteración dentro de esa fase (ver Figura \ref{fig:PUD}).
+
+En los siguientes apartados se comentan las actividades a realizar en cada una de las disciplinas que forman el flujo de trabajo de cada fase del PUD \cite{jac00} \cite{torossi}.
+
+\subsubsection{Captura de requisitos}
+
+Esta disciplina tiene una mayor relevancia en las fases de Inicio y Elaboración y tiene como objetivo el identificar los requisitos del producto para guiar su posterior desarrollo. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se identifican los requisitos funcionales del sistema a desarrollar.
+	\item Se identifica el contexto o dominio de aplicación, para comprender los requisitos.
+	\item Se identifican los requisitos no funcionales del sistema, como comunicación con otros sistemas, entorno de funcionamiento, etc.
+	\item Los requisitos identificados se modelan utilizando un diagrama de casos de uso, que será más o menos detallado según la fase del PUD en la que nos encontremos.
+\end{itemize}
+
+
+\subsubsection{Análisis}
+
+Esta disciplina tiene una mayor relevancia en la fase de Elaboración y tiene como objetivo la especificación detallada de los casos de uso obtenidos anteriormente, refinándolos con posibles nuevos requisitos. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se detallan los casos de uso obtenidos en fases anteriores.
+	\item Se realiza el diagrama de clases de análisis.
+	\item Se identifican nuevos requisitos que puedan surgir al refinar los casos de uso y generar los diagramas de análisis.
+\end{itemize}
+
+\subsubsection{Diseño}
+
+Esta disciplina tiene una mayor relevancia en las fases de Elaboración y Construcción y tiene como objetivo el modelado del sistema y de su arquitectura para soportar los requisitos, tanto funcionales como no funcionales. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se realiza el modelo de diseño, con diagramas de clases detallados y las relaciones entre clases.
+	\item Se identifica la arquitectura del sistema.
+	\item Se realiza el modelo de despliegue.
+\end{itemize}
+
+\subsubsection{Implementación}
+
+Esta disciplina tiene una mayor relevancia en la fase de Construcción y tiene como objetivo generar la herramienta software. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se realiza el modelo de implementación.
+	\item Se detalla y refina la arquitectura del sistema.
+	\item Se detalla y refina el modelo de despliegue.
+	\item Se codifican todos los requisitos del sistema, obteniendo código ejecutable que le da soporte a dichos requisitos.
+\end{itemize}
+
+\subsubsection{Pruebas}
+
+Esta disciplina afecta a todas las iteraciones y fases donde se haya producido una implementación, ya que es necesario probar que dicha codificación funciona correctamente. Su objetivo es crear los casos de prueba para cada iteración y crear un plan de pruebas del sistema global. Se realizan las siguientes actividades:
+
+\begin{itemize}
+	\item Se realiza el modelo de pruebas, creando casos de prueba unitarios, de integración y de sistema.
+\end{itemize}
+
+\subsection{Resumen del Proceso Unificado de Desarrollo}
+
+El PUD está compuesto de ciclos, donde cada ciclo consta de cuatro fases y cada fase, a su vez, se divide en una o varias iteraciones, donde se aplica un flujo de trabajo compuesto por cinco disciplinas. En la Tabla \ref{table:pud} se resumen las cuatro fases de un ciclo presentes en el PUD.
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{2cm} | >{\arraybackslash}m{7cm} | >{\arraybackslash}m{5cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Resumen}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Artefactos generados}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Inicio} & 
+		 Se identifican los requisitos \newline 
+		 Se crea un glosario de términos \newline
+		 Se analiza la viabilidad del proyecto \newline
+		 Se realiza el plan de iteraciones &
+		 Modelo de casos de uso \newline 
+		 Glosario de términos \newline
+		 Descripción de riesgos \newline
+		 Plan de proyecto \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Elaboración} & 
+		 Se crea un modelo de casos de uso detallado \newline 
+		 Se diseña la arquitectura \newline
+		 Se crea un modelo de clases de análisis \newline
+		 Se realiza el modelo de diseño &
+		 Modelo de casos de uso detallado \newline 
+		 Modelo de Diseño \newline
+		 Arquitectura del sistema \newline
+		 Modelo de Análisis \\
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Construcción} & 
+		 Se implementan los requisitos del sistema \newline 
+		 Se definen pruebas \newline
+		 Se crea un modelo de despliegue &
+		 Modelo de implementación \newline 
+		 Modelo de pruebas \newline
+		 Modelo de despliegue \newline
+		 Ejecutables del sistema \\		 
+	\hline
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Transición} & 
+		 Se escribe la documentación y manuales de usuario \newline 
+		 Se explica como instalar e implantar el sistema &
+		 Documentación \newline 
+		 Manuales de usuario \newline
+		 Modelo de distribución \\
+	\hline
+\end{tabular}
+\caption{Resumen de las fases de un ciclo del PUD}
+\label{table:pud}
+\end{table}
+
+En el capítulo 5 se expondrán los resultados obtenidos al aplicar PUD en el desarrollo del presente PFC, desarrollando cada una de las fases y qué artefactos se han ido obteniendo en cada una de ellas hasta llegar al sistema final.
+
+\section{Marco tecnológico de trabajo}
+\label{sec:marco}
+
+En esta sección se expondrán las herramientas, tecnologías y librerías utilizadas durante todo el ciclo de vida del proyecto.
+
+%\subsection{Herramienta para la planificación del proyecto}
+
+%% MICROSOFT PROJECT, si la utilizo
+
+
+\subsection{Herramientas para la gestión del proyecto}
+
+\subsubsection{Subversion}
+
+Subversion es un sistema de control de versiones donde, a diferencia de CVS (Concurrent Versions System), los archivos versionados del repositorio no tienen cada uno un número de versión distinto, sino que todo el repositorio tiene un único numero de revisión. Además, Subversion permite acceder a repositorios de red.
+
+En el proyecto, se utilizará un repositorio Subversión (o SVN) para gestionar las diferentes versiones del mismo. El repositorio SVN estará alojado en \textit{Google Code}, de manera que será accesible en red. Para acceder a dicho repositorio, se utilizará la herramienta \textbf{TortoiseSVN}, que es un cliente de Subversion implementado como una extensión del shell de sistemas Windows y que permite gestionar el repositorio. En la Figura \ref{fig:tortoise} se puede observar esta herramienta.
+
+\imagenBorde{Cap4//tortoise}{0.6}{Herramienta \textit{TortoiseSVN}}{fig:tortoise}
+ 
+\subsubsection{Maven}
+
+Maven es una herramienta de gestión y construcción de proyectos, creada por Jason van Zyl en 2002. Maven permite describir el proyecto a construir, sus dependencias con otros módulos y el orden de construcción utilizando un Modelo de Objetos del Proyecto (POM, por sus siglas del inglés Project Object Model), que es un fichero XML donde se describe el proyecto, sus dependencias, etc.
+
+Maven tiene una arquitectura dinámica basada en \textit{plugins} que son descargables desde su repositorio central, de tal modo que permite la reutilización para diferentes proyectos, cambiando los plugins a utilizar y su configuración y manteniendo patrones similares en diferentes proyectos. 
+
+Se utilizará esta herramienta, en su versión 2.2.1, para la gestión del proyecto y sus dependencias con otras librerías y módulos, usando el plugin de Maven para Eclipse llamado \textbf{m2eclipse}. En la Figura \ref{fig:m2eclipse} se puede observar la interfaz de este plugin sobre Eclipse.
+
+\imagenBorde{Cap4//m2eclipse}{0.3}{Plugin de Maven sobre Eclipse Helios}{fig:m2eclipse}
+
+\subsection{Herramienta para el modelado}
+
+\subsubsection{Visual Paradigm}
+
+Visual Paradigm es una herramienta CASE (Computer Aided Software Engineering o Ingeniería de Software Asistida por Computador) profesional para el modelado UML (Unified Modeling Language o Lenguaje Unificado de Modelado) que soporta el ciclo de vida del desarrollo de un producto software. Permite crear diferentes tipos de diagramas y también permite la ingeniería inversa, es decir, a partir de código, generar diferentes diagramas.
+
+Esta herramienta, en su versión 8.0, se utilizará para realizar los diagramas de casos de uso, de secuencia, de clases, etc. En la Figura \ref{fig:visualparadigm} se puede observar la interfaz de esta herramienta.
+
+\imagenBorde{Cap4//visualparadigm}{0.5}{Herramienta Visual Paradigm}{fig:visualparadigm}
+
+
+\subsection{Herramientas y tecnologías para el desarrollo del proyecto}
+
+\subsubsection{Eclipse Helios}
+
+Eclipse es un IDE (Integrated Development Environment o Entorno Integrado de Desarrollo) multiplataforma, de código abierto y basado en plugins para aumentar su funcionalidad.
+
+Es el entorno de desarrollo utilizado para la codificación de proyecto utilizando el lenguaje de programación Java, junto a plugins utilizados para la gestión de proyectos con Maven (plugin \textbf{m2eclipse}) y diseño de interfaces gráficas con Swing (plugin \textbf{Jigloo}). En la Figura \ref{fig:eclipse} se muestra una captura de pantalla de este IDE.
+
+\imagenBorde{Cap4//eclipse}{0.3}{Eclipse Helios}{fig:eclipse}
+
+\subsubsection{Yahoo! PlaceFinder} \label{label:web}
+
+Yahoo! PlaceFinder es un servicio web de geocodificación que permite la conversión de direcciones de calles o nombres de lugares en coordenadas geográficas, y viceversa. La respuesta a una petición de este servicio Web viene dada por un fichero XML, como el mostrado en la Figura \ref{fig:YahooWeb}.
+
+Se utilizará para obtener y localizar en mapas las coordenadas geográficas a partir de direcciones postales.
+
+\imagenBorde{Cap4//yahoo}{0.6}{Respuesta XML del servicio Web Yahoo! PlaceFinder}{fig:YahooWeb}
+
+\subsubsection{OpenStreetMap}
+
+OpenStreetMap, conocido también como OSM, es un proyecto colaborativo para crear mapas del mundo libres y editables. Los mapas se crean utilizando GPS para capturar información geográfica, a través de ortofotografías y a través de otras fuentes libres. En la Figura \ref{fig:openmap} se puede apreciar un ejemplo de mapa obtenido con OpenStreetMap.
+
+Se utilizará para mostrar mapas y poder localizar posiciones geográficas en ellos, usando el servicio Web comentado en el apartado \ref{label:web}.
+
+\imagenBorde{Cap4//map}{0.5}{Ejemplo de mapa de OpenStreetMap}{fig:openmap}
+
+
+\subsubsection{JAXB}
+
+\textit{Java Architecture for XML Binding} es una tecnología de Java que permite la transformación de una jerarquía de objetos Java a un fichero XML, y viceversa. El proceso de serialización recibe el nombre de \textit{marshalling}, mientras que el proceso inverso recibe el nombre de \textit{unmarshalling} (ver Figura \ref{fig:jaxb}).
+
+Se utilizará, en su versión 2.2.4, para poder convertir objetos del dominio de aplicación en ficheros XML, y viceversa.
+
+\imagenBorde{Cap4//jaxb}{0.9}{JAXB}{fig:jaxb}
+
+
+\subsubsection{JDOM}
+
+JDOM es una librería de Java de código abierto para el acceso y manipulación de ficheros XML optimizada para Java. Se creó para ser específicamente utilizado con Java, por lo que incluye sobrecarga de métodos, colecciones, etc, a diferencia del DOM creado por el consorcio W3C (World Wide Web), creado inicialmente para manipulación de páginas HTML con JavaScript. Señalar que JDOM no es un acrónimo de \textit{Java Document Object Model}.
+
+Dicha librería, en su versión 1.1, se utilizará para gestionar ficheros XML presentes en la aplicación, como, por ejemplo, los ficheros de perfiles.
+
+
+\subsubsection{Jaxen}
+
+Jaxen es una librería de Java de código abierto escrita en Java, adaptable a diferentes modelos de objetos como DOM, XOM, dom4j y JDOM, y que permite trabajar con expresiones \textit{XPath} (XML Path Language).
+
+Se utilizará en su versión 1.1.1 para la búsqueda de nodos en ficheros XML utilizando expresiones \textit{XPath}.
+
+
+\subsubsection{Hibernate}
+
+Hibernate es un framework para el mapeo objeto-relacional (ORM, por sus siglas en inglés Object Relational-Mapping) utilizado en plataformas Java y que permite realizar el mapeo de atributos entre una base de datos relacional y un modelo de objetos, utilizando archivos XML o anotaciones sobre los objetos para realizar dicho mapeo. Proporciona también un lenguaje de consultas de bases de datos de alto nivel, llamado HQL (Hibernate Query Language).
+
+Las ventajas de utilizar este framework es que permite al desarrollador abstraerse del código que hay que escribir para dar soporte a la persistencia, facilita la mantenibilidad, proporciona independencia del proveedor del sistema gestor de base de datos y flexibilidad para adaptarse al esquema de tablas utilizado.
+
+Se utilizará Hibernate, en su versión 3.5.4, para gestionar la persistencia de los objetos de dominio que deban ser persistentes en el sistema.
+
+\subsubsection{Swing}
+
+Swing es una librería gráfica para Java, la cual incluye \textit{widgets} para generar interfaces gráficas de usuario, como son cajas de texto, botones, paneles, tablas, etc. Swing fue desarrollado para proveer un conjunto de elementos gráficos más sofisticado que su antecesor, AWT (Abstract Window Toolkit), de tal modo que los componentes Swing están escritos en Java y son independientes de la plataforma, a diferencia de AWT.
+
+Swing sigue el modelo vista controlador (MVC), es independiente de la plataforma y extensible, ya que los componentes puede extenderse y sobrescribir las implementaciones por defecto.
+
+Existe una extensión a Swing, llamada SwingX, que incluye nuevos componentes gráficos que normalmente se demandan en aplicaciones avanzadas (Rich Client Applications), como son selectores de fechas, framework para la autenticación de usuarios, auto-completado, paneles expandibles, etc.
+
+Por otra parte, existe un framework para Swing, llamado Swing Application Framework, que forma parte de la JSR 296 (Java Specification Request) y que permite gestionar la arquitectura, ciclo de vida, hilos, manejo de eventos y almacenamiento del estado de una aplicación Swing.
+
+Estos tres componentes, Swing, SwingX y Swing Application Framework se utilizarán para el desarrollo de una interfaz gráfica de usuario extensible, personalizable y adaptable. Además, para realizar el diseño de la interfaz, se uitlizará el plugin para eclipse \textbf{Jigloo}.
+
+\subsubsection{JUNG}
+
+Jung (\textit{Java Universal Network/Graph Framework}) es una librería que provee mecanismos para el modelado, análisis y visualización de datos que pueden ser representados en una red o en un grafo. Su arquitectura está diseñada para soportar variedad de representaciones de entidades y sus relaciones, como grafos dirigidos, no dirigidos, hipergrafos, grafos con arcos paralelos, entidades con metadatos, etc. Además, incluye numerosos algoritmos para la visualización de grafos, para su optimización, cálculo de distancias, métricas, etc. En la Figura \ref{fig:JUNG} se puede observar un grafo generado con este framework.
+
+Se utilizará, en su versión 2.0, para la creación y visualización de grafos.
+
+\imagenBorde{Cap4//jung}{0.6}{Ejemplo de grafo generado con JUNG}{fig:JUNG}
+
+
+\subsubsection{iText}
+
+iText es una librería que permite la creación y manipulación de documentos PDF. Dicha herramienta permite:
+
+\begin{itemize}
+	\item Servir documentos PDF a un navegador.
+	\item Generar documentos PDF a través de archivos XML o bases de datos.
+	\item Añadir marcadores, número de páginas, marcas de agua, etc.
+	\item Dividir, concatenar y gestionar páginas PDF
+\end{itemize}
+
+Se utilizará, en su versión 5.1.0 para Java (disponible también para .NET) para la generación de documentos PDF.
+
+\subsubsection{JFreeChart}
+
+JFreeChart es una librería escrita en Java que permite la creación y visualización de gráficos. En la Figura \ref{fig:jfreechart} se puede observar ejemplos de gráficos generados con esta librería. Las características de esta librería son:
+
+\begin{itemize}
+	\item Proporciona un API para generar una amplia variedad de gráficos.
+	\item Diseño flexible y extensible.
+	\item Soporte para diferentes tipos de salida, como componentes de Swing, imágenes (PNG y JPEG) y gráfixos vectoriales (EPS y SVG)
+	\item Es \textit{OpenSource}
+\end{itemize}
+
+Se ha utilizado en su versión 1.0.13 para la generación y visualización de gráficos.
+
+\imagenBorde{Cap4//jfreechart}{0.4}{Ejemplo de gráficos generados con JFreeChart}{fig:jfreechart}
+
+
+\subsubsection{RMI}
+
+RMI (\textit{Remote Method Invocation}) es un mecanismo ofrecido por Java que permite la creación de aplicaciones Java distribuidas, en las cuales los métodos de objetos remotos pueden ser invocados desde otras máquinas virtuales de Java, posiblemente distribuidas en diferentes máquinas. RMI hace uso de la serialización de objetos para poder invocar sus métodos remotamente. Se caracteriza por su facilidad de uso, al estar integrado con Java y permite el paso de objetos por referencia, recolección de basura distribuida y paso de tipos arbitrarios. 
+
+Normalmente, una aplicación RMI se compone de un servidor, que crea objetos remotos y crea sus referencias para hacerlos accesibles remotamente, y un cliente, que invoca métodos de esos objetos remotos, obteniendo las referencias que el servidor facilita. La invocación remota de métodos se compone de los siguientes pasos:
+
+\begin{itemize}
+	\item Se encapsulan los parámetros, utilizando la serialización de Java.
+	\item Se invoca el método, quedando el invocador o cliente a la espera.
+	\item Se ejecuta el método remoto y el servidor devuelve la respuesta al invocador, si la hay.
+	\item El cliente recibe la respuesta y continua su ejecución, como se se hubiese utilizado el método de un objeto local.
+\end{itemize}
+
+RMI sigue una arquitectura compuesta de cuatro capas:
+
+\begin{enumerate}
+	\item \textbf{Capa de aplicación}: es la capa de implementación de las aplicaciones cliente y servidor, donde se crean y exportan los objetos remotos, haciendo uso de la interfaz \textit{Remote}.
+	\item \textbf{Capa de proxy}: también llamada \textit{capa stub-skeleton}. Es la capa que interactua con la anterior y donde se producen las llamadas a métodos remotos.
+	\item \textbf{Capa de referencia remota}:  responsable de manejar las llamadas remotas, mantener las referencias a los objetos exportados, etc.
+	\item \textbf{Capa de transporte}: responsable del transporte de datos de una máquina a otra, utilizando el protocolo JRMP (Java Remote Method Protocol).
+\end{enumerate}
+
+RMI se utilizará para la comunicación e invocación de métodos entre la aplicación cliente y el servidor del sistema.
+
+
+
+\subsubsection{Java Reflection API}
+
+La reflexión es una técnica utilizada por los programas para examinar o modificar su estructura (introspección) y comportamiento en tiempo de ejecución.
+
+La reflexión se utiliza cuando la clase de un objeto a crear se conoce en tiempo de ejecución, para enumerar los miembros de una clase, para depurar programas, conociendo los miembros privados de las clases, etc. Sin embargo, no se debe abusar de está técnica, ya que introduce problemas de rendimiento, al resolver dinámicamente los tipos de objetos, y problemas de seguridad, al exponer los miembros privados de una clase.
+
+Se utilizará para crear algunos objetos en tiempo de ejecución, ya que sólo en ese punto se conocerá su tipo.
+
+\subsection{Herramientas y tecnologías para bases de datos}
+
+\subsubsection{MySQL}
+
+MySQL es un sistema de gestión de bases de datos (SGBD) relacional, multiusuario y multihilo, de software libre. MySQL está escrito en C y C++ y el \textit{parser} de SQL está escrito en el lenguaje \textit{yacc}. Es una herramienta multiplataforma y con soporte para diferentes lenguajes de programación utilizando los adaptadores adecuados para cada lenguaje.
+
+Entre sus características, destacan las siguientes:
+
+\begin{itemize}
+	\item Soporte para el lenguaje ANSI SQL 99, así como para sus extensiones.
+	\item Soporte multiplataforma, multiusuario y multihilo.
+	\item Procedimientos almacenados.
+	\item Triggers.
+	\item Cursores.
+	\item Vistas actualizables.
+	\item Sistema de procesamiento de transacciones distribuidas, con dos fases de \textit{commit}.
+	\item Soporte de conexiones seguras (SSL).
+	\item Soporte de subconsultas.
+	\item Soporte unicode.
+	\item Soporte para replicación de las bases de datos.
+\end{itemize}
+ 
+Se utilizará la versión MySQL Commnunity Server 5.5.17 como sistema gestor de bases de datos del sistema.
+
+\subsubsection{MySQL WorkBench}
+
+MySQL Workbench es una herramienta CASE que permite el modelado de bases de datos MySQL en un entorno visual (ver Figura \ref{fig:mysqlWorkbench}). Sus características principales son:
+
+\begin{itemize}
+	\item \textbf{Modelado}: proporciona las herramientas necesarias para el modelado Entidad-Interrelación (modelo ER) de la base de datos: además, soporta ingeniería directa, obteniendo el código SQL a partir del modelo, e ingeniería inversa.
+	\item \textbf{Desarrollo}: proporciona herramientas visuales para crear, ejecutar y optimizar sentencias SQL.
+	\item \textbf{Administración}: proporciona una consola visual para administrar fácilmente el servidor MySQL, cuentas de usuario, permisos, etc.
+\end{itemize}
+
+\imagenBorde{Cap4//mysqlWorkbench}{0.35}{MySQL Workbench}{fig:mysqlWorkbench}
+
+Se utilizará MySQL Workbench 5.2 CE para el modelado de la base de datos, para el desarrollo SQL y para administrar la base de datos MySQL.
+
+
+\subsection{Herramientas para la documentación del proyecto}
+
+\subsubsection{\LaTeX{}}
+
+\LaTeX{} es un lenguaje de marcado utilizado para la creación de documentos, especialmente libros y documentos científico-técnicos. Está formado por un gran conjunto de macros (u órdenes) del lenguaje TeX, de código abierto y que permite crear libros, tesis y artículos técnicos con una elevada calidad tipográfica, comparable a la de una editorial científica.
+
+A diferencia de los editores de texto habituales, conocidos como \textit{WYSIWYG} (es decir, \textit{What You See Is What You Get}, o \textit{lo que ves es lo que obtienes}), \LaTeX{} permite centrarse exclusivamente en el contenido del documento, sin preocuparse de los detalles del formato del texto. También posee capacidades gráficas para representar fórmulas complejas, ecuaciones, notación científica, etc y permite estructurar de una manera muy sencilla el documento, con capítulos, secciones, generación automática de índices, etc. Es por estas razones por las que \LaTeX{} se ha extendido rápidamente por todo el sector científico y técnico, llegando a convertirse incluso en un uso obligado para presentar publicaciones en ciertos congresos y revistas.
+
+Para crear un documento con \LaTeX{}, hay que utilizar un editor de texto para crear los archivos fuente, con las macros y el contenido adecuado para, posteriormente, procesarlo, compilarlo y generar la salida, normalmente en PDF, aunque se pueden generar diferentes salidas como DVI, PS, etc. 
+
+Para la generación del presente documento, se ha utilizado \LaTeX{}, usando como editor de textos \textbf{TexnicCenter}, el cual es un editor de software libre para sistemas Windows que proporciona las herramientas necesarias para la composición y compilación de textos escritos en \LaTeX{} (ver Figura \ref{fig:texnicCenter}).
+
+\imagenBorde{Cap4//texnicCenter}{0.35}{Editor TeXnicCenter}{fig:texnicCenter}
+
+\subsubsection{\BibTeX{}}
+
+\BibTeX{} es un software de gestión de referencias para dar formato a dichas referencias, usado normalmente en conjunto con \LaTeX{}. Facilita la cita de fuentes con un formato consistente, separando la información bibliográfica de la presentación de la misma.
+
+\BibTeX{} utiliza un fichero con extensión \textit{.bib} para definir la lista de elementos bibliográficos, que pueden ser artículos, tesis, libros, manuales, parte de libros o artículos, etc. Todos estos tipos de bibliografía deben definirse con una sintaxis concreta, indicando elementos como autor, título, editorial, fecha de publicación, URL, etc.
+
+Se ha utilizado \BibTeX{} para formatear las citas literarias y bibliográficas de este documento. Además, se ha utilizado \textbf{JabRef}, que es una herramienta visual basada en Java que permite editar los tipos bibliográficos utilizados en el archivo \textit{.bib} de \BibTeX{} (ver Figura \ref{fig:jabref}). 
+
+\imagenBorde{Cap4//jabref}{0.7}{Herramienta JabRef}{fig:jabref}

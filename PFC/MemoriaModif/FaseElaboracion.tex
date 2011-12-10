@@ -1,0 +1,1179 @@
+\section{Fase de Elaboración} \label{sec:faseElaboracion}
+
+En esta fase intervienen la Captura de Requisitos, Análisis, Diseño, Implementación y Pruebas, con mayor o menor influencia, según la iteración donde nos encontremos (ver Figura \ref{fig:pudElaboracion}). 
+
+\imagenBorde{Cap5//pudElaboracion}{1.0}{Fase de elaboración en el PUD}{fig:pudElaboracion}
+
+Esta fase se ha divido en dos iteraciones: la primera de ellas se centra de nuevo en la captura de requisitos, en el análisis y en algunas tareas de diseño. La segunda iteración se centra en el diseño, la implementación y pruebas de un requisito funcional básico del sistema.
+
+Las tareas que se llevan a cabo en esta fase son:
+
+\begin{itemize}
+	\item \textbf{Primera iteración}
+	\begin{itemize}
+		\item Identificación de nuevos requisitos funcionales del sistema.
+		\item Elaboración del modelo de casos de uso definitivo.
+		\item Elaboración del plan de proyecto definitivo.
+	  \item Modelo de clases de análisis de los casos de uso.
+	  \item Definición y diseño de la arquitectura del sistema.
+	\end{itemize}
+	\item \textbf{Segunda iteración}
+	\begin{itemize}
+		\item Modelo de alto nivel de clases de diseño del dominio.
+		\item Modelado y diseño de la base de datos.
+		\item Definición del diagrama de secuencia correspondiente a la funcionalidad de ``acceso al sistema''.
+		\item Implementación de la funcionalidad de ``acceso al sistema''.
+		\item Creación de casos de prueba para dicho caso de uso implementado.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Primera iteración}
+
+En esta iteración se abordan las siguientes tareas: 
+
+\begin{itemize}
+	\item Identificación de nuevos requisitos funcionales.
+	\item Análisis de los casos de uso que componen el sistema.
+	\item Definición y diseño de la arquitectura del sistema.
+\end{itemize}
+
+\subsubsection{Identificación de requisitos}
+
+Al terminar la iteración de la fase anterior, obteniendo un primer modelo de casos de uso con los requisitos identificados, se llevó a cabo una reunión de seguimiento, para revisar la planificación realizada en el plan de proyecto y poder identificar nuevos requisitos funcionales, si los hubiera.
+
+Como resultado de esta reunión, se identificaron nuevos requisitos funcionales para añadir al sistema, y que servirán para mitigar o resolver más problemas que aparecen en GSD. Estos nuevos requisitos fueron:
+
+\begin{itemize}
+	\item Además de poder mostrar las decisiones tomadas en un proyecto, se debe poder cambiar el estado de éstas, aceptando o rechazando dichas decisiones, para posteriormente, cuando el proyecto llegue a su fin, poder conocer qué notificaciones fueron de ayuda y cuáles no. 
+	\item Para aumentar la información que se añade al crear nuevas decisiones de un proyecto, se debe poder adjuntar ficheros a dichas decisiones. Del mismo modo, se deben poder descargar esos archivos adjuntos, si los hubiera.
+	\item Se deben poder generar de manera automática estadísticas que ayuden a llevar un control sobre los proyectos que se están desarrollando por los diferentes centros de desarrollo software de una compañía. También, se podrán generar estadísticas acerca de los miembros de los equipos.
+	\item Se deben poder generar informes de las decisiones tomadas en un proyecto, en forma de tabla y de manera automática. Dicho informe debe generarse como un documento PDF.
+\end{itemize}
+
+Con estos nuevos requisitos, se actualizan los grupos funcionales creados en la fase de inicio, las acciones que pueden realizar los diferentes roles de usuarios y el modelo de casos de uso, explicado en el siguiente apartado.
+
+En la Tabla \ref{table:categorias2} se muestran los nuevos grupos de requisitos, incluyendo los nuevos requisitos que se han identificado.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{6cm} | >{\arraybackslash}m{5.5cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Requisito}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Tareas asociadas}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\colorCelda Acceso Sistema} & 
+		 Login (acceso) \newline 
+		 Logout (desconexión) \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Visualizar información} & 
+		 Consultar decisiones \newline 
+		 Visualizar compañía \newline
+		 Descargar ficheros adjuntos \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Decisiones} & 
+		 Crear nueva decisión \newline
+		 Modificar decisión \newline
+		 Eliminar decisión \newline
+		 Adjuntar ficheros \newline
+		 Aceptar o rechazar decisiones \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Notificaciones} & 
+		 Consultar notificaciones \newline 
+		 Modificar notificación \newline 
+		 Eliminar notificación \\ 
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Proyectos} & 
+		 Dar de alta un proyecto \newline 
+		 Modificar datos proyecto  \newline
+		 Consultar usuarios \newline
+		 Seleccionar proyecto sobre el que trabajar \newline
+		 Aconsejar decisiones de proyectos similares \\
+	\hline
+		\multicolumn{1}{|c|}{\colorCelda Generación Estadísticas} & 
+		 Generación estadísticas \\
+	\hline
+		\multicolumn{1}{|c|}{\colorCelda Generación Informes} & 
+		 Generación informes PDF \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Idiomas} & 
+		 Consultar idiomas \newline
+		 Cambiar idioma \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Exportar información} & 
+		 Exportar información \\
+	\hline
+\end{tabular}
+\caption{Requisitos funcionales - v2.0}
+\label{table:categorias2}
+\end{table}
+
+Por otra parte, en la Tabla \ref{table:acciones2} se muestran las acciones que se pueden realizar en el sistema según el rol del usuario.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{6.5cm} | >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{3cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Requisito}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Empleado}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Jefe Proyecto}} \\
+	\hline
+		 \textbf{Login} & X & X \\
+		 \hline
+		 \textbf{Logout} & X & X \\
+		 \hline
+		 \textbf{Crear decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Modificar decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Eliminar decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Adjuntar ficheros} & X & X \\
+		 \hline
+		 \textbf{Aceptar o rechazar decisiones} & & X \\
+		 \hline
+		 \textbf{Consultar decisiones} & X & X \\
+		 \hline
+		 \textbf{Visualizar compañía} & X & X \\
+		 \hline
+		 \textbf{Consultar notificaciones} & X & X \\
+		 \hline
+		 \textbf{Modificar notificación} & X & X \\
+		 \hline
+		 \textbf{Eliminar notificación} & X & X \\
+		 \hline
+		 \textbf{Dar de alta proyecto} &  & X \\
+		 \hline
+		 \textbf{Modificar proyecto} &  & X \\
+		 \hline
+		 \textbf{Consultar usuarios} & X & X \\
+		 \hline
+		 \textbf{Seleccionar proyecto activo} & X & X \\
+		 \hline
+		 \textbf{Aconsejar decisiones de proyectos similares} & & X \\
+		 \hline
+		 \textbf{Generación estadísticas} & & X \\
+		 \hline
+		 \textbf{Generación informes} & & X \\
+		 \hline
+		 \textbf{Consultar idiomas} & X & X \\
+		 \hline
+		 \textbf{Cambiar idioma} & X & X \\
+		 \hline
+		 \textbf{Exportar información} &  & X \\
+		 \hline
+\end{tabular}
+\caption{Acciones que un usuario puede realizar en el sistema - v2.0}
+\label{table:acciones2}
+\end{table}
+
+
+\subsubsection{Modelo de casos de uso}
+
+En la Figura \ref{fig:casos2Cliente} se muestra el diagrama de casos de usos global del cliente, incluyendo los nuevos requisitos. Del mismo modo, en la Figura \ref{fig:casos2Server} se muestra el diagrama de casos de uso actualizado del subsistema servidor.
+
+
+\imagen{Cap5/Cliente2/casos2Cliente}{1.0}{Diagrama de casos de uso - Cliente - v2.0}{fig:casos2Cliente}
+
+\imagen{Cap5/Server2/casos2Server}{2.0}{Diagrama de casos de uso - Servidor - v2.0}{fig:casos2Server}
+
+
+A continuación, para cada uno de los grupos funcionales del sistema, se representan los diagramas de casos de uso detallados que han sufrido un cambio respecto a los casos de uso descritos en la fase de Inicio.
+
+
+\paragraph{Visualización de decisiones}
+
+En la Figura \ref{fig:CduVisualizarDecisiones2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduVisualizarDecisiones2Server} se observa el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente2//CduVisualizarDecisiones}{1.0}{Diagrama de casos de uso - Cliente - Visualizar información - v2.0}{fig:CduVisualizarDecisiones2Cliente}
+
+\imagen{Cap5/Server2//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Visualizar información - v2.0}{fig:CduVisualizarDecisiones2Server}
+
+
+\paragraph{Gestión de decisiones}
+
+En la Figura \ref{fig:CduGestionDecisiones2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionDecisiones2Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente2//CduGestionDecisiones}{1.0}{Diagrama de casos de uso - Cliente - Gestión decisiones - v2.0}{fig:CduGestionDecisiones2Cliente}
+
+
+\imagen{Cap5/Server2//CduGestionDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Gestión decisiones - v2.0}{fig:CduGestionDecisiones2Server}
+
+
+\paragraph{Generación de estadísticas}
+
+En la Figura \ref{fig:CduGeneracionEstadisticas2Cliente} se muestra el diagrama de casos de uso para el cliente. Esta funcionalidad es exclusiva del cliente, ya que, utilizando los datos que proporciona el servidor, las gráficas se generan y muestran en el cliente, ya que los tipos de gráficas son independientes del servidor y dependen de la tecnología utilizada para representarlas en el cliente.
+
+\imagen{Cap5/Cliente2//CduGeneracionEstadisticas}{2.0}{Diagrama de casos de uso - Cliente - Generación Estadísticas - v2.0}{fig:CduGeneracionEstadisticas2Cliente}
+
+
+\paragraph{Generación de informes}
+
+En la Figura \ref{fig:CduGeneracionInformes2Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGeneracionInformes2Server} se muestra el diagrama de casos de uso para el servidor.
+
+
+\imagen{Cap5/Cliente2//CduGeneracionInformes}{2.0}{Diagrama de casos de uso - Cliente - Generación Informes - v2.0}{fig:CduGeneracionInformes2Cliente}
+
+\imagen{Cap5/Server2//CduGeneracionInformes}{2.0}{Diagrama de casos de uso - Servidor - Generación Informes - v2.0}{fig:CduGeneracionInformes2Server}
+
+
+
+
+\subsubsection{Plan de iteraciones}
+
+Una vez identificados nuevos requisitos y modelados los casos de uso del sistema con esos nuevos requisitos, se reorganiza el plan de proyecto con nuevas iteraciones, para poder tener en cuenta el desarrollo de los nuevos casos de uso. Por tanto, a partir de las iteraciones planificadas en la Tabla \ref{table:iteraciones1}, se obtiene el nuevo plan de iteraciones mostrado en la Tabla \ref{table:iteraciones2} (teniendo en cuenta que la fase de inicio ya se ha completado).
+
+\begin{center}
+\begin{longtable}%[h]%
+%\centering
+%\begin{logn}
+{| >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{2cm} | >{\arraybackslash}m{8cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+		\hline
+		\endhead
+		
+	\multicolumn{1}{|c|}{\colorCelda Inicio} & 1 &
+		 Identificar requisitos \newline 
+		 Analizar la viabilidad del proyecto \newline
+		 Crear modelo de casos de uso de alto nivel \newline
+		 Plan de proyecto \\
+	\hline
+	\multirow{2}{*}{\colorCelda Elaboración} \colorCelda & 1 &
+		 Identificar requisitos \newline 
+		 Crear modelo de casos de uso \newline 
+		 Diseñar arquitectura \newline
+		 Crear modelo de clases de análisis \\ 
+	\cline{2-3}
+		 \colorCelda & 2 & 
+		 Diseñar caso de uso \textbf{Acceso al sistema} \newline
+		 Implementar caso de uso \textbf{Acceso al sistema} \newline
+		 Probar caso de uso \textbf{Acceso al sistema} \\
+	\hline
+	\multirow{-2}{*}{\colorCelda Construcción} 
+	   \colorCelda & 1 & 
+		 Diseñar caso de uso \textbf{Visualizar información} \newline
+		 Implementar caso de uso \textbf{Visualizar información} \newline
+		 Probar caso de uso \textbf{Visualizar información} \\
+		 \cline{2-3}
+	   \colorCelda & 2 &
+		 Diseñar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \newline
+		 Implementar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \newline
+		 Probar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \\
+		 \cline{2-3}
+		 \colorCelda & 3 & 
+		 Diseñar caso de uso \textbf{Gestión proyectos} \newline
+		 Implementar caso de uso \textbf{Gestión proyectos} \newline
+		 Probar caso de uso \textbf{Gestión proyectos} \\
+		\cline{2-3}
+		\colorCelda & 4 & 
+	   Diseñar casos de uso \textbf{Generación de estadísticas} y \textbf{Generación de informes} \newline
+		 Implementar casos de uso \textbf{Generación de estadísticas} y \textbf{Generación de informes} \newline
+		 Probar casos de uso \textbf{Generación de estadísticas} y \textbf{Generación de informes} \\
+		 \cline{2-3}
+		 \colorCelda & 5 & 
+	   Diseñar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
+		 Implementar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
+		 Probar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \\
+		 \hline
+	\multicolumn{1}{|c|}{\colorCelda Transición} & 1 &
+		 Preparar entregables \newline
+		 Realizar documentación y manuales \\
+	\hline
+\caption{Plan de iteraciones actualizado}
+\label{table:iteraciones2} 
+\end{longtable}
+\end{center}
+
+
+\subsubsection{Análisis de casos de uso} \label{sec:analisis}
+
+Los casos de uso obtenidos anteriormente se especifican de manera más formal y en detalle, describiendo el funcionamiento de cada uno de ellos y sus escenarios. Además, para cada uno de ellos, se crea el diagrama de clases de análisis, que representa las acciones que se llevan a cabo entre las clases de dominio identificadas para dar soporte a cada caso de uso. Existen tres tipos de clases: 
+
+\begin{enumerate}
+	\item \textbf{Interfaz o \textit{Boundary}}: representa clases utilizadas para la comunicación entre el actor y el sistema.
+	\item \textbf{Control}: representa clases y objetos de control. Es la que controla y coordina el flujo (o escenario) de funcionamiento del caso de uso.
+	\item \textbf{Entidad o \textit{Entity}}: son clases que representan objetos de información persistentes del sistema.
+\end{enumerate}
+
+En los sucesivos apartados se describen los casos de uso que componen el sistema y se muestran los diagramas de clases de análisis para cada uno de ellos. 
+
+Señalar que para los casos de uso se describe su funcionamiento desde un punto de vista global al sistema, sin entrar en detalle para cada subsistema, ya que lo que interesa es describir a alto nivel su funcionamiento. Posteriormente, con los diagramas de clases de análisis, de secuencia y de clases de diseño, se irá profundizando más en detalle en el flujo que se sigue específicamente en cada subsistema.
+
+
+\paragraph{Acceso al sistema}
+
+\subparagraph{Login}
+
+En la Tabla \ref{table:flujosLogin} se describe el caso de uso \textit{Login}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Iniciar sesión (Login) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para que un usuario pueda acceder al sistema \\
+	\hline
+	\textbf{Precondiciones}: Disponer de nombre de usuario y contraseña y estar dado de alta en al menos un proyecto \\
+	\hline
+	\textbf{Post-condiciones}: El usuario accede al sistema \\
+	\hline 
+	\textbf{Flujo principal}:
+	\vspace{-4mm}
+	\begin{enumerate}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{-7.5pt}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{0pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item Se crea una sesión para el usuario.
+	\item Se muestran los proyectos en los que el usuario está dado de alta.
+	\item El usuario elige uno de los proyectos.
+	\item El usuario accede al sistema para trabajar sobre ese proyecto.
+	\vspace{-6mm}
+	\end{enumerate} 
+	\\	
+	\hline
+	\textbf{Flujo alternativo 1: error de Login}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item El usuario no es válido. Se informa del error y se vuelve al comienzo.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\	
+	\hline
+	\textbf{Flujo alternativo 2: usuario inexistente}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item El usuario no existe. Se informa del error y se vuelve al comienzo.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 3: usuario ya logueado}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item Ya existe una sesión para ese usuario. Se cierra dicha sesión y se crea una nueva.
+	\item Se muestran los proyectos en los que el usuario está dado de alta.
+	\item El usuario elige uno de los proyectos.
+	\item El usuario accede al sistema para trabajar sobre ese proyecto.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 4: no existen proyectos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{-7.5pt}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{0pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item Se crea una sesión para el usuario.
+	\item Se consultan los proyectos en los que el usuario está dado de alta.
+	\item El usuario no tiene ningún proyecto. Se informa del error y se vuelve al comienzo.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\
+	\hline 
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Login}}
+\label{table:flujosLogin}
+\end{table}
+
+En la Figura \ref{fig:analisisLoginCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisLoginServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisLoginCliente}{2.0}{Diagrama de clases de análisis - Cliente - Login}{fig:analisisLoginCliente}
+\imagen{Cap5/Server2//analisisLoginServer}{2.0}{Diagrama de clases de análisis - Servidor - Login}{fig:analisisLoginServer}
+
+
+\subparagraph{Logout}
+
+En la Tabla \ref{table:flujosLogout} se describe el caso de uso \textit{Logout}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Cerrar sesión (Logout) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para que un usuario pueda desconectarse del sistema \\
+	\hline
+	\textbf{Precondiciones}: El usuario debe estar conectado en el sistema \\
+	\hline
+	\textbf{Post-condiciones}: El usuario se desconecta del sistema \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario cierra sesión.
+	\item Se elimina la sesión del usuario.
+	\item Se elimina al usuario del sistema.
+	\item Se vuelve a la pantalla de inicio.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Logout}}
+\label{table:flujosLogout}
+\end{table}
+
+En la Figura \ref{fig:analisisLogoutCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisLogoutServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisLogoutCliente}{2.0}{Diagrama de clases de análisis - Cliente - Logout}{fig:analisisLogoutCliente}
+\imagen{Cap5/Server2//analisisLogoutServer}{2.0}{Diagrama de clases de análisis - Servidor - Logout}{fig:analisisLogoutServer}
+
+
+
+\paragraph{Visualizar decisiones}
+
+\subparagraph{Consultar decisiones}
+
+En la Tabla \ref{table:flujosConsultarDecisiones} se describe el caso de uso \textit{Consultar decisiones}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Consultar decisiones \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para consultar las decisiones (y toda su información relacionada) de un proyecto. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se consultan las decisiones de un proyecto y se muestran. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario inicia la acción para consultar las decisiones de un proyecto.
+	\item El sistema consulta las decisiones del proyecto.
+	\item El sistema consulta la información asociada a las decisiones.
+	\item Se muestran las decisiones encontradas.
+	\item Se muestra la información asociada a las decisiones.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: no existen decisiones}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario inicia la acción para consultar las decisiones de un proyecto.
+	\item El sistema consulta las decisiones del proyecto.
+	\item Se muestra mensaje de que no hay ninguna decisión.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Consultar decisiones}}
+\label{table:flujosConsultarDecisiones}
+\end{table}
+
+La Figura \ref{fig:analisisConsultarDecisionesCliente} representa el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarDecisionesServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisConsultarDecisionesCliente}{2.0}{Diagrama de clases de análisis - Cliente - Consultar Decisiones}{fig:analisisConsultarDecisionesCliente}
+
+\imagen{Cap5/Server2//analisisConsultarDecisionesServer}{2.0}{Diagrama de clases de análisis - Servidor - Consultar Decisiones}{fig:analisisConsultarDecisionesServer}
+
+
+
+\subparagraph{Consultar compañía}
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Consultar compañía \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para consultar los detalles de una compañía. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se consultan los detalles de una compañía y se muestran. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario inicia la acción para consultar los detalles de una compañía.
+	\item El sistema consulta los datos de la compañía.
+	\item Se muestran los datos de la compañía.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Consultar compañía}}
+\label{table:flujosConsultarCompañía}
+\end{table}
+
+La Figura \ref{fig:analisisConsultarCompanyiaCliente} representa el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarCompanyiaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+
+\imagen{Cap5/Cliente2//analisisConsultarCompanyiaCliente}{0.64}{Diagrama de clases de análisis - Cliente - Consultar compañía}{fig:analisisConsultarCompanyiaCliente}
+
+\imagen{Cap5/Server2//analisisConsultarCompanyiaServer}{2.0}{Diagrama de clases de análisis - Servidor - Consultar compañía}{fig:analisisConsultarCompanyiaServer}
+
+
+\paragraph{Gestión decisiones}
+
+\subparagraph{Crear decisión}
+
+Este es un caso de uso del que heredan otros tres casos, según el tipo de decisión que se desee crear (ver Figura \ref{fig:CduGestionDecisiones2Server}). A continuación se describen cada uno de los casos de uso.
+
+En la Tabla \ref{table:flujosCrearTema} se describe el caso de uso \textit{Crear Decisión - Crear Tema}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Crear Decisión - Crear Tema (\textit{Topic}) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para crear un nuevo Tema en un proyecto. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se crea un nuevo Tema para un proyecto. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El jefe de proyecto introduce un título y descripción para el Tema.
+	\item El sistema valida los datos introducidos.
+	\item Se crea el nuevo Tema para el proyecto.
+	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
+	\item Se refrescan y actualizan las decisiones.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: datos incompletos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El jefe de proyecto introduce un título y descripción para el Tema.
+	\item El sistema valida los datos introducidos.
+	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos del Tema.
+	\vspace{-4mm}
+	\end{enumerate}	
+	\\
+	\hline
+	\textbf{Flujo alternativo 2: Tema ya existente}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El jefe de proyecto introduce un título y descripción para el Tema.
+	\item El sistema valida los datos introducidos.
+	\item Ya existe ese Tema. Se muestra un mensaje y se vuelven a solicitar los datos.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Crear decisión - Crear Tema}}
+\label{table:flujosCrearTema}
+\end{table}
+
+En la Figura \ref{fig:analisisCrearTemaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisCrearTemaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisCrearTemaCliente}{2.0}{Diagrama de clases de análisis - Cliente - Crear Tema}{fig:analisisCrearTemaCliente}
+\imagen{Cap5/Server2//analisisCrearTemaServer}{2.0}{Diagrama de clases de análisis - Servidor - Crear Tema}{fig:analisisCrearTemaServer}
+
+
+En la Tabla \ref{table:flujosCrearPropuesta} se describe el caso de uso \textit{Crear Decisión - Crear Propuesta}. 
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Crear Decisión - Crear Propuesta (\textit{Proposal}) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para crear una nueva Propuesta en un proyecto. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se crea una nueva Propuesta para un proyecto. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona un Tema.
+	\item El usuario introduce los datos de la nueva Propuesta.
+	\item El sistema valida los datos introducidos.
+	\item Se crea la nueva Propuesta para el Tema seleccionado.
+	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
+	\item Se refrescan y actualizan las decisiones.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: datos incompletos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona un Tema.
+	\item El usuario introduce los datos de la nueva Propuesta.
+	\item El sistema valida los datos introducidos.
+	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos de la Propuesta.
+	\vspace{-4mm}
+	\end{enumerate}	
+	\\
+	\hline
+	\textbf{Flujo alternativo 2: Propuesta ya existente}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona un Tema.
+	\item El usuario introduce los datos de la nueva Propuesta.
+	\item El sistema valida los datos introducidos.
+	\item Ya existe esa Propuesta. Se muestra un mensaje y se vuelven a solicitar los datos.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Crear decisión - Crear Propuesta}}
+\label{table:flujosCrearPropuesta}
+\end{table}
+
+En la Figura \ref{fig:analisisCrearPropuestaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisCrearPropuestaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisCrearPropuestaCliente}{2.0}{Diagrama de clases de análisis - Cliente - Crear Propuesta}{fig:analisisCrearPropuestaCliente}
+\imagen{Cap5/Server2//analisisCrearPropuestaServer}{2.0}{Diagrama de clases de análisis - Servidor - Crear Propuesta}{fig:analisisCrearPropuestaServer}
+
+
+En la Tabla \ref{table:flujosCrearRespuesta} se describe el caso de uso \textit{Crear Decisión - Crear Respuesta}. 
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Crear Decisión - Crear Respuesta (\textit{Answer}) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para crear una nueva Respuesta en un proyecto. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se crea una nueva Respuesta para un proyecto. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona una Respuesta.
+	\item El usuario introduce los datos de la nueva Respuesta.
+	\item El sistema valida los datos introducidos.
+	\item Se crea la nueva Respuesta para la Propuesta seleccionada.
+	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
+	\item Se refrescan y actualizan las decisiones.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: datos incompletos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona una Propuesta.
+	\item El usuario introduce los datos de la nueva Respuesta.
+	\item El sistema valida los datos introducidos.
+	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos de la Respuesta.
+	\vspace{-4mm}
+	\end{enumerate}	
+	\\
+	\hline
+	\textbf{Flujo alternativo 2: Respuesta ya existente}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona una Propuesta.
+	\item El usuario introduce los datos de la nueva Respuesta.
+	\item El sistema valida los datos introducidos.
+	\item Ya existe esa Respuesta. Se muestra un mensaje y se vuelven a solicitar los datos.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Crear decisión - Crear Respuesta}}
+\label{table:flujosCrearRespuesta}
+\end{table}
+
+En la Figura \ref{fig:analisisCrearRespuestaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisCrearRespuestaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisCrearRespuestaCliente}{2.0}{Diagrama de clases de análisis - Cliente - Crear Respuesta}{fig:analisisCrearRespuestaCliente}
+
+\imagen{Cap5/Server2//analisisCrearRespuestaServer}{2.0}{Diagrama de clases de análisis - Servidor - Crear Respuesta}{fig:analisisCrearRespuestaServer}
+
+
+
+Del mismo modo que los anteriores, se detallan los escenarios y se crean sus diagramas de clases de análisis para los siguientes casos de uso:
+
+\clearpage
+
+\begin{itemize}
+\item \textbf{Gestión de decisiones}
+\begin{itemize}
+	\item Modificar Tema
+	\item Modificar Propuesta
+	\item Modificar Respuesta
+	\item Eliminar Tema
+	\item Eliminar Propuesta
+	\item Eliminar Respuesta
+	\item Aceptar decisión
+	\item Adjuntar fichero
+	\end{itemize}
+\item \textbf{Gestión de notificaciones}
+	\begin{itemize}
+	\item Consultar notificación
+	\item Modificar notificación
+	\item Eliminar notificación
+	\end{itemize}
+\item \textbf{Gestión de proyectos}
+	\begin{itemize}
+	\item Consultar proyectos
+	\item Crear proyecto
+	\item Modificar proyecto
+	\item Seleccionar proyecto activo
+	\item Aconsejar decisiones
+	\end{itemize}
+\item \textbf{Generación de estadísticas}
+	\begin{itemize}
+	\item Generación de estadísticas
+	\end{itemize}
+\item \textbf{Generación de informes}
+	\begin{itemize}
+	\item Generación de informes
+	\end{itemize}
+\item \textbf{Gestión de idiomas}
+	\begin{itemize}
+	\item Cambiar idioma
+	\end{itemize}
+\item \textbf{Exportar conocimiento}
+	\begin{itemize}
+	\item Exportar conocimiento
+	\end{itemize}
+\end{itemize}
+
+Se ha decidido no incorporar todos estos diagramas por la gran cantidad de diagramas que existen, para no aumentar excesivamente la longitud del documento.
+
+
+\subsubsection{Arquitectura del sistema} \label{sec:arquitectura}
+
+Al final de esta primera iteración de la fase de elaboración, se comienza con el diseño del sistema. En este caso se define y diseña su arquitectura. En posteriores iteraciones y fases, se continuará con la labor de diseño del sistema, creando los diagramas de secuencia para cada caso de uso y el diagrama de clases de diseño, siendo la base para la posterior implementación.
+
+\paragraph{Arquitectura cliente-servidor}
+
+Como se comentó en el apartado \ref{label:reqnofuncionales}, el sistema a desarrollar debe ser distribuido, para poder ser utilizado desde localizaciones diferentes, por lo que se ha decidido utilizar una arquitectura cliente-servidor. De esta forma, el sistema completo se divide en dos subsistemas:
+
+\begin{itemize}
+	\item \textbf{Subsistema Cliente}: este subsistema es el utilizado por los miembros de los equipos de desarrollo deslocalizados. Este subsistema es el que se encarga de mostrar la interfaz gráfica de usuario, recoger las acciones que el usuario desea hacer y enviar dicha acción al servidor, esperando su respuesta para actualizar la interfaz gráfica en consecuencia.
+	\item \textbf{Subsistema Servidor}: este subsistema se encarga de recibir las peticiones del subsistema cliente, procesarlas, almacenar y recuperar información de su base de datos y enviar la respuesta al cliente. También se encarga de que todas las acciones queden registradas.
+\end{itemize}
+
+Así, cada uno de los subsistemas se puede encontrar en máquinas diferentes, pues, siguiendo la
+arquitectura cliente-servidor, se comunican a través de \textbf{RMI} (ver sección \ref{sec:marco}). Además,
+la base de datos utilizada por el servidor también se pueden encontrar en una máquina
+diferente a la máquina donde se encuentre el servidor. 
+
+Por tanto, algunas ventajas de utilizar este enfoque distribuido siguiendo la arquitectura cliente-servidor son:
+
+\begin{itemize}
+	\item \textbf{Centralización del control}: toda la lógica de dominio y control está centralizada en el servidor, por lo que el sistema cliente es totalmente independiente de la implementación
+del servidor. Del mismo modo, el sistema cliente es independiente de como se realiza la gestión
+del conocimiento en el servidor. Además, los accesos, recursos y la integridad de los datos son
+controlados por el servidor de forma que un cliente defectuoso o no autorizado no pueda dañar
+el sistema.
+	\item \textbf{Escalabilidad}: se pueden añadir nuevos tipos de sistemas clientes para que se comuniquen
+con el servidor.
+	\item \textbf{Fácil mantenimiento}: al estar los sistemas distribuidos en diferentes máquinas, es posible
+reemplazar, reparar o actualizar el servidor, mientras que sus clientes no se verán afectados
+por ese cambio.
+\end{itemize}
+
+En la Figura \ref{fig:despliegue} se muestra una vista de los subsistemas que integran el sistema global y
+como se comunican dichos sistemas a través de interfaces, facilitando la distribución de cada uno
+de los sistemas en diferentes máquinas. 
+
+\imagen{Cap5/Server2//Despliegue}{2.0}{Arquitectura cliente-servidor}{fig:despliegue}
+
+
+\paragraph{Arquitectura multicapa}
+
+En cuanto a la arquitectura de implementación, ambos sistemas, cliente y servidor, serán desarrollados siguiendo una arquitectura multicapa, de modo que se pueda aislar la capa de presentación de la de la lógica de dominio y ésta de la capa de persistencia (ver Figura \ref{fig:multicapa}).
+
+\imagenBorde{Cap5//multicapa}{0.4}{Arquitectura multicapa}{fig:multicapa}
+
+De este modo, las capas con las que cuenta cada subsistema son las siguientes:
+
+\begin{itemize}
+	\item Cliente: comunicaciones, dominio y presentación.
+	\item Servidor: comunicaciones, dominio, persistencia y presentación.
+\end{itemize}
+
+Más concretamente, estas capas se traducirán a paquetes de implementación, donde cada uno agrupara los siguientes elementos:
+
+\begin{itemize}
+	\item \textbf{Comunicaciones}: contiene las clases e interfaces necesarias para la comunicación de los subsistemas a través de RMI.
+	\item \textbf{Dominio}: contiene todos los objetos del dominio de la aplicación.
+	\item \textbf{Persistencia}: contiene las clases encargadas de gestionar la persistencia de los objetos de dominio.
+	\item \textbf{Presentación}: contiene todas las vistas de la interfaz gráfica de usuario, organizadas en subpaquetes. 
+\end{itemize}
+
+En la Figura \ref{fig:paquetes} puede observarse esta arquitectura multicapa y las relaciones entre dichas capas.
+
+\imagen{Cap5/Server2//DivisionCapas}{2.0}{Arquitectura multicapa}{fig:paquetes}
+
+Utilizando este enfoque multicapa, se sigue el principio de mínimo acoplamiento y máxima
+cohesión, desacoplando los elementos de una capa de los de otra. De este modo, se facilita el
+mantenimiento y extensibilidad del sistema, pues cuando se realice el cambio en algún elemento
+de una capa, el resto de capas no se verán afectadas.
+
+
+\paragraph{Patrones utilizados} 
+
+En cuanto a los patrones de diseño, se han utilizado los siguientes para el desarrollo del sistema:
+
+\begin{itemize}
+	\item \textbf{Singleton}: patrón que asegura que para una determinada clase solo exista una única instancia y provee un punto de acceso a ella. Se utiliza para implementar el patrón Agente y para otras clases que deben ser únicas en el sistema.
+	\item \textbf{Agente}: patrón utilizado para gestionar acceso y manipulación a ficheros.
+	\item \textbf{DAO (Data Access Object)}: patrón que permite separar los objetos de dominio de su persistencia, haciendo independiente cómo se almacenan. Se ha utilizado este patrón para gestionar la persistencia de los objetos de dominio.
+	\item \textbf{Observador}: patrón que permite que los cambios sobre un objeto se notifiquen directamente al conjunto de objetos dependientes (observados). Se utiliza para gestionar varias conexiones de bases de datos y para notificar a los clientes cambios que se produzcan en el sistema.
+	\item \textbf{Fachada}: patrón que proporciona una interfaz de alto nivel que delega posteriormente en una o varias clases. Se ha utilizado para implementar la interfaz de operaciones del servidor, que el subsistema cliente puede utilizar.
+	\item \textbf{Proxy}:	patrón que proporciona el acceso a otro objeto, normalmente remoto. Se ha utilizado para comunicar ambos subsistemas por RMI.
+	\item \textbf{Iterator}: patrón que proporciona un mecanismo para acceder y recorrer objetos secuencialmente, sin exponer su representación. Se ha utilizado para recorrer enumeraciones y colecciones.
+\end{itemize}
+
+
+\subsection{Segunda iteración} 
+
+Al finalizar la iteración anterior, en la que se identificaron nuevos requisitos, éstos se añadieron como nuevos casos de uso, se crearon las clases de análisis y se especificó la arquitectura del sistema, se realizó otra reunión de seguimiento antes de comenzar la nueva iteración, para revisar y validar todos estos artefactos obtenidos.
+
+En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones y el resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comenzó con el diseño, implementación y pruebas de los casos de uso identificados.
+
+Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al utilizar una arquitectura cliente-servidor, el subsistema del servidor es el encargado de toda la lógica y control de dominio y persistencia, por lo que es donde más hincapié se hará en los diagramas de diseño, mientras que el cliente se encarga de proporcionar la interfaz gráfica del sistema, validar los datos que introduce el usuario y enviar y recibir las peticiones del servidor.
+
+Señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
+
+Las tareas a realizar en esta iteración son:
+
+\begin{itemize}
+	\item Diseño de clases del dominio.
+	\item Diseño de la base de datos.
+	\item Definición y diseño de la arquitectura del sistema.
+	\item Implementación del control de acceso al sistema, así como la implementación de la arquitectura cliente-servidor.
+	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la comunicación entre ambos subsistemas y del acceso al sistema.
+\end{itemize}
+
+\subsubsection{Diagrama de clases de dominio} \label{modeloDominio}
+
+En esta segunda iteración de la fase de elaboración, se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
+
+Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, se han modelado las siguientes clases de conocimiento, junto con sus relaciones:
+
+\begin{itemize}
+	\item \textbf{User}: una clase abstracta que representa los usuarios que pueden acceder y hacer uso del sistema. De ella heredan dos clases, que son \textit{Employee} y \textit{ChiefProject}, representando los diferentes roles de usuarios que existen en el sistema. Estas clases concretas implementan el método abstracto \textit{getRole()}, devolviendo el rol correspondiente a cada clase. Es una clase persistente.
+	\item \textbf{Company}: clase que representa una sede de una compañía donde trabajan los diferentes usuarios del sistema. Es una clase persistente.
+	\item \textbf{Address}: representa la dirección física de una sede de una compañía, representando su dirección, ciudad, país, etc.. Es una clase persistente.
+	\item \textbf{Project}: es la clase que representa un proyecto software donde trabajan los usuarios del sistema. Es una clase persistente.
+	\item \textbf{Session}: es la clase encargada de almacenar toda la información sobre las sesiones que se inicien en el sistema.
+	\item \textbf{Knowledge}: es una clase abstracta que representa el conocimiento del sistema. En este caso, son las decisiones tomadas en cada proyecto por los diferentes usuarios que en participan en los proyectos. De esta clase heredan las clases concretas \textit{Topic}, \textit{Proposal} y \textit{Answer}, formando la jerarquía de decisiones que se detallará en el apartado \ref{sec:visualizarDecisiones}. Es una clase persistente.
+	\item \textbf{TopicWrapper}: es una clase que representa el conjunto de temas (\textit{topics}) presentes en un proyecto.
+	\item \textbf{File}: clase que representa un fichero que puede adjuntarse a una decisión. Es una clase persistente.
+	\item \textbf{Notification}: clase que representa una notificación o alerta que se crea en el sistema cuando se provoca un cambio en las decisiones de un proyecto. Es una clase persistente.
+	\item \textbf{PDFElement}: esta clase representa los elementos que van a componer un documento PDF. De ella heredan los diferentes elementos usados en un documento PDF, como son \textit{PDFTable}, \textit{PDFText} y \textit{PDFTitle}. Gracias a esta herencia, se podrá usar el polimorfismo a la hora de componer las secciones del documento PDF.
+	\item \textbf{PDFSection}: representa una sección de un documento PDF, compuesta de diferentes elementos.
+	\item \textbf{PDFConfiguration}: clase que representa la información de un documento PDF, compuesto de un conjunto de secciones.
+	\item \textbf{Coordinates}: esta clase representa las coordenadas geográficas de una dirección de una sede de una compañía.
+	\item \textbf{Operation}: clase que representa las acciones que se pueden realizar en el sistema.
+	\item \textbf{LogEntry}: por la especificación de requisitos, se debe mantener un histórico de todas las
+acciones realizadas en el sistema. Por tanto, esta es la clase que almacena información sobre
+quién, cuándo y qué acción se ha realizado. Es una clase persistente.
+\end{itemize}
+
+En cuanto a las relaciones entre las clases anteriores, se han modelado las siguientes:
+
+\begin{itemize}
+	\item Un usuario se relaciona con una compañía en la que trabaja, y se relaciona con uno o más proyectos en los que participa. A su vez, en cada proyecto trabajan varios usuarios.
+	\item Una compañía se asocia con una dirección.
+	\item Una sesión se relaciona con un usuario, que es el que se identifica e inicia sesión en el sistema.
+	\item Cada clase que representa una decisión (\textit{Knowledge}) se asocia con un usuario, que es el autor que la crea.
+	\item Cada tema (\textit{Topic}) se asocia con 0 o más propuestas (\textit{Proposal}) y con un proyecto, que es donde se crea.
+	\item Cada propuesta se asocia con 0 o más respuestas (\textit{Answer}).
+	\item El conjunto de temas (\textit{TopicWrapper)} se asocia con 0 o más temas.
+	\item Un fichero se adjunta para una decisión, y cada decisión puede tener 0 o más ficheros adjuntos.
+	\item Una notificación se asocia con una decisión, un proyecto y uno o más usuarios (todos los que trabajan en ese proyecto).
+	\item Una tabla del documento PDF (\textit{PDFTable}) se asocia con un proyecto, para conocer y generar toda la información de ese proyecto.
+	\item Una sección del documento PDF (\textit{PDFSection}) se compone de uno o más elementos del documento PDF (\textit{PDFElement)}, para componer la sección.
+	\item Un documento PDF (\textit{PDFConfiguration}) se compone de una o más secciones del documento (\textit{PDFSection}).
+	\item La clase \textit{LogEntry} utiliza la clase usuario para consultar el nombre de usuario que ha realizado una acción en el sistema.
+\end{itemize}
+
+En la Figura \ref{fig:clasesDominio} se puede observar este diagrama de clases de dominio.
+
+\begin{figure}[!htbp]
+ \begin{center}
+   \includegraphics[scale=0.6,angle=90]{Cap5/Server2//clasesDominio}
+ \caption {Diagrama de clases de dominio}
+ \label{fig:clasesDominio}
+ \end{center}
+ \end{figure}
+
+\subsubsection{Diseño de la base de datos}
+
+A partir de las clases de dominio persistentes y sus relaciones, se modela y diseña la base de datos para que los objetos de dominio puedan ser persistentes. Para realizar esto, se han tenido en cuenta las siguientes consideraciones a la hora de diseñar la base de datos:
+
+\begin{itemize}
+	\item Para representar la jerarquía de herencia de las clases \textit{User}, \textit{Employee} y \textit{ChiefProject}, se ha utilizado el patrón de persistencia \textbf{1 árbol de herencia, 1 tabla},
+por lo que sólo se creará la tabla \textit{Users}, que agrupará los atributos de todas las entidades
+anteriores. Sin embargo, es necesario añadir un nuevo atributo a la tabla \textit{Users} para indicar
+el rol del usuario, correspondiente a cada una de las subclases.
+La razón de utilizar dicho patrón es agrupar en única tabla toda la jerarquía de herencia que
+existe entre esas clases en el modelo de dominio, pues ninguna de las clases \textit{Employee} ni \textit{ChiefProject}
+añaden nuevos atributos a la clase \textit{User}, por lo que no se van a obtener
+atributos (columnas) nulas en la tabla resultante.
+	\item En la tabla \textit{LogEntries}, obtenida al transformar la clase \textit{LogEntry} en una tabla, la columna
+”usuario” puede ser vacía, pues hay acciones que no están asociadas a ningún usuario
+del sistema, como, por ejemplo, iniciar o detener el servidor.
+	\item Debido a las asociaciones n:m (o \textit{muchos a muchos}) entre las clases de \textit{User} y \textit{Project}, y entre las de \textit{Notification} y \textit{User}, es necesario modelar tablas adicionales que permitan modelar dichas asociaciones, utilizando claves ajenas a las tablas que representan las clases que participan en esas asociaciones.
+	\item En la tabla \textit{NotificationsUsers}, que modela la relacion \textit{muchos a muchos} entre usuarios y notificaciones, se ha creado un \textit{trigger} para borrar automáticamente una notificación cuando todos los usuarios a los que iba dirigida ya la han borrado. Esto se comentará más en detalle en el apartado \ref{sec:notificaciones}.
+\end{itemize}
+
+Teniendo en cuenta dichas consideraciones, se obtiene el modelo EER (Entidad-Interrelación Extendido) de la base de datos, mostrado en la Figura \ref{fig:diagramaBD}.
+
+Para terminar, cabe destacar que este modelo se ha creado utilizando la herramienta \textbf{MySQL Workbench} (ver sección \ref{sec:marco}), la cuál permite generar el código SQL necesario para crear las tablas y relaciones de la base de datos a partir de ese modelo, aplicando ingeniería directa.
+
+\imagenBorde{Cap5//diagramaBD}{0.38}{Diagrama EER de la base de datos}{fig:diagramaBD}
+
+
+\subsubsection{Funcionalidad de \textit{Acceso al sistema}}
+
+Una vez se ha definido la arquitectura del sistema, se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar la funcionalidad planificada para esta iteración, que es el acceso al sistema. Por tanto, durante esta iteración, se diseña, implementa y prueba los casos de uso que componen la funcionalidad de \textit{Acceso al sistema}, mostrados en la Figura \ref{fig:CduAccesoSistema1Server}.
+
+\paragraph{Diagramas de secuencia} \label{sec:secuencias}
+
+En primer lugar, se modela el funcionamiento de los casos de uso que la componen (ver Tabla \ref{table:categorias2}) a través de diagramas de secuencia, tanto para el subsistema cliente como para el servidor.
+
+\subparagraph{Login}
+
+En la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Login} en el cliente, mientras que en la Figura \ref{fig:secuenciaLoginServer} se muestra el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaLoginPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Login}{fig:secuenciaLoginCliente}
+
+\imagen{Cap5/Server2//secuenciaLoginPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Login}{fig:secuenciaLoginServer}
+
+
+\subparagraph{Logout}
+
+En la Figura \ref{fig:secuenciaLogoutCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Logout} en el cliente, mientras que en la Figura \ref{fig:secuenciaLogoutServer} se muestra el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaLogoutPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Logout}{fig:secuenciaLogoutCliente}
+
+\imagen{Cap5/Server2//secuenciaLogoutPrincipalServer}{2.5}{Diagrama de secuencia - Servidor - Logout}{fig:secuenciaLogoutServer}
+
+
+
+\paragraph{Diseño e Implementación de la arquitectura cliente-servidor}
+
+Antes de comenzar con la implementación de la funcionalidad del acceso al sistema, es necesario diseñar e implementar la comunicación entre los subsistemas cliente y servidor, siguiendo la arquitectura cliente-servidor definida anteriormente, así como la comunicación entre el servidor y su base de datos.
+
+Por tanto, a continuación se comentan los aspectos reseñables del diseño e implementación de la comunicación entre sistemas.
+
+\subparagraph{Comunicación entre cliente y servidor}
+
+El primer paso es hacer que las clases de dominio mostradas en la Figura \ref{fig:clasesDominio} sean serializables, para poder ser exportadas y enviarse de un sistema a otro. Para ello, dichas clases implementan la interfaz \textit{Serializable} de Java.
+
+A continuación, se diseña e implementa la capa de comunicaciones de ambos sistemas, haciendo uso del patrón \textbf{Proxy}, responsable de establecer conexión con las clases remotas exportadas por cada uno de los subsistemas. Además, para conocer los métodos que pueden invocarse utilizando RMI, se crean interfaces para cada uno de los subsistemas, implementando la interfaz \textit{Remote} provista por RMI.
+
+De este modo, el proxy del servidor implementa la interfaz remota del servidor, la cual contiene todas las operaciones que el cliente puede solicitar al servidor, por lo que es un patrón \textbf{Fachada}. Así, el cliente puede invocar al proxy del servidor como si éste fuera local y estuviera en la misma máquina. De un modo análogo, se implementa el proxy y la interfaz del cliente, para que el servidor pueda enviar y notificar los resultados al cliente.
+
+En la Figura \ref{fig:clasesComunicaciones} se muestra el diagrama de clases para esta capa de comunicaciones.
+
+\imagen{Cap5/Server2//clasesComunicaciones}{2.0}{Diagrama de clases - Capa de comunicación cliente-servidor}{fig:clasesComunicaciones}
+
+
+Conviene destacar que, con el fin de que el sistema funcione correctamente si alguno de los subsistemas pertenece a varias redes, al exportar los objetos remotos se recorren todas las interfaces de red para buscar una IP según el siguiente orden:
+
+\begin{enumerate}
+	\item Si el ordenador pertenece a una red pública, se usa una IP pública.
+	\item Si el ordenador no pertenece a una red pública pero sí a una privada, se utiliza una IP
+privada.
+	\item Si el ordenador no está conectado a ninguna red, se emplea la IP \textit{localhost} (127.0.0.1).
+\end{enumerate}
+
+Además, para que la comunicación con los objetos remotos se establezca correctamente, no
+sólo es necesario indicar la IP al exportar los objetos, sino que también hace falta modificar la
+propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, que
+representa la IP del servidor RMI que contiene los objetos.
+
+En el fragmento de código \ref{list:RMIServer} se muestra como se exporta el objeto que representa al servidor y como se modifica la propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, para que el servidor sea accesible y sus métodos puedan ser invocados por el cliente. 
+
+\texttt{\lstinputlisting[caption=Proceso para exportar un objeto utilizando RMI, breaklines=true, label=list:RMIServer, inputencoding=latin1, style=JavaStyle]{Codigo//RMIServer.java}}
+
+Como se puede observar en el fragmento anterior, para exportar el objeto del servidor se utiliza el método \textit{bind} de la clase \textit{Naming} de RMI, indicando la IP, el puerto y el nombre del objeto exportado. De este modo, en el cliente se utiliza el método \textit{lookup} de la clase \textit{Naming} para localizar ese objeto exportado, utilizando la IP, el puerto y el nombre con el que se exportó. En el fragmento de código \ref{list:RMICliente} se muestra un ejemplo de cómo realizar esta acción.
+
+
+\texttt{\lstinputlisting[caption=Proceso para localizar un objeto remoto utilizando RMI, breaklines=true, label=list:RMICliente, inputencoding=latin1, style=JavaStyle]{Codigo//RMICliente.java}}
+
+
+
+\subparagraph{Comunicación entre servidor y base de datos}
+
+En el paquete de comunicaciones también se ha utilizado el patrón \textbf{Observador} para crear un gestor de conexiones de bases de datos. De este modo, se consigue extensibilidad en las comunicaciones con bases de datos, pues haciendo uso de este observador, se podrían añadir más de una base de datos y este observador sería el encargado de enviar las peticiones a todas ellas. 
+
+Para ello, se ha creado una interfaz que agrupa las operaciones típicas de una base de datos (\textit{CRUD - Create, Read, Update, Delete}), implementada por las diferentes conexiones a bases de datos que pudieran existir. También se ha creado un gestor de conexiones de bases de datos (el observador), que es el encargado de enviar las peticiones a cada una de esas conexiones, utilizando su interfaz. En la Figura \ref{fig:comunicacionesBD} se puede observar el diagrama de clases que representa este observador.
+
+\imagen{Cap5/Server2//clasesObservadorBD}{2.0}{Diagrama de clases - Capa de comunicación para bases de datos}{fig:comunicacionesBD}
+
+En el caso del sistema a desarrollar, sólo existe una base de datos, cuyas operaciones \textit{CRUD} y conexión con la base de datos MySQL es gestionada por \textbf{Hibernate}. Cabe señalar algunos problemas que se detectaron al trabajar con RMI e Hibernate:
+\begin{itemize}
+	\item Hay que clonar las referencias que devuelve Hibernate, para que sean serializables por RMI.
+  \item Al actualizar un objeto, hay que buscarlo primero en la base de datos, pues la referencia que llega por RMI es diferente a la que utiliza Hibernate.  
+  \item Hay que limpiar las cachés que mantiene Hibernate tras hacer una consulta a la base de datos para evitar problemas de referencias.
+\end{itemize}
+
+
+De un modo similar al anterior, se ha utilizado también el patrón \textbf{Observador} para gestionar el \textit{log}, ya que el servidor debe registrar todas las operaciones realizadas por los usuarios. Para ello, se ha creado un gestor de log (el observador) que utiliza interfaces para poder enviar las entradas del log que hay que registrar tanto a la base de datos como a la interfaz gráfica del servidor. De este modo, utilizando este patrón y las interfaces, las entradas de log se crean automáticamente tanto en la base de datos como en la interfaz gráfica, siendo independiente de su implementación. En la Figura \ref{fig:comunicacionesLog} se puede observar el diagrama de clases que representa este observador.
+
+\imagen{Cap5/Server2//clasesObservadorLog}{2.0}{Diagrama de clases - Capa de comunicación para gestionar el log}{fig:comunicacionesLog}
+
+
+\paragraph{Diseño e implementación de acceso al sistema}
+
+Una vez implementada la arquitectura cliente-servidor, y teniendo ya la comunicación entre sistemas y con la base de datos, se siguen los diagramas de secuencia mostrados en el apartado \ref{sec:secuencias} para diseñar e implementar esos casos de uso de la funcionalidad de acceso al sistema en ambos sistemas. A continuación se muestran algunos aspectos a destacar al implementar esta funcionalidad.
+
+\subparagraph{Servidor} 
+
+La clase \textit{Usuario} es abstracta ya que no se van a instanciar objetos directamente de esa clase, sino de una de sus subclases, que representan
+los diferentes usuarios que pueden existir en el sistema, según la especificación de requisitos (ver
+sección \ref{sec:requisitos}), como se observa en el diagrama de clases de la Figura \ref{fig:clasesDominio}.
+
+Además, esta solución propuesta facilita la extensibilidad futura del sistema, ya que el
+rol de cada usuario se define mediante una enumeración, de tal modo que cada subclase
+de la clase Usuario redefinirá el método abstracto \textit{getRol()}, devolviendo el valor correspondiente
+a su rol en la enumeración. Por tanto, para añadir un nuevo rol de usuario, basta con añadir una
+nueva clase que herede de la superclase y un nuevo rol a la enumeración.
+
+Por otra parte, para aumentar la seguridad del sistema, se decidió encriptar la contraseña de
+los usuarios, utilizando para ello el algoritmo \textit{SHA1}. Algunas de las razones para utilizar una
+encriptación por código y no delegar esta responsabilidad en el sistema gestor de base de datos,
+son las siguientes:
+\begin{enumerate}
+	\item Si se quiere cambiar la encriptación a una más segura, no haría falta más que cambiar el
+método que encripta la contraseña.
+	\item Puede que otros SGBD que no sean MySQL no tengan encriptación incorporada.
+	\item El número de encriptaciones que incorpora un SGBD es limitado.
+\end{enumerate}
+
+
+Tras acceder al sistema, la interfaz gráfica de usuario del subsistema cliente se adaptará a las operaciones del usuario logueado, según su rol. Para ello, el gestor de sesiones utiliza archivos XML donde están definidos los perfiles existentes en el sistema y las operaciones que puede realizar este perfil. Así, las operaciones se han dividido en categorías, de tal modo que los elementos de los menús de la aplicación, submenús, \textit{toolbar}, etc, se generarán de manera automática tras acceder al sistema y conocer las operaciones que puede realizar un cierto rol.
+
+De este modo, además de permitir una interfaz de usuario totalmente flexible y adaptable, se facilita la extensibilidad, ya que, además de los cambios mencionados anteriormente, solamente habría que añadir el nuevo perfil y sus operaciones a los ficheros XML alojados en el servidor. Para gestionar estos archivos XML, se ha utilizado el patrón \textbf{Agente} para encapsular en un clase el acceso a los ficheros XML y todas las operaciones a realizar con ellos, como consultas al archivo XML, gestión de XPath, etc, utilizando JDOM y Jaxen (ver sección \ref{sec:marco}).
+ 
+En la Figura \ref{fig:clasesSessionController} se muestra el diagrama de clases para el gestor de sesiones.
+ 
+\imagen{Cap5/Server2//clasesSessionController}{2.0}{Diagrama de clases - Gestor de sesiones}{fig:clasesSessionController}
+
+ 
+\subparagraph{Cliente}
+
+Cabe destacar que la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. 
+
+Gracias a esta estructura, según el rol del usuario que accede al sistema, los menús y diferentes elementos de la interfaz gráfica son fácilmente adaptables a las operaciones que ese usuario pueda realizar en el sistema. Además, para tener en cuenta el multi-idioma, la interfaz se adaptará al idioma elegido y todos sus menús, etiquetas, texto, etc, se mostrarán en el idioma preferido. Este aspecto de internacionalización se detallará en la fase de Construcción.
+
+Para terminar, en lo que respecta a esta funcionalidad de acceso al sistema en el cliente, se ha diseñado e implementado una ventana para que el usuario pueda introducir sus datos, validarlos y enviarlos al servidor, accediendo al sistema si todo es correcto. En este aspecto cabe destacar el uso del método \textit{invokeLater} de la librería Swing (ver sección \ref{sec:marco}) que permite manipular la interfaz gráfica mientras se realiza una tarea de larga duración en un hilo separado. Por tanto, la acción de validar los datos para acceder al sistema y enviarlos al servidor, se realiza en un hilo separado, mientras que en la interfaz gráfica se muestra un panel con un \textit{spinner} de carga (ver Figura \ref{fig:spinner}) animado, para proporcionar al usuario un \textit{feedback} visual y saber que la operación se está realizando y que debe esperar. 
+
+\imagenBorde{Cap5//spinner}{0.5}{Ejemplo de \textit{spinner} de carga}{fig:spinner}
+
+En el fragmento de código \ref{list:login} se muestra como se ha utilizado el método \textit{invokeLater} para crear un nuevo hilo para realizar el acceso al sistema, mostrando el panel con el \textit{spinner} animado.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para acceder al sistema en el cliente, breaklines=true, label=list:login, inputencoding=latin1, style=JavaStyle]{Codigo//login.java}}
+
+\paragraph{Pruebas}
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+

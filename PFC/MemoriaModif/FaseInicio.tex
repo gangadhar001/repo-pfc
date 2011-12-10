@@ -1,0 +1,351 @@
+\section{Fase de Inicio} \label{sec:faseInicio}
+
+La fase de inicio abarca una única iteración, en la cuál, como se indica en esta fase del PUD (ver sección \ref{lbl:inicio}), se llevarán a cabo las siguientes tareas:
+
+\begin{itemize}
+	\item Identificación de requisitos funcionales y no funcionales del sistema a desarrollar.
+	\item Elaboración de un primer modelo de casos de uso.
+  \item Análisis de viabilidad y riesgos.
+  \item Elaboración del plan de iteraciones (o plan de proyecto) para el resto de fases.
+\end{itemize}
+
+En esta fase, como se muestra en la Figura \ref{fig:pudInicio}, interviene principalmente la disciplina de Captura de Requisitos. 
+
+\imagenBorde{Cap5//pudInicio}{1.0}{Fase de inicio en el PUD}{fig:pudInicio}
+
+En los siguientes apartados se exponen las tareas realizadas en esta fase.
+
+\subsection{Identificación de requisitos}
+
+Para la identificación de requisitos del sistema, se estudió la literatura existente relacionada con el tema y se fueron extrayendo requisitos funcionales que pudieran resolver o mitigar los desafíos encontrados en la literatura, desarrollados en el capítulo \ref{ch:estadodelarte}. 
+
+Por otra parte, para que el sistema obtenido como resultado del desarrollo de este proyecto pudiera tener una aplicación real, era necesario conocer el funcionamiento de las empresas que siguen el paradigma de GSD y qué información es relevante para los miembros de los equipos de desarrollo. La información que interesaba conocer era cómo se distribuyen los proyectos, los tipos de roles que participan en el desarrollo, experiencia de los desarrolladores, cómo se distribuyen los equipos en los países, cómo se comunican e intercambian información, etc.
+
+Para poder conocer esta información acerca del dominio de aplicación del sistema, se recurrió a un jefe de proyecto de INDRA Software Labs S.L. Además, también se ha utilizado la propia experiencia del autor y desarrollador del presente PFC en una empresa que cuenta con centros de desarrollo distribuidos en diferentes países.
+
+Una vez estudiada la literatura, conocidos los problemas del GSD y con conocimiento del dominio de la aplicación del sistema, se pasó a elaborar una serie de requisitos funcionales que el sistema debe cumplir para alcanzar los objetivos propuestos en el Capítulo \ref{ch:motivacionyobjetivos}.
+
+
+\subsubsection{Requisitos funcionales} \label{sec:requisitos}
+
+A continuación, se enumera el conjunto de requisitos funcionales que el sistema debe cumplir.
+
+\begin{itemize}
+	\item Se debe permitir que diferentes miembros de los equipos de desarrollo de una compañía puedan acceder al sistema, mediante un nombre de usuario y contraseña, proporcionados por la empresa.
+	\item Como en los equipos de desarrollo existen diferentes roles entre sus miembros, el sistema debe adaptarse a las acciones que cada miembro del equipo (en adelante, usuario) puede realizar, según su rol.
+	\item Se deben poder dar de alta nuevos proyectos en el sistema, así como modificar los existentes, permitiendo seleccionar los usuarios que en dichos proyectos participarán.
+	\item Los miembros del equipo de desarrollo normalmente trabajan en varios proyectos, por lo que el sistema deberá permitir escoger el proyecto en el cuál se van a gestionar las decisiones.	
+	\item Los usuarios pueden participar activamente en las decisiones que se van tomando durante el ciclo de vida de los proyectos en los que participan, de tal modo que la herramienta debe permitir gestionar estas decisiones. Así, se podrán crear, modificar y eliminar dichas decisiones, agrupadas en tres categorías: \textit{Temas}, \textit{Propuestas} y \textit{Respuestas}.
+	\item La herramienta debe mostrar, de una manera gráfica e intuitiva, el conjunto de decisiones que han sido tomadas en un proyecto software. Además, se deberá proporcionar diferente información acerca de esas decisiones: su autor, centro de desarrollo y compañía donde pertenece, detalles de esa decisión, etc.
+	\item Cuando se presenta un nuevo proyecto, se debe poder aconsejar decisiones tomadas en proyectos ya terminados, que tuviesen características similares.
+	\item La herramienta debe proveer mecanismos de notificación síncrona y asíncrona que faciliten la comunicación de las últimas modificaciones:
+	\begin{itemize}
+	\item Se debe crear un sistema de notificaciones o alertas, informando al usuario cuando se producen cambios sobre las decisiones de los proyectos donde trabaja.
+	\item Se deben mostrar cambios en tiempo real, es decir, si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su vista. 
+	\end{itemize}
+	\item La herramienta debe poder configurarse y mostrarse en diferentes idiomas.
+	\item La herramienta debe generar \textit{logs} con las acciones que se van realizando en el sistema.
+	\item Se debe poder exportar todas las decisiones realizadas en un proyecto a un fichero XML, así como toda la información asociada a dichas decisiones.
+\end{itemize}
+
+Una vez identificada esta lista de funciones a las que el sistema debe dar soporte, éstas se agruparon en diferentes categorías de requisitos, como se muestra en la tabla \ref{table:categorias}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{6cm} | >{\arraybackslash}m{5.5cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Requisito}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Tareas asociadas}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\colorCelda Acceso Sistema} & 
+		 Login (acceso) \newline 
+		 Logout (desconexión) \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Visualizar información} & 
+		 Consultar decisiones \newline 
+		 Visualizar compañía \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Decisiones} & 
+		 Crear nueva decisión \newline
+		 Modificar decisión \newline
+		 Eliminar decisión \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Notificaciones} & 
+		 Consultar notificaciones \newline 
+		 Modificar notificación \newline 
+		 Eliminar notificación \\ 
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Proyectos} & 
+		 Dar de alta un proyecto \newline 
+		 Modificar datos proyecto  \newline
+		 Consultar usuarios \newline
+		 Seleccionar proyecto sobre el que trabajar \newline
+		 Aconsejar decisiones de proyectos similares \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Gestión Idiomas} & 
+		 Consultar idiomas \newline
+		 Cambiar idioma \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Exportar información} & 
+		 Exportar información \\
+	\hline
+\end{tabular}
+\caption{Requisitos funcionales - v1.0}
+\label{table:categorias}
+\end{table}
+
+Además, se identificaron los roles de usuario mostrados en la Tabla \ref{table:roles}, los cuales pueden realizar las acciones mostradas en la Tabla \ref{table:acciones1}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{4.5cm} | >{\arraybackslash}m{13cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Rol}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Descripción}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\colorCelda Empleado} & 
+		 Es un usuario del sistema que representa a un miembro de un equipo de desarrollo de una compañía. \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Jefe de Proyecto} & 
+		 Es un usuario del sistema que representa a un jefe de proyecto de un equipo de desarrollo de una compañía. \\
+	\hline
+\end{tabular}
+\caption{Roles identificados en el sistema}
+\label{table:roles}
+\end{table}
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{6.5cm} | >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{3cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Requisito}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Empleado}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Jefe Proyecto}} \\
+	\hline
+		 \textbf{Login} & X & X \\
+		 \hline
+		 \textbf{Logout} & X & X \\
+		 \hline
+		 \textbf{Crear decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Modificar decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Eliminar decisión} & X (excepto \textit{Temas}) & X \\
+		 \hline
+		 \textbf{Consultar decisiones} & X & X \\
+		 \hline
+		 \textbf{Visualizar compañía} & X & X \\
+		 \hline
+		 \textbf{Consultar notificaciones} & X & X \\
+		 \hline
+		 \textbf{Modificar notificación} & X & X \\
+		 \hline
+		 \textbf{Eliminar notificación} & X & X \\
+		 \hline
+		 \textbf{Dar de alta proyecto} &  & X \\
+		 \hline
+		 \textbf{Modificar proyecto} &  & X \\
+		 \hline
+		 \textbf{Consultar usuarios}& X & X \\
+		 \hline
+		 \textbf{Seleccionar proyecto activo} & X & X \\
+		 \hline
+		 \textbf{Aconsejar decisiones de proyectos similares} & & X \\
+		 \hline
+		 \textbf{Consultar idiomas} & X & X \\
+		 \hline
+		 \textbf{Cambiar idioma} & X & X \\
+		 \hline
+		 \textbf{Exportar información} &  & X \\
+		 \hline
+\end{tabular}
+\caption{Acciones que un usuario puede realizar en el sistema - v1.0}
+\label{table:acciones1}
+\end{table}
+
+\subsubsection{Requisitos no funcionales} \label{label:reqnofuncionales}
+
+A continuación, se enumera el conjunto de requisitos no funcionales del sistema, dependientes del entorno tecnológico de la aplicación.
+
+\begin{itemize}
+	\item El sistema debe ser distribuido, para facilitar su uso entre los diferentes miembros de los equipos de desarrollo que se encuentran geográficamente deslocalizados. Por tanto, es un sistema cliente-servidor, formado por dos subsistemas.
+	\item Debe existir una base de datos en el servidor que permita almacenar todas las decisiones tomadas en los proyectos, la información de los proyectos, la información de usuarios, etc. 
+\end{itemize}
+
+
+\subsection{Modelo de casos de uso}
+
+Una vez identificados los requisitos funcionales del sistema, éstos se modelan en un diagrama de casos de uso con un alto nivel de abstracción, solamente mostrando los diferentes grupos funcionales del sistema, comentados en la Tabla \ref{table:categorias}.
+
+Cabe destacar que el sistema está compuesto de dos subsistemas, cliente y servidor, como se ha comentado en los requisitos no funcionales (ver apartado \ref{label:reqnofuncionales}), por lo que, aunque los requisitos funcionales se refieren al sistema global, se han modelado casos de uso para ambos subsistemas, ya que los actores que intervienen son diferentes.
+
+\subsubsection{Modelo de casos de uso para el subsistema cliente}
+
+En la Figura \ref{fig:casos1Cliente} se muestra el diagrama de casos para el subsistema cliente. Todos los casos de uso en este subsistema, tienen un mecanismo común de funcionamiento: se solicitan al usuario los datos
+que correspondan a la funcionalidad de ese caso de uso (datos del proyecto, datos de una decisión,
+etc.) y se envían dichos datos al servidor, esperando su respuesta y mostrando los resultados. Por
+esta razón, los actores que aparecen en el diagrama de casos de uso de este subsistema son los
+diferentes roles del sistema, y el servidor.
+
+Para terminar, cabe señalar que se ha utilizado una jerarquía de herencia entre los diferentes tipos de usuarios, pues hay operaciones que pueden realizar varios de ellos. Por ejemplo, el empleado y el jefe de proyecto pueden ambos consultar las decisiones de un proyecto.
+
+\imagen{Cap5/Cliente1//casos1Cliente}{2.0}{Diagrama de casos de uso - Cliente - v1.0}{fig:casos1Cliente}
+
+\subsubsection{Modelo de casos de uso para el subsistema servidor}
+
+En la Figura \ref{fig:casos1Server} se puede observar el diagrama de casos de uso de alto nivel para el servidor. En este subsistema, el modo de proceder es el siguiente: se reciben las peticiones del subsistema cliente, se opera con la lógica de control y de dominio, accediendo a la base de datos y se envía la respuesta al cliente, notificando los posibles cambios. Por esta razón, los actores que aparecen en el diagrama de casos de uso de este subsistema son el
+subsistema cliente y el SGDB.
+
+En cuanto a los casos de uso, aparecen los mismos que en el subsistema anterior, salvo dos casos de uso adiciones, descritos a continuación. Todos los casos de uso del servidor incluyen la funcionalidad de estos casos de uso, pero
+no se ha representado en el diagrama para facilitar la legibilidad.
+
+\begin{itemize}
+	\item \textbf{Actualizar ventanas}: este caso de uso se utiliza para que el servidor pueda notificar cambios al cliente, producidos por otros clientes.
+	\item \textbf{Actualizar log}: este caso de uso se utiliza para almacenar y reflejar en el servidor todas las acciones realizadas por los clientes, creando \textit{logs}.
+\end{itemize}
+
+\imagen{Cap5/Server1//casos1Server}{1.6}{Diagrama de casos de uso - Servidor - v1.0}{fig:casos1Server}
+
+A continuación, se muestran los diagramas de casos de uso cada uno de los grandes grupos funcionales de manera más detallada para cada uno de los subsistemas.
+
+
+\paragraph{Acceso al sistema}
+
+En la Figura \ref{fig:CduAccesoSistema1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduAccesoSistema1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduAccesoSistema}{2.0}{Diagrama de casos de uso - Cliente - Acceso al sistema - v1.0}{fig:CduAccesoSistema1Cliente}
+
+\imagen{Cap5/Server1//CduAccesoSistema}{2.0}{Diagrama de casos de uso - Servidor - Acceso al sistema - v1.0}{fig:CduAccesoSistema1Server}
+
+
+\paragraph{Visualización de decisiones}
+
+En la Figura \ref{fig:CduVisualizarDecisiones1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduVisualizarDecisiones1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduVisualizarDecisiones}{1.0}{Diagrama de casos de uso - Cliente - Visualizar información - v1.0}{fig:CduVisualizarDecisiones1Cliente}
+
+\imagen{Cap5/Server1//CduVisualizarDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Visualizar información - v1.0}{fig:CduVisualizarDecisiones1Server}
+
+
+\paragraph{Gestión de decisiones}
+
+En la Figura \ref{fig:CduGestionDecisiones1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionDecisiones1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduGestionDecisiones}{2.0}{Diagrama de casos de uso - Cliente - Gestión decisiones - v1.0}{fig:CduGestionDecisiones1Cliente}
+
+\imagen{Cap5/Server1//CduGestionDecisiones}{2.0}{Diagrama de casos de uso - Servidor - Gestión decisiones - v1.0}{fig:CduGestionDecisiones1Server}
+
+
+\paragraph{Gestión de notificaciones}
+
+En la Figura \ref{fig:CduGestionNotificaciones1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionNotificaciones1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduGestionNotificaciones}{2.0}{Diagrama de casos de uso - Cliente - Gestión notificaciones - v1.0}{fig:CduGestionNotificaciones1Cliente}
+
+\imagen{Cap5/Server1//CduGestionNotificaciones}{2.0}{Diagrama de casos de uso - Servidor - Gestión notificaciones - v1.0}{fig:CduGestionNotificaciones1Server}
+
+
+\paragraph{Gestión de proyectos}
+
+En la Figura \ref{fig:CduGestionProyectos1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionProyectos1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduGestionProyectos}{0.8}{Diagrama de casos de uso - Cliente - Gestión Proyectos - v1.0}{fig:CduGestionProyectos1Cliente}
+
+\imagen{Cap5/Server1//CduGestionProyectos}{2.0}{Diagrama de casos de uso - Servidor - Gestión Proyectos - v1.0}{fig:CduGestionProyectos1Server}
+
+
+\paragraph{Gestión de idiomas}
+
+En la Figura \ref{fig:CduGestionIdiomas1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduGestionIdiomas1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduGestionIdiomas}{2.0}{Diagrama de casos de uso - Cliente - Gestión Idiomas - v1.0}{fig:CduGestionIdiomas1Cliente}
+
+\imagen{Cap5/Server1//CduGestionIdiomas}{2.0}{Diagrama de casos de uso - Servidor - Gestión Idiomas - v1.0}{fig:CduGestionIdiomas1Server}
+
+
+\paragraph{Exportar información}
+
+En la Figura \ref{fig:CduExportarConocimiento1Cliente} se muestra el diagrama de casos de uso para el cliente, mientras que en la Figura \ref{fig:CduExportarConocimiento1Server} se muestra el diagrama de casos de uso para el servidor.
+
+\imagen{Cap5/Cliente1//CduExportarConocimiento}{2.0}{Diagrama de casos de uso - Cliente - Exportar información - v1.0}{fig:CduExportarConocimiento1Cliente}
+
+
+\imagen{Cap5/Server1//CduExportarConocimiento}{2.0}{Diagrama de casos de uso - Servidor - Exportar información - v1.0}{fig:CduExportarConocimiento1Server}
+
+
+
+\subsection{Análisis de riesgos}
+
+% Preguntar a Aurora
+
+\subsection{Plan de iteraciones}
+
+Dado que el PUD es centrado y dirigido por casos de uso, se utilizan los casos de uso modelados anteriormente para poder crear el plan de proyecto, o plan de iteraciones, y llevar a cabo el desarrollo de dichos casos de uso en las fases e iteraciones posteriores. De este modo, se obtienen las siguientes iteraciones, mostradas en la Tabla \ref{table:iteraciones1}. 
+
+\begin{center}
+\begin{longtable}%[h]%
+%\centering
+%\begin{logn}
+{| >{\centering\arraybackslash}m{4cm} | >{\centering\arraybackslash}m{2cm} | >{\arraybackslash}m{8cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Iteración}} &
+		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tareas a realizar}} \\
+		\hline
+		\endhead
+	
+	\multicolumn{1}{|c|}{\colorCelda Inicio} & 1 &
+		 Identificar requisitos \newline 
+		 Analizar la viabilidad del proyecto \newline
+		 Crear modelo de casos de uso de alto nivel \newline
+		 Plan de proyecto \\
+	\hline
+	\multirow{-2}{*}{\colorCelda Elaboración} \colorCelda & 1 &
+		 Identificar requisitos \newline 
+		 Crear modelo de casos de uso \newline 
+		 Diseñar arquitectura \newline
+		 Crear modelo de clases de análisis \\ 
+	\cline{2-3}
+		 \colorCelda & 2 & 
+		 Diseñar caso de uso \textbf{Acceso al sistema} \newline
+		 Implementar caso de uso \textbf{Acceso al sistema} \newline
+		 Probar caso de uso \textbf{Acceso al sistema} \\
+	\hline
+	\multirow{-2}{*}{\colorCelda Construcción}
+		 \colorCelda & 1 & 
+		 Diseñar caso de uso \textbf{Visualizar información} \newline
+		 Implementar caso de uso \textbf{Visualizar información} \newline
+		 Probar caso de uso \textbf{Visualizar información} \\
+		 \cline{2-3}
+		 \colorCelda & 2 &
+		 Diseñar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \newline
+		 Implementar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \newline
+		 Probar casos de uso \textbf{Gestión decisiones} y \textbf{Gestión notificaciones} \\
+		 \cline{2-3}		 
+		 \colorCelda & 3 & 
+		 Diseñar caso de uso \textbf{Gestión proyectos} \newline
+		 Implementar caso de uso \textbf{Gestión proyectos} \newline
+		 Probar caso de uso \textbf{Gestión proyectos} \\
+		\cline{2-3}
+		\colorCelda & 4 & 
+	   Diseñar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
+		 Implementar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \newline
+		 Probar casos de uso \textbf{Gestión idiomas} y \textbf{Exportar información} \\
+		 \hline
+	\multicolumn{1}{|c|}{\colorCelda Transición} & 1 &
+		 Preparar entregables \newline
+		 Realizar documentación y manuales \\
+	\hline
+
+\caption{Plan de iteraciones}
+\label{table:iteraciones1} 
+\end{longtable}
+\end{center}
+
+
