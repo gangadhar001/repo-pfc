@@ -30,7 +30,13 @@ Las tareas que se llevan a cabo en esta fase son:
 
 \subsection{Primera iteración}
 
-%% Resumen de lo que viene a continuacion
+En esta iteración se abordan las siguientes tareas: 
+
+\begin{itemize}
+	\item Identificación de nuevos requisitos funcionales.
+	\item Análisis de los casos de uso que componen el sistema.
+	\item Definición y diseño de la arquitectura del sistema.
+\end{itemize}
 
 \subsubsection{Identificación de requisitos}
 
@@ -922,8 +928,17 @@ En dicha reunión, ya no se identificaron más requisitos y se validó el plan de i
 
 Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al utilizar una arquitectura cliente-servidor, el subsistema del servidor es el encargado de toda la lógica y control de dominio y persistencia, por lo que es donde más hincapié se hará en los diagramas de diseño, mientras que el cliente se encarga de proporcionar la interfaz gráfica del sistema, validar los datos que introduce el usuario y enviar y recibir las peticiones del servidor.
 
-Para terminar, señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
+Señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
 
+Las tareas a realizar en esta iteración son:
+
+\begin{itemize}
+	\item Diseño de clases del dominio.
+	\item Diseño de la base de datos.
+	\item Definición y diseño de la arquitectura del sistema.
+	\item Implementación del control de acceso al sistema, así como la implementación de la arquitectura cliente-servidor.
+	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la comunicación entre ambos subsistemas y del acceso al sistema.
+\end{itemize}
 
 \subsubsection{Diagrama de clases de dominio} \label{modeloDominio}
 

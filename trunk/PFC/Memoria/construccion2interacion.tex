@@ -1,6 +1,12 @@
 \subsection{Segunda iteración} 
 
-Durante esta iteración, se diseñan, implementan y prueban los casos de uso que componen la funcionalidad de \textit{Gestión de decisiones}, mostrados en la Figura \ref{fig:CduGestionDecisiones2Server}, y la funcionalidad de \textit{Gestión de notificaciones} (ver Figura \ref{fig:CduGestionNotificaciones2Server}).
+Siguiendo los casos de uso de la funcionalidad de \textit{Gestión de decisiones} (ver Figura \ref{fig:CduGestionDecisiones2Server}) y  \textit{Gestión de notificaciones} (ver Figura \ref{fig:CduGestionNotificaciones2Server}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+
+\begin{itemize}
+	\item Diseño de la funcionalidad relativa a la gestión de decisiones y alertas del sistema.
+	\item Implementación de dichas funcionalidades.
+	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la gestión de decisiones y alertas.
+\end{itemize}
 
 \subsubsection{Funcionalidad de \textit{Gestión de decisiones}}
 
@@ -26,13 +32,13 @@ En las Figuras \ref{fig:secuenciaCrearTopicCliente}, \ref{fig:secuenciaCrearProp
 Los diagramas de secuencia de estos dos casos de uso, para el subsistema cliente y servidor, son iguales que en caso de uso anterior, sólo que la acción realizada es modificar o eliminar una decisión, en vez de crearla. 
 
 
-%\subparagraph{Aceptar decisiones}
-%
-%En la Figura \ref{fig:secuenciaAceptarDecisionesCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Aceptar decisiones} en el cliente, mientras que en la Figura \ref{fig:secuenciaAceptarDecisionesServer} se muestra el diagrama de secuencia para el servidor.
+\subparagraph{Cambiar estado decisión}
 
-%\imagen{Cap5/Cliente2//secuenciaAceptarDecisionesCliente}{1.0}{Diagrama de secuencia - Cliente - Aceptar decisión}{fig:secuenciaAceptarDecisionesCliente}
+En la Figura \ref{fig:secuenciaAceptarDecisionesCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Cambiar estado decisión} en el cliente, mientras que en la Figura \ref{fig:secuenciaAceptarDecisionesServer} se observa el diagrama de secuencia para el servidor.
 
-%\imagen{Cap5/Server2//secuenciaAceptarDecisionesServer}{1.0}{Diagrama de secuencia - Servidor - Aceptar decisión}{fig:secuenciaAceptarDecisionesServer}
+%\imagen{Cap5/Cliente2//secuenciaAceptarDecisionesCliente}{1.0}{Diagrama de secuencia - Cliente - Cambiar estado decisión}{fig:secuenciaAceptarDecisionesCliente}
+
+%\imagen{Cap5/Server2//secuenciaAceptarDecisionesServer}{2.0}{Diagrama de secuencia - Servidor - Cambiar estado decisión}{fig:secuenciaAceptarDecisionesServer}
 
 
 \subparagraph{Adjuntar ficheros}
