@@ -1,0 +1,92 @@
+\subsection{Iteración 5} 
+
+Siguiendo los casos de uso del grupo funcional \textbf{F2:} \textit{Gestión de decisiones} (ver Figura \ref{fig:CduGestionDecisiones2Server}) y del grupo funcional \textbf{F4:} \textit{Gestión de notificaciones} (ver Figura \ref{fig:CduGestionNotificaciones2Server}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+
+\begin{itemize}
+	\item Diseño de la funcionalidad relativa a la gestión de decisiones y alertas (o notificaciones) del sistema.
+	\item Implementación de dichas funcionalidades.
+	\item Diseño e implementación de pruebas relativas a la gestión de decisiones y alertas.
+\end{itemize}
+
+Es esta iteración se diseñan e implementan ambos grupos funcionales porque éstos están estrechamente relacionados, ya que en la gestión de decisiones se incluye la creación de notificaciones, como se muestra, por ejemplo, en el análisis del caso de uso \textit{Modificar decisión}, en la sección \ref{sec:modificarDecisionAnalisis}.
+
+\subsubsection{Grupo funcional \textbf{F2:} \textit{Gestión de decisiones}}
+
+\paragraph{Diseño e implementación} \label{sec:crearDecision}
+
+En las Figuras \ref{fig:secuenciaCrearProposalCliente} se muestra los diagramas de secuencia para el caso de uso \textit{Crear decisión - Crear Propuesta} en el subsistema cliente, mientras que la Figura \ref{fig:secuenciaCrearDecisionServer} refleja el diagrama de secuencia de ese caso de uso para el servidor. Señalar que en el caso del subsistema cliente, aunque sólo se muestre un diagrama, se han creado tres diagramas de secuencia para representar los diferentes actores (o roles de usuarios del sistema) que participan en el caso de uso, según el tipo de decisión. En el servidor, sin embargo, no es necesario separarlos, ya que la secuencia de acciones a realizar es la misma, independientemente del tipo de decisión creada.
+
+\imagen{Cap5/Cliente2//secuenciaCrearProposalCliente}{2.0}{Diagrama de secuencia - Cliente - Crear decisión (\textit{Topic})}{fig:secuenciaCrearProposalCliente}
+
+\imagen{Cap5/Server2//secuenciaCrearDecisionServer}{1.6}{Diagrama de secuencia - Servidor - Crear decisión}{fig:secuenciaCrearDecisionServer}
+
+Del mismo modo y de manera muy similar a estos diagramas de secuencia anteriores, se modela el funcionamiento del resto de casos de uso englobados en este grupo funcional, pasando al diseño e implementación de dicha funcionalidad, con algunos aspectos a destacar en ella.
+
+\subparagraph{Servidor}
+
+En el diseño e implementación de estos casos de uso, cabe destacar la creación de una alerta o notificación de manera automática por parte del servidor al realizar cualquier acción sobre las decisiones. Dicha alerta se crea para el proyecto al cuál pertenece esa decisión, y para todos los usuarios que en dicho proyecto participan. De este modo, se notifica a los empleados que trabajan en ese proyecto que nuevo conocimiento está disponible, indicando en la alerta el tipo de decisión afectada, su autor, fecha y otros detalles. Esto facilita la comunicación asíncrona, ya que cuando un usuario vuelva a iniciar sesión, podrá comprobar sus nuevas alertas y adquirir conciencia de los cambios producidos.
+
+En la Figura \ref{fig:clasesGestionDecisiones} se muestra el diagrama de clases para la funcionalidad de gestión de decisiones, mostrando las asociaciones entre clases y entre los controladores de decisiones y de notificaciones. Como en el resto de casos, las operaciones de bases de datos se delegan en el gestor de bases de datos y éste, a su vez, delega en el framework \textbf{Hibernate}.
+
+Este es otro de los puntos principales del sistema desarrollado, ya que, gracias a esta funcionalidad, se permite gestionar todas las decisiones de los proyectos, se permiten añadir archivos adjuntos y se lleva a cabo el sistema de alertas.
+
+\begin{figure}[!htbp]
+ \begin{center}
+   \includegraphics[scale=1.75,angle=90]{Cap5/Server2//clasesGestionDecisiones}
+ \caption {Diagrama de clases - Gestión de decisiones}
+ \label{fig:clasesGestionDecisiones}
+ \end{center}
+ \end{figure}
+ 
+%\imagen{Cap5/Server2//clasesGestionDecisiones}{1.0}{Diagrama de clases - Gestión de decisiones}{fig:clasesGestionDecisiones}
+
+También cabe destacar otra decisión de diseño que se ha tenido en cuenta para implementar otro de los requisitos del sistema, que es la notificación de información de manera síncrona. Para ello, cuando un cliente crea, modifica o elimina una decisión y envía la petición al servidor, éste, además de crear la alerta, notifica a los clientes conectados al servidor que se ha producido un cambio, para que éstos puedan actualizar su vista de la interfaz gráfica y puedan reflejar los cambios sobre esa decisión en tiempo real. Para ello, el servidor lanza un hilo por cada uno de los clientes registrados en el sistema y les envía la información necesaria. Se utilizan hilos para no bloquear el servidor mientras manda actualizaciones a los clientes y pueda seguir atendiendo otras peticiones. 
+
+La clase controlador encargada de realizar esta tarea constituye además un patrón \textbf{Observador}, el cuál se utiliza para registrar los clientes autenticados en el sistema y notificar y actualizar su estado. En el diagrama de la Figura \ref{fig:clasesObservadorClientes} se muestra este patrón y las clases que lo forman.
+
+
+\imagen{Cap5/Server2//clasesObservadorClientes}{2.0}{Diagrama de clases - Observador para actualizar clientes conectados}{fig:clasesObservadorClientes}
+
+
+En el fragmento de código \ref{list:observador} se muestra parte de la implementación de la clase controlador de los clientes, y en el fragmento \ref{list:hilos} como se ha implementado la gestión de hilos para notificar a los clientes. La clase encargada de esto último además representa un patrón \textbf{proxy}, ya que los clientes son remotos.
+
+\texttt{\lstinputlisting[caption=Fragmento de código del controlador de clientes, breaklines=true, label=list:observador, inputencoding=latin1, style=JavaStyle]{Codigo//observadorClientes.java}}
+
+\texttt{\lstinputlisting[caption=Soporte multi-hilo para actualizar el estado de clientes, breaklines=true, label=list:hilos, inputencoding=latin1, style=JavaStyle]{Codigo//hilos.java}}
+
+
+\subparagraph{Cliente}
+
+En el subsistema cliente cabe destacar la utilización del API de Java \textbf{Reflection} para poder configurar el diálogo para gestionar las decisiones (creación y modificación) en tiempo de ejecución. Así, cuando el usuario selecciona una decisión a crear o modificar (\textit{Tema}, \textit{Propuesta} o \textit{Respuesta}), la interfaz se adaptará a ese tipo de decisión, mostrando los elementos oportunos. Por tanto, se utiliza la reflexión de Java para instanciar el panel gráfico correspondiente y visualizarlo cuando el usuario haya elegido una acción, en tiempo de ejecución.
+
+En el fragmento de código \ref{list:reflection} se presenta un ejemplo de uso de la reflexión para crear un componente visual conocido en tiempo de ejecución, según el valor de la variable \textit{subgroup}.
+
+\texttt{\lstinputlisting[caption=Fragmento de código utilizando \textit{reflection}, breaklines=true, label=list:reflection, inputencoding=latin1, style=JavaStyle]{Codigo//reflection.java}}
+
+
+Por otra parte, en el cliente, cuando el servidor le notifica que se ha producido un cambio en las decisiones, producido por otro cliente, se refrescan las decisiones en la vista de visualización de decisiones (comentada en la iteración anterior), para poder reflejar este cambio de manera síncrona, refrescando el grafo y árbol de decisiones, así como la información asociada a cada una de ellas.
+
+%% VER PROTOTIPO ANTERIOR
+Para terminar, cabe destacar que las operaciones de gestión de decisiones (creación, modificación, etc) pueden bien realizarse desde un menú o bien desde los nodos del grafo, gracias a un menú contextual que aparece al interactuar con el ratón. Se ha decidido diseñarlo de esta manera para permitir a los usuarios una flexibilidad y libertad a la hora de realizar las acciones, pudiendo seleccionar aquella que le sea más cómoda. En otras funcionalidades, la interfaz también proporciona estas opciones de realizar las acciones desde diferentes puntos.
+
+
+\subsubsection{Grupo funcional \textbf{F4:} \textit{Gestión de notificaciones}}
+
+\paragraph{Diseño e implementación} \label{sec:notificaciones}
+
+Como en iteraciones anteriores y de modo similar, se modelan los diagramas de secuencia para los casos de uso de este grupo funcional y se comienza con su diseño e implementación.
+
+\subparagraph{Servidor}
+
+Como se ha detallado en el apartado \ref{sec:crearDecision}, se crean alertas (o notificaciones) de manera automática para todos los usuarios del proyecto que ha sufrido cambios en sus decisiones, como se muestra en el diagrama de la Figura \ref{fig:clasesGestionDecisiones}. Por tanto, la misma alerta debe crearse para todos los usuarios de ese proyecto, pero, para evitar que la información de esa alerta esté repetida, la base de datos se ha diseñado de tal modo que la alerta sólo se crea una vez y se hace referencia a ella para todos los usuarios, utilizando la tabla \textit{notificationsUsers} con claves ajenas, como se muestra en el diseño de base de datos de la Figura \ref{fig:diagramaBD}.
+
+De este modo, cada usuario podrá editar y eliminar su propia alerta, sólo eliminando la alerta original cuando ningún usuario tenga ya referencias a ella, es decir, cuando todos los usuarios del proyecto hayan borrado esa alerta. Esta tarea se ha delegado al SGBD de MySQL, mediante la creación de un \textit{trigger}, mostrado en el fragmento de código \ref{list:trigger}. Dicho trigger será el encargado de borrar la alerta original cuando ya no existan referencias a ella por parte de ningún usuario.
+
+\texttt{\lstinputlisting[caption=Trigger de base de datos para gestionar la eliminación de alertas, breaklines=true, label=list:trigger, inputencoding=latin1, style=MySQLStyle]{Codigo//trigger.sql}}
+
+
+\subparagraph{Cliente}
+
+Siguiendo los diagramas de secuencia para este subsistema, se diseña e implementa la interfaz gráfica de usuario para dar soporte a cada caso de uso, enviando peticiones al servidor y obteniendo los datos que éste devuelve, mostrándolos en la interfaz. En este caso, se ha diseñado e implementado una vista para poder mostrar esas alertas, de manera similar a una vista de correo electrónico, mostrando las alertas leídas y no leídas, la información de dichas alertas, su autor, etc.
+
+\paragraph{Pruebas}

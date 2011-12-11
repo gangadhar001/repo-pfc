@@ -1,39 +1,27 @@
-\subsection{Cuarta iteración} 
+\subsection{Iteración 7} 
 
-Siguiendo los casos de uso de la funcionalidad de \textit{Generación de informes} (ver Figura \ref{fig:CduGeneracionInformes2Server}) y \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos de uso del grupo funcional \textbf{F6:} \textit{Generación de informes} (ver Figura \ref{fig:CduGeneracionInformes2Server}) y de grupo funcional \textbf{F7:} \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
 	\item Diseño de la funcionalidad relativa a la generación de informes y gráficos estadísticos.
 	\item Implementación de dichas funcionalidades.
-	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la generación de informes y gráficos estadísticos.
+	\item Diseño e implementación de pruebas relativas a la generación de informes y gráficos estadísticos.
 \end{itemize}
 
-\subsubsection{Funcionalidad de \textit{Generación de informes}}
-
-\paragraph{Diagramas de secuencia}
-
-En los siguientes apartados se muestran los diagramas de secuencia para el cliente y servidor de los casos de uso que componen esta funcionalidad. Dichos diagramas se modelan siguiendo la descripción de los casos de uso realizada en el apartado \ref{sec:analisis}.
-
-\subparagraph{Generar informe}
-
-Como se puede observar en el modelo de casos de uso de la Figura \ref{fig:CduGeneracionInformes2Server}, este caso de uso cuenta con un punto de extensión, donde el caso de uso \textit{Consultar proyectos} extiende su funcionalidad. Por tanto, en la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia para el comportamiento normal de este caso de uso en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento normal en el servidor.
-
-Por otra parte, en la Figura \ref{fig:secuenciaGenerarInformeExtendidoCliente} se muestra el diagrama de secuencia para el comportamiento extendido de este caso de uso en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeExtendidoServer} se muestra su comportamiento extendido en el servidor.
-
-Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
-
-\imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)}{fig:secuenciaGenerarInformeNormalCliente}
-
-\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)}{fig:secuenciaGenerarInformeNormalServer}
-
-\imagen{Cap5/Cliente2//secuenciaGenerarInformeExtendidoCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe (comportamiento extendido)}{fig:secuenciaGenerarInformeExtendidoCliente}
-
-\imagen{Cap5/Server2//secuenciaGenerarInformeExtendidoServer}{2.0}{Diagrama de secuencia - Servidor -Generar informe (comportamiento extendido)}{fig:secuenciaGenerarInformeExtendidoServer}
-
-
-
+\subsubsection{Grupo funcional \textbf{F6:} de \textit{Generación de informes}}
 
 \paragraph{Diseño e implementación} \label{sec:diseñoGenerarPDF}
+
+En la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia de diseño para el escenario del caso de uso de \textit{Generación de informes PDf} en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento en el servidor.
+
+Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{Consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
+
+\imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalCliente}
+
+\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{0.6}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalServer}
+
+
+
 
 \subparagraph{Servidor}
 
@@ -103,17 +91,10 @@ En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& 
 
 
 
-\subsubsection{Funcionalidad de \textit{Generación de estadísticas}}
-
-\paragraph{Diagrama de secuencia}
-
-En la Figura \ref{fig:secuenciaGenerarEstadisticasCliente} se muestra el diagrama de secuencia para el caso de uso \textit{generar estadísticas} en el cliente. 
-
-En este caso, se incluyen los comportamientos de los casos de uso \textit{consultar usuarios}, \textit{consultar proyectos} y \textit{consultar decisiones}, ya definidos, por lo que dichos comportamientos se muestran de manera simplificada en este diagrama de secuencia.
-
-\imagen{Cap5/Cliente2//secuenciaGenerarEstadisticasCliente}{2.0}{Diagrama de secuencia - Cliente - Generar estadísticas}{fig:secuenciaGenerarEstadisticasCliente}
-
+\subsubsection{Grupo funcional \textbf{F7:} de \textit{Generación de estadísticas}}
 \paragraph{Diseño e implementación}
+
+Como en iteraciones anteriores y de modo similar, se modelan los diagramas de secuencia para los casos de uso de este grupo funcional y se comienza con su diseño e implementación.
 
 Como se ha comentado anteriormente, la generación de los gráficos estadísticos es una funcionalidad exclusiva del cliente, ya que los gráficos dependen de la tecnología empleada para representarlos, que en este caso es la librería de gráficos \textbf{JFreeChart} (ver sección \ref{sec:marco}). Por tanto, el cliente, consultando los datos necesarios para crear un gráfico al servidor, es el encargado de generar dichos gráficos y visualizarlos.
 
@@ -139,5 +120,5 @@ Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear 
 
 \texttt{\lstinputlisting[caption=Fragmento de código para la generación de gráficos, breaklines=true, label=list:chart, inputencoding=latin1, style=JavaStyle]{Codigo//chart.java}}
 
-
+%% TAREAS PROPIAS DE LA LIBRERIA, COMO GUARDAR, PROPIUEDADES, ETC
 \paragraph{Pruebas}

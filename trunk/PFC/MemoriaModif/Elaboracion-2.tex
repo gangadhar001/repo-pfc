@@ -1,0 +1,177 @@
+\subsection{Iteración 2}
+
+Al finalizar la iteración anterior, se realizó otra reunión de seguimiento antes de comenzar esta nueva iteración, para revisar y validar todos estos artefactos obtenidos.
+
+En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones definitivo y el resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comenzó con el diseño, implementación y pruebas de los casos de uso identificados, utilizando como entrada el modelo de casos de uso y de análisis obtenido en la iteración anterior.
+
+Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al utilizar una arquitectura cliente-servidor, el subsistema del servidor es el encargado de toda la lógica y control de dominio y persistencia, por lo que es donde más hincapié se hará en los diagramas de diseño, mientras que el cliente se encarga de proporcionar la interfaz gráfica del sistema, validar los datos que introduce el usuario y enviar y recibir las peticiones del servidor.
+
+Señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
+
+Las tareas a realizar en esta iteración son:
+
+\begin{itemize}
+	\item Modelo de alto nivel de clases de diseño de objetos de dominio.
+	\item Modelado y diseño de la base de datos.
+	\item Diseño e implementación de la arquitectura cliente-servidor, centrándose en la comunicación entre subsistemas.
+	\item Diseño e implementación de pruebas relativas a la comunicación entre ambos subsistemas.
+\end{itemize}
+
+\subsubsection{Diagrama de clases de dominio} \label{modeloDominio}
+
+Se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
+
+Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, se han modelado las siguientes clases de conocimiento, junto con sus relaciones:
+
+\begin{itemize}
+	\item \textbf{User}: una clase abstracta que representa los usuarios que pueden acceder y hacer uso del sistema. De ella heredan dos clases, que son \textit{Employee} y \textit{ChiefProject}, representando los diferentes roles de usuarios que existen en el sistema. Estas clases concretas implementan el método abstracto \textit{getRole()}, devolviendo el rol correspondiente a cada clase. Es una clase persistente.
+	\item \textbf{Company}: clase que representa una sede de una compañía donde trabajan los diferentes usuarios del sistema. Es una clase persistente.
+	\item \textbf{Address}: representa la dirección física de una sede de una compañía, representando su dirección, ciudad, país, etc.. Es una clase persistente.
+	\item \textbf{Project}: es la clase que representa un proyecto software donde trabajan los usuarios del sistema. Es una clase persistente.
+	\item \textbf{Session}: es la clase encargada de almacenar toda la información sobre las sesiones que se inicien en el sistema.
+	\item \textbf{Knowledge}: es una clase abstracta que representa el conocimiento del sistema. En este caso, son las decisiones tomadas en cada proyecto por los diferentes usuarios que participan en los proyectos. De esta clase heredan las clases concretas \textit{Topic}, \textit{Proposal} y \textit{Answer}, formando la jerarquía de decisiones que se detallará en el apartado \ref{sec:visualizarDecisiones}. Es una clase persistente.
+	\item \textbf{TopicWrapper}: es una clase que representa el conjunto de temas (\textit{topics}) presentes en un proyecto.
+	\item \textbf{File}: clase que representa un fichero que puede adjuntarse a una decisión. Es una clase persistente.
+	\item \textbf{Notification}: clase que representa una notificación o alerta que se crea en el sistema cuando se provoca un cambio en las decisiones de un proyecto. Es una clase persistente.
+	\item \textbf{PDFElement}: esta clase representa los elementos que van a componer un documento PDF. De ella heredan los diferentes elementos usados en un documento PDF, como son \textit{PDFTable}, \textit{PDFText} y \textit{PDFTitle}. Gracias a esta herencia, se podrá usar el polimorfismo a la hora de componer las secciones del documento PDF.
+	\item \textbf{PDFSection}: representa una sección de un documento PDF, compuesta de diferentes elementos.
+	\item \textbf{PDFConfiguration}: clase que representa la información de un documento PDF, compuesto de un conjunto de secciones.
+	\item \textbf{Coordinates}: esta clase representa las coordenadas geográficas de una dirección de una sede de una compañía.
+	\item \textbf{Operation}: clase que representa las acciones que se pueden realizar en el sistema.
+	\item \textbf{LogEntry}: por la especificación de requisitos, se debe mantener un histórico de todas las acciones realizadas en el sistema. Por tanto, esta es la clase que almacena información sobre quién, cuándo y qué acción se ha realizado. Es una clase persistente.
+\end{itemize}
+
+En cuanto a las relaciones entre las clases anteriores, se han modelado las siguientes:
+
+\begin{itemize}
+	\item Un usuario se relaciona con una compañía en la que trabaja, y se relaciona con uno o más proyectos en los que participa. A su vez, en cada proyecto trabajan varios usuarios.
+	\item Una compañía se asocia con una dirección.
+	\item Una sesión se relaciona con un usuario, que es el que se identifica e inicia sesión en el sistema.
+	\item Cada clase que representa una decisión (\textit{Knowledge}) se asocia con un usuario, que es el autor que la crea.
+	\item Cada tema (\textit{Topic}) se asocia con 0 o más propuestas (\textit{Proposal}) y con un proyecto, que es donde se crea.
+	\item Cada propuesta se asocia con 0 o más respuestas (\textit{Answer}).
+	\item El conjunto de temas (\textit{TopicWrapper)} se asocia con 0 o más temas.
+	\item Cada decisión puede tener 0 o más ficheros adjuntos y un fichero puede estar adjunto en 1 o más decisiones.
+	\item Una notificación se asocia con una decisión, un proyecto y uno o más usuarios (todos los que trabajan en ese proyecto).
+	\item Una tabla del documento PDF (\textit{PDFTable}) se asocia con un proyecto, para conocer y generar toda la información de ese proyecto.
+	\item Una sección del documento PDF (\textit{PDFSection}) se compone de uno o más elementos del documento PDF (\textit{PDFElement)}, para componer la sección.
+	\item Un documento PDF (\textit{PDFConfiguration}) se compone de una o más secciones del documento (\textit{PDFSection}).
+	\item La clase \textit{LogEntry} utiliza la clase usuario para consultar el nombre de usuario que ha realizado una acción en el sistema.
+\end{itemize}
+
+En la Figura \ref{fig:clasesDominio} se puede observar este diagrama de clases de dominio.
+
+\begin{figure}[!htbp]
+ \begin{center}
+   \includegraphics[scale=2.35,angle=90]{Cap5/Server2//clasesDominio}
+ \caption {Diagrama de clases de dominio}
+ \label{fig:clasesDominio}
+ \end{center}
+ \end{figure}
+
+\subsubsection{Diseño de la base de datos}
+
+A partir de las clases de dominio persistentes y sus relaciones, se modela y diseña la base de datos para que los objetos de dominio puedan ser persistentes. Para realizar esto, se han tenido en cuenta las siguientes consideraciones a la hora de diseñar la base de datos:
+
+\begin{itemize}
+	\item Para representar la jerarquía de herencia de las clases \textit{User}, \textit{Employee} y \textit{ChiefProject}, se ha utilizado el patrón de persistencia \textbf{1 árbol de herencia, 1 tabla},
+por lo que sólo se creará la tabla \textit{Users}, que agrupará los atributos de todas las entidades
+anteriores. Sin embargo, es necesario añadir un nuevo atributo a la tabla \textit{Users} para indicar
+el rol del usuario, correspondiente a cada una de las subclases.
+La razón de utilizar dicho patrón es agrupar en única tabla toda la jerarquía de herencia que
+existe entre esas clases en el modelo de dominio, pues ninguna de las clases \textit{Employee} ni \textit{ChiefProject}
+añaden nuevos atributos a la clase \textit{User}, por lo que no se van a obtener
+atributos (columnas) nulas en la tabla resultante.
+	\item En la tabla \textit{LogEntries}, obtenida al transformar la clase \textit{LogEntry} en una tabla, la columna
+”usuario” puede ser vacía, pues hay acciones que no están asociadas a ningún usuario
+del sistema, como, por ejemplo, iniciar o detener el servidor.
+	\item Debido a las asociaciones n:m (o \textit{muchos a muchos}) entre las clases de \textit{User} y \textit{Project}, entre las de \textit{Notification} y \textit{User} y entre las de \textit{Knowledge} y \textit{File}, es necesario modelar tablas adicionales que permitan almacenar dichas asociaciones, utilizando claves ajenas a las tablas que representan las clases que participan en esas asociaciones.
+	\item En la tabla \textit{NotificationsUsers}, que modela la relacion \textit{muchos a muchos} entre usuarios y notificaciones, se ha creado un \textit{trigger} para borrar automáticamente una notificación cuando todos los usuarios a los que iba dirigida ya la han borrado. Esto se comentará más en detalle en el apartado \ref{sec:notificaciones}.
+\end{itemize}
+
+Teniendo en cuenta dichas consideraciones, se obtiene el modelo EER (Entidad-Interrelación Extendido) de la base de datos, mostrado en la Figura \ref{fig:diagramaBD}.
+
+Para terminar, cabe destacar que este modelo se ha creado utilizando la herramienta \textbf{MySQL Workbench} (ver sección \ref{sec:marco}), la cuál permite generar automáticamente el código SQL necesario para crear las tablas y relaciones de la base de datos a partir de ese modelo EER.
+
+\imagenBorde{Cap5//diagramaBD}{0.38}{Diagrama EER de la base de datos}{fig:diagramaBD}
+
+
+\subsubsection{Diseño e implementación de la arquitectura cliente-servidor}
+
+Antes de comenzar con la implementación de los grupos funcionales del sistema, es necesario diseñar e implementar la comunicación entre los subsistemas cliente y servidor, siguiendo la arquitectura cliente-servidor definida anteriormente, así como la comunicación entre el servidor y su base de datos (ver Figura \ref{fig:despliegue}).
+
+Por tanto, a continuación se comentan los aspectos reseñables del diseño e implementación de la comunicación entre sistemas.
+
+\paragraph{Comunicación entre cliente y servidor}
+
+El primer paso es hacer que las clases de dominio mostradas en la Figura \ref{fig:clasesDominio} sean serializables, para poder ser exportadas y enviarse de un sistema a otro. Para ello, dichas clases implementan la interfaz \textit{Serializable} de Java.
+
+A continuación, se diseña e implementa la capa de comunicaciones de ambos sistemas, haciendo uso del patrón \textbf{Proxy}, responsable de establecer conexión con las clases remotas exportadas por cada uno de los subsistemas. Además, para conocer los métodos que pueden invocarse utilizando RMI, se crean interfaces para cada uno de los subsistemas, implementando la interfaz \textit{Remote} provista por RMI.
+
+De este modo, el proxy del servidor implementa la interfaz remota del servidor, la cual contiene todas las operaciones que el cliente puede solicitar al servidor, por lo que es un patrón \textbf{Fachada}. Así, el cliente puede invocar al proxy del servidor como si éste fuera local y estuviera en la misma máquina. De un modo análogo, se implementa el proxy y la interfaz del cliente, para que el servidor pueda enviar y notificar los resultados al cliente.
+
+En la Figura \ref{fig:clasesComunicaciones} se muestra el diagrama de clases para esta capa de comunicaciones. Para mejorar la legibilidad del diagrama, no se reflejan todos los métodos de estas clases y fachadas, mostrándose en el Apéndice \ref{appendix:fachadas} el código fuente completo de estas fachadas, que contienen todas las operaciones que el cliente puede invocar al servidor, y viceversa.
+
+\imagen{Cap5/Server2//clasesComunicaciones}{2.1}{Diagrama de clases - Capa de comunicación cliente-servidor}{fig:clasesComunicaciones}
+
+
+Conviene destacar que, con el fin de que el sistema funcione correctamente si alguno de los subsistemas pertenece a varias redes, al exportar los objetos remotos se recorren todas las interfaces de red para buscar una IP según el siguiente orden:
+
+\begin{enumerate}
+	\item Si el ordenador pertenece a una red pública, se usa una IP pública.
+	\item Si el ordenador no pertenece a una red pública pero sí a una privada, se utiliza una IP
+privada.
+	\item Si el ordenador no está conectado a ninguna red, se emplea la IP \textit{localhost} (127.0.0.1).
+\end{enumerate}
+
+Además, para que la comunicación con los objetos remotos se establezca correctamente, no
+sólo es necesario indicar la IP al exportar los objetos, sino que también hace falta modificar la
+propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, que
+representa la IP del servidor RMI que contiene los objetos.
+
+En el fragmento de código \ref{list:RMIServer} se muestra como se exporta el objeto que representa al servidor y como se modifica la propiedad \textit{java.rmi.server.hostname} de la máquina virtual de Java, para que el servidor sea accesible y sus métodos puedan ser invocados por el cliente. 
+
+\texttt{\lstinputlisting[caption=Proceso para exportar un objeto utilizando RMI, breaklines=true, label=list:RMIServer, inputencoding=latin1, style=JavaStyle]{Codigo//RMIServer.java}}
+
+Como se puede observar en el fragmento anterior, para exportar el objeto del servidor se utiliza el método \textit{bind} de la clase \textit{Naming} de RMI, indicando la IP, el puerto y el nombre del objeto exportado. De este modo, en el cliente se utiliza el método \textit{lookup} de la clase \textit{Naming} para localizar ese objeto exportado, utilizando la IP, el puerto y el nombre con el que se exportó. En el fragmento de código \ref{list:RMICliente} se muestra un ejemplo de cómo realizar esta acción.
+
+
+\texttt{\lstinputlisting[caption=Proceso para localizar un objeto remoto utilizando RMI, breaklines=true, label=list:RMICliente, inputencoding=latin1, style=JavaStyle]{Codigo//RMICliente.java}}
+
+
+Para terminar, cabe destacar que a efectos de simplificar la conexión y desconexión del subsistema servidor, se ha creado una pequeña interfaz gráfica de usuario, la cuál permite configurar los parámetros del servidor y su base de datos y poner a la escucha o detener el servidor, de manera sencilla. Sin embargo, el subsistema servidor es totalmente independiente de esta interfaz gráfica y podría gestionarse de otro modo, como, por ejemplo, a través de una línea de comandos, pudiéndose automatizar su ejecución y estar siempre disponible en la máquina donde el servidor se distribuya.
+
+\paragraph{Comunicación entre servidor y base de datos}
+
+En el paquete de comunicaciones también se ha utilizado el patrón \textbf{Observador} para crear un gestor de conexiones de bases de datos. De este modo, se consigue extensibilidad en las comunicaciones con bases de datos, pues haciendo uso de este observador, se podrían añadir más de una base de datos y este observador sería el encargado de enviar las peticiones a todas ellas. 
+
+Para ello, se ha creado una interfaz que agrupa las operaciones típicas de una base de datos (\textit{CRUD - Create, Read, Update, Delete}), implementada por las diferentes conexiones a bases de datos que pudieran existir. También se ha creado un gestor de conexiones de bases de datos (el observador), que es el encargado de enviar las peticiones a cada una de esas conexiones, utilizando su interfaz. En la Figura \ref{fig:comunicacionesBD} se puede observar el diagrama de clases que representa este observador.
+
+\imagen{Cap5/Server2//clasesObservadorBD}{2.5}{Diagrama de clases - Capa de comunicación para bases de datos}{fig:comunicacionesBD}
+
+En el caso del sistema a desarrollar, sólo existe una base de datos, cuyas operaciones \textit{CRUD} y conexión con la base de datos MySQL es gestionada por \textbf{Hibernate}. Cabe señalar algunos problemas que se detectaron al trabajar con RMI e Hibernate:
+\begin{itemize}
+	\item Hay que clonar las referencias que devuelve Hibernate, para que sean serializables por RMI.
+  \item Al actualizar un objeto, hay que buscarlo primero en la base de datos, pues la referencia que llega por RMI es diferente a la que utiliza Hibernate.  
+  \item Hay que limpiar las cachés que mantiene Hibernate tras hacer una consulta a la base de datos para evitar problemas de referencias.
+\end{itemize}
+
+
+De un modo similar al anterior, se ha utilizado también el patrón \textbf{Observador} para gestionar el \textit{log}, ya que el servidor debe registrar todas las operaciones realizadas por los usuarios. Para ello, se ha creado un gestor de log (el observador) que utiliza interfaces para poder enviar las entradas del log que hay que registrar tanto a la base de datos como a la interfaz gráfica del servidor. De este modo, utilizando este patrón y las interfaces, las entradas de log se crean automáticamente tanto en la base de datos como en la interfaz gráfica, siendo independiente de su implementación. En la Figura \ref{fig:comunicacionesLog} se puede observar el diagrama de clases que representa este observador.
+
+\imagen{Cap5/Server2//clasesObservadorLog}{2.0}{Diagrama de clases - Capa de comunicación para gestionar el log}{fig:comunicacionesLog}
+
+
+\subsubsection{Pruebas}
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+

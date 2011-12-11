@@ -4,31 +4,5 @@
 \select@language {spanish}
 \select@language {english}
 \select@language {spanish}
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Modelos de desarrollo de software seg\'un dispersi\'on geogr\'afica\relax }}{10}
-\contentsline {table}{\numberline {3.2}{\ignorespaces Procesos de desarrollo software afectados por las distancias en GSD\relax }}{15}
-\contentsline {table}{\numberline {3.3}{\ignorespaces Desaf\IeC {\'\i }os en el proceso de comunicaci\'on en GSD\relax }}{18}
-\contentsline {table}{\numberline {3.4}{\ignorespaces Desaf\IeC {\'\i }os en el proceso de coordinaci\'on en GSD\relax }}{21}
-\contentsline {table}{\numberline {3.5}{\ignorespaces Desaf\IeC {\'\i }os en el proceso de control en GSD\relax }}{23}
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Resumen de las fases de un ciclo del PUD\relax }}{40}
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Requisitos funcionales - v1.0\relax }}{61}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Roles identificados en el sistema\relax }}{61}
-\contentsline {table}{\numberline {5.3}{\ignorespaces Acciones que un usuario puede realizar en el sistema - v1.0\relax }}{62}
-\contentsline {table}{\numberline {5.4}{\ignorespaces Plan de iteraciones}}{73}
-\contentsline {table}{\numberline {5.5}{\ignorespaces Requisitos funcionales - v2.0\relax }}{77}
-\contentsline {table}{\numberline {5.6}{\ignorespaces Acciones que un usuario puede realizar en el sistema - v2.0\relax }}{78}
-\contentsline {table}{\numberline {5.7}{\ignorespaces Plan de iteraciones actualizado}}{86}
-\contentsline {table}{\numberline {5.8}{\ignorespaces Especificaci\'on del caso de uso \textit {Login}\relax }}{88}
-\contentsline {table}{\numberline {5.9}{\ignorespaces Especificaci\'on del caso de uso \textit {Logout}\relax }}{89}
-\contentsline {table}{\numberline {5.10}{\ignorespaces Especificaci\'on del caso de uso \textit {Consultar decisiones}\relax }}{90}
-\contentsline {table}{\numberline {5.11}{\ignorespaces Especificaci\'on del caso de uso \textit {Consultar compa\~n\IeC {\'\i }a}\relax }}{92}
-\contentsline {table}{\numberline {5.12}{\ignorespaces Especificaci\'on del caso de uso \textit {Crear decisi\'on - Crear Tema}\relax }}{93}
-\contentsline {table}{\numberline {5.13}{\ignorespaces Especificaci\'on del caso de uso \textit {Crear decisi\'on - Crear Propuesta}\relax }}{95}
-\contentsline {table}{\numberline {5.14}{\ignorespaces Especificaci\'on del caso de uso \textit {Crear decisi\'on - Crear Respuesta}\relax }}{97}
-\addvspace {10\p@ }
 \select@language {english}
 \select@language {spanish}

@@ -1,0 +1,72 @@
+\subsection{Iteración 3}
+
+Siguiendo los casos del grupo funcional \textit{F1: Acceso al sistema} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), así como su análisis realizado, se abordan las siguientes tareas en esta primera iteración de la fase de Construcción: 
+
+\begin{itemize}
+	\item Diseño de la funcionalidad relativa de acceso al sistema.
+	\item Implementación de dicha funcionalidad.
+	\item Diseño e implementación de pruebas relativas a la funcionalidad de acceso al sistema.
+\end{itemize}
+
+\subsubsection{Grupo funcional \textbf{F1:} \textit{Acceso al sistema}}
+
+Una vez se ha definido e implementado la arquitectura del sistema, se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar los casos de uso que componen la funcionalidad de \textit{Acceso al sistema}, mostrados en la Figura \ref{fig:CduAccesoSistema2Server}.
+
+\paragraph{Diseño e implementación de acceso al sistema}
+
+En primer lugar, se modela el funcionamiento de los casos de uso que componen este grupo funcional a través de diagramas de secuencia de diseño, tanto para el subsistema cliente como para el servidor, teniendo en cuenta el modelo de casos de uso y de análisis. De este modo, en la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Login} en el cliente, mientras que la Figura \ref{fig:secuenciaLoginServer} refleja el diagrama de secuencia para el servidor.
+
+\imagen{Cap5/Cliente2//secuenciaLoginPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Login}{fig:secuenciaLoginCliente}
+
+\imagen{Cap5/Server2//secuenciaLoginPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Login}{fig:secuenciaLoginServer}
+
+
+Una vez modelados los diagramas de secuencia, se procede a la implementación de los casos de uso en ambos subsistemas, con algunos aspectos reseñables.
+
+\subparagraph{Servidor} 
+
+La clase \textit{Usuario} es abstracta ya que no se van a instanciar objetos directamente de esa clase, sino de una de sus subclases, que representan
+los diferentes usuarios que pueden existir en el sistema, según la especificación de requisitos (ver
+sección \ref{sec:requisitos}), como se observa en el diagrama de clases de la Figura \ref{fig:clasesDominio}.
+
+Además, esta solución propuesta facilita la extensibilidad futura del sistema, ya que el
+rol de cada usuario se define mediante una enumeración, de tal modo que cada subclase
+de la clase Usuario redefinirá el método abstracto \textit{getRol()}, devolviendo el valor correspondiente
+a su rol en la enumeración. Por tanto, para añadir un nuevo rol de usuario, basta con añadir una
+nueva clase que herede de la superclase y un nuevo rol a la enumeración.
+
+Por otra parte, para aumentar la seguridad del sistema, se decidió encriptar la contraseña de
+los usuarios, utilizando para ello el algoritmo \textit{SHA1}. Algunas de las razones para utilizar una
+encriptación por código y no delegar esta responsabilidad en el sistema gestor de base de datos,
+son las siguientes:
+\begin{enumerate}
+	\item Si se quiere cambiar la encriptación a una más segura, no haría falta más que cambiar el
+método que encripta la contraseña.
+	\item Puede que otros SGBD que no sean MySQL no tengan encriptación incorporada.
+	\item El número de encriptaciones que incorpora un SGBD es limitado.
+\end{enumerate}
+
+Tras acceder al sistema, la interfaz gráfica de usuario del subsistema cliente debe adaptarse a las operaciones del usuario logueado, según su rol. Para ello, el gestor de sesiones utiliza archivos XML donde están definidos los perfiles existentes en el sistema y las operaciones que puede realizar este perfil. Así, las operaciones se han dividido en categorías, de tal modo que los elementos de los menús de la aplicación, submenús, \textit{toolbars}, etc, se generarán de manera automática en el cliente tras acceder al sistema y conocer las operaciones que puede realizar un cierto rol.
+
+De este modo, además de permitir una interfaz de usuario totalmente flexible y adaptable, se facilita la extensibilidad, ya que, además de los cambios mencionados anteriormente, solamente habría que añadir el nuevo perfil y sus operaciones a los ficheros XML alojados en el servidor. Para gestionar estos archivos XML, se ha utilizado el patrón \textbf{Agente} para encapsular en un clase el acceso a los ficheros XML y todas las operaciones a realizar con ellos, como consultas al archivo XML, gestión de XPath, etc, utilizando JDOM y Jaxen (ver sección \ref{sec:marco}).
+ 
+En la Figura \ref{fig:clasesSessionController} se muestra el diagrama de clases para el gestor de sesiones.
+ 
+\imagen{Cap5/Server2//clasesSessionController}{2.0}{Diagrama de clases - Gestor de sesiones}{fig:clasesSessionController}
+
+ 
+\subparagraph{Cliente}
+
+Cabe destacar que la interfaz gráfica de usuario del subsistema cliente se ha diseñado e implementado siguiendo una estructura de composición de clases, de tal modo que la ventana (o \textit{frame)} principal se compone de paneles, y éstos, a su vez, de otros paneles y elementos gráficos. De este modo se consigue una interfaz gráfica ampliamente extensible y adaptable. 
+
+Gracias a esta estructura, según el rol del usuario que accede al sistema, los menús y diferentes elementos de la interfaz gráfica son fácilmente adaptables a las operaciones que ese usuario pueda realizar en el sistema. Además, para tener en cuenta el multi-idioma, la interfaz se adaptará al idioma elegido y todos sus menús, etiquetas, texto, etc, se mostrarán en el idioma preferido. Este aspecto de internacionalización se detallará en una iteración posterior.
+
+Para terminar, en lo que respecta a esta funcionalidad de acceso al sistema en el cliente, se ha diseñado e implementado una ventana para que el usuario pueda introducir sus datos, validarlos y enviarlos al servidor, accediendo al sistema si todo es correcto. En este aspecto, cabe destacar el uso del método \textit{invokeLater} de la librería Swing (ver sección \ref{sec:marco}) que permite manipular la interfaz gráfica mientras se realiza una tarea de larga duración en un hilo separado. Por tanto, la acción de validar los datos para acceder al sistema y enviarlos al servidor, se realiza en un hilo separado, mientras que en la interfaz gráfica se muestra un panel con un \textit{spinner} de carga (ver ejemplo de \textit{spinner} en la Figura \ref{fig:spinner}) animado, para proporcionar al usuario un \textit{feedback} visual y saber que la operación se está realizando y que debe esperar. 
+
+\imagenBorde{Cap5//spinner}{0.5}{Ejemplo de \textit{spinner} de carga}{fig:spinner}
+
+En el fragmento de código \ref{list:login} se muestra como se ha utilizado el método \textit{invokeLater} para delegar en un nuevo hilo el \textit{login} en el sistema, mostrando el panel con el \textit{spinner} animado.
+
+\texttt{\lstinputlisting[caption=Fragmento de código para acceder al sistema en el cliente, breaklines=true, label=list:login, inputencoding=latin1, style=JavaStyle]{Codigo//login.java}}
+
+% PROTOTIPO DE LA INTERFAZ PRINCIPAL Y COMO SALEN MENUS SEGUN ROL

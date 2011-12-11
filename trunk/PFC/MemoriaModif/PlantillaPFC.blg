@@ -1,22 +1,9 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: D:\UCLM\5Curso\PFC\repo-pfc\PFC\Memoria\PlantillaPFC.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
 A level-1 auxiliary file: Portadas.aux
 A level-1 auxiliary file: Previos.aux
 A level-1 auxiliary file: Listas.aux
-A level-1 auxiliary file: Introduccion.aux
-A level-1 auxiliary file: MotivacionObjetivos.aux
-A level-1 auxiliary file: EstadoArte.aux
-A level-1 auxiliary file: MetodoTrabajo.aux
-A level-1 auxiliary file: Resultados.aux
-A level-1 auxiliary file: FaseInicio.aux
-A level-1 auxiliary file: FaseElaboracion.aux
-A level-1 auxiliary file: FaseConstruccion.aux
-A level-1 auxiliary file: construccion1interacion.aux
-A level-1 auxiliary file: construccion2interacion.aux
-A level-1 auxiliary file: construccion3interacion.aux
-A level-1 auxiliary file: construccion4interacion.aux
-A level-1 auxiliary file: construccion5interacion.aux
-A level-1 auxiliary file: ConclusionesPropuestas.aux
 The style file: babplai3.bst
+I found no \citation commands---while reading file D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
 Database file #1: PFCBib.bib
 "{" immediately follows a field name---line 160 of file PFCBib.bib
  :   language
@@ -26,8 +13,6 @@ I'm skipping whatever remains of this entry
  :   language
  :           {english}
 I'm skipping whatever remains of this entry
-Warning--entry type for "wernerHeij" isn't style-file defined
---line 265 of file PFCBib.bib
 "{" immediately follows a field name---line 301 of file PFCBib.bib
  :   language
  :           {english}
@@ -50,19 +35,4 @@ I was expecting a `,' or a `}'---line 402 of file PFCBib.bib
  :   language={english}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "condicionesGoogle"
-Warning--I didn't find a database entry for "condicionesYahoo"
-Warning--empty language in blackburn1996concurrent
-Warning--empty language in fitzgerald2010global
-Warning--empty journal in fitzgerald2010global
-Warning--empty language in holzner1979knowledge
-Warning--empty year in Hovland
-Warning--empty journal in Kanagasabapathy2006
-Warning--empty language in kobitzsch2001outsourcing
-Warning--empty language in kruchten2004rational
-Warning--empty language in monasor
-Warning--empty journal in monasor
-Warning--empty journal in sangwan2006global
-Warning--empty journal in torossi
-Warning--empty year in torossi
-(There were 7 error messages)
+(There were 8 error messages)
