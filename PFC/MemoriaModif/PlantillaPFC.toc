@@ -4,225 +4,35 @@
 \select@language {spanish}
 \select@language {english}
 \select@language {spanish}
-\contentsline {chapter}{\numberline {1}Introducci\'on}{1}
-\contentsline {section}{\numberline {1.1}Estructura del documento}{1}
-\contentsline {chapter}{\numberline {2}Motivaci\'on y Objetivos del Proyecto}{3}
-\contentsline {section}{\numberline {2.1}Motivaci\'on}{3}
-\contentsline {section}{\numberline {2.2}Objetivos}{4}
-\contentsline {subsection}{\numberline {2.2.1}Objetivos a alcanzar con el desaf\IeC {\'\i }o de la comunicaci\'on}{5}
-\contentsline {subsection}{\numberline {2.2.2}Objetivos a alcanzar con el desaf\IeC {\'\i }o del control}{5}
-\contentsline {subsection}{\numberline {2.2.3}Resumen de objetivos}{6}
-\contentsline {chapter}{\numberline {3}Estado del Arte}{9}
-\contentsline {section}{\numberline {3.1}Desarrollo Global de Software}{9}
-\contentsline {subsection}{\numberline {3.1.1}Beneficios del Desarrollo Global de Software}{11}
-\contentsline {paragraph}{\numberline {3.1.1.0.1}Reducci\'on de costes}{11}
-\contentsline {paragraph}{\numberline {3.1.1.0.2}Aumento de la competitividad}{12}
-\contentsline {paragraph}{\numberline {3.1.1.0.3}Disminuci\'on de tiempo de lanzamiento al mercado}{12}
-\contentsline {paragraph}{\numberline {3.1.1.0.4}Proximidad al mercado y al cliente}{13}
-\contentsline {paragraph}{\numberline {3.1.1.0.5}Mejoras en la innovaci\'on}{13}
-\contentsline {subsection}{\numberline {3.1.2}Dificultades del Desarrollo Global de Software}{13}
-\contentsline {subsubsection}{\numberline {3.1.2.1}Desaf\IeC {\'\i }os en la comunicaci\'on y la distancia geogr\'afica}{15}
-\contentsline {paragraph}{\numberline {3.1.2.1.1}Falta de comunicaci\'on ``face-to-face''}{15}
-\contentsline {paragraph}{\numberline {3.1.2.1.2}Aumento del esfuerzo en la comunicaci\'on}{16}
-\contentsline {paragraph}{\numberline {3.1.2.1.3}Coste de los viajes}{16}
-\contentsline {paragraph}{\numberline {3.1.2.1.4}Dependencia en las tecnolog\IeC {\'\i }as y herramientas de comunicaci\'on}{16}
-\contentsline {subsubsection}{\numberline {3.1.2.2}Desaf\IeC {\'\i }os en la comunicaci\'on y la distancia temporal}{16}
-\contentsline {paragraph}{\numberline {3.1.2.2.1}Interrupciones}{16}
-\contentsline {paragraph}{\numberline {3.1.2.2.2}Cambio de horario laboral}{17}
-\contentsline {subsubsection}{\numberline {3.1.2.3}Desaf\IeC {\'\i }os en la comunicaci\'on y la distancia socio-cultural}{17}
-\contentsline {paragraph}{\numberline {3.1.2.3.1}Malentendidos debidos a diferencias ling\"u\IeC {\'\i }sticas}{17}
-\contentsline {paragraph}{\numberline {3.1.2.3.2}Malentendidos culturales}{17}
-\contentsline {subsubsection}{\numberline {3.1.2.4}Desaf\IeC {\'\i }os en la coordinaci\'on y la distancia geogr\'afica}{18}
-\contentsline {paragraph}{\numberline {3.1.2.4.1}Reducci\'on de la confianza}{18}
-\contentsline {paragraph}{\numberline {3.1.2.4.2}Falta de esp\IeC {\'\i }ritu y conciencia de equipo}{18}
-\contentsline {paragraph}{\numberline {3.1.2.4.3}Modularizaci\'on del trabajo}{19}
-\contentsline {paragraph}{\numberline {3.1.2.4.4}Aumento del esfuerzo en acuerdos de externalizaci\'on}{19}
-\contentsline {paragraph}{\numberline {3.1.2.4.5}Riesgo de alternativas de bajo coste}{19}
-\contentsline {subsubsection}{\numberline {3.1.2.5}Desaf\IeC {\'\i }os en la coordinaci\'on y la distancia temporal}{19}
-\contentsline {paragraph}{\numberline {3.1.2.5.1}Reducci\'on de horas de colaboraci\'on}{19}
-\contentsline {paragraph}{\numberline {3.1.2.5.2}Disponibilidad de infraestructura t\'ecnica}{20}
-\contentsline {subsubsection}{\numberline {3.1.2.6}Desaf\IeC {\'\i }os en la coordinaci\'on y la distancia socio-cultural}{20}
-\contentsline {paragraph}{\numberline {3.1.2.6.1}Formaci\'on cultural y ling\"u\IeC {\'\i }stica}{20}
-\contentsline {paragraph}{\numberline {3.1.2.6.2}Falta de dominio de conocimiento}{20}
-\contentsline {subsubsection}{\numberline {3.1.2.7}Desaf\IeC {\'\i }os en el control y la distancia geogr\'afica}{20}
-\contentsline {paragraph}{\numberline {3.1.2.7.1}Asignaci\'on de roles y estructuras de equipo}{21}
-\contentsline {paragraph}{\numberline {3.1.2.7.2}Aplicaci\'on de principios de ingenier\IeC {\'\i }a del software concurrente}{21}
-\contentsline {paragraph}{\numberline {3.1.2.7.3}Riesgos organizacionales}{21}
-\contentsline {subsubsection}{\numberline {3.1.2.8}Desaf\IeC {\'\i }os en el control y la distancia temporal}{22}
-\contentsline {paragraph}{\numberline {3.1.2.8.1}Gesti\'on de los artefactos del proyecto}{22}
-\contentsline {subsubsection}{\numberline {3.1.2.9}Desaf\IeC {\'\i }os en el control y la distancia socio-cultural}{22}
-\contentsline {paragraph}{\numberline {3.1.2.9.1}Adaptaci\'on a normas y estructuras locales}{22}
-\contentsline {paragraph}{\numberline {3.1.2.9.2}Diferentes percepciones de la autoridad}{22}
-\contentsline {section}{\numberline {3.2}Gesti\'on de conocimiento}{23}
-\contentsline {subsection}{\numberline {3.2.1}Marco de trabajo para la gesti\'on de conocimiento}{25}
-\contentsline {subsubsection}{\numberline {3.2.1.1}Creaci\'on de conocimiento}{26}
-\contentsline {subsubsection}{\numberline {3.2.1.2}Almacenamiento y recuperaci\'on del conocimiento}{27}
-\contentsline {subsubsection}{\numberline {3.2.1.3}Transmisi\'on del conocimiento}{27}
-\contentsline {subsubsection}{\numberline {3.2.1.4}Aplicaci\'on del conocimiento}{28}
-\contentsline {subsection}{\numberline {3.2.2}Beneficios y desaf\IeC {\'\i }os de la gesti\'on de conocimiento}{28}
-\contentsline {paragraph}{\numberline {3.2.2.0.1}Beneficios}{28}
-\contentsline {paragraph}{\numberline {3.2.2.0.2}Problemas}{29}
-\contentsline {section}{\numberline {3.3}Razonamiento basado en casos}{30}
-\contentsline {chapter}{\numberline {4}M\'etodo de Trabajo}{33}
-\contentsline {section}{\numberline {4.1}Proceso Unificado de Desarrollo}{33}
-\contentsline {subsection}{\numberline {4.1.1}Fases de desarrollo basado en PUD}{35}
-\contentsline {subsubsection}{\numberline {4.1.1.1}Fase de Inicio}{35}
-\contentsline {subsubsection}{\numberline {4.1.1.2}Fase de Elaboraci\'on}{36}
-\contentsline {subsubsection}{\numberline {4.1.1.3}Fase de Construcci\'on}{36}
-\contentsline {subsubsection}{\numberline {4.1.1.4}Fase de Transici\'on}{37}
-\contentsline {subsection}{\numberline {4.1.2}Flujo de trabajo en el PUD}{37}
-\contentsline {subsubsection}{\numberline {4.1.2.1}Captura de requisitos}{38}
-\contentsline {subsubsection}{\numberline {4.1.2.2}An\'alisis}{38}
-\contentsline {subsubsection}{\numberline {4.1.2.3}Dise\~no}{39}
-\contentsline {subsubsection}{\numberline {4.1.2.4}Implementaci\'on}{39}
-\contentsline {subsubsection}{\numberline {4.1.2.5}Pruebas}{39}
-\contentsline {subsection}{\numberline {4.1.3}Resumen del Proceso Unificado de Desarrollo}{40}
-\contentsline {section}{\numberline {4.2}Marco tecnol\'ogico de trabajo}{41}
-\contentsline {subsection}{\numberline {4.2.1}Herramientas para la gesti\'on del proyecto}{41}
-\contentsline {subsubsection}{\numberline {4.2.1.1}Subversion}{41}
-\contentsline {subsubsection}{\numberline {4.2.1.2}Maven}{41}
-\contentsline {subsection}{\numberline {4.2.2}Herramienta para el modelado}{42}
-\contentsline {subsubsection}{\numberline {4.2.2.1}Visual Paradigm}{42}
-\contentsline {subsection}{\numberline {4.2.3}Herramientas y tecnolog\IeC {\'\i }as para el desarrollo del proyecto}{44}
-\contentsline {subsubsection}{\numberline {4.2.3.1}Eclipse Helios}{44}
-\contentsline {subsubsection}{\numberline {4.2.3.2}Yahoo! PlaceFinder}{44}
-\contentsline {subsubsection}{\numberline {4.2.3.3}OpenStreetMap}{45}
-\contentsline {subsubsection}{\numberline {4.2.3.4}JAXB}{46}
-\contentsline {subsubsection}{\numberline {4.2.3.5}JDOM}{46}
-\contentsline {subsubsection}{\numberline {4.2.3.6}Jaxen}{47}
-\contentsline {subsubsection}{\numberline {4.2.3.7}Hibernate}{47}
-\contentsline {subsubsection}{\numberline {4.2.3.8}Swing}{48}
-\contentsline {subsubsection}{\numberline {4.2.3.9}JUNG}{48}
-\contentsline {subsubsection}{\numberline {4.2.3.10}iText}{49}
-\contentsline {subsubsection}{\numberline {4.2.3.11}JFreeChart}{50}
-\contentsline {subsubsection}{\numberline {4.2.3.12}RMI}{51}
-\contentsline {subsubsection}{\numberline {4.2.3.13}Java Reflection API}{52}
-\contentsline {subsection}{\numberline {4.2.4}Herramientas y tecnolog\IeC {\'\i }as para bases de datos}{52}
-\contentsline {subsubsection}{\numberline {4.2.4.1}MySQL}{52}
-\contentsline {subsubsection}{\numberline {4.2.4.2}MySQL WorkBench}{53}
-\contentsline {subsection}{\numberline {4.2.5}Herramientas para la documentaci\'on del proyecto}{53}
-\contentsline {subsubsection}{\numberline {4.2.5.1}\textlatin {\LaTeX }{}}{53}
-\contentsline {subsubsection}{\numberline {4.2.5.2}\BibTeX {}}{55}
-\contentsline {chapter}{\numberline {5}Resultados}{57}
-\contentsline {section}{\numberline {5.1}Fase de Inicio}{58}
-\contentsline {subsection}{\numberline {5.1.1}Identificaci\'on de requisitos}{58}
-\contentsline {subsubsection}{\numberline {5.1.1.1}Requisitos funcionales}{59}
-\contentsline {subsubsection}{\numberline {5.1.1.2}Requisitos no funcionales}{63}
-\contentsline {subsection}{\numberline {5.1.2}Modelo de casos de uso}{63}
-\contentsline {subsubsection}{\numberline {5.1.2.1}Modelo de casos de uso para el subsistema cliente}{63}
-\contentsline {subsubsection}{\numberline {5.1.2.2}Modelo de casos de uso para el subsistema servidor}{64}
-\contentsline {paragraph}{\numberline {5.1.2.2.1}Acceso al sistema}{65}
-\contentsline {paragraph}{\numberline {5.1.2.2.2}Visualizaci\'on de decisiones}{65}
-\contentsline {paragraph}{\numberline {5.1.2.2.3}Gesti\'on de decisiones}{67}
-\contentsline {paragraph}{\numberline {5.1.2.2.4}Gesti\'on de notificaciones}{68}
-\contentsline {paragraph}{\numberline {5.1.2.2.5}Gesti\'on de proyectos}{69}
-\contentsline {paragraph}{\numberline {5.1.2.2.6}Gesti\'on de idiomas}{69}
-\contentsline {paragraph}{\numberline {5.1.2.2.7}Exportar informaci\'on}{69}
-\contentsline {subsection}{\numberline {5.1.3}An\'alisis de riesgos}{72}
-\contentsline {subsection}{\numberline {5.1.4}Plan de iteraciones}{72}
-\contentsline {section}{\numberline {5.2}Fase de Elaboraci\'on}{74}
-\contentsline {subsection}{\numberline {5.2.1}Primera iteraci\'on}{75}
-\contentsline {subsubsection}{\numberline {5.2.1.1}Identificaci\'on de requisitos}{75}
-\contentsline {subsubsection}{\numberline {5.2.1.2}Modelo de casos de uso}{76}
-\contentsline {paragraph}{\numberline {5.2.1.2.1}Visualizaci\'on de decisiones}{76}
-\contentsline {paragraph}{\numberline {5.2.1.2.2}Gesti\'on de decisiones}{76}
-\contentsline {paragraph}{\numberline {5.2.1.2.3}Generaci\'on de estad\IeC {\'\i }sticas}{81}
-\contentsline {paragraph}{\numberline {5.2.1.2.4}Generaci\'on de informes}{81}
-\contentsline {subsubsection}{\numberline {5.2.1.3}Plan de iteraciones}{81}
-\contentsline {subsubsection}{\numberline {5.2.1.4}An\'alisis de casos de uso}{86}
-\contentsline {paragraph}{\numberline {5.2.1.4.1}Acceso al sistema}{87}
-\contentsline {subparagraph}{Login}{87}
-\contentsline {subparagraph}{Logout}{87}
-\contentsline {paragraph}{\numberline {5.2.1.4.2}Visualizar decisiones}{90}
-\contentsline {subparagraph}{Consultar decisiones}{90}
-\contentsline {subparagraph}{Consultar compa\~n\IeC {\'\i }a}{90}
-\contentsline {paragraph}{\numberline {5.2.1.4.3}Gesti\'on decisiones}{93}
-\contentsline {subparagraph}{Crear decisi\'on}{93}
-\contentsline {subsubsection}{\numberline {5.2.1.5}Arquitectura del sistema}{100}
-\contentsline {paragraph}{\numberline {5.2.1.5.1}Arquitectura cliente-servidor}{100}
-\contentsline {paragraph}{\numberline {5.2.1.5.2}Arquitectura multicapa}{101}
-\contentsline {paragraph}{\numberline {5.2.1.5.3}Patrones utilizados}{103}
-\contentsline {subsection}{\numberline {5.2.2}Segunda iteraci\'on}{104}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Diagrama de clases de dominio}{105}
-\contentsline {subsubsection}{\numberline {5.2.2.2}Dise\~no de la base de datos}{107}
-\contentsline {subsubsection}{\numberline {5.2.2.3}Funcionalidad de \textit {Acceso al sistema}}{109}
-\contentsline {paragraph}{\numberline {5.2.2.3.1}Diagramas de secuencia}{111}
-\contentsline {subparagraph}{Login}{111}
-\contentsline {subparagraph}{Logout}{113}
-\contentsline {paragraph}{\numberline {5.2.2.3.2}Dise\~no e Implementaci\'on de la arquitectura cliente-servidor}{113}
-\contentsline {subparagraph}{Comunicaci\'on entre cliente y servidor}{114}
-\contentsline {subparagraph}{Comunicaci\'on entre servidor y base de datos}{117}
-\contentsline {paragraph}{\numberline {5.2.2.3.3}Dise\~no e implementaci\'on de acceso al sistema}{119}
-\contentsline {subparagraph}{Servidor}{120}
-\contentsline {subparagraph}{Cliente}{121}
-\contentsline {paragraph}{\numberline {5.2.2.3.4}Pruebas}{123}
-\contentsline {section}{\numberline {5.3}Fase de construcci\'on}{124}
-\contentsline {subsection}{\numberline {5.3.1}Primera iteraci\'on}{125}
-\contentsline {subsubsection}{\numberline {5.3.1.1}Funcionalidad de \textit {Visualizar informaci\'on}}{125}
-\contentsline {paragraph}{\numberline {5.3.1.1.1}Diagramas de secuencia}{125}
-\contentsline {subparagraph}{Consultar decisiones}{125}
-\contentsline {subparagraph}{Visualizar compa\~n\IeC {\'\i }a}{125}
-\contentsline {subparagraph}{Descargar ficheros adjuntos}{128}
-\contentsline {paragraph}{\numberline {5.3.1.1.2}Dise\~no e implementaci\'on}{128}
-\contentsline {subparagraph}{Servidor}{129}
-\contentsline {subparagraph}{Cliente}{134}
-\contentsline {paragraph}{\numberline {5.3.1.1.3}Pruebas}{137}
-\contentsline {subsection}{\numberline {5.3.2}Segunda iteraci\'on}{138}
-\contentsline {subsubsection}{\numberline {5.3.2.1}Funcionalidad de \textit {Gesti\'on de decisiones}}{138}
-\contentsline {paragraph}{\numberline {5.3.2.1.1}Diagramas de secuencia}{138}
-\contentsline {subparagraph}{Crear decisi\'on}{138}
-\contentsline {subparagraph}{Modificar y eliminar decisi\'on}{138}
-\contentsline {subparagraph}{Cambiar estado decisi\'on}{140}
-\contentsline {subparagraph}{Adjuntar ficheros}{140}
-\contentsline {paragraph}{\numberline {5.3.2.1.2}Dise\~no e implementaci\'on}{141}
-\contentsline {subparagraph}{Servidor}{141}
-\contentsline {subparagraph}{Cliente}{146}
-\contentsline {subsubsection}{\numberline {5.3.2.2}Funcionalidad de \textit {Gesti\'on de notificaciones}}{147}
-\contentsline {paragraph}{\numberline {5.3.2.2.1}Diagramas de secuencia}{147}
-\contentsline {subparagraph}{Consultar notificaciones}{147}
-\contentsline {subparagraph}{Modificar notificaciones}{147}
-\contentsline {subparagraph}{Eliminar notificaciones}{148}
-\contentsline {paragraph}{\numberline {5.3.2.2.2}Dise\~no e implementaci\'on}{149}
-\contentsline {subparagraph}{Servidor}{149}
-\contentsline {subparagraph}{Cliente}{150}
-\contentsline {paragraph}{\numberline {5.3.2.2.3}Pruebas}{150}
-\contentsline {subsection}{\numberline {5.3.3}Tercera iteraci\'on}{151}
-\contentsline {subsubsection}{\numberline {5.3.3.1}Funcionalidad de \textit {Gesti\'on de proyectos}}{151}
-\contentsline {paragraph}{\numberline {5.3.3.1.1}Diagramas de secuencia}{151}
-\contentsline {subparagraph}{Consultar proyectos}{151}
-\contentsline {subparagraph}{Consultar usuarios}{151}
-\contentsline {subparagraph}{Crear proyecto}{152}
-\contentsline {subparagraph}{Modificar proyecto}{153}
-\contentsline {subparagraph}{Seleccionar proyecto activo}{155}
-\contentsline {subparagraph}{Aconsejar decisiones}{156}
-\contentsline {paragraph}{\numberline {5.3.3.1.2}Dise\~no e implementaci\'on}{156}
-\contentsline {subparagraph}{Servidor}{156}
-\contentsline {subparagraph}{Cliente}{161}
-\contentsline {paragraph}{\numberline {5.3.3.1.3}Pruebas}{161}
-\contentsline {subsection}{\numberline {5.3.4}Cuarta iteraci\'on}{162}
-\contentsline {subsubsection}{\numberline {5.3.4.1}Funcionalidad de \textit {Generaci\'on de informes}}{162}
-\contentsline {paragraph}{\numberline {5.3.4.1.1}Diagramas de secuencia}{162}
-\contentsline {subparagraph}{Generar informe}{162}
-\contentsline {paragraph}{\numberline {5.3.4.1.2}Dise\~no e implementaci\'on}{164}
-\contentsline {subparagraph}{Servidor}{164}
-\contentsline {subparagraph}{Cliente}{168}
-\contentsline {paragraph}{\numberline {5.3.4.1.3}Pruebas}{171}
-\contentsline {subsubsection}{\numberline {5.3.4.2}Funcionalidad de \textit {Generaci\'on de estad\IeC {\'\i }sticas}}{171}
-\contentsline {paragraph}{\numberline {5.3.4.2.1}Diagrama de secuencia}{171}
-\contentsline {paragraph}{\numberline {5.3.4.2.2}Dise\~no e implementaci\'on}{172}
-\contentsline {paragraph}{\numberline {5.3.4.2.3}Pruebas}{175}
-\contentsline {subsection}{\numberline {5.3.5}Quinta iteraci\'on}{176}
-\contentsline {subsubsection}{\numberline {5.3.5.1}Funcionalidad de \textit {Exportar conocimiento}}{176}
-\contentsline {paragraph}{\numberline {5.3.5.1.1}Diagramas de secuencia}{176}
-\contentsline {paragraph}{\numberline {5.3.5.1.2}Dise\~no e implementaci\'on}{176}
-\contentsline {subparagraph}{Servidor}{176}
-\contentsline {subparagraph}{Cliente}{178}
-\contentsline {paragraph}{\numberline {5.3.5.1.3}Pruebas}{178}
-\contentsline {subsubsection}{\numberline {5.3.5.2}Funcionalidad de \textit {Gesti\'on de idiomas}}{178}
-\contentsline {paragraph}{\numberline {5.3.5.2.1}Diagramas de secuencia}{178}
-\contentsline {paragraph}{\numberline {5.3.5.2.2}Dise\~no e implementaci\'on}{178}
-\contentsline {paragraph}{\numberline {5.3.5.2.3}Pruebas}{179}
-\contentsline {chapter}{\numberline {6}Conclusiones y Propuestas}{181}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{182}
+\contentsline {subsection}{\numberline {0.0.1}Iteraci\'on 6}{1}
+\contentsline {subsubsection}{\numberline {0.0.1.1}Grupo Funcional \textbf {F4:} \textit {Gesti\'on de proyectos}}{1}
+\contentsline {paragraph}{\numberline {0.0.1.1.1}Dise\~no e implementaci\'on}{1}
+\contentsline {subparagraph}{Servidor}{1}
+\contentsline {subparagraph}{Cliente}{10}
+\contentsline {paragraph}{\numberline {0.0.1.1.2}Pruebas}{10}
+\contentsline {subsection}{\numberline {0.0.2}Cuarta iteraci\'on}{10}
+\contentsline {subsubsection}{\numberline {0.0.2.1}Funcionalidad de \textit {Generaci\'on de informes}}{10}
+\contentsline {paragraph}{\numberline {0.0.2.1.1}Diagramas de secuencia}{10}
+\contentsline {subparagraph}{Generar informe}{10}
+\contentsline {paragraph}{\numberline {0.0.2.1.2}Dise\~no e implementaci\'on}{11}
+\contentsline {subparagraph}{Servidor}{11}
+\contentsline {subparagraph}{Cliente}{16}
+\contentsline {paragraph}{\numberline {0.0.2.1.3}Pruebas}{19}
+\contentsline {subsubsection}{\numberline {0.0.2.2}Funcionalidad de \textit {Generaci\'on de estad\IeC {\'\i }sticas}}{19}
+\contentsline {paragraph}{\numberline {0.0.2.2.1}Diagrama de secuencia}{19}
+\contentsline {paragraph}{\numberline {0.0.2.2.2}Dise\~no e implementaci\'on}{19}
+\contentsline {paragraph}{\numberline {0.0.2.2.3}Pruebas}{23}
+\contentsline {subsection}{\numberline {0.0.3}Quinta iteraci\'on}{23}
+\contentsline {subsubsection}{\numberline {0.0.3.1}Funcionalidad de \textit {Exportar conocimiento}}{23}
+\contentsline {paragraph}{\numberline {0.0.3.1.1}Diagramas de secuencia}{23}
+\contentsline {paragraph}{\numberline {0.0.3.1.2}Dise\~no e implementaci\'on}{23}
+\contentsline {subparagraph}{Servidor}{23}
+\contentsline {subparagraph}{Cliente}{25}
+\contentsline {paragraph}{\numberline {0.0.3.1.3}Pruebas}{25}
+\contentsline {subsubsection}{\numberline {0.0.3.2}Funcionalidad de \textit {Gesti\'on de idiomas}}{25}
+\contentsline {paragraph}{\numberline {0.0.3.2.1}Diagramas de secuencia}{25}
+\contentsline {paragraph}{\numberline {0.0.3.2.2}Dise\~no e implementaci\'on}{25}
+\contentsline {paragraph}{\numberline {0.0.3.2.3}Pruebas}{26}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{26}
 \select@language {english}
 \select@language {spanish}

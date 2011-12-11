@@ -1,27 +1,19 @@
-\subsection{Quinta iteración} 
+\subsection{Iteración 8} 
 
-Siguiendo los casos de uso de la funcionalidad de \textit{Exportar información} (ver Figura \ref{fig:CduExportarConocimiento2Server}) y \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomas2Server}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos del grupo funcional \textbf{F8:} \textit{Exportar información} (ver Figura \ref{fig:CduExportarConocimiento2Server}) y del grupo funcional \textbf{F9:} \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomas2Server}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
 	\item Diseño de la funcionalidad relativa a la gestión de idiomas y a exportar la información de las decisiones.
 	\item Implementación de dichas funcionalidades.
-	\item Diseño e implementación de pruebas unitarias y funcionales relativas a la gestión de idiomas y a exportar la información de las decisiones.
+	\item Diseño e implementación de pruebas relativas a la gestión de idiomas y a exportar la información de las decisiones.
 \end{itemize}
 
 
-\subsubsection{Funcionalidad de \textit{Exportar conocimiento}} \label{sec:exportarConocimiento}
-
-\paragraph{Diagramas de secuencia}
-
-En la Figura \ref{fig:secuenciaExportarConocimientoCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Adjuntar ficheros} en el cliente, mientras que en la Figura \ref{fig:secuenciaExportarConocimientoServer} se muestra el diagrama de secuencia para el servidor.
-
-%\imagen{Cap5/Cliente2//secuenciaConsultarNotificacionCliente}{1.0}{Diagrama de secuencia - Cliente - Consultar notificaciones ficheros}{fig:secuenciaConsultarNotificacionCliente}
-
-%\imagen{Cap5/Server2//secuenciaConsultarNotificacionServer}{1.0}{Diagrama de secuencia - Servidor - Consultar notificaciones}{fig:secuenciaConsultarNotificacionServer}
-
-
+\subsubsection{Grupo funcional \textbf{F8:} \textit{Exportar conocimiento}} \label{sec:exportarConocimiento}
 
 \paragraph{Diseño e implementación}
+
+Como en iteraciones anteriores y de modo similar, se modelan los diagramas de secuencia para los casos de uso de este grupo funcional y se comienza con su diseño e implementación.
 
 \subparagraph{Servidor}
 
@@ -43,21 +35,12 @@ En el fragmento de código \ref{list:JAXBTopics} se muestran las anotaciones de J
 
 
 
-\subsubsection{Funcionalidad de \textit{Gestión de idiomas}}
-
-\paragraph{Diagramas de secuencia}
-
-En la Figura \ref{fig:secuenciaCambiarIdiomaCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Adjuntar ficheros} en el cliente, mientras que en la Figura \ref{fig:secuenciaCambiarIdiomaServer} se muestra el diagrama de secuencia para el servidor.
-
-
-\imagen{Cap5/Cliente2//secuenciaCambiarIdiomaCliente}{0.6}{Diagrama de secuencia - Cliente - Gestión de idiomas}{fig:secuenciaCambiarIdiomaCliente}
-
-\imagen{Cap5/Server2//secuenciaCambiarIdiomaServer}{2.0}{Diagrama de secuencia - Servidor - Gestión de idiomas}{fig:secuenciaCambiarIdiomaServer}
+\subsubsection{Grupo funcional \textbf{F9:} \textit{Gestión de idiomas}}
 
 
 \paragraph{Diseño e implementación}
 
-Ambos subsistemas, tanto el cliente como el servidor, deben soportar multi-idioma, por lo que se ha diseñado e implementado un gestor de lenguajes. Dicho gestor será el encargado de, según el idioma elegido en la aplicación, mostrar la diferente información de la interfaz gráfica de usuario en ese idioma. Para ello, se han creado ficheros de propiedades (o \textit{properties)} que contienen las cadenas de texto a internacionalizar, utilizando uno u otro según el idioma escogido. El nombre de dichos ficheros terminan con el código del idioma de cada país, para poder cargar uno u otro según el idioma.
+El sistema debe dar soporte a la internacionalización, por lo que se ha diseñado e implementado un gestor de lenguajes. Dicho gestor será el encargado de, según el idioma elegido en la aplicación, mostrar la diferente información de la interfaz gráfica de usuario en ese idioma. Para ello, se han creado ficheros de propiedades (o \textit{properties)} que contienen las cadenas de texto a internacionalizar, utilizando uno u otro según el idioma escogido. El nombre de dichos ficheros terminan con el código del idioma de cada país, para poder cargar uno u otro según el idioma.
 
 En el fragmento de código \ref{list:internacionalizacion} se muestra cómo utilizar los archivos \textit{properties} para dar soporte al multi-idioma.
 
@@ -65,5 +48,6 @@ En el fragmento de código \ref{list:internacionalizacion} se muestra cómo utiliz
 
 Para terminar, señalar que los idiomas disponibles para configurar la aplicación se encuentran un fichero XML, para que no sea necesario una conexión a base de datos y se pueda modificar el idioma de la aplicación sin tener que acceder previamente a dicha base de datos. Además, se facilita la extensibilidad y adición de nuevos idiomas, ya que sólo abría que crear su fichero de propiedades y agregar ese idioma al fichero XML.
 
+En este PFC se han incluido los idiomas Español (España) e Inglés (Americano).
 
 \paragraph{Pruebas}
