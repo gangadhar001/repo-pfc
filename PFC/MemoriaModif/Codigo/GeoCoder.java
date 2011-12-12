@@ -9,17 +9,7 @@ public class GeoCoder {
 	private static final String BASE_URL =  "http://where.yahooapis.com/geocode";
 			
 	public static Coordinates getGeoCoordinates(Address address) throws NonExistentAddressException, WSResponseException, IOException, JDOMException {
-		URL url;
-		Coordinates coor = null;
-		StringBuffer ad = new StringBuffer();
-		ad.append(address.getStreet() != null ? address.getStreet().replace(" ", "+") + 
-				  "+" : "");
-		ad.append(address.getCity() != null ? address.getCity().replace(" ", "+") + 
-				  "+" : "");
-		ad.append(address.getZip() != null ? address.getZip() + "+" : "");
-		ad.append(address.getCountry() != null ? address.getCountry().replace(" ", "+") + "+" : "");
-		if (ad.toString().endsWith("+"))
-			ad = ad.replace(ad.length() - 1, ad.length(), "");
+		....
 		
 		String request = BASE_URL + "?q="+ad.toString()+"&appid="+APPID;
 		url = new URL(request);

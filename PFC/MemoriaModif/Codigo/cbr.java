@@ -14,8 +14,7 @@ public class NNMethod {
 			result.add(new CaseEval(caseP, getEval(caseToEval, caseP, config)));
 		}
 		// Sort the result
-		Collections.sort(result);
-		
+		Collections.sort(result);		
 		if (k == 0)
 			similCases = SelectCasesController.selectAll(result);
 		else

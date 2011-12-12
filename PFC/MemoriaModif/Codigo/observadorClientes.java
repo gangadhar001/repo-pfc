@@ -17,20 +17,6 @@ public class ClientsController {
 				clients.get(id).notifyKnowledgeAdded(k, parentK);
 	}
 	
-	public static void notifyKnowledgeEdited(long sessionId, Knowledge newK, Knowledge oldK) throws RemoteException {
-		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view
-		for(Long id : clients.keySet()) 
-			if (id != sessionId)
-				clients.get(id).notifyKnowledgeEdited(newK, oldK);
-	}
-	
-	public static void notifyKnowledgeRemoved(long sessionId, Knowledge k) throws RemoteException {
-		// Notify the clients (except the client that launched the operation) about the operation, in order to refresh their view
-		for(Long id : clients.keySet()) 
-			if (id != sessionId)
-				clients.get(id).notifyKnowledgeRemoved(k);
-	}
-	
 	....
 }
 	       

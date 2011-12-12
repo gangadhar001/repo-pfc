@@ -1,5 +1,3 @@
-    ....
-	
 	this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
     getMainFrame().setGlassPane(glassPane);
 	
