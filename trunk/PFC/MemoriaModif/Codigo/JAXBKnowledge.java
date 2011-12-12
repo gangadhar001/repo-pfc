@@ -1,6 +1,3 @@
-/**
- * This class represents the knowledge to manage, which can be a Topic, a Proposal or an Answer. 
- */
 @XmlAccessorType( XmlAccessType.FIELD )
 public abstract class Knowledge implements Serializable {
 
@@ -8,6 +5,10 @@ public abstract class Knowledge implements Serializable {
 	
 	protected int id;
 	protected String title;
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	protected Date date;
 	protected String description;
-	@XmlElement protected User user;
+	protected KnowledgeStatus status;
+	@XmlElement( name = "Author" ) protected User user;
+	@XmlElement( name = "File" )
+	private Set<File> files = new HashSet<File>();

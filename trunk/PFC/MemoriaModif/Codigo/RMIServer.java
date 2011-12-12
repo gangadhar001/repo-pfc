@@ -1,8 +1,4 @@
- /**
- * Class that exports the server instance to be used by clients to execute operations from the server facade (interface)
- */
-public class ExportedServer extends UnicastRemoteObject implements IServer {
- 
+public class ExportedServer extends UnicastRemoteObject implements IServer { 
 	....
 	
 	public void activate(String serverIP, int serverPort) throws MalformedURLException, RemoteException {

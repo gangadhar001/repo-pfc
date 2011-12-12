@@ -54,49 +54,6 @@ public class PDFComposer {
 		}
 	}
 
-	private static PdfPTable createTable(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
-		PdfPTable table = new PdfPTable(6);
-		createHeader(table, p);
-		TopicWrapper tw;
-		// Take knowledge from project
-		tw = Server.getInstance().getTopicsWrapper(sessionId, p);
-		List<Knowledge> knowledge = getKnowledgeProject(tw);
-
-		for(Knowledge k: knowledge) {
-			Image image = null;
-			if (k instanceof Topic)
-				image = Image.getInstance(ImagesUtilities.getPathImage("Topic.png"));
-			if (k instanceof Proposal)
-				image = Image.getInstance(ImagesUtilities.getPathImage("Proposal.png"));
-			if (k instanceof Answer)
-				image = Image.getInstance(ImagesUtilities.getPathImage("Answer.png"));		
-			
-			PdfPCell cell = new PdfPCell(image, false);
-			setBackgroundColor(k, cell);
-			table.addCell(cell);
-			
-			cell = new PdfPCell(new Paragraph(k.getTitle()));
-			setBackgroundColor(k, cell);
-			table.addCell(cell);
-			
-			cell = new PdfPCell(new Paragraph(k.getDescription()));
-			setBackgroundColor(k, cell);
-			table.addCell(cell);
-			
-			cell = new PdfPCell(new Paragraph(k.getDate().toString()));
-			setBackgroundColor(k, cell);
-			table.addCell(cell);
-			
-			cell = new PdfPCell(new Paragraph(k.getUser().getName() + ", " + k.getUser().getSurname()));
-			setBackgroundColor(k, cell);
-			table.addCell(cell);
-			
-			cell = new PdfPCell(new Paragraph(""));
-			table.addCell(cell);
-		}
-		
-		return table;
-	}
+	....
 	
-	.....
 }

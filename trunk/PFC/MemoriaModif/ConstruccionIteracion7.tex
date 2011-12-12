@@ -8,7 +8,7 @@ Siguiendo los casos de uso del grupo funcional \textbf{F6:} \textit{Generación d
 	\item Diseño e implementación de pruebas relativas a la generación de informes y gráficos estadísticos.
 \end{itemize}
 
-\subsubsection{Grupo funcional \textbf{F6:} de \textit{Generación de informes}}
+\subsubsection{Grupo funcional \textbf{F6:} \textit{Generación de informes}}
 
 \paragraph{Diseño e implementación} \label{sec:diseñoGenerarPDF}
 
@@ -16,9 +16,9 @@ En la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagra
 
 Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{Consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
 
-\imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{0.6}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalCliente}
+\imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{1.9}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalCliente}
 
-\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{0.6}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalServer}
+\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{1.9}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalServer}
 
 
 
@@ -37,11 +37,9 @@ Se ha utilizado una jerarquía de herencia para diseñar los elementos que forman 
 	\item Una tabla, donde se van a mostrar el conjunto de decisiones y toda su información asociada del proyecto seleccionado.
 \end{itemize}
 
-En cuanto al comportamiento normal o extendido de esta funcionalidad que se comentó en el apartado anterior, ésto depende si se selecciona o no proyecto para generar su tabla de decisiones e información asociada. Por tanto, el comportamiento por defecto es trabajar con el proyecto activo del usuarios en ese momento, pudiendo seleccionar otro proyecto para generar la tabla de decisiones en el informe PDF.
+Como se observa en la Figura \ref{fig:clasesGenerarPdf}, cabe señalar el uso de la clase \textit{HeaderFooter} para colocar una imagen en el encabezado y pie de página de cada página del documento PDF. Esto es útil, por ejemplo, para colocar el logo de una compañía en cada página del informe.
 
-Por otra parte, como se observa en la Figura \ref{fig:clasesGenerarPdf}, cabe señalar el uso de la clase \textit{HeaderFooter} para colocar una imagen en el encabezado y pie de página de cada página del documento PDF. Esto es útil, por ejemplo, para colocar el logo de una compañía en cada página del informe.
-
-En cuanto a aspectos de implementación, se utiliza \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las componen, según hayan sido configuradas en el cliente. En el listado de código \ref{list:s} se muestra un fragmento de código de como crear el documento y como se insertan en él los elementos.
+En cuanto a aspectos de implementación, se utiliza la librería \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las componen, según hayan sido configuradas en el cliente. En el listado de código \ref{list:generarPDF} se muestra un fragmento de código de cómo crear el documento y como se insertan en él los elementos.
 
 \texttt{\lstinputlisting[caption=Fragmento de código para la generación de documentos PDF, breaklines=true, label=list:generarPDF, inputencoding=latin1, style=JavaStyle]{Codigo//generarPDF.java}}
 
@@ -54,7 +52,15 @@ En este aspecto de configuración de las secciones, cabe destacar el uso de la té
 
 En la Figura \ref{fig:clasesGenerarPDF} se muestra el diagrama de clases para esta funcionalidad en el sistema cliente.
 
-\imagen{Cap5/Cliente2//clasesGenerarPdf}{2.0}{Diagrama de clases - Generación de documentos PDF - Cliente}{fig:clasesGenerarPDF}
+\begin{figure}[!htbp]
+ \begin{center}
+   \includegraphics[scale=2.0,angle=90]{Cap5/Cliente2//clasesGenerarPDF}
+ \caption {Diagrama de clases - Generación de documentos PDF - Cliente}
+ \label{fig:clasesGenerarPDF}
+ \end{center}
+\end{figure}
+ 
+%\imagen{Cap5/Cliente2//clasesGenerarPdf}{2.0}{Diagrama de clases - Generación de documentos PDF - Cliente}{fig:clasesGenerarPDF}
 
 A continuación, se explican las clases involucradas en el proceso de \textit{Drag \& Drop}:
 
@@ -63,7 +69,7 @@ A continuación, se explican las clases involucradas en el proceso de \textit{Dra
 	\item \textbf{panelPDFElement}: esta clase representa los elementos que pueden insertarse en las secciones, pero que aún no han sido colocados en el panel que representa una sección.
 	\item \textbf{panelPDFDragged}: esta clase representa los elementos del PDF que ya han sido insertados en las secciones, y por lo tanto ya tienen una configuración (texto, fuente, proyecto asignado, etc). Esta clase es la superclase de las clases \textit{panelPDFDraggedTitle}, \textit{panelPDFDraggedText} y \textit{panelPDFDraggedTable}, que representan los tres elementos que se utilizan para componer las secciones del PDF. Esta superclase implementa la interfaz \textit{Transferable}.
 	\item \textbf{Transferable}: es una interfaz que deben implementar los objetos sujetos a realizar un \textit{Drag}, y que permite conocer cuál es su \textit{DataFlavor} asociado y devolver el objeto correspondiente cuando se realice el evento de \textit{Drop}.
-	\item \textbf{DataFlavor}: es una clase de Java, del paquete \textit{java.awt.transfer}, que indica que datos se transmiten cuando el evento del \textit{Drop} se produce.
+	\item \textbf{DataFlavor}: es una clase de Java, del paquete \textit{java.awt.transfer}, que indica qué datos se transmiten cuando el evento del \textit{Drop} se produce.
 	\item \textbf{DraggableMouseListener}: es una clase que cuando detecta el evento del ratón \textit{pressed} inicia el proceso de \textit{Drag \& Drop}, creando el objeto que implementa la interfaz \textit{Transferable}, que será el origen del \textit{Drag}.
 	\item \textbf{DragandDropTransferHandler}: clase controladora del proceso \textit{Drag \& Drop} que devuelve el objeto \textit{Transferable} apropiado y controla el modo del proceso (copia o movimiento).
 	\item \textbf{DropTargetListener}: es la clase que contiene la lógica para manejar el evento del \textit{Drop}.
@@ -81,7 +87,7 @@ Una vez detalladas las clases involucradas en el proceso \textit{Drag \& Drop}, 
 
 En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& Drop}, de manera simplificada.
 
-\imagen{Cap5//DnD}{0.6}{Proceso simplificado de \textit{Drag \& Drop}}{fig:DnD}
+\imagen{Cap5//DnD}{0.7}{Proceso simplificado de \textit{Drag \& Drop}}{fig:DnD}
 
 
 
@@ -89,9 +95,7 @@ En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& 
 
 
 
-
-
-\subsubsection{Grupo funcional \textbf{F7:} de \textit{Generación de estadísticas}}
+\subsubsection{Grupo funcional \textbf{F7:} \textit{Generación de estadísticas}}
 \paragraph{Diseño e implementación}
 
 Como en iteraciones anteriores y de modo similar, se modelan los diagramas de secuencia para los casos de uso de este grupo funcional y se comienza con su diseño e implementación.
@@ -116,9 +120,9 @@ Por tanto, la clase controladora se encarga de realizar las peticiones al servid
 
 \texttt{\lstinputlisting[caption=Fragmento de código para la generación de \textit{datasets}, breaklines=true, label=list:dataset, inputencoding=latin1, style=JavaStyle]{Codigo//dataset.java}}
 
-Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear y representar el gráfico estadístico cuando ya se ha generado su \textit{dataset}. Para ello, se hace uso de la clase \textit{ChartFactory} de la librería JFreeChart.
+Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear y representar el gráfico estadístico cuando ya se ha generado su \textit{dataset}. Para ello, se hace uso de la clase \textit{ChartFactory} de la librería \textbf{JFreeChart}. Además, una vez representado el gráfico, esta librería permite interactuar con dicho gráfico, pudiendo cambiar el tamaño de su título, el color, la leyenda, guardar el gráfico como imagen, etc.
 
 \texttt{\lstinputlisting[caption=Fragmento de código para la generación de gráficos, breaklines=true, label=list:chart, inputencoding=latin1, style=JavaStyle]{Codigo//chart.java}}
 
-%% TAREAS PROPIAS DE LA LIBRERIA, COMO GUARDAR, PROPIUEDADES, ETC
+
 \paragraph{Pruebas}
