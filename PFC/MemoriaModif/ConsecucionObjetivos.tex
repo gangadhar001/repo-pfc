@@ -1,0 +1,56 @@
+\chapter{Consecución de Objetivos}
+\label{ch:consecucion}
+
+El objetivo principal del PFC es desarrollar una aplicación que facilite y permita la gestión de decisiones tomadas en proyectos software en el ámbito del Desarrollo Global de Software, resolviendo o mitigando los desafíos que en este paradigma de desarrollo existen. 
+
+Este objetivo ha sido conseguido gracias al diseño y construcción de la aplicación, basada en Java, que ha sido detallada y comentada a lo largo del documento, especialmente en el capítulo \ref{ch:resultados}.
+
+A continuación, se explica la consecución del resto de sub-objetivos relacionados y planteados en el capítulo \ref{ch:motivacionyobjetivos}, y resumidos en la Tabla{\ref{table:objetivos}.
+
+\section{\textbf{O1:} Acceso desde diferentes localizaciones}
+
+La aplicación desarrollada ha sido diseñada siguiendo una arquitectura cliente-servidor, donde el servidor centraliza la lógica de dominio y control del sistema, y el cliente presenta la interfaz gráfica de usuario, que realiza peticiones al servidor y muestra los resultados relevantes para el usuario del sistema. Por ello, y gracias a esta arquitectura definida, se puede utilizar la aplicación cliente de manera distribuida y, por tanto, desde diferente ubicaciones.
+
+Además, la aplicación cuenta con una funcionalidad de \textit{login}, permitiendo el acceso a los usuarios de la misma. Esto corresponde al grupo funcional \textbf{F1} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
+
+\section{\textbf{O2:} Facilitar y favorecer la gestión de decisiones}
+
+Para facilitar la gestión de decisiones tomadas en proyectos software, se han diseñado e implementado funcionalidades para la creación de decisiones, para su modificación, eliminación, etc. Por tanto, el sistema provee un mecanismo que facilita y favorece dicha gestión, además de la comunicación entre equipos de desarrollos, ya que al utilizar formularios y estructuras comunes a todos ellos, se minimizan los malentendidos y ambigüedades.
+
+Por tanto, este objetivo queda cubierto con los requisitos funcionales que componen el grupo funcional \textbf{F2} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
+
+\section{\textbf{O3:} Favorecer la representación y visualización de la información almacenada}
+
+La aplicación obtenida como resultado del desarrollo del PFC permite la representación de las decisiones tomadas en proyectos software, además de otra información asociada, de una manera gráfica, visual e intuitiva, lo que facilita también la comunicación, ya que dicha información puede ser entendida de una manera rápida, visual y sin ambigüedades.
+
+Por tanto, este objetivo queda cubierto con los requisitos funcionales que componen el grupo funcional \textbf{F3} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
+
+\section{\textbf{O4:} Facilitar la comunicación}
+
+Para facilitar la comunicación entre los usuarios de los equipos de desarrollo distribuidos, el sistema implementa mecanismos de comunicación síncrona y asíncrona. 
+
+En lo referente a la comunicación asíncrona, la aplicación genera automáticamente alertas cuando se ha producido cualquier cambio sobre las decisiones de un proyecto. Dichas alertas están disponibles para su lectura, en cualquier momento, para todos aquellos empleados que en ese proyecto trabajan. De este modo, este objetivo queda cubierto con los requisitos funcionales que componen el grupo funcional \textbf{F4} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
+
+En cuanto a la comunicación síncrona, gracias a la arquitectura cliente-servidor y a que los clientes deben acceder al sistema, registrándose en el servidor, cuando el cliente realiza cualquier petición relacionada con la gestión de decisiones, el servidor se encarga de notificar al resto de clientes conectados este cambio, para que puedan reflejarlo visualmente en ese mismo instante, en tiempo real. Por tanto, este objetivo también queda cubierto.
+
+\section{\textbf{O5:} Adaptación al idioma local}
+
+Gracias a la creación de ficheros de recursos, escritos en varios idiomas, la aplicación soporta la internacionalización y puede adaptarse al idioma elegido por el usuario. Ésto corresponde al requisito funcional \textbf{F8} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}), cubriendo este objetivo.
+
+\section{\textbf{O6:} Facilitar la gestión de proyectos software}
+
+Para facilitar la gestión de proyectos software, se han diseñado e implementado funcionalidades para la creación y modificación de dichos proyectos, proveyendo formularios para realizar estas tareas, de modo que se siga una estructura común y se eviten malentendidos. Además, la aplicación también permite asignar o modificar los usuarios que en dichos proyectos trabajan, favoreciendo el control de éstos.
+
+Por tanto, este objetivo queda cubierto con los requisitos funcionales que componen el grupo \textbf{F5} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
+
+\section{\textbf{O7:} Favorecer aspectos de control de proyectos}
+
+En lo que respecta al control de proyectos, la aplicación desarrollada implementa funcionalidades que favorecen dicho control, como es la exportación a archivos XML de la información de los proyectos y sus decisiones; la generación de informes en formato PDF, y la generación de gráficos estadísticos. De este modo, los jefes de proyectos pueden llevar un control acerca de los proyectos y toda su información asociada, generando diferentes informes y gráficos de una manera sencilla y visual.
+
+Por tanto, este objetivo queda cubierto con los requisitos funcionales que componen los grupos funcionales \textbf{F6}, \textbf{F7} y \textbf{F9} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
+
+\section{\textbf{O8:} Facilitar la reutilización de información}
+
+Para satisfacer este objetivo, propuesto por la necesidad de recuperar y reutilizar decisiones (y toda su información relacionada) de proyectos finalizados, en nuevos proyectos semejantes, se ha diseñado e implementado en la aplicación un mecanismo basado en técnicas de inteligencia artificial (CBR, en este caso) para poder comparar proyectos, recuperar y reutilizar decisiones de dichos proyectos similares.
+
+Por tanto, este objetivo queda cubierto con el requisito funcional \textbf{F5.5} (ver Tabla \ref{table:categorias2} en capítulo \ref{ch:resultados}).
