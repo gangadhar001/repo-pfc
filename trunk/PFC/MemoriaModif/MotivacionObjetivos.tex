@@ -1,9 +1,7 @@
 \chapter{Motivación y Objetivos del Proyecto}
 \label{ch:motivacionyobjetivos}
 
-% Anteproyecto más algún detalle
-
-% Concretar y exponer el problema a resolver describiendo el entorno de trabajo, la situación y detalladamente qué se pretende obtener. Limitaciones y condicionantes a considerar para la resolución del problema (lenguaje de construcción, equipo físico, equipo lógico de base o de apoyo, etc.).
+En este capítulo se presenta la motivación para el desarrollo del presente PFC, así como los objetivos que deben alcanzarse tras concluir el desarrollo del mismo.
 
 \section{Motivación}
 
@@ -13,61 +11,86 @@ Anteriormente a este marco de globalización, las empresas gestionaban sus proyec
 
 \imagenBorde{Cap2//projects-locations}{0.35}{Proyectos según su localización}{fig:projects-locations}
 
-Sin embargo, este marco de globalización, de \textit{proyectos virtuales} y, por tanto, del desarrollo de los proyectos de manera distribuida, acarrea una serie de dificultades, siendo las más destacables los problemas de comunicación, coordinación y control entre las diferentes localizaciones de los centro de desarrollo de las  organizaciones. 
+Sin embargo, este marco de globalización, de \textit{proyectos virtuales} y, por tanto, del desarrollo de los proyectos de manera distribuida, acarrea una serie de dificultades, siendo las más destacables los problemas de comunicación, coordinación y control entre las diferentes localizaciones de los centro de desarrollo de las organizaciones. 
 
-Otro de los problemas encontrados, muy relacionado con el anterior, es como las empresas, que ahora se encuentran en localizaciones diferentes y que tienen mayor problema para la comunicación y control, pueden crear, organizar y gestionar su conocimiento organizacional, recurso intangible imprescindible para que la empresa pueda innovar y ser competitiva.
+Otro de los problemas encontrados, muy relacionado con el anterior, es como las empresas, que ahora se encuentran en localizaciones diferentes y que tienen mayor problema para la comunicación y control, pueden crear, organizar y gestionar su conocimiento organizacional, recurso intangible imprescindible para que la empresa pueda innovar y ser competitiva. 
 
-Por tanto, la motivación de este PFC viene dada por la necesidad de resolver o minimizar estos problemas que aparecen en las compañías que desarrollan de manera global. Particularmente, la herramienta estará enfocada a la gestión de conocimiento en desarrollo global, intentando minimizar todo lo posible los problemas de comunicación y control que aparecen en esta nueva forma de desarrollo global (ver Capítulo \ref{ch:estadodelarte} para una revisión de la literatura acerca del Desarrollo Global, Gestión de Conocimiento, así como sus beneficios y problemas).
+Centrándose en empresas dedicadas al sector de desarrollo software, gran parte de este conocimiento organizacional lo componen las decisiones tomadas durante el ciclo de vida de desarrollo de un proyecto software, tales como decisiones de diseño, decisiones de análisis del proyecto, etc.
+
+Por tanto, la motivación de este PFC viene dada por la necesidad de resolver o minimizar estos problemas que aparecen en las compañías que desarrollan software de manera global. Particularmente, la herramienta estará enfocada a la gestión de decisiones en desarrollo global, intentando minimizar todo lo posible los problemas de comunicación y control que aparecen en esta nueva forma de desarrollo deslocalizado (ver Capítulo \ref{ch:estadodelarte} para una revisión de la literatura acerca del Desarrollo Global, Gestión de Conocimiento y Gestión de Decisiones).
 
 \section{Objetivos}
 
-El objetivo principal del PFC consistirá en el diseño y construcción de una herramienta visual que permita dar soporte a la gestión de conocimiento en el paradigma de Desarrollo Global de Software. Concretamente, el conocimiento que se desea gestionar son las decisiones y alternativas planteadas en las fases del ciclo de vida de un producto software, desarrollado de manera global.
+El objetivo principal del PFC consistirá en el diseño y construcción de una herramienta visual que permita dar soporte a la gestión de decisiones de proyectos software en el paradigma de Desarrollo Global de Software.
 
-Como se ha comentado anteriormente, con esta herramienta visual se intenta reducir o eliminar una de las problemáticas que aparece en el desarrollo global, como es la falta de comunicación y control entre los equipos de desarrollo, así como los malentendidos que pueden surgir debido a las diferencias socio-culturales de los participantes en el desarrollo de los proyectos. 
+Con esta herramienta visual se intenta reducir o eliminar una de las problemáticas que aparece en el desarrollo global, como es la falta de comunicación y control entre los equipos de desarrollo, así como los malentendidos que pueden surgir debido a las diferencias socio-culturales de los participantes en el desarrollo de los proyectos. 
 
 A continuación, se desglosan los objetivos que se deben alcanzar para atenuar estos desafíos del desarrollo global de software.
 
 \subsection{Objetivos a alcanzar con el desafío de la comunicación}
 
-Para poder minimizar los desafíos de comunicación que aparecen en el desarrollo global de software, la herramienta debe permitir representar el conocimiento almacenado por las organizaciones de una manera visual, clara e intuitiva, evitando malentendidos. De este modo, se representa el conocimiento de la misma manera para todos los equipos de desarrollo y empleados, facilitando su transmisión y evitando confusiones.
+Para poder minimizar los desafíos de comunicación que aparecen en el desarrollo global de software, la herramienta debe permitir representar las decisiones tomadas en los proyectos software de una manera visual, clara e intuitiva, evitando malentendidos. De este modo, se representan dichas decisiones de los proyectos de la misma manera para todos los equipos de desarrollo y empleados, facilitando su transmisión y evitando confusiones.
 
-%  El conocimiento almacenado se visualizará en forma de árbol y grafo, contando con una vista extendida donde se muestran más detalles del conocimiento en cuestión.
+A la hora de crear y almacenar nuevo conocimiento, la herramienta debe proveer formularios para crear esas decisiones, evitando por tanto formatos e información diferentes, estandarizando el conocimiento y facilitando su posterior recuperación y comunicación.
 
-A la hora de crear y almacenar nuevo conocimiento, la herramienta debe proveer formularios para crear dicho conocimiento, evitando por tanto formatos e información diferentes, estandarizando el conocimiento y facilitando su posterior comunicación.
-
-La herramienta también debe poseer una comunicación implícita síncrona, es decir, que si un empleado se encuentra visualizando el conocimiento en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre el mismo conocimiento, éste debe ser notificado al primer empleado en tiempo real, actualizando su vista. Además, deberá crearse una notificación automática, favoreciendo también de este modo la comunicación asíncrona.
+La herramienta también debe poseer una comunicación implícita síncrona, es decir, que si un empleado se encuentra visualizando decisiones de un determinado proyecto en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre ese proyecto, dicho cambio debe ser notificado al primer empleado en tiempo real, actualizando su vista. Además, deberá crearse una notificación o alerta automática, favoreciendo también de este modo la comunicación asíncrona.
 
 Otro punto a tener en cuenta para facilitar la comunicación, es que la herramienta pueda configurarse en diferentes idiomas. Es por ello que debe tenerse en cuenta la internacionalización de la aplicación.
 
 \subsection{Objetivos a alcanzar con el desafío del control}
 
-Uno de los grandes problemas de control en desarrollo global, es que los jefes o encargados de proyectos muchas veces no controlan correctamente la situación del proyecto, a los miembros de los equipos que trabajan en él, cuál es la situación del proyecto, etc. Por ello, la herramienta debe permitir la generación de gráficos estadísticos a partir del conocimiento almacenado, informando de la situación de los proyectos.
+Uno de los grandes problemas de control en desarrollo global, es que los jefes o encargados de proyectos muchas veces no controlan correctamente la situación del proyecto, a los miembros de los equipos que trabajan en él, cuál es la situación del proyecto, etc. Por ello, la herramienta debe permitir la generación de gráficos estadísticos a partir de la información almacenada en el sistema, informando de la situación de los proyectos.
 
-Relacionado con lo anterior, es necesario que la aplicación pueda generar informes en PDF, resumiendo el conocimiento almacenado en un determinado proyecto. Además, se debe poder controlar cuales de las decisiones y alternativas tomadas durante el ciclo de vida del proyecto están aprobadas por el jefe de proyecto y cuáles no.
+Relacionado con lo anterior, es necesario que la aplicación pueda generar informes en PDF, resumiendo las decisiones tomadas en un determinado proyecto. Además, se debe poder controlar, por parte del jefe de proyecto, cuáles de las decisiones y alternativas tomadas durante el ciclo de vida del proyecto pueden ser aprobadas y cuáles rechazadas.
 
-Para favorecer una estructura de proyectos común y facilitar así un posterior control entre los diferentes equipos de desarrollo, la herramienta será capaz de proveer formularios para la creación de nuevos proyectos, así como de su posterior modificación.
+Para favorecer una estructura de proyectos común y facilitar así un posterior control entre los diferentes equipos de desarrollo que trabajan en esos proyectos, la herramienta será capaz de proveer formularios para dar de alta nuevos proyectos, así como para su posterior modificación.
 
-Para terminar, otro de los puntos principales a tener en cuenta es que el conocimiento almacenado pueda controlarse y utilizarse en proyectos futuros que sean similares a proyectos ya pasados. Para ello, la herramienta debe permitir la búsqueda de esta información en base a proyectos pasados ya finalizados, utilizando técnicas de inteligencia artificial.
+Para terminar, otro de los puntos principales a tener en cuenta es que el conocimiento almacenado pueda controlarse y reutilizarse en proyectos futuros que sean similares a proyectos ya pasados. Para ello, la herramienta debe permitir la búsqueda de esta información en base a proyectos pasados ya finalizados, utilizando técnicas de inteligencia artificial, como es el Razonamiento Basado en Casos.
 
 
-\subsection{Resumen de objetivos}
+\subsection{Resumen de objetivos} \label{sec:resumenObjetivos}
 
-En modo de síntesis, la herramienta debe cumplir con los siguientes objetivos y requisitos funcionales:
+A modo de síntesis, en la Tabla \ref{table:objetivos} la herramienta debe cumplir con los siguientes objetivos y requisitos funcionales:
+
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\arraybackslash}m{8cm} | >{\centering\arraybackslash}m{3cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Id. Objetivo}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Objetivo}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Desafío}} \\
+	\hline
+		 \textbf{O1} & Permitir el acceso al sistema desde diferentes localizaciones & Comunicación y Control \\
+		 \hline
+		 \textbf{O2} & Facilitar y favorecer la gestión de decisiones en los proyectos software, evitando malentendidos debidos a diferencias socio-culturales & Comunicación \\
+		 \hline
+		 \textbf{O3} & Favorecer la representación y visualización de la información almacenada, de manera clara e intuitiva, evitando malas interpretaciones & Comunicación \\
+		 \hline
+		 \textbf{O4} & Facilitar la comunicación entre los equipos de desarrollo, notificando posibles cambios al instante & Comunicación \\
+		 \hline
+		 \textbf{O5} & Adaptación de la aplicación a un idioma local & Comunicación \\
+		 \hline
+		 \textbf{O6} & Facilitar la gestión de proyectos software, utilizando una estructura común para su creación, modificación, etc. & Comunicación y Control \\
+		 \hline
+		 \textbf{O7} & Favorecer aspectos de control de proyectos, tales como situación actual del proyecto, desarrolladores que en ellos trabajan, decisiones tomadas, etc. & Control \\
+		 \hline
+		 \textbf{O8} & Facilitar la reutilización de información entre proyectos software, aconsejando decisiones de proyectos similares & Control \\
+		 \hline
+\end{tabular}
+\caption{Objetivos a cumplir en el PFC}
+\label{table:objetivos}
+\end{table}
+
+Destacar que esta herramienta, aunque enfocada y con aplicación en la gestión de decisiones en proyectos software desarrollados de manera global, constituye también un sistema para la gestión de conocimiento, ya que como se detalla en el Capítulo \ref{ch:estadodelarte}, permite la creación, almacenamiento, recuperación, transmisión y aplicación de conocimiento, procesos que se llevan a cabo en la Gestión de Conocimiento. En el caso concreto del presente PFC, dicho conocimiento son las decisiones y alternativas planteadas durante las fases del ciclo de vida de los proyectos software.
+
+Para terminar, a continuación se resumen los términos de mayor relevancia y que con más frecuencia aparecen en el presente documento, para facilitar la lectura y comprensión de posteriores capítulos:
 
 \begin{itemize}
-	\item Crear y almacenar conocimiento en forma de alternativas y decisiones planteadas en las fases del ciclo de vida de un proyecto software. 
-	\item Mostrar de una forma visual e intuitiva las diferentes alternativas y decisiones que han sido almacenadas.
-	\item Aceptar o rechazar alternativas y decisiones.
-	\item Notificar a los empleados de las organizaciones nuevas contribuciones y conocimiento disponible. 
-	\item Proporcionar información acerca de quién aporta una alternativa o decisión. Dicha información puede ser el rol de esa persona, el país donde se encuentra trabajando, experiencia acumulada en desarrollo de software, antigüedad en la empresa, etcétera.
-	\item Aconsejar decisiones y alternativas que hayan sido exitosas en otros proyectos con características similares, basándose en proyectos ya finalizados.
-	\item Generar estadísticas que ayuden a llevar control sobre los proyectos: proyectos con mayor conocimiento almacenado, qué empleado participa más, histórico de decisiones planteadas, etc.
-	\item Exportar el conocimiento disponible utilizando un estándar para el intercambio de información estructurada, como es XML. También se permitirá exportar imágenes de los gráficos generados en formato PNG.
-	\item Crear y modificar proyectos.
-	\item Generar documentos PDF a partir del conocimiento almacenado en los proyectos, creando automáticamente tablas con las decisiones y alternativas planteadas para ese proyecto.
-	\item Internacionalización de la herramienta.
-	\item La herramienta debe poder ser accedida desde diferentes localizaciones.
-	\item Soporte para diferentes perfiles y roles de usuarios.
+	\item \textbf{Empresa}: el término \textit{empresa}, o \textit{compañía}, en el contexto de este PFC hace referencia a una organización dedicada y/o involucrada en el desarrollo de productos software.
+	\item \textbf{Decisión}: este término aparece mencionado en numerosas ocasiones a lo largo del presente documento. Dicho término hace referencia a las diferentes decisiones que los empleados de una compañía realizan sobre un proyecto software, en cualquiera de las fases de su ciclo de vida. Así, dichas decisiones se refieren a decisiones de diseño del proyecto software, decisiones realizadas en el análisis, decisiones acerca de qué tecnologías utilizar, etc.
+	\item \textbf{Proyecto}: el término \textit{proyecto} hace referencia a un proyecto software, desarrollado por los empleados de una compañía y cuyo desarrollo originará un producto software.
+	\item \textbf{Usuario}: este término se refiere a cualquier empleado de una compañía dedicada al desarrollo software, independientemente del rol que dicho empleado tenga dentro de la compañía, y que puede utilizar el sistema.
+	\item \textbf{Notificación}: este término, nombrado en algunas ocasiones como \textit{alerta}, hace referencia a un aviso que el sistema genera para informar a los usuarios de cambios producidos en los proyectos. 
+	\item \textbf{Vista}: este término hacer referencia a una parte de la interfaz gráfica de usuario que presenta elementos visuales con información que es relevante al usuario.
 \end{itemize}
-
-No se debe olvidar que esta herramienta, aunque enfocada y con aplicación en el desarrollo global de software, constituye también un sistema para la gestión de conocimiento, ya que como se verá en el Capítulo \ref{ch:estadodelarte}, permite la creación, almacenamiento, recuperación, transmisión y aplicación del conocimiento, procesos que se llevan a cabo en la gestión de conocimiento. En nuestro caso concreto, el conocimiento son las decisiones y alternativas planteadas durante las fases del ciclo de vida de los proyectos software.
