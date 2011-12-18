@@ -2,8 +2,8 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: D:\UCLM\5Curso\PFC\re
 A level-1 auxiliary file: Portadas.aux
 A level-1 auxiliary file: Previos.aux
 A level-1 auxiliary file: Listas.aux
+A level-1 auxiliary file: EstadoArte.aux
 The style file: babplai3.bst
-I found no \citation commands---while reading file D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
 Database file #1: PFCBib.bib
 "{" immediately follows a field name---line 160 of file PFCBib.bib
  :   language
@@ -13,26 +13,49 @@ I'm skipping whatever remains of this entry
  :   language
  :           {english}
 I'm skipping whatever remains of this entry
-"{" immediately follows a field name---line 301 of file PFCBib.bib
+Warning--entry type for "wernerHeij" isn't style-file defined
+--line 257 of file PFCBib.bib
+"{" immediately follows a field name---line 293 of file PFCBib.bib
  :   language
  :           {english}
 I'm skipping whatever remains of this entry
-"{" immediately follows a field name---line 309 of file PFCBib.bib
+"{" immediately follows a field name---line 301 of file PFCBib.bib
  :   language
  :           {spanish}
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 321 of file PFCBib.bib
+I was expecting a `,' or a `}'---line 313 of file PFCBib.bib
  :   
  :   language{english}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-"{" immediately follows a field name---line 343 of file PFCBib.bib
+"{" immediately follows a field name---line 335 of file PFCBib.bib
  :   language
  :           {english}
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 402 of file PFCBib.bib
+I was expecting a `,' or a `}'---line 394 of file PFCBib.bib
  :   
  :   language={english}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--I'm ignoring Dutoit2006Ibis's extra "year" field
+--line 562 of file PFCBib.bib
+I was expecting a `,' or a `}'---line 568 of file PFCBib.bib
+ :   
+ :   author = {Bass, L. and Clements, P and Nord, R.L. and Stafford, J.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in Dutoit2006Casual
+Warning--empty language in Dutoit2006Casual
+Warning--empty author in Dutoit2006Casual
+Warning--empty title in Dutoit2006Casual
+Warning--empty booktitle in Dutoit2006Casual
+Warning--empty publisher in Dutoit2006Casual
+Warning--empty year in Dutoit2006Casual
+Warning--empty language in fitzgerald2010global
+Warning--empty journal in fitzgerald2010global
+Warning--empty language in holzner1979knowledge
+Warning--empty year in Hovland
+Warning--empty year in insightinc
+Warning--empty journal in Kanagasabapathy2006
+Warning--empty journal in sangwan2006global
 (There were 8 error messages)

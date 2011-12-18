@@ -3,17 +3,28 @@
 
 En las secciones posteriores de este capítulo se desarrollan las conclusiones obtenidas tras el desarrollo del PFC, así como algunas propuestas para realizar en un futuro.
 
-
 \section{Conclusiones}
 
-% uso de rmi y java
-% uso de hibernate
-% conocmiento de cbr
-% servicios web
-% apoyo pud para detectar nuevos requisitos
-% profundizar en java y swing
-% rationale
+Tras haber realizado y finalizado el desarrollo del PFC, se ha podido comprobar como gracias a utilizar una metodología de desarrollo iterativa e incremental, como es el PUD, el sistema ha ido aumentando en funcionalidad de manera progresiva, facilitando las tareas de análisis, diseño, implementación y pruebas de cada iteración, que daban como resultado un nuevo incremento en la funcionalidad de la aplicación.
 
+Además, gracias a este carácter iterativo del PUD y a su división en fases, se ha podido resolver de una manera sencilla y rápida la incorporación de los nuevos requisitos que fueron detectados al comienzo de la fase de Elaboración, puesto que fueron identificados en iteraciones muy tempranas del ciclo de vida y, por tanto, no causaron un retraso ni impacto importante en el desarrollo del sistema.
+
+En cuanto a las tecnologías y \textit{frameworks} utilizados, Hibernate ha permitido gestionar las operaciones relacionadas con las bases de datos de una manera transparente, permitiendo cambiar el SGBD utilizado sin afectar de ningún modo al sistema desarrollado. 
+
+Por otra parte, la elección de RMI ha supuesto una serie de ventajas a la hora de realizar el sistema distribuido: 
+
+\begin{itemize}
+	\item Los objetos remotos pueden ser manejados como si fueran locales.
+	\item Gracias a la utilización de interfaces para comunicar los subsistemas, éstos son totalmente independientes de su implementación, y se pueden extender con nuevo métodos de una manera sencilla.
+	\item El servicio de registro de RMI, \textit{rmiregistry}, permite fácilmente localizar e invocar los objetos remotos por su nombre.
+	\item Al estar basado e integrado en Java, resulta sencillo y transparente al programador implementar el modelo de objetos distribuidos.
+\end{itemize}
+
+Como principal inconveniente de utilizar RMI, se puede destacar el problema de utilizarlo junto a Hibernate, ya al serializar y transferir los objetos remotos, estas referencias ya no son las mismas que las referencias que mantiene Hibernate para gestionar su modelo de objetos, por lo que se encontraron problemas a la hora de, por ejemplo, modificar objetos en la base de datos cuando el cliente había realizado cambios en ellos. Sin embargo, este problema quedó solucionado clonando los objetos que fueron serializados por RMI y que deben modificarse en la base de datos, usando Hibernate.
+
+Para concluir, con el desarrollo de este PFC se han adquirido conocimientos acerca de los temas que en él se abordan, gracias a la revisión de la literatura existente, especialmente en la gestión de decisiones según \textit{Rationale}, y a la comprensión de un método de Inteligencia Artificial, como es el CBR, pudiendo diseñar e implementar un algoritmo de CBR en el sistema. Además, también se ha adquirido o se ha profundizado en el conocimiento y manejo de las herramientas y tecnologías utilizadas para la construcción de la aplicación, destacando el uso de RMI, Hibernate, iText, JUNG y cómo diseñar y generar interfaces gráficas de usuario extensibles, flexibles y adaptables, utilizando para ello, además de en otros casos, el API de reflexión de Java.
+
+%% INDEPENDENCIA CLIENTE SRVIDOR
 
 \section{Trabajo Futuro}
 

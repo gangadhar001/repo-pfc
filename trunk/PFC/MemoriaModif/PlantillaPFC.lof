@@ -4,22 +4,27 @@
 \select@language {spanish}
 \select@language {english}
 \select@language {spanish}
-\contentsline {figure}{\numberline {1}{\ignorespaces Diagrama de secuencia - Cliente - Crear proyecto\relax }}{2}
-\contentsline {figure}{\numberline {2}{\ignorespaces Diagrama de secuencia - Servidor - Crear proyecto\relax }}{2}
-\contentsline {figure}{\numberline {3}{\ignorespaces Diagrama de secuencia - Cliente - Aconsejar decisiones\relax }}{3}
-\contentsline {figure}{\numberline {4}{\ignorespaces Diagrama de secuencia - Servidor - Aconsejar decisiones\relax }}{3}
-\contentsline {figure}{\numberline {5}{\ignorespaces Diagrama de secuencia - Servidor - Controlador proyectos\relax }}{4}
-\contentsline {figure}{\numberline {6}{\ignorespaces Diagrama de clases - Servidor - Razonamiento Basado en Casos\relax }}{8}
-\contentsline {figure}{\numberline {7}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)\relax }}{11}
-\contentsline {figure}{\numberline {8}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe (comportamiento normal)\relax }}{11}
-\contentsline {figure}{\numberline {9}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe (comportamiento extendido)\relax }}{11}
-\contentsline {figure}{\numberline {10}{\ignorespaces Diagrama de secuencia - Servidor -Generar informe (comportamiento extendido)\relax }}{12}
-\contentsline {figure}{\numberline {11}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Servidor\relax }}{12}
-\contentsline {figure}{\numberline {12}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Cliente\relax }}{17}
-\contentsline {figure}{\numberline {13}{\ignorespaces Proceso simplificado de \textit {Drag \& Drop}\relax }}{18}
-\contentsline {figure}{\numberline {14}{\ignorespaces Diagrama de secuencia - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{19}
-\contentsline {figure}{\numberline {15}{\ignorespaces Diagrama de clases - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{21}
-\contentsline {figure}{\numberline {16}{\ignorespaces Diagrama de secuencia - Cliente - Gesti\'on de idiomas\relax }}{25}
-\contentsline {figure}{\numberline {17}{\ignorespaces Diagrama de secuencia - Servidor - Gesti\'on de idiomas\relax }}{25}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Incremento en actividades de \textit {offshoring} y ahorro que conlleva \cite {insightinc}\relax }}{3}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Modelo de desarrollo \textit {Follow-the-sun} \cite {carmel2010follow}\relax }}{5}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Influencia de la distancia en el desarrollo de software \cite {fitzgerald2010global}\relax }}{7}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Ciclo de gesti\'on de conocimiento \cite {holzner1979knowledge}\relax }}{10}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces ``Causal Graph'' utilizado para representar decisiones en \textit {Rationale} \cite {Dutoit2006Casual}\relax }}{15}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces ``Dialogue Map'' utilizado para representar decisiones en \textit {Rationale} \cite {Dutoit2006Ibis}\relax }}{15}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Ciclo del CBR\relax }}{17}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
 \select@language {english}
 \select@language {spanish}
