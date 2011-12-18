@@ -5,13 +5,13 @@ Version=2
 [SessionInfo]
 ActiveTab=2
 FrameCount=4
-ActiveFrame=0
+ActiveFrame=1
 
 [Frame0]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -24,23 +24,23 @@ Class=CLatexEdit
 Document=PlantillaPFC.tex
 
 [Frame0_Row0]
-cyCur=499
+cyCur=298
 cyMin=10
 
 [Frame0_Col0]
-cxCur=915
+cxCur=1696
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=73
-Cursor.column=16
-TopSubLine=56
+Cursor.row=69
+Cursor.column=1
+TopSubLine=58
 
 [Frame1]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -53,17 +53,17 @@ Class=CLatexEdit
 Document=ConclusionesPropuestas.tex
 
 [Frame1_Row0]
-cyCur=311
+cyCur=499
 cyMin=10
 
 [Frame1_Col0]
-cxCur=749
+cxCur=915
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=14
-Cursor.column=11
-TopSubLine=0
+Cursor.row=26
+Cursor.column=13
+TopSubLine=33
 
 [Frame2]
 Columns=1
@@ -92,7 +92,7 @@ cxMin=10
 [Frame2_View0,0]
 Cursor.row=77
 Cursor.column=29
-TopSubLine=137
+TopSubLine=155
 
 [Frame3]
 Columns=1
@@ -121,5 +121,5 @@ cxMin=10
 [Frame3_View0,0]
 Cursor.row=49
 Cursor.column=107
-TopSubLine=48
+TopSubLine=47
 
