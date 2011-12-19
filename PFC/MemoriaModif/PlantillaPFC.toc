@@ -4,35 +4,49 @@
 \select@language {spanish}
 \select@language {english}
 \select@language {spanish}
-\contentsline {chapter}{\numberline {1}Estado del Arte}{1}
-\contentsline {section}{\numberline {1.1}Desarrollo Global de Software}{1}
-\contentsline {subsection}{\numberline {1.1.1}Beneficios del Desarrollo Global de Software}{4}
-\contentsline {paragraph}{\numberline {1.1.1.0.1}Reducci\'on de costes}{4}
-\contentsline {paragraph}{\numberline {1.1.1.0.2}Aumento de la competitividad}{4}
-\contentsline {paragraph}{\numberline {1.1.1.0.3}Disminuci\'on de tiempo de lanzamiento al mercado}{4}
-\contentsline {paragraph}{\numberline {1.1.1.0.4}Proximidad al mercado y al cliente}{5}
-\contentsline {paragraph}{\numberline {1.1.1.0.5}Mejoras en la innovaci\'on}{5}
-\contentsline {subsection}{\numberline {1.1.2}Desaf\IeC {\'\i }os del Desarrollo Global de Software}{6}
-\contentsline {subsubsection}{\numberline {1.1.2.1}Desaf\IeC {\'\i }os en la comunicaci\'on}{7}
-\contentsline {paragraph}{\numberline {1.1.2.1.1}Falta de comunicaci\'on}{8}
-\contentsline {paragraph}{\numberline {1.1.2.1.2}Aumento del esfuerzo en la comunicaci\'on}{8}
-\contentsline {paragraph}{\numberline {1.1.2.1.3}Interrupciones}{8}
-\contentsline {paragraph}{\numberline {1.1.2.1.4}Malentendidos debidos a diferencias ling\"u\IeC {\'\i }sticas}{9}
-\contentsline {paragraph}{\numberline {1.1.2.1.5}Malentendidos culturales}{9}
-\contentsline {subsubsection}{\numberline {1.1.2.2}Desaf\IeC {\'\i }os en el control}{9}
-\contentsline {paragraph}{\numberline {1.1.2.2.1}Asignaci\'on de roles y estructuras de equipo}{9}
-\contentsline {paragraph}{\numberline {1.1.2.2.2}Gesti\'on de los artefactos del proyecto}{9}
-\contentsline {paragraph}{\numberline {1.1.2.2.3}Diferentes percepciones de la autoridad}{10}
-\contentsline {subsubsection}{\numberline {1.1.2.3}Desaf\IeC {\'\i }os en la Gesti\'on de Conocimiento}{10}
-\contentsline {paragraph}{\numberline {1.1.2.3.1}Creaci\'on de conocimiento}{11}
-\contentsline {paragraph}{\numberline {1.1.2.3.2}Almacenamiento y recuperaci\'on del conocimiento}{11}
-\contentsline {paragraph}{\numberline {1.1.2.3.3}Transmisi\'on del conocimiento}{11}
-\contentsline {paragraph}{\numberline {1.1.2.3.4}Aplicaci\'on del conocimiento}{12}
-\contentsline {section}{\numberline {1.2}\textit {Design Rationale}}{12}
-\contentsline {section}{\numberline {1.3}Razonamiento basado en casos}{14}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{19}
-\select@language {english}
-\select@language {english}
+\contentsline {chapter}{\numberline {1}Motivaci\'on y Objetivos del Proyecto}{1}
+\contentsline {section}{\numberline {1.1}Motivaci\'on}{1}
+\contentsline {section}{\numberline {1.2}Objetivos}{3}
+\contentsline {subsection}{\numberline {1.2.1}Resumen de objetivos}{4}
+\contentsline {chapter}{\numberline {2}Estado del Arte}{7}
+\contentsline {section}{\numberline {2.1}Desarrollo Global de Software}{8}
+\contentsline {subsection}{\numberline {2.1.1}Beneficios del Desarrollo Global de Software}{10}
+\contentsline {subsubsection}{\numberline {2.1.1.1}Reducci\'on de costes}{10}
+\contentsline {subsubsection}{\numberline {2.1.1.2}Aumento de la competitividad}{11}
+\contentsline {subsubsection}{\numberline {2.1.1.3}Disminuci\'on de tiempo de lanzamiento al mercado}{11}
+\contentsline {subsubsection}{\numberline {2.1.1.4}Proximidad al mercado y al cliente}{12}
+\contentsline {subsubsection}{\numberline {2.1.1.5}Mejoras en la innovaci\'on}{12}
+\contentsline {subsection}{\numberline {2.1.2}Desaf\IeC {\'\i }os del Desarrollo Global de Software}{12}
+\contentsline {subsubsection}{\numberline {2.1.2.1}Desaf\IeC {\'\i }os en la comunicaci\'on}{14}
+\contentsline {paragraph}{\numberline {2.1.2.1.1}Falta de comunicaci\'on}{14}
+\contentsline {paragraph}{\numberline {2.1.2.1.2}Aumento del esfuerzo en la comunicaci\'on}{15}
+\contentsline {paragraph}{\numberline {2.1.2.1.3}Interrupciones}{15}
+\contentsline {paragraph}{\numberline {2.1.2.1.4}Malentendidos debidos a diferencias ling\"u\IeC {\'\i }sticas}{15}
+\contentsline {paragraph}{\numberline {2.1.2.1.5}Malentendidos culturales}{15}
+\contentsline {subsubsection}{\numberline {2.1.2.2}Desaf\IeC {\'\i }os en el control}{16}
+\contentsline {paragraph}{\numberline {2.1.2.2.1}Asignaci\'on de roles y estructuras de equipo}{16}
+\contentsline {paragraph}{\numberline {2.1.2.2.2}Gesti\'on de los artefactos del proyecto}{16}
+\contentsline {paragraph}{\numberline {2.1.2.2.3}Diferentes percepciones de la autoridad}{16}
+\contentsline {subsubsection}{\numberline {2.1.2.3}Desaf\IeC {\'\i }os en la Gesti\'on de Conocimiento}{16}
+\contentsline {paragraph}{\numberline {2.1.2.3.1}Creaci\'on de conocimiento}{17}
+\contentsline {paragraph}{\numberline {2.1.2.3.2}Almacenamiento y recuperaci\'on del conocimiento}{18}
+\contentsline {paragraph}{\numberline {2.1.2.3.3}Transmisi\'on del conocimiento}{18}
+\contentsline {paragraph}{\numberline {2.1.2.3.4}Aplicaci\'on del conocimiento}{19}
+\contentsline {section}{\numberline {2.2}\textit {Design Rationale}}{19}
+\contentsline {section}{\numberline {2.3}Razonamiento basado en casos}{22}
+\contentsline {chapter}{\numberline {3}Consecuci\'on de Objetivos}{25}
+\contentsline {section}{\numberline {3.1}\textbf {O1:} Acceso desde diferentes localizaciones}{25}
+\contentsline {section}{\numberline {3.2}\textbf {O2:} Facilitar y favorecer la gesti\'on de decisiones}{26}
+\contentsline {section}{\numberline {3.3}\textbf {O3:} Favorecer la representaci\'on y visualizaci\'on de la informaci\'on almacenada}{26}
+\contentsline {section}{\numberline {3.4}\textbf {O4:} Facilitar la comunicaci\'on}{26}
+\contentsline {section}{\numberline {3.5}\textbf {O5:} Adaptaci\'on al idioma local}{27}
+\contentsline {section}{\numberline {3.6}\textbf {O6:} Facilitar la gesti\'on de proyectos software}{27}
+\contentsline {section}{\numberline {3.7}\textbf {O7:} Favorecer aspectos de control de proyectos}{27}
+\contentsline {section}{\numberline {3.8}\textbf {O8:} Facilitar la reutilizaci\'on de informaci\'on}{28}
+\contentsline {chapter}{\numberline {4}Conclusiones y Propuestas}{29}
+\contentsline {section}{\numberline {4.1}Conclusiones}{29}
+\contentsline {section}{\numberline {4.2}Trabajo Futuro}{31}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{32}
 \select@language {english}
 \select@language {english}
 \select@language {english}

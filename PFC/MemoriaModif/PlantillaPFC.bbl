@@ -108,6 +108,15 @@
   the 33rd Annual Hawaii International Conference on}, \btxpageslong {}\
   11--pp. IEEE, 2000.
 
+\bibitem {evaristo1999typology}
+\btxnamefont {\btxlastnamefont {Evaristo}, R.} \btxandlong {}\ \btxnamefont
+  {P.C. van \btxlastnamefont {Fenema}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {A typology of project management: emergence and evolution
+  of new forms}{A typology of project management: emergence and evolution of
+  new forms}}.
+\newblock \btxjournalfont {International Journal of Project Management},
+  17(5):275--281, 1999.
+
 \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
 \bibitem {fitzgerald2010global}
 \btxnamefont {\btxlastnamefont {Fitzgerald}, B.} \btxetalfont {\btxetalshort

@@ -1,11 +1,20 @@
 \chapter{Estado del Arte}
 \label{ch:estadodelarte}
 
-A lo largo de este capítulo se presenta el estado del arte sobre Desarrollo Global de Software, exponiendo lo que este concepto implica en el desarrollo de software, así como sus beneficios y desafíos.
+La forma de desarrollar software está evolucionando hacia el Desarrollo Global de Software, donde los proyectos software se desarrollan por diferentes equipos de desarrollo que se encuentran deslocalizados en diversos países. Este nuevo paradigma de desarrollo implica una serie de ventajas, pero también introduce una serie de desafíos, siendo uno de estos desafíos la Gestión de Conocimiento. 
 
-Se expone también el concepto de Gestión de Conocimiento, así como un marco de trabajo que las empresas pueden adoptar para gestionar su conocimiento interno.
+En Desarrollo Global, la información proviene de fuentes muy diversas, en diferentes formatos e incluso idiomas, lo que dificulta conocer las decisiones tomadas en proyectos software, su documentación y, en general, la gestión de conocimiento y su reutilización. Es por ello que existe una tendencia a usar el método \textit{Rationale}, el cuál proporciona mecanismos para capturar y representar las decisiones tomadas en cualquier fase del ciclo de vida del desarrollo del proyecto software, así como todo el razonamiento que se hace para tomar esas decisiones. Por tanto, gracias a \textit{Rationale}, se facilita la generación, almacenamiento y representación de decisiones y su razonamiento.
 
-Para terminar, se introduce el Razonamiento Basado en Casos, una técnica de inteligencia artificial que puede resolver problemas en base a experiencias pasadas.
+Además, una vez que este tipo de información ha sido capturada y almacenada, otro aspecto destacado a tener en cuenta, y que también aparece en la Gestión de Conocimiento, es la recuperación y aplicación de dicho conocimiento. Por tanto, es importante que las decisiones capturadas y almacenadas por el método \textit{Rationale} en los proyectos, puedan recuperarse y reutilizarse en otros proyectos con características similares. Para ello, puede utilizarse una técnica de Inteligencia Artificial, como es el Razonamiento Basado en Casos, que puede resolver problemas en base a experiencias pasadas.
+
+En la imagen \ref{fig:relaciones} se refleja de manera visual cómo estos conceptos están relacionados entre sí, según se ha detallado anteriormente.
+
+\imagenBorde{Cap3//relaciones}{0.5}{Relaciones entre Desarrollo Global, Gestión del Conocimiento, \textit{Rationale} y Razonamiento Basado en Casos}{fig:relaciones}
+
+
+De este modo, en las siguientes secciones se presenta el estado del arte sobre Desarrollo Global de Software, así como se detalla el método de \textit{Rationale} y el Razonamiento Basado en Casos.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%DESARROLLO GLOBAL SOFTWARE
@@ -13,7 +22,7 @@ Para terminar, se introduce el Razonamiento Basado en Casos, una técnica de inte
 
 En los últimos años, la globalización económica está provocando que la industria y el comercio se adapten a nuevos modelos de negocios, en búsqueda de aumentar la competitividad y minimizar los costes, por lo que las empresas se han visto obligadas a evolucionar en su modo de trabajo. Así, se ha cambiado el concepto de \textit{mercado nacional} por el de \textit{mercado global} \cite{damian2006guest} \cite{herbsleb2002global}.
 
-Centrándose en el desarrollo de software, hasta hace unos años el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio al mismo tiempo. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando en los últimos años, tendiendo a un desarrollo distribuido del mismo. Los CDS comenzaron a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés Global Software Development. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
+Centrándose en el desarrollo de software, hasta hace unos años el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando en los últimos años, tendiendo a un desarrollo distribuido del mismo. Los CDS comenzaron a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés Global Software Development. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
 
 EL GSD puede definirse como: ``\textit{el desarrollo de software que se realiza en localizaciones separadas geográficamente más allá de fronteras nacionales, de manera coordinada e involucrando participación en tiempo real (síncrona) e interacción asíncrona}'' \cite{wernerHeij}.
 
@@ -46,7 +55,7 @@ Relacionado con el \textit{outsourcing}, está el concepto de \textbf{offshoring}
 
 En GSD, estas prácticas son cada vez más utilizadas, debido a la rentabilidad que proporcionan a la compañía. En la Figura \ref{fig:beneficios} se puede observar el crecimiento del \textit{offshoring} de los últimos años y la reducción de costes que conlleva.
 
-\imagenBorde{Cap3//beneficios}{0.60}{Incremento en actividades de \textit{offshoring} y ahorro que conlleva  \cite{insightinc}}{fig:beneficios}
+\imagenBorde{Cap3//beneficios}{0.5}{Incremento en actividades de \textit{offshoring} y ahorro que conlleva  \cite{insightinc}}{fig:beneficios}
 
 Como se puede apreciar, el GSD y sus prácticas introducen una serie de beneficios o ventajas, pero también de dificultades o inconvenientes a tener en cuenta. En el siguiente apartado se desarrollan los más importantes.
 
@@ -54,17 +63,17 @@ Como se puede apreciar, el GSD y sus prácticas introducen una serie de beneficio
 
 A continuación se describen los beneficios más destacables del Desarrollo Global de Software, según \cite{benefitsGSD} y \cite{cho2007globalization}.
 
-\paragraph{Reducción de costes}
+\subsubsection{Reducción de costes}
 
 La diferencia de salarios entre países puede ser enorme. Por ejemplo, el salario de un ingeniero de software en Estados Unidos puede llegar a ser varias veces más alto que el salario de un ingeniero similar en Asia o Sudamérica, por lo que las compañías buscan localizaciones alternativas que permitan recortar el coste de la mano de obra.
 
 Gracias al GSD, las compañías tienen acceso a mano de obra más barata, debido a su deslocalización en diferentes países, pudiendo encontrar salarios mucho menores que en el país de origen. Ya que las compañías siempre buscan reducir el coste, éste ha sido el principal motivo que ha impulsado el GSD.
 
-\paragraph{Aumento de la competitividad}
+\subsubsection{Aumento de la competitividad}
 
 El GSD provee la posibilidad de poder encontrar mano de obra más cualificada o más experimentada en diferentes países, de modo que las compañías pueden contratar esos recursos personales y expandir su desarrollo a zonas más cualificadas y competitivas.
 
-\paragraph{Disminución de tiempo de lanzamiento al mercado}
+\subsubsection{Disminución de tiempo de lanzamiento al mercado}
 
 En GSD, se puede aplicar el modelo de desarrollo ``\textit{follow-the-sun}''. Esto significa que, gracias a que existen varios centros de desarrollo en diferentes países, una compañía puede aprovechar las diferencias horarias entre sus diferentes centros de desarrollo para estar desarrollando software las 24 horas del día (ver Figura \ref{fig:sun}). De este modo, se consigue maximizar la productividad y disminuir el tiempo de salida al mercado (\textit{time-to-market)} de un producto software.
 
@@ -72,11 +81,11 @@ De este modo, cada uno de los CDS localizados en cada país, pueden ir realizando
 
 \imagenBorde{Cap3//follow_the_sun}{1.0}{Modelo de desarrollo \textit{Follow-the-sun} \cite{carmel2010follow}}{fig:sun}
 
-\paragraph{Proximidad al mercado y al cliente}
+\subsubsection{Proximidad al mercado y al cliente}
 
 Al establecer filiales en aquellos países donde se localizan potenciales clientes, el GSD permite el desarrollo de software de una manera más cercana a sus clientes, aprovechando el conocimiento del mercado local y, por tanto, conociendo mejor sus necesidades.
 
-\paragraph{Mejoras en la innovación}
+\subsubsection{Mejoras en la innovación}
 
 Al disponer de CDS en diferentes países, se puede tomar ventaja de las diferentes nacionalidades, culturas, experiencias y habilidades de cada uno de ellos, pudiendo así evolucionar, innovar y enriquecer la compartición de conocimiento.
 
@@ -180,7 +189,7 @@ La gestión de conocimiento (en adelante KM, por sus siglas en inglés \textit{Kno
 
 En los siguientes apartados se comentan los desafíos encontrados en cada una de los cuatro procesos que componen la Gestión de Conocimiento dentro de una empresa, mostrados en la Figura \ref{fig:KMCycle}. 
 
-\imagenBorde{Cap3//KMCycle}{0.6}{Ciclo de gestión de conocimiento \cite{holzner1979knowledge}}{fig:KMCycle} 
+\imagenBorde{Cap3//KMCycle}{0.8}{Ciclo de gestión de conocimiento \cite{holzner1979knowledge}}{fig:KMCycle} 
 
 
 \paragraph{Creación de conocimiento}
@@ -191,7 +200,7 @@ En GSD, este proceso de creación de nuevo conocimiento se ve dificultado, ya que
 
 \paragraph{Almacenamiento y recuperación del conocimiento}
 
-Estrechamente ligado con el proceso anterior, se encuentra el almacenamiento y recuperación del conocimiento. Debido a que en GSD se manejan múltiples fuentes de conocimiento, y existen varias organizaciones que lo generan y utilizan, resulta complicado crear una base de conocimiento global y común para todas esas organizaciones que colaboran en GSD, debido a la multitud de información y formatos existentes (videos, documentos, procesos de negocio, etc.).
+Estrechamente ligado con el proceso anterior, se encuentra el almacenamiento y recuperación del conocimiento. Debido a que en GSD se manejan múltiples fuentes de conocimiento, y existen varias organizaciones que lo generan y utilizan, resulta complicado crear una base de conocimiento global y común para todas esas organizaciones que colaboran en GSD, debido a la multitud de información y formatos existentes (vídeos, documentos, procesos de negocio, etc.).
 
 Para intentar mitigar los problemas que aparecen en estos procesos de KM, existe una tendencia a utilizar el enfoque de \textit{Rationale}, o \textit{Design Rationale}, para indicar qué tipo de información generar y almacenar, proveyendo así un tipo de información concreta, con un formato común y consistente que las empresas que colaboran en el desarrollo de proyectos software en GSD puedan crear, almacenar y recuperar, para su posterior aplicación. Este concepto de \textit{Rationale} será presentado en la sección \ref{sec:rationale}
 
@@ -207,12 +216,13 @@ En GSD, este proceso se ve dificultado debido a los desafíos que aparecen en la 
 
 A la hora de aplicar el conocimiento recuperado, también existen dificultades, debido a todos los problemas que ya se han comentado, destacando la falta de consenso a la hora de aplicar dicho conocimiento, debido a las diferentes formas de gestionar y usar el conocimiento en las diversas organizaciones que colaboran en GSD, ya que cada una tendrá sus propios procesos de negocio y gestión.
 
+%% CBR: decir q se usa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Rationale
-\section{\textit{Design Rationale}}
+\section{\textit{Design Rationale}} \label{sec:rationale}
 
 \textit{Design Rationale} (o \textit{Rationale} simplemente) es ''\textit{un método que permite capturar, representar y mantener registros de información acerca de las decisiones que son tomadas por los miembros de un equipo de desarrollo de un proyecto software}'' \cite{Dutoit2006}. Dicho método puede ser aplicado en cualquier fase del ciclo de vida del desarrollo, desde el análisis de requisitos hasta las pruebas. 
 
@@ -240,7 +250,7 @@ En lo que respecta a la captura de decisiones, en \textit{Rationale} existen mét
 
 \begin{itemize}
 	\item  \textbf{Reconstrucción}: captura la información de una forma \textit{cruda}, sin procesar, y luego la reconstruye de una manera más estructurada.
-   \item \textbf{Método ``Record and replay}: las decisiones son capturadas de manera síncrona utilizando vídeo conferencias, o de manera asíncrona, a través de discusiones por e-mail.
+   \item \textbf{Método ``Record and replay''}: las decisiones son capturadas de manera síncrona utilizando vídeo-conferencias, o de manera asíncrona, a través de discusiones por e-mail.
     \item \textbf{Método del ``Aprendiz''}: se capturan las decisiones haciendo preguntas lógicas que coinciden, o no, con el punto de vista del diseñador.
     \item \textbf{Generación automática}: las decisiones se generan automáticamente a través de un historial.  Este método tiene la capacidad para mantener las decisiones consistentes y actualizadas.
     \item \textbf{Método del ``Historiador''}: es un método por el cual una persona u ordenador observa todas las acciones de los diseñadores, pero sin hacer ninguna sugerencia, y después describe todas esas acciones observadas.
@@ -264,7 +274,7 @@ En lo que respecta a representación del conocimiento, existen, principalmente, d
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CBR
-\section{Razonamiento basado en casos}
+\section{Razonamiento basado en casos} \label{sec:CBR}
 
 Estrechamente relacionado con la gestión de conocimiento, está el concepto de \textbf{Razonamiento Basado en Casos} (en adelante CBR, por sus siglas en inglés Case-Based Reasoning), utilizado para la recuperación de conocimiento, o experiencias previas, y su aplicación y reutilización en nuevos casos. Por tanto, el CBR puede plantearse como un solución para mitigar los problemas de recuperación y aplicación del conocimiento en GSD, comentados con anterioridad. Además, en este caso, el proceso de CBR se simplifica ya que, gracias al uso de \textit{Rationale}, el formato y tipo del conocimiento a recuperar y reutilizar es el mismo: decisiones tomadas en proyectos software.
 
