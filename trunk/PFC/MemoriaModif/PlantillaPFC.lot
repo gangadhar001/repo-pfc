@@ -5,10 +5,12 @@
 \select@language {english}
 \select@language {spanish}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces Modelos de desarrollo de software seg\'un dispersi\'on geogr\'afica\relax }}{2}
-\contentsline {table}{\numberline {1.2}{\ignorespaces Procesos de desarrollo software afectados por las distancias en GSD\relax }}{8}
-\select@language {english}
-\select@language {english}
+\contentsline {table}{\numberline {1.1}{\ignorespaces Objetivos a cumplir en el PFC\relax }}{5}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Modelos de desarrollo de software seg\'un dispersi\'on geogr\'afica\relax }}{9}
+\contentsline {table}{\numberline {2.2}{\ignorespaces Procesos de desarrollo software afectados por las distancias en GSD\relax }}{14}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
 \select@language {english}
 \select@language {english}
 \select@language {english}
