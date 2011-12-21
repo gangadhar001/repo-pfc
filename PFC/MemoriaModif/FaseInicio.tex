@@ -1,6 +1,6 @@
 \section{Fase de Inicio} \label{sec:faseInicio}
 
-En esta fase, como se muestra en la Figura \ref{fig:pudInicio}, interviene principalmente la disciplina de Captura de Requisitos. Es por ello que que esta fase es ligeramente diferente al resto de iteraciones, ya que se centra en la captura e identificación de requisitos, el estudio de viabilidad del sistema y en la creación del plan de iteraciones, por lo que esta fase no se ha dividido en iteraciones.
+En esta fase, como se muestra en la Figura \ref{fig:pudInicio}, interviene principalmente la disciplina de Captura de Requisitos. Es por ello que que esta fase es ligeramente diferente al resto de iteraciones, ya que se centra en: la captura e identificación de requisitos, el estudio de viabilidad del sistema y en la creación del plan de iteraciones, por lo que esta fase no se ha dividido en iteraciones.
 
 \imagenBorde{Cap5//pudInicio}{1.0}{Fase de inicio en el PUD}{fig:pudInicio}
 
@@ -41,66 +41,7 @@ A continuación, se enumera el conjunto de requisitos funcionales que el sistema 
 
 Una vez identificada esta lista de requisitos a las que el sistema debe dar soporte, éstos se agruparon en diferentes grupos funcionales del sistema, como se muestra en la tabla \ref{table:categorias}.
 
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\centering\arraybackslash}m{5.5cm} | >{\arraybackslash}m{6cm} | >{\centering\arraybackslash}m{2cm} |}
-	\hline
-		\multicolumn{1}{|c|}{\colorCabecera\textbf{Grupo Funcional}} &
-			\multicolumn{1}{|c|}{\colorCabecera\textbf{Descomposición de requisitos}} &
-			\multicolumn{1}{|c|}{\colorCabecera\textbf{Id. Requisito}} \\
-	\hline
-		 \multirow{1}{*}{\colorCelda \textbf{F1:} Acceso Sistema} & 
-		 Login (acceso) & \textbf{F1.1} \\ \cline{2-3}
-		 \colorCelda & Logout (desconexión) & \textbf{F1.2} \\
-	\hline
-		 \colorCelda & Crear decisión & \textbf{F2.1} \\ \cline{2-3}
-		 \multirow{1}{*}{\colorCelda \textbf{F2:} Gestión Decisiones} & Modificar decisión & \textbf{F2.2} \\ \cline{2-3}
-		 \colorCelda & Eliminar decisión & \textbf{F2.3} \\
-	\hline
-		\multirow{1}{*}{\colorCelda \textbf{F3:} Visualización información} & 
-		 Visualizar decisiones & \textbf{F3.1} \\ \cline{2-3}
-		 \colorCelda & Visualizar compañía & \textbf{F3.2} \\ 
-	\hline
-		 \colorCelda &  Consultar notificaciones & \textbf{F4.1} \\ \cline{2-3}
-		 \multirow{1}{*}{\colorCelda \textbf{F4:} Gestión Notificaciones}  & Modificar notificación & \textbf{F4.2} \\ \cline{2-3}
-		 \colorCelda & Eliminar notificación & \textbf{F4.3} \\
-	\hline
-		\colorCelda &  Dar de alta un proyecto & \textbf{F5.1} \\ \cline{2-3}
-		 \colorCelda & Modificar datos proyecto  & \textbf{F5.2} \\ \cline{2-3}
-		 \multirow{1}*{\colorCelda \textbf{F5:} Gestión Proyectos} & Consultar usuarios & \textbf{F5.3} \\ \cline{2-3}
-		 \colorCelda & Seleccionar proyecto activo & \textbf{F5.4} \\ \cline{2-3}
-		 \colorCelda & Aconsejar decisiones de proyectos & \textbf{F5.5} \\ 
-	\hline
-	\multicolumn{1}{|c|}{\colorCelda \textbf{F6:} Gestión Idiomas} & 
-		 Cambiar idioma & \textbf{F6.1} \\
-	\hline
-		\multicolumn{1}{|c|}{\colorCelda \textbf{F7:} Exportar información} & 
-		Exportar información & \textbf{F7.1} \\
-		\hline
-\end{tabular}
-\caption{Grupos funcionales del sistema - v1.0}
-\label{table:categorias}
-\end{table}
-
-Junto a los requisitos capturados del sistema, se identificaron los roles de usuario mostrados en la Tabla \ref{table:roles}, así como las requisitos, o acciones, que cada uno de estos roles podían ejecutar. En la Tabla \ref{table:acciones1} se muestran las acciones que cada usuario puede realizar en el sistema.
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\centering\arraybackslash}m{4.5cm} | >{\arraybackslash}m{11cm} |}
-	\hline
-		\multicolumn{1}{|c|}{\colorCabecera\textbf{Rol}} &
-			\multicolumn{1}{|c|}{\colorCabecera\textbf{Descripción}} \\
-	\hline
-		 \multicolumn{1}{|c|}{\colorCelda Empleado} & 
-		 Es un usuario del sistema que representa a un miembro de un equipo de desarrollo de una compañía. \\
-	\hline
-	\multicolumn{1}{|c|}{\colorCelda Jefe de Proyecto} & 
-		 Es un usuario del sistema que representa a un jefe de proyecto de un equipo de desarrollo de una compañía. \\
-	\hline
-\end{tabular}
-\caption{Roles identificados en el sistema}
-\label{table:roles}
-\end{table}
+Junto a los requisitos capturados del sistema, se identificaron los roles de usuario mostrados en la Tabla \ref{table:roles}, así como los requisitos, o acciones, que cada uno de estos roles podían ejecutar. En la Tabla \ref{table:acciones1} se muestran las acciones que cada usuario puede realizar en el sistema.
 
 \begin{table}[!htbp]%
 \centering
@@ -159,6 +100,64 @@ A continuación, se enumera el conjunto de requisitos no funcionales del sistema,
 	\item Debe existir una base de datos en el servidor que permita almacenar todas las decisiones tomadas en los proyectos, la información de los proyectos, la información de usuarios, etc. 
 \end{itemize}
 
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{5.5cm} | >{\arraybackslash}m{6cm} | >{\centering\arraybackslash}m{2cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Grupo Funcional}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Descomposición de requisitos}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Id. Requisito}} \\
+	\hline
+		 \multirow{1}{*}{\colorCelda \textbf{F1:} Acceso Sistema} & 
+		 Login (acceso) & \textbf{F1.1} \\ \cline{2-3}
+		 \colorCelda & Logout (desconexión) & \textbf{F1.2} \\
+	\hline
+		 \colorCelda & Crear decisión & \textbf{F2.1} \\ \cline{2-3}
+		 \multirow{1}{*}{\colorCelda \textbf{F2:} Gestión Decisiones} & Modificar decisión & \textbf{F2.2} \\ \cline{2-3}
+		 \colorCelda & Eliminar decisión & \textbf{F2.3} \\
+	\hline
+		\multirow{1}{*}{\colorCelda \textbf{F3:} Visualización información} & 
+		 Visualizar decisiones & \textbf{F3.1} \\ \cline{2-3}
+		 \colorCelda & Visualizar datos empresa & \textbf{F3.2} \\ 
+	\hline
+		 \colorCelda &  Consultar notificaciones & \textbf{F4.1} \\ \cline{2-3}
+		 \multirow{1}{*}{\colorCelda \textbf{F4:} Gestión Notificaciones}  & Modificar notificación & \textbf{F4.2} \\ \cline{2-3}
+		 \colorCelda & Eliminar notificación & \textbf{F4.3} \\
+	\hline
+		\colorCelda &  Dar de alta un proyecto & \textbf{F5.1} \\ \cline{2-3}
+		 \colorCelda & Modificar datos proyecto  & \textbf{F5.2} \\ \cline{2-3}
+		 \multirow{1}*{\colorCelda \textbf{F5:} Gestión Proyectos} & Consultar usuarios & \textbf{F5.3} \\ \cline{2-3}
+		 \colorCelda & Seleccionar proyecto activo & \textbf{F5.4} \\ \cline{2-3}
+		 \colorCelda & Aconsejar decisiones de proyectos & \textbf{F5.5} \\ 
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda \textbf{F6:} Gestión Idiomas} & 
+		 Cambiar idioma & \textbf{F6.1} \\
+	\hline
+		\multicolumn{1}{|c|}{\colorCelda \textbf{F7:} Exportar información} & 
+		Exportar información & \textbf{F7.1} \\
+		\hline
+\end{tabular}
+\caption{Grupos funcionales del sistema - v1.0}
+\label{table:categorias}
+\end{table}
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\centering\arraybackslash}m{4.5cm} | >{\arraybackslash}m{11cm} |}
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Rol}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Descripción}} \\
+	\hline
+		 \multicolumn{1}{|c|}{\colorCelda Empleado} & 
+		 Es un usuario del sistema que representa a un miembro de un equipo de desarrollo de una compañía. \\
+	\hline
+	\multicolumn{1}{|c|}{\colorCelda Jefe de Proyecto} & 
+		 Es un usuario del sistema que representa a un jefe de proyecto de un equipo de desarrollo de una compañía. \\
+	\hline
+\end{tabular}
+\caption{Roles identificados en el sistema}
+\label{table:roles}
+\end{table}
 
 \subsection{Modelo de casos de uso}
 
@@ -175,7 +174,7 @@ etc.) y se envían dichos datos al servidor, esperando su respuesta y mostrando l
 esta razón, los actores que aparecen en el diagrama de casos de uso de este subsistema son los
 diferentes roles del sistema, y el servidor.
 
-Para terminar, cabe señalar que se ha utilizado una jerarquía de herencia entre los diferentes tipos de usuarios, pues hay operaciones que pueden realizar varios de ellos. Por ejemplo, el empleado y el jefe de proyecto pueden ambos consultar las decisiones de un proyecto.
+%Para terminar, cabe señalar que se ha utilizado una jerarquía de herencia entre los diferentes tipos de usuarios, pues hay operaciones que pueden realizar varios de ellos. Por ejemplo, el empleado y el jefe de proyecto pueden ambos consultar las decisiones de un proyecto.
 
 \imagen{Cap5/Cliente1//casos1Cliente}{2.2}{Diagrama de casos de uso - Cliente - v1.0}{fig:casos1Cliente}
 
@@ -202,9 +201,9 @@ El glosario de términos está compuesto por los términos que fueron definidos en 
 
 Para realizar un estudio de viabilidad del proyecto, se analizaron los aspectos técnicos y las tecnologías disponibles para la realización de dicho proyecto, así como un estudio del tiempo y duración del proceso.
 
-Uno de los puntos más importantes detectados en este análisis previo es la necesidad de crear un sistema cliente-servidor, donde el cliente sea totalmente independiente de la implementación del servidor. Además, otro aspecto destacado es que la interfaz gráfica del cliente debe ser flexible y adaptable a las operaciones que los diferentes usuarios puedan realizar en el sistema.
+Uno de los puntos más importantes detectados en este análisis previo fue la necesidad de crear un sistema cliente-servidor, donde el cliente fuera totalmente independiente de la implementación del servidor. Además, otro aspecto destacado es que la interfaz gráfica del cliente debe ser flexible y adaptable a las operaciones que los diferentes usuarios puedan realizar en el sistema.
 
-Analizando las tecnologías existentes, se comprobó que era factible realizar estos objetivos destacados, gracias al uso de \textbf{RMI} y del API de reflexión de Java. Además, con el resto de tecnologías utilizadas, se podía cubrir el resto de objetivos del sistema.
+Analizando las tecnologías existentes, se comprobó que era factible realizar estos objetivos, gracias al uso de \textbf{RMI} y del API de reflexión de Java. Además, con el resto de tecnologías utilizadas, se podía cubrir el resto de objetivos del sistema.
 
 Por otra parte, se realizó una estimación previa de la duración del proyecto y se comprobó que podía terminarse en el tiempo estimado, teniendo en cuenta posibles retrasos debidos a imprevistos y vacaciones.
 
