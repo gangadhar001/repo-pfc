@@ -24,7 +24,7 @@ Del mismo modo y de manera muy similar a estos diagramas de secuencia anteriores
 
 \subparagraph{Servidor}
 
-En el diseño e implementación de estos casos de uso, cabe destacar la creación de una alerta o notificación de manera automática por parte del servidor al realizar cualquier acción sobre las decisiones. Dicha alerta se crea para el proyecto al cuál pertenece esa decisión, y para todos los usuarios que en dicho proyecto participan. De este modo, se notifica a los empleados que trabajan en ese proyecto que nuevo conocimiento está disponible, indicando en la alerta el tipo de decisión afectada, su autor, fecha y otros detalles. Esto facilita la comunicación asíncrona, ya que cuando un usuario vuelva a iniciar sesión, podrá comprobar sus nuevas alertas y adquirir conciencia de los cambios producidos.
+En el diseño e implementación de estos casos de uso, cabe destacar la creación de una alerta o notificación de manera automática por parte del servidor al realizar cualquier acción sobre las decisiones. Dicha alerta se crea para el proyecto al cuál pertenece esa decisión, y para todos los usuarios que en dicho proyecto participan. De este modo, se notifica a los empleados que trabajan en ese proyecto qué nuevo conocimiento está disponible, indicando en la alerta el tipo de decisión afectada, su autor, fecha y otros detalles. Esto facilita la comunicación asíncrona, ya que cuando un usuario vuelva a iniciar sesión, podrá comprobar sus nuevas alertas y adquirir conciencia de los cambios producidos.
 
 En la Figura \ref{fig:clasesGestionDecisiones} se muestra el diagrama de clases para la funcionalidad de gestión de decisiones, mostrando las asociaciones entre clases y entre los controladores de decisiones y de notificaciones. Como en el resto de casos, las operaciones de bases de datos se delegan en el gestor de bases de datos y éste, a su vez, delega en el framework \textbf{Hibernate}.
 
@@ -57,7 +57,7 @@ En el fragmento de código \ref{list:observador} se muestra parte de la implement
 
 \subparagraph{Cliente}
 
-En el subsistema cliente cabe destacar la utilización del API de Java \textbf{Reflection} para poder configurar el diálogo para gestionar las decisiones (creación y modificación) en tiempo de ejecución. Así, cuando el usuario selecciona una decisión a crear o modificar (\textit{Tema}, \textit{Propuesta} o \textit{Respuesta}), la interfaz se adaptará a ese tipo de decisión, mostrando los elementos oportunos. Por tanto, se utiliza la reflexión de Java para instanciar el panel gráfico correspondiente y visualizarlo cuando el usuario haya elegido una acción, en tiempo de ejecución.
+En el subsistema cliente cabe destacar la utilización del API de Java \textbf{Reflection} para poder configurar el diálogo con el fin de gestionar las decisiones (creación y modificación) en tiempo de ejecución. Así, cuando el usuario selecciona una decisión a crear o modificar (\textit{Tema}, \textit{Propuesta} o \textit{Respuesta}), la interfaz se adaptará a ese tipo de decisión, mostrando los elementos oportunos. Por tanto, se utiliza la reflexión de Java para instanciar el panel gráfico correspondiente y visualizarlo cuando el usuario haya elegido una acción, en tiempo de ejecución.
 
 En el fragmento de código \ref{list:reflection} se presenta un ejemplo de uso de la reflexión para crear un componente visual conocido en tiempo de ejecución, según el valor de la variable \textit{subgroup}.
 

@@ -39,7 +39,7 @@ Se ha utilizado una jerarquía de herencia para diseñar los elementos que forman 
 
 Como se observa en la Figura \ref{fig:clasesGenerarPdf}, cabe señalar el uso de la clase \textit{HeaderFooter} para colocar una imagen en el encabezado y pie de página de cada página del documento PDF. Esto es útil, por ejemplo, para colocar el logo de una compañía en cada página del informe.
 
-En cuanto a aspectos de implementación, se utiliza la librería \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las componen, según hayan sido configuradas en el cliente. En el listado de código \ref{list:generarPDF} se muestra un fragmento de código de cómo crear el documento y como se insertan en él los elementos.
+En cuanto a aspectos de implementación, se utiliza la librería \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las forman, según hayan sido configuradas en el cliente. En el listado de código \ref{list:generarPDF} se muestra un fragmento de código de cómo crear el documento y como se insertan en él los elementos.
 
 \texttt{\lstinputlisting[caption=Fragmento de código para la generación de documentos PDF, breaklines=true, label=list:generarPDF, inputencoding=latin1, style=JavaStyle]{Codigo//generarPDF.java}}
 
@@ -75,15 +75,15 @@ A continuación, se explican las clases involucradas en el proceso de \textit{Dra
 	\item \textbf{DropTargetListener}: es la clase que contiene la lógica para manejar el evento del \textit{Drop}.
 \end{itemize}
 
-Una vez detalladas las clases involucradas en el proceso \textit{Drag \& Drop}, éste se detalla:
-
-\begin{enumerate}
-	\item Se muestra la vista de la interfaz gráfica que permite la configuración del informe PDF. En ella, se muestran los paneles que representan las secciones y los paneles que representan los elementos que en ellas se pueden insertar (\textit{panelPDFElement}).
-	\item Se inserta un elemento a una de las secciones, creándose un objeto de la clase \textit{panelPDFDragged}. Este objeto es el que implementa la interfaz \textit{Transferable} y el que iniciará el evento de \textit{Drag}.
-	\item Se hace clic con el ratón en uno de los paneles (\textit{panelPDFDragged}) que ya están insertados en una sección. En ese momento, se inicia el proceso de \textit{Drag \& Drop}, siendo ese panel el origen del \textit{Drag}. Por tanto, se crea un \textit{DataFlavor}, conteniendo dicho panel y se asocia con la clase \textit{DragandDropTransferHandler}, en modo copia.
-	\item El panel se va arrastrando hasta colocarlo en la posición deseada dentro de la sección. Durante este arrastre, la clase \textit{DragandDropTransferHandler} va controlando el objeto \textit{Transferable} que se está moviendo.
-	\item Cuando se suelta el ratón, se produce el evento \textit{Drop}. En ese momento, se extrae el objeto del \textit{DataFlavor}, que era el panel que se estaba arrastrando y se coloca en la nueva posición dentro del panel de la sección, recolocando el resto de elementos que pudieran estar insertados.
-\end{enumerate}
+%Una vez detalladas las clases involucradas en el proceso \textit{Drag \& Drop}, éste se detalla:
+%
+%\begin{enumerate}
+%	\item Se muestra la vista de la interfaz gráfica que permite la configuración del informe PDF. En ella, se muestran los paneles que representan las secciones y los paneles que representan los elementos que en ellas se pueden insertar (\textit{panelPDFElement}).
+%	\item Se inserta un elemento a una de las secciones, creándose un objeto de la clase \textit{panelPDFDragged}. Este objeto es el que implementa la interfaz \textit{Transferable} y el que iniciará el evento de \textit{Drag}.
+%	\item Se hace clic con el ratón en uno de los paneles (\textit{panelPDFDragged}) que ya están insertados en una sección. En ese momento, se inicia el proceso de \textit{Drag \& Drop}, siendo ese panel el origen del \textit{Drag}. Por tanto, se crea un \textit{DataFlavor}, conteniendo dicho panel y se asocia con la clase \textit{DragandDropTransferHandler}, en modo copia.
+%	\item El panel se va arrastrando hasta colocarlo en la posición deseada dentro de la sección. Durante este arrastre, la clase \textit{DragandDropTransferHandler} va controlando el objeto \textit{Transferable} que se está moviendo.
+%	\item Cuando se suelta el ratón, se produce el evento \textit{Drop}. En ese momento, se extrae el objeto del \textit{DataFlavor}, que era el panel que se estaba arrastrando y se coloca en la nueva posición dentro del panel de la sección, recolocando el resto de elementos que pudieran estar insertados.
+%\end{enumerate}
 
 En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& Drop}, de manera simplificada.
 
@@ -100,7 +100,7 @@ En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& 
 
 Como en iteraciones anteriores y de modo similar, se modelan los diagramas de secuencia para los casos de uso de este grupo funcional y se comienza con su diseño e implementación.
 
-Como se ha comentado anteriormente, la generación de los gráficos estadísticos es una funcionalidad exclusiva del cliente, ya que los gráficos dependen de la tecnología empleada para representarlos, que en este caso es la librería de gráficos \textbf{JFreeChart} (ver sección \ref{sec:marco}). Por tanto, el cliente, consultando los datos necesarios para crear un gráfico al servidor, es el encargado de generar dichos gráficos y visualizarlos.
+La generación de los gráficos estadísticos es una funcionalidad exclusiva del cliente, ya que los gráficos dependen de la tecnología empleada para representarlos, que en este caso es la librería de gráficos \textbf{JFreeChart} (ver sección \ref{sec:marco}). Por tanto, el cliente, consultando los datos necesarios para crear un gráfico al servidor, es el encargado de generar dichos gráficos y visualizarlos.
 
 En primer lugar, cabe destacar que el tipo de gráficos que pueden generarse y visualizarse están definidos en un fichero XML, por lo que fácilmente se podrán añadir nuevos tipos de gráficos, añadiéndolos en este XML, facilitando su extensibilidad. En este XML se define el tipo de gráfico (de barras, pastel, líneas, etc), un icono, su nombre y descripción.
 
