@@ -1,16 +1,148 @@
 \subsection{Iteración 5} 
 
-Siguiendo los casos de uso del grupo funcional \textbf{F2:} \textit{Gestión de decisiones} (ver Figura \ref{fig:CduGestionDecisiones2Server}) y del grupo funcional \textbf{F4:} \textit{Gestión de notificaciones} (ver Figura \ref{fig:CduGestionNotificaciones2Server}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos de uso del grupo funcional \textbf{F2:} \textit{Gestión de decisiones} (ver Figura \ref{fig:CduGestionDecisiones2Server}) y del grupo funcional \textbf{F4:} \textit{Gestión de notificaciones} (ver Figura \ref{fig:CduGestionNotificaciones2Server}), se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
+	\item Análisis de los casos de uso.
 	\item Diseño de la funcionalidad relativa a la gestión de decisiones y alertas (o notificaciones) del sistema.
 	\item Implementación de dichas funcionalidades.
 	\item Diseño e implementación de pruebas relativas a la gestión de decisiones y alertas.
 \end{itemize}
 
-Es esta iteración se diseñan e implementan ambos grupos funcionales porque éstos están estrechamente relacionados, ya que en la gestión de decisiones se incluye la creación de notificaciones, como se muestra, por ejemplo, en el análisis del caso de uso \textit{Modificar decisión}, en la sección \ref{sec:modificarDecisionAnalisis}.
+Es esta iteración se diseñan e implementan ambos grupos funcionales porque éstos están estrechamente relacionados, ya que en la gestión de decisiones se incluye la creación de notificaciones automáticas.
 
 \subsubsection{Grupo funcional \textbf{F2:} \textit{Gestión de decisiones}}
+
+
+\paragraph{Análisis de casos de uso}
+
+Como en iteraciones anteriores, se comienza analizando los casos de uso que componen este grupo funcional, considerado uno de los más importantes, ya que permitirá la gestión de decisiones del sistema.
+
+\subparagraph{Modificar decisión}  \label{sec:modificarDecisionAnalisis}
+
+Este es un caso de uso abstracto del que heredan otros tres casos específicos, según el tipo de decisión que se desee modificar (ver Figura \ref{fig:CduGestionDecisiones2Server}). Se ha utilizado la herencia porque los tres casos de uso comparten características en común, como es la introducción de los datos del título y la descripción de la decisión a modificar por parte del usuario. 
+
+En la Tabla \ref{table:flujosEditPropuesta} se describe el caso de uso \textit{Modificar Decisión - Modificar Propuesta}. 
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Modificar Decisión - Modificar Propuesta (\textit{Proposal}) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para modificar una nueva Propuesta en un proyecto. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema, tenga permisos para realizar la operación y sea autor de la Propuesta. \\
+	\hline
+	\textbf{Post-condiciones}: Se modifica la Propuesta. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona una Propuesta de un Tema.
+	\item El usuario introduce el nuevo título y descripción de la Propuesta.
+	\item El usuario introduce otros datos específicos para este tipo de decisión.
+	\item El sistema valida los datos introducidos.
+	\item Se modifica la Propuesta para el Tema seleccionado.
+	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
+	\item Se refrescan y actualizan las decisiones, para reflejar visualmente el cambio.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: datos incompletos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona una Propuesta de un Tema.
+	\item El usuario introduce el nuevo título y descripción de la Propuesta.
+	\item El usuario introduce otros datos específicos para este tipo de decisión.
+	\item El sistema valida los datos introducidos.
+	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos de la Propuesta.
+	\vspace{-4mm}
+	\end{enumerate}	
+	\\
+	\hline
+	\textbf{Flujo alternativo 2: Propuesta ya existente}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario selecciona una Propuesta de un Tema.
+	\item El usuario introduce el nuevo título y descripción de la Propuesta.
+	\item El usuario introduce otros datos específicos para este tipo de decisión.
+	\item El sistema valida los datos introducidos.
+	\item Ya existe otra Propuesta con ese título en ese tema. Se muestra un mensaje y se vuelven a solicitar los datos.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Modificar decisión - Modificar Propuesta}}
+\label{table:flujosEditPropuesta}
+\end{table}
+
+En la Figura \ref{fig:analisisModificarpropuestaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisModificarpropuestaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisModificarpropuestaCliente}{2.2}{Diagrama de clases de análisis - Cliente - Modificar Propuesta}{fig:analisisModificarpropuestaCliente}
+
+\imagen{Cap5/Server2//analisisModificarpropuestaServer}{2.2}{Diagrama de clases de análisis - Servidor - Modificar Propuesta}{fig:analisisModificarpropuestaServer}
+
+Los otros casos de uso, \textit{Crear decisión} y \textit{Eliminar decisión}, se especifican de una manera muy similar a la mostrada para este caso de uso.
+
+\subparagraph{Aceptar o rechazar decisión}
+
+Este caso de uso se ha modelado como una extensión al caso de uso anterior, \textit{Modificar Decisión} (ver Figura \ref{fig:CduGestionDecisiones2Server}). Esto es así porque, aunque también es una modificación de una determinada decisión, existen algunas diferencias en el comportamiento con respecto al caso de uso anterior, siguiendo un comportamiento específico. Dichas diferencias consisten en que este caso de uso (sólo disponible para el rol de jefe de proyecto) es independiente del tipo de decisión, y el jefe de proyecto no tiene porqué ser necesariamente el autor de la decisión. 
+
+En la Tabla \ref{table:flujosStatus} se describe el caso de uso \textit{Aceptar o rechazar decisión}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Aceptar o rechazar decisión \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para poder cambiar el estado de una decisión, aceptándola o rechazándola, reflejando este cambio visualmente.	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se cambia el estado de una decisión, a aceptada o rechazada. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El jefe de proyecto selecciona una decisión de las visualizadas.
+	\item El jefe de proyecto selecciona un estado (Aceptada/Rechazada) para dicha decisión.
+	\item El sistema valida los datos.
+	\item Se modifica la decisión.
+	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
+	\item Se refrescan y actualizan las decisiones, para reflejar visualmente el cambio.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Aceptar o rechazar decisión}}
+\label{table:flujosStatus}
+\end{table}
+
+En este caso, el diagrama de clases de análisis en ambos subsistemas son prácticamente iguales a los diagramas del caso de uso anterior.
+
+
+
 
 \paragraph{Diseño e implementación} \label{sec:crearDecision}
 
@@ -67,6 +199,7 @@ En el fragmento de código \ref{list:reflection} se presenta un ejemplo de uso de
 Por otra parte, en el cliente, cuando el servidor le notifica que se ha producido un cambio en las decisiones, producido por otro cliente, se refrescan las decisiones en la vista de visualización de decisiones (comentada en la iteración anterior), para poder reflejar este cambio de manera síncrona, refrescando el grafo y árbol de decisiones, así como la información asociada a cada una de ellas.
 
 %% VER PROTOTIPO ANTERIOR
+
 Para terminar, cabe destacar que las operaciones de gestión de decisiones (creación, modificación, etc) pueden bien realizarse desde un menú o bien desde los nodos del grafo, gracias a un menú contextual que aparece al interactuar con el ratón. Se ha decidido diseñarlo de esta manera para permitir a los usuarios una flexibilidad y libertad a la hora de realizar las acciones, pudiendo seleccionar aquella que le sea más cómoda. En otras funcionalidades, la interfaz también proporciona estas opciones de realizar las acciones desde diferentes puntos.
 
 

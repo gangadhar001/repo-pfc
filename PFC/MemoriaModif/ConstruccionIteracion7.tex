@@ -1,25 +1,30 @@
 \subsection{Iteración 7} 
 
-Siguiendo los casos de uso del grupo funcional \textbf{F6:} \textit{Generación de informes} (ver Figura \ref{fig:CduGeneracionInformes2Server}) y de grupo funcional \textbf{F7:} \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}), así como el análisis realizado, se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos de uso del grupo funcional \textbf{F6:} \textit{Generación de informes} (ver Figura \ref{fig:CduGeneracionInformes2Server}) y de grupo funcional \textbf{F7:} \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}), se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
+	\item Análisis de los casos de uso.
 	\item Diseño de la funcionalidad relativa a la generación de informes y gráficos estadísticos.
 	\item Implementación de dichas funcionalidades.
 	\item Diseño e implementación de pruebas relativas a la generación de informes y gráficos estadísticos.
 \end{itemize}
 
+
 \subsubsection{Grupo funcional \textbf{F6:} \textit{Generación de informes}}
+
+\paragraph{Análisis de casos de uso}
+
+Como en iteraciones anteriores, se comienza analizando los casos de uso que componen este grupo funcional, realizando las especificaciones de dichos casos de uso y generando sus diagramas de clases de análisis.
 
 \paragraph{Diseño e implementación} \label{sec:diseñoGenerarPDF}
 
-En la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia de diseño para el escenario del caso de uso de \textit{Generación de informes PDf} en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento en el servidor.
+Una vez analizados los casos de uso, se comienza con el diseño, utilizando dicho análisis como base. De este modo, en la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia de diseño para el escenario del caso de uso de \textit{Generación de informes PDf} en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento en el servidor.
 
 Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{Consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
 
 \imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{1.9}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalCliente}
 
 \imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{1.9}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalServer}
-
 
 
 
@@ -96,6 +101,70 @@ En la Figura \ref{fig:DnD} se muestra visualmente el proceso de \textit{Drag \& 
 
 
 \subsubsection{Grupo funcional \textbf{F7:} \textit{Generación de estadísticas}}
+
+\paragraph{Análisis de casos de uso}
+
+Este grupo funcional se considera como uno de los principales para permitir al usuario llevar un control acerca de los proyectos software, con las decisiones tomadas en ellos, los usuarios involucrados, etc. Para facilitar dicho control, se generan gráficos estadísticos de manera automática a partir de los datos existentes en el sistema. Por tanto, esta iteración comienza con el análisis de los casos de uso que componen dicha funcionalidad, definiendo sus escenarios y diagramas de análisis.
+
+\subparagraph{Generación gráficos estadísticos}
+
+En la Tabla \ref{table:flujosEstadisticas} se describe el caso de uso \textit{Generación gráficos estadísticos}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Generación gráficos estadísticos\\
+	\hline
+	\textbf{Descripción}: Funcionalidad para generar y visualizar un gráfico estadístico.\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se genera y visualiza un gráfico estadístico \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El jefe de proyecto selecciona un tipo de gráfico a generar.
+	\item El generar y visualizar un gráfico estadístico selecciona los datos a usar en ese gráfico.
+	\item Se validan los datos introducidos.
+	\item El sistema consulta los proyectos y decisiones, según la selección del usuario.
+	\item Se procesan los datos consultados.
+	\item Se genera la gráfica con los datos procesados.
+	\item Se visualiza el gráfico generado.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: datos incompletos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El jefe de proyecto selecciona un tipo de gráfico a generar.
+	\item El jefe de proyecto selecciona los datos a usar en ese gráfico.
+	\item Se validan los datos introducidos.	
+	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos.
+	\vspace{-4mm}
+	\end{enumerate}	
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Generación gráfico estadístico}}
+\label{table:flujosEstadisticas}
+\end{table}
+
+La Figura \ref{fig:analisisEstadisticasCliente} representa el diagrama de clases de análisis para el subsistema cliente. 
+
+\imagen{Cap5/Cliente2//analisisEstadisticasCliente}{2.2}{Diagrama de clases de análisis - Cliente - Generación gráficos estadísticos}{fig:analisisEstadisticasCliente}
+
+
 \paragraph{Diseño e implementación}
 
 Como en iteraciones anteriores y de modo similar, se modelan los diagramas de secuencia para los casos de uso de este grupo funcional y se comienza con su diseño e implementación.
