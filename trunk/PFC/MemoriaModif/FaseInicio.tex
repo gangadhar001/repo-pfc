@@ -165,7 +165,8 @@ Una vez identificados los requisitos funcionales del sistema, éstos se modelan e
 
 Cabe destacar que el sistema está compuesto de dos subsistemas, cliente y servidor, como se ha comentado en los requisitos no funcionales (ver apartado \ref{label:reqnofuncionales}), por lo que, aunque los requisitos funcionales se refieren al sistema global, se han modelado casos de uso para ambos subsistemas. 
 
-Los actores que aparecen en los diagramas de casos de uso del cliente se refieren a las personas físicas que pueden utilizar el sistema (empleado y jefe de proyecto) y al subsistema servidor. Por otro lado, en el servidor aparece como actor el subsistema cliente y el actor que representa la base de datos. Se ha decidido modelar estos actores que representan sistemas software (cliente, servidor y bases de datos) para representar visualmente las interacciones que ocurren entre los sistemas, ya que algunos casos de uso no interaccionan, por ejemplo, con el sistema de base de datos o con el cliente.
+Los actores que aparecen en los diagramas de casos de uso del cliente se refieren a las personas físicas que pueden utilizar el sistema (empleado y jefe de proyecto) y al subsistema servidor. Por otro lado, en el servidor aparece como actor el subsistema cliente y el actor que representa la base de datos. 
+%Se ha decidido modelar estos actores que representan sistemas software (cliente, servidor y bases de datos) para representar visualmente las interacciones que ocurren entre los sistemas, ya que algunos casos de uso no interaccionan, por ejemplo, con el sistema de base de datos o con el cliente.
 
 \subsubsection{Modelo de casos de uso para el subsistema cliente}
 
@@ -225,25 +226,25 @@ Dado que el PUD es centrado y dirigido por casos de uso, se utiliza el diagrama 
 		 Realizar un estudio del sistema a desarrollar, capturando e identificando sus requisitos funcionales. \\
 	\hline
 	 \colorCelda & 1 &
-		 Validar el estudio del sistema e identificar posibles nuevos requisitos, modelando los requisitos del sistema con mayor detalle y realizando las tareas de análisis del sistema y definición de su arquitectura. \\
+		 Validar el estudio del sistema e identificar posibles nuevos requisitos, modelando los requisitos del sistema con mayor detalle y realizando la definición de su arquitectura. \\
 	\cline{2-3}
 		 \multirow{1}{*}{\colorCelda Elaboración} & 2 & 
-		 Realizar tareas de diseño de alto nivel del sistema, como el diagrama de clases de dominio, y diseñar e implementar la comunicación entre sistemas en la arquitectura cliente-servidor definida.\\
+		 Analizar e identificar los objetos de dominio que forman parte del sistema, a partir de los casos de uso detallados, y diseñar e implementar la comunicación entre sistemas en la arquitectura cliente-servidor definida.\\
 	\hline
 	\colorCelda & 3 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F1}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F1}. \\
 	\cline{2-3}
 	\colorCelda & 4 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F3}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F3}. \\
 	\cline{2-3}
 	\multirow{1}{*}{\colorCelda Construcción} & 5 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F2} y \textbf{F4} \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F2} y \textbf{F4} \\
 	\cline{2-3}
 	\colorCelda & 6 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F5}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F5}. \\
 	\cline{2-3}
 	\colorCelda & 7 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F6} y \textbf{F7}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F6} y \textbf{F7}. \\
 	\hline	
 	\multicolumn{1}{|c|}{\colorCelda Transición} & 8 &
 		 Obtener la versión entregable del sistema, así como su documentación y manuales de usuario. \\

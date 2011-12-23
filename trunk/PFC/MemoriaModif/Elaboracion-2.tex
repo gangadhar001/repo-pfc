@@ -2,7 +2,7 @@
 
 Al finalizar la iteración anterior, se realizó otra reunión de seguimiento para revisar y validar todos estos artefactos obtenidos.
 
-En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones definitivo y el resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comenzó con el diseño, implementación y pruebas de los casos de uso identificados, utilizando como entrada el modelo de casos de uso y de análisis obtenido en la iteración anterior.
+En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones definitivo y el resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comenzó con el desarrollo de los casos de uso identificados, utilizando como entrada el modelo de casos de uso y de análisis obtenido en la iteración anterior.
 
 Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al utilizar una arquitectura cliente-servidor, el subsistema del servidor es el encargado de toda la lógica y control de dominio y persistencia, por lo que es donde más hincapié se hará en los diagramas de diseño, mientras que el cliente se encarga de proporcionar la interfaz gráfica del sistema, validar los datos que introduce el usuario y enviar y recibir las peticiones del servidor.
 
@@ -11,7 +11,7 @@ Señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, 
 Las tareas a realizar en esta iteración son:
 
 \begin{itemize}
-	\item Modelo de alto nivel de clases de diseño de objetos de dominio.
+	\item Análisis e identificación de los objetos de dominio, creando un modelo de alto nivel.
 	\item Modelado y diseño de la base de datos.
 	\item Diseño e implementación de la arquitectura cliente-servidor, centrándose en la comunicación entre subsistemas.
 	\item Diseño e implementación de pruebas relativas a la comunicación entre ambos subsistemas.
@@ -19,7 +19,7 @@ Las tareas a realizar en esta iteración son:
 
 \subsubsection{Diagrama de clases de dominio} \label{modeloDominio}
 
-Se realiza un diagrama de clases de diseño de alto nivel, reflejando los clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
+Se realiza un diagrama de clases de diseño de alto nivel, reflejando las clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
 
 Así, según la especificación de requisitos de la sección \ref{sec:requisitos}, se han modelado las siguientes clases de conocimiento, junto con sus relaciones:
 

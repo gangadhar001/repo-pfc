@@ -1,8 +1,9 @@
 \subsection{Iteración 3}
 
-Siguiendo los casos del grupo funcional \textit{F1: Acceso al sistema} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), así como su análisis realizado, se abordan las siguientes tareas en esta primera iteración de la fase de Construcción: 
+Siguiendo los casos del grupo funcional \textit{F1: Acceso al sistema} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), se abordan las siguientes tareas en esta primera iteración de la fase de Construcción: 
 
 \begin{itemize}
+  \item Análisis de los casos de uso.
 	\item Diseño de la funcionalidad relativa de acceso al sistema.
 	\item Implementación de dicha funcionalidad.
 	\item Diseño e implementación de pruebas relativas a la funcionalidad de acceso al sistema.
@@ -12,9 +13,132 @@ Siguiendo los casos del grupo funcional \textit{F1: Acceso al sistema} (ver Figu
 
 Una vez se ha definido e implementado la arquitectura del sistema, se han modelado los objetos de dominio y se ha diseñado la base de datos a utilizar en el sistema, se pasa a desarrollar los casos de uso que componen la funcionalidad de \textit{Acceso al sistema}, mostrados en la Figura \ref{fig:CduAccesoSistema2Server}.
 
+\paragraph{Análisis de casos de uso}
+
+Los casos de uso englobados en este grupo funcional se especifican de manera más formal, describiendo los escenarios de funcionamiento de cada uno de ellos. Además, para cada caso de uso, se crea el diagrama de clases de análisis, donde se representan los objetos de dominio involucrados en el caso de uso, así como las clases encargadas de su control.
+
+Existen tres tipos de clases en un diagrama de clases de análisis: 
+
+\begin{enumerate}
+	\item \textbf{Interfaz o \textit{Boundary}}: representa clases utilizadas para la comunicación entre el actor y el sistema.
+	\item \textbf{Control}: representa clases y objetos de control. Es la que controla y coordina el flujo (o escenario) de funcionamiento del caso de uso.
+	\item \textbf{Entidad o \textit{Entity}}: son clases que representan objetos de información persistentes del sistema.
+\end{enumerate}
+
+Señalar que, para cada caso de uso, se describe su funcionamiento y sus flujos desde un punto de vista global al sistema, sin entrar en detalle en cada subsistema, ya que lo que interesa es describir a alto nivel su funcionamiento. Posteriormente, con los diagramas de secuencia y de clases de diseño, se irá profundizando más en detalle en el flujo que se sigue en cada subsistema.
+
+En este caso, y del mismo modo para el resto de grupos funcionales del sistema, se incluyen las especificaciones y diagramas de análisis de los principales casos de uso, para evitar excederse en la longitud del capítulo.
+
+
+\subparagraph{Login}
+
+En la Tabla \ref{table:flujosLogin} se describe el caso de uso \textit{Login}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Iniciar sesión (Login) \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para que un usuario pueda acceder al sistema \\
+	\hline
+	\textbf{Precondiciones}: Disponer de nombre de usuario y contraseña y estar dado de alta en al menos un proyecto \\
+	\hline
+	\textbf{Post-condiciones}: El usuario accede al sistema \\
+	\hline 
+	\textbf{Flujo principal}:
+	\vspace{-4mm}
+	\begin{enumerate}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{-7.5pt}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{0pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item Se crea una sesión para el usuario.
+	\item Se muestran los proyectos en los que el usuario está dado de alta.
+	\item El usuario elige uno de los proyectos.
+	\item El usuario accede al sistema para trabajar sobre ese proyecto.
+	\vspace{-6mm}
+	\end{enumerate} 
+	\\	
+	\hline
+	\textbf{Flujo alternativo 1: error de Login}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item El usuario no es válido. Se informa del error y se vuelve al comienzo.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\	
+	\hline
+	\textbf{Flujo alternativo 2: usuario inexistente}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item El usuario no existe. Se informa del error y se vuelve al comienzo.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 3: usuario ya logueado}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item Ya existe una sesión para ese usuario. Se cierra dicha sesión y se crea una nueva.
+	\item Se muestran los proyectos en los que el usuario está dado de alta.
+	\item El usuario elige uno de los proyectos.
+	\item El usuario accede al sistema para trabajar sobre ese proyecto.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 4: no existen proyectos}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{-7.5pt}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{0pt}
+	\item El usuario introduce usuario y contraseña.
+	\item Se valida el usuario y contraseña.
+	\item Se crea una sesión para el usuario.
+	\item Se consultan los proyectos en los que el usuario está dado de alta.
+	\item El usuario no tiene ningún proyecto. Se informa del error y se vuelve al comienzo.
+	\vspace{-6mm}
+	\end{enumerate}
+	\\
+	\hline 
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Login}}
+\label{table:flujosLogin}
+\end{table}
+
+En la Figura \ref{fig:analisisLoginCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. La Figura \ref{fig:analisisLoginServer} refleja el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisLoginCliente}{2.2}{Diagrama de clases de análisis - Cliente - Login}{fig:analisisLoginCliente}
+
+\imagen{Cap5/Server2//analisisLoginServer}{2.2}{Diagrama de clases de análisis - Servidor - Login}{fig:analisisLoginServer}
+
+
 \paragraph{Diseño e implementación de acceso al sistema}
 
-En primer lugar, se modela el funcionamiento de los casos de uso que componen este grupo funcional a través de diagramas de secuencia de diseño, tanto para el subsistema cliente como para el servidor, teniendo en cuenta el modelo de casos de uso y de análisis. De este modo, en la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Login} en el cliente, mientras que la Figura \ref{fig:secuenciaLoginServer} refleja el diagrama de secuencia para el servidor.
+Una vez realizado el análisis de los casos de uso, identificados los objetos de dominio que en ellos intervienen y definidos sus escenarios, se modela el funcionamiento de dichos casos de uso que componen este grupo funcional a través de diagramas de secuencia de diseño, tanto para el subsistema cliente como para el servidor. De este modo, en la Figura \ref{fig:secuenciaLoginCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Login} en el cliente, mientras que la Figura \ref{fig:secuenciaLoginServer} refleja el diagrama de secuencia para el servidor.
 
 \imagen{Cap5/Cliente2//secuenciaLoginPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Login}{fig:secuenciaLoginCliente}
 

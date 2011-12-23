@@ -15,7 +15,7 @@ En esta iteración se abordan las siguientes tareas:
 	\item Identificación de nuevos requisitos funcionales.
 	\item Elaboración del modelo de casos de uso definitivo.
 	\item Elaboración del plan de proyecto definitivo. 
-	\item Análisis de los casos de uso que componen el sistema.
+	%\item Análisis de los casos de uso que componen el sistema.
 	\item Definición de la arquitectura del sistema.
 \end{itemize}
 
@@ -253,29 +253,29 @@ Una vez identificados nuevos requisitos, se reorganiza el plan de proyecto con n
 	\multicolumn{1}{|c|}{\colorCelda Inicio} & Preliminar &
 		 Realizar un estudio del sistema a desarrollar, capturando e identificando sus requisitos funcionales. \\
 	\hline
-	 \colorCelda & 1 &
-		 Validar el estudio del sistema e identificar posibles nuevos requisitos, modelando los requisitos del sistema con mayor detalle y realizando las tareas de análisis del sistema y definición de su arquitectura. \\
+	\colorCelda & 1 &
+		 Validar el estudio del sistema e identificar posibles nuevos requisitos, modelando los requisitos del sistema con mayor detalle y realizando la definición de su arquitectura. \\
 	\cline{2-3}
 		 \multirow{1}{*}{\colorCelda Elaboración} & 2 & 
-		 Realizar tareas de diseño de alto nivel del sistema, como el diagrama de clases de dominio, y diseñar e implementar la comunicación entre sistemas en la arquitectura cliente-servidor definida.\\
-		 \hline
+		 Analizar e identificar los objetos de dominio que forman parte del sistema, a partir de los casos de uso detallados, y diseñar e implementar la comunicación entre sistemas en la arquitectura cliente-servidor definida.\\
+	\hline
 	\colorCelda & 3 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F1}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F1}. \\
 	\cline{2-3}
 	\colorCelda & 4 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F3}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F3}. \\
 	\cline{2-3}
 	\multirow{1}{*}{\colorCelda Construcción} & 5 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F2} y \textbf{F4} \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F2} y \textbf{F4} \\
 	\cline{2-3}
 	\colorCelda & 6 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F5}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F5}. \\
 	\cline{2-3}
 	\colorCelda & 7 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F6} y \textbf{F7}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F6} y \textbf{F7}. \\
 	\cline{2-3}
 		\colorCelda & 8 &
-		 Diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F8} y \textbf{F9}. \\
+		 Análisis, diseño, implementación y pruebas de los casos de uso del grupo funcional \textbf{F8} y \textbf{F9}. \\
 	\hline	
 	\multicolumn{1}{|c|}{\colorCelda Transición} & 9 &
 		 Obtener la versión entregable del sistema, así como su documentación y manuales de usuario. \\
@@ -287,423 +287,56 @@ Una vez identificados nuevos requisitos, se reorganiza el plan de proyecto con n
 
 Los nuevos requisitos identificados en esta iteración sólo afectan, con respecto al plan de proyecto inicial, a las iteraciones de la fase de Construcción. Por tanto, gracias al carácter iterativo del PUD, se han podido identificar e incluir nuevos requisitos al desarrollo del sistema, sin verse afectadas ninguna de las iteraciones anteriores y habiéndose detectado estos requisitos aún en fases tempranas del ciclo de vida del desarrollo, por lo que no se ponía en riesgo la viabilidad del proyecto debido a estos nuevos cambios.
 
-
-
 A partir de este punto, se siguen las iteraciones planificadas en este plan de iteraciones definitivo.
 
 
-\subsubsection{Análisis de casos de uso} \label{sec:analisis}
-
-Los casos de uso de cada grupo funcional obtenidos anteriormente se especifican de manera más formal, describiendo los escenarios de funcionamiento de cada uno de ellos. Además, para cada caso de uso, se crea el diagrama de clases de análisis, donde se representan los objetos  de dominio involucrados en el caso de uso, así como las clases encargadas de su control.
-
-Existen tres tipos de clases en un diagrama de clases de análisis: 
-
-\begin{enumerate}
-	\item \textbf{Interfaz o \textit{Boundary}}: representa clases utilizadas para la comunicación entre el actor y el sistema.
-	\item \textbf{Control}: representa clases y objetos de control. Es la que controla y coordina el flujo (o escenario) de funcionamiento del caso de uso.
-	\item \textbf{Entidad o \textit{Entity}}: son clases que representan objetos de información persistentes del sistema.
-\end{enumerate}
-
-Señalar que, para cada caso de uso, se describe su funcionamiento y sus flujos desde un punto de vista global al sistema, sin entrar en detalle en cada subsistema, ya que lo que interesa es describir a alto nivel su funcionamiento. Posteriormente, con los diagramas de clases de análisis, de secuencia y de clases de diseño, se irá profundizando más en detalle en el flujo que se sigue en cada subsistema.
-
-Como se comentó al inicio de este capítulo, para no excederse en la longitud de éste, y por tanto de todo el presente documento, se incluyen las especificaciones y diagramas de análisis de los principales casos de uso que componen el sistema.
-
-\paragraph{Grupo Funcional F1: \textit{Acceso al sistema}}
-
-\subparagraph{Login}
-
-En la Tabla \ref{table:flujosLogin} se describe el caso de uso \textit{Login}.
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Iniciar sesión (Login) \\
-	\hline
-	\textbf{Descripción}: Funcionalidad para que un usuario pueda acceder al sistema \\
-	\hline
-	\textbf{Precondiciones}: Disponer de nombre de usuario y contraseña y estar dado de alta en al menos un proyecto \\
-	\hline
-	\textbf{Post-condiciones}: El usuario accede al sistema \\
-	\hline 
-	\textbf{Flujo principal}:
-	\vspace{-4mm}
-	\begin{enumerate}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{-7.5pt}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{0pt}
-	\item El usuario introduce usuario y contraseña.
-	\item Se valida el usuario y contraseña.
-	\item Se crea una sesión para el usuario.
-	\item Se muestran los proyectos en los que el usuario está dado de alta.
-	\item El usuario elige uno de los proyectos.
-	\item El usuario accede al sistema para trabajar sobre ese proyecto.
-	\vspace{-6mm}
-	\end{enumerate} 
-	\\	
-	\hline
-	\textbf{Flujo alternativo 1: error de Login}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario introduce usuario y contraseña.
-	\item Se valida el usuario y contraseña.
-	\item El usuario no es válido. Se informa del error y se vuelve al comienzo.
-	\vspace{-6mm}
-	\end{enumerate}
-	\\	
-	\hline
-	\textbf{Flujo alternativo 2: usuario inexistente}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario introduce usuario y contraseña.
-	\item Se valida el usuario y contraseña.
-	\item El usuario no existe. Se informa del error y se vuelve al comienzo.
-	\vspace{-6mm}
-	\end{enumerate}
-	\\
-	\hline
-	\textbf{Flujo alternativo 3: usuario ya logueado}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario introduce usuario y contraseña.
-	\item Se valida el usuario y contraseña.
-	\item Ya existe una sesión para ese usuario. Se cierra dicha sesión y se crea una nueva.
-	\item Se muestran los proyectos en los que el usuario está dado de alta.
-	\item El usuario elige uno de los proyectos.
-	\item El usuario accede al sistema para trabajar sobre ese proyecto.
-	\vspace{-6mm}
-	\end{enumerate}
-	\\
-	\hline
-	\textbf{Flujo alternativo 4: no existen proyectos}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{-7.5pt}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{0pt}
-	\item El usuario introduce usuario y contraseña.
-	\item Se valida el usuario y contraseña.
-	\item Se crea una sesión para el usuario.
-	\item Se consultan los proyectos en los que el usuario está dado de alta.
-	\item El usuario no tiene ningún proyecto. Se informa del error y se vuelve al comienzo.
-	\vspace{-6mm}
-	\end{enumerate}
-	\\
-	\hline 
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Login}}
-\label{table:flujosLogin}
-\end{table}
-
-En la Figura \ref{fig:analisisLoginCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. La Figura \ref{fig:analisisLoginServer} refleja el diagrama de clases de análisis para el subsistema servidor.
-
-\imagen{Cap5/Cliente2//analisisLoginCliente}{2.2}{Diagrama de clases de análisis - Cliente - Login}{fig:analisisLoginCliente}
-
-\imagen{Cap5/Server2//analisisLoginServer}{2.2}{Diagrama de clases de análisis - Servidor - Login}{fig:analisisLoginServer}
 
 
 
-\paragraph{Grupo Funcional F2: \textit{Gestión decisiones}} \label{sec:modificarDecisionAnalisis}
+%
+%\paragraph{Grupo Funcional F3: \textit{Visualización información}}
 
-\subparagraph{Modificar decisión} 
-
-Este es un caso de uso abstracto del que heredan otros tres casos específicos, según el tipo de decisión que se desee modificar (ver Figura \ref{fig:CduGestionDecisiones2Server}). Se ha utilizado la herencia porque los tres casos de uso comparten características en común, como es la introducción de los datos del título y la descripción de la decisión a modificar por parte del usuario. 
-
-En la Tabla \ref{table:flujosEditPropuesta} se describe el caso de uso \textit{Modificar Decisión - Modificar Propuesta}. 
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Modificar Decisión - Modificar Propuesta (\textit{Proposal}) \\
-	\hline
-	\textbf{Descripción}: Funcionalidad para modificar una nueva Propuesta en un proyecto. 	\\
-	\hline
-	\textbf{Precondiciones}: Que el usuario haya accedido al sistema, tenga permisos para realizar la operación y sea autor de la Propuesta. \\
-	\hline
-	\textbf{Post-condiciones}: Se modifica la Propuesta. \\
-	\hline 
-	\textbf{Flujo principal}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario selecciona una Propuesta de un Tema.
-	\item El usuario introduce el nuevo título y descripción de la Propuesta.
-	\item El usuario introduce otros datos específicos para este tipo de decisión.
-	\item El sistema valida los datos introducidos.
-	\item Se modifica la Propuesta para el Tema seleccionado.
-	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
-	\item Se refrescan y actualizan las decisiones, para reflejar visualmente el cambio.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-	\textbf{Flujo alternativo 1: datos incompletos}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario selecciona una Propuesta de un Tema.
-	\item El usuario introduce el nuevo título y descripción de la Propuesta.
-	\item El usuario introduce otros datos específicos para este tipo de decisión.
-	\item El sistema valida los datos introducidos.
-	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos de la Propuesta.
-	\vspace{-4mm}
-	\end{enumerate}	
-	\\
-	\hline
-	\textbf{Flujo alternativo 2: Propuesta ya existente}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario selecciona una Propuesta de un Tema.
-	\item El usuario introduce el nuevo título y descripción de la Propuesta.
-	\item El usuario introduce otros datos específicos para este tipo de decisión.
-	\item El sistema valida los datos introducidos.
-	\item Ya existe otra Propuesta con ese título en ese tema. Se muestra un mensaje y se vuelven a solicitar los datos.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Modificar decisión - Modificar Propuesta}}
-\label{table:flujosEditPropuesta}
-\end{table}
-
-En la Figura \ref{fig:analisisModificarpropuestaCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisModificarpropuestaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
-
-\imagen{Cap5/Cliente2//analisisModificarpropuestaCliente}{2.2}{Diagrama de clases de análisis - Cliente - Modificar Propuesta}{fig:analisisModificarpropuestaCliente}
-
-\imagen{Cap5/Server2//analisisModificarpropuestaServer}{2.2}{Diagrama de clases de análisis - Servidor - Modificar Propuesta}{fig:analisisModificarpropuestaServer}
-
-\subparagraph{Aceptar o rechazar decisión}
-
-Este caso de uso se ha modelado como una extensión al caso de uso anterior, \textit{Modificar Decisión} (ver Figura \ref{fig:CduGestionDecisiones2Server}). Esto es así porque, aunque también es una modificación de una determinada decisión, existen algunas diferencias en el comportamiento con respecto al caso de uso anterior, siguiendo un comportamiento específico. Dichas diferencias consisten en que este caso de uso (sólo disponible para el rol de jefe de proyecto) es independiente del tipo de decisión, y el jefe de proyecto no tiene porqué ser necesariamente el autor de la decisión. 
-
-En la Tabla \ref{table:flujosStatus} se describe el caso de uso \textit{Aceptar o rechazar decisión}.
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Aceptar o rechazar decisión \\
-	\hline
-	\textbf{Descripción}: Funcionalidad para poder cambiar el estado de una decisión, aceptándola o rechazándola, reflejando este cambio visualmente.	\\
-	\hline
-	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
-	\hline
-	\textbf{Post-condiciones}: Se cambia el estado de una decisión, a aceptada o rechazada. \\
-	\hline 
-	\textbf{Flujo principal}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El jefe de proyecto selecciona una decisión de las visualizadas.
-	\item El jefe de proyecto selecciona un estado (Aceptada/Rechazada) para dicha decisión.
-	\item El sistema valida los datos.
-	\item Se modifica la decisión.
-	\item El sistema crea una notificación para los usuarios dados de alta en el proyecto.
-	\item Se refrescan y actualizan las decisiones, para reflejar visualmente el cambio.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Aceptar o rechazar decisión}}
-\label{table:flujosStatus}
-\end{table}
-
-En este caso, el diagrama de clases de análisis en ambos subsistemas son prácticamente iguales a los diagramas del caso de uso anterior.
-
-
-\paragraph{Grupo Funcional F3: \textit{Visualización información}}
-
-\subparagraph{Visualizar decisiones}
-
-En la Tabla \ref{table:flujosConsultarDecisiones} se describe el caso de uso \textit{Visualizar decisiones}.
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Visualizar decisiones \\
-	\hline
-	\textbf{Descripción}: Funcionalidad para visualizar las decisiones (y su información relacionada) de un proyecto. 	\\
-	\hline
-	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
-	\hline
-	\textbf{Post-condiciones}: Se consultan las decisiones de un proyecto y se visualizan. \\
-	\hline 
-	\textbf{Flujo principal}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario inicia la acción para consultar las decisiones de un proyecto.
-	\item El sistema consulta las decisiones del proyecto.
-	\item El sistema consulta la información asociada a las decisiones.
-	\item Se muestran las decisiones encontradas.
-	\item Se muestra información asociada a las decisiones.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-	\textbf{Flujo alternativo 1: no existen decisiones}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario inicia la acción para consultar las decisiones de un proyecto.
-	\item El sistema consulta las decisiones del proyecto.
-	\item Se muestra mensaje de que no hay ninguna decisión.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Visualizar decisiones}}
-\label{table:flujosConsultarDecisiones}
-\end{table}
-
-La Figura \ref{fig:analisisConsultarDecisionesCliente} representa el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarDecisionesServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
-
-\imagen{Cap5/Cliente2//analisisConsultarDecisionesCliente}{2.2}{Diagrama de clases de análisis - Cliente - Visualizar Decisiones}{fig:analisisConsultarDecisionesCliente}
-
-\imagen{Cap5/Server2//analisisConsultarDecisionesServer}{2.2}{Diagrama de clases de análisis - Servidor - Visualizar Decisiones}{fig:analisisConsultarDecisionesServer}
-
-
-\subparagraph{Visualizar compañía}
-
-En la Tabla \ref{table:flujosConsultarCompañía} se describe el caso de uso \textit{Visualizar compañía}.
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Visualizar compañía \\
-	\hline
-	\textbf{Descripción}: Funcionalidad para consultar los detalles de una compañía. 	\\
-	\hline
-	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
-	\hline
-	\textbf{Post-condiciones}: Se consultan los detalles de una compañía y se muestran. \\
-	\hline 
-	\textbf{Flujo principal}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El usuario inicia la acción para consultar los detalles de una compañía y visualizarla.
-	\item El sistema consulta los datos de la compañía.
-	\item El sistema calcula las coordenadas geográficas de la compañía.
-	\item Se muestran los datos de la compañía y se visualiza geoposicionada en un mapa.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Visualizar compañía}}
-\label{table:flujosConsultarCompañía}
-\end{table}
-
-La Figura \ref{fig:analisisConsultarCompanyiaCliente} representa el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarCompanyiaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
-
-\imagen{Cap5/Cliente2//analisisConsultarCompanyiaCliente}{2.2}{Diagrama de clases de análisis - Cliente - Visualizar compañía}{fig:analisisConsultarCompanyiaCliente}
-
-\imagen{Cap5/Server2//analisisConsultarCompanyiaServer}{2.2}{Diagrama de clases de análisis - Servidor - Visualizar compañía}{fig:analisisConsultarCompanyiaServer}
-
-
-
-\paragraph{Grupo Funcional F7: \textit{Generación estadísticas}}
-
-\subparagraph{Generación gráficos estadísticos}
-
-En la Tabla \ref{table:flujosEstadisticas} se describe el caso de uso \textit{Generación gráficos estadísticos}.
-
-\begin{table}[!htbp]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Generación gráficos estadísticos\\
-	\hline
-	\textbf{Descripción}: Funcionalidad para generar y visualizar un gráfico estadístico.\\
-	\hline
-	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
-	\hline
-	\textbf{Post-condiciones}: Se genera y visualiza un gráfico estadístico \\
-	\hline 
-	\textbf{Flujo principal}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El jefe de proyecto selecciona un tipo de gráfico a generar.
-	\item El generar y visualizar un gráfico estadístico selecciona los datos a usar en ese gráfico.
-	\item Se validan los datos introducidos.
-	\item El sistema consulta los proyectos y decisiones, según la selección del usuario.
-	\item Se procesan los datos consultados.
-	\item Se genera la gráfica con los datos procesados.
-	\item Se visualiza el gráfico generado.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-	\textbf{Flujo alternativo 1: datos incompletos}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El jefe de proyecto selecciona un tipo de gráfico a generar.
-	\item El jefe de proyecto selecciona los datos a usar en ese gráfico.
-	\item Se validan los datos introducidos.	
-	\item Los datos son incompletos. Se muestra un mensaje y se vuelven a solicitar los datos.
-	\vspace{-4mm}
-	\end{enumerate}	
-	\\
-	\hline
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Generación gráfico estadístico}}
-\label{table:flujosEstadisticas}
-\end{table}
-
-La Figura \ref{fig:analisisEstadisticasCliente} representa el diagrama de clases de análisis para el subsistema cliente. 
-
-\imagen{Cap5/Cliente2//analisisEstadisticasCliente}{2.2}{Diagrama de clases de análisis - Cliente - Generación gráficos estadísticos}{fig:analisisEstadisticasCliente}
+%\subparagraph{Visualizar compañía}
+%
+%En la Tabla \ref{table:flujosConsultarCompañía} se describe el caso de uso \textit{Visualizar compañía}.
+%
+%\begin{table}[!htbp]%
+%\centering
+%\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+%	\hline
+%	\textbf{Nombre}: Visualizar compañía \\
+%	\hline
+%	\textbf{Descripción}: Funcionalidad para consultar los detalles de una compañía. 	\\
+%	\hline
+%	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+%	\hline
+%	\textbf{Post-condiciones}: Se consultan los detalles de una compañía y se muestran. \\
+%	\hline 
+%	\textbf{Flujo principal}:
+%	\begin{enumerate}
+%	\vspace{-4mm}
+%	\setlength{\itemsep}{-7.5pt}
+%	\setlength{\parsep}{\itemsep}
+%	\setlength{\partopsep}{\itemsep}
+%	\setlength{\topsep}{-7.5pt}
+%	\item El usuario inicia la acción para consultar los detalles de una compañía y visualizarla.
+%	\item El sistema consulta los datos de la compañía.
+%	\item El sistema calcula las coordenadas geográficas de la compañía.
+%	\item Se muestran los datos de la compañía y se visualiza geoposicionada en un mapa.
+%	\vspace{-4mm}
+%	\end{enumerate}
+%	\\
+%	\hline
+%\end{tabular}
+%\caption{Especificación del caso de uso \textit{Visualizar compañía}}
+%\label{table:flujosConsultarCompañía}
+%\end{table}
+%
+%La Figura \ref{fig:analisisConsultarCompanyiaCliente} representa el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarCompanyiaServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+%
+%\imagen{Cap5/Cliente2//analisisConsultarCompanyiaCliente}{2.2}{Diagrama de clases de análisis - Cliente - Visualizar compañía}{fig:analisisConsultarCompanyiaCliente}
+%
+%\imagen{Cap5/Server2//analisisConsultarCompanyiaServer}{2.2}{Diagrama de clases de análisis - Servidor - Visualizar compañía}{fig:analisisConsultarCompanyiaServer}
 
 
 \paragraph{Grupo Funcional F9: \textit{Exportar información}}

@@ -1,14 +1,77 @@
 \subsection{Iteración 4} 
 
-Siguiendo los casos de uso del grupo funcional \textbf{F3:} \textit{Visualización información} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), así como su análisis realizado, se abordan las siguientes tareas:
+Siguiendo los casos de uso del grupo funcional \textbf{F3:} \textit{Visualización información} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), se abordan las siguientes tareas:
 
 \begin{itemize}
+	\item Análisis de los casos de uso.
 	\item Diseño de la funcionalidad relativa a la visualización de información en el sistema, como son las decisiones y su información asociada.
 	\item Implementación de dicha funcionalidad.
 	\item Diseño e implementación de pruebas relativas a la visualización de información.
 \end{itemize}
 
 \subsubsection{Grupo funcional \textbf{F3:} \textit{Visualización información}}
+
+\paragraph{Análisis de casos de uso}
+
+Este grupo funcional constituye una de las funcionalidades principales del sistema, ya que se encarga de mostrar y representar todas las decisiones realizadas en un proyecto, así como su información asociada (datos del usuario que realizó la decisión, compañía a la que pertenece, etc). Por tanto, esta iteración comienza con el análisis de los casos de uso que componen dicha funcionalidad, definiendo sus escenarios y diagramas de análisis.
+
+\subparagraph{Visualizar decisiones}
+
+En la Tabla \ref{table:flujosConsultarDecisiones} se describe el caso de uso \textit{Visualizar decisiones}.
+
+\begin{table}[!htbp]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Nombre}: Visualizar decisiones \\
+	\hline
+	\textbf{Descripción}: Funcionalidad para visualizar las decisiones (y su información relacionada) de un proyecto. 	\\
+	\hline
+	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+	\hline
+	\textbf{Post-condiciones}: Se consultan las decisiones de un proyecto y se visualizan. \\
+	\hline 
+	\textbf{Flujo principal}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario inicia la acción para consultar las decisiones de un proyecto.
+	\item El sistema consulta las decisiones del proyecto.
+	\item El sistema consulta la información asociada a las decisiones.
+	\item Se muestran las decisiones encontradas.
+	\item Se muestra información asociada a las decisiones.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+	\textbf{Flujo alternativo 1: no existen decisiones}:
+	\begin{enumerate}
+	\vspace{-4mm}
+	\setlength{\itemsep}{-7.5pt}
+	\setlength{\parsep}{\itemsep}
+	\setlength{\partopsep}{\itemsep}
+	\setlength{\topsep}{-7.5pt}
+	\item El usuario inicia la acción para consultar las decisiones de un proyecto.
+	\item El sistema consulta las decisiones del proyecto.
+	\item Se muestra mensaje de que no hay ninguna decisión.
+	\vspace{-4mm}
+	\end{enumerate}
+	\\
+	\hline
+\end{tabular}
+\caption{Especificación del caso de uso \textit{Visualizar decisiones}}
+\label{table:flujosConsultarDecisiones}
+\end{table}
+
+La Figura \ref{fig:analisisConsultarDecisionesCliente} representa el diagrama de clases de análisis para el subsistema cliente. En la Figura \ref{fig:analisisConsultarDecisionesServer} se muestra el diagrama de clases de análisis para el subsistema servidor.
+
+\imagen{Cap5/Cliente2//analisisConsultarDecisionesCliente}{2.2}{Diagrama de clases de análisis - Cliente - Visualizar Decisiones}{fig:analisisConsultarDecisionesCliente}
+
+\imagen{Cap5/Server2//analisisConsultarDecisionesServer}{2.2}{Diagrama de clases de análisis - Servidor - Visualizar Decisiones}{fig:analisisConsultarDecisionesServer}
+
 
 \paragraph{Diseño e implementación} \label{sec:visualizarDecisiones}
 
@@ -71,7 +134,7 @@ En el Listado \ref{list:GeoCoder} se muestra un fragmento de código utilizado pa
 
 \subparagraph{Cliente}
 
-En el subsistema cliente, cuando se consultan las decisiones, éstas se muestran de manera jerárquica (en árbol) y en forma de grafo, utilizando \textbf{JUNG} (ver sección \ref{sec:marco}). Se ha decidido utilizar ambos tipos de visualización para ofrecer una mayor flexibilidad e información al usuario, ya que gracias a la representación jerárquica, se puede apreciar toda la estructura de decisiones de un simple vistazo, mientras que con el grafo, se pueden observar cómo están asociadas dichas decisiones, mostrándose de manera mas detallada. Además de mostrar las decisiones, también se muestra toda su información asociada, utilizando paneles expandibles, para flexibilizar y personalizar la información que en cada momento el usuario quiere mostrar.  
+En el subsistema cliente, cuando se consultan las decisiones, éstas se muestran de manera jerárquica (en árbol) y en forma de grafo, utilizando \textbf{JUNG} (ver sección \ref{sec:marco}). Se ha decidido utilizar ambos tipos de visualización para ofrecer una mayor flexibilidad e información al usuario, ya que gracias a la representación jerárquica, se puede apreciar toda la estructura de decisiones de un simple vistazo, mientras que con el grafo, se pueden observar cómo están asociadas dichas decisiones, mostrándose de manera mas detallada, siguiendo el modo de representación de \textit{Rationale} llamado \textbf{Dialogue Map}, mencionado en la sección \ref{sec:rationale}. Además de mostrar las decisiones, también se muestra toda su información asociada, utilizando paneles expandibles, para flexibilizar y personalizar la información que en cada momento el usuario quiere mostrar.  
 
 Un tipo de información que se muestra para cada decisión son los archivos adjuntos que tiene, que pueden ser descargados por el usuario, guardando una copia local que envía el sistema servidor al hacer la petición.
 
