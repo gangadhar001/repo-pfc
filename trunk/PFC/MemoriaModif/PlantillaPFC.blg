@@ -2,10 +2,7 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: D:\UCLM\5Curso\PFC\re
 A level-1 auxiliary file: Portadas.aux
 A level-1 auxiliary file: Previos.aux
 A level-1 auxiliary file: Listas.aux
-A level-1 auxiliary file: MotivacionObjetivos.aux
-A level-1 auxiliary file: EstadoArte.aux
-A level-1 auxiliary file: ConsecucionObjetivos.aux
-A level-1 auxiliary file: ConclusionesPropuestas.aux
+A level-1 auxiliary file: Resultados.aux
 The style file: babplai3.bst
 Database file #1: PFCBib.bib
 "{" immediately follows a field name---line 160 of file PFCBib.bib
@@ -16,8 +13,6 @@ I'm skipping whatever remains of this entry
  :   language
  :           {english}
 I'm skipping whatever remains of this entry
-Warning--entry type for "wernerHeij" isn't style-file defined
---line 257 of file PFCBib.bib
 "{" immediately follows a field name---line 293 of file PFCBib.bib
  :   language
  :           {english}
@@ -40,25 +35,11 @@ I was expecting a `,' or a `}'---line 394 of file PFCBib.bib
  :   language={english}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--I'm ignoring Dutoit2006Ibis's extra "year" field
---line 562 of file PFCBib.bib
 I was expecting a `,' or a `}'---line 568 of file PFCBib.bib
  :   
  :   author = {Bass, L. and Clements, P and Nord, R.L. and Stafford, J.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--to sort, need author or key in Dutoit2006Casual
-Warning--empty language in Dutoit2006Casual
-Warning--empty author in Dutoit2006Casual
-Warning--empty title in Dutoit2006Casual
-Warning--empty booktitle in Dutoit2006Casual
-Warning--empty publisher in Dutoit2006Casual
-Warning--empty year in Dutoit2006Casual
-Warning--empty language in fitzgerald2010global
-Warning--empty journal in fitzgerald2010global
-Warning--empty language in holzner1979knowledge
-Warning--empty year in Hovland
-Warning--empty year in insightinc
-Warning--empty journal in Kanagasabapathy2006
-Warning--empty journal in sangwan2006global
+Warning--I didn't find a database entry for "condicionesGoogle"
+Warning--I didn't find a database entry for "condicionesYahoo"
 (There were 8 error messages)
