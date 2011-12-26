@@ -18,6 +18,7 @@ import com.itextpdf.text.Image;
 
 import model.business.control.Server;
 import model.business.control.CBR.Attribute;
+import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
@@ -304,7 +305,7 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 	
 	@Override
-	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception{
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception{
 		return server.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, config, k);
 	}
 
@@ -324,8 +325,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.exportInformation(sessionId, className, obj);
+	public <T> byte[] exportInformation(long sessionId, Project project) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.exportInformation(sessionId, project);
 	}
 
 	@Override

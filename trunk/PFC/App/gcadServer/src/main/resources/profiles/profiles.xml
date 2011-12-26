@@ -18,13 +18,6 @@
 				</Operations>
 			</Subgroup>
 		</Group>
-		<Group id="PDFGeneration" view="True">
-			<Subgroup id="PDFGeneration">
-				<Operations>
-					<id>Generate</id>
-				</Operations>
-			</Subgroup>
-		</Group>
 		<Group id="Notifications" view="True">
 			<Subgroup id="Notifications">
 				<Operations>

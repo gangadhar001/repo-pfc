@@ -9,37 +9,33 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import model.business.knowledge.Knowledge;
+import model.business.knowledge.KnowledgeStatus;
 
 import presentation.dataVisualization.KnowledgeGraph;
 
 
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 
-// REFERENCE: http://www.grotto-networking.com/JUNG/
 /**
- * A class to implement the deletion of a vertex
+ * A class to implement the menu item used to accept the knowledge
  */
-public class DeleteVertexMenuItem<V> extends JMenuItem implements VertexMenuListener<V> {
+public class AcceptVertexMenuItem<V> extends JMenuItem implements VertexMenuListener<V> {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -6467171889466404586L;
 	
-	// Generic vertex
-	private V vertex;
-    @SuppressWarnings("rawtypes")
-	private VisualizationViewer visComp;
     
-    // Creates a new instance of DeleteVertexMenuItem
-    public DeleteVertexMenuItem() {
-    	super(ApplicationInternationalization.getString("deleteVertex"));
+    // Creates a new instance of AcceptVertexMenuItem
+    public AcceptVertexMenuItem(final ChangeStatusVertexMenu<V> parent) {
+        super(ApplicationInternationalization.getString("acceptVertex"));
         this.addActionListener(new ActionListener(){
             @SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-                visComp.getPickedVertexState().pick(vertex, false);
-                KnowledgeGraph.setSelectedVertex((Knowledge) vertex);
-                KnowledgeGraph.deleteVertex();          
-                visComp.repaint();
+            	parent.getVisComp().getPickedVertexState().pick(parent.getVertex(), false);
+                KnowledgeGraph.setSelectedVertex((Knowledge) parent.getVertex());
+                KnowledgeGraph.setStatus(KnowledgeStatus.Accepted);
+                parent.getVisComp().repaint();
             }
         });
     }
@@ -47,9 +43,7 @@ public class DeleteVertexMenuItem<V> extends JMenuItem implements VertexMenuList
 	// Implements the VertexMenuListener interface.
     @SuppressWarnings("rawtypes")
 	public void setVertexAndView(V v, VisualizationViewer visComp) {
-        this.vertex = v;
-        this.visComp = visComp;
-        this.setText(ApplicationInternationalization.getString("deleteVertex"));
+        this.setText(ApplicationInternationalization.getString("acceptVertex"));
     }
     
 }

@@ -28,6 +28,7 @@ import exceptions.NotLoggedException;
 
 import bussiness.control.ClientController;
 
+import presentation.JFMain;
 import presentation.customComponents.panelProjectInformation;
 import resources.InfiniteProgressPanel;
 
@@ -58,9 +59,11 @@ public class JDConfigProject extends javax.swing.JDialog {
 	private JButton btnForward;
 	
 	private InfiniteProgressPanel glassPane;
+	private JFMain parentD;
 		
-	public JDConfigProject(JFrame frame) {
-		super(frame);
+	public JDConfigProject(JFMain main) {
+		super(main.getMainFrame());
+		this.parentD = main;
 		initGUI();
 	}
 	
@@ -234,4 +237,10 @@ public class JDConfigProject extends javax.swing.JDialog {
 		if (p!= null && cbProjects.getSelectedIndex()!= -1)
 			panelProjectInformationCreate.showData(p, true);
 	}
+
+	public JFMain getParentD() {
+		return parentD;
+	}
+	
+	
 }

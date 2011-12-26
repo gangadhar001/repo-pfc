@@ -27,6 +27,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.business.control.CBR.Attribute;
+import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.EnumSimilFunctions;
@@ -373,10 +374,10 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		List<Project> cases;
 		try {
 			cases = ClientController.getInstance().getProjects();
-			List<Project> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
+			List<CaseEval> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("retrievalCases") + " " + result.size() + " " + ApplicationInternationalization.getString("casesName"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			if (result.size() > 0) {
-				JDRetrievalCases showCases = new JDRetrievalCases(cases);
+				JDRetrievalCases showCases = new JDRetrievalCases(result, parent.getParentD());
 				parent.getGlassPane().stop();
 				parent.dispose();
 				CursorUtilities.showDefaultCursor(this);

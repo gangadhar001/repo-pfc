@@ -38,6 +38,7 @@ import model.business.knowledge.Knowledge;
 import model.business.knowledge.Notification;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
+import model.business.knowledge.Project;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
@@ -379,7 +380,7 @@ public class JFMain extends SingleFrameApplication {
         ChartPanel chartPanel = jds.getChartPanel();
         if (chartPanel != null) {           
             InternalFStatistics internalFrameStatistic = new InternalFStatistics();
-            internalFrameStatistic.addChartPanel(chartPanel);
+            internalFrameStatistic.addChartPanel(jds.getProject(), jds.getType(), jds.showProjectName(), chartPanel);
             panelStatistics.addStatistic(internalFrameStatistic);            
         }
 	}	
@@ -693,9 +694,9 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void manageCBRFromMenu() {
-		JDConfigProject jdc = new JDConfigProject(getMainFrame());
+		JDConfigProject jdc = new JDConfigProject(this);
 		jdc.setModal(true);
-		jdc.setLocationRelativeTo(getMainFrame());
+		jdc.setLocationRelativeTo(null);
 		jdc.setVisible(true);
 		
 	}
@@ -709,10 +710,10 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void manageExportInformation() {
-		JDChooseProject choose = new JDChooseProject(getMainFrame());
-		choose.setModal(true);
-		choose.setLocationRelativeTo(null);
-		choose.setVisible(true);
+		JDExport export = new JDExport(this);
+		export.setModal(true);
+		export.setLocationRelativeTo(null);
+		export.setVisible(true);
 	}
 
 	public void showStatusBar(String message) {
@@ -735,6 +736,46 @@ public class JFMain extends SingleFrameApplication {
 			}
 		}
 		return found;
+	}
+	
+	public void export(Project p) {
+		byte[] baos;
+		java.io.File f;
+		
+		try {
+			JFileChooser fc = new JFileChooser();
+			ExtensionFileFilter filter = new ExtensionFileFilter("XML File", "XML");
+			fc.setFileFilter(filter);
+			fc.showSaveDialog(getMainFrame());
+			if ((f = fc.getSelectedFile()) != null)  {
+				CursorUtilities.showWaitCursor(getMainFrame());
+				baos = ClientController.getInstance().exportInformation(p);		
+				if (baos != null) {
+					String path = f.getAbsolutePath();
+					if (!path.endsWith("."))
+						path += ".xml";
+			        FileOutputStream fos = new FileOutputStream(path);
+			        fos.write(baos);
+			        CursorUtilities.showDefaultCursor(getMainFrame());
+			        //showStatusBar(ApplicationInternationalization.getString("exportStatus"));				        
+			        JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("exportSuccessfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+					JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("informationExport"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (JAXBException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

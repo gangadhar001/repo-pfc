@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -39,6 +40,9 @@ import org.jdom.JDOMException;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.AbstractDataset;
@@ -52,6 +56,8 @@ import bussiness.control.ClientController;
 import bussiness.control.StatisticsGenerator;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
+
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -692,10 +698,36 @@ public class JDStatistics extends javax.swing.JDialog {
 				true, // tooltips?
 				false // URLs?
 			);
+		
+		// Customize 
+		final PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setCircular(true);
+        PieSectionLabelGenerator generator = new StandardPieSectionLabelGenerator(
+        	"{0} = {2}", new DecimalFormat("0"), new DecimalFormat("0.00%"));
+        plot.setLabelGenerator(generator); 
+        plot.setNoDataMessage("No data available");
 		return chart;
 	}
 
 	public ChartPanel getChartPanel() {
 		return chartPanel;
+	}
+
+	public String getProject() {
+		String result = "";
+		if (cbProjects.getSelectedItem() != null)
+			result = ((Project)cbProjects.getSelectedItem()).getName();
+		return result;
+	}
+	
+	public String getType() {
+		return (selectedChartType + "_" + String.valueOf(cbCharts.getSelectedIndex()));
+	}
+	
+	public boolean showProjectName() {
+		boolean result = false;
+		if (oneProject)
+			result = true;
+		return result;
 	}
 }

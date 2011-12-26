@@ -195,8 +195,14 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 				"\n",
 				ApplicationInternationalization.getString("authorKnowledge") + ": ",
 				"\n",
-				"   " + ApplicationInternationalization.getString("nameUserKnowledge") + ": ",
+				"    " + ApplicationInternationalization.getString("nameUserKnowledge") + ": ",
 				val.getUser().getName(),
+				"\n",
+				"    " + ApplicationInternationalization.getString("roleUserKnowledge") + ": ",
+				ApplicationInternationalization.getString(val.getUser().getRole().name()),
+				"\n",
+				"    " + ApplicationInternationalization.getString("countryUserKnowledge") + ": ",
+				val.getUser().getCompany().getAddress().getCountry(),
 				"\n",
 				ApplicationInternationalization.getString("countryUserKnowledge") + ": ",
 				val.getUser().getCompany().getName() + "(" + val.getUser().getCompany().getAddress().getCountry() + ")"
@@ -208,8 +214,10 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 				"bold", "regular", "regular",
 				"bold", "regular", "regular",
 				"bold", "regular", "regular",
-				"bold", "regular", "bold",
-				"regular", "regular", 
+				"bold", "regular", 
+				"bold", "regular", "regular",
+				"bold", "regular", "regular", 
+				"bold", "regular", "regular", 
 				"bold", "regular"
 		};
 		

@@ -2,7 +2,6 @@ package model.business.control;
 
 import internationalization.AppInternationalization;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import model.business.control.CBR.Attribute;
+import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
@@ -1013,8 +1013,8 @@ public class Server implements IServer {
 	}
 	
 	@Override
-	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
-		List<Project> projects = new ArrayList<Project>();			
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
+		List<CaseEval> projects = new ArrayList<CaseEval>();			
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
@@ -1089,13 +1089,13 @@ public class Server implements IServer {
 	
 	@Override
 	// TODO: mensajes
-	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
+	public <T> byte[] exportInformation(long sessionId, Project project) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		byte[] baos;
 		try{
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
-			baos = KnowledgeController.exportInformation(sessionId, className, obj);
+			baos = KnowledgeController.exportInformation(sessionId, project);
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("ComposePDF_msg") );
 		} catch(NonPermissionRoleException nea) {
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("NonPermission_ComposePDF_msg"));

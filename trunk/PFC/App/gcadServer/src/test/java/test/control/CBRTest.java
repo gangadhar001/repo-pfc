@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.business.control.Server;
 import model.business.control.CBR.Attribute;
+import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.similarity.local.Difference;
@@ -78,7 +79,7 @@ public class CBRTest extends PruebasBase {
 		Project caseToEval = null;
 		List<Attribute> atts = new ArrayList<Attribute>();
 		List<Project> cases = new ArrayList<Project>();
-		List<Project> result = new ArrayList<Project>();
+		List<CaseEval> result = new ArrayList<CaseEval>();
 		ISession session;
 		ConfigCBR configCBR = null;
 		LocalSimilarityFunction function, function2;
