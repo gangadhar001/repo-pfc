@@ -1,5 +1,5 @@
 package model.business.knowledge;
 
 public enum KnowledgeStatus {
-	Open, Accepted, Rejected;
+	All, Open, Accepted, Rejected;
 }

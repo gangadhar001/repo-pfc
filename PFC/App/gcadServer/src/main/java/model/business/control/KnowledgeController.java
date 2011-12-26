@@ -343,11 +343,11 @@ public class KnowledgeController {
 		return file.getId();
 	}
 	
-	public static <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws NonPermissionRoleException, NotLoggedException, JAXBException {
+	public static <T> byte[] exportInformation(long sessionId, Project project) throws NonPermissionRoleException, NotLoggedException, JAXBException, SQLException {
 		// Check if have permission to perform the operation
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
-		
-		return (XMLUtilities.marshal(className, obj)).toByteArray();
+		TopicWrapper tw = getTopicsWrapper(sessionId, project);
+		return (XMLUtilities.marshal(tw.getClass(), tw)).toByteArray();
 	}
 
 	public static void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException, Exception {

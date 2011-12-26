@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -27,7 +28,14 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import model.business.control.CBR.CaseEval;
 import model.business.knowledge.KnowledgeStatus;
+import model.business.knowledge.PDFConfiguration;
+import model.business.knowledge.PDFElement;
+import model.business.knowledge.PDFSection;
+import model.business.knowledge.PDFTable;
+import model.business.knowledge.PDFText;
+import model.business.knowledge.PDFTitle;
 import model.business.knowledge.Project;
 import model.business.knowledge.User;
 
@@ -35,9 +43,13 @@ import org.japura.gui.ArrowButton;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import presentation.JDPdf;
+import presentation.JFMain;
 import presentation.customComponents.CheckListRenderer;
 import presentation.customComponents.CheckableItem;
 import presentation.customComponents.panelProjectInformation;
+import presentation.customComponents.PDFGen.panelPDFDraggedTitle;
+import resources.CursorUtilities;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
@@ -64,9 +76,10 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private ArrowButton btnBackward;
 	private ArrowButton btnForward;
 	private JLabel lblNumberCases;	
-	private List<Project> cases;
+	private List<CaseEval> cases;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	private JLabel lblSimilarity;
 	private JButton btnExport;
 	private JButton btnSave;
 	private JToolBar toolbar;
@@ -79,10 +92,12 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private int currentProject;
 	private panelKnowledgeTree panelTree;
 	private DefaultListModel model;
+	private JFMain parentD;
 	
-	public JDRetrievalCases(List<Project> cases) {
+	public JDRetrievalCases(List<CaseEval> cases, JFMain jfMain) {
 		super();
 		this.cases = cases;
+		this.parentD = jfMain;
 		setTitle(ApplicationInternationalization.getString("retrievalCases"));
 		currentProject = 1;
 		initGUI();
@@ -92,11 +107,12 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	
 	// Method used to show information about the case (project)
 	private void showCaseInformation() {
-		currentPanel.showData(cases.get(currentProject-1), false);
+		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false);
 		fillUsers();
-		showUsers(cases.get(currentProject-1));
+		showUsers(cases.get(currentProject-1).getCaseP());
+		lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity") + " " + (cases.get(currentProject-1).getEval() * 100.0) + "%");
 		try {
-			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)), KnowledgeStatus.All);
+			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1).getCaseP()), KnowledgeStatus.All);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
@@ -121,14 +137,14 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblNumberCases = new JLabel();
 					getContentPane().add(lblNumberCases);
-					lblNumberCases.setBounds(12, 552, 128, 24);
+					lblNumberCases.setBounds(12, 552, 112, 24);
 					lblNumberCases.setName("lblNumberCases");					
 					lblNumberCases.setText(ApplicationInternationalization.getString("lblNumberCases") + " " + currentProject+"/"+cases.size());
 				}
 				{
 					btnForward = new ArrowButton(ArrowButton.DOUBLE_RIGHT);
 					getContentPane().add(btnForward);
-					btnForward.setBounds(187, 561, 20, 17);
+					btnForward.setBounds(289, 561, 18, 17);
 					btnForward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -140,7 +156,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnBackward = new ArrowButton(ArrowButton.DOUBLE_LEFT);
 					getContentPane().add(btnBackward);
-					btnBackward.setBounds(152, 561, 23, 26);
+					btnBackward.setBounds(262, 561, 21, 17);
 					btnBackward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -242,6 +258,13 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 						btnExport.setSize(28, 28);
 						setToolbarButtonProperties(btnSave, "ExportXML");
 					}
+				}
+				{
+					lblSimilarity = new JLabel();
+					getContentPane().add(lblSimilarity);
+					lblSimilarity.setBounds(122, 556, 126, 18);
+					lblSimilarity.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, btnSave.getFont().getSize()));
+					lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity"));
 				}
 				{
 					
@@ -375,5 +398,40 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	@Action
 	public void OK() {
 		this.dispose();	
+	}
+	
+	@Action
+	public void SaveAsPDF() {
+		 CursorUtilities.showWaitCursor(this);
+		 // Create PDF sections
+		 List<PDFSection> sections = new ArrayList<PDFSection>();
+		 List<PDFElement> elements = new ArrayList<PDFElement>();
+		 Project p = cases.get(currentProject-1).getCaseP();
+		 PDFTitle title = new PDFTitle("Decisions for the project: " + p.getName());
+		 PDFText text = new PDFText("The following table summarizes the decisions taken in the project :" + p.getName());
+		 PDFTable table = new PDFTable(p);
+		 elements.add(title);
+		 elements.add(text);
+		 elements.add(table);
+		 PDFSection section = new PDFSection(elements);
+		 sections.add(section);
+		 
+		 PDFConfiguration config = new PDFConfiguration(sections);
+		 if (config.isValid()) {
+			 // Show dialog in order to compose the PDF document
+			 JDPdf dialog = new JDPdf(config);
+			 dialog.setLocationRelativeTo(this);
+			 dialog.setModal(true);
+			 dialog.setVisible(true);
+		 }
+		 else {
+			 CursorUtilities.showDefaultCursor(this);
+			 JOptionPane.showMessageDialog(this, config.getErrorMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		 }
+	}
+	
+	@Action
+	public void ExportXML() {
+		parentD.export(cases.get(currentProject-1).getCaseP());
 	}
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.business.control.CBR.Attribute;
+import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
@@ -214,7 +215,7 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
 		return server.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, configCBR, k);
 	}
 

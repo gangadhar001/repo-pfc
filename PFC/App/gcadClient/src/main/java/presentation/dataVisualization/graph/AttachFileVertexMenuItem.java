@@ -17,9 +17,9 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 // REFERENCE: http://www.grotto-networking.com/JUNG/
 /**
- * A class to implement the deletion of a vertex
+ * A class to implement the attach of a file in a vertex
  */
-public class DeleteVertexMenuItem<V> extends JMenuItem implements VertexMenuListener<V> {
+public class AttachFileVertexMenuItem<V> extends JMenuItem implements VertexMenuListener<V> {
     /**
 	 * 
 	 */
@@ -31,14 +31,14 @@ public class DeleteVertexMenuItem<V> extends JMenuItem implements VertexMenuList
 	private VisualizationViewer visComp;
     
     // Creates a new instance of DeleteVertexMenuItem
-    public DeleteVertexMenuItem() {
-    	super(ApplicationInternationalization.getString("deleteVertex"));
+    public AttachFileVertexMenuItem() {
+        super(ApplicationInternationalization.getString("attachFile"));
         this.addActionListener(new ActionListener(){
             @SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
                 visComp.getPickedVertexState().pick(vertex, false);
                 KnowledgeGraph.setSelectedVertex((Knowledge) vertex);
-                KnowledgeGraph.deleteVertex();          
+                KnowledgeGraph.attachFile();
                 visComp.repaint();
             }
         });
@@ -49,7 +49,7 @@ public class DeleteVertexMenuItem<V> extends JMenuItem implements VertexMenuList
 	public void setVertexAndView(V v, VisualizationViewer visComp) {
         this.vertex = v;
         this.visComp = visComp;
-        this.setText(ApplicationInternationalization.getString("deleteVertex"));
+        this.setText(ApplicationInternationalization.getString("attachFile"));
     }
     
 }

@@ -23,9 +23,9 @@ public class NNMethod {
 
 	/* Apply the algorithm over the cases.
 	 *  Return the similarity cases */
-	public static List<Project> evaluateSimilarity(Project caseToEval, List<Project> cases, ConfigCBR config, int k) throws Exception
+	public static List<CaseEval> evaluateSimilarity(Project caseToEval, List<Project> cases, ConfigCBR config, int k) throws Exception
 	{
-		List<Project> similCases = new ArrayList<Project>();
+		List<CaseEval> similCases = new ArrayList<CaseEval>();
 		List<CaseEval> result = new ArrayList<CaseEval>();
 		for(Project caseP: cases)
 		{

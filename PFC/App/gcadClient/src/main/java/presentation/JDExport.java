@@ -46,9 +46,11 @@ public class JDExport extends javax.swing.JDialog {
 	private JButton btnOK;
 	private JButton btnCancel;
 	private panelChooseProject pnlChooseProject;
+	private JFMain parentD;
 
-	public JDExport(JFrame frame) {
-		super(frame);
+	public JDExport(JFMain frame) {
+		super(frame.getMainFrame());
+		this.parentD = frame;
 		initGUI();
 	}
 	
@@ -92,45 +94,12 @@ public class JDExport extends javax.swing.JDialog {
 	
 	@Action
 	public void Ok () {
-		byte[] baos;
-		java.io.File f;
 		if (pnlChooseProject.getProjectId() != -1) {
 			Project p = pnlChooseProject.getProject();
-			try {
-				JFileChooser fc = new JFileChooser();
-				ExtensionFileFilter filter = new ExtensionFileFilter("XML File", "XML");
-				fc.setFileFilter(filter);
-				fc.showSaveDialog(this);
-				if ((f = fc.getSelectedFile()) != null)  {
-					CursorUtilities.showWaitCursor(this);
-					baos = ClientController.getInstance().exportInformation(p);		
-					if (baos != null) {
-						String path = f.getAbsolutePath();
-						if (!path.endsWith("."))
-							path += ".xml";
-				        FileOutputStream fos = new FileOutputStream(path);
-				        fos.write(baos);
-				        CursorUtilities.showDefaultCursor(this);
-				        //showStatusBar(ApplicationInternationalization.getString("exportStatus"));				        
-				        JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("exportSuccessfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-					}
-					else
-						JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("informationExport"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-				}
-			} catch (JAXBException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (RemoteException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NonPermissionRoleException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (NotLoggedException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			} catch (FileNotFoundException e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-			}
+			parentD.export(p);
 		}
+		else
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("informationExport"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	@Action

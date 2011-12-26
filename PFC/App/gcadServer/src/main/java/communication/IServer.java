@@ -10,6 +10,7 @@ import java.util.List;
 import com.itextpdf.text.Image;
 
 import model.business.control.CBR.Attribute;
+import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.knowledge.Address;
@@ -130,7 +131,7 @@ public interface IServer extends Remote {
 	/*** Methods used in CBR ***/
 	public List<Attribute> getAttributesFromProject(Project p)  throws RemoteException, Exception;
 
-	public List<Project> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k)	throws RemoteException, Exception;	
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k)	throws RemoteException, Exception;	
 	
 	/*** Methods used to manage Files ***/
 	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
@@ -140,7 +141,7 @@ public interface IServer extends Remote {
 
 	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception;
 
-	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception;
+	public <T> byte[] exportInformation(long sessionId, Project project) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception;
 
 	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception;
 }

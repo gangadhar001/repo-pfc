@@ -1,4 +1,7 @@
 package presentation.dataVisualization;
+import internationalization.ApplicationInternationalization;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jdesktop.application.Application;
@@ -23,6 +26,7 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	 */
 	private static final long serialVersionUID = 7190463711080941025L;
 	private JPanel panelChart;
+	private JLabel lblType;
 
 	/**
 	* Auto-generated main method to display this 
@@ -47,7 +51,13 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 			{
 				panelChart = new JPanel();
 				getContentPane().add(panelChart);
-				panelChart.setBounds(0, 0, 175, 146);
+				panelChart.setBounds(0, 29, 175, 117);
+			}
+			{
+				lblType = new JLabel();
+				getContentPane().add(lblType);
+				lblType.setBounds(6, 7, 160, 16);
+				lblType.setName("lblType");
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -55,9 +65,12 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 		}
 	}
 
-	public void addChartPanel(ChartPanel chartPanel) {
+	public void addChartPanel(String projectName, String type, boolean showProjectName, ChartPanel chartPanel) {
 		panelChart.setSize(chartPanel.getPreferredSize());
 		this.setSize(chartPanel.getPreferredSize().width + 20, chartPanel.getPreferredSize().height + 20);
+		lblType.setText(ApplicationInternationalization.getString(type));
+		if (showProjectName)
+			lblType.setText(lblType.getText() + ": " + projectName);
 		panelChart.add(chartPanel);
 		panelChart.revalidate();
 		panelChart.repaint();
