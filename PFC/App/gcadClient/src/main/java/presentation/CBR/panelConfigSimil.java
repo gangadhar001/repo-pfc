@@ -102,8 +102,6 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			{
-			}
 			this.setLayout(null);
 			this.setSize(520, 557);
 			this.setPreferredSize(new java.awt.Dimension(520, 557));
@@ -376,7 +374,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		try {
 			cases = ClientController.getInstance().getProjects();
 			List<Project> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
-			// TODO: mostrar numero de resultados encontrados
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("retrievalCases") + " " + result.size() + " " + ApplicationInternationalization.getString("casesName"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			if (result.size() > 0) {
 				JDRetrievalCases showCases = new JDRetrievalCases(cases);
 				parent.getGlassPane().stop();
@@ -422,11 +420,8 @@ public class panelConfigSimil extends javax.swing.JPanel {
 						function = new Interval();
 						((Interval)function).setInterval(getIntervalValue(row));
 					}
-					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Equal.name()))
+					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Equal.name()))
 						function = new Equal();
-					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Enum.name()))
-						//TODO: function = new EnumDistance();
-						;
 					result.add(function);					
 				}
 			}
@@ -461,5 +456,10 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public void clean() {
+		txtNumberK.setText("");
+		cbAlgorithm.setSelectedIndex(-1);
 	}
 }

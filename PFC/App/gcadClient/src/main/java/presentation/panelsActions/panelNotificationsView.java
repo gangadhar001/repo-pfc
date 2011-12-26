@@ -63,7 +63,7 @@ public class panelNotificationsView extends ImagePanel {
 		super();
 		this.parent = parent;
 		try {
-			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));			
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.png"));			
 			// Get notifications for the actual project
 			notifications = ClientController.getInstance().getNotificationsProject();			
 		} catch (RemoteException e) {

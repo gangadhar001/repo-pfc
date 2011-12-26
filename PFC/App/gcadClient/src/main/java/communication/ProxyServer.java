@@ -271,8 +271,8 @@ public class ProxyServer implements IServer {
 	}
 	
 	@Override
-	public <T> byte[] exportInformation(long sessionId, Class<T> className, Object obj) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
-		return server.exportInformation(sessionId, className, obj);
+	public <T> byte[] exportInformation(long sessionId, Project project) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception {
+		return server.exportInformation(sessionId, project);
 	}
 
 	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception {

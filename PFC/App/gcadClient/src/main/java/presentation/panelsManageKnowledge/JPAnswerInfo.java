@@ -68,7 +68,7 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
-								new String[] { "Agree", "Disagree", "Neutral" });
+								new String[] { ApplicationInternationalization.getString("answerAgree"), ApplicationInternationalization.getString("answerDisagree"), ApplicationInternationalization.getString("answerNeutral") });
 					cbArgument = new JComboBox();
 					panelAnswerInfo.add(cbArgument, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					cbArgument.setModel(cbCategoriesModel);
@@ -131,6 +131,14 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 		txtTitle.setText(data.getTitle());
 		txtDescription.setText(data.getDescription());
 		cbArgument.setSelectedItem(data.getArgument().toString());		
+	}
+
+	public boolean validData() {
+		boolean result = true;
+		if (txtDescription.getText().isEmpty() || txtTitle.getText().isEmpty() || cbArgument.getSelectedIndex() == -1) {
+			result = false;
+		}
+		return result;
 	}
 
 }

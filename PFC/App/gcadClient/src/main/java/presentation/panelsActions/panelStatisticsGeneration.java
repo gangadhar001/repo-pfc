@@ -45,7 +45,7 @@ public class panelStatisticsGeneration extends ImagePanel {
 	public panelStatisticsGeneration() {
 		super();
 		try {
-			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.png"));
 		} catch (Exception e) { }		
 		initGUI();
 	}

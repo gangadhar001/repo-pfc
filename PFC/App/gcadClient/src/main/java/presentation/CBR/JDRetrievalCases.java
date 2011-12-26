@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,7 +24,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
+import model.business.knowledge.KnowledgeStatus;
 import model.business.knowledge.Project;
 import model.business.knowledge.User;
 
@@ -33,6 +38,7 @@ import org.jdesktop.application.Application;
 import presentation.customComponents.CheckListRenderer;
 import presentation.customComponents.CheckableItem;
 import presentation.customComponents.panelProjectInformation;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -61,6 +67,9 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private List<Project> cases;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	private JButton btnExport;
+	private JButton btnSave;
+	private JToolBar toolbar;
 	private JPanel pnlProject;
 	private JLabel lblUserInfo;
 	private JList listUsers;
@@ -74,6 +83,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	public JDRetrievalCases(List<Project> cases) {
 		super();
 		this.cases = cases;
+		setTitle(ApplicationInternationalization.getString("retrievalCases"));
 		currentProject = 1;
 		initGUI();
 		// Show information about the case (project)
@@ -86,7 +96,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		fillUsers();
 		showUsers(cases.get(currentProject-1));
 		try {
-			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)));
+			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1)), KnowledgeStatus.All);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
@@ -111,14 +121,14 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblNumberCases = new JLabel();
 					getContentPane().add(lblNumberCases);
-					lblNumberCases.setBounds(12, 541, 95, 13);
+					lblNumberCases.setBounds(12, 552, 128, 24);
 					lblNumberCases.setName("lblNumberCases");					
 					lblNumberCases.setText(ApplicationInternationalization.getString("lblNumberCases") + " " + currentProject+"/"+cases.size());
 				}
 				{
 					btnForward = new ArrowButton(ArrowButton.DOUBLE_RIGHT);
 					getContentPane().add(btnForward);
-					btnForward.setBounds(183, 543, 45, 23);
+					btnForward.setBounds(187, 561, 20, 17);
 					btnForward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -130,7 +140,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnBackward = new ArrowButton(ArrowButton.DOUBLE_LEFT);
 					getContentPane().add(btnBackward);
-					btnBackward.setBounds(150, 543, 27, 23);
+					btnBackward.setBounds(152, 561, 23, 26);
 					btnBackward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -143,7 +153,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnOk = new JButton();
 					getContentPane().add(btnOk);
-					btnOk.setBounds(820, 530, 82, 25);
+					btnOk.setBounds(820, 550, 82, 27);
 					btnOk.setName("btnOk");
 					btnOk.setAction(getAppActionMap().get("OK"));
 					btnOk.setText(ApplicationInternationalization.getString("btnOK"));
@@ -151,17 +161,17 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					panelTree = new panelKnowledgeTree();
 					getContentPane().add(panelTree);
-					panelTree.setBounds(622, 5, 283, 507);
+					panelTree.setBounds(623, 34, 283, 510);
 				}
 				{
 					pnlProject = new JPanel();
 					getContentPane().add(pnlProject);
-					pnlProject.setBounds(6, 5, 639, 507);
+					pnlProject.setBounds(4, 34, 639, 507);
 					pnlProject.setLayout(null);
 					{
-						currentPanel = new panelProjectInformation(this);
+						currentPanel = new panelProjectInformation();
 						pnlProject.add(currentPanel);
-						currentPanel.setBounds(0, 5, 355, 501);
+						currentPanel.setBounds(0, 0, 357, 503);
 					}
 					{
 						pnlUsersCreate = new JPanel();
@@ -215,16 +225,57 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 					}
 				}
 				{
+					toolbar = new JToolBar();
+					getContentPane().add(toolbar);
+					toolbar.setBounds(0, 0, 913, 28);
+					{
+						btnSave = new JButton();
+						toolbar.add(btnSave);
+						btnSave.setPreferredSize(new java.awt.Dimension(28, 28));
+						btnSave.setSize(28, 28);
+						setToolbarButtonProperties(btnSave, "SaveAsPDF");
+					}
+					{
+						btnExport = new JButton();
+						toolbar.add(btnExport);
+						btnExport.setPreferredSize(new java.awt.Dimension(28, 28));
+						btnExport.setSize(28, 28);
+						setToolbarButtonProperties(btnSave, "ExportXML");
+					}
+				}
+				{
 					
 				}
 			}
-			this.setSize(929, 604);
+			this.setSize(929, 624);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void setToolbarButtonProperties(JButton button, String id) {
+		button.setBorder(BorderFactory.createEmptyBorder(5,10,4,10));
+    	button.setFocusPainted(false);
+    	button.setHorizontalTextPosition(SwingConstants.CENTER);
+    	button.setAction(getAppActionMap().get(id));
+    	button.setText("");
+    	button.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	button.setRequestFocusEnabled(false);
+    	button.setName(id);
+    	button.setToolTipText(ApplicationInternationalization.getString("Tooltip_" + id));
+    	BufferedImage image = null;
+    	try {
+			image = ImagesUtilities.loadCompatibleImage("Toolbars/" + id + ".png");
+			if (image != null) {
+				button.setIcon(new ImageIcon(image));
+				// Save button icon
+				ImagesUtilities.addImageButton(button.getName(), image);
+			}			
+		} catch (Exception e) { }	  
+		
+	}
+
 	// Method used to show all users
 	private void fillUsers() {
 		try {

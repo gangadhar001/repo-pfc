@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -25,6 +23,8 @@ import org.japura.gui.calendar.CalendarField;
 import org.japura.gui.model.DateDocument;
 import org.japura.util.date.DateSeparator;
 import org.jdesktop.application.Application;
+
+import com.ibm.icu.util.Calendar;
 
 import resources.ImagesUtilities;
 import resources.NotEmptyValidator;
@@ -62,11 +62,9 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	private final int POSX_COLUMN2 = 135;	
 	private final int POSY = 0;
 	private final int INCREMENT_POSY = 35;
-	private JDialog parent;
 	
-	public panelProjectInformation(JDialog parent) {
+	public panelProjectInformation() {
 		super();
-		this.parent = parent;		
 		initGUI();
 	}
 	
@@ -109,16 +107,16 @@ public class panelProjectInformation extends javax.swing.JPanel {
 					NumericTextField tbNumericAttValue;
 					JTextField tbStringAttValue;
 					CalendarField tbDateAttValue;
-					JComponent tbAttValue;
 					
 					if (att.getType() == int.class || att.getType() == double.class) {
 						tbNumericAttValue = new NumericTextField();
 						tbNumericAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
+						tbNumericAttValue.setText("");
 						if (attField.get(project) != null) {
 							tbNumericAttValue.setText(attField.get(project).toString());
 						}
 
-						tbAttValue = tbNumericAttValue;
+//						tbAttValue = tbNumericAttValue;
 						this.add(tbNumericAttValue);
 						tbNumericAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);
 						tbNumericAttValue.setEditable(editable);
@@ -138,8 +136,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							tbDateAttValue.getDateDocument().setDate(gc.getTimeInMillis());
 						}
 
-						//tbDateAttValue.setFocusable(editable);
-						tbAttValue = tbDateAttValue;
+//						tbAttValue = tbDateAttValue;
 						this.add(tbDateAttValue);
 						tbDateAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);
 						if (!editable)
@@ -152,15 +149,15 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							tbStringAttValue.setText(attField.get(project).toString());
 						}
 
-						tbAttValue = tbStringAttValue;
+//						tbAttValue = tbStringAttValue;
 						this.add(tbStringAttValue);
 						tbStringAttValue.setEditable(editable);
 						tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);						
 					}
 					
 					
-					if (mandatoryFields.contains(att.getName()))
-						tbAttValue.setInputVerifier(new NotEmptyValidator(parent, tbAttValue, ApplicationInternationalization.getString("fieldMandatory")));
+//					if (mandatoryFields.contains(att.getName()))
+//						tbAttValue.setInputVerifier(new NotEmptyValidator(parent, tbAttValue, ApplicationInternationalization.getString("fieldMandatory")));
 					
 					numberAttributes++;
 				}			
@@ -233,6 +230,37 @@ public class panelProjectInformation extends javax.swing.JPanel {
 			}
 		}
 		return value;
+	}
+
+	public void clean() {
+		showData(new Project(), true);		
+	}
+
+	// Method used to validate data
+	public boolean isValidData() {
+		boolean result = true;
+		result = findAttValue("name").toString().isEmpty();
+		result = findAttValue("description").toString().isEmpty();		
+		result = findAttValue("budget").toString().isEmpty();
+		result = findAttValue("domain").toString().isEmpty();
+		result = findAttValue("estimatedHours").toString().isEmpty();
+		result = findAttValue("progLanguage").toString().isEmpty();
+		result = findAttValue("quantityLines").toString().isEmpty();
+		
+		if (result) {
+			Calendar endCal = Calendar.getInstance();
+			endCal.setTime((Date)findAttValue("endDate"));
+			Calendar initCal = Calendar.getInstance();
+			initCal.setTime((Date)findAttValue("startDate"));
+			if (endCal.before(initCal)) {
+				result = false;
+				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("dateComparison"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("incompleteDataCBR"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+		return result;
 	}
 
 }
