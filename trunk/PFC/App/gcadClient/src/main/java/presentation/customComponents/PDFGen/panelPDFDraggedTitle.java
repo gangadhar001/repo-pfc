@@ -89,5 +89,6 @@ public class panelPDFDraggedTitle extends panelPDFDragged {
 	@Action
 	public void Delete () {
 		parent.removeDragged(this);
+		parent.setEnableTitle(true);
 	}
 }

@@ -64,6 +64,12 @@ public class CustomMenubar extends JMenuBar {
 
 	protected Object viewButtonName;
 
+	private JMenuItem menuFileCloseSession;
+
+	private JMenuItem menuItemSwitch;
+
+	private JMenuItem menuFileLogin;
+
 	private ActionMap getAppActionMap() {
 		return Application.getInstance().getContext().getActionMap(this);
 	}
@@ -86,11 +92,19 @@ public class CustomMenubar extends JMenuBar {
 		JMenu menuFile = new JMenu(ApplicationInternationalization.getString("menuFile"));
 		menuFile.setName("menuFile");
 		
-		JMenuItem menuFileCloseSession = new JMenuItem();
+		menuFileLogin = new JMenuItem();
+		menuFileLogin.setName("menuFileCloseSession");
+		menuFileLogin.setAction(getAppActionMap().get("Login"));
+		menuFileLogin.setText(ApplicationInternationalization.getString("menuFileLoginSession"));
+		menuFileLogin.setIcon(ImagesUtilities.loadIcon("menus/login.png"));
+		menuFile.add(menuFileLogin);
+		
+		menuFileCloseSession = new JMenuItem();
 		menuFileCloseSession.setName("menuFileCloseSession");
 		menuFileCloseSession.setAction(getAppActionMap().get("CloseSession"));
 		menuFileCloseSession.setText(ApplicationInternationalization.getString("menuFileCloseSession"));
 		menuFileCloseSession.setIcon(ImagesUtilities.loadIcon("menus/session.png"));
+		menuFileCloseSession.setEnabled(false);
 		menuFile.add(menuFileCloseSession);
 		menuFile.addSeparator();
 		
@@ -124,12 +138,13 @@ public class CustomMenubar extends JMenuBar {
 		menuOptions.setText(ApplicationInternationalization.getString("menuOptions"));
 		
 		// Add menu item for switch active project
-		JMenuItem menuItemSwitch = new JMenuItem();
+		menuItemSwitch = new JMenuItem();
 		menuOptions.add(menuItemSwitch);
 		menuItemSwitch.setName("menuItemSwitch");
 		menuItemSwitch.setAction(getAppActionMap().get("SwitchProject"));
 		menuItemSwitch.setText(ApplicationInternationalization.getString("menuItemSwitch"));
 		menuItemSwitch.setIcon(ImagesUtilities.loadIcon("menus/changeProject.png"));
+		menuItemSwitch.setEnabled(false);
 		menuOptions.addSeparator();
 		
 		JMenuItem menuChange = new JMenuItem();
@@ -189,6 +204,7 @@ public class CustomMenubar extends JMenuBar {
 		} catch (Exception e) { }
         if (icon != null)
         	item.setIcon(icon);
+        item.setEnabled(false);
         
         return item;        
     }
@@ -222,6 +238,7 @@ public class CustomMenubar extends JMenuBar {
 			    button.setHorizontalTextPosition(SwingConstants.CENTER);
 			    button.setToolTipText(ApplicationInternationalization.getString("TooltipView_" + op.getGroup()));
 			    button.setBorderPainted(false);
+			    button.setEnabled(false);
 			    // Save button icon
 				ImagesUtilities.addImageButton(button.getName(), icon);
 			    button.addMouseListener(new MouseListener() {	
@@ -282,6 +299,24 @@ public class CustomMenubar extends JMenuBar {
 	
 	/*** Actions used to manage actions for menu items ***/
 	@Action
+	//TODO: completar
+	public void login() {
+		// ....
+		// Enabled menu items
+		menuFileLogin.setEnabled(false);
+		menuFileCloseSession.setEnabled(true);
+		menuItemSwitch.setEnabled(true);
+		setEnabledMenuItem(Operations.Export.name(), true);
+		setEnabledMenuItem(Groups.CBR.name(), true);
+		setEnabledMenuItem(Groups.Project.name(), true);
+		// Enabled views
+		setEnabledViews(Groups.Knowledge.name(), true);
+		setEnabledViews(Groups.PDFGeneration.name(), true);
+		setEnabledViews(Groups.Notifications.name(), true);
+		setEnabledViews(Groups.Statistics.name(), true);
+	}
+	
+	@Action
 	public void Exit() {
 		if (JOptionPane.showConfirmDialog(mainFrame.getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),
 				ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), 
@@ -290,11 +325,26 @@ public class CustomMenubar extends JMenuBar {
 	}
 
 	@Action
+	// TODO: cambiar al integrar el login
 	public void CloseSession() {		
 		if (JOptionPane.showConfirmDialog(mainFrame.getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
 					ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
-					JOptionPane.YES_OPTION)
+					JOptionPane.YES_OPTION) {
+			// Disabled menu items
+			menuFileLogin.setEnabled(true);
+			menuFileCloseSession.setEnabled(false);
+			menuItemSwitch.setEnabled(false);
+			setEnabledMenuItem(Operations.Export.name(), false);
+			setEnabledMenuItem(Groups.CBR.name(), false);
+			setEnabledMenuItem(Groups.Project.name(), false);
+			// Disabled views
+			setEnabledViews(Groups.Knowledge.name(), false);
+			setEnabledViews(Groups.PDFGeneration.name(), false);
+			setEnabledViews(Groups.Notifications.name(), false);
+			setEnabledViews(Groups.Statistics.name(), false);
+			
 			mainFrame.closeSessionConfirm();
+		}
 	}	
 
 	@Action
@@ -366,5 +416,23 @@ public class CustomMenubar extends JMenuBar {
 	public void View_PDFGeneration() {
 		mainFrame.showPDFView();		
 	}
+	
+	
+	private void setEnabledViews(String name, boolean value) {
+		for(Component c: getComponents()) {
+			if (c.getName().equals("View_"+name))
+				c.setEnabled(value);
+		}
+		
+	}
+
+	private void setEnabledMenuItem(String name, boolean value) {
+		for(Component c: getComponents()) {
+			if (c.getName().equals("Manage"+name))
+				c.setEnabled(value);
+		}
+		
+	}
+
 
 }

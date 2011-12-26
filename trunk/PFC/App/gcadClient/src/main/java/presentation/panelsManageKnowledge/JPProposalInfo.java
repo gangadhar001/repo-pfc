@@ -68,7 +68,7 @@ public class JPProposalInfo extends javax.swing.JPanel {
 				{
 					ComboBoxModel cbCategoriesModel = 
 						new DefaultComboBoxModel(
-								new String[] { "Analysis", "Design", "Development", "Testing"});
+								new String[] { ApplicationInternationalization.getString("proposalCategoryAnalysis"), ApplicationInternationalization.getString("proposalCategoryDesign"), ApplicationInternationalization.getString("proposalCategoryDevelopment"), ApplicationInternationalization.getString("proposalCategoryTesting") });
 					cbCategories = new JComboBox();
 					panelProposalInfo.add(cbCategories, new AnchorConstraint(614, 722, 708, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					cbCategories.setModel(cbCategoriesModel);
@@ -130,6 +130,14 @@ public class JPProposalInfo extends javax.swing.JPanel {
 		txtTitle.setText(data.getTitle());
 		txtDescription.setText(data.getDescription());
 		cbCategories.setSelectedItem(data.getCategory().toString());		
+	}
+	
+	public boolean validData() {
+		boolean result = true;
+		if (txtDescription.getText().isEmpty() || txtTitle.getText().isEmpty() || cbCategories.getSelectedIndex() == -1) {
+			result = false;
+		}
+		return result;
 	}
 
 }

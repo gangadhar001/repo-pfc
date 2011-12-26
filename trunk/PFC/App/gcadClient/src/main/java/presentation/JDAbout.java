@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 
 import org.jdesktop.application.Application;
 
+import presentation.customComponents.ImagePanel;
 import presentation.utils.AWTUtilitiesWrapper;
+import resources.ImagesUtilities;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -50,7 +52,7 @@ public class JDAbout extends javax.swing.JDialog {
 			{
 				this.setLayout(new java.awt.BorderLayout());
 				{
-					jPanel1 = new JPanel();
+					jPanel1 = new ImagePanel(ImagesUtilities.loadCompatibleImage("splash.png"));
 					getContentPane().add(jPanel1);
 					jPanel1.setBounds(0, 0, 664, 322);
 					jPanel1.setLayout(null);

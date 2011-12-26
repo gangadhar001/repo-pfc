@@ -340,58 +340,71 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	
 	@Action
 	public void Save() {
-		CursorUtilities.showWaitCursor(this);
-		Answer newAn = new Answer(panelAnswerInfoAdd.getAnswerTitle(), panelAnswerInfoAdd.getAnswerDescription(), new Date(), panelAnswerInfoAdd.getAnswerArgument());
-		try {
-			// Create and insert new Answer
-			Answer newAnswerAdded = ClientController.getInstance().addAnwser(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
-			// Notify to main frame the new knowledge added
-			mainFrame.notifyKnowledgeAdded(newAnswerAdded, proposals.get(cbProposalsAdd.getSelectedIndex()));
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-			parentD.dispose();
-		} catch (RemoteException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		if (validData(panelAnswerInfoAdd)) {
+			CursorUtilities.showWaitCursor(this);
+			Answer newAn = new Answer(panelAnswerInfoAdd.getAnswerTitle(), panelAnswerInfoAdd.getAnswerDescription(), new Date(), panelAnswerInfoAdd.getAnswerArgument());
+			try {
+				// Create and insert new Answer
+				Answer newAnswerAdded = ClientController.getInstance().addAnwser(newAn, proposals.get(cbProposalsAdd.getSelectedIndex()));
+				// Notify to main frame the new knowledge added
+				mainFrame.notifyKnowledgeAdded(newAnswerAdded, proposals.get(cbProposalsAdd.getSelectedIndex()));
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+				parentD.dispose();
+			} catch (RemoteException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}
 		}
+		else
+			JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("IncompleteDataKnowledge"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	@Action
 	public void Modify() {
-		CursorUtilities.showWaitCursor(this);
-		Answer oldAn = answers[cbAnswers.getSelectedIndex()];
-		Answer newAn = new Answer(panelAnswerInfoModify.getAnswerTitle(), panelAnswerInfoModify.getAnswerDescription(), new Date(), panelAnswerInfoModify.getAnswerArgument());
-		newAn.setId(oldAn.getId());
-		try {
-			// Modify the old Answer
-			Answer newAnswerModified = ClientController.getInstance().modifyAnswer(newAn, oldAn, proposals.get(cbProposals.getSelectedIndex()));
-			// Notify to main frame the new knowledge
-			mainFrame.notifyKnowledgeEdited(newAnswerModified, answers[cbAnswers.getSelectedIndex()]);
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-			parentD.dispose();
-		} catch (RemoteException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		}	
+		if (validData(panelAnswerInfoAdd)) {
+			CursorUtilities.showWaitCursor(this);
+			Answer oldAn = answers[cbAnswers.getSelectedIndex()];
+			Answer newAn = new Answer(panelAnswerInfoModify.getAnswerTitle(), panelAnswerInfoModify.getAnswerDescription(), new Date(), panelAnswerInfoModify.getAnswerArgument());
+			newAn.setId(oldAn.getId());
+			try {
+				// Modify the old Answer
+				Answer newAnswerModified = ClientController.getInstance().modifyAnswer(newAn, oldAn, proposals.get(cbProposals.getSelectedIndex()));
+				// Notify to main frame the new knowledge
+				mainFrame.notifyKnowledgeEdited(newAnswerModified, answers[cbAnswers.getSelectedIndex()]);
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+				parentD.dispose();
+			} catch (RemoteException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRoleException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(parentD, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			}	
+		}
+		else
+			JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("IncompleteDataKnowledge"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+	}
+	
+	
+	private boolean validData(JPAnswerInfo panel) {
+		return panel.validData();
 	}
 	
 	private int getIndexTab(String title) {

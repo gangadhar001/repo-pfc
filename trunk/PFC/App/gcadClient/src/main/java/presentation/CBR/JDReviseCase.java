@@ -97,7 +97,7 @@ public class JDReviseCase extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				{
-					currentPanel = new panelProjectInformation(this);
+					currentPanel = new panelProjectInformation();
 					getContentPane().add(currentPanel);
 					currentPanel.setBounds(12, 12, 272, 480);
 				}

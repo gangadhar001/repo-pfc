@@ -141,7 +141,6 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 		ct.setVisible(true);
 		// Get the selected project
 		lblWarning.setVisible(false);
-		btnConfigure.setEnabled(false);
 		project = ct.getSelectedProject();
 		lblProjectName.setText(ApplicationInternationalization.getString("ProjectNameLabel") + " " + project.getName());
 	}

@@ -106,5 +106,13 @@ public class JPTopicInfo extends javax.swing.JPanel {
 		txtDescription.setText(data.getDescription());
 		
 	}
+	
+	public boolean validData() {
+		boolean result = true;
+		if (txtDescription.getText().isEmpty() || txtTitle.getText().isEmpty()) {
+			result = false;
+		}
+		return result;
+	}
 
 }

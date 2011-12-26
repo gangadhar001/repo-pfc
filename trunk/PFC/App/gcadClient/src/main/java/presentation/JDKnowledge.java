@@ -163,7 +163,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 				// Create button
 				JButton button = new JButton();
 				button.setPreferredSize(button.getSize());
-				panelActions.add(javax.swing.Box.createVerticalStrut(15));
+				panelActions.add(javax.swing.Box.createVerticalStrut(10));
 				button.setAlignmentX(Component.CENTER_ALIGNMENT);
 				// Set the subgroup id as name of the button
 				button.setName("btn_"+subgroup);

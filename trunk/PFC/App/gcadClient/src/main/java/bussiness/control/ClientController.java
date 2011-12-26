@@ -437,9 +437,9 @@ public class ClientController {
 		return server.getCurrentProject(session.getId());
 	}
 
-	public byte[] exportInformation() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
-		TopicWrapper tw = ClientController.getInstance().getTopicsWrapper();
-		return server.exportInformation(session.getId(), tw.getClass(), tw);
+	public byte[] exportInformation(Project project) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		
+		return server.exportInformation(session.getId(), project);
 	}
 
 	public void changeStatusKnowledge(Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception {

@@ -117,7 +117,7 @@ public class panelKnowledgeView extends ImagePanel {
 		super();
 		this.parent = parent;
 		try {
-			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.png"));
 		} catch (Exception e) {}
 		try {		
 			// Get knowledge from current project
@@ -356,13 +356,6 @@ public class panelKnowledgeView extends ImagePanel {
 		fKnowledge.setVisible(true);
 	}
 	
-	// Invoke JDKnowledge without arguments (no operation, no data)
-	public void manageKnowledgeFromMenu() {	
-		JDKnowledge frameKnowledge = new JDKnowledge(parent);
-		frameKnowledge.setLocationRelativeTo(parent.getMainFrame());
-		frameKnowledge.setModal(true);
-		frameKnowledge.setVisible(true);		
-	}
 
 	/*** Methods used to notify new knowledge ***/ 
 	// Refresh graph and tree
@@ -617,6 +610,10 @@ public class panelKnowledgeView extends ImagePanel {
 			collapsiblePanelKnowInfo.add(getPanelUserKnowledge());
 			collapsiblePanelKnowInfo.setName("collapsiblePanelKnowInfo");
 			collapsiblePanelKnowInfo.add(getPanelUserCompany());
+			collapsiblePanelKnowInfo.setTitle(ApplicationInternationalization.getString("DecisionInfo"));
+			try {
+				collapsiblePanelKnowInfo.setIcon(ImagesUtilities.loadIcon("collapsible/decisions.png"));
+			} catch (Exception e) { }
 		}
 		return collapsiblePanelKnowInfo;
 	}

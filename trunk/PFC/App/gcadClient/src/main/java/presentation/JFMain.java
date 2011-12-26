@@ -181,7 +181,7 @@ public class JFMain extends SingleFrameApplication {
 				toolbar.setPreferredSize(new java.awt.Dimension(1008, 38));
 			}
 			{
-				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.jpg"));
+				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.png"));
 				mainPanel.setLayout(null);
 				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(55, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 607));				
@@ -666,7 +666,10 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void manageKnowledgeFromMenu() {
-		panelKnowledge.manageKnowledgeFromMenu();		
+		JDKnowledge frameKnowledge = new JDKnowledge(this);
+		frameKnowledge.setLocationRelativeTo(getMainFrame());
+		frameKnowledge.setModal(true);
+		frameKnowledge.setVisible(true);			
 	}
 	
 	private void stopProgressBar() {
@@ -706,43 +709,10 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void manageExportInformation() {
-		byte[] baos;
-		java.io.File f;
-		try {
-			JFileChooser fc = new JFileChooser();
-			ExtensionFileFilter filter = new ExtensionFileFilter("XML File", "XML");
-			fc.setFileFilter(filter);
-			fc.showSaveDialog(getMainFrame());
-			if ((f = fc.getSelectedFile()) != null)  {
-				CursorUtilities.showWaitCursor(getMainFrame());
-				baos = ClientController.getInstance().exportInformation();		
-				if (baos != null) {
-					String path = f.getAbsolutePath();
-					if (!path.endsWith("."))
-						path += ".xml";
-			        FileOutputStream fos = new FileOutputStream(path);
-			        fos.write(baos);
-			        CursorUtilities.showDefaultCursor(getMainFrame());
-			        showStatusBar(ApplicationInternationalization.getString("exportStatus"));
-			        
-			        JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("exportSuccessfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-				}
-				else
-					JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("informationExport"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-			}
-		} catch (JAXBException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);		
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		}
+		JDChooseProject choose = new JDChooseProject(getMainFrame());
+		choose.setModal(true);
+		choose.setLocationRelativeTo(null);
+		choose.setVisible(true);
 	}
 
 	public void showStatusBar(String message) {

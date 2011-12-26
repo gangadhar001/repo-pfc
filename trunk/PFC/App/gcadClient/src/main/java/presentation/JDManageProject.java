@@ -38,6 +38,7 @@ import org.jdesktop.application.Application;
 import presentation.customComponents.CheckListRenderer;
 import presentation.customComponents.CheckableItem;
 import presentation.customComponents.panelProjectInformation;
+import presentation.customComponents.txtUserInformation;
 import resources.CursorUtilities;
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
@@ -80,7 +81,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	private JLabel lblUserInfo;
 	private JTabbedPane jTabbedPane;
 	private JPanel tabCreateProject;
-	private JTextArea txtUserInfo;
+	private txtUserInformation txtUserInfo;
 	private JButton btnOKCreate;
 	private JButton btnCancelCreate;
 	
@@ -112,7 +113,7 @@ public class JDManageProject extends javax.swing.JDialog {
 				{
 					jTabbedPane = new JTabbedPane();					
 					getContentPane().add(jTabbedPane);
-					jTabbedPane.setBounds(12, 12, 562, 564);
+					jTabbedPane.setBounds(0, 12, 637, 564);
 					{
 						tabCreateProject = new JPanel();
 						jTabbedPane.addTab(ApplicationInternationalization.getString("tabCreateProject"), null, tabCreateProject, null);
@@ -120,14 +121,14 @@ public class JDManageProject extends javax.swing.JDialog {
 						tabCreateProject.setLayout(null);
 						tabCreateProject.setPreferredSize(new java.awt.Dimension(617, 564));
 						{
-							panelProjectInformationCreate = new panelProjectInformation(this);
+							panelProjectInformationCreate = new panelProjectInformation();
 							tabCreateProject.add(panelProjectInformationCreate);
-							panelProjectInformationCreate.setBounds(12, 12, 266, 450);
+							panelProjectInformationCreate.setBounds(12, 12, 339, 450);
 						}
 						{
 							pnlUsersCreate = new JPanel();
 							tabCreateProject.add(pnlUsersCreate);
-							pnlUsersCreate.setBounds(290, 12, 257, 450);
+							pnlUsersCreate.setBounds(369, 12, 256, 445);
 							pnlUsersCreate.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
 							pnlUsersCreate.setLayout(null);
 							{
@@ -135,11 +136,9 @@ public class JDManageProject extends javax.swing.JDialog {
 								pnlUsersCreate.add(jScrollPane2);
 								jScrollPane2.setBounds(17, 311, 223, 125);
 								{
-									txtUserInfo = new JTextArea();
+									txtUserInfo = new txtUserInformation();
 									jScrollPane2.setViewportView(txtUserInfo);
 									txtUserInfo.setBounds(17, 306, 220, 92);
-									txtUserInfo.setWrapStyleWord(true);
-									txtUserInfo.setLineWrap(true);
 									txtUserInfo.setEditable(false);
 									txtUserInfo.setPreferredSize(new java.awt.Dimension(234, 94));
 								}
@@ -162,11 +161,9 @@ public class JDManageProject extends javax.swing.JDialog {
 											Rectangle rect = listUsers.getCellBounds(index, index);
 											listUsers.repaint(rect);
 											txtUserInfo.setText("");
-											txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
-													+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
-															+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
+											txtUserInfo.showUserInfo(item.getUser());
 											Font f = txtUserInfo.getFont();
-											txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
+											//txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
 											if (item.isSelected()) {
 												selectedUsersCreate.add(item.getUser());
 											}
@@ -192,7 +189,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							btnCancelCreate = new JButton();
 							tabCreateProject.add(btnCancelCreate);
-							btnCancelCreate.setBounds(467, 500, 79, 25);
+							btnCancelCreate.setBounds(542, 500, 79, 25);
 							btnCancelCreate.setName("btnCancelCreate");
 							btnCancelCreate.setAction(getAppActionMap().get("Cancel"));
 							btnCancelCreate.setText(ApplicationInternationalization.getString("CancelButton"));
@@ -200,7 +197,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							btnOKCreate = new JButton();
 							tabCreateProject.add(btnOKCreate);
-							btnOKCreate.setBounds(372, 500, 79, 25);
+							btnOKCreate.setBounds(443, 500, 79, 25);
 							btnOKCreate.setName("btnOKCreate");
 							btnOKCreate.setAction(getAppActionMap().get("Create"));
 							btnOKCreate.setText(ApplicationInternationalization.getString("btnSave"));
@@ -211,16 +208,16 @@ public class JDManageProject extends javax.swing.JDialog {
 						jTabbedPane.addTab(ApplicationInternationalization.getString("tabModifyProject"), null, tabModifyProject, null);
 						tabModifyProject.setLayout(null);
 						{
-							panelProjectInformationModify = new panelProjectInformation(this);
+							panelProjectInformationModify = new panelProjectInformation();
 							tabModifyProject.add(panelProjectInformationModify);
-							panelProjectInformationModify.setBounds(12, 53, 266, 430);
+							panelProjectInformationModify.setBounds(12, 53, 339, 430);
 							panelProjectInformationModify.setName("panelProjectInformationModify");
 						}
 						{
 							panelUsersModify = new JPanel();
 							tabModifyProject.add(panelUsersModify);
 							panelUsersModify.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
-							panelUsersModify.setBounds(290, 46, 257, 442);
+							panelUsersModify.setBounds(369, 42, 257, 436);
 							panelUsersModify.setLayout(null);
 							panelUsersModify.setName("panelUsersModify");
 							{
@@ -281,7 +278,7 @@ public class JDManageProject extends javax.swing.JDialog {
 							tabModifyProject.add(btnCancelModify);
 							btnCancelModify.setAction(getAppActionMap().get("Cancel"));
 							btnCancelModify.setName("btnCancelCreate");
-							btnCancelModify.setBounds(467, 500, 79, 25);
+							btnCancelModify.setBounds(542, 500, 79, 25);
 							btnCancelModify.setText(ApplicationInternationalization.getString("CancelButton"));
 						}
 						{
@@ -289,7 +286,7 @@ public class JDManageProject extends javax.swing.JDialog {
 							tabModifyProject.add(btnModify);
 							btnModify.setAction(getAppActionMap().get("Modify"));
 							btnModify.setName("btnOKCreate");
-							btnModify.setBounds(371, 500, 79, 25);
+							btnModify.setBounds(446, 500, 79, 25);
 							btnModify.setText(ApplicationInternationalization.getString("btnModify"));
 						}
 						{
@@ -326,7 +323,7 @@ public class JDManageProject extends javax.swing.JDialog {
 				cbProjects.setSelectedIndex(0);
 				
 			}
-			this.setSize(593, 620);
+			this.setSize(643, 605);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

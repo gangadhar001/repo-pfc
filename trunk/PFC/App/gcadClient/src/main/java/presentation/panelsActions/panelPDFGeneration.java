@@ -3,6 +3,7 @@ package presentation.panelsActions;
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -96,7 +97,7 @@ public class panelPDFGeneration extends ImagePanel {
 	public panelPDFGeneration(JFMain parent) {
 		super();
 		try {
-			super.setImage(ImagesUtilities.loadCompatibleImage("background.jpg"));
+			super.setImage(ImagesUtilities.loadCompatibleImage("background.png"));
 		} catch (IOException e) { }
 		this.parent = parent;
 		initGUI();
@@ -162,6 +163,8 @@ public class panelPDFGeneration extends ImagePanel {
 				        sectionPanel.setTransferHandler(new DragAndDropTransferHandler());		        
 				        // Create the listener to do the work when dropping on this object
 				        sectionPanel.setDropTarget(new DropTarget(sectionPanel, new PanelDropTargetListener(sectionPanel, panelPDFGeneration.this)));
+				        // Enable or disable "add" button of the title element
+				        changeTitleStatus(sectionPanel);
 				    }
 				});				
 				
@@ -177,6 +180,18 @@ public class panelPDFGeneration extends ImagePanel {
 		}
 	}	
 	 
+	protected void changeTitleStatus(JPanel sectionPanel) {
+		boolean found = false;
+		for(Component c : sectionPanel.getComponents()) {
+			if (c instanceof panelPDFDraggedTitle) {
+				found = true;
+				setEnableTitle(false);
+			}
+		}
+		if (!found)
+			setEnableTitle(true);
+	}
+
 	// Method to add a new PDF element to the current section panel
 	public void addPanelToSection(panelPDFElement panelPDFElement) throws RemoteException, NotLoggedException, Exception {
 		panelPDFDragged element = null;
@@ -362,5 +377,13 @@ public class panelPDFGeneration extends ImagePanel {
 		 }
 		 return lblHeader;
 	 }
+
+	public void setEnableTitle(boolean value) {
+		for(Component c: panelElements.getComponents()) {
+			if (((panelPDFElement) c).getTitle().equals("Title"))
+				((panelPDFElement)c).enableAddButton(value);
+		}
+		
+	}
 
 }
