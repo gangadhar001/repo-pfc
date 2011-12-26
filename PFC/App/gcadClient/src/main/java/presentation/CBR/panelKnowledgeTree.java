@@ -75,14 +75,14 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(282, 572));
+			this.setPreferredSize(new java.awt.Dimension(286, 550));
 			this.setLayout(null);
-			this.setSize(282, 505);
+			this.setSize(282, 550);
 			this.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("decissionsPanel")));
 			{
 				scrollText = new JScrollPane();
 				this.add(scrollText);
-				scrollText.setBounds(10, 409, 265, 156);
+				scrollText.setBounds(12, 381, 263, 158);
 				{
 					txtAreaKnowledge = new JTextPane();
 					scrollText.setViewportView(txtAreaKnowledge);
@@ -90,19 +90,19 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 					txtAreaKnowledge.setName("txtAreaKnowledge");
 					txtAreaKnowledge.setAutoscrolls(true);
 					txtAreaKnowledge.setEditable(false);
-					txtAreaKnowledge.setPreferredSize(new java.awt.Dimension(262, 155));
+					txtAreaKnowledge.setPreferredSize(new java.awt.Dimension(262, 153));
 				}
 			}
 				{
 					scrollTree = new JScrollPane();
-					scrollTree.setBounds(10, 72, 265, 289);
+					scrollTree.setBounds(10, 61, 265, 284);
 				}
 				
 				{
 					lblKnowledgeInformation = new JLabel();
 					lblKnowledgeInformation.setText(ApplicationInternationalization.getString("knowInfo"));
 					this.add(lblKnowledgeInformation);
-					lblKnowledgeInformation.setBounds(12, 379, 267, 20);
+					lblKnowledgeInformation.setBounds(12, 357, 267, 18);
 				}
 				{
 					lblFilter = new JLabel();
@@ -150,7 +150,6 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		tree.setBorder(new EmptyBorder(5, 10, 5, 5));
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setCellRenderer(new ImageKnowledgeTreeCellRenderer());
-		tree.setPreferredSize(new java.awt.Dimension(262, 285));
 		tree.addTreeSelectionListener(new TreeSelectionListener() {				
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
@@ -170,11 +169,15 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		scrollTree.setViewportView(tree);
 		this.add(scrollTree);	
 
+		txtAreaKnowledge.setText("");
+		
 		validate();
 		repaint();
 	}
 	
 	protected void showKnowledgeInfo(Knowledge val) {
+		txtAreaKnowledge.setText("");
+		
 		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		// Create text and styles for TxetPane
 		String[] initString = {

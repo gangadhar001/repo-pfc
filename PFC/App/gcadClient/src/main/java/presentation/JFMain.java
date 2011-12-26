@@ -181,7 +181,7 @@ public class JFMain extends SingleFrameApplication {
 				toolbar.setPreferredSize(new java.awt.Dimension(1008, 38));
 			}
 			{
-				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.png"));
+				mainPanel = new ImagePanel(ImagesUtilities.loadCompatibleImage("background.jpg"));
 				mainPanel.setLayout(null);
 				getMainFrame().getContentPane().add(mainPanel, new AnchorConstraint(55, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 				mainPanel.setPreferredSize(new java.awt.Dimension(1008, 607));				
