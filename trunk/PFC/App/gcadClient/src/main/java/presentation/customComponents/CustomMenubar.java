@@ -26,6 +26,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.MenuElement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
@@ -36,6 +37,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
+import org.jdesktop.swingx.auth.LoginAdapter;
 
 import presentation.JDAbout;
 import presentation.JDChooseProject;
@@ -69,6 +71,8 @@ public class CustomMenubar extends JMenuBar {
 	private JMenuItem menuItemSwitch;
 
 	private JMenuItem menuFileLogin;
+
+	private List<Component> items = new ArrayList<Component>();
 
 	private ActionMap getAppActionMap() {
 		return Application.getInstance().getContext().getActionMap(this);
@@ -190,6 +194,9 @@ public class CustomMenubar extends JMenuBar {
 		viewsPanel.setOpaque(false);
 		add(viewsPanel, "span, align left");
 		
+		//TODO: temporal
+		login();
+		
 	}
 	
 	// Create menu item
@@ -205,7 +212,7 @@ public class CustomMenubar extends JMenuBar {
         if (icon != null)
         	item.setIcon(icon);
         item.setEnabled(false);
-        
+        items.add(item);
         return item;        
     }
 	
@@ -306,9 +313,7 @@ public class CustomMenubar extends JMenuBar {
 		menuFileLogin.setEnabled(false);
 		menuFileCloseSession.setEnabled(true);
 		menuItemSwitch.setEnabled(true);
-		setEnabledMenuItem(Operations.Export.name(), true);
-		setEnabledMenuItem(Groups.CBR.name(), true);
-		setEnabledMenuItem(Groups.Project.name(), true);
+		setEnabledMenuItems(true);
 		// Enabled views
 		setEnabledViews(Groups.Knowledge.name(), true);
 		setEnabledViews(Groups.PDFGeneration.name(), true);
@@ -334,9 +339,7 @@ public class CustomMenubar extends JMenuBar {
 			menuFileLogin.setEnabled(true);
 			menuFileCloseSession.setEnabled(false);
 			menuItemSwitch.setEnabled(false);
-			setEnabledMenuItem(Operations.Export.name(), false);
-			setEnabledMenuItem(Groups.CBR.name(), false);
-			setEnabledMenuItem(Groups.Project.name(), false);
+			setEnabledMenuItems(false);
 			// Disabled views
 			setEnabledViews(Groups.Knowledge.name(), false);
 			setEnabledViews(Groups.PDFGeneration.name(), false);
@@ -419,19 +422,17 @@ public class CustomMenubar extends JMenuBar {
 	
 	
 	private void setEnabledViews(String name, boolean value) {
-		for(Component c: getComponents()) {
+		for(Component c: viewsPanel.getComponents()) {
 			if (c.getName().equals("View_"+name))
 				c.setEnabled(value);
 		}
 		
 	}
 
-	private void setEnabledMenuItem(String name, boolean value) {
-		for(Component c: getComponents()) {
-			if (c.getName().equals("Manage"+name))
-				c.setEnabled(value);
-		}
-		
+	private void setEnabledMenuItems(boolean value) {
+		for(Component c: items) {			
+			c.setEnabled(value);
+		}		
 	}
 
 

@@ -32,8 +32,9 @@ import model.business.knowledge.TopicWrapper;
 
 import org.apache.commons.collections15.Transformer;
 
-import presentation.dataVisualization.graph.auxiliary.PopupVertexEdgeMenuMousePlugin;
-import presentation.dataVisualization.graph.auxiliary.VertexMenu;
+import presentation.dataVisualization.graph.PopupVertexEdgeMenuMousePlugin;
+import presentation.dataVisualization.graph.DeleteVertexMenuItem;
+import presentation.dataVisualization.graph.VertexMenu;
 import presentation.panelsActions.panelKnowledgeView;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
@@ -144,7 +145,7 @@ public class KnowledgeGraph {
 		
 	    PopupVertexEdgeMenuMousePlugin myPlugin = new PopupVertexEdgeMenuMousePlugin();
         // Add some popup menus for the edges and vertices to mouse plugin.
-        JPopupMenu vertexMenu = new VertexMenu();
+        JPopupMenu vertexMenu = new VertexMenu<Knowledge>();
         myPlugin.setVertexPopup(vertexMenu);       
         gm.add(myPlugin);        
 		
