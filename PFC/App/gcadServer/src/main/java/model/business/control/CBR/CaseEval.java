@@ -1,12 +1,18 @@
 package model.business.control.CBR;
 
+import java.io.Serializable;
+
 import model.business.knowledge.Project;
 
 /***
  * Class that represent the evaluation of a case (project in this case)
  */
-public class CaseEval implements Comparable<Object>{
+public class CaseEval implements Comparable<Object>, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1865940680853622271L;
 	private Project caseP;
 	private double  eval;
 	

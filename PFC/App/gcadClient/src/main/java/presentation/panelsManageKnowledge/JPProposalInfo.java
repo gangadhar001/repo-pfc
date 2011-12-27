@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import model.business.knowledge.AnswerArgument;
+import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 
 import org.jdesktop.application.Application;
@@ -85,13 +87,13 @@ public class JPProposalInfo extends javax.swing.JPanel {
 					txtDescription = new JTextPane();
 					panelProposalInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtDescription.setBounds(122, 58, 392, 65);
-					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					txtTitle = new JTextField();
 					panelProposalInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtTitle.setBounds(122, 23, 392, 23);
-					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					//txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					lblDescriptionProposal = new JLabel();
@@ -123,7 +125,7 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	}
 	
 	public String getProposalCategory() {
-		return cbCategories.getSelectedItem().toString();
+		return Categories.values()[cbCategories.getSelectedIndex()].name();
 	}
 
 	public void fillData(Proposal data) {

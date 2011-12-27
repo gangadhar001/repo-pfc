@@ -97,6 +97,7 @@ public class JDExport extends javax.swing.JDialog {
 		if (pnlChooseProject.getProjectId() != -1) {
 			Project p = pnlChooseProject.getProject();
 			parentD.export(p);
+			this.dispose();
 		}
 		else
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("informationExport"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);

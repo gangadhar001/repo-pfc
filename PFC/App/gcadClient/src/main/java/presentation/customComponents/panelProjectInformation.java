@@ -239,13 +239,13 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	// Method used to validate data
 	public boolean isValidData() {
 		boolean result = true;
-		result = findAttValue("name").toString().isEmpty();
-		result = findAttValue("description").toString().isEmpty();		
-		result = findAttValue("budget").toString().isEmpty();
-		result = findAttValue("domain").toString().isEmpty();
-		result = findAttValue("estimatedHours").toString().isEmpty();
-		result = findAttValue("progLanguage").toString().isEmpty();
-		result = findAttValue("quantityLines").toString().isEmpty();
+		result = !findAttValue("name").toString().isEmpty();
+		result = !findAttValue("description").toString().isEmpty();		
+		result = !findAttValue("budget").toString().isEmpty();
+		result = !findAttValue("domain").toString().isEmpty();
+		result = !findAttValue("estimatedHours").toString().isEmpty();
+		result = !findAttValue("progLanguage").toString().isEmpty();
+		result = !findAttValue("quantityLines").toString().isEmpty();
 		
 		if (result) {
 			Calendar endCal = Calendar.getInstance();

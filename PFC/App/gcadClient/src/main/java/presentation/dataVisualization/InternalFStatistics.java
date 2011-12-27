@@ -1,11 +1,15 @@
 package presentation.dataVisualization;
+import java.awt.Font;
+
 import internationalization.ApplicationInternationalization;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.japura.gui.WrapLabel;
 import org.jdesktop.application.Application;
 import org.jfree.chart.ChartPanel;
+
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -26,7 +30,7 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	 */
 	private static final long serialVersionUID = 7190463711080941025L;
 	private JPanel panelChart;
-	private JLabel lblType;
+	private WrapLabel lblType;
 
 	/**
 	* Auto-generated main method to display this 
@@ -51,12 +55,12 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 			{
 				panelChart = new JPanel();
 				getContentPane().add(panelChart);
-				panelChart.setBounds(0, 29, 175, 117);
+				panelChart.setBounds(0, 54, 175, 92);
 			}
 			{
-				lblType = new JLabel();
+				lblType = new WrapLabel();
 				getContentPane().add(lblType);
-				lblType.setBounds(6, 7, 160, 16);
+				lblType.setBounds(6, 7, 161, 47);
 				lblType.setName("lblType");
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
@@ -68,7 +72,9 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	public void addChartPanel(String projectName, String type, boolean showProjectName, ChartPanel chartPanel) {
 		panelChart.setSize(chartPanel.getPreferredSize());
 		this.setSize(chartPanel.getPreferredSize().width + 20, chartPanel.getPreferredSize().height + 20);
+		lblType.setFont(new Font(lblType.getFont().getName(), Font.BOLD, lblType.getFont().getSize()));
 		lblType.setText(ApplicationInternationalization.getString(type));
+		lblType.setWrapWidth(chartPanel.getPreferredSize().width);
 		if (showProjectName)
 			lblType.setText(lblType.getText() + ": " + projectName);
 		panelChart.add(chartPanel);

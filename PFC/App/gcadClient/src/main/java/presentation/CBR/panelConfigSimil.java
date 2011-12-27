@@ -63,6 +63,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	 */
 	private static final long serialVersionUID = -3288470197499471033L;
 	private JPanel pnlAlgorithm;
+	private JButton btnClean;
 	private JLabel lblAlgorithm;
 	private JButton btnOK;
 	private JButton btnCancel;
@@ -185,7 +186,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 				{
 					btnCancel = new JButton();
 					this.add(btnCancel);
-					btnCancel.setBounds(429, 522, 91, 23);
+					btnCancel.setBounds(429, 522, 85, 23);
 					btnCancel.setName("btnCancel");
 					btnCancel.setAction(getAppActionMap().get("Back"));
 					btnCancel.setText(ApplicationInternationalization.getString("btnBack"));
@@ -198,6 +199,14 @@ public class panelConfigSimil extends javax.swing.JPanel {
 					btnOK.setAction(getAppActionMap().get("OK"));
 					btnOK.setText(ApplicationInternationalization.getString("btnFinish"));
 				}
+				{
+					btnClean = new JButton();
+					this.add(btnClean);
+					btnClean.setBounds(0, 522, 14, 10);
+					btnClean.setSize(91, 23);
+					btnClean.setAction(getAppActionMap().get("Clean"));
+					btnClean.setText(ApplicationInternationalization.getString("btnClear"));
+				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
@@ -207,6 +216,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 
 	// Method used to retrieve all the attributes from one project (case) and show them in the UI
 	private void setAttributesName() throws RemoteException, Exception {
+		pnlAttributes.removeAll();
 		attributes = ClientController.getInstance().getAttributesFromProject(caseToEval);
 		// Show attributes name 
 		numberAttributes = 1;
@@ -375,7 +385,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		try {
 			cases = ClientController.getInstance().getProjects();
 			List<CaseEval> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
-			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("retrievalCases") + " " + result.size() + " " + ApplicationInternationalization.getString("casesName"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("retrievalCases") + ": " + result.size() + " " + ApplicationInternationalization.getString("casesName"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			if (result.size() > 0) {
 				JDRetrievalCases showCases = new JDRetrievalCases(result, parent.getParentD());
 				parent.getGlassPane().stop();
@@ -386,14 +396,19 @@ public class panelConfigSimil extends javax.swing.JPanel {
 				showCases.setVisible(true);					
 			}
 		} catch (RemoteException e) {
+			parent.getGlassPane().stop();
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NonPermissionRoleException e) {
+			parent.getGlassPane().stop();
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (NotLoggedException e) {
+			parent.getGlassPane().stop();
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
+			parent.getGlassPane().stop();
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
+			parent.getGlassPane().stop();
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}			
 		
@@ -459,8 +474,14 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		}
 	}
 	
-	public void clean() {
+	@Action
+	public void Clean() {
 		txtNumberK.setText("");
 		cbAlgorithm.setSelectedIndex(-1);
+		if (caseToEval == null)
+			caseToEval = new Project();
+		setProject(caseToEval);
 	}
+	
+	
 }

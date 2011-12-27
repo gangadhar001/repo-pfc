@@ -608,10 +608,10 @@ public class Server implements IServer {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			NotificationController.insertNotification(sessionId, n);
-			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewNotification_msg") + " " + n.getKnowledge().getTitle());
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("NewNotification_msg"));
 			ClientsController.notifyNotificationAvailable(n);
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_NewNotification_msg") + " '" + n.getKnowledge().getTitle() + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.CREATE, AppInternationalization.getString("SQL_NewNotification_msg") + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.CREATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_NewNotification_msg") + nte.getLocalizedMessage());
@@ -632,9 +632,9 @@ public class Server implements IServer {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			NotificationController.update(sessionId, not);		
-			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyNotification_msg") + " " + not.getKnowledge().getTitle());			
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyNotification_msg"));			
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyNotification_msg") + " '" + not.getKnowledge().getTitle() + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyNotification_msg") + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ModifyNotification_msg") + nte.getLocalizedMessage());
@@ -658,9 +658,9 @@ public class Server implements IServer {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			NotificationController.updateState(sessionId, session.getUser().getId(), not);
-			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyNotification_msg") + " " + not.getKnowledge().getTitle());			
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("ModifyNotification_msg"));			
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyNotification_msg") + " '" + not.getKnowledge().getTitle() + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.UPDATE, AppInternationalization.getString("SQL_ModifyNotification_msg") +": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.UPDATE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_ModifyNotification_msg") + nte.getLocalizedMessage());
@@ -681,9 +681,9 @@ public class Server implements IServer {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			NotificationController.deleteNotification(sessionId, notification);
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteNotification_msg") + " " + notification.getKnowledge().getTitle());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteNotification_msg"));
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteNotification_msg") + " '" + notification.getKnowledge().getTitle() + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteNotification_msg") + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteNotification_msg") + nte.getLocalizedMessage());
@@ -704,9 +704,9 @@ public class Server implements IServer {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
 			NotificationController.deleteNotificationFromUser(sessionId, session.getUser(), notification);
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteNotification_msg") + " " + notification.getKnowledge().getTitle());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("DeleteNotification_msg"));
 		} catch(SQLException se) {
-			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteNotification_msg") + " '" + notification.getKnowledge().getTitle() + "': " + se.getLocalizedMessage());
+			LogManager.putMessage(login, IMessageTypeLog.DELETE, AppInternationalization.getString("SQL_DeleteNotification_msg") + ": " + se.getLocalizedMessage());
 			throw se;
 		} catch(NotLoggedException nte) {
 			LogManager.putMessage(IMessageTypeLog.DELETE, AppInternationalization.getString("NotLogged_msg") + " " + sessionId + " " + AppInternationalization.getString("NotLogged_DeleteNotification_msg") + nte.getLocalizedMessage());
