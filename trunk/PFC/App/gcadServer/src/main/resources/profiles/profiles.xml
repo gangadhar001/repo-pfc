@@ -23,6 +23,8 @@
 				<Operations>
 					<id>Add</id>
 					<id>Modify</id>
+					<id>MarkRead</id>
+					<id>MarkUnread</id>
 					<id>Delete</id>
 				</Operations>
 			</Subgroup>
@@ -59,6 +61,13 @@
 			<Subgroup id="CBR">
 				<Operations>
 					<id>Execute</id>
+				</Operations>
+			</Subgroup>
+		</Group>
+		<Group id="PDFGeneration" view="True">
+			<Subgroup id="PDFGeneration">
+				<Operations>
+					<id>Generate</id>
 				</Operations>
 			</Subgroup>
 		</Group>

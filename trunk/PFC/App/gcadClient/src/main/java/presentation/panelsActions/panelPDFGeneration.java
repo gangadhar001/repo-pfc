@@ -380,8 +380,10 @@ public class panelPDFGeneration extends ImagePanel {
 
 	public void setEnableTitle(boolean value) {
 		for(Component c: panelElements.getComponents()) {
-			if (((panelPDFElement) c).getTitle().equals("Title"))
-				((panelPDFElement)c).enableAddButton(value);
+			if (c instanceof panelPDFElement){
+				if (((panelPDFElement) c).getTitle().equals("Title"))
+					((panelPDFElement)c).enableAddButton(value);
+			}
 		}
 		
 	}

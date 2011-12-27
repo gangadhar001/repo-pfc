@@ -27,6 +27,9 @@ import persistence.DAOAnswer;
 import persistence.DAOProposal;
 import persistence.DAOTopic;
 import resources.XMLUtilities;
+
+import com.ibm.icu.text.SimpleDateFormat;
+
 import exceptions.NonExistentAnswerException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
@@ -376,12 +379,21 @@ public class KnowledgeController {
 	// Create the notification for all the users of the current project
 	private static void createNotification(long sessionId, Knowledge k, Operations operation) throws NonPermissionRoleException, NotLoggedException, SQLException, Exception {
 		String message = "";
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		if (operation.name().equals(Operations.Modify.name()))
 			message = AppInternationalization.getString("ModifiedKnowledgeNotification");
 		else if (operation.name().equals(Operations.Add.name()))
 			message = AppInternationalization.getString("AddedKnowledgeNotification");
-		else if (operation.name().equals(Operations.Delete.name()))
+		else if (operation.name().equals(Operations.Delete.name())) {
 			message = AppInternationalization.getString("DeletedKnowledgeNotification");
+			message += "\nType: " + k.getClass().getSimpleName();
+			message += "\nTitle: " + k.getTitle();
+			message += "\nDate: " + format.format(k.getDate());
+			message += "\nAuthor: " + k.getUser().getName() + ", " + k.getUser().getSurname();
+			message += "\nCompany: " + k.getUser().getCompany().getName() + " (" + k.getUser().getCompany().getAddress().getCity() +
+						", " + k.getUser().getCompany().getAddress().getCountry() + ")";
+			k = null;
+		}
 			
 		Project currentProject = searchCurrentProject(Server.getInstance().getProjects(sessionId), SessionController.getSession(sessionId).getCurrentActiveProject());
 		Set<User> usersCurrentProject = new HashSet<User>(Server.getInstance().getUsersProject(sessionId, currentProject));

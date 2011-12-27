@@ -181,10 +181,14 @@ public class panelNotificationsView extends ImagePanel {
 					notificationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 						@Override
 						public void valueChanged(ListSelectionEvent ev) {
-							rowSelected = notificationsTable.getSelectedRow();
-							notificationsTable.setValueAt(new Boolean(true), rowSelected, 0);
-							enableToolbarButtons(true);
-							markRead(rowSelected);
+							if (rowSelected != -1) {
+								rowSelected = notificationsTable.getSelectedRow();
+								notificationsTable.setValueAt(new Boolean(true), rowSelected, 0);
+								enableToolbarButtons(true);
+								markRead(rowSelected);
+							}
+							else
+								clearSelection();
 						}
 					});
 				}			
@@ -202,6 +206,7 @@ public class panelNotificationsView extends ImagePanel {
 				lblDetail = new JLabel();
 				this.add(lblDetail, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 				lblDetail.setName("lblDetail");
+				lblDetail.setFont(new Font(chkAll.getFont().getName(), Font.BOLD, chkAll.getFont().getSize()));
 				lblDetail.setPreferredSize(new java.awt.Dimension(981, 34));
 				lblDetail.setText(ApplicationInternationalization.getString("DetailNotificationsTable"));
 			}
@@ -249,7 +254,7 @@ public class panelNotificationsView extends ImagePanel {
 		// When select a row, show the details and mark this notification as "read"
 		if (row != -1) {
 			// Change color
-			notificationsTable.deleteRowToColorize(row);
+			notificationsTable.addRowToColorize(row);
 			notifications.get(rowSelected).setState("Unread");
 			try {
 				ClientController.getInstance().modifyNotificationState(notifications.get(rowSelected));
@@ -270,6 +275,7 @@ public class panelNotificationsView extends ImagePanel {
 	}
 
 	private void showDetailRow() {
+		txtDetails.setText("");
 		Notification n = notifications.get(rowSelected);
 		Knowledge k = n.getKnowledge();		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -290,7 +296,7 @@ public class panelNotificationsView extends ImagePanel {
 				"    " + ApplicationInternationalization.getString("knowledgeDescription_Notification") + ": ",
 				k.getDescription(),
 				"\n",
-				ApplicationInternationalization.getString("knowledgeStatus_Notification") + ": ",
+				"    " + ApplicationInternationalization.getString("knowledgeStatus_Notification") + ": ",
 				ApplicationInternationalization.getString(k.getStatus().name()),
 				"\n",
 				"    " + ApplicationInternationalization.getString("filesStatus_Notification") + ": ",
@@ -424,7 +430,7 @@ public class panelNotificationsView extends ImagePanel {
 	public void markUnread() {
 		for (int i = 0; i < notificationsTable.getRowCount(); i++) {
 			if (((Boolean) notificationsTable.getValueAt(i, 0)).booleanValue()){
-				if (getNotification(i).getState() != "Unead")
+				if (getNotification(i).getState() != "Unread")
 					markUnread(i);
 			}
 		}

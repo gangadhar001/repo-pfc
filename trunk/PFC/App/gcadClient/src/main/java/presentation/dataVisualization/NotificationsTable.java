@@ -32,19 +32,20 @@ public class NotificationsTable extends CustomTable {
 	public void bound() {
 		addMouseListener(new TableListener(parentD, list));
 		getTableHeader().setFont(getFont().deriveFont(getFont().getSize() + 3f));
-		setRowHeight(20);
+		setRowHeight(35);
 		TableColumnModel cm = getColumnModel();
-        cm.getColumn(0).setMaxWidth(25);
+        cm.getColumn(0).setMaxWidth(60);
         cm.getColumn(0).setHeaderValue("");
         cm.getColumn(0).setCellEditor(getDefaultEditor(Boolean.class));   
         cm.getColumn(0).setCellRenderer(getDefaultRenderer(Boolean.class));  
-        cm.getColumn(1).setMaxWidth(60);
+        //cm.getColumn(1).setMaxWidth(150);
         cm.getColumn(1).setHeaderValue(ApplicationInternationalization.getString("TypeNotification"));
         cm.getColumn(1).setCellRenderer(new ImageTableNotificationCellRenderer());
+        //cm.getColumn(2).setMaxWidth(550);
         cm.getColumn(2).setHeaderValue(ApplicationInternationalization.getString("TitleNotification"));
         cm.getColumn(3).setHeaderValue(ApplicationInternationalization.getString("DateNotification"));
         // Convert date to a custom format
-        cm.getColumn(3).setMaxWidth(150);
+        //cm.getColumn(3).setMaxWidth(250);
         cm.getColumn(3).setCellRenderer(new DateRenderer());
         cm.getColumn(4).setHeaderValue(ApplicationInternationalization.getString("SubjectNotification"));
 	}	

@@ -64,11 +64,11 @@ public class JPTopicInfo extends javax.swing.JPanel {
 					txtDescription = new JTextArea();
 					panelTopicInfo.add(txtDescription);
 					txtDescription.setBounds(122, 56, 392, 105);
-					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 				}
 				{
 					txtTitle = new JTextField();
-					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					//txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelTopicInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtTitle.setBounds(122, 23, 392, 23);
 				}

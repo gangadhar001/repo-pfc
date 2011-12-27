@@ -110,7 +110,10 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false);
 		fillUsers();
 		showUsers(cases.get(currentProject-1).getCaseP());
-		lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity") + " " + (cases.get(currentProject-1).getEval() * 100.0) + "%");
+		String sim = String.valueOf(cases.get(currentProject-1).getEval() * 100.0);
+		if (sim.equals("NaN"))
+			sim = "0.00";	
+		lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity") + " " + String.valueOf(sim) + "%");
 		try {
 			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1).getCaseP()), KnowledgeStatus.All);
 		} catch (RemoteException e) {
@@ -137,14 +140,14 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblNumberCases = new JLabel();
 					getContentPane().add(lblNumberCases);
-					lblNumberCases.setBounds(12, 552, 112, 24);
+					lblNumberCases.setBounds(7, 603, 111, 25);
 					lblNumberCases.setName("lblNumberCases");					
 					lblNumberCases.setText(ApplicationInternationalization.getString("lblNumberCases") + " " + currentProject+"/"+cases.size());
 				}
 				{
 					btnForward = new ArrowButton(ArrowButton.DOUBLE_RIGHT);
 					getContentPane().add(btnForward);
-					btnForward.setBounds(289, 561, 18, 17);
+					btnForward.setBounds(289, 609, 18, 13);
 					btnForward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -156,7 +159,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnBackward = new ArrowButton(ArrowButton.DOUBLE_LEFT);
 					getContentPane().add(btnBackward);
-					btnBackward.setBounds(262, 561, 21, 17);
+					btnBackward.setBounds(257, 610, 23, 10);
 					btnBackward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -169,7 +172,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnOk = new JButton();
 					getContentPane().add(btnOk);
-					btnOk.setBounds(820, 550, 82, 27);
+					btnOk.setBounds(820, 598, 82, 27);
 					btnOk.setName("btnOk");
 					btnOk.setAction(getAppActionMap().get("OK"));
 					btnOk.setText(ApplicationInternationalization.getString("btnOK"));
@@ -177,32 +180,32 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					panelTree = new panelKnowledgeTree();
 					getContentPane().add(panelTree);
-					panelTree.setBounds(623, 34, 283, 510);
+					panelTree.setBounds(623, 46, 283, 546);
 				}
 				{
 					pnlProject = new JPanel();
 					getContentPane().add(pnlProject);
-					pnlProject.setBounds(4, 34, 639, 507);
+					pnlProject.setBounds(4, 46, 613, 548);
 					pnlProject.setLayout(null);
 					{
 						currentPanel = new panelProjectInformation();
 						pnlProject.add(currentPanel);
-						currentPanel.setBounds(0, 0, 357, 503);
+						currentPanel.setBounds(0, 0, 357, 548);
 					}
 					{
 						pnlUsersCreate = new JPanel();
 						pnlProject.add(pnlUsersCreate);
 						pnlUsersCreate.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
 						pnlUsersCreate.setLayout(null);
-						pnlUsersCreate.setBounds(363, 0, 243, 506);
+						pnlUsersCreate.setBounds(363, 0, 243, 548);
 						{
 							jScrollPane2 = new JScrollPane();
 							pnlUsersCreate.add(jScrollPane2);
-							jScrollPane2.setBounds(12, 346, 222, 149);
+							jScrollPane2.setBounds(12, 369, 222, 163);
 							{
 								txtUserInfo = new JTextArea();
 								jScrollPane2.setViewportView(txtUserInfo);
-								txtUserInfo.setPreferredSize(new java.awt.Dimension(219, 130));
+								txtUserInfo.setPreferredSize(new java.awt.Dimension(219, 146));
 								txtUserInfo.setBounds(17, 306, 220, 92);
 								txtUserInfo.setName("txtUserInfo");
 							}
@@ -210,7 +213,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 						{
 							jScrollPane1 = new JScrollPane();
 							pnlUsersCreate.add(jScrollPane1);
-							jScrollPane1.setBounds(12, 21, 222, 291);
+							jScrollPane1.setBounds(12, 21, 222, 309);
 							{
 								listUsers = new JList();
 								jScrollPane1.setViewportView(listUsers);
@@ -235,7 +238,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 							lblUserInfo = new JLabel();
 							pnlUsersCreate.add(lblUserInfo);
 							lblUserInfo.setName("lblUserInfo");
-							lblUserInfo.setBounds(12, 324, 110, 15);
+							lblUserInfo.setBounds(12, 342, 110, 13);
 							lblUserInfo.setText(ApplicationInternationalization.getString("lblUserInfo"));
 						}
 					}
@@ -243,26 +246,26 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					toolbar = new JToolBar();
 					getContentPane().add(toolbar);
-					toolbar.setBounds(0, 0, 913, 28);
+					toolbar.setBounds(0, 0, 913, 40);
 					{
 						btnSave = new JButton();
 						toolbar.add(btnSave);
-						btnSave.setPreferredSize(new java.awt.Dimension(28, 28));
+						btnSave.setPreferredSize(new java.awt.Dimension(20, 9));
 						btnSave.setSize(28, 28);
 						setToolbarButtonProperties(btnSave, "SaveAsPDF");
 					}
 					{
 						btnExport = new JButton();
 						toolbar.add(btnExport);
-						btnExport.setPreferredSize(new java.awt.Dimension(28, 28));
+						btnExport.setPreferredSize(new java.awt.Dimension(20, 9));
 						btnExport.setSize(28, 28);
-						setToolbarButtonProperties(btnSave, "ExportXML");
+						setToolbarButtonProperties(btnExport, "ExportXML");
 					}
 				}
 				{
 					lblSimilarity = new JLabel();
 					getContentPane().add(lblSimilarity);
-					lblSimilarity.setBounds(122, 556, 126, 18);
+					lblSimilarity.setBounds(119, 607, 126, 16);
 					lblSimilarity.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, btnSave.getFont().getSize()));
 					lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity"));
 				}
@@ -270,7 +273,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 					
 				}
 			}
-			this.setSize(929, 624);
+			this.setSize(929, 674);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -408,7 +411,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		 List<PDFElement> elements = new ArrayList<PDFElement>();
 		 Project p = cases.get(currentProject-1).getCaseP();
 		 PDFTitle title = new PDFTitle("Decisions for the project: " + p.getName());
-		 PDFText text = new PDFText("The following table summarizes the decisions taken in the project :" + p.getName());
+		 PDFText text = new PDFText("The following table summarizes the decisions taken in the project: " + p.getName());
 		 PDFTable table = new PDFTable(p);
 		 elements.add(title);
 		 elements.add(text);
@@ -423,6 +426,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 			 dialog.setLocationRelativeTo(this);
 			 dialog.setModal(true);
 			 dialog.setVisible(true);
+			 CursorUtilities.showDefaultCursor(this);
 		 }
 		 else {
 			 CursorUtilities.showDefaultCursor(this);

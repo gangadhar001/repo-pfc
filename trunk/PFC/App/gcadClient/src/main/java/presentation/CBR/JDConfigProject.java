@@ -13,7 +13,6 @@ import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -54,7 +53,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	private JLabel lblProjects;
 	private JComboBox cbProjects;
 	private JCheckBox chkProject;
-	private JButton btnClean;
+	private JButton btnCleanCreate;
 	private JButton btnCancel;
 	private JButton btnForward;
 	
@@ -85,8 +84,9 @@ public class JDConfigProject extends javax.swing.JDialog {
 				{
 					lblProjects = new JLabel();
 					getContentPane().add(lblProjects);
-					lblProjects.setBounds(322, 17, 37, 16);
+					lblProjects.setBounds(322, 17, 75, 16);
 					lblProjects.setName("lblProjects");
+					lblProjects.setText(ApplicationInternationalization.getString("lblProjects"));
 				}
 				{
 					cbProjects = new JComboBox();
@@ -97,6 +97,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 							cbProjectsActionPerformed();
 						}
 					});
+					cbProjects.setEnabled(false);
 				}
 				{
 					chkProject = new JCheckBox();
@@ -141,11 +142,11 @@ public class JDConfigProject extends javax.swing.JDialog {
 				panelConfigSimil.setVisible(false);
 			}
 			{
-				btnClean = new JButton();
-				getContentPane().add(btnClean);
-				btnClean.setBounds(6, 565, 81, 23);
-				btnClean.setAction(getAppActionMap().get("Clean"));
-				btnClean.setText(ApplicationInternationalization.getString("btnClear"));
+				btnCleanCreate = new JButton();
+				getContentPane().add(btnCleanCreate);
+				btnCleanCreate.setBounds(6, 565, 81, 23);
+				btnCleanCreate.setAction(getAppActionMap().get("Clean"));
+				btnCleanCreate.setText(ApplicationInternationalization.getString("btnClear"));
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
@@ -156,6 +157,10 @@ public class JDConfigProject extends javax.swing.JDialog {
 	@Action
 	public void Next() {
 		if (panelProjectInformationCreate.isValidData()) {
+			chkProject.setVisible(false);
+			cbProjects.setVisible(false);
+			lblProjects.setVisible(false);
+			btnCleanCreate.setVisible(false);
 			panelProjectInformationCreate.setVisible(false);
 			this.setTitle(ApplicationInternationalization.getString("configSimiTitle"));
 			panelConfigSimil.setProject(panelProjectInformationCreate.getProject());
@@ -174,7 +179,8 @@ public class JDConfigProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Clean() {
-		panelConfigSimil.clean();
+		if (panelConfigSimil != null)
+			panelConfigSimil.Clean();
 		panelProjectInformationCreate.clean();
 		chkProject.setSelected(false);
 	}
@@ -193,6 +199,10 @@ public class JDConfigProject extends javax.swing.JDialog {
 		panelProjectInformationCreate.setVisible(true);
 		btnCancel.setVisible(true);
 		btnForward.setVisible(true);
+		chkProject.setVisible(true);
+		cbProjects.setVisible(true);
+		lblProjects.setVisible(true);
+		btnCleanCreate.setVisible(true);
 		this.validate();
 		this.repaint();		
 	}	
@@ -202,11 +212,11 @@ public class JDConfigProject extends javax.swing.JDialog {
 		if (!selected) {
 			cbProjects.setSelectedIndex(-1);
 			cbProjects.setEnabled(false);
-			// panelProjectInformationCreate.clean();
+			panelProjectInformationCreate.clean();
 		}
 		else {
 			fillCbProjects();
-			cbProjects.setSelectedIndex(-1);
+			cbProjects.setSelectedIndex(0);
 			cbProjects.setEnabled(true);
 		}
 	}

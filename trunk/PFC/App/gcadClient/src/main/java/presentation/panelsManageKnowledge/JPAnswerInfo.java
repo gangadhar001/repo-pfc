@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import model.business.knowledge.Answer;
+import model.business.knowledge.AnswerArgument;
 
 import org.jdesktop.application.Application;
 
@@ -83,13 +84,13 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 				}
 				{
 					txtDescription = new JTextArea();
-					txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelAnswerInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtDescription.setBounds(122, 58, 392, 65);
 				}
 				{
 					txtTitle = new JTextField();
-					txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, "FallO" + ApplicationInternationalization.getString("fieldValidateEmpty")));
+					//txtTitle.setInputVerifier(new NotEmptyValidator(parentD, txtTitle, "FallO" + ApplicationInternationalization.getString("fieldValidateEmpty")));
 					panelAnswerInfo.add(txtTitle, new AnchorConstraint(148, 968, 242, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
 					txtTitle.setBounds(122, 23, 392, 23);
 				}
@@ -124,7 +125,7 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	}
 	
 	public String getAnswerArgument() {
-		return cbArgument.getSelectedItem().toString();
+		return AnswerArgument.values()[cbArgument.getSelectedIndex()].name();
 	}
 
 	public void fillData(Answer data) {

@@ -119,7 +119,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						jTabbedPane.addTab(ApplicationInternationalization.getString("tabCreateProject"), null, tabCreateProject, null);
 						tabCreateProject.setBounds(12, 12, 545, 474);
 						tabCreateProject.setLayout(null);
-						tabCreateProject.setPreferredSize(new java.awt.Dimension(617, 564));
+						tabCreateProject.setPreferredSize(new java.awt.Dimension(625, 536));
 						{
 							panelProjectInformationCreate = new panelProjectInformation();
 							tabCreateProject.add(panelProjectInformationCreate);
@@ -128,7 +128,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							pnlUsersCreate = new JPanel();
 							tabCreateProject.add(pnlUsersCreate);
-							pnlUsersCreate.setBounds(369, 12, 256, 445);
+							pnlUsersCreate.setBounds(369, 12, 256, 450);
 							pnlUsersCreate.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
 							pnlUsersCreate.setLayout(null);
 							{
@@ -197,7 +197,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							btnOKCreate = new JButton();
 							tabCreateProject.add(btnOKCreate);
-							btnOKCreate.setBounds(443, 500, 79, 25);
+							btnOKCreate.setBounds(449, 500, 79, 25);
 							btnOKCreate.setName("btnOKCreate");
 							btnOKCreate.setAction(getAppActionMap().get("Create"));
 							btnOKCreate.setText(ApplicationInternationalization.getString("btnSave"));
@@ -210,14 +210,14 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							panelProjectInformationModify = new panelProjectInformation();
 							tabModifyProject.add(panelProjectInformationModify);
-							panelProjectInformationModify.setBounds(12, 53, 339, 430);
+							panelProjectInformationModify.setBounds(12, 44, 339, 439);
 							panelProjectInformationModify.setName("panelProjectInformationModify");
 						}
 						{
 							panelUsersModify = new JPanel();
 							tabModifyProject.add(panelUsersModify);
 							panelUsersModify.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("panelUsers")));
-							panelUsersModify.setBounds(369, 42, 257, 436);
+							panelUsersModify.setBounds(369, 42, 257, 441);
 							panelUsersModify.setLayout(null);
 							panelUsersModify.setName("panelUsersModify");
 							{
@@ -278,7 +278,7 @@ public class JDManageProject extends javax.swing.JDialog {
 							tabModifyProject.add(btnCancelModify);
 							btnCancelModify.setAction(getAppActionMap().get("Cancel"));
 							btnCancelModify.setName("btnCancelCreate");
-							btnCancelModify.setBounds(542, 500, 79, 25);
+							btnCancelModify.setBounds(547, 500, 79, 25);
 							btnCancelModify.setText(ApplicationInternationalization.getString("CancelButton"));
 						}
 						{
@@ -286,7 +286,7 @@ public class JDManageProject extends javax.swing.JDialog {
 							tabModifyProject.add(btnModify);
 							btnModify.setAction(getAppActionMap().get("Modify"));
 							btnModify.setName("btnOKCreate");
-							btnModify.setBounds(446, 500, 79, 25);
+							btnModify.setBounds(454, 500, 79, 25);
 							btnModify.setText(ApplicationInternationalization.getString("btnModify"));
 						}
 						{

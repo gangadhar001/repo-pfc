@@ -204,7 +204,7 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 				"    " + ApplicationInternationalization.getString("countryUserKnowledge") + ": ",
 				val.getUser().getCompany().getAddress().getCountry(),
 				"\n",
-				ApplicationInternationalization.getString("countryUserKnowledge") + ": ",
+				ApplicationInternationalization.getString("CompanyInfo") + ": ",
 				val.getUser().getCompany().getName() + "(" + val.getUser().getCompany().getAddress().getCountry() + ")"
 				
 		};

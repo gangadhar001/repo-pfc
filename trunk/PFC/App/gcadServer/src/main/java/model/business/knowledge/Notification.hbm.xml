@@ -11,7 +11,7 @@
 		</id>	
 		<property name="subject" column="subject" type="string" not-null="true" />
 		<many-to-one name="project" column="projectId" class="Project" not-null="true" lazy="false" />
-		<many-to-one name="knowledge" column="knowledgeId" class="Knowledge" not-null="true" lazy="false" />
+		<many-to-one name="knowledge" column="knowledgeId" class="Knowledge" lazy="false" />
 		<set name="users" table="notificationsUsers" lazy="false">
 	    	<key column="idNotification" unique="true" not-null="true" />
 	        <many-to-many class="User" column="idUser" />
