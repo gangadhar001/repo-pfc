@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -57,7 +58,10 @@ public class CustomTable extends JTable {
 	}
 	
 	public boolean isCellEditable(int row, int column) {
-		return false;
+		boolean result = false;
+		if (column == 0)
+			result = true;
+		return result;
 	}
 	
 	public void addRowToColorize (int row) {
@@ -152,30 +156,56 @@ public class CustomTable extends JTable {
 				repaint();
 			}
 		});
-		JMenuItem item = new JMenuItem(ApplicationInternationalization.getString("DeleteRow"));
-		item.addActionListener(new ActionListener() {			
+		JMenuItem itemDelete = new JMenuItem(ApplicationInternationalization.getString("DeleteRow"));
+		itemDelete.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				removeRow(selectedRowPopup);
 				repaint();
 			}
 		});
-		menu.add(item);
+		
+		JMenu itemMark = new JMenu(ApplicationInternationalization.getString("MarkRow"));
+		JMenuItem itemMarkRead = new JMenuItem(ApplicationInternationalization.getString("MarkRowRead"));
+		JMenuItem itemMarkUnread = new JMenuItem(ApplicationInternationalization.getString("MarkRowUnread"));
+		
+		itemMarkRead.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				markRead(selectedRowPopup);
+				repaint();
+			}
+		});
+		
+		itemMarkUnread.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				markUnread(selectedRowPopup);
+				repaint();
+			}
+		});
+		
+		menu.add(itemMark);
+		menu.addSeparator();
+		menu.add(itemDelete);
 		menu.addSeparator();
 		menu.add(striped);
 		return menu;
 	}
 
+	// Alternate row colors
 	protected void setStripedTable() {
 		repaint();		
 	}
 	
+	// Remove a row
 	public void removeRow (int row) {
 		if (row != -1) {
 			DefaultTableModel model = (DefaultTableModel)getModel();
 			model.removeRow(row);
 			try {
 				ClientController.getInstance().removeNotificationFromUser(parent.getNotification(row));
+				parent.clearSelection();
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
@@ -187,6 +217,43 @@ public class CustomTable extends JTable {
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
+		}
+	}
+	
+	// Mark a row as "Read"
+	public void markRead (int row) {
+		try {
+			parent.getNotification(row).setState("Read");
+			ClientController.getInstance().modifyNotificationState(parent.getNotification(row));
+			// Change color of row
+			deleteRowToColorize(row);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	// Mark a row as "Unread"
+	public void markUnread (int row) {
+		try {
+			parent.getNotification(row).setState("Unread");
+			ClientController.getInstance().modifyNotificationState(parent.getNotification(row));
+			// Change color of row
+			addRowToColorize(row);
+		} catch (NotLoggedException e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (NonPermissionRoleException e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
