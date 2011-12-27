@@ -4,6 +4,8 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -26,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -304,9 +307,31 @@ public class JFMain extends SingleFrameApplication {
           	but.setEnabled(false);
           	toolbar.add(but);  
 		}
+		
+		// Add toogle button for advanced view
+		toolbar.addSeparator();
+		JToggleButton toggle = new JToggleButton();
+		toggle.setToolTipText(ApplicationInternationalization.getString("toogleAdvancedView"));
+		try {
+			toggle.setIcon(ImagesUtilities.loadIcon("toolbar/Advanced.png"));
+		}
+		catch (Exception e) { }
+		toggle.setText("");
+		toggle.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showAdvancedView(((JToggleButton)e.getSource()).isSelected());
+				
+			}
+		});
 	}
     
-    // Method to add specific button for Statistics view to the toolbar
+    protected void showAdvancedView(boolean selected) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	// Method to add specific button for Statistics view to the toolbar
     public void createToolbarStatisticsView() {
     	toolbar.removeAll();
     	
@@ -322,12 +347,16 @@ public class JFMain extends SingleFrameApplication {
     	
         // Includes operations
     	List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Notifications.name());
-    	// TODO: modificar algo aparte del estado (leido/no leido) ???
-//		if (availableOps.contains(Operations.Modify.name())) {
-//			JButton but = createToolbarButton(Operations.Modify.name() + Groups.Notifications.name());
-//          	but.setEnabled(false);
-//          	toolbar.add(but);      
-//		}
+		if (availableOps.contains(Operations.MarkRead.name())) {
+			JButton but = createToolbarButton(Operations.MarkRead.name() + Groups.Notifications.name());
+          	but.setEnabled(false);
+          	toolbar.add(but);      
+		}
+		if (availableOps.contains(Operations.MarkUnread.name())) {
+			JButton but = createToolbarButton(Operations.MarkUnread.name() + Groups.Notifications.name());
+          	but.setEnabled(false);
+          	toolbar.add(but);      
+		}
 		if (availableOps.contains(Operations.Delete.name())) {
 			JButton but = createToolbarButton(Operations.Delete.name() + Groups.Notifications.name());
           	but.setEnabled(false);
@@ -401,6 +430,18 @@ public class JFMain extends SingleFrameApplication {
 	public void CompilePDF() {
 		if (panelPDF != null)
 			panelPDF.compile();
+	}
+	
+	@Action
+	public void MarkReadNotifications() {
+		if (panelNotifications != null)
+			panelNotifications.markRead();
+	}
+	
+	@Action
+	public void MarkUnreadNotifications() {
+		if (panelNotifications != null)
+			panelNotifications.markUnread();
 	}
 	
 	@Action
