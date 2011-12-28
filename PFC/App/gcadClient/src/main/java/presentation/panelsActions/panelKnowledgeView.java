@@ -112,6 +112,8 @@ public class panelKnowledgeView extends ImagePanel {
 
 	private JPanel panelUserKnowledge;
 	private JPanel panelUserCompany;
+
+	private boolean isAdvancedView = false;
 	
 	public panelKnowledgeView(JFMain parent) {
 		super();
@@ -164,7 +166,7 @@ public class panelKnowledgeView extends ImagePanel {
 				Object val = ((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject();
 				if (!(val instanceof TopicWrapper)) {
 					knowledgeSelectedTree = (Knowledge) val;
-					showKnowledgeInfo();
+					showKnowledgeInfo(isAdvancedView);
 					// Show attached files, if any
 					showAttachedFiles(knowledgeSelectedTree);
 					// Enable delete an edit buttons in toolbar
@@ -185,7 +187,7 @@ public class panelKnowledgeView extends ImagePanel {
 	}
 	
 	// Method used to display information about the selected knowledge
-	private void showKnowledgeInfo() {
+	private void showKnowledgeInfo(boolean advanced) {
 		Knowledge k = getSelectedKnowledge();
 		if (k != null) {
 			clearPanelsInfo();
@@ -196,11 +198,16 @@ public class panelKnowledgeView extends ImagePanel {
             panelUserInfo.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("userName") + "</b>  " + u.getName()));
             panelUserInfo.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("userSurname") + "</b> " + u.getSurname()));
             panelUserInfo.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("userRole") + "</b> " + ApplicationInternationalization.getString(u.getRole().name())));
-            WrapLabel label = new WrapLabel("<html><b>" + ApplicationInternationalization.getString("userEmail") + "</b> " + u.getEmail());
-            label.setWrapWidth(300);
-            panelUserInfo.add(label);
-            label.setBounds(10, 0, 300, 25);
-            panelUserInfo.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("userSeniority") + "</b> " + String.valueOf(u.getSeniority())));
+            if (advanced) {
+            	String email = (u.getEmail() == null ? "" : u.getEmail());            	
+            	WrapLabel label = new WrapLabel("<html><b>" + ApplicationInternationalization.getString("userEmail") + "</b> " + email);
+                label.setWrapWidth(300);
+                panelUserInfo.add(label);
+                label.setBounds(10, 0, 300, 25);
+                String telephone = (u.getTelephone() == null ? "" : u.getTelephone());  
+                panelUserInfo.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("userSeniority") + "</b> " + String.valueOf(u.getSeniority())));
+                panelUserInfo.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("userTelephone") + "</b> " + telephone));
+            }
             panelUserInfo.setBackground(Color.WHITE);
             panelUserInfo.revalidate();
             panelUserInfo.repaint();
@@ -213,7 +220,7 @@ public class panelKnowledgeView extends ImagePanel {
             label2.setBounds(0, 40, 00, 25);
             panelUserKnowledge.add(label2);
             DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-            panelUserKnowledge.add(getJLabelInfo("<html><b>" +ApplicationInternationalization.getString("knowDate") + "</b> " + format.format(k.getDate())));
+            panelUserKnowledge.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("knowDate") + "</b> " + format.format(k.getDate())));
             panelUserKnowledge.setBackground(Color.WHITE);
             panelUserKnowledge.revalidate();
             panelUserKnowledge.repaint();
@@ -222,10 +229,20 @@ public class panelKnowledgeView extends ImagePanel {
             Company c = u.getCompany();
             Address ad = c.getAddress();
             panelUserCompany.add(Box.createVerticalStrut(10));
-            WrapLabel labelCompany = new WrapLabel("<html><b>" +ApplicationInternationalization.getString("companyName") + "</b> " + c.getName() + ", " + ad.getCity() + " (" + ad.getCountry() + ")");
-            labelCompany.setWrapWidth(500);
-            labelCompany.setBounds(0, 10, 500, 80);
-            panelUserCompany.add(labelCompany);
+            if (!advanced) {
+	            WrapLabel labelCompany = new WrapLabel("<html><b>" + ApplicationInternationalization.getString("companyName") + "</b> " + c.getName() + ", " + ad.getCity() + " (" + ad.getCountry() + ")");
+	            labelCompany.setWrapWidth(500);
+	            labelCompany.setBounds(0, 10, 500, 80);
+	            panelUserCompany.add(labelCompany);
+            }
+            else {
+            	panelUserCompany.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("companyName") + "</b>  " + c.getName()));
+            	panelUserCompany.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("companyInformation") + "</b>  " + c.getInformation()));
+            	panelUserCompany.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("companyStreet") + "</b>  " + c.getAddress().getStreet() + " (" + c.getAddress().getZip() + ")"));
+            	panelUserCompany.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("companyCity") + "</b>  " + c.getAddress().getCity()));
+            	panelUserCompany.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("companyCountry") + "</b>  " + c.getAddress().getCountry()));
+            }
+            
             panelUserCompany.setBackground(Color.WHITE);
             panelUserCompany.revalidate();
             panelUserCompany.repaint();
@@ -567,8 +584,14 @@ public class panelKnowledgeView extends ImagePanel {
 	// Clear user information
 	private void clearPanelsInfo() {
 		panelUserCompany.removeAll();
+		panelUserCompany.revalidate();
+		panelUserCompany.repaint();
 		panelUserInfo.removeAll();
+		panelUserInfo.revalidate();
+		panelUserInfo.repaint();
 		panelUserKnowledge.removeAll();
+		panelUserKnowledge.revalidate();
+		panelUserKnowledge.repaint();		
 	}
 
 	private CollapsibleRootPanel getCollapsibleRootPanel() {
@@ -625,7 +648,7 @@ public class panelKnowledgeView extends ImagePanel {
 			collapsiblePanelCompany.setLayout(null);
 			collapsiblePanelCompany.add(getPanelUserCompany());
 			collapsiblePanelCompany.setBackground(Color.WHITE);
-			collapsiblePanelKnowInfo.setTitle(ApplicationInternationalization.getString("CompanyInfo"));
+			collapsiblePanelCompany.setTitle(ApplicationInternationalization.getString("CompanyInfo"));
 			JButton buttonDetail = new JButton();
 			buttonDetail.setContentAreaFilled(false);
 			buttonDetail.setOpaque(false);
@@ -657,7 +680,7 @@ public class panelKnowledgeView extends ImagePanel {
 		this.knowledgeSelectedGraph = knowledgeSelectedGraph;
 		if (this.knowledgeSelectedGraph != null) {
 			activateToolbarButtons(true);
-			showKnowledgeInfo();
+			showKnowledgeInfo(isAdvancedView);
 			// Show attached files, if any
 			showAttachedFiles(knowledgeSelectedGraph);
 		}
@@ -747,6 +770,20 @@ public class panelKnowledgeView extends ImagePanel {
 
 	public Set<File> getAttachedFiles() {
 		return attachedFiles;
+	}
+
+	public void showAdvancedView(boolean selected) {
+		isAdvancedView = selected;
+		KnowGraph.showAdvancedView(selected);
+//		KnowGraph = null;
+//		KnowGraph = new KnowledgeGraph(topicWrapper, this, isAdvancedView);
+//		this.remove(panelGraph);
+//		panelGraph = new GraphZoomScrollPane(KnowGraph.getVisualGraph());
+//		this.add(panelGraph, new AnchorConstraint(12, 779, 974, 229, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+//		this.revalidate();
+//		this.repaint();
+		showKnowledgeInfo(isAdvancedView);
+		
 	}
 
 }

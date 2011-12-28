@@ -316,7 +316,7 @@ public class JFMain extends SingleFrameApplication {
 			toggle.setIcon(ImagesUtilities.loadIcon("toolbar/Advanced.png"));
 		}
 		catch (Exception e) { }
-		toggle.setText("");
+		toggle.setText("Toggle");
 		toggle.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -324,11 +324,13 @@ public class JFMain extends SingleFrameApplication {
 				
 			}
 		});
+		toolbar.add(toggle);
 	}
     
-    protected void showAdvancedView(boolean selected) {
-		// TODO Auto-generated method stub
-		
+    protected void showAdvancedView(boolean selected) { 
+    	if (panelKnowledge != null) {
+    		panelKnowledge.showAdvancedView(selected);
+    	}
 	}
 
 	// Method to add specific button for Statistics view to the toolbar

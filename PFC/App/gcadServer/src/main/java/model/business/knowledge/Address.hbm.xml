@@ -13,5 +13,6 @@
 		<property name="city" column="city" type="string" not-null="true" />
 		<property name="country" column="country" type="string" not-null="true" />
 		<property name="zip" column="zip" type="string" not-null="true" /> 
+		<property name="code" column="country_id" type="string" not-null="true" />
 	</class>
 </hibernate-mapping>

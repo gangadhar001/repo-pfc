@@ -18,15 +18,17 @@ public class Address implements Serializable {
 	private String city;
 	private String country;
 	private String zip;
+	private String code;
 	
 	public Address () {
 	}
 	
-	public Address(String street, String city, String country, String zip) {
+	public Address(String street, String city, String country, String zip, String code) {
 		this.street = street;
 		this.city = city;
 		this.country = country;
 		this.zip = zip;
+		this.code = code;
 	}
 
 	public int getId() {
@@ -69,6 +71,14 @@ public class Address implements Serializable {
 		this.zip = zip;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer();
@@ -91,14 +101,15 @@ public class Address implements Serializable {
 		else if (obj instanceof Address) {
 			Address other = (Address) obj;
 			result = (street.equals(other.getStreet()) && city.equals(other.getCity()) &&
-					country.equals(other.getCountry()) && zip.equals(other.getZip()));
+					country.equals(other.getCountry()) && zip.equals(other.getZip()) &&
+					code.equals(getCode()));
 		}
 		return result;
 	}
 	
 	public Object clone () {
 		Address a;
-		a = new Address(getStreet(), getCity(), getCountry(), getZip());
+		a = new Address(getStreet(), getCity(), getCountry(), getZip(), getCode());
 		a.setId(getId());
 		return a;
 	}

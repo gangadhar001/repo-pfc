@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JPopupMenu;
 
 import model.business.knowledge.Answer;
@@ -29,11 +30,11 @@ import model.business.knowledge.KnowledgeStatus;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
+import model.business.knowledge.UserRole;
 
 import org.apache.commons.collections15.Transformer;
 
 import presentation.dataVisualization.graph.PopupVertexEdgeMenuMousePlugin;
-import presentation.dataVisualization.graph.DeleteVertexMenuItem;
 import presentation.dataVisualization.graph.VertexMenu;
 import presentation.panelsActions.panelKnowledgeView;
 import resources.ImagesUtilities;
@@ -69,7 +70,11 @@ public class KnowledgeGraph {
 	private HashMap<Knowledge, Icon> iconMap;
 	private static DefaultVertexIconTransformer<Knowledge> vertexIconTransformer;
 	protected static Knowledge selectedVertex;
-	private static panelKnowledgeView parent;;
+	private static panelKnowledgeView parent;
+	private static ImageIcon iconUser;
+	private static ImageIcon iconCountry;
+	private static HashMap<Knowledge, Icon> mapCountry = new HashMap<Knowledge, Icon>();
+	private static HashMap<Knowledge, Icon> mapUsers = new HashMap<Knowledge, Icon>();
 	
 	@SuppressWarnings("rawtypes")
 	public KnowledgeGraph (TopicWrapper topicWrapper, final panelKnowledgeView parent) {			
@@ -145,7 +150,7 @@ public class KnowledgeGraph {
 		
 	    PopupVertexEdgeMenuMousePlugin myPlugin = new PopupVertexEdgeMenuMousePlugin();
         // Add some popup menus for the edges and vertices to mouse plugin.
-        JPopupMenu vertexMenu = new VertexMenu<Knowledge>();
+        JPopupMenu vertexMenu = new VertexMenu<Knowledge>(ClientController.getInstance().getRole());
         myPlugin.setVertexPopup(vertexMenu);       
         gm.add(myPlugin);        
 		
@@ -190,7 +195,7 @@ public class KnowledgeGraph {
 		 String name = node + ".png";
 		 Icon icon = null; 
          try {
-        	 icon = new LayeredIcon(ImagesUtilities.loadCompatibleImage(name));
+        	 icon = new LayeredIcon(ImagesUtilities.loadCompatibleImage("graph/" + name));
          } catch(Exception ex) { }	
          return icon;
 	}
@@ -284,10 +289,12 @@ public class KnowledgeGraph {
 		   	     fileInputStream.read(bFile);
 		   	     fileInputStream.close();          
 		         model.business.knowledge.File f = new model.business.knowledge.File(file.getName(), bFile);
+		         int cont = selectedVertex.getFiles().size();
 		         // Insert file into database
 		         f.setId(ClientController.getInstance().attachFile(selectedVertex, f));	
 		         // Draw the icon
-		         setAttachIconVertex(selectedVertex);
+		         if (cont == 0)
+		        	 setAttachIconVertex(selectedVertex);
 		         selectedVertex.getFiles().add(f);
 		         clearSelection();
 			} catch (FileNotFoundException e) {
@@ -354,6 +361,38 @@ public class KnowledgeGraph {
 			}           
         }		
 	}
+	
+	private static void setUserIconVertex(Knowledge selectedVertex) {
+		Icon icon = vertexIconTransformer.transform(selectedVertex);
+		String role = (selectedVertex.getUser().getRole().name().equals(UserRole.ChiefProject.name()) ? "Chief" : "User");
+        if(icon != null && icon instanceof LayeredIcon) {           
+        	try {
+        		iconUser = ImagesUtilities.loadIcon("graph/" + role + ".png");
+        		mapUsers.put(selectedVertex, iconUser); 
+				((LayeredIcon)icon).add(iconUser);
+			} catch (MalformedURLException e) {
+				parent.showMessage(e);
+			} catch (IOException e) {
+				parent.showMessage(e);
+			}           
+        }		
+	}
+	
+	private static void setCountryIconVertex(Knowledge selectedVertex) {
+		Icon icon = vertexIconTransformer.transform(selectedVertex);
+		String country = selectedVertex.getUser().getCompany().getAddress().getCode();
+        if(icon != null && icon instanceof LayeredIcon) {           
+        	try {
+        		iconCountry = ImagesUtilities.loadIcon("graph/" + country + ".png");
+        		mapCountry.put(selectedVertex, iconCountry);        		
+				((LayeredIcon)icon).add(iconCountry);
+			} catch (MalformedURLException e) {
+				parent.showMessage(e);
+			} catch (IOException e) {
+				parent.showMessage(e);
+			}           
+        }		
+	}
 
 	public static void setSelectedVertex(Knowledge selectedVertex) {
 		KnowledgeGraph.selectedVertex = selectedVertex;
@@ -367,6 +406,24 @@ public class KnowledgeGraph {
 	public static void clearPickedVertex() {
 		pickedState.clear();
 		parent.setKnowledgeSelectedGraph(null);		
-	}	
+	}
+
+	public void showAdvancedView(boolean selected) {
+		Collection<Knowledge> vertexs = graph.getVertices();
+		for(Knowledge v: vertexs) {
+			if (selected) {
+				setCountryIconVertex(v);
+				setUserIconVertex(v);
+			}
+			else {
+				Icon icon = vertexIconTransformer.transform(v);
+				((LayeredIcon)icon).remove(mapUsers.get(v));
+				((LayeredIcon)icon).remove(mapCountry.get(v));
+			}
+		}
+		
+		vv.repaint();
+		
+	}
 	
 }
