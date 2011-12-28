@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +9,7 @@ import model.business.control.CBR.Attribute;
 import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
+import model.business.control.CBR.EnumSimilFunctions;
 import model.business.control.CBR.similarity.local.Difference;
 import model.business.control.CBR.similarity.local.Equal;
 import model.business.control.CBR.similarity.local.Interval;
@@ -34,6 +35,13 @@ public class CBRTest extends PruebasBase {
 	private Company company;
 	private Address address;
 	private Project project1, project2, project3;
+	private Project caseToEval;
+	private List<Attribute> atts;
+	private List<Project> cases;
+	private List<CaseEval> result;
+	private ConfigCBR configCBR;
+	private ISession session;
+	private LocalSimilarityFunction function, function2;
 	
 	protected void setUp() {	
 		try {
@@ -42,7 +50,7 @@ public class CBRTest extends PruebasBase {
 			// Creamos un administrador de prueba
 			DBConnectionManager.clear();
 			DBConnectionManager.addConnection(new DBConnection());
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "address");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User1", "emp1", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -61,6 +69,15 @@ public class CBRTest extends PruebasBase {
 			DBConnectionManager.insert(chief);
 			DBConnectionManager.insert(employee);
 			DBConnectionManager.finishTransaction();
+			
+			caseToEval = null;
+			atts = new ArrayList<Attribute>();
+			cases = new ArrayList<Project>();
+			result = new ArrayList<CaseEval>();
+			configCBR = null;			
+			EnumSimilFunctions.Enum.name();
+			EnumSimilFunctions.Equal.name();
+			EnumSimilFunctions.Interval.name();
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -75,24 +92,20 @@ public class CBRTest extends PruebasBase {
 		}
 	}
 	
-	public void testCBR() {	
-		Project caseToEval = null;
-		List<Attribute> atts = new ArrayList<Attribute>();
-		List<Project> cases = new ArrayList<Project>();
-		List<CaseEval> result = new ArrayList<CaseEval>();
-		ISession session;
-		ConfigCBR configCBR = null;
-		LocalSimilarityFunction function, function2;
-		
+	public void testCBRInvalidSession() {	
 		try {
-			// se intenta ejecutar un algoritmo de CBR con una sesión inválida
+			// Se intenta ejecutar un algoritmo de CBR con una sesión inválida
 			Server.getInstance().executeAlgorithm(-15, EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
 			fail("Se esperaba NotLoggedException");
 		} catch (NotLoggedException e) {
 		} catch (Exception e) {
 			fail("Se esperaba NotLoggedException");
 		}
-		
+	}
+	
+	public void testCBRInvalidPermission() {	
+		caseToEval = null;
+		configCBR = null;		
 		try {
 			// Se intenta ejecutar un algoritmo de CBR sin tener permiso
 			session = Server.getInstance().login("emp1", "emp1");
@@ -102,10 +115,10 @@ public class CBRTest extends PruebasBase {
 		} catch (Exception e) {
 			fail("Se esperaba NotLoggedException");
 		}
+	}
 		
-		/* Se ejecuta el algoritmo con el modo NN
-		/ Se espera que con la configuracion que se va a crear, el proyecto más similar sea el Project2, 
-		 * luego el Project1 y luego el Project3 */
+	public void testCBRAlgorithms() {			
+		// Prueba de algoritmos CBR
 		try {
 			session = Server.getInstance().login("emp2", "emp2");
 			
@@ -116,9 +129,8 @@ public class CBRTest extends PruebasBase {
 			cases = Server.getInstance().getProjects(session.getId());
 			assertTrue(cases.size() == 3);
 			// Se toman los atributos del proyecto
-			atts = Server.getInstance().getAttributesFromProject(caseToEval);
-			assertTrue(atts.size() == 11 || atts.size() == 12);
-			// Se configuran los pesos y funciones de semejanza del proiyecto a evaluar (ignorando el id y el UID)
+		    atts = Server.getInstance().getAttributesFromProject(caseToEval);
+			// Se configuran los pesos y funciones de semejanza del proyecto a evaluar (ignorando el id y el UID)
 			configCBR = new ConfigCBR();
 			/* FUNCIONES */
 			// Titulo, descripcion y fechas del proyecto iguales
@@ -158,32 +170,34 @@ public class CBRTest extends PruebasBase {
 			((Interval)function2).setInterval(3);
 			configCBR.setWeight(atts.get(10),0.8);
 			
-			// Se ejecuta cogiendo todos los proyectos y método NN (k=0)
+			/* Se ejecuta el algoritmo con el modo NN. cogiendo todos los proyectos y método NN (k=0)
+			   Se espera que con la configuracion que se va a crear, el proyecto más similar sea el Project2, 
+			   luego el Project1 y luego el Project3 */
 			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
 			assertTrue(result.size() == 3);
 			// El más similar es el Project2, luego el Project1 y por último el Project3
-			assertEquals(result.get(0), project2);
-			assertEquals(result.get(1), project1);
-			assertEquals(result.get(2), project3);
+			assertEquals(result.get(0).getCaseP(), project2);
+			assertEquals(result.get(1).getCaseP(), project1);
+			assertEquals(result.get(2).getCaseP(), project3);
 			
 			// Se ejecuta con k = 1 y método NN
 			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 1);
 			assertTrue(result.size() == 1);
-			assertEquals(result.get(0), project2);
+			assertEquals(result.get(0).getCaseP(), project2);
 			
 			// Se ejecuta con k = 1 y método Euclidean. Ahora el más semejante es el Project3
 			// Se demuestra que este método no es muy fiable
 			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.Euclidean, cases, caseToEval, configCBR, 1);
 			assertTrue(result.size() == 1);
-			assertEquals(result.get(0), project3);
+			assertEquals(result.get(0).getCaseP(), project3);
 			
 			// Se ejecuta con k = 0 y método Euclidean. Ahora el más semejante es el Project3
 			// Se demuestra que este método no es muy fiable
 			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.Euclidean, cases, caseToEval, configCBR, 0);
 			assertTrue(result.size() == 3);
-			assertEquals(result.get(0), project3);
-			assertEquals(result.get(1), project1);
-			assertEquals(result.get(2), project2);
+			assertEquals(result.get(0).getCaseP(), project3);
+			assertEquals(result.get(1).getCaseP(), project1);
+			assertEquals(result.get(2).getCaseP(), project2);
 		} catch (Exception e) {
 			fail(e.toString());
 		}

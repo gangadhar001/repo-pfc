@@ -9,6 +9,7 @@ import java.util.Set;
 
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
+import model.business.knowledge.AnswerArgument;
 import model.business.knowledge.Categories;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
@@ -64,7 +65,7 @@ public class PruebasPersistencia extends PruebasBase {
 			// Preparamos la base de datos
 			super.setUp();
 			// Creamos objetos de prueba
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "code");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User1", "emp1", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp3", "emp3", "User3", "chief1", "", "", 12, company);
@@ -72,7 +73,7 @@ public class PruebasPersistencia extends PruebasBase {
 			project2 = new Project("project2", "desc2", new Date(), new Date(), 53683.36, 45128, "bank", "C#", 5571);
 			projects = new HashSet<Project>();
 			pro = new Proposal("pro", "desc", new Date(), Categories.Analysis);
-			ans = new Answer("ans", "desc", new Date(), "Pro");
+			ans = new Answer("ans", "desc", new Date(), AnswerArgument.Disagree.name());
 			topic = new Topic("pro", "desc", new Date());
 			users = new HashSet<User>();
 			topic.setUser(chief);

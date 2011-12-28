@@ -8,7 +8,7 @@ public class PresentacionTest extends TestCase {
 
 	public static Test suite() {
 		TestSuite suite = new
-		TestSuite("Tests para la capa de presentación");
+		TestSuite("Presentation Layer Tests");
 		suite.addTestSuite(PruebasJDConfigFrontend.class);;
 		suite.addTestSuite(PruebasJFServidorFrontend.class);
 		suite.addTestSuite(PruebasValidacion.class);

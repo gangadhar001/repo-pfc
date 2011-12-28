@@ -83,7 +83,7 @@ public class PruebasConexiones extends UISpecTestCase {
 		try {
 			// Intentamos inicializar la transaccion sin ninguna base de datos configurada
 			DBConnectionManager.initTransaction();
-			DBConnectionManager.insert(new Address("street", "city", "country", "zip"));
+			DBConnectionManager.insert(new Address("street", "city", "country", "zip", "code"));
 			DBConnectionManager.finishTransaction();
 			fail("Se esperaba una excepción SQLException");
 		} catch(SQLException e) {
@@ -94,7 +94,7 @@ public class PruebasConexiones extends UISpecTestCase {
 		
 		try {
 			// Intentamos insertar un objeto sin ninguna base de datos configurada
-			DBConnectionManager.insert(new Address("street", "city", "country", "zip"));
+			DBConnectionManager.insert(new Address("street", "city", "country", "zip", "code"));
 			fail("Se esperaba una excepción SQLException");
 		} catch(SQLException e) {
 			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
@@ -115,7 +115,7 @@ public class PruebasConexiones extends UISpecTestCase {
 
 		try {
 			// Intentamos actualizar un objeto sin ninguna base de datos configurada
-			DBConnectionManager.update(new Address("street", "city", "country", "zip"));
+			DBConnectionManager.update(new Address("street", "city", "country", "zip", "code"));
 			fail("Se esperaba una excepción SQLException");
 		} catch(SQLException e) {
 			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
@@ -136,7 +136,7 @@ public class PruebasConexiones extends UISpecTestCase {
 
 		try {
 			// Intentamos eliminar un objeto sin ninguna base de datos configurada
-			DBConnectionManager.delete(new Address("street", "city", "country", "zip"));
+			DBConnectionManager.delete(new Address("street", "city", "country", "zip", "code"));
 			fail("Se esperaba una excepción SQLException");
 		} catch(SQLException e) {
 			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
@@ -146,7 +146,7 @@ public class PruebasConexiones extends UISpecTestCase {
 		
 		try {
 			// Intentamos eliminar la cache sin ninguna base de datos configurada
-			DBConnectionManager.clearCache(new Address("street", "city", "country", "zip"));
+			DBConnectionManager.clearCache(new Address("street", "city", "country", "zip", "code"));
 			fail("Se esperaba una excepción SQLException");
 		} catch(SQLException e) {
 			assertEquals("No hay ninguna conexión con la base de datos", e.getMessage());
@@ -160,7 +160,7 @@ public class PruebasConexiones extends UISpecTestCase {
 			DBConnectionManager.addConnection(conexionBD);
 			borrarBaseDatos();
 			// Ejecutamos varias operaciones sobre la base de datos
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "code");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User", "emp", "", "", 2, company);
 			DBConnectionManager.initTransaction();

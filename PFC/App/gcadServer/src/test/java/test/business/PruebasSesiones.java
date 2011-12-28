@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class PruebasSesiones extends PruebasBase {
 			// a los métodos del gestor y así probar las dos clases a la vez
 			servidor = Server.getInstance();
 			// Creamos objetos de prueba
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "address");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User", "emp", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -87,6 +87,15 @@ public class PruebasSesiones extends PruebasBase {
 		} catch(IncorrectEmployeeException e) {
 		} catch(Exception e) {
 			fail("Se esperaba una excepción IncorrectEmployeeException");
+		}
+		
+		try {
+			// Intentamos salir del sistema sin estar logueados
+			servidor.signout(-10);
+			fail("Se esperaba una excepción NotLoggedException");
+		} catch(NotLoggedException e) {
+		} catch(Exception e) {
+			fail("Se esperaba una excepción NotLoggedException");
 		}
 
 		try {
