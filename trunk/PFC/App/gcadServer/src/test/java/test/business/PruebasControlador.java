@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import gcadServer.Main;
 
@@ -44,7 +44,7 @@ public class PruebasControlador extends PruebasBase {
 			// Creamos un administrador de prueba
 			DBConnectionManager.clear();
 			DBConnectionManager.addConnection(new DBConnection());
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "address");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User", "emp", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -76,21 +76,21 @@ public class PruebasControlador extends PruebasBase {
 		ClientePrueba cliente = null;
 		ISession sesion;
 		
-		try {
-			
-			// Mostramos y ocultamos la ventana principal
-			WindowInterceptor.run(new Trigger() {
-				public void run() {
-					controlador.showServerWindowUI();					
-				}
-			});			
-			 
-			assertTrue(controlador.getWindow().isVisible());
-			controlador.hideServerWindowUI();
-			assertFalse(controlador.getWindow().isVisible());
-		} catch(Exception e) {
-			fail(e.toString());
-		}
+//		try {
+//			
+//			// Mostramos y ocultamos la ventana principal
+//			WindowInterceptor.run(new Trigger() {
+//				public void run() {
+//					controlador.showServerWindowUI();					
+//				}
+//			});			
+//			 
+//			assertTrue(controlador.getWindow().isVisible());
+//			controlador.hideServerWindowUI();
+//			assertFalse(controlador.getWindow().isVisible());
+//		} catch(Exception e) {
+//			fail(e.toString());
+//		}
 		
 		try {
 			// Activamos el servidor varias veces para ver si no hay fallos
@@ -137,21 +137,21 @@ public class PruebasControlador extends PruebasBase {
 	}
 	
 	/** Pruebas de la clase Main */
-	public void testMain() {
-		Window ventana;
-		
-		try {
-			// Comprobamos que el método Main muestra la ventana principal del servidor
-			ventana = WindowInterceptor.run(new Trigger() {
-				public void run() {
-					Main.main(new String[] {});
-				}
-			});
-			assertEquals(ventana.getTitle(), "Servidor");
-			ventana.dispose();
-		} catch(Exception e) {
-			fail(e.toString());
-		}
-	}
+//	public void testMain() {
+//		Window ventana;
+//		
+//		try {
+//			// Comprobamos que el método Main muestra la ventana principal del servidor
+//			ventana = WindowInterceptor.run(new Trigger() {
+//				public void run() {
+//					Main.main(new String[] {});
+//				}
+//			});
+//			assertEquals(ventana.getTitle(), "Servidor");
+//			ventana.dispose();
+//		} catch(Exception e) {
+//			fail(e.toString());
+//		}
+//	}
 	
 }

@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -37,7 +37,7 @@ public class UsersControllerTest extends PruebasBase {
 			// Creamos un administrador de prueba
 			DBConnectionManager.clear();
 			DBConnectionManager.addConnection(new DBConnection());
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "address");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User1", "emp1", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -81,16 +81,6 @@ public class UsersControllerTest extends PruebasBase {
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
 			fail("se esperaba NotLoggedException");
-		}
-		
-		try {
-			// Se intenta obtener todos los usuarios sin tener permiso
-			session = Server.getInstance().login("emp1", "emp1");
-			Server.getInstance().getUsers(session.getId());
-			fail("se esperaba NonPermissionRoleException");
-		} catch (NonPermissionRoleException e) { 
-		} catch(Exception e) {
-			fail("se esperaba NonPermissionRoleException");
 		}
 		
 		try {

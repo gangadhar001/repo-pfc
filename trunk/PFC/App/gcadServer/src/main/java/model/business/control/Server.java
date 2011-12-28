@@ -77,7 +77,6 @@ public class Server implements IServer {
 
 	public void setDefaultLanguage(Language language) throws RemoteException, JDOMException, IOException {
 		LanguagesUtilities.setDefaultLanguage(language);
-		
 	}
 	
 	/*** Methods used to manage login and signout ***/
@@ -243,7 +242,7 @@ public class Server implements IServer {
 	
 	/*** Methods used to modify Knowledge ***/
 	@Override
-	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception {
+	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);

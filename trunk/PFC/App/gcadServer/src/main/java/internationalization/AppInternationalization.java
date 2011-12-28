@@ -1,10 +1,8 @@
 package internationalization;
 
-import java.io.IOException;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.jdom.JDOMException;
 
 import resources.LanguagesUtilities;
 
@@ -22,10 +20,8 @@ public class AppInternationalization {
 	        return RESOURCE_BUNDLE.getString(key);
 	    } catch (MissingResourceException e) {
 	            return '!' + key + '!';
-	    } catch (JDOMException e) {
+	    } catch (Exception e) {
 	    	return '!' + key + '!';
-		} catch (IOException e) {
-			return '!' + key + '!';
-		}
+		} 
     }
 }

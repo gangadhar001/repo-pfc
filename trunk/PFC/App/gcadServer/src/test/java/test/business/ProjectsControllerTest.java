@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -37,7 +37,7 @@ public class ProjectsControllerTest extends PruebasBase {
 			// Creamos un administrador de prueba
 			DBConnectionManager.clear();
 			DBConnectionManager.addConnection(new DBConnection());
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "address");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User1", "emp1", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -104,6 +104,42 @@ public class ProjectsControllerTest extends PruebasBase {
 		}	
 	}
 	
+	public void testUpdateProject() {		
+		ISession session = null;
+		try {
+			// Se intenta actualizar un proyecto con una sesion invalida
+			Server.getInstance().updateProject(-15, project);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}
+		
+		try {
+			// Se intenta actualizar un proyecto sin tener permiso
+			session = Server.getInstance().login("emp1", "emp1");
+			Server.getInstance().updateProject(session.getId(), project);
+			fail("se esperaba NonPermissionRoleException");
+		} catch (NonPermissionRoleException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NonPermissionRoleException");
+		}
+		
+		try {
+			// Se actualiza un proyecto 
+			session = Server.getInstance().login("emp2", "emp2");
+			Project p = Server.getInstance().createProject(session.getId(), project);
+			project.setId(p.getId());
+			project.setName("new Name");
+			Server.getInstance().updateProject(session.getId(), project);
+			assertEquals(Server.getInstance().getProjects(session.getId()).get(0), project);
+		} catch (NonPermissionRoleException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NonPermissionRoleException");
+		}
+		
+	}
+	
 	public void testGetUsersProject() {		
 		ISession session = null;
 		try {
@@ -113,17 +149,7 @@ public class ProjectsControllerTest extends PruebasBase {
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
 			fail("se esperaba NotLoggedException");
-		}
-		
-		try {
-			// Se intentan obtener los usuarios de un proyecto sin tener permiso
-			session = Server.getInstance().login("emp1", "emp1");
-			Server.getInstance().getUsersProject(session.getId(), project);
-			fail("se esperaba NonPermissionRoleException");
-		} catch (NonPermissionRoleException e) { 
-		} catch(Exception e) {
-			fail("se esperaba NonPermissionRoleException");
-		}
+		}	
 		
 		try {
 			// Se intentan obtener los usuarios de un proyecto
@@ -136,7 +162,54 @@ public class ProjectsControllerTest extends PruebasBase {
 			assertEquals(users.get(0), employee);
 		} catch(Exception e) {
 			fail(e.toString());
-		}		
+		}
+		
+		try {
+			// Se intentan obtener el proyecto de la sesión actual
+			session = Server.getInstance().login("emp2", "emp2");
+			assertEquals(Server.getInstance().getCurrentProject(session.getId()), 0);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
+	}
+	
+	public void testRemoveUsersProject() {
+		ISession session = null;
+		try {
+			// Se intentan eliminar usuarios con una sesión inválida
+			Server.getInstance().removeProjectsUser(-15, null, null);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}
+		
+		try {
+			// Se intentan eliminar usuarios sin tener permiso
+			session = Server.getInstance().login("emp1", "emp1");
+			Server.getInstance().removeProjectsUser(session.getId(), chief, project);
+			fail("se esperaba NonPermissionRoleException");
+		} catch (NonPermissionRoleException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NonPermissionRoleException");
+		}
+		
+		try {
+			// Se intentan eliminar usuarios
+			DAOProject.insert(project);
+			session = Server.getInstance().login("emp2", "emp2");
+			Server.getInstance().addProjectsUser(session.getId(), employee, project);
+			assertTrue(employee.getProjects().size() == 1);
+			List<User> users = Server.getInstance().getUsersProject(session.getId(), project);
+			assertTrue(users.size() == 1);
+			assertEquals(users.get(0), employee);
+			Server.getInstance().removeProjectsUser(session.getId(), employee, project);
+			assertTrue(employee.getProjects().size() == 0);
+			users = Server.getInstance().getUsersProject(session.getId(), project);
+			assertTrue(users.size() == 0);
+		} catch(Exception e) {
+			fail(e.toString());
+		}
 	}
 	
 	public void testGetProjects() {		
@@ -157,16 +230,6 @@ public class ProjectsControllerTest extends PruebasBase {
 		} catch (NotLoggedException e) { 
 		} catch(Exception e) {
 			fail("se esperaba NotLoggedException");
-		}
-		
-		try {
-			// Se intentan obtener los usuarios de un proyecto sin tener permiso
-			session = Server.getInstance().login("emp1", "emp1");
-			Server.getInstance().getProjects(session.getId());
-			fail("se esperaba NonPermissionRoleException");
-		} catch (NonPermissionRoleException e) { 
-		} catch(Exception e) {
-			fail("se esperaba NonPermissionRoleException");
 		}
 		
 		try {

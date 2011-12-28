@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -47,7 +47,7 @@ public class NotificationsControllerTest extends PruebasBase {
 			// Creamos un administrador de prueba
 			DBConnectionManager.clear();
 			DBConnectionManager.addConnection(new DBConnection());
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "address");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User1", "emp1", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -201,6 +201,16 @@ public class NotificationsControllerTest extends PruebasBase {
 		} catch (NonExistentNotificationException e) { 
 		} catch(Exception e) {
 			fail("se esperaba NonExistentNotificationException");
+		}	
+		
+		try {
+			// Se intenta cambiar el estado de la notificación sin estar logueado
+			Server.getInstance().modifyNotificationState(-15, not);
+			Server.getInstance().getNotificationsUser(session.getId());
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
 		}	
 		
 		try {

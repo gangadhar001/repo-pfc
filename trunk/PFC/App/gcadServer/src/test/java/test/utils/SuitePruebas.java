@@ -1,6 +1,6 @@
 package test.utils;
 import test.communication.ComunicacionesTest;
-import test.control.DominioTest;
+import test.business.DominioTest;
 import test.persistence.PersistenciaTest;
 import test.presentation.PresentacionTest;
 import junit.framework.Test;
@@ -18,7 +18,7 @@ public class SuitePruebas {
 	public static Test suite() {
 		TestSuite suite;
 		
-		suite = new TestSuite("Pruebas completas para el servidor front-end");
+		suite = new TestSuite("Test Suite for DPMTool - Server");
 		suite.addTest(DominioTest.suite());
 		suite.addTest(PersistenciaTest.suite());
 		suite.addTest(ComunicacionesTest.suite());

@@ -179,7 +179,7 @@ public class KnowledgeController {
 		// If the new parent is different from the previous one, the old proposal is removed
 		Topic t = findParentProposal(sessionId, oldProposal);
 		if (t!=null && !t.equals(newParent)) {	
-			if (exists(newProposal, t.getProposals().toArray()))
+			if (exists(newProposal, newParent.getProposals().toArray()))
 				throw new SQLException(AppInternationalization.getString("SQLExistingKnowledgeEdit"));
 			
 			try {
@@ -237,7 +237,7 @@ public class KnowledgeController {
 		// If the new parent is different from the previous one, the old answer is removed
 		Proposal p = findParentAnswer(sessionId, oldAnswer);
 		if (p!=null && !p.equals(newParent)) {	
-			if (exists(newAnswer, p.getAnswers().toArray()))
+			if (exists(newAnswer, newParent.getAnswers().toArray()))
 				throw new SQLException(AppInternationalization.getString("SQLExistingKnowledgeEdit"));
 			
 			try{

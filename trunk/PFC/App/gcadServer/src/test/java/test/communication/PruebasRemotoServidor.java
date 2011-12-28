@@ -7,6 +7,7 @@ import java.util.Set;
 
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
+import model.business.knowledge.AnswerArgument;
 import model.business.knowledge.Categories;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
@@ -46,7 +47,7 @@ public class PruebasRemotoServidor extends PruebasBase {
 			// Creamos el objeto remoto exportado por el servidor front-end
 			conexion = ExportedServer.getServer();
 			// Creamos un usuario
-			address = new Address("street", "city", "country", "zip");
+			address = new Address("street", "city", "country", "zip", "code");
 			company = new Company("456as", "company", "information", address);
 			employee = new Employee("12345678L", "emp1", "emp1", "User", "emp", "", "", 2, company);
 			chief = new ChiefProject("65413987L", "emp2", "emp2", "User", "chief", "", "", 12, company);
@@ -100,6 +101,8 @@ public class PruebasRemotoServidor extends PruebasBase {
 			// Probamos las operaciones de gestión de proyectos
 			project = new Project("project", "desc", new Date(), new Date(), 203.36, 458, "bank", "java", 557);
 			conexion.createProject(sessionChief.getId(), project);
+			project.setName("new Name");
+			conexion.updateProject(sessionChief.getId(), project);
 			Set<Project> projects = new HashSet<Project>();
 			projects.add(project);
 			chief.setProjects(projects);
@@ -110,11 +113,17 @@ public class PruebasRemotoServidor extends PruebasBase {
 			assertEquals(employee, DAOUser.queryUser(employee.getLogin(), employee.getPassword()));
 			conexion.setCurrentProject(sessionChief.getId(), project.getId());
 			conexion.setCurrentProject(sessionEmployee.getId(), project.getId());
-			// Refresh sessions with new projects of users
+			// Refrescar sesiones
 			conexion.signout(sessionChief.getId());
 			conexion.signout(sessionEmployee.getId());
 			sessionEmployee = conexion.login(employee.getLogin(), employee.getPassword());
 			sessionChief = conexion.login(chief.getLogin(), chief.getPassword());
+			// Otras operaciones
+			conexion.addProjectsUser(sessionChief.getId(), chief, project);			
+			assertEquals(conexion.getProjects(sessionChief.getId()).size(), 1);
+			assertEquals(conexion.getUsersProject(sessionChief.getId(), project).size(), 2);
+			assertEquals(conexion.getProjectsFromCurrentUser(sessionChief.getId()).size(), 1);
+			
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -123,9 +132,10 @@ public class PruebasRemotoServidor extends PruebasBase {
 			// Probamos las operaciones de gestión de conocimiento
 			// Crear topic, proposal y answer
 			pro = new Proposal("pro", "desc", new Date(), Categories.Analysis);
-			ans = new Answer("ans", "desc", new Date(), "Pro");
+			ans = new Answer("ans", "desc", new Date(), AnswerArgument.Agree.name());
 			topic = new Topic("pro", "desc", new Date());	
 			conexion.setCurrentProject(sessionChief.getId(), project.getId());
+			conexion.setCurrentProject(sessionEmployee.getId(), project.getId());
 			conexion.addTopic(sessionChief.getId(), topic);
 			conexion.addProposal(sessionEmployee.getId(), pro, topic);
 			conexion.addAnswer(sessionEmployee.getId(), ans, pro);
@@ -133,9 +143,9 @@ public class PruebasRemotoServidor extends PruebasBase {
 			Topic newTopic = (Topic) topic.clone();
 			Proposal newPro = (Proposal) pro.clone();
 			Answer newAns = (Answer) ans.clone();
-			newPro.setDescription("newDesc");
-			newAns.setDescription("newDesc");
-			newTopic.setDescription("newDesc");
+			newPro.setTitle("newPro");
+			newAns.setTitle("newAnswer");
+			newTopic.setTitle("newTopic");
 			conexion.modifyTopic(sessionChief.getId(), newTopic, topic);
 			conexion.modifyProposal(sessionEmployee.getId(), newPro, pro, topic);
 			conexion.modifyAnswer(sessionEmployee.getId(), newAns, ans, pro);
@@ -146,12 +156,17 @@ public class PruebasRemotoServidor extends PruebasBase {
 			conexion.deleteAnswer(sessionChief.getId(), newAns);
 			conexion.deleteProposal(sessionChief.getId(), newPro);
 			conexion.deleteTopic(sessionChief.getId(), newTopic);
+			assertEquals(conexion.getProposals(sessionChief.getId()).size(), 0);
+			assertEquals(conexion.getAnswers(sessionChief.getId()).size(), 0);
+			assertEquals(conexion.getTopicsWrapper(sessionChief.getId()).getTopics().size(), 0);
+			assertEquals(conexion.getTopicsWrapper(sessionChief.getId(), project).getTopics().size(), 0);
 		} catch(Exception e) {
 			fail(e.toString());
 		}		
 		
 		try {
 			// Probamos las operaciones de gestión de notificaciones
+			assertEquals(conexion.getNotificationsUser(sessionChief.getId()).size(), 3);
 			topic = new Topic("pro", "desc", new Date());
 			conexion.addTopic(sessionChief.getId(), topic);
 			conexion.setCurrentProject(sessionChief.getId(), project.getId());
@@ -159,18 +174,22 @@ public class PruebasRemotoServidor extends PruebasBase {
 			// Crear notificación			
 			not = new Notification(topic, "Unread", project, "subject", users);
 			conexion.createNotification(sessionChief.getId(), not);
-			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).size(), 1);
-			assertEquals(not, conexion.getNotificationsProject(sessionChief.getId()).get(0));			
+			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).size(), 5);
+			assertEquals(not, conexion.getNotificationsProject(sessionChief.getId()).get(4));			
 			not.getUsers().add(employee);
 			not.getUsers().add(chief);
 			conexion.modifyNotification(sessionChief.getId(), not);
-			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).get(0), not);
+			assertEquals(conexion.getNotificationsProject(sessionChief.getId()).get(4), not);
 			// Modificar notificacion
 			conexion.modifyNotificationState(sessionChief.getId(), not);
-			String state = conexion.getNotificationsProject(sessionChief.getId()).get(0).getState();
+			String state = conexion.getNotificationsProject(sessionChief.getId()).get(4).getState();
 			assertEquals(state, not.getState());
 			// Eliminar
+			conexion.deleteNotificationFromUser(sessionChief.getId(), not);
 			conexion.deleteNotification(sessionChief.getId(), not);
+			conexion.removeProjectsUser(sessionChief.getId(), chief, project);
+			assertEquals(conexion.getUsersProject(sessionChief.getId(), project).size(), 1);
+			assertEquals(conexion.getProjectsFromCurrentUser(sessionChief.getId()).size(), 0);
 		} catch(Exception e) {
 			fail(e.toString());
 		}		

@@ -1,4 +1,4 @@
-package test.control;
+package test.business;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -8,7 +8,7 @@ public class DominioTest extends TestCase {
 	
 	public static Test suite() {
 		TestSuite suite = new
-		TestSuite("Tests para la capa de dominio");
+		TestSuite("Business and Control Layer Test");
 		suite.addTestSuite(PruebasControlador.class);
 		suite.addTestSuite(PruebasSesiones.class);
 		suite.addTestSuite(CBRTest.class);
@@ -17,6 +17,7 @@ public class DominioTest extends TestCase {
 		suite.addTestSuite(ProjectsControllerTest.class);
 		suite.addTestSuite(NotificationsControllerTest.class);
 		suite.addTestSuite(KnowledgeControllerTest.class);
+		suite.addTestSuite(LanguageTest.class);
 		return suite;
 	}
 
