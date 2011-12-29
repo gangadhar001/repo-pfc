@@ -377,6 +377,7 @@ public class panelKnowledgeView extends ImagePanel {
 	/*** Methods used to notify new knowledge ***/ 
 	// Refresh graph and tree
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
+		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("knowledgeEdited") + " " + oldK.getTitle(), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 		refreshKnowledge();			
 		editKnowledgeFromGraph(newK, oldK);
 		editKnowledgeFromTree(newK, oldK);	
@@ -386,6 +387,7 @@ public class panelKnowledgeView extends ImagePanel {
 
 	// Refresh graph and tree
 	public void notifyKnowledgeRemoved(Knowledge k) {
+		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("knowledgeRemoved") + " " + k.getTitle(), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 		refreshKnowledge();
 		deleteKnowledgeFromGraph(k);
 		deleteKnowledgeFromTree(k);	
@@ -395,6 +397,7 @@ public class panelKnowledgeView extends ImagePanel {
 	
 	// Refresh graph and tree, because this client has added knowledge
 	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
+		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("knowledgeAdded") + " " + k.getTitle(), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 		refreshKnowledge();
 		addKnowledgeToGraph(k, parentK);
 		addKnowledgeToTree(k, parentK);

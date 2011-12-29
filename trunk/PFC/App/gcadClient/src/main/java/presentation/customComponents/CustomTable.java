@@ -25,6 +25,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import model.business.knowledge.Notification;
+
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -55,6 +57,8 @@ public class CustomTable extends JTable {
 		super();
 		selectedRowPopup = -1;
 		this.parent = parent;
+		this.setAutoCreateRowSorter(true);
+		this.setAutoResizeMode(AUTO_RESIZE_ALL_COLUMNS);
 	}
 	
 	public boolean isCellEditable(int row, int column) {
@@ -201,10 +205,12 @@ public class CustomTable extends JTable {
 	// Remove a row
 	public void removeRow (int row) {
 		if (row != -1) {
-			DefaultTableModel model = (DefaultTableModel)getModel();
-			model.removeRow(row);
-			try {
-				ClientController.getInstance().removeNotificationFromUser(parent.getNotification(row));
+			try {		
+				Notification n = parent.getNotification(row);
+				DefaultTableModel model = (DefaultTableModel)getModel();
+				model.removeRow(row);
+				ClientController.getInstance().removeNotificationFromUser(n);
+				parent.getNotifications().remove(n);
 				parent.clearSelection();
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(parent, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

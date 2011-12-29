@@ -42,9 +42,11 @@ import org.jdesktop.swingx.auth.LoginAdapter;
 import presentation.JDAbout;
 import presentation.JDChooseProject;
 import presentation.JDLanguages;
+import presentation.JFLogin;
 import presentation.JFMain;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
+import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
 
 /**
@@ -308,7 +310,9 @@ public class CustomMenubar extends JMenuBar {
 	@Action
 	//TODO: completar
 	public void login() {
-		// ....
+		Application.launch(JFLogin.class, null);
+		// Get available operations for the logged user
+		//ClientController.getInstance().getAvailableOperations();
 		// Enabled menu items
 		menuFileLogin.setEnabled(false);
 		menuFileCloseSession.setEnabled(true);

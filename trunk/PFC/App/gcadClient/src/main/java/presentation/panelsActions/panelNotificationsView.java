@@ -1,4 +1,5 @@
 package presentation.panelsActions;
+
 import internationalization.ApplicationInternationalization;
 
 import java.awt.Dimension;
@@ -12,12 +13,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -75,7 +78,7 @@ public class panelNotificationsView extends ImagePanel {
 		try {
 			super.setImage(ImagesUtilities.loadCompatibleImage("background.png"));			
 			// Get notifications for the actual project
-			notifications = ClientController.getInstance().getNotificationsProject();			
+			notifications = ClientController.getInstance().getNotificationsUser();		
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -126,6 +129,10 @@ public class panelNotificationsView extends ImagePanel {
 			notificationsTable.setValueAt(title, i, 2);
 			notificationsTable.setValueAt(date, i, 3);
 			notificationsTable.setValueAt(subject, i, 4);
+			notificationsTable.setValueAt(n.getId(), i, 5);
+			notificationsTable.getColumnModel().getColumn(5).setMaxWidth(0);
+			notificationsTable.getColumnModel().getColumn(5).setMinWidth(0);
+			notificationsTable.getColumnModel().getColumn(5).setPreferredWidth(0);
 			// If the notification state is "unread", colorize the row
 			if (notifications.get(i).getState().equals("Unread"))
 				notificationsTable.addRowToColorize(i);
@@ -169,23 +176,27 @@ public class panelNotificationsView extends ImagePanel {
 				scrollTable.setPreferredSize(new java.awt.Dimension(988, 349));
 				{					
 					notificationsTable = new NotificationsTable(this);
-					DefaultTableModel model = new DefaultTableModel(notifications.size(), 5);
+					DefaultTableModel model = new DefaultTableModel(notifications.size(), 6);
 					notificationsTable.setModel(model);
 					scrollTable.setViewportView(notificationsTable);
 					notificationsTable.setShowHorizontalLines(false);
 					notificationsTable.setShowVerticalLines(false);
 					notificationsTable.setFillsViewportHeight(true);
 					notificationsTable.setIntercellSpacing(new Dimension(10,0));
-					//notificationsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					notificationsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					notificationsTable.bound();
 					notificationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 						@Override
 						public void valueChanged(ListSelectionEvent ev) {
+							int previousRow = rowSelected;
+							rowSelected = notificationsTable.getSelectedRow();
 							if (rowSelected != -1) {
-								rowSelected = notificationsTable.getSelectedRow();
-								notificationsTable.setValueAt(new Boolean(true), rowSelected, 0);
-								enableToolbarButtons(true);
-								markRead(rowSelected);
+								if (rowSelected != previousRow) {
+									enableToolbarButtons(true);
+									markRead(rowSelected, getNotification(rowSelected));
+								}
+								else 
+									clearSelection();
 							}
 							else
 								clearSelection();
@@ -206,7 +217,7 @@ public class panelNotificationsView extends ImagePanel {
 				lblDetail = new JLabel();
 				this.add(lblDetail, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 10, 10, 10), 0, 0));
 				lblDetail.setName("lblDetail");
-				lblDetail.setFont(new Font(chkAll.getFont().getName(), Font.BOLD, chkAll.getFont().getSize()));
+				lblDetail.setFont(new Font(chkAll.getFont().getName(), Font.BOLD, 16));
 				lblDetail.setPreferredSize(new java.awt.Dimension(981, 34));
 				lblDetail.setText(ApplicationInternationalization.getString("DetailNotificationsTable"));
 			}
@@ -226,14 +237,14 @@ public class panelNotificationsView extends ImagePanel {
 		}
 	}
 	
-	protected void markRead(int row) {
+	protected void markRead(int row, Notification n) {
 		// When select a row, show the details and mark this notification as "read"
 		if (row != -1) {
 			// Change color
 			notificationsTable.deleteRowToColorize(row);
-			notifications.get(rowSelected).setState("Read");
+			n.setState("Read");
 			try {
-				ClientController.getInstance().modifyNotificationState(notifications.get(rowSelected));
+				ClientController.getInstance().modifyNotificationState(n);
 			} catch (NotLoggedException e) {
 				JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
@@ -243,21 +254,21 @@ public class panelNotificationsView extends ImagePanel {
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-			showDetailRow();
+			showDetailRow(n);
 		}
 		else
 			clearSelection();
 		
 	}
 	
-	protected void markUnread(int row) {
+	protected void markUnread(int row, Notification n) {
 		// When select a row, show the details and mark this notification as "read"
 		if (row != -1) {
 			// Change color
 			notificationsTable.addRowToColorize(row);
-			notifications.get(rowSelected).setState("Unread");
+			n.setState("Unread");
 			try {
-				ClientController.getInstance().modifyNotificationState(notifications.get(rowSelected));
+				ClientController.getInstance().modifyNotificationState(n);
 			} catch (NotLoggedException e) {
 				JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
@@ -267,134 +278,148 @@ public class panelNotificationsView extends ImagePanel {
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(parent.getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-			showDetailRow();
+			showDetailRow(n);
 		}
 		else
 			clearSelection();
 		
 	}
 
-	private void showDetailRow() {
-		txtDetails.setText("");
-		Notification n = notifications.get(rowSelected);
-		Knowledge k = n.getKnowledge();		
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		txtDetails.setFont(new Font(lblDetail.getFont().getName(), lblDetail.getFont().getStyle(), 14));
-		// Create text and styles for TextPane
-		if (k != null) {		
-			String[] initString = {
-				n.getSubject(),
-				"\n\n",
-				ApplicationInternationalization.getString("modifiedDate_Notification") + ": ",
-				format.format(k.getDate()),
-				"\n\n",
-				ApplicationInternationalization.getString("knowledgeInformation_Notification"),
-				"\n",
-				"    " + ApplicationInternationalization.getString("titleKnowledge_Notification") + ": ",
-				k.getTitle(),
-				"\n",
-				"    " + ApplicationInternationalization.getString("knowledgeDescription_Notification") + ": ",
-				k.getDescription(),
-				"\n",
-				"    " + ApplicationInternationalization.getString("knowledgeStatus_Notification") + ": ",
-				ApplicationInternationalization.getString(k.getStatus().name()),
-				"\n",
-				"    " + ApplicationInternationalization.getString("filesStatus_Notification") + ": ",
-				String.valueOf(k.getFiles().size()),
-				"\n\n",
-				
-				ApplicationInternationalization.getString("knowledgeAuthor_Notification"),
-				"\n",
-				"    " + ApplicationInternationalization.getString("authorName_Notification") + ": ",
-				k.getUser().getName() + ", " + k.getUser().getSurname(),
-				"\n",
-				"    " + ApplicationInternationalization.getString("authorRole_Notification") + ": ",
-				ApplicationInternationalization.getString(k.getUser().getRole().name()),
-				"\n",
-				"    " + ApplicationInternationalization.getString("authorSeniority_Notification") + ": ",
-				String.valueOf(k.getUser().getSeniority()),
-				"\n",
-				"    " + ApplicationInternationalization.getString("authorCompany_Notification") + ": ",
-				k.getUser().getCompany().getName() + " (" + k.getUser().getCompany().getAddress().getCity() +
-							", " + k.getUser().getCompany().getAddress().getCountry() + ")"
-			};
-		
-			String[] initStyles = { 
-					"bold", "regular",
-					"bold", "regular", "regular",
-					"bold", "regular",
-					"bold", "regular", "regular",
-					"bold", "regular", "regular",					
-					"bold", "regular", "regular",					
-					"bold", "regular", "regular",					
-					"bold", "regular",					
-					"bold", "regular", "regular",
-					"bold", "regular", "regular",
-					"bold", "regular", "regular",
-					"bold", "regular"
-			};		
-			
-			TextPaneUtilities.setStyledText(txtDetails, initString, initStyles);
-			//txtDetails.setCaretPosition(txtDetails.getText().length());
-		}
-		
-		else {
-			Object [] information = parseSubject(n.getSubject());
-			String title = information[1].toString();
-			Date date = null;
-			try {
-				date = format.parse(information[2].toString());
-			} catch (ParseException e1) {
-				date = new Date();
-			}
-			String subject = information[3].toString();		
-			String author = information[4].toString();
-			String company = information[5].toString();
-			String[] initString = {
-					subject,
+	private void showDetailRow(Notification n) {
+		if (!chkAll.isSelected()) {
+			txtDetails.setText("");		
+			Knowledge k = n.getKnowledge();		
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			txtDetails.setFont(new Font(lblDetail.getFont().getName(), Font.PLAIN, 12));
+			// Create text and styles for TextPane
+			if (k != null) {		
+				String[] initString = {
+					n.getSubject(),
 					"\n\n",
 					ApplicationInternationalization.getString("modifiedDate_Notification") + ": ",
-					format.format(date),
+					format.format(k.getDate()),
 					"\n\n",
-					ApplicationInternationalization.getString("knowledgeDescription_Notification") + ": ",
+					ApplicationInternationalization.getString("knowledgeInformation_Notification"),
 					"\n",
 					"    " + ApplicationInternationalization.getString("titleKnowledge_Notification") + ": ",
-					title,
+					k.getTitle(),
+					"\n",
+					"    " + ApplicationInternationalization.getString("knowledgeDescription_Notification") + ": ",
+					k.getDescription(),
+					"\n",
+					"    " + ApplicationInternationalization.getString("knowledgeStatus_Notification") + ": ",
+					ApplicationInternationalization.getString(k.getStatus().name()),
+					"\n",
+					"    " + ApplicationInternationalization.getString("filesStatus_Notification") + ": ",
+					String.valueOf(k.getFiles().size()),
 					"\n\n",
 					
 					ApplicationInternationalization.getString("knowledgeAuthor_Notification"),
 					"\n",
 					"    " + ApplicationInternationalization.getString("authorName_Notification") + ": ",
-					author,
+					k.getUser().getName() + ", " + k.getUser().getSurname(),
+					"\n",
+					"    " + ApplicationInternationalization.getString("authorRole_Notification") + ": ",
+					ApplicationInternationalization.getString(k.getUser().getRole().name()),
+					"\n",
+					"    " + ApplicationInternationalization.getString("authorSeniority_Notification") + ": ",
+					String.valueOf(k.getUser().getSeniority()),
 					"\n",
 					"    " + ApplicationInternationalization.getString("authorCompany_Notification") + ": ",
-					company
+					k.getUser().getCompany().getName() + " (" + k.getUser().getCompany().getAddress().getCity() +
+								", " + k.getUser().getCompany().getAddress().getCountry() + ")"
 				};
 			
 				String[] initStyles = { 
 						"bold", "regular",
-						"regular", "regular", "regular",
+						"bold", "regular", "regular",
 						"bold", "regular",
 						"bold", "regular", "regular",
-						
-						"bold", "regular", 
+						"bold", "regular", "regular",					
+						"bold", "regular", "regular",					
+						"bold", "regular", "regular",					
+						"bold", "regular",					
+						"bold", "regular", "regular",
+						"bold", "regular", "regular",
 						"bold", "regular", "regular",
 						"bold", "regular"
-				};	
-
-			TextPaneUtilities.setStyledText(txtDetails, initString, initStyles);
-			//txtDetails.setCaretPosition(txtDetails.getText().length());
+				};		
+				
+				TextPaneUtilities.setStyledText(txtDetails, initString, initStyles);
+				//txtDetails.setCaretPosition(txtDetails.getText().length());
+			}
+			
+			else {
+				Object [] information = parseSubject(n.getSubject());
+				String title = information[1].toString();
+				Date date = null;
+				try {
+					date = format.parse(information[2].toString());
+				} catch (ParseException e1) {
+					date = new Date();
+				}
+				String subject = information[3].toString();		
+				String author = information[4].toString();
+				String company = information[5].toString();
+				String[] initString = {
+						subject,
+						"\n\n",
+						ApplicationInternationalization.getString("modifiedDate_Notification") + ": ",
+						format.format(date),
+						"\n\n",
+						ApplicationInternationalization.getString("knowledgeDescription_Notification") + ": ",
+						"\n",
+						"    " + ApplicationInternationalization.getString("titleKnowledge_Notification") + ": ",
+						title,
+						"\n\n",
+						
+						ApplicationInternationalization.getString("knowledgeAuthor_Notification"),
+						"\n",
+						"    " + ApplicationInternationalization.getString("authorName_Notification") + ": ",
+						author,
+						"\n",
+						"    " + ApplicationInternationalization.getString("authorCompany_Notification") + ": ",
+						company
+					};
+				
+					String[] initStyles = { 
+							"bold", "regular",
+							"regular", "regular", "regular",
+							"bold", "regular",
+							"bold", "regular", "regular",
+							
+							"bold", "regular", 
+							"bold", "regular", "regular",
+							"bold", "regular"
+					};	
+	
+				TextPaneUtilities.setStyledText(txtDetails, initString, initStyles);
+				//txtDetails.setCaretPosition(txtDetails.getText().length());
+			}
 		}
-		
 	}
 	
 	public void removeRow() {
-		notificationsTable.removeRow(rowSelected);
+		for (int i = 0; i < notificationsTable.getRowCount(); i++) {
+			if (((Boolean) notificationsTable.getValueAt(i, 0)).booleanValue()){
+				notificationsTable.removeRow(i);
+			}
+		}
 		clearSelection();
+		if (notificationsTable.getRowCount() == 0)
+			chkAll.setSelected(false);
 	}
 
 	public Notification getNotification(int row) {
-		return notifications.get(row); 
+		Notification n = null;
+		boolean found = false;
+		for(int i = 0; i < notifications.size() && !found; i++) {
+			if (notifications.get(i).getId() == Integer.parseInt(notificationsTable.getValueAt(row, 5).toString())) {
+				n = notifications.get(i);
+				found = true;
+			}
+		}
+		return n;
 	}
 
 	public JCheckBox getChkAll() {
@@ -419,8 +444,9 @@ public class panelNotificationsView extends ImagePanel {
 	public void markRead() {
 		for (int i = 0; i < notificationsTable.getRowCount(); i++) {
 			if (((Boolean) notificationsTable.getValueAt(i, 0)).booleanValue()){
-				if (getNotification(i).getState() != "Read")
-					markRead(i);
+				Notification n = getNotification(i); 
+				if (n.getState() != "Read")
+					markRead(i, n);
 			}
 		}
 		
@@ -430,17 +456,21 @@ public class panelNotificationsView extends ImagePanel {
 	public void markUnread() {
 		for (int i = 0; i < notificationsTable.getRowCount(); i++) {
 			if (((Boolean) notificationsTable.getValueAt(i, 0)).booleanValue()){
-				if (getNotification(i).getState() != "Unread")
-					markUnread(i);
+				Notification n = getNotification(i);
+				if (n.getState() != "Unread")
+					markUnread(i, n);
 			}
-		}
-		
+		}		
 	}
 	
 	public void enableToolbarButtons(boolean value) {
 		parent.enableToolbarButton("DeleteNotifications", value);
 		parent.enableToolbarButton("MarkReadNotifications", value);
 		parent.enableToolbarButton("MarkUnreadNotifications", value);
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
 	}
 	
 	

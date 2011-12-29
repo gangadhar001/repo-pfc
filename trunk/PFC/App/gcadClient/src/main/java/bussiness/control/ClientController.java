@@ -132,15 +132,15 @@ public class ClientController {
 		
 	}
 	
-	// Close login frame and show main frame	
-	public void showMainFrame() {
-		Application.getInstance(JFLogin.class).getMainFrame().dispose();
-		Application.launch(JFMain.class, null);
-	}
+//	// Close login frame and show main frame	
+//	public void showMainFrame() {
+//		Application.getInstance(JFLogin.class).getMainFrame().dispose();
+//		Application.launch(JFMain.class, null);
+//	}
 	
 	// Show the login frame
 	public void startApplication(String [] args) {
-		Application.launch(JFLogin.class, args);		
+		Application.launch(JFMain.class, args);		
 	}
 	
 	
@@ -447,6 +447,10 @@ public class ClientController {
 	public void changeStatusKnowledge(Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception {
 		server.changeStatusKnowledge(session.getId(), k);
 		
-	}	
+	}
+
+	public ArrayList<Notification> getNotificationsUser() throws SQLException, NotLoggedException, RemoteException, Exception {
+		return server.getNotificationsUser(session.getId());
+	}
 	
 }
