@@ -43,7 +43,6 @@ import communication.ExportedClient;
 import communication.ProxyServer;
 
 import exceptions.IncorrectEmployeeException;
-import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -389,9 +388,11 @@ public class ClientController {
 		if(client != null) {
 			client.disabled(clientIP);
 		}
-			
-		Application.getInstance(JFLogin.class).getMainFrame().dispose();
-		Application.getInstance(JFMain.class).getMainFrame().dispose();
+		try {	
+			Application.getInstance(JFLogin.class).getMainFrame().dispose();
+			Application.getInstance(JFMain.class).getMainFrame().dispose();
+		}
+		catch(Exception e) { }
 	}
 
 	public String getRole() {
