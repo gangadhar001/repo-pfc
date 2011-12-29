@@ -11,15 +11,17 @@ import model.business.knowledge.Categories;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
 import model.business.knowledge.Employee;
+import model.business.knowledge.File;
 import model.business.knowledge.ISession;
+import model.business.knowledge.KnowledgeStatus;
 import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
+import test.IDatosPruebas;
 import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
-import test.utils.IDatosPruebas;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -71,7 +73,7 @@ public class KnowledgeControllerTest extends PruebasBase {
 			server = new Server();
 			chief.getProjects().add(project);
 			employee.getProjects().add(project);
-			// INiciar sessión y registrar dos clientes
+			// Iniciar sessión y registrar dos clientes
 			sessionChief = server.login("emp2", "emp2");
 			sessionEmployee = server.login("emp1", "emp1");
 			Server.getInstance().addProjectsUser(sessionChief.getId(), chief, project);
@@ -122,11 +124,9 @@ public class KnowledgeControllerTest extends PruebasBase {
 			Server.getInstance().addTopic(sessionChief.getId(), topic);
 			assertTrue(Server.getInstance().getTopicsWrapper(sessionChief.getId()).getTopics().size()==1);
 			assertEquals(Server.getInstance().getTopicsWrapper(sessionChief.getId()).getTopics().get(0), topic);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio
+			Thread.sleep(700);
 			assertEquals(employeeClient.getUltimoDato(), topic);
-			//TODO:
-			//assertNull(chiefClient.getUltimoDato());
 		} catch(Exception e) {
 			fail(e.toString());
 		}		
@@ -170,8 +170,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			assertTrue(Server.getInstance().getProposals(sessionEmployee.getId()).size() == 1);
 			assertEquals(Server.getInstance().getProposals(sessionEmployee.getId()).get(0), pro);
 			assertEquals(server.findParentProposal(sessionEmployee.getId(), pro), topic);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(chiefClient.getUltimoDato(), pro);
 			assertFalse(employeeClient.getUltimoDato().equals(pro));
 		} catch(Exception e) {
@@ -218,8 +218,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			assertTrue(Server.getInstance().getAnswers(sessionEmployee.getId()).size()==1);
 			assertEquals(Server.getInstance().getAnswers(sessionEmployee.getId()).get(0), ans);
 			assertEquals(server.findParentAnswer(sessionEmployee.getId(), ans), pro);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(chiefClient.getUltimoDato(), ans);
 			assertFalse(employeeClient.getUltimoDato().equals(pro));
 		} catch(Exception e) {
@@ -279,11 +279,9 @@ public class KnowledgeControllerTest extends PruebasBase {
 			newTopic.setTitle("new Title");
 			Server.getInstance().modifyTopic(sessionChief.getId(), newTopic, topic);
 			assertEquals(server.getTopicsWrapper(sessionChief.getId()).getTopics().get(0), newTopic);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(employeeClient.getUltimoDato(), newTopic);
-			// TODO
-			//assertNull(chiefClient.getUltimoDato());
 		} catch (NonExistentTopicException e) { 
 		} catch(Exception e) {
 			fail(e.toString());
@@ -331,8 +329,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			Server.getInstance().modifyProposal(sessionEmployee.getId(), newPro, pro, topic);
 			assertTrue(server.getProposals(sessionEmployee.getId()).size() == 1);
 			assertEquals(server.getProposals(sessionEmployee.getId()).get(0), newPro);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(chiefClient.getUltimoDato(), newPro);
 			assertFalse(employeeClient.getUltimoDato().equals(newPro));
 		} catch (NonExistentTopicException e) { 
@@ -349,8 +347,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			assertTrue(server.getTopicsWrapper(sessionEmployee.getId()).getTopics().size() == 2);
 			assertTrue(server.getTopicsWrapper(sessionEmployee.getId()).getTopic(topic2).getProposals().contains(newPro));
 			assertFalse(server.getTopicsWrapper(sessionEmployee.getId()).getTopic(topic).getProposals().contains(newPro));
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(chiefClient.getUltimoDato(), newPro);
 			assertFalse(employeeClient.getUltimoDato().equals(newPro));
 		} catch (NonExistentTopicException e) { 
@@ -401,8 +399,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			newAnswer.setTitle("new Title");
 			Server.getInstance().modifyAnswer(sessionEmployee.getId(), newAnswer, ans, pro);
 			assertEquals(server.getAnswers(sessionEmployee.getId()).get(0), newAnswer);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(chiefClient.getUltimoDato(), newAnswer);
 			assertFalse(employeeClient.getUltimoDato().equals(newAnswer));
 		} catch (NonExistentTopicException e) { 
@@ -417,8 +415,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			Server.getInstance().modifyAnswer(sessionEmployee.getId(), newAnswer, ans, pro2);
 			assertTrue(server.getAnswers(sessionEmployee.getId()).get(0).getId() != ans.getId());
 			assertTrue(server.getProposals(sessionEmployee.getId()).size() == 2);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(chiefClient.getUltimoDato(), newAnswer);
 			assertFalse(employeeClient.getUltimoDato().equals(newAnswer));
 		} catch (NonExistentTopicException e) { 
@@ -462,11 +460,9 @@ public class KnowledgeControllerTest extends PruebasBase {
 			assertTrue(Server.getInstance().getTopicsWrapper(sessionChief.getId()).getTopics().size() == 1);
 			Server.getInstance().deleteTopic(sessionChief.getId(), topic);
 			assertTrue(Server.getInstance().getTopicsWrapper(sessionEmployee.getId()).getTopics().size() == 0);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(employeeClient.getUltimoDato(), topic);
-			//TODO:
-			//assertNull(chiefClient.getUltimoDato());
 		} catch(Exception e) {
 			fail(e.toString());
 		}	
@@ -500,11 +496,9 @@ public class KnowledgeControllerTest extends PruebasBase {
 			assertTrue(Server.getInstance().getProposals(sessionChief.getId()).size() == 1);
 			Server.getInstance().deleteProposal(sessionChief.getId(), pro);
 			assertTrue(Server.getInstance().getProposals(sessionChief.getId()).size() == 0);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(employeeClient.getUltimoDato(), pro);
-			//TODO:
-			//assertNull(chiefClient.getUltimoDato());
 		} catch(Exception e) {
 			fail(e.toString());
 		}	
@@ -540,11 +534,9 @@ public class KnowledgeControllerTest extends PruebasBase {
 			assertTrue(Server.getInstance().getAnswers(sessionChief.getId()).size() == 1);
 			Server.getInstance().deleteAnswer(sessionChief.getId(), ans);
 			assertTrue(Server.getInstance().getAnswers(sessionChief.getId()).size() == 0);
-			// Comprobamos que se ha avisado a los clientes del cambio del beneficiario
-			Thread.sleep(100);
+			// Comprobamos que se ha avisado a los clientes del cambio 
+			Thread.sleep(700);
 			assertEquals(employeeClient.getUltimoDato(), ans);
-			//TODO:
-			//assertNull(chiefClient.getUltimoDato());
 		} catch(Exception e) {
 			fail(e.toString());
 		}	
@@ -626,5 +618,74 @@ public class KnowledgeControllerTest extends PruebasBase {
 		} catch(Exception e) {
 			fail(e.toString());
 		}
+	}
+	
+	public void testAttachFiles() {
+		try {
+			// Se intenta adjuntar archivos con una sesión inválida		
+			Server.getInstance().attachFile(-15, null, null);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}		
+		
+		try {
+			// Se adjunta un archivo
+			byte[] content =  {8, 12};
+			File file = new File("file", content);
+			Server.getInstance().setCurrentProject(sessionChief.getId(), project.getId());
+			Server.getInstance().setCurrentProject(sessionEmployee.getId(), project.getId());
+			topic.setId(Server.getInstance().addTopic(sessionChief.getId(), topic).getId());
+			Server.getInstance().attachFile(sessionEmployee.getId(), topic, file);
+			assertTrue(topic.getFiles().size()==1);
+			// Se recupera la decision y se comprueba que el contenido del archivo es el mismo
+			TopicWrapper tw = Server.getInstance().getTopicsWrapper(sessionEmployee.getId(), project);
+			Topic to = tw.getTopic(topic);
+			assertEquals(to.getFiles().size(), 1);
+			assertEquals(((File)to.getFiles().toArray()[0]).getContent()[0], content[0]);			
+			assertEquals(((File)to.getFiles().toArray()[0]).getContent()[1], content[1]);
+			// Comprobamos que se ha avisado a los clientes del cambio
+			Thread.sleep(700);
+			assertEquals(chiefClient.getUltimoDato(), topic);
+		} catch(Exception e) {
+			fail(e.toString());
+		}		
+	}
+	
+	public void testChangeStatusKnowledge() {
+		try {
+			// Se intenta cambiar el estado de una decisión con una sesión inválida
+			Server.getInstance().changeStatusKnowledge(-15, null);
+			fail("se esperaba NotLoggedException");
+		} catch (NotLoggedException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NotLoggedException");
+		}		
+		
+		try {
+			// Se intenta cambiar el estado de una decisión sin tener permiso
+			Server.getInstance().changeStatusKnowledge(sessionEmployee.getId(), pro);
+			fail("se esperaba NonPermissionRoleException");
+		} catch (NonPermissionRoleException e) { 
+		} catch(Exception e) {
+			fail("se esperaba NonPermissionRoleException");
+		}		
+		
+		try {
+			Server.getInstance().setCurrentProject(sessionChief.getId(), project.getId());
+			topic.setId(Server.getInstance().addTopic(sessionChief.getId(), topic).getId());
+			Server.getInstance().addProposal(sessionChief.getId(), pro, topic);
+			// Se cambia el estado de las decisiones
+			topic.setStatus(KnowledgeStatus.Accepted);
+			Server.getInstance().changeStatusKnowledge(sessionChief.getId(), topic);			
+			TopicWrapper tw = Server.getInstance().getTopicsWrapper(sessionChief.getId(), project);
+			assertTrue(tw.getTopics().get(0).getStatus().name().equals(topic.getStatus().name()));
+			// Comprobamos que se ha avisado a los clientes del cambio
+			Thread.sleep(700);
+			assertEquals(employeeClient.getUltimoDato(), topic);
+		} catch(Exception e) {
+			fail(e.toString());
+		}		
 	}
 }

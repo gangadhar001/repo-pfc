@@ -15,7 +15,7 @@ import model.business.knowledge.Notification;
 import communication.IClient;
 
 /**
- * Cliente dummy utilizado en las pruebas del servidor front-end.
+ * Cliente dummy utilizado en las pruebas del servidor
  */
 public class ClientePrueba extends UnicastRemoteObject implements IClient {
 
@@ -107,8 +107,7 @@ public class ClientePrueba extends UnicastRemoteObject implements IClient {
 
 	@Override
 	public void notifyKnowledgeRemoved(Knowledge k) throws RemoteException {
-		ultimoDato = k;
-		
+		ultimoDato = k;	
 	}
 
 	@Override
@@ -126,6 +125,11 @@ public class ClientePrueba extends UnicastRemoteObject implements IClient {
 	public void notifyNotificationAvailable(Notification n)
 			throws RemoteException {
 		ultimoDato = n;
+		
+	}
+
+	public void setUltimoDato(Object object) {
+		ultimoDato = object;
 		
 	}
 	

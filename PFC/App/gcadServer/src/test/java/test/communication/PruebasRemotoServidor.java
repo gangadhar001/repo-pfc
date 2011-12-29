@@ -80,9 +80,6 @@ public class PruebasRemotoServidor extends PruebasBase {
 		Topic topic;
 		Notification not;
 		
-		// Todas las operaciones de la clase RemotoServidorFrontend se redirigen
-		// a la clase ServidorFrontend, la cual se prueba con los casos de prueba
-		// de los gestores; por eso aquí no se contempla más que algunos ejemplos
 		
 		try {
 			// Probamos las operaciones de gestión de sesiones

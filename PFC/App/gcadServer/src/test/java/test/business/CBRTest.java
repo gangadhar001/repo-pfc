@@ -26,6 +26,7 @@ import test.communication.PruebasBase;
 import communication.DBConnection;
 import communication.DBConnectionManager;
 
+import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
@@ -109,11 +110,11 @@ public class CBRTest extends PruebasBase {
 		try {
 			// Se intenta ejecutar un algoritmo de CBR sin tener permiso
 			session = Server.getInstance().login("emp1", "emp1");
-			Server.getInstance().executeAlgorithm(-15, EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
-			fail("Se esperaba NotLoggedException");
-		} catch (NotLoggedException e) {
+			Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
+			fail("Se esperaba NonPermissionRoleException");
+		} catch (NonPermissionRoleException e) {
 		} catch (Exception e) {
-			fail("Se esperaba NotLoggedException");
+			fail("Se esperaba NonPermissionRoleException");
 		}
 	}
 		

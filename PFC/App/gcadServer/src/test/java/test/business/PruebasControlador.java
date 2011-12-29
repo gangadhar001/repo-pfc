@@ -17,9 +17,9 @@ import org.uispec4j.Trigger;
 import org.uispec4j.Window;
 import org.uispec4j.interception.WindowInterceptor;
 
+import test.IDatosPruebas;
 import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
-import test.utils.IDatosPruebas;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;

@@ -334,7 +334,6 @@ public class KnowledgeController {
 		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Add.name()));
 
 		k.getFiles().add(file);
-//		DAOFile.insert(file);
 		if (k instanceof Topic)
 			DAOTopic.update((Topic)k);
 		else if (k instanceof Proposal)
@@ -348,14 +347,15 @@ public class KnowledgeController {
 	
 	public static <T> byte[] exportInformation(long sessionId, Project project) throws NonPermissionRoleException, NotLoggedException, JAXBException, SQLException {
 		// Check if have permission to perform the operation
-		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
+		SessionController.checkPermission(sessionId, new Operation(Groups.Export.name(), Subgroups.Export.name(), Operations.Export.name()));
+		
 		TopicWrapper tw = getTopicsWrapper(sessionId, project);
 		return (XMLUtilities.marshal(tw.getClass(), tw)).toByteArray();
 	}
 
 	public static void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, NotLoggedException, SQLException, Exception {
 		// Check if have permission to perform the operation
-		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Proposal.name(), Operations.Get.name()));
+		SessionController.checkPermission(sessionId, new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Modify.name()));
 		
 		if (k instanceof Topic)
 			DAOTopic.update((Topic)k);

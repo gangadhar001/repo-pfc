@@ -1,4 +1,4 @@
-package test.utils;
+package test;
 import test.communication.ComunicacionesTest;
 import test.business.DominioTest;
 import test.persistence.PersistenciaTest;

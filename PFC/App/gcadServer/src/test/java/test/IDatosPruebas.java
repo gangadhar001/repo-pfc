@@ -1,4 +1,4 @@
-package test.utils;
+package test;
 /**
  * Interfaz con constantes utilizadas en las pruebas.
  */

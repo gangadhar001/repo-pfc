@@ -18,9 +18,9 @@ import model.business.knowledge.Project;
 import model.business.knowledge.Proposal;
 import model.business.knowledge.Topic;
 import resources.Language;
+import test.IDatosPruebas;
 import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
-import test.utils.IDatosPruebas;
 
 public class LanguageTest extends PruebasBase {
 	
