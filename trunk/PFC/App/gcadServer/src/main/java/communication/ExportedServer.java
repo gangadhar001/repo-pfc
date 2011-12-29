@@ -1,6 +1,5 @@
 package communication;
 
-import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
@@ -38,7 +37,6 @@ import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentAnswerException;
-import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;

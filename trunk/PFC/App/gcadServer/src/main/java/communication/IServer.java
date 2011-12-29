@@ -1,6 +1,5 @@
 package communication;
 
-import java.io.ByteArrayOutputStream;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -30,7 +29,6 @@ import model.business.knowledge.User;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
 import exceptions.NonExistentAnswerException;
-import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonExistentProposalException;
 import exceptions.NonExistentTopicException;
@@ -53,27 +51,28 @@ public interface IServer extends Remote {
 
 	public void register(long sessionID, IClient client) throws RemoteException, NotLoggedException, Exception;
 		
-	/*** Methods used to add new Knowledge 
-	 * @return ***/
+	/*** Methods used to add new Knowledge ***/
 	public Topic addTopic (long sessionId, Topic topic) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 	
-	public Proposal addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Proposal addProposal (long sessionId, Proposal p, Topic parent) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
-	public Answer addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Answer addAnswer (long sessionId, Answer a, Proposal parent) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
 	/*** Methods used to modify Knowledge  ***/
 	public Topic modifyTopic(long sessionId, Topic newTopic, Topic oldTopic) throws RemoteException, SQLException, NonExistentTopicException, NonPermissionRoleException, NotLoggedException, Exception;
 	
-	public Proposal modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NonExistentProposalException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Proposal modifyProposal(long sessionId, Proposal newProposal, Proposal oldProposal, Topic parent) throws RemoteException, NonExistentProposalException, SQLException, NotLoggedException, Exception;
 	
-	public Answer modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, NonExistentAnswerException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Answer modifyAnswer(long sessionId, Answer newAnswer, Answer oldAnswer, Proposal parent) throws RemoteException, NonExistentAnswerException, SQLException, NotLoggedException, Exception;
+	
+	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception;
 		
 	/*** Methods used to delete Knowledge ***/
 	public void deleteTopic(long sessionId, Topic to) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentTopicException, NotLoggedException, Exception;
 	
-	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentProposalException, NotLoggedException, Exception;
+	public void deleteProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonExistentProposalException, NotLoggedException, Exception;
 
-	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRoleException, NonExistentAnswerException, NotLoggedException, Exception;	
+	public void deleteAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonExistentAnswerException, NotLoggedException, Exception;	
 	
 	/*** Methods used to manage projects ***/
 	public Project createProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
@@ -84,64 +83,63 @@ public interface IServer extends Remote {
 	
 	public void removeProjectsUser(long sessionId, User user, Project project) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 		
-	public List<Project> getProjects(long sessionId) throws RemoteException, NonPermissionRoleException, NotLoggedException, SQLException, Exception;
+	public List<Project> getProjects(long sessionId) throws RemoteException, NotLoggedException, SQLException, Exception;
 	
-	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public List<User> getUsersProject(long sessionId, Project p) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
 	public List<Project> getProjectsFromCurrentUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
 	
 	/*** Methods used to manage notifications ***/	
-	public ArrayList<Notification> getNotificationsProject(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public ArrayList<Notification> getNotificationsProject(long sessionId) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
-	public ArrayList<Notification> getNotificationsUser(long sessionId) throws SQLException, NonPermissionRoleException, NotLoggedException, RemoteException, Exception;
+	public ArrayList<Notification> getNotificationsUser(long sessionId) throws SQLException, NotLoggedException, RemoteException, Exception;
 
-	public void createNotification(long sessionId, Notification n) throws SQLException, NonPermissionRoleException, NotLoggedException, RemoteException, Exception;
+	public void createNotification(long sessionId, Notification n) throws SQLException, NotLoggedException, RemoteException, Exception;
 		
-	public void modifyNotification(long sessionId, Notification not) throws SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception;
+	public void modifyNotification(long sessionId, Notification not) throws SQLException, NotLoggedException, NonExistentNotificationException, Exception;
 	
-	public void modifyNotificationState(long sessionId, Notification not) throws NotLoggedException, SQLException, NonPermissionRoleException, Exception;
+	public void modifyNotificationState(long sessionId, Notification not) throws NotLoggedException, SQLException, Exception;
 	
-	public void deleteNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception;
+	public void deleteNotification(long sessionId, Notification notification) throws RemoteException, SQLException, NotLoggedException, NonExistentNotificationException, Exception;
 	
-	public void deleteNotificationFromUser(long sessionId, Notification notification) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, NonExistentNotificationException, Exception;
+	public void deleteNotificationFromUser(long sessionId, Notification notification) throws RemoteException, SQLException, NotLoggedException, NonExistentNotificationException, Exception;
 		
 	/*** Auxiliary methods ***/	
-	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public ArrayList<Proposal> getProposals(long sessionId) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
-	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public ArrayList<Answer> getAnswers(long sessionId) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
-	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Proposal findParentAnswer(long sessionId, Answer a) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
-	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public Topic findParentProposal(long sessionId, Proposal p) throws RemoteException, SQLException, NotLoggedException, Exception;
 
 	public void setCurrentProject(long sessionId, int idProject) throws RemoteException, NotLoggedException, Exception;
 	
-	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public TopicWrapper getTopicsWrapper(long sessionId) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
-	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public TopicWrapper getTopicsWrapper(long sessionId, Project p) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
 	public ArrayList<Operation> getAvailableOperations(long sessionId) throws RemoteException, NotLoggedException, Exception;
 	
 	public User getLoggedUser(long sessionId) throws RemoteException, NotLoggedException, Exception;
 	
-	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public List<User> getUsers(long sessionId) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
 	public Coordinates getCoordinates(long sessionId, Address add) throws NonExistentAddressException, WSResponseException, Exception;
+	
+	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception;
 		
 	/*** Methods used in CBR ***/
 	public List<Attribute> getAttributesFromProject(Project p)  throws RemoteException, Exception;
 
-	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k)	throws RemoteException, Exception;	
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception;	
 	
 	/*** Methods used to manage Files ***/
-	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
+	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NotLoggedException, Exception;
 	
 	/*** Method used to generate the PDF ***/
 	public byte[] composePDF(long sessionId, PDFConfiguration configuration, Image headerImage, Image footImage) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception;
 
-	public int getCurrentProject(long sessionId) throws RemoteException, NotLoggedException, Exception;
-
+	/*** Method used to export information ***/
 	public <T> byte[] exportInformation(long sessionId, Project project) throws RemoteException, NonPermissionRoleException, NotLoggedException, Exception;
-
-	public void changeStatusKnowledge(long sessionId, Knowledge k) throws NonPermissionRoleException, RemoteException, SQLException, NotLoggedException, Exception;
 }

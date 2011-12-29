@@ -18,9 +18,9 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.User;
 import persistence.DAOProposal;
 import persistence.DAOUser;
+import test.IDatosPruebas;
 import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
-import test.utils.IDatosPruebas;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;

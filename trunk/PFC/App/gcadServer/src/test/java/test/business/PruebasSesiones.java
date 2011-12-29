@@ -16,9 +16,9 @@ import model.business.knowledge.UserRole;
 import persistence.DAOAddress;
 import persistence.DAOCompany;
 import persistence.DAOUser;
+import test.IDatosPruebas;
 import test.communication.ClientePrueba;
 import test.communication.PruebasBase;
-import test.utils.IDatosPruebas;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NotLoggedException;
 
