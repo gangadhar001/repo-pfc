@@ -47,7 +47,6 @@ import javax.swing.JButton;
  * These methods try to avoid unmanaging the image in order to keep good
  * performance.</p>
  *
- * @author Romain Guy <romain.guy@mac.com>
  */
 public class ImagesUtilities {
     
