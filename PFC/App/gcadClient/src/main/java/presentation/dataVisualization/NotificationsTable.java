@@ -24,7 +24,7 @@ public class NotificationsTable extends CustomTable {
 	public NotificationsTable(panelNotificationsView parent) {
 		super(parent);
 		this.parentD = parent;
-		this.list = new CheckBoxListener(this);
+		this.list = new CheckBoxListener(this, parent);
 		parentD.setList(list);
 	}	
 	
@@ -48,6 +48,11 @@ public class NotificationsTable extends CustomTable {
         //cm.getColumn(3).setMaxWidth(250);
         cm.getColumn(3).setCellRenderer(new DateRenderer());
         cm.getColumn(4).setHeaderValue(ApplicationInternationalization.getString("SubjectNotification"));
+        cm.getColumn(5).setMaxWidth(0);
+        cm.getColumn(5).setWidth(0);
+        cm.getColumn(5).setMinWidth(0);
+        cm.getColumn(5).setHeaderValue("");
+        
 	}	
 
 }

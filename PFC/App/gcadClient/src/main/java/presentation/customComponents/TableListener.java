@@ -32,10 +32,7 @@ public class TableListener extends MouseAdapter {
 			parent.getChkAll().setSelected(false);
 		}
 		
-		if (checkedCount == 0)
-			parent.clearSelection();
-		else
-			parent.enableToolbarButtons(true);
+		
 			
 		parent.getChkAll().addItemListener(list);
 	}
