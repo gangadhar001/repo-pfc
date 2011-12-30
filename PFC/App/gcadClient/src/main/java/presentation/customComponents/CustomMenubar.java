@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,28 +27,28 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.MenuElement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import model.business.knowledge.Groups;
 import model.business.knowledge.Operation;
 import model.business.knowledge.Operations;
+import model.business.knowledge.Subgroups;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
-import org.jdesktop.swingx.auth.LoginAdapter;
 
 import presentation.JDAbout;
 import presentation.JDChooseProject;
 import presentation.JDLanguages;
-import presentation.JFLogin;
+import presentation.JDLogin;
 import presentation.JFMain;
 import resources.ImagesUtilities;
 import resources.MenuMnemonicsRuntime;
-import bussiness.control.ClientController;
 import bussiness.control.OperationsUtilities;
+import exceptions.NonPermissionRoleException;
+import exceptions.NotLoggedException;
 
 /**
  * Custom class that represents a custom menu bar. It manages the menus, the custom toolbar and its events
@@ -76,6 +77,10 @@ public class CustomMenubar extends JMenuBar {
 
 	private List<Component> items = new ArrayList<Component>();
 
+	private JMenu menuFile;
+
+	private JMenuItem menuFileExit;
+
 	private ActionMap getAppActionMap() {
 		return Application.getInstance().getContext().getActionMap(this);
 	}
@@ -84,18 +89,18 @@ public class CustomMenubar extends JMenuBar {
 		super();
 	}
 
-	public CustomMenubar(JFMain mainFrame, List<Operation> operations) throws MalformedURLException, IOException {
+	// Create the common menus, without logged user
+	public CustomMenubar(JFMain mainFrame) throws MalformedURLException, IOException {
 		super();
 		
 		this.mainFrame = mainFrame;
-		List<String> groups = OperationsUtilities.getAllGroupsMenu(operations);
 		
 		// Set layout to menu bar
 		setLayout(new MigLayout("align left"));
 		setPreferredSize(new Dimension(1024, MENU_HEIGHT));
 		 
 		// Add common menus
-		JMenu menuFile = new JMenu(ApplicationInternationalization.getString("menuFile"));
+		menuFile = new JMenu(ApplicationInternationalization.getString("menuFile"));
 		menuFile.setName("menuFile");
 		
 		menuFileLogin = new JMenuItem();
@@ -114,13 +119,7 @@ public class CustomMenubar extends JMenuBar {
 		menuFile.add(menuFileCloseSession);
 		menuFile.addSeparator();
 		
-		// Add "Export" operation
-		if (groups.contains(Operations.Export.name())) {
-			menuFile.add(createMenuItem(Operations.Export.name()));
-			menuFile.addSeparator();
-		}
-		
-		JMenuItem menuFileExit = new JMenuItem();
+		menuFileExit = new JMenuItem();
 		menuFileExit.setName("menuFileExit");
 		menuFileExit.setAction(getAppActionMap().get("Exit"));
 		menuFileExit.setText(ApplicationInternationalization.getString("menuItemExit"));
@@ -129,13 +128,7 @@ public class CustomMenubar extends JMenuBar {
 
 		menuTools = new JMenu(ApplicationInternationalization.getString("menuTools"));
 		menuTools.setName("menuTools");
-
-		// Add menu items to "Tools" menu. Each menu item is a group of
-		// operations
-		for (String group : groups) {
-			createToolMenuItem(group);
-		}
-		// Remove last separator
+		createToolMenuItem(Groups.Knowledge.name());
 		menuTools.remove(menuTools.getMenuComponentCount()-1);
 
 		// Add "Options" menu
@@ -170,37 +163,82 @@ public class CustomMenubar extends JMenuBar {
 		add(menuTools);
 		add(menuOptions);
 		add(menuHelp);	
-
-		// Set mnemonics
-		MenuMnemonicsRuntime.setMnemonics(this);
 		
+		// Separator
 		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
 		separator.setSize(new Dimension(separator.getWidth(), MENU_HEIGHT - 5));
 		separator.setPreferredSize(new Dimension(separator.getWidth(), MENU_HEIGHT - 5));
 		add(separator);
-
 		JLabel label = new JLabel();
 		label.setSize(new Dimension(10, MENU_HEIGHT - 5));
 		label.setPreferredSize(new Dimension(10, MENU_HEIGHT - 5));
 		label.setFocusable(false);
 		add(label);
 
-		// Add the panel used to contain the view icons
-		viewsPanel = new JPanel();
-		GridLayout gl = new GridLayout(1, groups.size());
-		gl.setHgap(20);
-		viewsPanel.setLayout(gl);
-		// Create panel with view icons		
+		// Create common views
+		Operation opK = new Operation(Groups.Knowledge.name(), Subgroups.Topic.name(), Operations.Add.name());
+		Operation opN = new Operation(Groups.Notifications.name(), Subgroups.Notifications.name(), Operations.Add.name());
+		opK.setShowGroupInView(true); opN.setShowGroupInView(true);
+		List<Operation> operations = new ArrayList<Operation>();
+		operations.add(opK); operations.add(opN);
+		
+		initViewsPanel(operations.size());
 		createViews(operations);	
 		
 		viewsPanel.setOpaque(false);
 		add(viewsPanel, "span, align left");
+		viewsPanel.repaint();
+			
+		// Set mnemonics
+		MenuMnemonicsRuntime.setMnemonics(this);
 		
-		//TODO: temporal
-		login();
-		
+		this.revalidate();
+		this.repaint();	
 	}
 	
+	// Create menus when the user is logged
+	public void refreshMenus(List<Operation> operations) throws MalformedURLException, IOException {
+		List<String> groups = OperationsUtilities.getAllGroupsMenu(operations);
+		
+		// Add "Export" operation
+		if (groups.contains(Operations.Export.name())) {
+			menuFile.add(createMenuItem(Operations.Export.name()));
+			menuFile.addSeparator();
+		}
+		
+		// Add menu items to "Tools" menu. Each menu item is a group of
+		// operations
+		for (String group : groups) {
+			createToolMenuItem(group);
+		}
+		// Remove last separator
+		menuTools.remove(menuTools.getMenuComponentCount()-1);
+		
+		initViewsPanel(operations.size());
+		// Create panel with view icons		
+		createViews(operations);	
+		
+		viewsPanel.setOpaque(false);
+		add(viewsPanel, "span, align left");			
+		viewsPanel.repaint();
+		
+		MenuMnemonicsRuntime.setMnemonics(this);
+		
+		this.revalidate();
+		this.repaint();				
+	}	
+	
+	private void initViewsPanel(int size) {
+		// Add the panel used to contain the view icons
+		if (viewsPanel == null)
+			viewsPanel = new JPanel();
+		else
+			viewsPanel.removeAll();
+		GridLayout gl = new GridLayout(1, size);
+		gl.setHgap(20);
+		viewsPanel.setLayout(gl);		
+	}
+
 	// Create menu item
 	private JMenuItem createMenuItem(String groupName) {
 		JMenuItem item = new JMenuItem();	        
@@ -308,12 +346,20 @@ public class CustomMenubar extends JMenuBar {
 	
 	/*** Actions used to manage actions for menu items ***/
 	@Action
-	//TODO: completar
-	public void login() {
-		Application.launch(JFLogin.class, null);
-		// Get available operations for the logged user
-		//ClientController.getInstance().getAvailableOperations();
-		// Enabled menu items
+	public void Login() {
+		JDLogin login = new JDLogin(this);
+		login.setModal(true);
+		login.setLocationRelativeTo(null);
+		login.setVisible(true);
+	}
+	
+	public void enableMenuItemsLogin() throws MalformedURLException, RemoteException, IOException, NotLoggedException, NonPermissionRoleException, Exception {
+		menuTools.removeAll();
+		menuFile.remove(menuFileExit);		
+		// Create new menu items
+		refreshMenus(mainFrame.getOperations());
+		menuFile.add(menuFileExit);
+		// Enable menus
 		menuFileLogin.setEnabled(false);
 		menuFileCloseSession.setEnabled(true);
 		menuItemSwitch.setEnabled(true);
@@ -322,9 +368,50 @@ public class CustomMenubar extends JMenuBar {
 		setEnabledViews(Groups.Knowledge.name(), true);
 		setEnabledViews(Groups.PDFGeneration.name(), true);
 		setEnabledViews(Groups.Notifications.name(), true);
-		setEnabledViews(Groups.Statistics.name(), true);
+		setEnabledViews(Groups.Statistics.name(), true);		
+		mainFrame.showLoginLabels();
 	}
 	
+	public void disableMenuItemsLogin() {
+		menuTools.removeAll();
+		createToolMenuItem(Groups.Knowledge.name());
+		menuTools.remove(menuTools.getMenuComponentCount()-1);
+		menuFile.removeAll();		
+		menuFile.add(menuFileLogin);
+		menuFile.add(menuFileCloseSession);
+		menuFile.addSeparator();
+		menuFile.add(menuFileExit);
+		// Disable menus
+		menuFileLogin.setEnabled(true);
+		menuFileCloseSession.setEnabled(false);
+		menuItemSwitch.setEnabled(false);
+		setEnabledMenuItems(false);
+		// Disabled views
+		setEnabledViews(Groups.Knowledge.name(), false);
+		setEnabledViews(Groups.Notifications.name(), false);
+		removeNonCommonViews();
+		viewsPanel.repaint();
+		MenuMnemonicsRuntime.setMnemonics(this);
+		this.revalidate();
+		this.repaint();
+	}
+
+	private void removeNonCommonViews() {
+		List<Component> toDelete = new ArrayList<Component>();
+		for(Component c : viewsPanel.getComponents())
+			if (c.getName().contains("PDF") || c.getName().contains("Statistics"))
+				toDelete.add(c);	
+		
+		for(Component c: toDelete)
+			viewsPanel.remove(c);		
+	}
+
+	private void setEnabledMenuItems(boolean value) {
+		for(Component c: items) {			
+			c.setEnabled(value);
+		}		
+	}
+
 	@Action
 	public void Exit() {
 		if (JOptionPane.showConfirmDialog(mainFrame.getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseFrame_Message"),
@@ -334,23 +421,13 @@ public class CustomMenubar extends JMenuBar {
 	}
 
 	@Action
-	// TODO: cambiar al integrar el login
 	public void CloseSession() {		
 		if (JOptionPane.showConfirmDialog(mainFrame.getMainFrame(), ApplicationInternationalization.getString("Dialog_CloseSession_Message"),
 					ApplicationInternationalization.getString("Dialog_CloseFrame_Message"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
 					JOptionPane.YES_OPTION) {
 			// Disabled menu items
-			menuFileLogin.setEnabled(true);
-			menuFileCloseSession.setEnabled(false);
-			menuItemSwitch.setEnabled(false);
-			setEnabledMenuItems(false);
-			// Disabled views
-			setEnabledViews(Groups.Knowledge.name(), false);
-			setEnabledViews(Groups.PDFGeneration.name(), false);
-			setEnabledViews(Groups.Notifications.name(), false);
-			setEnabledViews(Groups.Statistics.name(), false);
-			
 			mainFrame.closeSessionConfirm();
+			disableMenuItemsLogin();
 		}
 	}	
 
@@ -427,16 +504,10 @@ public class CustomMenubar extends JMenuBar {
 	
 	private void setEnabledViews(String name, boolean value) {
 		for(Component c: viewsPanel.getComponents()) {
-			if (c.getName().equals("View_"+name))
+			if (c.getName().equals("View_"+name)) {
 				c.setEnabled(value);
+			}
 		}
-		
-	}
-
-	private void setEnabledMenuItems(boolean value) {
-		for(Component c: items) {			
-			c.setEnabled(value);
-		}		
 	}
 
 

@@ -1,10 +1,15 @@
 package presentation;
+import internationalization.AppInternationalization;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.jdesktop.application.Application;
+
+import presentation.customComponents.ImagePanel;
+import resources.ImagesUtilities;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -26,10 +31,20 @@ public class SplashScreen extends javax.swing.JWindow {
 	private static final long serialVersionUID = 7291480776450245123L;
 	private JLabel lblProgress;
 	private JProgressBar progressBar;
+	private ImagePanel panel;
 
 	/**
 	* Auto-generated main method to display this JDialog
 	*/
+	
+	{
+		 //Set Look & Feel
+	    try {
+	    	javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+	    } catch(Exception e) {
+	    	JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 		
 	public SplashScreen() {
 		super();
@@ -38,22 +53,26 @@ public class SplashScreen extends javax.swing.JWindow {
 	
 	private void initGUI() {
 		try {
-
-			      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-			this.setSize(637, 280);
+			this.setSize(637, 288);
 			getContentPane().setLayout(null);
 			{
-				lblProgress = new JLabel();
-				getContentPane().add(lblProgress, "Center");
-				lblProgress.setName("lblProgress");
-				lblProgress.setBounds(334, 249, 83, 22);
-			}
-			{
-				progressBar = new JProgressBar();
-				getContentPane().add(progressBar);
-				progressBar.setBounds(417, 249, 209, 20);
-				progressBar.setMaximum(100);
+				panel = new ImagePanel();
+				panel.setImage(ImagesUtilities.loadCompatibleImage("splash.png"));
+				getContentPane().add(panel);
+				panel.setBounds(0, 0, 637, 288);
+				panel.setLayout(null);
+				{
+					lblProgress = new JLabel();
+					panel.add(lblProgress);
+					lblProgress.setName("lblProgress");
+					lblProgress.setBounds(325, 256, 85, 18);
+				}
+				{
+					progressBar = new JProgressBar();
+					panel.add(progressBar);
+					progressBar.setBounds(418, 257, 209, 20);
+					progressBar.setMaximum(100);
+				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
@@ -63,23 +82,19 @@ public class SplashScreen extends javax.swing.JWindow {
 	
 	public void setProgress(int progress) {
 		final int p = progress;
-		SwingUtilities.invokeLater(new Runnable() {
-			
+		SwingUtilities.invokeLater(new Runnable() {			
 			@Override
 			public void run() {
-				progressBar.setValue(progressBar.getValue() + p);
-				
+				progressBar.setValue(progressBar.getValue() + p);				
 			}
 		});
 	}
 	
 	public void close() {
-		SwingUtilities.invokeLater(new Runnable() {
-			
+		SwingUtilities.invokeLater(new Runnable() {			
 			@Override
 			public void run() {
-				dispose();
-				
+				dispose();			
 			}
 		});
 	}

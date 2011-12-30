@@ -118,7 +118,7 @@ public class JPDetailsCompany extends JXPanel {
 						lblCountry = new JLabel();
 						panelDetailsCompany.add(lblCountry, new AnchorConstraint(718, 708, 815, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblCountry.setName("lblCountry");
-						lblCountry.setText(ApplicationInternationalization.getString("companyCountry"));
+						lblCountry.setText(ApplicationInternationalization.getString("companyCountryPanel"));
 						lblCountry.setBounds(21, 132, 269, 17);
 						lblCountry.setFont(font); 
 					}

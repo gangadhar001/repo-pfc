@@ -89,7 +89,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
     private JMenu mnuFile;
     private JMenu mnuHelp;
     private JToolBar toolbar;
-    private JPanel panelLogo;
     private JMenu mnuOption;
 
 
@@ -115,14 +114,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	    } catch(Exception e) {
 	    	JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 	    }
-	    
-//		for(UIManager.LookAndFeelInfo laf:UIManager.getInstalledLookAndFeels()){
-//            if("Nimbus".equals(laf.getName()))
-//                try {
-//                UIManager.setLookAndFeel(laf.getClassName());
-//            } catch (Exception ex) {
-//            }
-//        }
 	}
     
 	public JFServer(ServerController controller) {
@@ -135,13 +126,17 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 	
 	private void initGUI() {
 		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("iconoServer.png"));
+		} catch (IOException e1) { }
+			
+		try {
 			this.glassPane = new InfiniteProgressPanel(AppInternationalization.getString("glassConnect"));
 	    	setGlassPane(glassPane);
 	    	
 			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			this.setTitle(AppInternationalization.getString("JFServer_Title"));
-			this.setPreferredSize(new java.awt.Dimension(565, 527));
-			this.setMinimumSize(new java.awt.Dimension(500, 300));
+			this.setPreferredSize(new java.awt.Dimension(565, 467));
+			this.setMinimumSize(new java.awt.Dimension(565, 467));
 			setLocationRelativeTo(null);
 			{
 				pnlPanel = new JPanel();
@@ -158,9 +153,10 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 				}
 				{
 					scpPanelLog = new JScrollPane();
-					pnlPanel.add(scpPanelLog, new AnchorConstraint(80, 982, 774, 9, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-					scpPanelLog.setPreferredSize(new java.awt.Dimension(530, 282));
-					scpPanelLog.setMinimumSize(new java.awt.Dimension(346, 155));
+					pnlPanel.add(scpPanelLog, new AnchorConstraint(39, 982, 761, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+					scpPanelLog.setPreferredSize(new java.awt.Dimension(529, 271));
+					scpPanelLog.setMinimumSize(new java.awt.Dimension(0, 0));
+					scpPanelLog.setMaximumSize(new java.awt.Dimension(0, 0));
 					{
 						txtLog = new JTextArea();
 						scpPanelLog.setViewportView(txtLog);
@@ -168,6 +164,8 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						txtLog.setFont(new java.awt.Font("Tahoma",0,12));
 						txtLog.setName("txtLog");
 						txtLog.setEditable(false);
+						txtLog.setPreferredSize(new java.awt.Dimension(0, 0));
+						txtLog.setMaximumSize(new java.awt.Dimension(0, 0));
 
 					}
 				}
@@ -256,11 +254,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						btnConfigure.setFocusPainted(false);
 						btnConfigure.setFocusable(false);
 					}
-				}
-				{
-					panelLogo = new JPanel();
-					pnlPanel.add(panelLogo, new AnchorConstraint(32, 982, 172, 10, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-					panelLogo.setPreferredSize(new java.awt.Dimension(529, 48));
 				}
 			}
 
@@ -376,7 +369,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 			MenuMnemonicsRuntime.setMnemonics(mnbMenus);
 
 			pack();
-			this.setSize(565, 527);
+			this.setSize(565, 467);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch(Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), AppInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

@@ -108,6 +108,7 @@ public class JFMain extends SingleFrameApplication {
 	private panelNotificationsView panelNotifications;
 	private panelStatisticsGeneration panelStatistics;
 	private panelPDFGeneration panelPDF;
+	private CustomMenubar menuBar;
 	
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 728;	
@@ -128,8 +129,14 @@ public class JFMain extends SingleFrameApplication {
              public void willExit(EventObject event) {
             	 quit();
              }
-         });           
-    	
+         });  
+        
+        hide(getMainView());
+        
+        try {
+			getMainFrame().setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+        
     	try {			
 			getMainFrame().setPreferredSize(new java.awt.Dimension(WIDTH, HEIGHT));
 			getMainFrame().setMinimumSize(new java.awt.Dimension(WIDTH, HEIGHT));
@@ -200,6 +207,7 @@ public class JFMain extends SingleFrameApplication {
 								AnchorConstraint.ANCHOR_ABS,
 								AnchorConstraint.ANCHOR_ABS));
 				lblAction.setPreferredSize(new java.awt.Dimension(203, 20));
+				lblAction.setVisible(false);
 			}
 			{
 				lblPort = new JLabel();
@@ -212,31 +220,23 @@ public class JFMain extends SingleFrameApplication {
 				lblRole.setPreferredSize(new java.awt.Dimension(238, 16));
 			}     
 
-
-	        // Get available operations for the logged user
-			operations = ClientController.getInstance().getAvailableOperations();
-			
 	        // Create menu bar
-			CustomMenubar menuBar = new CustomMenubar(this, operations);
+			menuBar = new CustomMenubar(this);
 			getMainFrame().setJMenuBar(menuBar);
 			
-			lblPort.setText(ApplicationInternationalization.getString("lblStatusClient") + " " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
-			lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());
-			lblAction.setVisible(false);
+			lblAction.setVisible(false);			
+			showStatusBar(ApplicationInternationalization.getString("programInitialized"));
 			
-			lblStatus.setVisible(false);
-			
-	        // Show the main frame
-	        show(getMainFrame());     
-	        
     	} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
     }    
+    
+    public void show() {
+    	show(getMainFrame());
+    }
     
     private JButton createToolbarButton(String id) {
     	JButton button = new JButton();
@@ -313,10 +313,9 @@ public class JFMain extends SingleFrameApplication {
 		JToggleButton toggle = new JToggleButton();
 		toggle.setToolTipText(ApplicationInternationalization.getString("toogleAdvancedView"));
 		try {
-			toggle.setIcon(ImagesUtilities.loadIcon("toolbar/Advanced.png"));
+			toggle.setIcon(ImagesUtilities.loadIcon("Toolbars/Advanced.png"));
 		}
 		catch (Exception e) { }
-		toggle.setText("Toggle");
 		toggle.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -509,7 +508,8 @@ public class JFMain extends SingleFrameApplication {
 	// When closes session, return to the login frame
 	public void forceCloseSession() {
 		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_ForceCloseSession"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
-		ClientController.getInstance().closeMainFrame();
+		closeSessionConfirm();
+		menuBar.disableMenuItemsLogin();
 		
 	}
 
@@ -521,18 +521,18 @@ public class JFMain extends SingleFrameApplication {
 
 	public void closeSessionConfirm() {
 		try {
-			lblAction.setVisible(false);
-			lblRole.setText(ApplicationInternationalization.getString("lblStatusClose"));
+			showStatusBar(ApplicationInternationalization.getString("NotUserLogged"));
+			lblRole.setText("");
 			lblPort.setText("");
+			lblAction.setVisible(false);
 			// Close session
 			ClientController.getInstance().signout();
-			ClientController.getInstance().closeMainFrame();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+		// Ignore
 		} catch (NotLoggedException e) {
-			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
@@ -819,6 +819,18 @@ public class JFMain extends SingleFrameApplication {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(getMainFrame(), e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public List<Operation> getOperations() throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception {
+		operations = ClientController.getInstance().getAvailableOperations();
+		return operations;
+	}
+
+	public void showLoginLabels() {
+		lblAction.setVisible(false);
+		showStatusBar(ApplicationInternationalization.getString("UserLogued"));
+		lblPort.setText(ApplicationInternationalization.getString("lblStatusClient") + " " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
+		lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());		
 	}
 
 }
