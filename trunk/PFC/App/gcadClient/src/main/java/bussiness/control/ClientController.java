@@ -33,7 +33,6 @@ import org.jdom.JDOMException;
 
 import com.itextpdf.text.Image;
 
-import presentation.JFLogin;
 import presentation.JFMain;
 import resources.LanguagesUtilities;
 import resources.Language;
@@ -66,7 +65,6 @@ public class ClientController {
 	private String clientIP;
 	private String login;
 	private String role;
-	private JFLogin loginWindowUI;
 
 	public ClientController() {
 		availableOperations = new ArrayList<Operation>();
@@ -334,26 +332,13 @@ public class ClientController {
 	}
 
 	public void closeSession() {
-		if (Application.getInstance() instanceof JFMain) {
-			mainWindowUI = Application.getInstance(JFMain.class);
-			mainWindowUI.forceCloseSession();
-		}
-		else if (Application.getInstance() instanceof JFLogin) {
-			loginWindowUI = Application.getInstance(JFLogin.class);
-			loginWindowUI.forceCloseSession();
-		}
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.forceCloseSession();
 	}
 
 	public void approachlessServer() {
-		if (Application.getInstance() instanceof JFMain) {
-			mainWindowUI = Application.getInstance(JFMain.class);
-			mainWindowUI.approachlessServer();
-		}
-		else if (Application.getInstance() instanceof JFLogin) {
-			loginWindowUI = Application.getInstance(JFLogin.class);
-			loginWindowUI.approachlessServer();
-		}
-		
+		mainWindowUI = Application.getInstance(JFMain.class);
+		mainWindowUI.approachlessServer();		
 	}
 
 	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
@@ -389,7 +374,6 @@ public class ClientController {
 			client.disabled(clientIP);
 		}
 		try {	
-			Application.getInstance(JFLogin.class).getMainFrame().dispose();
 			Application.getInstance(JFMain.class).getMainFrame().dispose();
 		}
 		catch(Exception e) { }
@@ -404,7 +388,6 @@ public class ClientController {
 	}
 
 	public void restartLoginFrame() throws InterruptedException {
-		Application.getInstance(JFLogin.class).getMainFrame().dispose();
 		Thread.sleep(700);
 		startApplication(null);		
 	}
