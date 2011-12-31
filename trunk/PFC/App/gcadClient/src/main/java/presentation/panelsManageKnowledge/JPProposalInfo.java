@@ -6,19 +6,15 @@ import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import model.business.knowledge.AnswerArgument;
 import model.business.knowledge.Categories;
 import model.business.knowledge.Proposal;
 
 import org.jdesktop.application.Application;
-
-import resources.NotEmptyValidator;
 
 import com.cloudgarden.layout.AnchorConstraint;
 
@@ -46,11 +42,9 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	private JLabel lblDescriptionProposal;
 	private JTextField txtTitle;
 	private JTextPane txtDescription;
-	private JDialog parentD;
 	
-	public JPProposalInfo(JDialog parent) {
+	public JPProposalInfo() {
 		super();
-		this.parentD = parent;
 		initGUI();
 	}
 	
@@ -62,7 +56,7 @@ public class JPProposalInfo extends javax.swing.JPanel {
 			{
 				panelProposalInfo = new JPanel();
 				this.add(panelProposalInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
-				panelProposalInfo.setBorder(BorderFactory.createTitledBorder("Proposal Info"));
+				panelProposalInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("proposalInfo")));
 				panelProposalInfo.setLayout(null);
 				panelProposalInfo.setBounds(0, 0, 531, 174);
 				panelProposalInfo.setSize(531, 172);

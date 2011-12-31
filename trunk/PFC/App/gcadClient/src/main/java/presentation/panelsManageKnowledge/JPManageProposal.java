@@ -149,7 +149,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 						lblTopic.setText(ApplicationInternationalization.getString("lblTopic"));
 					}
 					{
-						proposalInfoAdd = new JPProposalInfo(parentD);
+						proposalInfoAdd = new JPProposalInfo();
 						panelAddProposal.add(proposalInfoAdd);
 						proposalInfoAdd.setBounds(12, 44, 431, 172);
 						proposalInfoAdd.setPreferredSize(new java.awt.Dimension(531, 172));
@@ -163,7 +163,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 					panelModifyProposal.setName("panelModifyProposal");
 					panelModifyProposal.setLayout(null);
 					{
-						proposalInfoModify = new JPProposalInfo(parentD);
+						proposalInfoModify = new JPProposalInfo();
 						panelModifyProposal.add(proposalInfoModify);
 						proposalInfoModify.setBounds(12, 44, 431, 172);
 						proposalInfoModify.setSize(531, 172);

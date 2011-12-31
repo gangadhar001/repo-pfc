@@ -3,7 +3,6 @@ package presentation.panelsManageKnowledge;
 import internationalization.ApplicationInternationalization;
 
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -12,8 +11,6 @@ import javax.swing.JTextField;
 import model.business.knowledge.Topic;
 
 import org.jdesktop.application.Application;
-
-import resources.NotEmptyValidator;
 
 import com.cloudgarden.layout.AnchorConstraint;
 
@@ -39,11 +36,9 @@ public class JPTopicInfo extends javax.swing.JPanel {
 	private JLabel lblTopicTitle;
 	private JLabel lblDescriptionTopic;
 	private JTextField txtTitle;
-	private JDialog parentD;
 	
-	public JPTopicInfo(JDialog parent) {
+	public JPTopicInfo() {
 		super();
-		this.parentD = parent;
 		initGUI();
 	}
 	
@@ -55,7 +50,7 @@ public class JPTopicInfo extends javax.swing.JPanel {
 			{
 				panelTopicInfo = new JPanel();
 				this.add(panelTopicInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
-				panelTopicInfo.setBorder(BorderFactory.createTitledBorder("Topic Info"));
+				panelTopicInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("topicInfo")));
 				panelTopicInfo.setLayout(null);
 				panelTopicInfo.setBounds(0, 0, 405, 137);
 				panelTopicInfo.setSize(531, 172);

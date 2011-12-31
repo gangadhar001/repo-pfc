@@ -126,7 +126,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 						btnSaveTopic.setText(ApplicationInternationalization.getString("btnSave"));
 					}
 					{
-						panelTopicInfoAdd = new JPTopicInfo(parentD);
+						panelTopicInfoAdd = new JPTopicInfo();
 						panelAddTopic.add(panelTopicInfoAdd);
 						panelTopicInfoAdd.setBounds(12, 12, 431, 174);
 						panelTopicInfoAdd.setSize(531, 172);
@@ -155,7 +155,7 @@ public class JPManageTopic extends javax.swing.JPanel {
 						btnSaveModify.setText(ApplicationInternationalization.getString("btnModify"));
 					}
 					{
-						panelTopicInfoModify = new JPTopicInfo(parentD);
+						panelTopicInfoModify = new JPTopicInfo();
 						panelModifyTopic.add(panelTopicInfoModify);
 						panelTopicInfoModify.setBounds(12, 41, 433, 165);
 						panelTopicInfoModify.setSize(531, 172);

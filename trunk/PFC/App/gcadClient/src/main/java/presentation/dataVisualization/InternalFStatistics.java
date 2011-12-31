@@ -1,9 +1,9 @@
 package presentation.dataVisualization;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import internationalization.ApplicationInternationalization;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.japura.gui.WrapLabel;
@@ -47,20 +47,20 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 		setClosable(true);
 		
 		try {
-			this.setPreferredSize(new java.awt.Dimension(176, 171));
-			this.setBounds(0, 0, 176, 171);
+			this.setPreferredSize(new java.awt.Dimension(578, 354));
+			this.setBounds(0, 0, 578, 354);
 			setVisible(true);
 			this.setName("this");
 			getContentPane().setLayout(null);
 			{
 				panelChart = new JPanel();
 				getContentPane().add(panelChart);
-				panelChart.setBounds(0, 54, 175, 92);
+				panelChart.setBounds(0, 69, 576, 260);
 			}
 			{
 				lblType = new WrapLabel();
 				getContentPane().add(lblType);
-				lblType.setBounds(6, 7, 161, 47);
+				lblType.setBounds(6, 7, 565, 30);
 				lblType.setName("lblType");
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
@@ -70,11 +70,13 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	}
 
 	public void addChartPanel(String projectName, String type, boolean showProjectName, ChartPanel chartPanel) {
+		System.out.println(type);
 		panelChart.setSize(chartPanel.getPreferredSize());
 		this.setSize(chartPanel.getPreferredSize().width + 20, chartPanel.getPreferredSize().height + 20);
 		lblType.setFont(new Font(lblType.getFont().getName(), Font.BOLD, lblType.getFont().getSize()));
-		lblType.setText(ApplicationInternationalization.getString(type));
 		lblType.setWrapWidth(chartPanel.getPreferredSize().width);
+		lblType.setSize(new Dimension(chartPanel.getPreferredSize().width, 30));
+		lblType.setText(ApplicationInternationalization.getString(type));
 		if (showProjectName)
 			lblType.setText(lblType.getText() + ": " + projectName);
 		panelChart.add(chartPanel);

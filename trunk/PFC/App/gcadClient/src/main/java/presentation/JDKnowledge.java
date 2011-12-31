@@ -167,7 +167,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 				button.setAlignmentX(Component.CENTER_ALIGNMENT);
 				// Set the subgroup id as name of the button
 				button.setName("btn_"+subgroup);
-				button.setText(subgroup);
+				button.setText(ApplicationInternationalization.getString(subgroup));
 				button.setIcon(new ImageIcon(image));
 				button.setHorizontalTextPosition(JButton.CENTER);
 				button.setVerticalTextPosition(JButton.BOTTOM);

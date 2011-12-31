@@ -2,7 +2,6 @@ package presentation;
 
 import internationalization.ApplicationInternationalization;
 
-import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 import model.business.knowledge.Project;
@@ -72,7 +70,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	private JLabel lblUserInfoModify;
 	private JList listUsersModify;
 	private JScrollPane jScrollPane4;
-	private JTextArea txtUserInfoModify;
+	private txtUserInformation txtUserInfoModify;
 	private JScrollPane jScrollPane3;
 	private JPanel panelUsersModify;
 	private JButton btnCancelModify;
@@ -162,8 +160,6 @@ public class JDManageProject extends javax.swing.JDialog {
 											listUsers.repaint(rect);
 											txtUserInfo.setText("");
 											txtUserInfo.showUserInfo(item.getUser());
-											Font f = txtUserInfo.getFont();
-											//txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
 											if (item.isSelected()) {
 												selectedUsersCreate.add(item.getUser());
 											}
@@ -225,7 +221,7 @@ public class JDManageProject extends javax.swing.JDialog {
 								panelUsersModify.add(jScrollPane3);
 								jScrollPane3.setBounds(17, 311, 223, 120);
 								{
-									txtUserInfoModify = new JTextArea();
+									txtUserInfoModify = new txtUserInformation();
 									jScrollPane3.setViewportView(txtUserInfoModify);
 									txtUserInfoModify.setPreferredSize(new java.awt.Dimension(220, 117));
 									txtUserInfoModify.setBounds(17, 306, 220, 92);
@@ -250,11 +246,7 @@ public class JDManageProject extends javax.swing.JDialog {
 											Rectangle rect = listUsersModify.getCellBounds(index, index);
 											listUsersModify.repaint(rect);
 											txtUserInfoModify.setText("");
-											txtUserInfoModify.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
-													+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
-															+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
-											Font f = txtUserInfoModify.getFont();
-											txtUserInfoModify.setFont(new Font(f.getName(), f.getStyle(), 11));
+											txtUserInfoModify.showUserInfo(item.getUser());
 											if (item.isSelected()) {
 												selectedUsersModify.add(item.getUser());
 											}

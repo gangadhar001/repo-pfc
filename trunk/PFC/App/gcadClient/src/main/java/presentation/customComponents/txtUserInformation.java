@@ -2,9 +2,6 @@ package presentation.customComponents;
 
 import internationalization.ApplicationInternationalization;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.swing.JTextPane;
 
 import model.business.knowledge.User;
@@ -23,7 +20,6 @@ public class txtUserInformation extends JTextPane {
 	}
 	
 	public void showUserInfo(User val) {
-		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		// Create text and styles for TxetPane
 		String[] initString = {
 				ApplicationInternationalization.getString("user")+ ": ", 

@@ -5,7 +5,6 @@ import internationalization.ApplicationInternationalization;
 import java.awt.Component;
 import java.lang.reflect.Field;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -27,7 +26,6 @@ import org.jdesktop.application.Application;
 import com.ibm.icu.util.Calendar;
 
 import resources.ImagesUtilities;
-import resources.NotEmptyValidator;
 
 import bussiness.control.ClientController;
 
@@ -87,7 +85,6 @@ public class panelProjectInformation extends javax.swing.JPanel {
 		
 		// Show attributes of the project
 		List<Attribute> attributes;
-		List<String> mandatoryFields = getMandatoryFields();
 		try {
 			attributes = ClientController.getInstance().getAttributesFromProject(project);		
 			// Show attributes name 
@@ -173,17 +170,6 @@ public class panelProjectInformation extends javax.swing.JPanel {
 
 	private void clearPanel() {
 		this.removeAll();		
-	}
-	
-	private List<String> getMandatoryFields() {
-		List<String> result = new ArrayList<String>();
-		result.add("name");
-		result.add("description");
-		result.add("startDate");
-		result.add("budget");
-		result.add("domain");
-		result.add("progLanguage");
-		return result;
 	}
 
 	// Return the project

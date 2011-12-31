@@ -48,7 +48,7 @@ import presentation.JFMain;
 import presentation.customComponents.CheckListRenderer;
 import presentation.customComponents.CheckableItem;
 import presentation.customComponents.panelProjectInformation;
-import presentation.customComponents.PDFGen.panelPDFDraggedTitle;
+import presentation.customComponents.txtUserInformation;
 import resources.CursorUtilities;
 import resources.ImagesUtilities;
 import bussiness.control.ClientController;
@@ -86,7 +86,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	private JPanel pnlProject;
 	private JLabel lblUserInfo;
 	private JList listUsers;
-	private JTextArea txtUserInfo;
+	private txtUserInformation txtUserInfo;
 	private JPanel pnlUsersCreate;
 	private JButton btnOk;
 	private int currentProject;
@@ -107,6 +107,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	
 	// Method used to show information about the case (project)
 	private void showCaseInformation() {
+		txtUserInfo.setText("");
 		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false);
 		fillUsers();
 		showUsers(cases.get(currentProject-1).getCaseP());
@@ -203,7 +204,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 							pnlUsersCreate.add(jScrollPane2);
 							jScrollPane2.setBounds(12, 369, 222, 163);
 							{
-								txtUserInfo = new JTextArea();
+								txtUserInfo = new txtUserInformation();
 								jScrollPane2.setViewportView(txtUserInfo);
 								txtUserInfo.setPreferredSize(new java.awt.Dimension(219, 146));
 								txtUserInfo.setBounds(17, 306, 220, 92);
@@ -225,11 +226,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 										int index = listUsers.locationToIndex(e.getPoint());
 										CheckableItem item = (CheckableItem) listUsers.getModel().getElementAt(index);
 										txtUserInfo.setText("");
-										txtUserInfo.append(ApplicationInternationalization.getString("user") + ": " + item.getUser().getName() +", " + item.getUser().getSurname()
-												+ "\n" + ApplicationInternationalization.getString("company") + ": " + item.getUser().getCompany().getName() + ", " + item.getUser().getCompany().getAddress().getCity() + "(" 
-														+ item.getUser().getCompany().getAddress().getCountry() + ")" + "\n\n");
-										Font f = txtUserInfo.getFont();
-										txtUserInfo.setFont(new Font(f.getName(), f.getStyle(), 11));
+										txtUserInfo.showUserInfo(item.getUser());
 									}
 								});
 							}
