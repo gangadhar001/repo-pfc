@@ -77,10 +77,10 @@ public class JDConfigProject extends javax.swing.JDialog {
 	        
 			this.setResizable(false);
 			this.setTitle(ApplicationInternationalization.getString("configProjectTitle"));
-			this.setSize(540, 625);
+			this.setSize(540, 590);
 			{
 				getContentPane().setLayout(null);
-				this.setPreferredSize(new java.awt.Dimension(540, 625));
+				this.setPreferredSize(new java.awt.Dimension(540, 590));
 				{
 					lblProjects = new JLabel();
 					getContentPane().add(lblProjects);
@@ -114,15 +114,16 @@ public class JDConfigProject extends javax.swing.JDialog {
 				{
 					btnForward = new JButton();
 					getContentPane().add(btnForward);
-					btnForward.setBounds(358, 565, 81, 23);
+					btnForward.setBounds(360, 526, 81, 20);
 					btnForward.setName("btnForward");
 					btnForward.setAction(getAppActionMap().get("Next"));
 					btnForward.setText(ApplicationInternationalization.getString("btnNext"));
+					btnForward.setSize(77, 23);
 				}
 				{
 					btnCancel = new JButton();
 					getContentPane().add(btnCancel);
-					btnCancel.setBounds(446, 565, 77, 23);
+					btnCancel.setBounds(446, 526, 77, 23);
 					btnCancel.setName("btnCancel");
 					btnCancel.setAction(getAppActionMap().get("Cancel"));
 					btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
@@ -130,7 +131,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 				{
 					panelProjectInformationCreate = new panelProjectInformation();
 					getContentPane().add(panelProjectInformationCreate);
-					panelProjectInformationCreate.setBounds(6, 49, 520, 505);
+					panelProjectInformationCreate.setBounds(6, 49, 520, 471);
 				}
 				
 				panelProjectInformationCreate.showData(new Project(), true);
@@ -138,13 +139,14 @@ public class JDConfigProject extends javax.swing.JDialog {
 				// Config Simil Panel
 				panelConfigSimil = new panelConfigSimil(this);
 				getContentPane().add(panelConfigSimil);
-				panelConfigSimil.setBounds(6, 5, 520, 580);
+				panelConfigSimil.setBounds(6, 5, 520, 515);
+				panelConfigSimil.setSize(520, 557);
 				panelConfigSimil.setVisible(false);
 			}
 			{
 				btnCleanCreate = new JButton();
 				getContentPane().add(btnCleanCreate);
-				btnCleanCreate.setBounds(6, 565, 81, 23);
+				btnCleanCreate.setBounds(10, 527, 77, 23);
 				btnCleanCreate.setAction(getAppActionMap().get("Clean"));
 				btnCleanCreate.setText(ApplicationInternationalization.getString("btnClear"));
 			}

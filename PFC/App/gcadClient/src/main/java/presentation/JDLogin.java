@@ -33,7 +33,6 @@ import presentation.customComponents.CustomMenubar;
 import presentation.customComponents.panelChooseProject;
 import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
-import resources.NotEmptyValidator;
 import bussiness.control.ClientController;
 
 import com.cloudgarden.layout.AnchorConstraint;
@@ -61,7 +60,11 @@ import exceptions.NotLoggedException;
  * Class used to create and show a Login Window
  */
 public class JDLogin extends JDialog {
-    private JPanel userDataPanel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8249758465749822474L;
+	private JPanel userDataPanel;
     private JPanel serverPanel;
     private JButton btnLogin;
     private JButton btnCancel;
@@ -124,11 +127,10 @@ public class JDLogin extends JDialog {
         	userDataPanel.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupUser")));
         	userDataPanel.setBounds(10, 6, 340, 97);
         	{
-        		//TODO: validar Password
         		txtPass = new JPasswordField();
-        	txtPass.setInputVerifier(new NotEmptyValidator(this, txtPass, ApplicationInternationalization.getString("loginValidateEmpty")));
-        	userDataPanel.add(txtPass, new AnchorConstraint(561, 983, 809, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-        	txtPass.setPreferredSize(new java.awt.Dimension(206, 24));
+	        	//txtPass.setInputVerifier(new NotEmptyValidator(this, txtPass, ApplicationInternationalization.getString("loginValidateEmpty")));
+	        	userDataPanel.add(txtPass, new AnchorConstraint(561, 983, 809, 351, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+	        	txtPass.setPreferredSize(new java.awt.Dimension(206, 24));
         	}
         	{
         		txtUserName = new JTextField();
@@ -156,7 +158,7 @@ public class JDLogin extends JDialog {
         	btnLogin = new JButton();
         	getContentPane().add(btnLogin);
         	btnLogin.setName("btnLogin");
-    		btnLogin.setBounds(191, 159, 74, 26);
+    		btnLogin.setBounds(173, 159, 80, 26);
     		btnLogin.setAction(getAppActionMap().get("loginAction"));
     		btnLogin.setText(ApplicationInternationalization.getString("LoginButton"));
         }
@@ -164,7 +166,7 @@ public class JDLogin extends JDialog {
         	btnCancel = new JButton();
         	getContentPane().add(btnCancel);
         	btnCancel.setName("btnCancel");
-        	btnCancel.setBounds(276, 159, 74, 26);
+        	btnCancel.setBounds(264, 159, 80, 26);
         	btnCancel.setAction(getAppActionMap().get("cancelAction"));
         	btnCancel.setText(ApplicationInternationalization.getString("btnCancel"));
         }
@@ -240,20 +242,7 @@ public class JDLogin extends JDialog {
     protected void closeWin() {
     	this.dispose();    	
     }	
-
-	private void addButtons() {
-        btnLogin.setAction(getAppActionMap().get("loginAction"));
-        btnLogin.setText(ApplicationInternationalization.getString("LoginButton"));
-        btnCancel.setAction(getAppActionMap().get("cancelAction"));
-        btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));		
-        
-        btnLogin.setEnabled(true);
-        getContentPane().add(btnLogin);
-        getContentPane().add(btnCancel);
-        this.getRootPane().setDefaultButton(btnLogin);
-	}
-
-
+    
 	private void setServerOptionVisible (boolean b) {
 		lblIP.setVisible(b);
 		lblPort.setVisible(b);
@@ -267,8 +256,8 @@ public class JDLogin extends JDialog {
     	if (!isServerPanelExpanded){    
     		serverPanel.setSize(new java.awt.Dimension(serverPanel.getWidth(), serverPanel.getHeight() + HEIGHT));
     		this.setSize(this.getWidth(), this.getHeight() + HEIGHT); 
-    		btnLogin.setBounds(191, 230, 74, 26);
-    		btnCancel.setBounds(276, 230, 74, 26);
+    		btnLogin.setBounds(173, 230, 80, 26);
+    		btnCancel.setBounds(264, 230, 84, 26);
     		setServerOptionVisible(true);
     		try {
 				buttonIcon = ImagesUtilities.loadIcon("Contract_Vertical.png");
@@ -284,8 +273,8 @@ public class JDLogin extends JDialog {
     		serverPanel.setSize(new java.awt.Dimension(serverPanel.getWidth(), serverPanel.getHeight() -HEIGHT));
     		this.setSize(this.getWidth(), this.getHeight() - HEIGHT);    		
     		setServerOptionVisible(false);
-    		btnLogin.setBounds(191, 159, 74, 26);
-    		btnCancel.setBounds(276, 159, 74, 26);
+    		btnLogin.setBounds(173, 159, 80, 26);
+    		btnCancel.setBounds(264, 159, 80, 26);
     		try {
 				buttonIcon = ImagesUtilities.loadIcon("Expand_Vertical.png");
 				btnExpand.setIcon(buttonIcon);
@@ -459,21 +448,14 @@ public class JDLogin extends JDialog {
 	// Shows panel used to choose a project
 	private void chooseProject() throws RemoteException, NotLoggedException, Exception {
 		// Clean the login panel and displays the panel to choose the project
-		//getContentPane().removeAll();
 		userDataPanel.setVisible(false);
 		serverPanel.setVisible(false);
 		this.setTitle(ApplicationInternationalization.getString("titleChooseProject"));
 		
-		// Create the panel the first time
-//		if (projectpanel == null)		
-//			projectpanel = new panelChooseProject();
 		projectpanel.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
-//    	projectpanel.setBounds(0, 0, 350, 101);
-//    	getContentPane().add(projectpanel);
 		projectpanel.setVisible(true);
 
 		// Change name and actions of the buttons
-//    	addButtons();
 		btnLogin.setAction(getAppActionMap().get("acceptAction"));
 		btnLogin.setText(ApplicationInternationalization.getString("btnAccept"));
 		btnCancel.setAction(getAppActionMap().get("backwardAction"));

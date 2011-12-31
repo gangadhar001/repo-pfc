@@ -69,6 +69,7 @@ public class JDLanguages extends javax.swing.JDialog {
 		try {
 			{
 				getContentPane().setLayout(null);
+				this.setResizable(false);
 				this.setTitle(ApplicationInternationalization.getString("changeLanguageTitle"));
 			}
 			{

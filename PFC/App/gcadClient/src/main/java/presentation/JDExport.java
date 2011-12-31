@@ -1,29 +1,17 @@
 package presentation;
 import internationalization.ApplicationInternationalization;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.rmi.RemoteException;
-
 import javax.swing.ActionMap;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.xml.bind.JAXBException;
 
 import model.business.knowledge.Project;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
-import org.jfree.ui.ExtensionFileFilter;
 
 import presentation.customComponents.panelChooseProject;
-import resources.CursorUtilities;
-
 import bussiness.control.ClientController;
-import exceptions.NonPermissionRoleException;
-import exceptions.NotLoggedException;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -63,7 +51,7 @@ public class JDExport extends javax.swing.JDialog {
 			{
 				getContentPane().setLayout(null);
 				this.setResizable(false);
-				this.setTitle(ApplicationInternationalization.getString("chooseProjectTitle"));
+				this.setTitle(ApplicationInternationalization.getString("exportProject"));
 				pnlChooseProject = new panelChooseProject();
 				pnlChooseProject.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());
 				getContentPane().add(pnlChooseProject);

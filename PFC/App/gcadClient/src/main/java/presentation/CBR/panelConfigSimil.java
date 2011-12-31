@@ -2,6 +2,7 @@ package presentation.CBR;
 
 import internationalization.ApplicationInternationalization;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -147,26 +148,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 					pnlAttributes.setBounds(0, 110, 520, 400);
 					pnlAttributes.setBorder(BorderFactory.createTitledBorder(""));
 					pnlAttributes.setLayout(null);
-					{
-						lblAttributes = new JLabel();
-						pnlAttributes.add(lblAttributes);
-						lblAttributes.setBounds(17, 23, 77, 16);
-						lblAttributes.setText(ApplicationInternationalization.getString("lblAttributes"));
-					}
-					{
-						lblFunction = new JLabel();
-						pnlAttributes.add(lblFunction);
-						lblFunction.setBounds(POSX_COLUMN2 + 10, 23, 99, 16);
-						lblFunction.setName("lblFunction");
-						lblFunction.setText(ApplicationInternationalization.getString("lblFunction"));
-					}
-					{
-						lblWeight = new JLabel();
-						pnlAttributes.add(lblWeight);
-						lblWeight.setBounds(433, 23, 38, 16);
-						lblWeight.setName("lblWeight");
-						lblWeight.setText(ApplicationInternationalization.getString("lblWeight"));
-					}
+					addTitleLabels();
 					
 					// Change labels of slider
 					dic = new Hashtable<Integer, JLabel>();
@@ -214,9 +196,37 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		}
 	}
 
+	private void addTitleLabels() {
+		{
+			lblAttributes = new JLabel();
+			pnlAttributes.add(lblAttributes);
+			lblAttributes.setBounds(17, 23, 77, 16);
+			lblAttributes.setText(ApplicationInternationalization.getString("lblAttributes"));
+			lblAttributes.setFont(new Font(lblAttributes.getFont().getName(), Font.BOLD, 12));
+		}
+		{
+			lblFunction = new JLabel();
+			pnlAttributes.add(lblFunction);
+			lblFunction.setBounds(POSX_COLUMN2 + 10, 23, 99, 16);
+			lblFunction.setName("lblFunction");
+			lblFunction.setText(ApplicationInternationalization.getString("lblFunction"));
+			lblFunction.setFont(new Font(lblFunction.getFont().getName(), Font.BOLD, 12));
+		}
+		{
+			lblWeight = new JLabel();
+			pnlAttributes.add(lblWeight);
+			lblWeight.setBounds(433, 23, 38, 16);
+			lblWeight.setName("lblWeight");
+			lblWeight.setText(ApplicationInternationalization.getString("lblWeight"));
+			lblWeight.setFont(new Font(lblWeight.getFont().getName(), Font.BOLD, 12));
+		}
+		
+	}
+
 	// Method used to retrieve all the attributes from one project (case) and show them in the UI
 	private void setAttributesName() throws RemoteException, Exception {
 		pnlAttributes.removeAll();
+		addTitleLabels();
 		attributes = ClientController.getInstance().getAttributesFromProject(caseToEval);
 		// Show attributes name 
 		numberAttributes = 1;

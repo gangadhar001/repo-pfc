@@ -116,7 +116,7 @@ public class panelPDFGeneration extends ImagePanel {
 			thisLayout.columnWidths = new int[] {7, 7};
 			{
 				panelElements = new RoundedPanel();
-				panelElements.setBackground(new Color(227, 219, 237));
+				panelElements.setBackground(new Color(225, 238, 243));
 				panelElements.setOpaque(false);
 				this.add(panelElements, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 60, 20, 80), 0, 0));
 				panelElements.setLayout(null);

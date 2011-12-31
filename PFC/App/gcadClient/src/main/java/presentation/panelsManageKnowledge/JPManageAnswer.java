@@ -149,7 +149,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 						lblProposal.setText(ApplicationInternationalization.getString("lblProposal"));
 					}
 					{
-						panelAnswerInfoAdd = new JPAnswerInfo(parentD);
+						panelAnswerInfoAdd = new JPAnswerInfo();
 						panelAddAnswer.add(panelAnswerInfoAdd);
 						panelAnswerInfoAdd.setBounds(12, 44, 531, 172);
 						panelAnswerInfoAdd.setPreferredSize(new java.awt.Dimension(531, 172));
@@ -214,7 +214,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 						});
 					}
 					{
-						panelAnswerInfoModify = new JPAnswerInfo(parentD);
+						panelAnswerInfoModify = new JPAnswerInfo();
 						panelModifyAnswer.add(panelAnswerInfoModify);
 						panelAnswerInfoModify.setBounds(12, 44, 431, 172);
 						panelAnswerInfoModify.setMinimumSize(new java.awt.Dimension(531, 172));

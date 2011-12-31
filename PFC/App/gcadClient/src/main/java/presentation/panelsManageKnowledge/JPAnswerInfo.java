@@ -6,7 +6,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -16,8 +15,6 @@ import model.business.knowledge.Answer;
 import model.business.knowledge.AnswerArgument;
 
 import org.jdesktop.application.Application;
-
-import resources.NotEmptyValidator;
 
 import com.cloudgarden.layout.AnchorConstraint;
 
@@ -45,11 +42,9 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	private JLabel lblDescriptionAnswer;
 	private JTextField txtTitle;
 	private JTextArea txtDescription;
-	private JDialog parentD;
 	
-	public JPAnswerInfo(JDialog parent) {
+	public JPAnswerInfo() {
 		super();
-		this.parentD = parent;
 		initGUI();
 	}
 	
@@ -61,7 +56,7 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 			{
 				panelAnswerInfo = new JPanel();
 				this.add(panelAnswerInfo, new AnchorConstraint(41, 12, 67, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
-				panelAnswerInfo.setBorder(BorderFactory.createTitledBorder("Answer Info"));
+				panelAnswerInfo.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("answerInfo")));
 				panelAnswerInfo.setLayout(null);
 				panelAnswerInfo.setBounds(0, 0, 431, 174);
 				panelAnswerInfo.setPreferredSize(new java.awt.Dimension(531, 172));
