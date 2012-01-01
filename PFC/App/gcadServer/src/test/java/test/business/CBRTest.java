@@ -96,7 +96,7 @@ public class CBRTest extends PruebasBase {
 	public void testCBRInvalidSession() {	
 		try {
 			// Se intenta ejecutar un algoritmo de CBR con una sesión inválida
-			Server.getInstance().executeAlgorithm(-15, EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
+			Server.getInstance().executeAlgorithm(-15, EnumAlgorithmCBR.NN, caseToEval, configCBR, 0);
 			fail("Se esperaba NotLoggedException");
 		} catch (NotLoggedException e) {
 		} catch (Exception e) {
@@ -110,7 +110,7 @@ public class CBRTest extends PruebasBase {
 		try {
 			// Se intenta ejecutar un algoritmo de CBR sin tener permiso
 			session = Server.getInstance().login("emp1", "emp1");
-			Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
+			Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, caseToEval, configCBR, 0);
 			fail("Se esperaba NonPermissionRoleException");
 		} catch (NonPermissionRoleException e) {
 		} catch (Exception e) {
@@ -174,7 +174,7 @@ public class CBRTest extends PruebasBase {
 			/* Se ejecuta el algoritmo con el modo NN. cogiendo todos los proyectos y método NN (k=0)
 			   Se espera que con la configuracion que se va a crear, el proyecto más similar sea el Project2, 
 			   luego el Project1 y luego el Project3 */
-			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 0);
+			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, caseToEval, configCBR, 0);
 			assertTrue(result.size() == 3);
 			// El más similar es el Project2, luego el Project1 y por último el Project3
 			assertEquals(result.get(0).getCaseP(), project2);
@@ -182,19 +182,19 @@ public class CBRTest extends PruebasBase {
 			assertEquals(result.get(2).getCaseP(), project3);
 			
 			// Se ejecuta con k = 1 y método NN
-			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, cases, caseToEval, configCBR, 1);
+			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.NN, caseToEval, configCBR, 1);
 			assertTrue(result.size() == 1);
 			assertEquals(result.get(0).getCaseP(), project2);
 			
 			// Se ejecuta con k = 1 y método Euclidean. Ahora el más semejante es el Project3
 			// Se demuestra que este método no es muy fiable
-			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.Euclidean, cases, caseToEval, configCBR, 1);
+			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.Euclidean, caseToEval, configCBR, 1);
 			assertTrue(result.size() == 1);
 			assertEquals(result.get(0).getCaseP(), project3);
 			
 			// Se ejecuta con k = 0 y método Euclidean. Ahora el más semejante es el Project3
 			// Se demuestra que este método no es muy fiable
-			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.Euclidean, cases, caseToEval, configCBR, 0);
+			result = Server.getInstance().executeAlgorithm(session.getId(), EnumAlgorithmCBR.Euclidean, caseToEval, configCBR, 0);
 			assertTrue(result.size() == 3);
 			assertEquals(result.get(0).getCaseP(), project3);
 			assertEquals(result.get(1).getCaseP(), project1);

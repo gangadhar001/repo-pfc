@@ -303,8 +303,8 @@ public class ExportedServer extends UnicastRemoteObject implements IServer {
 	}
 	
 	@Override
-	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception{
-		return server.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, config, k);
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, Project caseToEval, ConfigCBR config, int k) throws RemoteException, NotLoggedException, NonPermissionRoleException, Exception{
+		return server.executeAlgorithm(sessionId, algorithmName, caseToEval, config, k);
 	}
 
 	@Override

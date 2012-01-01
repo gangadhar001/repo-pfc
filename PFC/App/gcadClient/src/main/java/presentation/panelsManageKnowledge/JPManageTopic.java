@@ -264,7 +264,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 				// Create and insert new Topic
 				Topic newTopicAdded = ClientController.getInstance().addTopic(newTopic);
 				// Notify to main frame the new knowledge
-				mainFrame.notifyKnowledgeAdded(newTopicAdded, null);
+				if (mainFrame.getPanelKnowledge() != null)
+					mainFrame.getPanelKnowledge().refreshKnowledgeAdded(newTopicAdded, null);
 				CursorUtilities.showDefaultCursor(this);
 				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 				parentD.dispose();
@@ -302,7 +303,8 @@ public class JPManageTopic extends javax.swing.JPanel {
 				// Modify the old Topic
 				Topic newTopicModified = ClientController.getInstance().modifyTopic(newTopic, topics.get(cbTopics.getSelectedIndex()));
 				// Notify to main frame the new knowledge
-				mainFrame.notifyKnowledgeEdited(newTopicModified, oldTopic);
+				if (mainFrame.getPanelKnowledge() != null)
+					mainFrame.getPanelKnowledge().refreshKnowledgeModified(newTopicModified, oldTopic);
 				CursorUtilities.showDefaultCursor(this);
 				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 				parentD.dispose();

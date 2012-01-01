@@ -943,13 +943,13 @@ public class Server implements IServer {
 	}
 	
 	@Override
-	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
 		List<CaseEval> projects = new ArrayList<CaseEval>();			
 		String login = "";
 		try {
 			Session session = SessionController.getSession(sessionId);
 			login = session.getUser().getLogin();
-			projects = CBRController.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, config, k);	
+			projects = CBRController.executeAlgorithm(sessionId, algorithmName, caseToEval, config, k);	
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("ExecuteAlgorithm_msg") + " " + algorithmName);
 		} catch(NonPermissionRoleException nea) {
 			LogManager.putMessage(login, IMessageTypeLog.INFO, AppInternationalization.getString("NonPermission_ExecuteAlgorithm_msg"));

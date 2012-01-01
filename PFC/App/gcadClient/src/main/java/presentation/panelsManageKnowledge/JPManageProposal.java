@@ -350,7 +350,8 @@ public class JPManageProposal extends javax.swing.JPanel {
 				// Create and insert new Proposal
 				Proposal newProposalAdded = ClientController.getInstance().addProposal(newPro, topics.get(cbTopics.getSelectedIndex()));
 				// Notify to main frame the new knowledge
-				mainFrame.notifyKnowledgeAdded(newProposalAdded, topics.get(cbTopics.getSelectedIndex()));
+				if (mainFrame.getPanelKnowledge() != null)
+					mainFrame.getPanelKnowledge().refreshKnowledgeAdded(newProposalAdded, topics.get(cbTopics.getSelectedIndex()));
 				CursorUtilities.showDefaultCursor(this);
 				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 				parentD.dispose();
@@ -386,7 +387,8 @@ public class JPManageProposal extends javax.swing.JPanel {
 				// Modify the old Proposal
 				Proposal newProposalModified = ClientController.getInstance().modifyProposal(newPro, proposals[cbProposals.getSelectedIndex()], topics.get(cbTopicsModify.getSelectedIndex()));
 				// Notify to main frame the new knowledge
-				mainFrame.notifyKnowledgeEdited(newProposalModified, oldPro);
+				if (mainFrame.getPanelKnowledge() != null)
+					mainFrame.getPanelKnowledge().refreshKnowledgeModified(newProposalModified, oldPro);
 				CursorUtilities.showDefaultCursor(this);
 				JOptionPane.showMessageDialog(parentD, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 				parentD.dispose();

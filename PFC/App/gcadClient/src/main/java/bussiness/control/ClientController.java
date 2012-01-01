@@ -310,8 +310,8 @@ public class ClientController {
 		return server.getAttributesFromProject(p);
 	}
 	
-	public List<CaseEval> executeAlgorithm(EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
-		return server.executeAlgorithm(session.getId(), algorithmName, cases, caseToEval, configCBR, k);
+	public List<CaseEval> executeAlgorithm(EnumAlgorithmCBR algorithmName, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
+		return server.executeAlgorithm(session.getId(), algorithmName, caseToEval, configCBR, k);
 	}
 	
 	public User getLoggedUser() throws RemoteException, NotLoggedException, Exception {
