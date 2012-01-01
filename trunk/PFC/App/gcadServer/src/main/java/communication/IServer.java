@@ -132,7 +132,7 @@ public interface IServer extends Remote {
 	/*** Methods used in CBR ***/
 	public List<Attribute> getAttributesFromProject(Project p)  throws RemoteException, Exception;
 
-	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception;	
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, Project caseToEval, ConfigCBR config, int k) throws RemoteException, Exception;	
 	
 	/*** Methods used to manage Files ***/
 	public int attachFile(long sessionId, Knowledge k, File file) throws RemoteException, SQLException, NotLoggedException, Exception;

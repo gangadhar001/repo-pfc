@@ -31,7 +31,6 @@ import com.itextpdf.text.Image;
 
 import exceptions.IncorrectEmployeeException;
 import exceptions.NonExistentAddressException;
-import exceptions.NonExistentFileException;
 import exceptions.NonExistentNotificationException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -215,8 +214,8 @@ public class ProxyServer implements IServer {
 	}
 
 	@Override
-	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
-		return server.executeAlgorithm(sessionId, algorithmName, cases, caseToEval, configCBR, k);
+	public List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, Project caseToEval, ConfigCBR configCBR, int k) throws RemoteException, Exception {
+		return server.executeAlgorithm(sessionId, algorithmName, caseToEval, configCBR, k);
 	}
 
 	@Override

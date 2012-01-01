@@ -67,7 +67,6 @@ import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
 
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
-import exceptions.NonExistentFileException;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
@@ -278,7 +277,6 @@ public class panelKnowledgeView extends ImagePanel {
 				panelTree.setPreferredSize(new java.awt.Dimension(217, 573));
 				panelTree.setName("panelTree");
 			}
-			activateToolbarButtons(false);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -349,7 +347,8 @@ public class panelKnowledgeView extends ImagePanel {
 					else			
 						ClientController.getInstance().deleteAnswer((Answer) k);
 					
-					notifyKnowledgeRemoved(k);
+					//notifyKnowledgeRemoved(k);
+					refreshKnowledgeRemoved(k);
 				}
 				else
 					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorDelete"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -378,31 +377,45 @@ public class panelKnowledgeView extends ImagePanel {
 	// Refresh graph and tree
 	public void notifyKnowledgeEdited(Knowledge newK, Knowledge oldK) {
 		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("knowledgeEdited") + " " + oldK.getTitle(), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-		refreshKnowledge();			
-		editKnowledgeFromGraph(newK, oldK);
-		editKnowledgeFromTree(newK, oldK);	
-		clearSelectionTree();
-		clearSelectionGraph();
+		refreshKnowledgeModified(newK, oldK);
 	}
 
 	// Refresh graph and tree
 	public void notifyKnowledgeRemoved(Knowledge k) {
 		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("knowledgeRemoved") + " " + k.getTitle(), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-		refreshKnowledge();
-		deleteKnowledgeFromGraph(k);
-		deleteKnowledgeFromTree(k);	
-		clearSelectionTree();
-		clearSelectionGraph();
+		refreshKnowledgeRemoved(k);
 	}
 	
 	// Refresh graph and tree, because this client has added knowledge
 	public void notifyKnowledgeAdded(Knowledge k, Knowledge parentK) {
 		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("knowledgeAdded") + " " + k.getTitle(), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+		refreshKnowledgeAdded(k, parentK);
+	}
+
+	public void refreshKnowledgeAdded(Knowledge k, Knowledge parentK) {
 		refreshKnowledge();
 		addKnowledgeToGraph(k, parentK);
 		addKnowledgeToTree(k, parentK);
 		clearSelectionTree();
+		clearSelectionGraph();		
+	}
+	
+	public void refreshKnowledgeModified(Knowledge newK, Knowledge oldK) {
+		refreshKnowledge();			
+		editKnowledgeFromGraph(newK, oldK);
+		editKnowledgeFromTree(newK, oldK);	
+		clearSelectionTree();
 		clearSelectionGraph();
+		
+	}
+	
+	public void refreshKnowledgeRemoved(Knowledge k) {
+		refreshKnowledge();			
+		deleteKnowledgeFromGraph(k);
+		deleteKnowledgeFromTree(k);	
+		clearSelectionTree();
+		clearSelectionGraph();
+		
 	}
 
 	// Add new knowledge in tree
@@ -709,7 +722,7 @@ public class panelKnowledgeView extends ImagePanel {
 		}
 	}
 
-	private void activateToolbarButtons(boolean activate) {
+	public void activateToolbarButtons(boolean activate) {
 		// Enable delete an edit buttons in toolbar
 		parent.enableToolbarButton("AddKnowledge", activate);
 		parent.enableToolbarButton("ModifyKnowledge", activate);
@@ -778,13 +791,6 @@ public class panelKnowledgeView extends ImagePanel {
 	public void showAdvancedView(boolean selected) {
 		isAdvancedView = selected;
 		KnowGraph.showAdvancedView(selected);
-//		KnowGraph = null;
-//		KnowGraph = new KnowledgeGraph(topicWrapper, this, isAdvancedView);
-//		this.remove(panelGraph);
-//		panelGraph = new GraphZoomScrollPane(KnowGraph.getVisualGraph());
-//		this.add(panelGraph, new AnchorConstraint(12, 779, 974, 229, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
-//		this.revalidate();
-//		this.repaint();
 		showKnowledgeInfo(isAdvancedView);
 		
 	}

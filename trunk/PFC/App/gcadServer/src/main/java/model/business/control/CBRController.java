@@ -22,10 +22,11 @@ import model.business.knowledge.Subgroups;
  */
 public class CBRController {
 
-	public static List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, List<Project> cases, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
+	public static List<CaseEval> executeAlgorithm(long sessionId, EnumAlgorithmCBR algorithmName, Project caseToEval, ConfigCBR config, int k) throws NonPermissionRoleException, NotLoggedException, Exception {
 		SessionController.checkPermission(sessionId, new Operation(Groups.CBR.name(), Subgroups.CBR.name(), Operations.Execute.name()));		
 
 		List<CaseEval> result = new ArrayList<CaseEval>();
+		List<Project> cases = ProjectController.getProjects(sessionId);
 		switch(algorithmName) {
 		case NN:
 			result = NNMethod.evaluateSimilarity(caseToEval, cases, config, k);

@@ -295,7 +295,9 @@ public class JFMain extends SingleFrameApplication {
 		// permissions
 		List<String> availableOps = OperationsUtilities.getOperationsGroupId(operations, Groups.Knowledge.name());
 		if (availableOps.contains(Operations.Add.name())) {
-			toolbar.add(createToolbarButton(Operations.Add.name() + Groups.Knowledge.name()));        	
+			JButton but = createToolbarButton(Operations.Add.name() + Groups.Knowledge.name());
+			but.setEnabled(false);
+			toolbar.add(but);
 		}
 		if (availableOps.contains(Operations.Modify.name())) {
 			JButton but = createToolbarButton(Operations.Modify.name() + Groups.Knowledge.name());
@@ -606,15 +608,17 @@ public class JFMain extends SingleFrameApplication {
 	
 	private void createStatisticsView() {
 		clearViews();
-		createToolbarStatisticsView();
+
 		panelStatistics = new panelStatisticsGeneration();
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }		
 		
 		getMainFrame().getContentPane().add(panelStatistics, new AnchorConstraint(61, 1000, 925, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		mainPanel.setVisible(false);
 		panelStatistics.setPreferredSize(new java.awt.Dimension(1008, 596));
+		mainPanel.setVisible(false);
+		
+		createToolbarStatisticsView();
 		
 		stopProgressBar();
 	}
@@ -622,15 +626,16 @@ public class JFMain extends SingleFrameApplication {
 	private void createKnowledgeView() {		
 		// Remove other views, if any
 		clearViews();
-		createToolbarKnowledgeView();
 		panelKnowledge = new panelKnowledgeView(this);		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }
 		
 		getMainFrame().getContentPane().add(panelKnowledge, new AnchorConstraint(58, 1000, 941, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 609));
 		mainPanel.setVisible(false);
-		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 609));		
+		createToolbarKnowledgeView();
+		//panelKnowledge.activateToolbarButtons(false);
 		
 		stopProgressBar();
 		
@@ -641,15 +646,16 @@ public class JFMain extends SingleFrameApplication {
 	private void createNotificationsView() {		
 		// Remove other views, if any
 		clearViews();
-		createToolbarNotificationView();
+		
 		panelNotifications = new panelNotificationsView(this);		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }
 		
 		getMainFrame().getContentPane().add(panelNotifications, new AnchorConstraint(58, 1000, 941, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		mainPanel.setVisible(false);
 		panelNotifications.setPreferredSize(new java.awt.Dimension(1008, 609));		
+		mainPanel.setVisible(false);
+		createToolbarNotificationView();
 		
 		stopProgressBar();
 	}
@@ -657,15 +663,17 @@ public class JFMain extends SingleFrameApplication {
 	private void createPdfView() 
 	{
 		clearViews();
-		createToolbarPDFGenView();
+
 		panelPDF = new panelPDFGeneration(this);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }
 		
 		getMainFrame().getContentPane().add(panelPDF, new AnchorConstraint(60, 1000, 935, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		mainPanel.setVisible(false);
 		panelPDF.setPreferredSize(new java.awt.Dimension(1008, 609));
+		mainPanel.setVisible(false);
+		
+		createToolbarPDFGenView();
 		
 		stopProgressBar();
 	}
@@ -723,6 +731,7 @@ public class JFMain extends SingleFrameApplication {
 	}
 	
 	private void startProgressBar() {
+		btnDownloadAttached.setVisible(false);
 		CursorUtilities.showWaitCursor(getMainFrame());
 		jProgressBar.setVisible(true);
 		lblStatus.setText(ApplicationInternationalization.getString("creatingView"));
@@ -833,4 +842,9 @@ public class JFMain extends SingleFrameApplication {
 		lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());		
 	}
 
+	public panelKnowledgeView getPanelKnowledge() {
+		return panelKnowledge;
+	}
+
+	
 }

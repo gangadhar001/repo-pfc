@@ -164,7 +164,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						txtLog.setFont(new java.awt.Font("Tahoma",0,12));
 						txtLog.setName("txtLog");
 						txtLog.setEditable(false);
-						txtLog.setPreferredSize(new java.awt.Dimension(0, 0));
+						txtLog.setPreferredSize(new java.awt.Dimension(524, 265));
 						txtLog.setMaximumSize(new java.awt.Dimension(0, 0));
 
 					}

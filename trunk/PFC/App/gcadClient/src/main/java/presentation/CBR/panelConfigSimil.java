@@ -391,10 +391,8 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		}
 		
 		// Launch the algorithm
-		List<Project> cases;
 		try {
-			cases = ClientController.getInstance().getProjects();
-			List<CaseEval> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), cases, caseToEval, configCBR, numberCases);
+			List<CaseEval> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), caseToEval, configCBR, numberCases);
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("retrievalCases") + ": " + result.size() + " " + ApplicationInternationalization.getString("casesName"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			if (result.size() > 0) {
 				JDRetrievalCases showCases = new JDRetrievalCases(result, parent.getParentD());
