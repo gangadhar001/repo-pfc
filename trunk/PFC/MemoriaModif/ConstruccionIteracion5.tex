@@ -203,6 +203,14 @@ Por otra parte, en el cliente, cuando el servidor le notifica que se ha producid
 Para terminar, cabe destacar que las operaciones de gestión de decisiones (creación, modificación, etc) pueden bien realizarse desde un menú o bien desde los nodos del grafo, gracias a un menú contextual que aparece al interactuar con el ratón. Se ha decidido diseñarlo de esta manera para permitir a los usuarios una flexibilidad y libertad a la hora de realizar las acciones, pudiendo seleccionar aquella que le sea más cómoda. En otras funcionalidades, la interfaz también proporciona estas opciones de realizar las acciones desde diferentes puntos.
 
 
+\paragraph{Pruebas}
+
+Para concluir el desarrollo de esta iteración, se diseñan e implementan los casos de prueba unitarios para este grupo funcional del sistema. De este modo, para el servidor, se crean casos de pruebas encargados de probar las diferentes operaciones relacionadas con la gestión de decisiones, como su creación, modificación, eliminación, notificación a los clientes, etc. En dichos casos de prueba se prueban escenarios correctos e incorrectos de los casos de uso, comprobando que se obtiene el resultado esperado en cada caso escenario. En la Figura \ref{fig:testKnowledge} se observa una captura de pantalla de los diferentes casos de prueba para las operación de gestión de decisiones.
+
+En el caso del cliente, como en el resto de casos, se crean \textit{checklist} para asegurar el correcto funcionamiento de la interfaz gráfica.
+
+
+
 \subsubsection{Grupo funcional \textbf{F4:} \textit{Gestión de notificaciones}}
 
 \paragraph{Diseño e implementación} \label{sec:notificaciones}
@@ -223,3 +231,5 @@ De este modo, cada usuario podrá editar y eliminar su propia alerta, sólo elimin
 Siguiendo los diagramas de secuencia para este subsistema, se diseña e implementa la interfaz gráfica de usuario para dar soporte a cada caso de uso, enviando peticiones al servidor y obteniendo los datos que éste devuelve, mostrándolos en la interfaz. En este caso, se ha diseñado e implementado una vista para poder mostrar esas alertas, de manera similar a una vista de correo electrónico, mostrando las alertas leídas y no leídas, la información de dichas alertas, su autor, etc.
 
 \paragraph{Pruebas}
+
+Al igual que en el caso anterior, se diseñan e implementan los casos de prueba unitarios, así como \textit{checklists}.

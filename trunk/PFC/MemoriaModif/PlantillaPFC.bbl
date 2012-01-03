@@ -1,4 +1,4 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
   \providebibliographyfont{name}{}%
   \providebibliographyfont{lastname}{}%
   \providebibliographyfont{title}{\emph}%
@@ -11,5 +11,258 @@
   \providebibliographyfont{url}{\url}%
   \providebibliographyfont{numeral}{}%
   \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {Dutoit2006Casual}
+
+
+\btxselectlanguage {english}
+\bibitem {benefitsGSD}
+\btxnamefont {\btxlastnamefont {{\AA}gerfalk}, P.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Benefits of global
+  software development: the known and unknown}{Benefits of global software
+  development: the known and unknown}}.
+\newblock \btxjournalfont {Making Globally Distributed Software Development a
+  Success Story}, \btxpageslong {}\ 1--9, 2008.
+
+\bibitem {CBRCommentaries}
+\btxnamefont {\btxlastnamefont {Aha}, D.W.}, \btxnamefont {C. \btxlastnamefont
+  {Marling}}\btxandcomma {} \btxandlong {}\ \btxnamefont {I. \btxlastnamefont
+  {Watson}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {{Case-based
+  reasoning commentaries: introduction}}{{Case-based reasoning commentaries:
+  introduction}}}.
+\newblock \btxjournalfont {The Knowledge Engineering Review}, 20(03):201--202,
+  2005\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {0269-8889}}}.
+
+\bibitem {alavi2001review}
+\btxnamefont {\btxlastnamefont {Alavi}, M.} \btxandlong {}\ \btxnamefont {D.E.
+  \btxlastnamefont {Leidner}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {Review: Knowledge management and knowledge management systems: Conceptual
+  foundations and research issues}{Review: Knowledge management and knowledge
+  management systems: Conceptual foundations and research issues}}.
+\newblock \btxjournalfont {MIS quarterly}, \btxpageslong {}\ 107--136, 2001.
+
+\bibitem {aspray2006globalization}
+\btxnamefont {\btxlastnamefont {Aspray}, W.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Globalization and
+  offshoring of software}{Globalization and offshoring of software}}.
+\newblock \btxjournalfont {Report of the ACM Job Migration Task Force,
+  Association for Computing Machinery}, 2006.
+
+\bibitem {Bornemann2003}
+\btxnamefont {\btxlastnamefont {Bornemann}, M.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {{An Illustrated Guide
+  to Knowledge Management}}{{An Illustrated Guide to Knowledge Management}}},
+  2003.
+
+\bibitem {carmel2010follow}
+\btxnamefont {\btxlastnamefont {Carmel}, E.}, \btxnamefont {J.A.
+  \btxlastnamefont {Espinosa}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Y.
+  \btxlastnamefont {Dubinsky}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {" follow the sun" workflow in global software development}{" Follow the Sun"
+  Workflow in Global Software Development}}.
+\newblock \btxjournalfont {Journal of Management Information Systems},
+  27(1):17--38, 2010.
+
+\bibitem {chen1990design}
+\btxnamefont {\btxlastnamefont {Chen}, A.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Design history
+  knowledge representation and its basic computer implementation}{Design
+  history knowledge representation and its basic computer implementation}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the Design Theory and
+  Methodology Conference, ASME}, \btxpageslong {}\ 175--184, 1990.
+
+\bibitem {cho2007globalization}
+\btxnamefont {\btxlastnamefont {Cho}, J.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Globalization and global software
+  development}{Globalization and global software development}}.
+\newblock \btxjournalfont {Issues in information systems}, 8(2):287--290, 2007.
+
+\bibitem {conchúir2009global}
+\btxnamefont {\btxlastnamefont {Conch{\'u}ir}, E.{\'O}.} \btxetalfont
+  {\btxetalshort {.}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Global
+  software development: where are the benefits?}{Global software development:
+  where are the benefits?}}
+\newblock \btxjournalfont {Communications of the ACM}, 52(8):127--131, 2009.
+
+\bibitem {damian2006guest}
+\btxnamefont {\btxlastnamefont {Damian}, D.} \btxandlong {}\ \btxnamefont {D.
+  \btxlastnamefont {Moitra}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {{Guest Editors' Introduction: Global Software Development: How Far Have We
+  Come?}}{{Guest Editors' Introduction: Global Software Development: How Far
+  Have We Come?}}}
+\newblock \btxjournalfont {Software, IEEE}, 23(5):17--19, 2006.
+
+\bibitem {Dutoit2006}
+\btxnamefont {\btxlastnamefont {Dutoit}, A.H.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {Rationale management in software
+  engineering}.
+\newblock \btxpublisherfont {Springer}, 2006.
+
+\bibitem {evaristo2000geographically}
+\btxnamefont {\btxlastnamefont {Evaristo}, J.R.} \btxandlong {}\ \btxnamefont
+  {R. \btxlastnamefont {Scudder}}\btxauthorcolon\ \btxtitlefont
+  {\btxifchangecase {Geographically distributed project teams: a dimensional
+  analysis}{Geographically distributed project teams: a dimensional analysis}}.
+\newblock \Btxinlong {}\ \btxtitlefont {System Sciences, 2000. Proceedings of
+  the 33rd Annual Hawaii International Conference on}, \btxpageslong {}\
+  11--pp. IEEE, 2000.
+
+\bibitem {evaristo1999typology}
+\btxnamefont {\btxlastnamefont {Evaristo}, R.} \btxandlong {}\ \btxnamefont
+  {P.C. van \btxlastnamefont {Fenema}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {A typology of project management: emergence and evolution
+  of new forms}{A typology of project management: emergence and evolution of
+  new forms}}.
+\newblock \btxjournalfont {International Journal of Project Management},
+  17(5):275--281, 1999.
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {fitzgerald2010global}
+\btxnamefont {\btxlastnamefont {Fitzgerald}, B.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Global software
+  development: a multiple-case study of the realisation of the benefits}{Global
+  software development: a multiple-case study of the realisation of the
+  benefits}}.
+\newblock 2010.
+
+\btxselectlanguage {english}
+\bibitem {freeman2010strategic}
+\btxnamefont {\btxlastnamefont {Freeman}, R.E.}\btxauthorcolon\ \btxtitlefont
+  {Strategic Management: A Stakeholder Approach}.
+\newblock \btxpublisherfont {Cambridge University Press}, 2010\ifbtxprintISBN
+  {, \mbox{\btxISBN~\btxISBNfont {9780521151740}}}.
+
+\bibitem {wernerHeij}
+\btxnamefont {\btxlastnamefont {Heijstek}, Werner}\btxauthorcolon\
+  \btxtitlefont {\btxifchangecase {Global software development}{Global Software
+  Development}}.
+\newblock Leiden University, 2011.
+
+\bibitem {herbsleb2002global}
+\btxnamefont {\btxlastnamefont {Herbsleb}, J.D.} \btxandlong {}\ \btxnamefont
+  {D. \btxlastnamefont {Moitra}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {{G}lobal {S}oftware {D}evelopment}{{G}lobal {S}oftware
+  {D}evelopment}}.
+\newblock \btxjournalfont {Software, IEEE}, 18(2):16--20, 2002.
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {holzner1979knowledge}
+\btxnamefont {\btxlastnamefont {Holzner}, B.} \btxandlong {}\ \btxnamefont
+  {J.H. \btxlastnamefont {Marx}}\btxauthorcolon\ \btxtitlefont {Knowledge
+  application: The knowledge system in society}.
+\newblock \btxpublisherfont {Allyn and Bacon Boston}, 1979.
+
+\btxselectlanguage {english}
+\bibitem {Hovland}
+\btxnamefont {\btxlastnamefont {Hovland}, I.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Knowledge management and organisational learning: An
+  international development perspective}{Knowledge Management and
+  Organisational Learning: An International Development Perspective}}.
+\newblock \btxjournalfont {Overseas Development Institute Working Paper No.
+  224}, Overseas Development Institute, London, UK.
+
+\bibitem {insightinc}
+\btxnamefont {\btxlastnamefont {Insight}, G.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Inc (2005)." executive summary: The comprehensive impact
+  of offshore software and it services outsourcing on the us economy and the it
+  industry."}{Inc (2005)." Executive Summary: The Comprehensive Impact of
+  offshore Software and IT Services Outsourcing on the US Economy and the IT
+  Industry."}}.
+\newblock \btxjournalfont {Information Technology Association of America}.
+
+\btxselectlanguage {spanish}
+\bibitem {jac00}
+\btxnamefont {\btxlastnamefont {Jacobson}, I.}, \btxnamefont {G.
+  \btxlastnamefont {Booch}}\btxandcomma {} \btxandlong {}\ \btxnamefont {J.
+  \btxlastnamefont {Rumbaugh}}\btxauthorcolon\ \btxtitlefont {El proceso
+  unificado de desarrollo de software}.
+\newblock \btxpublisherfont {Addison Wesley}, 2000.
+
+\btxselectlanguage {english}
+\bibitem {Kanagasabapathy2006}
+\btxnamefont {\btxlastnamefont {Kanagasabapathy}, K.A.}, \btxnamefont {R.
+  \btxlastnamefont {Radhakrishnan}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {S. \btxlastnamefont {Balasubramanian}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Empirical investigation of critical success factor and
+  knowledge management structure for successful implementation of knowledge
+  management system: A case study in process industry}{Empirical Investigation
+  of Critical Success Factor and Knowledge Management Structure for Successful
+  Implementation of Knowledge Management System: A Case Study in Process
+  Industry}}.
+\newblock 2006.
+
+\bibitem {kolodner1992introduction}
+\btxnamefont {\btxlastnamefont {Kolodner}, J.L.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {{An introduction to case-based reasoning}}{{An
+  introduction to case-based reasoning}}}.
+\newblock \btxjournalfont {Artificial Intelligence Review}, 6(1):3--34,
+  1992\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {0269-2821}}}.
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {kruchten2004rational}
+\btxnamefont {\btxlastnamefont {Kruchten}, P.}\btxauthorcolon\ \btxtitlefont
+  {The rational unified process: an introduction}.
+\newblock \btxpublisherfont {Addison-Wesley Professional}, 2004.
+
+\btxselectlanguage {english}
+\bibitem {lee1997design}
+\btxnamefont {\btxlastnamefont {Lee}, J.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Design rationale systems: understanding the issues}{Design
+  rationale systems: understanding the issues}}.
+\newblock \btxjournalfont {IEEE Expert}, 12(3):78--85, 1997.
+
+\bibitem {lopez2005retrieval}
+\btxnamefont {\btxlastnamefont {Lopez De~Mantaras}, R.} \btxetalfont
+  {\btxetalshort {.}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {{Retrieval, reuse, revision and retention in case-based
+  reasoning}}{{Retrieval, reuse, revision and retention in case-based
+  reasoning}}}.
+\newblock \btxjournalfont {The Knowledge Engineering Review}, 20(03):215--240,
+  2005\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {0269-8889}}}.
+
+\bibitem {Dutoit2006Ibis}
+\btxnamefont {\btxlastnamefont {Rooksby}, J.}, \btxnamefont {I.
+  \btxlastnamefont {Sommerville}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {M. \btxlastnamefont {Pidd}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase
+  {A hybrid approach to upstream requirements: Ibis and cognitive mapping}{A
+  Hybrid Approach to Upstream Requirements: IBIS and Cognitive Mapping}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Rationale management in software
+  engineering}, \btxpageslong {}\ 137--153. \btxpublisherfont {Springer}, 2006.
+
+\bibitem {sahay:globalit}
+\btxnamefont {\btxlastnamefont {Sahay}, Sundeep}, \btxnamefont {Brian
+  \btxlastnamefont {Nicholson}}\btxandcomma {} \btxandlong {}\ \btxnamefont
+  {Srinivas \btxlastnamefont {Krishna}}\btxauthorcolon\ \btxtitlefont {Global
+  IT Outsourcing: Software Development across Borders}.
+\newblock \btxpublisherfont {Cambridge University Press},
+  \btxprintmonthyear{.}{November}{2003}{long}.
+
+\bibitem {sangwan2006global}
+\btxnamefont {\btxlastnamefont {Sangwan}, R.} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Global software
+  development handbook (auerbach series on applied software engineering
+  series)}{Global Software Development Handbook (Auerbach Series on Applied
+  Software Engineering Series)}}.
+\newblock 2006.
+
+\btxselectlanguage {spanish}
+\bibitem {torossi}
+\btxnamefont {\btxlastnamefont {Torossi}, G.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {El proceso unificado de desarrollo de software}{El proceso
+  Unificado de Desarrollo de Software}}.
+
+\btxselectlanguage {english}
+\bibitem {watson1998cbr}
+\btxnamefont {\btxlastnamefont {Watson}, I.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {{CBR is a methodology not a technology}}{{CBR is a
+  methodology not a technology}}}.
+\newblock \btxjournalfont {Research \& Development in Expert Systems XV},
+  \btxpageslong {}\ 213--223, 1998.
+
+\bibitem {wenger1998communities}
+\btxnamefont {\btxlastnamefont {Wenger}, E.}\btxauthorcolon\ \btxtitlefont
+  {Communities of practice: Learning, meaning, and identity}.
+\newblock \btxpublisherfont {Cambridge Univ Pr}, 1998.
 
 \end{thebibliography}
