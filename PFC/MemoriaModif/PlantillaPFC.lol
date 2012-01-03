@@ -1,17 +1,17 @@
-\contentsline {lstlisting}{\numberline {1.1}Proceso para exportar un objeto utilizando RMI}{40}
-\contentsline {lstlisting}{\numberline {1.2}Proceso para localizar un objeto remoto utilizando RMI}{41}
-\contentsline {lstlisting}{\numberline {1.3}Fragmento de c\'odigo para acceder al sistema en el cliente}{52}
-\contentsline {lstlisting}{\numberline {1.4}Respuesta del servicio Web Yahoo! PlaceFinder}{60}
-\contentsline {lstlisting}{\numberline {1.5}Invocaci\'on del servicio Web Yahoo! PlaceFinder}{61}
-\contentsline {lstlisting}{\numberline {1.6}Fragmento de c\'odigo para mostrar mapas geoposicionados}{63}
-\contentsline {lstlisting}{\numberline {1.7}Fragmento de c\'odigo del controlador de clientes}{70}
-\contentsline {lstlisting}{\numberline {1.8}Soporte multi-hilo para actualizar el estado de clientes}{73}
-\contentsline {lstlisting}{\numberline {1.9}Fragmento de c\'odigo utilizando \textit {reflection}}{74}
-\contentsline {lstlisting}{\numberline {1.10}Trigger de base de datos para gestionar la eliminaci\'on de alertas}{75}
-\contentsline {lstlisting}{\numberline {1.11}Fragmento de c\'odigo para el algoritmo \textit {NN} del CBR}{82}
-\contentsline {lstlisting}{\numberline {1.12}Fragmento de c\'odigo para la generaci\'on de documentos PDF}{89}
-\contentsline {lstlisting}{\numberline {1.13}Fragmento de c\'odigo para la generaci\'on de \textit {datasets}}{97}
-\contentsline {lstlisting}{\numberline {1.14}Fragmento de c\'odigo para la generaci\'on de gr\'aficos}{98}
-\contentsline {lstlisting}{\numberline {1.15}Anotaciones de JAXB sobre la clase \textit {TopicWrapper}}{101}
-\contentsline {lstlisting}{\numberline {1.16}Anotaciones de JAXB sobre la clase \textit {Knowledge}}{102}
-\contentsline {lstlisting}{\numberline {1.17}M\'etodo de serializaci\'on utilizando JAXB}{102}
+\contentsline {lstlisting}{\numberline {5.1}Proceso para exportar un objeto utilizando RMI}{90}
+\contentsline {lstlisting}{\numberline {5.2}Proceso para localizar un objeto remoto utilizando RMI}{91}
+\contentsline {lstlisting}{\numberline {5.3}Fragmento de c\'odigo para acceder al sistema en el cliente}{103}
+\contentsline {lstlisting}{\numberline {5.4}Respuesta del servicio Web Yahoo! PlaceFinder}{111}
+\contentsline {lstlisting}{\numberline {5.5}Invocaci\'on del servicio Web Yahoo! PlaceFinder}{112}
+\contentsline {lstlisting}{\numberline {5.6}Fragmento de c\'odigo para mostrar mapas geoposicionados}{114}
+\contentsline {lstlisting}{\numberline {5.7}Fragmento de c\'odigo del controlador de clientes}{123}
+\contentsline {lstlisting}{\numberline {5.8}Soporte multi-hilo para actualizar el estado de clientes}{124}
+\contentsline {lstlisting}{\numberline {5.9}Fragmento de c\'odigo utilizando \textit {reflection}}{125}
+\contentsline {lstlisting}{\numberline {5.10}Trigger de base de datos para gestionar la eliminaci\'on de alertas}{127}
+\contentsline {lstlisting}{\numberline {5.11}Fragmento de c\'odigo para el algoritmo \textit {NN} del CBR}{134}
+\contentsline {lstlisting}{\numberline {5.12}Fragmento de c\'odigo para la generaci\'on de documentos PDF}{141}
+\contentsline {lstlisting}{\numberline {5.13}Fragmento de c\'odigo para la generaci\'on de \textit {datasets}}{149}
+\contentsline {lstlisting}{\numberline {5.14}Fragmento de c\'odigo para la generaci\'on de gr\'aficos}{150}
+\contentsline {lstlisting}{\numberline {5.15}Anotaciones de JAXB sobre la clase \textit {TopicWrapper}}{153}
+\contentsline {lstlisting}{\numberline {5.16}Anotaciones de JAXB sobre la clase \textit {Knowledge}}{153}
+\contentsline {lstlisting}{\numberline {5.17}M\'etodo de serializaci\'on utilizando JAXB}{154}
