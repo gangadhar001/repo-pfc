@@ -1,6 +1,6 @@
 \subsection{Iteración 4} 
 
-Siguiendo los casos de uso del grupo funcional \textbf{F3:} \textit{Visualización información} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), se abordan las siguientes tareas:
+Siguiendo los casos de uso del grupo funcional \textbf{F3:} \textit{Visualización Información} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), se abordan las siguientes tareas:
 
 \begin{itemize}
 	\item Análisis de los casos de uso.
@@ -150,6 +150,49 @@ Para mostrar los mapas proporcionados por \textit{OpenStreetMaps}, se ha utiliza
 
 \paragraph{Pruebas}
 
-Al igual que en iteraciones anteriores, se diseñan los casos de prueba para los diferentes escenarios de los casos de uso que componen esta funcionalidad y se ejecutan con JUnit. Además, en el subsistema cliente, se elaboran diferentes \textit{checklist} para asegurase que el comportamiento de los diferentes elementos que componen la interfaz gráfica de usuario es el esperado y adecuado. A modo de ejemplo, en la Tabla \ref{table:checkVisualizacion} se muestra una \textit{checklist} para comprobar la correcta visualización de las decisiones y de su información.
+Al igual que en iteraciones anteriores, se diseñan los casos de prueba para los diferentes escenarios de los casos de uso que componen esta funcionalidad y se ejecutan con JUnit. Además, en el subsistema cliente, se elaboran diferentes \textit{checklist} para asegurase que el comportamiento de los diferentes elementos que componen la interfaz gráfica de usuario es el esperado y adecuado. A modo de ejemplo, en la Tabla \ref{table:checkVisualizacion} se muestra una \textit{checklist} con algunos de los casos de prueba realizados para comprobar el funcionamiento de la interfaz gráfica correspondiente a esta funcionalidad, así como la correcta visualización de las decisiones y de su información asociada.
 
-%% TODO: checklist
+\begin{table}[!htbp]%
+	\centering
+	\begin{tabular}{| >{\arraybackslash}m{4cm} | >{\arraybackslash}m{8cm} | >{\center\arraybackslash}m{2cm} |}
+	\hline
+		\multicolumn{3}{|c|}{\colorCabecera\textbf{Identificador de funcionalidad}: F3} \\
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Caso de prueba}} &
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Descripción}} &
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Resultado}} \\
+	\hline
+		Visualizar decisiones en la vista &
+		Se crea la vista para mostrar las decisiones de un proyecto, en forma de grafo y árbol, cuando el usuario hace clic en el botón correspondiente del menú &
+		\ding{'063} \\
+	\hline
+		Proporcionar \textit{feedback} al usuario al cargar la vista &
+		Se informa al usuario, mediante una barra de progreso, que la acción de mostrar las decisiones en su vista está en progreso y que debe esperar &
+		\ding{'065} \\
+	\hline 
+		Visualizar información asociada a una decisión &
+		Cuando el usuario selecciona una decisión, en el árbol o en el grafo, se muestra la información asociada a dicha decisión, como es información acerca de su autor, de la empresa donde éste trabaja e información acerca de la propia decisión &
+		\ding{'063} \\
+	\hline
+		Refrescar vista al cambiar alguna decisión &
+		Cuando el usuario crea, modifica o elimina alguna decisión, este cambio se refleja visualmente en la vista, en el grafo y árbol &
+		\ding{'065} \\
+		\hline
+		Refrescar elementos de la \textit{toolbar} &
+		Cuando el usuario selecciona o desmarcar una decisión, se habilitan/deshabilitan en consecuencia los elementos de la barra de herramientas (\textit{toolbar)} &
+		\ding{'063} \\
+		\hline
+		Recibir notificaciones de cambios &
+		Cuando otro usuario realiza cambios sobe las mismas decisiones visualizadas por el usuario, se recibe correctamente la notificación del servidor y se refresca la vista &
+		\ding{'063} \\
+		\hline
+		Mostrar menú contextual en grafo &
+		Cuando el usuario realiza un clic derecho sobre una decisión del grafo, se muestra un menú contextual con operaciones que puede realizar &
+		\ding{'065} \\
+		\hline
+	\end{tabular}
+	\caption{Informe de pruebas para la funcionalidad \textit{Visualización Información}}
+	\label{table:checkVisualizacion}
+\end{table}
+
+Como se puede comprobar, algunos casos de prueba no fueron superados, ya que no se obtenía el resultado descrito. Por tanto, se corrigieron estos fallos detectados y se volvieron a ejecutar todos los casos creados en la \textit{checklist}, hasta obtener un resultado positivo en todos ellos.
