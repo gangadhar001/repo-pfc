@@ -15,7 +15,6 @@ Siguiendo los casos de uso del grupo funcional \textbf{F5:} \textit{Gestión de p
 
 Esta iteración comienza con el análisis de los casos de uso que componen este grupo funcional, resaltando el caso de uso \textit{Aconsejar decisiones}, una de las funcionalidades destacadas del sistema.
 
-%% HACER CBR
 
 \paragraph{Diseño e implementación} \label{sec:gestionProyectos}
 
@@ -119,3 +118,47 @@ Para terminar, señalar que gracias a la reflexión de Java, la interfaz gráfica e
 
 
 \paragraph{Pruebas}
+
+		
+En esta fase, se diseñan los casos de prueba unitarios que componen la \textit{suite} de pruebas utilizada para probar los casos de uso para la gestión de proyectos y CBR. En la Figura \ref{fig:testProyectos} se observa una captura de pantalla de la ejecución de la \textit{suite} de pruebas para probar los métodos del servidor, que posteriormente el cliente invocará. 
+
+Por otro lado, para comprobar el correcto funcionamiento de la interfaz gráfica de usuario para los casos de uso, se han creado \textit{cecklists}, como en casos anteriores, donde se muestra en la Tabla \ref{table:checkCBR}, a modo de ejemplo relevante, parte de la \textit{checklist} utilizada para probar la interfaz asociada al CBR.
+
+\begin{table}[!htbp]%
+	\centering
+	\begin{tabular}{| >{\arraybackslash}m{4cm} | >{\arraybackslash}m{8cm} | >{\center\arraybackslash}m{2cm} |}
+	\hline
+		\multicolumn{3}{|c|}{\colorCabecera\textbf{Identificador de funcionalidad}: F3} \\
+	\hline
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Caso de prueba}} &
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Descripción}} &
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Resultado}} \\
+	\hline
+		Mostrar datos proyecto &
+		Cuando el usuario selecciona un proyecto, se muestran todos los datos de ese proyecto, rellenando los diferentes \textit{textbox}  &
+		\ding{'063} \\
+	\hline
+		Limpiar datos proyecto &
+		Cuando el usuario hace clic en el botón correspondiente, se limpian los datos del proyecto y se vacían los \textit{textbox} &
+		\ding{'063} \\
+			\hline
+		Mostrar atributos del proyecto a configurar &	
+		Se muestran al usuario, utilizando reflexión, los atributos del proyecto, para poder configurar sus pesos y demás aspectos utilizados en los algoritmos de CBR &
+		\ding{'065} \\
+	\hline
+		Proporcionar \textit{feedback} al usuario al calcular semejantes &
+		Se informa al usuario que la acción para calcular los proyectos semejantes, una vez configurado el algoritmo de CBR, está en progreso y que debe esperar &
+		\ding{'063} \\
+	\hline 
+		Visualizar información y decisiones de proyectos encontrados &
+		Se muestra la información de los proyectos encontrados, así como las decisiones tomadas en él en forma de árbol y el porcentaje de semejanza al proyecto inicial &
+		\ding{'063} \\
+	\hline
+		Avanzar/Retroceder en los proyectos semejantes encontrados &
+		Cuando el usuario hace clic en el botón para avanzar/retroceder en los proyectos encontrados, se muestra la información y decisiones del proyecto correspondiente, limpiando la información del que previamente estaba visualizándose &
+		\ding{'063} \\
+		\hline
+	\end{tabular}
+	\caption{Informe de pruebas para el caso de uso \textit{Aconsejar Decisiones (CBR)}}
+	\label{table:checkCBR}
+\end{table}

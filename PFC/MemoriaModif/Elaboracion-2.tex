@@ -164,9 +164,9 @@ De un modo similar al anterior, se ha utilizado también el patrón \textbf{Observ
 
 \subsubsection{Pruebas}
 		
-Para concluir con esta iteración, se diseñan los casos de prueba unitarios para probar la comunicación entre el subsistema servidor y el cliente, y del servidor con la base de datos. Para ello, se diseño un conjunto de casos de pruebas, o \textit{test cases}, agrupados bajo una \textit{suite} de pruebas. Dicha \textit{suite} es ejecutada posteriormente por \textbf{JUnit} (ver \ref{sec:marco}), obteniendo los resultados de las pruebas, pudiendo corregir los errores encontrados, si los hubiera.
+Para concluir con esta iteración, se diseñan los casos de prueba unitarios para probar la comunicación entre el subsistema servidor y el cliente, y del servidor con la base de datos. Para ello, se crea un conjunto de casos de pruebas, o \textit{test cases}, agrupados bajo una \textit{suite} de pruebas. Dicha \textit{suite} es ejecutada posteriormente utilizando \textbf{JUnit} (ver \ref{sec:marco}), obteniendo los resultados de dichas pruebas, pudiendo corregir los errores encontrados, si los hubiera.
 
-A continuación se muestran algunos de los casos de prueba implementados y probados para esta iteración.
+A continuación se muestran algunos de los casos de prueba diseñados para esta iteración.
 
 \begin{table}[h]%
 \centering
@@ -205,12 +205,31 @@ A continuación se muestran algunos de los casos de prueba implementados y probad
 \caption{Descripción del caso de prueba 2 para la comunicación entre subsistemas}
 \label{table:case2Communication}
 \end{table}
+
+\begin{table}[h]%
+\centering
+\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+	\hline
+	\textbf{Caso de uso}: Comunicación entre subsistemas \\
+	\hline
+	\textbf{Caso de prueba}: 3 \\
+	\hline
+	\textbf{Descripción}: Comunicación entre el servidor y el sistema de \textit{log} \\
+	\hline
+	\textbf{Precondiciones}: Ninguna \\
+	\hline
+	\textbf{Resultado}: Cuando se realiza cualquier operación utilizando la fachada (interfaz) del servidor, se crea una entrada de \textit{log} que se refleja en la base de datos y en la interfaz gráfica, de manera sincronizada y automática \\
+	\hline 
+\end{tabular}
+\caption{Descripción del caso de prueba 2 para la comunicación entre subsistemas}
+\label{table:case3Communication}
+\end{table}
 		
-En la Figura \ref{fig:communicationTest} se muestra una captura de pantalla del \textit{suite} de casos de pruebas implementado, junto a su ejecución con JUnit. Un aspecto a destacar en este caso es la implementación de un subsistema cliente de prueba, o \textit{dummy}, necesario para que el servidor pudiera comunicarse con él y probar dicha comunicación y la invocación de sus métodos.
+En la Figura \ref{fig:communicationTest} se muestra una captura de pantalla del \textit{suite} de casos de prueba implementado, junto a su ejecución con JUnit. Un aspecto a destacar en este caso es la implementación de un subsistema cliente de prueba (o \textit{dummy}) necesario para que el servidor pudiera comunicarse con él y poder probar dicha comunicación, así como la invocación de sus métodos remotos.
 
 De un modo análogo, en el subsistema cliente se implementa también un \textit{test suite} para probar la comunicación con el servidor, siendo necesario también la creación de un servidor \textit{dummy}.
 		
-En cuanto a la cobertura de código obtenida por los casos de prueba, en el Apéndice \ref{appendix:cobertura} se presenta el informe final de cobertura alcanzado con las pruebas de todos los casos de uso. Dicho informes es generado por el plug-in de eclipse \textbf{Eclemma} (ver sección \ref{sec:marco}).
+En cuanto a la cobertura de código obtenida por los casos de prueba, en el Apéndice \ref{appendix:cobertura} se presenta el informe final de cobertura alcanzado con las pruebas de todos los casos de uso. Dicho informe es generado por el plug-in de eclipse \textbf{Eclemma} (ver sección \ref{sec:marco}).
 		
 		
 		
