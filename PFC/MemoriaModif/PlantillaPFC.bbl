@@ -1,4 +1,4 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
   \providebibliographyfont{name}{}%
   \providebibliographyfont{lastname}{}%
   \providebibliographyfont{title}{\emph}%
@@ -11,5 +11,50 @@
   \providebibliographyfont{url}{\url}%
   \providebibliographyfont{numeral}{}%
   \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {aurum2003}
+\btxnamefont {\btxlastnamefont {Aurum}, Aybüke} \btxetalfont {\btxetalshort
+  {.}}\btxauthorcolon\ \btxtitlefont {Managing Software Engineering Knowledge}.
+\newblock \btxpublisherfont {Springer}, 2003.
+
+\btxselectlanguage {english}
+\bibitem {damian2006guest}
+\btxnamefont {\btxlastnamefont {Damian}, D.} \btxandlong {}\ \btxnamefont {D.
+  \btxlastnamefont {Moitra}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {{Guest Editors' Introduction: Global Software Development: How Far Have We
+  Come?}}{{Guest Editors' Introduction: Global Software Development: How Far
+  Have We Come?}}}
+\newblock \btxjournalfont {Software, IEEE}, 23(5):17--19, 2006.
+
+\bibitem {ebert2002surviving}
+\btxnamefont {\btxlastnamefont {Ebert}, C.} \btxandlong {}\ \btxnamefont {P.
+  \btxlastnamefont {De~Neve}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {{Surviving global software development}}{{Surviving global software
+  development}}}.
+\newblock \btxjournalfont {Software, IEEE}, 18(2):62--69, 2002.
+
+\bibitem {herbsleb2002global}
+\btxnamefont {\btxlastnamefont {Herbsleb}, J.D.} \btxandlong {}\ \btxnamefont
+  {D. \btxlastnamefont {Moitra}}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {{G}lobal {S}oftware {D}evelopment}{{G}lobal {S}oftware
+  {D}evelopment}}.
+\newblock \btxjournalfont {Software, IEEE}, 18(2):16--20, 2002.
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {krishna:managing}
+\btxnamefont {\btxlastnamefont {Krishna}, Srinivas}, \btxnamefont {Sundeep
+  \btxlastnamefont {Sahay}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Geoff
+  \btxlastnamefont {Walsham}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase
+  {Managing cross-cultural issues in global software outsourcing}{Managing
+  cross-cultural issues in global software outsourcing}}.
+\newblock \btxjournalfont {Commun. ACM}, \btxpageslong {}\ 62--66, 2004.
+
+\btxselectlanguage {english}
+\bibitem {mohagheghi2004global}
+\btxnamefont {\btxlastnamefont {Mohagheghi}, P.}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {{Global Software Development: Issues, Solutions,
+  Challenges}}{{Global Software Development: Issues, Solutions, Challenges}}}.
+\newblock \btxjournalfont {Retrieved April}, 7:2009, 2004.
 
 \end{thebibliography}
