@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: D:\UCLM\5Curso\PFC\re
 A level-1 auxiliary file: Portadas.aux
 A level-1 auxiliary file: Previos.aux
 A level-1 auxiliary file: Listas.aux
-A level-1 auxiliary file: Resultados.aux
+A level-1 auxiliary file: Introduccion.aux
 The style file: babplai3.bst
 Database file #1: PFCBib.bib
 "{" immediately follows a field name---line 160 of file PFCBib.bib
@@ -40,6 +40,6 @@ I was expecting a `,' or a `}'---line 568 of file PFCBib.bib
  :   author = {Bass, L. and Clements, P and Nord, R.L. and Stafford, J.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "condicionesGoogle"
-Warning--I didn't find a database entry for "condicionesYahoo"
+Warning--empty language in aurum2003
+Warning--empty language in krishna:managing
 (There were 8 error messages)
