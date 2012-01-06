@@ -35,8 +35,9 @@ CREATE  TABLE IF NOT EXISTS `dbgcad`.`addresses` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `street` TEXT NOT NULL ,
   `city` TEXT NOT NULL ,
-  `country` VARCHAR(45) NOT NULL ,
+  `country` VARCHAR(200) NOT NULL ,
   `zip` VARCHAR(45) NOT NULL ,
+  `country_id` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -220,7 +221,7 @@ DROP TABLE IF EXISTS `dbgcad`.`notifications` ;
 CREATE  TABLE IF NOT EXISTS `dbgcad`.`notifications` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `subject` VARCHAR(255) NOT NULL ,
-  `knowledgeId` INT NOT NULL ,
+  `knowledgeId` INT NULL ,
   `projectId` INT NOT NULL DEFAULT -1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_notifications_knowledge` (`knowledgeId` ASC) ,
@@ -347,27 +348,6 @@ END$$
 DELIMITER ;
 
 
-CREATE USER `gcad` IDENTIFIED BY 'gcad';
-
-grant ALL on TABLE `dbgcad`.`addresses` to gcad;
-grant ALL on TABLE `dbgcad`.`answers` to gcad;
-grant ALL on TABLE `dbgcad`.`companies` to gcad;
-grant ALL on TABLE `dbgcad`.`projects` to gcad;
-grant ALL on TABLE `dbgcad`.`proposals` to gcad;
-grant ALL on TABLE `dbgcad`.`topics` to gcad;
-grant ALL on TABLE `dbgcad`.`users` to gcad;
-grant ALL on TABLE `dbgcad`.`usersProjects` to gcad;
-grant ALL on TABLE `dbgcad`.`knowledge` to gcad;
-grant ALL on TABLE `dbgcad`.`notifications` to gcad;
-grant ALL on TABLE `dbgcad`.`LogEntry` to gcad;
-grant ALL on TABLE `dbgcad`.`notificationsUsers` to gcad;
-grant ALL on TABLE `dbgcad`.`files` to gcad;
-grant ALL on TABLE `dbgcad`.`filesKnowledge` to gcad;
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 -- -----------------------------------------------------
 -- Data for table `dbgcad`.`projects`
 -- -----------------------------------------------------
@@ -385,9 +365,9 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `dbgcad`;
-INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('1', 'Miguel Angel 23', 'Ciudad Real', 'Spain', '28010');
-INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('2', '124  Kensington High Stree', 'London', 'United Kingdom', 'W87RL');
-INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`) VALUES ('3', '3360 Martin Farm Road', 'Suwanee ', 'United States', '30024');
+INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`, `country_id`) VALUES ('1', 'Miguel Angel 23', 'Ciudad Real', 'Spain', '28010', 'spa');
+INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`, `country_id`) VALUES ('2', '124  Kensington High Stree', 'London', 'United Kingdom', 'W87RL', 'uk');
+INSERT INTO `dbgcad`.`addresses` (`id`, `street`, `city`, `country`, `zip`, `country_id`) VALUES ('3', '3360 Martin Farm Road', 'Suwanee ', 'United States', '30024', 'usa');
 
 COMMIT;
 
