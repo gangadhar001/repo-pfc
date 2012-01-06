@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  5 JAN 2012 12:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  6 JAN 2012 12:43
 entering extended mode
 **D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/PlantillaPFC.tex
 (D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/PlantillaPFC.tex
@@ -543,7 +543,8 @@ LaTeX Info: Redefining \XeLaTeX on input line 291.
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Portadas.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Previos.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Listas.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Introduccion.aux))
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Introduccion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.aux))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
@@ -808,19 +809,111 @@ babelbib: Using the BibTeX style's default font for `url'.
 babelbib: Using the BibTeX style's default font for `numeral'.
 ) [5] [6
 
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.tex
+Ap\'{e}ndice A.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7
+
+
+]
+<Figuras//Apendices/Pruebas//UnitTest1.png, id=191, 1866.22218pt x 2640.86626pt
+>
+File: Figuras//Apendices/Pruebas//UnitTest1.png Graphic file (type png)
+ <use Figuras//Apendices/Pruebas//UnitTest1.png>
+Package pdftex.def Info: Figuras//Apendices/Pruebas//UnitTest1.png used on inpu
+t line 26.
+(pdftex.def)             Requested size: 441.01123pt x 702.76787pt.
+
+Overfull \hbox (3.9935pt too wide) in paragraph at lines 26--27
+ [] 
+ []
+
+
+LaTeX Warning: Float too large for page by 45.38478pt on input line 30.
+
+
+<Figuras//Apendices/Pruebas//UnitTest2.png, id=192, 1866.22218pt x 2640.86626pt
+>
+File: Figuras//Apendices/Pruebas//UnitTest2.png Graphic file (type png)
+ <use Figuras//Apendices/Pruebas//UnitTest2.png>
+Package pdftex.def Info: Figuras//Apendices/Pruebas//UnitTest2.png used on inpu
+t line 37.
+(pdftex.def)             Requested size: 441.01123pt x 702.76787pt.
+
+Overfull \hbox (3.9935pt too wide) in paragraph at lines 37--38
+ [] 
+ []
+
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 38.
+
+LaTeX Warning: Float too large for page by 45.38478pt on input line 41.
+
+
+<Figuras//Apendices/Pruebas//coberturaTotal.png, id=193, 911.405pt x 128.48pt>
+File: Figuras//Apendices/Pruebas//coberturaTotal.png Graphic file (type png)
+
+<use Figuras//Apendices/Pruebas//coberturaTotal.png>
+Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaTotal.png used on
+ input line 63.
+(pdftex.def)             Requested size: 441.01773pt x 62.17155pt.
+
+Overfull \hbox (4.0pt too wide) in paragraph at lines 63--64
+ [] 
+ []
+
+
+<Figuras//Apendices/Pruebas//coberturaPaquetes.png, id=194, 1184.425pt x 443.65
+75pt>
+File: Figuras//Apendices/Pruebas//coberturaPaquetes.png Graphic file (type png)
+
+ <use Figuras//Apendices/Pruebas//coberturaPaquetes.png>
+Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaPaquetes.png used
+ on input line 74.
+(pdftex.def)             Requested size: 441.01773pt x 165.19322pt.
+
+Overfull \hbox (4.0pt too wide) in paragraph at lines 74--75
+ [] 
+ []
+
+
+<Figuras//Apendices/Pruebas//coberturaControl.png, id=195, 1013.7875pt x 410.53
+375pt>
+File: Figuras//Apendices/Pruebas//coberturaControl.png Graphic file (type png)
+ <use Figuras//Apendices/Pruebas//coberturaControl.png>
+Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaControl.png used 
+on input line 87.
+(pdftex.def)             Requested size: 441.01773pt x 178.587pt.
+
+Overfull \hbox (4.0pt too wide) in paragraph at lines 87--88
+ [] 
+ []
+
+[8] [9 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Pruebas
+//UnitTest1.png (PNG copy)>] [10 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/
+Figuras//Apendices/Pruebas//UnitTest2.png>]) [11 <D:/UCLM/5Curso/PFC/repo-pfc/P
+FC/MemoriaModif/Figuras//Apendices/Pruebas//coberturaTotal.png> <D:/UCLM/5Curso
+/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Pruebas//coberturaPaquetes.pn
+g> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Pruebas//co
+berturaControl.png>] [12
+
+
 ]
 No file PlantillaPFC.ind.
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Portadas.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Previos.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Listas.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Introduccion.aux)) ) 
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Introduccion.aux)
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.aux)) ) 
 Here is how much of TeX's memory you used:
- 11493 strings out of 494045
- 169970 string characters out of 3145971
- 293342 words of memory out of 3000000
- 14423 multiletter control sequences out of 15000+200000
- 67254 words of font info for 134 fonts, out of 3000000 for 9000
+ 11570 strings out of 494045
+ 171947 string characters out of 3145971
+ 295935 words of memory out of 3000000
+ 14457 multiletter control sequences out of 15000+200000
+ 71417 words of font info for 154 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  43i,11n,43p,807b,646s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program F
@@ -829,9 +922,9 @@ iKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.
 9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/time
 s/utmri8a.pfb>
-Output written on PlantillaPFC.pdf (30 pages, 121756 bytes).
+Output written on PlantillaPFC.pdf (36 pages, 866873 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
+ 226 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 25606 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 26143 words of extra memory for PDF output out of 29859 (max. 10000000)
 

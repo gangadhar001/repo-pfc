@@ -17,3 +17,6 @@
 \select@language {english}
 \select@language {english}
 \select@language {spanish}
+\contentsline {chapter}{\numberline {A}Informe de pruebas}{7}
+\contentsline {section}{\numberline {A.1}Informe de JUnit}{8}
+\contentsline {section}{\numberline {A.2}Informe de cobertura}{8}
