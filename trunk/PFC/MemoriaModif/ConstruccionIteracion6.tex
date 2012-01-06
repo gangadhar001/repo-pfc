@@ -93,15 +93,15 @@ En la Figura \ref{fig:clasesCBR} se muestra el diagrama de clases de diseño de l
 
 \begin{figure}[!htbp]
  \begin{center}
-   \includegraphics[scale=1.85,angle=90]{Cap5/Server2//clasesCBR}
+   \includegraphics[scale=1.95,angle=90]{Cap5/Server2//clasesCBR}
  \caption {Diagrama de clases - Servidor - Razonamiento Basado en Casos}
  \label{fig:clasesCBR}
  \end{center}
  \end{figure}
 
-Para terminar, en el fragmento de código \ref{list:cbr} se muestra la implementación del algoritmo \textit{NN}, haciendo uso del diseño y elementos comentados anteriormente. Un aspecto a señalar es el uso del API de relexión de Java, utilizado para acceder a los atributos de un proyecto en tiempo de ejecución.
+Para terminar, en el fragmento de código \ref{list:cbr} del Apéndice \ref{appendix:CBR}, se muestra la implementación del algoritmo \textit{NN}, haciendo uso del diseño y elementos comentados anteriormente. Un aspecto a señalar es el uso del API de reflexión de Java, utilizado para acceder a los atributos de un proyecto en tiempo de ejecución.
 
-\texttt{\lstinputlisting[caption=Fragmento de código para el algoritmo \textit{NN} del CBR, breaklines=true, label=list:cbr, inputencoding=latin1, style=JavaStyle]{Codigo//cbr.java}}
+
 
 
 \subparagraph{Cliente}
@@ -122,7 +122,9 @@ Para terminar, señalar que gracias a la reflexión de Java, la interfaz gráfica e
 		
 En esta fase, se diseñan los casos de prueba unitarios que componen la \textit{suite} de pruebas utilizada para probar los casos de uso para la gestión de proyectos y CBR. En la Figura \ref{fig:testProyectos} se observa una captura de pantalla de la ejecución de la \textit{suite} de pruebas para probar los métodos del servidor, que posteriormente el cliente invocará. 
 
-Por otro lado, para comprobar el correcto funcionamiento de la interfaz gráfica de usuario para los casos de uso, se han creado \textit{cecklists}, como en casos anteriores, donde se muestra en la Tabla \ref{table:checkCBR}, a modo de ejemplo relevante, parte de la \textit{checklist} utilizada para probar la interfaz asociada al CBR.
+\imagen{Cap5/Pruebas//pruebasProjects}{0.8}{\textit{Test Suite} para la gestión de proyectos en el servidor}{fig:testProyectos}
+
+Por otro lado, para comprobar el correcto funcionamiento de la interfaz gráfica de usuario para los casos de uso, se han creado \textit{checklists}, como en casos anteriores, donde se muestra en la Tabla \ref{table:checkCBR}, a modo de ejemplo relevante, parte de la \textit{checklist} utilizada para probar la interfaz asociada al CBR.
 
 \begin{table}[!htbp]%
 	\centering

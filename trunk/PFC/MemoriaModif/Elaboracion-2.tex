@@ -17,7 +17,7 @@ Las tareas a realizar en esta iteración son:
 	\item Diseño e implementación de pruebas relativas a la comunicación entre ambos subsistemas.
 \end{itemize}
 
-\subsubsection{Diagrama de clases de dominio} \label{modeloDominio}
+\subsubsection{Diagrama de clases de dominio} \label{sec:modeloDominio}
 
 Se realiza un diagrama de clases de diseño de alto nivel, reflejando las clases de los objetos de dominio y sus relaciones. Este diagrama se irá detallando y refinando durante las iteraciones de la fase de construcción.
 
@@ -164,7 +164,7 @@ De un modo similar al anterior, se ha utilizado también el patrón \textbf{Observ
 
 \subsubsection{Pruebas}
 		
-Para concluir con esta iteración, se diseñan los casos de prueba unitarios para probar la comunicación entre el subsistema servidor y el cliente, y del servidor con la base de datos. Para ello, se crea un conjunto de casos de pruebas, o \textit{test cases}, agrupados bajo una \textit{suite} de pruebas. Dicha \textit{suite} es ejecutada posteriormente utilizando \textbf{JUnit} (ver \ref{sec:marco}), obteniendo los resultados de dichas pruebas, pudiendo corregir los errores encontrados, si los hubiera.
+Para concluir con esta iteración, se diseñan los casos de prueba para probar la comunicación entre el subsistema servidor y el cliente, y del servidor con la base de datos. Para ello, se crea un conjunto de casos de pruebas, o \textit{test cases}, agrupados bajo una \textit{suite} de pruebas. Dicha \textit{suite} es ejecutada posteriormente utilizando \textbf{JUnit} (ver \ref{sec:marco}), obteniendo los resultados de dichas pruebas y pudiendo corregir los errores encontrados, si los hubiera.
 
 A continuación se muestran algunos de los casos de prueba diseñados para esta iteración.
 
@@ -227,9 +227,11 @@ A continuación se muestran algunos de los casos de prueba diseñados para esta it
 		
 En la Figura \ref{fig:communicationTest} se muestra una captura de pantalla del \textit{suite} de casos de prueba implementado, junto a su ejecución con JUnit. Un aspecto a destacar en este caso es la implementación de un subsistema cliente de prueba (o \textit{dummy}) necesario para que el servidor pudiera comunicarse con él y poder probar dicha comunicación, así como la invocación de sus métodos remotos.
 
+\imagenBorde{Cap5/Pruebas//pruebasComunicacion}{0.8}{\textit{Test Suite} para la capa de comunicaciones en el servidor}{fig:communicationTest}
+
 De un modo análogo, en el subsistema cliente se implementa también un \textit{test suite} para probar la comunicación con el servidor, siendo necesario también la creación de un servidor \textit{dummy}.
 		
-En cuanto a la cobertura de código obtenida por los casos de prueba, en el Apéndice \ref{appendix:cobertura} se presenta el informe final de cobertura alcanzado con las pruebas de todos los casos de uso. Dicho informe es generado por el plug-in de eclipse \textbf{Eclemma} (ver sección \ref{sec:marco}).
+En cuanto a la cobertura de código obtenida por los casos de prueba, en el Apéndice \ref{appendix:pruebas} se presenta el informe final de cobertura alcanzado con las pruebas de todos los casos de uso. Dicho informe es generado por el plug-in de eclipse \textbf{Eclemma} (ver sección \ref{sec:marco}).
 		
 		
 		

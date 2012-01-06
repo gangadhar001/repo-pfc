@@ -27,14 +27,14 @@ En cada iteración, los desarrolladores identifican y especifican los casos de us
 Finalmente, cada iteración aporta un \textbf{incremento} en la funcionalidad del sistema, por eso que el PUD se considere un proceso incremental (ver Figura \ref{fig:incremental}) \cite{kruchten2004rational}.
 \end{itemize}
 
-\imagenBorde{Cap4//incremental}{0.50}{Proceso iterativo e incremental}{fig:incremental}
+\imagenBorde{Cap4//incremental}{0.50}{Proceso iterativo e incremental \cite{jacobson1999unified}}{fig:incremental}
 
 
 \subsection{Fases de desarrollo basado en PUD} \label{sec:fasesPUD}
 
 En PUD, el ciclo de vida de un producto software se divide en ciclos, donde cada uno de estos ciclos compone una versión del producto, totalmente operativa y preparada para su implantación. Cada ciclo se compone de cuatro fases (Inicio, Elaboración, Construcción y Transición) y éstas, a su vez, se dividen en iteraciones que siguen el flujo de trabajo \textit{requisitos, análisis, diseño, implementación y pruebas} (ver Figura \ref{fig:PUD}).
 
-\imagenBorde{Cap4//PUD}{1.0}{Fases y flujo de trabajo del PUD}{fig:PUD}
+\imagenBorde{Cap4//PUD}{1.0}{Fases y flujo de trabajo del PUD \cite{jac00}}{fig:PUD}
 
 A continuación se detallan cada una de las cuatro fases de cada ciclo del PUD \cite{jac00} \cite{torossi}.
 
@@ -259,11 +259,9 @@ Es el entorno de desarrollo utilizado para la codificación de proyecto utilizand
 
 \subsubsection{Yahoo! PlaceFinder} \label{label:web}
 
-Yahoo! PlaceFinder es un servicio web de geocodificación que permite la conversión de direcciones de calles o nombres de lugares en coordenadas geográficas, y viceversa. La respuesta a una petición de este servicio Web viene dada por un fichero XML, como el mostrado en la Figura \ref{fig:YahooWeb}.
+Yahoo! PlaceFinder es un servicio web de geocodificación que permite la conversión de direcciones de calles o nombres de lugares en coordenadas geográficas, y viceversa. La respuesta a una petición de este servicio Web viene dada por un fichero XML.
 
 Se utilizará para obtener y localizar en mapas las coordenadas geográficas a partir de direcciones postales.
-
-\imagenBorde{Cap4//yahoo}{0.6}{Respuesta XML del servicio Web Yahoo! PlaceFinder}{fig:YahooWeb}
 
 \subsubsection{OpenStreetMap}
 
@@ -427,6 +425,22 @@ MySQL Workbench es una herramienta CASE que permite el modelado de bases de dato
 
 Se utilizará MySQL Workbench 5.2 CE para el modelado de la base de datos, para el desarrollo SQL y para administrar la base de datos MySQL.
 
+\subsection{Herramientas para pruebas}
+
+\subsubsection{JUnit}
+
+JUnit es un framework que permite la ejecución de casos de prueba unitarios para evaluar si los diferentes métodos e instrucciones de las clases de Java se comportan según lo esperado. Este framework permite visualizar los resultados de las pruebas en modo texto, gráfico o como una tarea de \textit{Ant}.
+
+Se utilizará JUnit, como un plug-in de Eclipse en su versión 4.8.1 para ejecutar las pruebas del sistema.
+
+
+\subsubsection{Eclemma}
+
+Eclemma es una herramienta gratuita de cobertura de código Java que permite analizar y visualizar las instrucciones, métodos y bloques cubiertos por un conjunto de pruebas. Además, permite exportar los resultados a informes HTM, a ficheros CSV o a ficheros XML.
+
+Se ha utilizado Eclemma, en forma de plugin para Eclipse en su versión 2.0.1, para medir la cobertura de código alcanzada con las pruebas realizadas en el sistema.
+
+
 
 \subsection{Herramientas para la documentación del proyecto}
 
@@ -438,9 +452,7 @@ A diferencia de los editores de texto habituales, conocidos como \textit{WYSIWYG
 
 Para crear un documento con \LaTeX{}, hay que utilizar un editor de texto para crear los archivos fuente, con las macros y el contenido adecuado para, posteriormente, procesarlo, compilarlo y generar la salida, normalmente en PDF, aunque se pueden generar diferentes salidas como DVI, PS, etc. 
 
-Para la generación del presente documento, se ha utilizado \LaTeX{}, usando como editor de textos \textbf{TexnicCenter}, el cual es un editor de software libre para sistemas Windows que proporciona las herramientas necesarias para la composición y compilación de textos escritos en \LaTeX{} (ver Figura \ref{fig:texnicCenter}).
-
-\imagenBorde{Cap4//texnicCenter}{0.35}{Editor TeXnicCenter}{fig:texnicCenter}
+Para la generación del presente documento, se ha utilizado \LaTeX{}, usando como editor de textos \textbf{TexnicCenter}, el cual es un editor de software libre para sistemas Windows que proporciona las herramientas necesarias para la composición y compilación de textos escritos en \LaTeX{}.
 
 \subsubsection{\BibTeX{}}
 
@@ -450,4 +462,10 @@ Para la generación del presente documento, se ha utilizado \LaTeX{}, usando como
 
 Se ha utilizado \BibTeX{} para formatear las citas literarias y bibliográficas de este documento. Además, se ha utilizado \textbf{JabRef}, que es una herramienta visual basada en Java que permite editar los tipos bibliográficos utilizados en el archivo \textit{.bib} de \BibTeX{} (ver Figura \ref{fig:jabref}). 
 
-\imagenBorde{Cap4//jabref}{0.7}{Herramienta JabRef}{fig:jabref}
+\imagenBorde{Cap4//jabref}{0.9}{Herramienta JabRef}{fig:jabref}
+
+\subsubsection{GIMP}
+
+GIMP (GNU Image Manipulation Program) es una aplicación diseñada para la manipulación y edición de imágenes, con una potencia similar a Adobe Photoshop, siendo de código abierto, gratuitas y multiplataforma.
+
+Se ha utilizado esta herramienta para la generación y edición de las imágenes utilizadas en la documentación y en el sistema software desarrollado.
