@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Thu Jan 05 19:50:16 CET 2012
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=serverStubs.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<jar|junit-4.8.2.jar>;<jar|mysql-connector-java-5.1.14.jar>;<jar|commons-collections-3.2.1.jar>;<jar|commons-configuration-1.6.jar>;<jar|commons-digester-1.8.jar>;<jar|commons-beanutils-1.7.0.jar>;<jar|commons-beanutils-core-1.8.0.jar>;<jar|commons-lang-2.6.jar>;<jar|commons-logging-1.1.1.jar>;<jar|commons-io-2.0.1.jar>;<jar|hibernate-3.2.7.ga.jar>;<jar|ehcache-1.2.3.jar>;<jar|jta-1.0.1B.jar>;<jar|asm-attrs-1.5.3.jar>;<jar|dom4j-1.6.1.jar>;<jar|antlr-2.7.6.jar>;<jar|cglib-2.1_3.jar>;<jar|asm-1.5.3.jar>;<jar|uispec4j-2.4.jar>;<jar|gcadCommon.jar>
+includes=
