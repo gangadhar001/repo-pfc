@@ -1,6 +1,5 @@
 package presentation;
 
-import gcadServer.Main;
 import internationalization.AppInternationalization;
 
 import java.awt.event.ActionEvent;
@@ -24,7 +23,9 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ApplicationActionMap;
 import org.jdom.JDOMException;
 
+
 import resources.LanguagesUtilities;
+import DPMToolServer.Main;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo

@@ -19,8 +19,8 @@ import model.business.knowledge.User;
 import persistence.DAOProposal;
 import persistence.DAOUser;
 import test.IDatosPruebas;
-import test.communication.ClientePrueba;
-import test.communication.PruebasBase;
+import test.communication.DummyClient;
+import test.communication.BaseTest;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -29,7 +29,7 @@ import exceptions.NonExistentNotificationException;
 import exceptions.NotLoggedException;
 
 
-public class NotificationsControllerTest extends PruebasBase {	
+public class NotificationsControllerTest extends BaseTest {	
 
 	private User chief, employee;
 	private Company company;
@@ -38,7 +38,7 @@ public class NotificationsControllerTest extends PruebasBase {
 	private Proposal pro;
 	private Topic topic;
 	private Notification not;
-	private ClientePrueba chiefClient;
+	private DummyClient chiefClient;
 	
 	protected void setUp() {	
 		try {
@@ -66,7 +66,7 @@ public class NotificationsControllerTest extends PruebasBase {
 			DBConnectionManager.insert(topic);	
 			pro.setUser(chief);
 			DAOProposal.insert(pro, topic.getId());
-			chiefClient = new ClientePrueba();
+			chiefClient = new DummyClient();
 		} catch(Exception e) {
 			fail(e.toString());
 		}

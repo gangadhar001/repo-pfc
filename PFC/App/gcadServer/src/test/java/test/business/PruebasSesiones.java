@@ -17,8 +17,8 @@ import persistence.DAOAddress;
 import persistence.DAOCompany;
 import persistence.DAOUser;
 import test.IDatosPruebas;
-import test.communication.ClientePrueba;
-import test.communication.PruebasBase;
+import test.communication.DummyClient;
+import test.communication.BaseTest;
 import exceptions.IncorrectEmployeeException;
 import exceptions.NotLoggedException;
 
@@ -26,14 +26,14 @@ import exceptions.NotLoggedException;
 /**
  * Pruebas del Gestor de Sesiones.
  */
-public class PruebasSesiones extends PruebasBase {
+public class PruebasSesiones extends BaseTest {
 	
 	private Server servidor;
 	private User employee;
 	private User chief;
 	private Company company;
 	private Address address;
-	private ClientePrueba cliente1;
+	private DummyClient cliente1;
 	
 	protected void setUp() {
 		try {
@@ -51,7 +51,7 @@ public class PruebasSesiones extends PruebasBase {
 			DAOCompany.insert(company);
 			DAOUser.insert(employee);
 			DAOUser.insert(chief);
-			cliente1 = new ClientePrueba();
+			cliente1 = new DummyClient();
 			cliente1.activate(IDatosPruebas.IP_ESCUCHA_CLIENTES);
 		} catch(Exception e) {
 			fail(e.toString());

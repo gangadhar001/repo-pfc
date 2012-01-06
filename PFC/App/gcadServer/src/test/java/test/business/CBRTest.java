@@ -21,7 +21,7 @@ import model.business.knowledge.Employee;
 import model.business.knowledge.ISession;
 import model.business.knowledge.Project;
 import model.business.knowledge.User;
-import test.communication.PruebasBase;
+import test.communication.BaseTest;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -30,7 +30,7 @@ import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
-public class CBRTest extends PruebasBase {	
+public class CBRTest extends BaseTest {	
 
 	private User chief, employee;
 	private Company company;

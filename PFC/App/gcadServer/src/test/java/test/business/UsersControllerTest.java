@@ -14,7 +14,7 @@ import model.business.knowledge.ISession;
 import model.business.knowledge.Project;
 import model.business.knowledge.User;
 import persistence.DAOUser;
-import test.communication.PruebasBase;
+import test.communication.BaseTest;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -23,7 +23,7 @@ import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
-public class UsersControllerTest extends PruebasBase {	
+public class UsersControllerTest extends BaseTest {	
 
 	private User chief, employee;
 	private Company company;
