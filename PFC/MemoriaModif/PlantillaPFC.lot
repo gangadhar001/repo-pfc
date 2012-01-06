@@ -5,14 +5,45 @@
 \select@language {english}
 \select@language {spanish}
 \addvspace {10\p@ }
-\select@language {english}
-\select@language {english}
-\select@language {english}
-\select@language {english}
-\select@language {english}
-\select@language {english}
-\select@language {english}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Objetivos a cumplir en el PFC\relax }}{9}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Modelos de desarrollo de software seg\'un dispersi\'on geogr\'afica\relax }}{13}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Procesos de desarrollo software afectados por las distancias en GSD\relax }}{18}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Resumen de las fases de un ciclo del PUD\relax }}{36}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Grupos funcionales del sistema - v1.0\relax }}{57}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Roles identificados en el sistema\relax }}{58}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Acciones que un usuario puede realizar en el sistema - v1.0\relax }}{58}
+\contentsline {table}{\numberline {5.4}{\ignorespaces Primera versi\'on del plan de iteraciones\relax }}{63}
+\contentsline {table}{\numberline {5.5}{\ignorespaces Grupos funcionales del sistema - v2.0\relax }}{66}
+\contentsline {table}{\numberline {5.6}{\ignorespaces Acciones que un usuario puede realizar en el sistema - v2.0\relax }}{67}
+\contentsline {table}{\numberline {5.7}{\ignorespaces Primera versi\'on del plan de iteraciones\relax }}{79}
+\contentsline {table}{\numberline {5.8}{\ignorespaces Descripci\'on del caso de prueba 1 para la comunicaci\'on entre subsistemas\relax }}{97}
+\contentsline {table}{\numberline {5.9}{\ignorespaces Descripci\'on del caso de prueba 2 para la comunicaci\'on entre subsistemas\relax }}{97}
+\contentsline {table}{\numberline {5.10}{\ignorespaces Descripci\'on del caso de prueba 2 para la comunicaci\'on entre subsistemas\relax }}{98}
+\contentsline {table}{\numberline {5.11}{\ignorespaces Especificaci\'on del caso de uso \textit {Login}\relax }}{101}
+\contentsline {table}{\numberline {5.12}{\ignorespaces Especificaci\'on del caso de uso \textit {Visualizar decisiones}\relax }}{109}
+\contentsline {table}{\numberline {5.13}{\ignorespaces Informe de pruebas para la funcionalidad \textit {Visualizaci\'on Informaci\'on}\relax }}{119}
+\contentsline {table}{\numberline {5.14}{\ignorespaces Especificaci\'on del caso de uso \textit {Modificar decisi\'on - Modificar Propuesta}\relax }}{121}
+\contentsline {table}{\numberline {5.15}{\ignorespaces Especificaci\'on del caso de uso \textit {Aceptar o rechazar decisi\'on}\relax }}{122}
+\contentsline {table}{\numberline {5.16}{\ignorespaces Informe de pruebas para el caso de uso \textit {Aconsejar Decisiones (CBR)}\relax }}{139}
+\contentsline {table}{\numberline {5.17}{\ignorespaces Especificaci\'on del caso de uso \textit {Generaci\'on gr\'afico estad\IeC {\'\i }stico}\relax }}{147}
+\contentsline {table}{\numberline {5.18}{\ignorespaces Especificaci\'on del caso de uso \textit {Exportar informaci\'on}\relax }}{152}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
 \select@language {english}
 \select@language {english}
 \select@language {spanish}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {spanish}
+\select@language {english}
+\select@language {english}
+\select@language {spanish}
+\addvspace {10\p@ }
 \addvspace {10\p@ }

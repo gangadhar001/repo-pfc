@@ -35,7 +35,7 @@ Una vez diseñados e implementados los diferentes casos de prueba que integran la
  \begin{center}
  \fbox{
   \includegraphics[width=\textwidth, height=\textheight]{Apendices/Pruebas//UnitTest2}}
- \caption{}
+ \caption{Informe de pruebas de JUnit}
  \label{fig:JUnit}
  \end{center}
 \end{figure}
@@ -55,7 +55,7 @@ a que el sistema obliga a una correcta inserción de datos. De todos modos, si po
 al sistema (por ejemplo, corrupción física de los datos) se diesen dichas excepciones, el sistema las
 tratará y notificará debidamente. 
 
-Para terminar, cabe destacar la capa de la lógica de control del dominio del sistema, donde se alcanza una cobertura superior al 95\% en la práctica totalidad de sus clases, a excepción de la clase \textit{Server}, como se muestra en la Figura \ref{fig:coberturaControl}. Dicha clase se corresponde con el patrón \textbf{Fachada} del sistema servidor y disminuye la cobertura porque algunos de sus bloques corresponden al control de excepciones que no se han podido forzar en las pruebas, como se ha comentado anteriormente.
+Para terminar, cabe destacar la capa de control de la lógica de dominio del sistema, donde se alcanza una cobertura superior al 95\% en la práctica totalidad de sus clases, a excepción de la clase \textit{Server}, como se muestra en la Figura \ref{fig:coberturaControl}. Dicha clase se corresponde con el patrón \textbf{Fachada} del sistema servidor y disminuye la cobertura porque algunos de sus bloques corresponden al control de excepciones que no se han podido forzar en las pruebas, como se ha comentado anteriormente.
 
 \setlength\fboxsep{0pt}
 \setlength\fboxrule{0.5pt}
@@ -63,7 +63,7 @@ Para terminar, cabe destacar la capa de la lógica de control del dominio del sis
  \begin{center}
  \fbox{
   \includegraphics[width=\textwidth]{Apendices/Pruebas//coberturaTotal}}
- \caption{}
+ \caption{Informe de cobertura para el sistema servidor}
  \label{fig:coberturaTotal}
  \end{center}
 \end{figure}
@@ -74,7 +74,7 @@ Para terminar, cabe destacar la capa de la lógica de control del dominio del sis
  \begin{center}
  \fbox{
   \includegraphics[width=\textwidth]{Apendices/Pruebas//coberturaPaquetes}}
- \caption{}
+ \caption{Informe de cobertura para las diferentes capas del sistema servidor}
  \label{fig:coberturaPaquetes}
  \end{center}
 \end{figure}
@@ -85,7 +85,7 @@ Para terminar, cabe destacar la capa de la lógica de control del dominio del sis
  \begin{center}
  \fbox{
   \includegraphics[width=\textwidth]{Apendices/Pruebas//coberturaControl}}
- \caption{}
+ \caption{Informe de cobertura para la capa de control de la lógica de dominio del sistema servidor}
  \label{fig:coberturaControl}
  \end{center}
 \end{figure}

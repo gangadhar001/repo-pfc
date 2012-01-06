@@ -15,7 +15,7 @@ Una vez se ha definido e implementado la arquitectura del sistema, se han modela
 
 \paragraph{Análisis de casos de uso}
 
-Los casos de uso englobados en este grupo funcional se especifican de manera más formal, describiendo los escenarios de funcionamiento de cada uno de ellos. Además, para cada caso de uso, se crea el diagrama de clases de análisis, donde se representan los objetos de dominio involucrados en el caso de uso, así como las clases encargadas de su control.
+Los casos de uso englobados en este grupo funcional se especifican de manera más formal, describiendo los escenarios de funcionamiento de cada uno de ellos. Además, para cada caso de uso, se crea el diagrama de clases de análisis, donde se representan los objetos de dominio involucrados en cada caso de uso, así como las clases encargadas de su control.
 
 Existen tres tipos de clases en un diagrama de clases de análisis: 
 
@@ -27,7 +27,7 @@ Existen tres tipos de clases en un diagrama de clases de análisis:
 
 Señalar que, para cada caso de uso, se describe su funcionamiento y sus flujos desde un punto de vista global al sistema, sin entrar en detalle en cada subsistema, ya que lo que interesa es describir a alto nivel su funcionamiento. Posteriormente, con los diagramas de secuencia y de clases de diseño, se irá profundizando más en detalle en el flujo que se sigue en cada subsistema.
 
-En este caso, y del mismo modo para el resto de grupos funcionales del sistema, se incluyen las especificaciones y diagramas de análisis de los principales casos de uso, para evitar excederse en la longitud del capítulo.
+En este caso, y del mismo modo para el resto de grupos funcionales del sistema, se incluyen las especificaciones y diagramas de análisis de los principales casos de uso, para evitar excederse en la longitud del presente capítulo.
 
 
 \subparagraph{Login}
@@ -142,7 +142,15 @@ Una vez realizado el análisis de los casos de uso, identificados los objetos de 
 
 \imagen{Cap5/Cliente2//secuenciaLoginPrincipalCliente}{2.0}{Diagrama de secuencia - Cliente - Login}{fig:secuenciaLoginCliente}
 
-\imagen{Cap5/Server2//secuenciaLoginPrincipalServer}{2.0}{Diagrama de secuencia - Servidor - Login}{fig:secuenciaLoginServer}
+\begin{figure}[!htbp]
+ \begin{center}
+   \includegraphics[scale=1.8,angle=90]{Cap5/Server2//secuenciaLoginPrincipalServer}
+ \caption {Diagrama de secuencia - Servidor - Login}
+ \label{fig:secuenciaLoginServer}
+ \end{center}
+ \end{figure}
+ 
+%\imagen{Cap5/Server2//secuenciaLoginPrincipalServer}{1.0}{Diagrama de secuencia - Servidor - Login}{fig:secuenciaLoginServer}
 
 
 Una vez modelados los diagramas de secuencia, se procede a la implementación de los casos de uso en ambos subsistemas, con algunos aspectos reseñables.
@@ -199,4 +207,4 @@ En el fragmento de código \ref{list:login} se muestra como se ha utilizado el mé
 
 Al final de esta iteración se implementan y ejecutan las pruebas unitarias correspondientes a esta funcionalidad del sistema. Para ello, al igual que en la iteración anterior, se diseñan los casos de prueba para los diferentes escenarios de los casos de uso que componen esta funcionalidad, y se ejecutan con JUnit. Además, en el subsistema cliente, se elabora una \textit{checklist} para asegurar que el comportamiento de los diferentes elementos que componen la interfaz gráfica de usuario es el esperado y adecuado. 
 
-Como se indicó al comienzo de este capítulo, sólo se han incluido las pruebas de aquellos aspectos mas reseñables del sistema, para evitar exceder la longitud del documento, por lo que en esta iteración no se muestran los resultados de las pruebas, aunque puede consultarse el Apéndice \ref{appendix:cobertura} para comprobar los resultados de las pruebas en todo el sistema, junto a la cobertura alcanzada.
+Como se indicó al comienzo de este capítulo, sólo se han incluido las pruebas de aquellos aspectos mas reseñables del sistema, para evitar exceder la longitud del documento, por lo que en esta iteración no se muestran los resultados de las pruebas, aunque puede consultarse el Apéndice \ref{appendix:pruebas} para comprobar los resultados de las pruebas en todo el sistema, junto a la cobertura alcanzada.

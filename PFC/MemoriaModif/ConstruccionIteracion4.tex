@@ -75,7 +75,7 @@ La Figura \ref{fig:analisisConsultarDecisionesCliente} representa el diagrama de
 
 \paragraph{Diseño e implementación} \label{sec:visualizarDecisiones}
 
-En primer lugar, se modela el funcionamiento de los casos de uso que componen este grupo funcional a través de diagramas de secuencia de diseño. De este modo, en la Figura \ref{fig:secuenciaConsultarDecisionesPrincipalCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Visualizar decisiones} en el cliente, mientras que la Figura \ref{fig:secuenciaLoginServer} refleja el diagrama de secuencia para el servidor. El resto de diagramas de secuencia de este grupo funcional se modelan de un modo muy similar a los diagramas mostrados.
+En primer lugar, se modela el funcionamiento de los casos de uso que componen este grupo funcional a través de diagramas de secuencia de diseño. De este modo, en la Figura \ref{fig:secuenciaConsultarDecisionesCliente} se muestra el diagrama de secuencia para el caso de uso \textit{Visualizar decisiones} en el cliente, mientras que la Figura \ref{fig:secuenciaConsultarDecisionesServer} refleja el diagrama de secuencia para el servidor. El resto de diagramas de secuencia de este grupo funcional se modelan de un modo muy similar a los diagramas mostrados.
 
 \imagen{Cap5/Cliente2//secuenciaConsultarDecisionesPrincipalCliente}{2.5}{Diagrama de secuencia - Cliente - Consultar decisiones}{fig:secuenciaConsultarDecisionesCliente}
 
@@ -127,10 +127,7 @@ Un ejemplo de URL sería: {\footnotesize{\begin{verbatim}http://where.yahooapis.c
 
 \texttt{\lstinputlisting[caption=Respuesta del servicio Web Yahoo! PlaceFinder, label=list:Yahoo, breaklines=true, inputencoding=latin1, style=XMLStyle]{Codigo//RespuestaYDN.xml}}
 
-En el Listado \ref{list:GeoCoder} se muestra un fragmento de código utilizado para invocar el servicio web desde Java y obtener su respuesta XML, que será tratada con JDOM para extraer los datos necesarios (las coordenadas) para poder mostrar en un mapa la posición exacta de la compañía.
-
-\texttt{\lstinputlisting[caption=Invocación del servicio Web Yahoo! PlaceFinder, breaklines=true, label=list:GeoCoder, inputencoding=latin1, style=JavaStyle]{Codigo//GeoCoder.java}}
-
+En el Listado \ref{list:GeoCoder} del Apéndice \ref{appendix:yahoo}, se muestra un fragmento de código utilizado para invocar el servicio web desde Java y obtener su respuesta XML, que será tratada con JDOM para extraer los datos necesarios (las coordenadas) para poder mostrar en un mapa la posición exacta de la compañía.
 
 \subparagraph{Cliente}
 
@@ -195,4 +192,4 @@ Al igual que en iteraciones anteriores, se diseñan los casos de prueba para los 
 	\label{table:checkVisualizacion}
 \end{table}
 
-Como se puede comprobar, algunos casos de prueba no fueron superados, ya que no se obtenía el resultado descrito. Por tanto, se corrigieron estos fallos detectados y se volvieron a ejecutar todos los casos creados en la \textit{checklist}, hasta obtener un resultado positivo en todos ellos.
+Como se puede comprobar, algunos casos de prueba no fueron superados, ya que no se obtenía el resultado descrito. Por tanto, se corrigieron estos fallos detectados y se volvieron a ejecutar todos los casos de prueba creados en la \textit{checklist}, hasta obtener un resultado positivo en todos ellos.

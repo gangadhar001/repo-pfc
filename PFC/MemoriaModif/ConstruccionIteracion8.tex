@@ -1,6 +1,6 @@
 \subsection{Iteración 8} 
 
-Siguiendo los casos del grupo funcional \textbf{F8:} \textit{Exportar información} (ver Figura \ref{fig:CduExportarConocimiento2Server}) y del grupo funcional \textbf{F9:} \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomas2Server}), se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos del grupo funcional \textbf{F8:} \textit{Exportar información} (ver Figura \ref{fig:CduExportarConocimiento2Server}) y del grupo funcional \textbf{F9:} \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomas2Cliente}), se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
 \item Análisis de los casos de uso.
@@ -84,13 +84,9 @@ Como en iteraciones anteriores y de modo similar, se modelan los diagramas de se
 
 En el diseño e implementación de esta funcionalidad, cabe destacar la utilización de \textbf{JAXB} (ver sección \ref{sec:marco}) para serializar las clases que componen la jerarquía de decisiones y toda su información relacionada (ver Figura \ref{fig:clasesKnowledge}) a un archivo XML. Para ello, se utilizan anotaciones sobre las clases, indicando que esa clase y sus atributos deben convertirse a un nodo XML. Además, es necesario que exista una clase que represente al nodo raíz del fichero XML y que, por tanto, contenga toda la lista de decisiones. Dicha clase, como ya se ha comentado anteriormente, es la clase llamada \textit{TopicWrapper}.
 
-En el fragmento de código \ref{list:JAXBTopics} se muestran las anotaciones de JAXB realizadas sobre la clase \textit{TopicWrapper}, que engloba a todos los \textit{topics} de un proyecto. En el fragmento de código \ref{list:JAXBKnowledge} se muestran las anotaciones de JAXB para la clase \textit{Knowledge}, para poder serializar sus atributos. En este caso cabe destacar la anotación \textit{@XmlJavaTypeAdapter} sobre el atributo de tipo \textit{fecha}, que se usa para invocar a una clase de Java encargada de formatear una fecha, devolviendo una cadena de texto con el formato deseado, que es \textit{MM/dd/yyyy} en este caso.
-
-De modo similar se realizan las anotaciones en el resto de clases que componen el diagrama de clases mostrado en la Figura \ref{fig:clasesKnowledge}.
+En el fragmento de código \ref{list:JAXBTopics} se muestran las anotaciones de JAXB realizadas sobre la clase \textit{TopicWrapper}, que engloba a todos los \textit{topics} de un proyecto. Cabe destacar un tipo de anotación, llamada \textit{@XmlJavaTypeAdapter}, que se usa para invocar a una clase de Java encargada de formatear una fecha, devolviendo una cadena de texto con el formato deseado.
 
 \texttt{\lstinputlisting[caption=Anotaciones de JAXB sobre la clase \textit{TopicWrapper}, breaklines=true, label=list:JAXBTopics, inputencoding=latin1, style=JavaStyle]{Codigo//JAXBTopics.java}}
-
-\texttt{\lstinputlisting[caption=Anotaciones de JAXB sobre la clase \textit{Knowledge}, breaklines=true, label=list:JAXBKnowledge, inputencoding=latin1, style=JavaStyle]{Codigo//JAXBKnowledge.java}}
 
 Gracias a las anotaciones de JAXB, el proceso de serialización (o \textit{marshal} en inglés) es muy sencillo: sólo se necesita el tipo de la clase que contiene la anotación de elemento raíz del XML (\textit{TopicWrapper} en este caso) y el objeto del dominio a serializar, obteniendo en este caso un array de bytes con la información serializada y en formato XML. En el fragmento de código \ref{list:marshal} se muestra este método de serialización.
 

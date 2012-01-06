@@ -170,7 +170,6 @@ Este es otro de los puntos principales del sistema desarrollado, ya que, gracias
  \end{center}
  \end{figure}
  
-%\imagen{Cap5/Server2//clasesGestionDecisiones}{1.0}{Diagrama de clases - Gestión de decisiones}{fig:clasesGestionDecisiones}
 
 También cabe destacar otra decisión de diseño que se ha tenido en cuenta para implementar otro de los requisitos del sistema, que es la notificación de información de manera síncrona. Para ello, cuando un cliente crea, modifica o elimina una decisión y envía la petición al servidor, éste, además de crear la alerta, notifica a los clientes conectados al servidor que se ha producido un cambio, para que éstos puedan actualizar su vista de la interfaz gráfica y puedan reflejar los cambios sobre esa decisión en tiempo real. Para ello, el servidor lanza un hilo por cada uno de los clientes registrados en el sistema y les envía la información necesaria. Se utilizan hilos para no bloquear el servidor mientras manda actualizaciones a los clientes y pueda seguir atendiendo otras peticiones. 
 
@@ -180,11 +179,9 @@ La clase controlador encargada de realizar esta tarea constituye además un patró
 \imagen{Cap5/Server2//clasesObservadorClientes}{2.0}{Diagrama de clases - Observador para actualizar clientes conectados}{fig:clasesObservadorClientes}
 
 
-En el fragmento de código \ref{list:observador} se muestra parte de la implementación de la clase controlador de los clientes, y en el fragmento \ref{list:hilos} como se ha implementado la gestión de hilos para notificar a los clientes. La clase encargada de esto último además representa un patrón \textbf{proxy}, ya que los clientes son remotos.
+En el fragmento de código \ref{list:observador}, incluido en el Apéndice \ref{appendix:remote}, se muestra parte de la implementación de la clase controlador de los clientes, mientras que el fragmento \ref{list:hilos} que aparece en el Apéndice \ref{appendix:hilos} refleja como se ha implementado la gestión de hilos para notificar a los clientes. La clase encargada de esto último además representa un patrón \textbf{proxy}, ya que los clientes son remotos.
 
-\texttt{\lstinputlisting[caption=Fragmento de código del controlador de clientes, breaklines=true, label=list:observador, inputencoding=latin1, style=JavaStyle]{Codigo//observadorClientes.java}}
 
-\texttt{\lstinputlisting[caption=Soporte multi-hilo para actualizar el estado de clientes, breaklines=true, label=list:hilos, inputencoding=latin1, style=JavaStyle]{Codigo//hilos.java}}
 
 
 \subparagraph{Cliente}
@@ -206,6 +203,9 @@ Para terminar, cabe destacar que las operaciones de gestión de decisiones (creac
 \paragraph{Pruebas}
 
 Para concluir el desarrollo de esta iteración, se diseñan e implementan los casos de prueba unitarios para este grupo funcional del sistema. De este modo, para el servidor, se crean casos de pruebas encargados de probar las diferentes operaciones relacionadas con la gestión de decisiones, como su creación, modificación, eliminación, notificación a los clientes, etc. En dichos casos de prueba se prueban escenarios correctos e incorrectos de los casos de uso, comprobando que se obtiene el resultado esperado en cada escenario. En la Figura \ref{fig:testKnowledge} se observa una captura de pantalla de la ejecución de los diferentes casos de prueba para las operaciones de gestión de decisiones.
+
+
+\imagenBorde{Cap5/Pruebas//pruebasKnowledge}{0.8}{\textit{Test Suite} para la gestión de decisiones en el servidor}{fig:testKnowledge}
 
 En el caso del cliente, como en el resto de casos, se crean \textit{checklist} para asegurar el correcto funcionamiento de la interfaz gráfica.
 
