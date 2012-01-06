@@ -24,7 +24,7 @@ import model.business.knowledge.Proposal;
 import model.business.knowledge.Session;
 import model.business.knowledge.Topic;
 import model.business.knowledge.User;
-import test.communication.PruebasBase;
+import test.communication.BaseTest;
 
 import com.itextpdf.text.Image;
 import communication.DBConnection;
@@ -34,7 +34,7 @@ import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
-public class ExportTest extends PruebasBase {	
+public class ExportTest extends BaseTest {	
 
 	private User chief, employee;
 	private Company company;

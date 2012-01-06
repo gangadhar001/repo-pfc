@@ -1,6 +1,5 @@
 package test.business;
 
-import gcadServer.Main;
 
 import java.rmi.RemoteException;
 
@@ -17,9 +16,11 @@ import org.uispec4j.Trigger;
 import org.uispec4j.Window;
 import org.uispec4j.interception.WindowInterceptor;
 
+
+import DPMToolServer.Main;
 import test.IDatosPruebas;
-import test.communication.ClientePrueba;
-import test.communication.PruebasBase;
+import test.communication.DummyClient;
+import test.communication.BaseTest;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -28,7 +29,7 @@ import communication.ServerConfiguration;
 /**
  * Pruebas del controlador principal del servidor front-end.
  */
-public class PruebasControlador extends PruebasBase {
+public class PruebasControlador extends BaseTest {
 
 	private ServerController controlador;
 	
@@ -73,7 +74,7 @@ public class PruebasControlador extends PruebasBase {
 	/** Pruebas del controlador */
 	public void testControlador() {
 		ServerConfiguration configuracion = null;
-		ClientePrueba cliente = null;
+		DummyClient cliente = null;
 		ISession sesion;
 		
 //		try {
@@ -104,7 +105,7 @@ public class PruebasControlador extends PruebasBase {
 		
 		try {
 			// Iniciamos sesión con un cliente
-			cliente = new ClientePrueba();
+			cliente = new DummyClient();
 			cliente.activate(IDatosPruebas.IP_ESCUCHA_CLIENTES);
 			sesion = Server.getInstance().login("emp1", "emp1");
 			Server.getInstance().register(sesion.getId(), cliente);
@@ -135,23 +136,5 @@ public class PruebasControlador extends PruebasBase {
 			fail(e.toString());
 		}
 	}
-	
-	/** Pruebas de la clase Main */
-//	public void testMain() {
-//		Window ventana;
-//		
-//		try {
-//			// Comprobamos que el método Main muestra la ventana principal del servidor
-//			ventana = WindowInterceptor.run(new Trigger() {
-//				public void run() {
-//					Main.main(new String[] {});
-//				}
-//			});
-//			assertEquals(ventana.getTitle(), "Servidor");
-//			ventana.dispose();
-//		} catch(Exception e) {
-//			fail(e.toString());
-//		}
-//	}
 	
 }

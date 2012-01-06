@@ -1,6 +1,5 @@
 package test.presentation;
 
-import gcadServer.Main;
 import model.business.control.ServerController;
 
 import org.uispec4j.Button;
@@ -11,9 +10,11 @@ import org.uispec4j.Window;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
+
 import communication.ServerConfiguration;
 
 import presentation.JFServer;
+import DPMToolServer.Main;
 
 
 /**

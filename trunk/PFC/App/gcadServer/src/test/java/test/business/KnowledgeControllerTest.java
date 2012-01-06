@@ -20,8 +20,8 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 import test.IDatosPruebas;
-import test.communication.ClientePrueba;
-import test.communication.PruebasBase;
+import test.communication.DummyClient;
+import test.communication.BaseTest;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -33,7 +33,7 @@ import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
 
 
-public class KnowledgeControllerTest extends PruebasBase {	
+public class KnowledgeControllerTest extends BaseTest {	
 
 	private User chief, employee;
 	private Company company;
@@ -41,7 +41,7 @@ public class KnowledgeControllerTest extends PruebasBase {
 	private Project project;
 	private Proposal pro, pro2;
 	private Topic topic, topic2;	
-	private ClientePrueba chiefClient, employeeClient;
+	private DummyClient chiefClient, employeeClient;
 	private Server server;
 	private ISession sessionChief, sessionEmployee;
 	private Answer ans;
@@ -78,8 +78,8 @@ public class KnowledgeControllerTest extends PruebasBase {
 			sessionEmployee = server.login("emp1", "emp1");
 			Server.getInstance().addProjectsUser(sessionChief.getId(), chief, project);
 			Server.getInstance().addProjectsUser(sessionChief.getId(), employee, project);
-			chiefClient = new ClientePrueba();
-			employeeClient = new ClientePrueba();
+			chiefClient = new DummyClient();
+			employeeClient = new DummyClient();
 			chiefClient.activate(IDatosPruebas.IP_ESCUCHA_CLIENTES);
 			employeeClient.activate(IDatosPruebas.IP_ESCUCHA_CLIENTES);
 			server.register(sessionChief.getId(), chiefClient);

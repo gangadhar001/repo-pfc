@@ -1,28 +1,10 @@
 package test.business;
 
-import java.util.Date;
-
-import communication.DBConnection;
-import communication.DBConnectionManager;
-import exceptions.NotLoggedException;
-
 import model.business.control.Server;
-import model.business.knowledge.Address;
-import model.business.knowledge.Answer;
-import model.business.knowledge.AnswerArgument;
-import model.business.knowledge.Categories;
-import model.business.knowledge.ChiefProject;
-import model.business.knowledge.Company;
-import model.business.knowledge.Employee;
-import model.business.knowledge.Project;
-import model.business.knowledge.Proposal;
-import model.business.knowledge.Topic;
 import resources.Language;
-import test.IDatosPruebas;
-import test.communication.ClientePrueba;
-import test.communication.PruebasBase;
+import test.communication.BaseTest;
 
-public class LanguageTest extends PruebasBase {
+public class LanguageTest extends BaseTest {
 	
 	private Server server;
 

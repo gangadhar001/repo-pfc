@@ -7,7 +7,7 @@ import model.business.knowledge.Company;
 import model.business.knowledge.Coordinates;
 import model.business.knowledge.ISession;
 import model.business.knowledge.User;
-import test.communication.PruebasBase;
+import test.communication.BaseTest;
 
 import communication.DBConnection;
 import communication.DBConnectionManager;
@@ -16,7 +16,7 @@ import exceptions.NonExistentAddressException;
 import exceptions.WSResponseException;
 
 
-public class GeoCoderTest extends PruebasBase {	
+public class GeoCoderTest extends BaseTest {	
 
 	private User chief;
 	private Company company;
