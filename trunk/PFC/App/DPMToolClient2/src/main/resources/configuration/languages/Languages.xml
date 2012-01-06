@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Languages>
+	<Language>
+		<name>Spanish</name>
+		<code>es_ES</code>
+		<default>true</default>
+	</Language>
+	<Language>
+		<name>English</name>
+		<code>en_US</code>
+		<default>false</default>
+	</Language>
+</Languages>
