@@ -4,11 +4,6 @@ A level-1 auxiliary file: Previos.aux
 A level-1 auxiliary file: Listas.aux
 The style file: babplai3.bst
 A level-1 auxiliary file: ManualUsuario.aux
-A level-1 auxiliary file: ManualInstalacion.aux
-A level-1 auxiliary file: AnexoCodigo.aux
-A level-1 auxiliary file: AnexoPruebas.aux
+I found no \citation commands---while reading file D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
 Database file #1: PFCBib.bib
-Warning--I didn't find a database entry for "download-jdk"
-Warning--I didn't find a database entry for "download-mysql"
-Warning--I didn't find a database entry for "download-workbench"
-(There were 3 warnings)
+(There was 1 error message)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  7 JAN 2012 12:51
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  7 JAN 2012 14:29
 entering extended mode
 **D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/PlantillaPFC.tex
 (D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/PlantillaPFC.tex
@@ -543,10 +543,7 @@ LaTeX Info: Redefining \XeLaTeX on input line 291.
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Portadas.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Previos.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Listas.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualUsuario.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualInstalacion.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoCodigo.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.aux))
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualUsuario.aux))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
@@ -758,16 +755,16 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
 ) [13] [14
 
 
-] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.toc
-[15])
+] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.toc)
 \tf@toc=\write5
- [16] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Listas.tex
+
+[15] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Listas.tex [16
+
+
+]
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.lof)
 \tf@lof=\write6
- [17
-
-
-] [18
+ [17] [18
 
 ]
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.lot)
@@ -805,273 +802,105 @@ Ap\'{e}ndice A.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 
-LaTeX Warning: Reference `fig:server-ventanaprincipal' on page 3 undefined on i
-nput line 10.
+LaTeX Warning: Reference `appendix:manualEntorno' on page 3 undefined on input 
+line 10.
 
-
-LaTeX Warning: Reference `fig:server-configurar' on page 3 undefined on input l
-ine 22.
-
-
-Underfull \vbox (badness 1112) has occurred while \output is active []
-
- [3
-
-
-]
-
-LaTeX Warning: Reference `fig:server-idioma' on page 4 undefined on input line 
-28.
-
-) [4] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualInstalacion.tex
-Ap\'{e}ndice B.
-
-LaTeX Warning: Reference `fig:despliegue' on page 5 undefined on input line 10.
-
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5
-
-
-
-]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 18.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 12.
+[3
 
-<Figuras//Apendices/Manual//java-version.png, id=178, 436.63126pt x 134.75343pt
->
-File: Figuras//Apendices/Manual//java-version.png Graphic file (type png)
- <use Figuras//Apendices/Manual//java-version.png>
-Package pdftex.def Info: Figuras//Apendices/Manual//java-version.png used on in
-put line 22.
-(pdftex.def)             Requested size: 349.30548pt x 107.80289pt.
+
+]
+<Figuras//Apendices/Manual//server-ventanaprincipal.png, id=172, 567.11874pt x 
+468.75125pt>
+File: Figuras//Apendices/Manual//server-ventanaprincipal.png Graphic file (type
+ png)
+ <use Figuras//Apendices/Manual//server-ventanaprincipal.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//server-ventanaprincipal.png
+ used on input line 22.
+(pdftex.def)             Requested size: 340.27386pt x 281.25291pt.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 22.
 
-
-LaTeX Warning: Citation `download-jdk' on page 6 undefined on input line 27.
-
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 30.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [6 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//j
-ava-version.png (PNG copy)>]
-<Figuras//Apendices/Manual//javahome.png, id=182, 380.42125pt x 153.57375pt>
-File: Figuras//Apendices/Manual//javahome.png Graphic file (type png)
-
-<use Figuras//Apendices/Manual//javahome.png>
-Package pdftex.def Info: Figuras//Apendices/Manual//javahome.png used on input 
-line 34.
-(pdftex.def)             Requested size: 228.2545pt x 92.14494pt.
-
-
-LaTeX Warning: Citation `download-mysql' on page 7 undefined on input line 41.
-
-
-LaTeX Warning: Citation `download-workbench' on page 7 undefined on input line 
-43.
-
-
-<Figuras//Apendices/Manual//mysql-administrator1.png, id=183, 435.6275pt x 336.
-25626pt>
-File: Figuras//Apendices/Manual//mysql-administrator1.png Graphic file (type pn
-g)
- <use Figuras//Apendices/Manual//mysql-administrator1.png>
-Package pdftex.def Info: Figuras//Apendices/Manual//mysql-administrator1.png us
-ed on input line 47.
-(pdftex.def)             Requested size: 261.37851pt x 201.75531pt.
- [7 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//ja
-vahome.png>]
-<Figuras//Apendices/Manual//mysql-administrator2.png, id=188, 829.0975pt x 644.
-4075pt>
-File: Figuras//Apendices/Manual//mysql-administrator2.png Graphic file (type pn
-g)
- <use Figuras//Apendices/Manual//mysql-administrator2.png>
-Package pdftex.def Info: Figuras//Apendices/Manual//mysql-administrator2.png us
-ed on input line 57.
-(pdftex.def)             Requested size: 414.54774pt x 322.20296pt.
-) [8 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//m
-ysql-administrator1.png>] [9 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figu
-ras//Apendices/Manual//mysql-administrator2.png>]
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoCodigo.tex [10
-
-
-
-]
-Ap\'{e}ndice C.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
-File: lstlang1.sty 2004/09/05 1.3 listings language file
-)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
-File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
-)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//facadeServer.java
-[11]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14])
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//GeoCoder.java [15])
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-) [16]
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//observadorClientes.java)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//hilos.java [17])
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//cbr.java [18]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [19])
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//generarPDF.java [20])
-LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 41.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
-File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//dataset.java [21]))
-[22] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.tex
-Ap\'{e}ndice D.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [23
-
-
-
-]
-<Figuras//Apendices/Pruebas//UnitTest1.png, id=241, 1866.22218pt x 2640.86626pt
->
-File: Figuras//Apendices/Pruebas//UnitTest1.png Graphic file (type png)
- <use Figuras//Apendices/Pruebas//UnitTest1.png>
-Package pdftex.def Info: Figuras//Apendices/Pruebas//UnitTest1.png used on inpu
-t line 26.
-(pdftex.def)             Requested size: 441.01123pt x 702.76787pt.
-
-Overfull \hbox (3.9935pt too wide) in paragraph at lines 26--27
- [] 
- []
-
-
-LaTeX Warning: Float too large for page by 45.38478pt on input line 30.
-
-
-<Figuras//Apendices/Pruebas//UnitTest2.png, id=242, 1866.22218pt x 2640.86626pt
->
-File: Figuras//Apendices/Pruebas//UnitTest2.png Graphic file (type png)
- <use Figuras//Apendices/Pruebas//UnitTest2.png>
-Package pdftex.def Info: Figuras//Apendices/Pruebas//UnitTest2.png used on inpu
-t line 37.
-(pdftex.def)             Requested size: 441.01123pt x 702.76787pt.
-
-Overfull \hbox (3.9935pt too wide) in paragraph at lines 37--38
- [] 
- []
-
-
-LaTeX Warning: Float too large for page by 45.38478pt on input line 41.
-
-
-<Figuras//Apendices/Pruebas//coberturaTotal.png, id=243, 911.405pt x 128.48pt>
-File: Figuras//Apendices/Pruebas//coberturaTotal.png Graphic file (type png)
-
-<use Figuras//Apendices/Pruebas//coberturaTotal.png>
-Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaTotal.png used on
- input line 65.
-(pdftex.def)             Requested size: 441.01773pt x 62.17155pt.
-
-Overfull \hbox (4.0pt too wide) in paragraph at lines 65--66
- [] 
- []
-
-[24] [25 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Prueb
-as//UnitTest1.png (PNG copy)>] [26 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModi
-f/Figuras//Apendices/Pruebas//UnitTest2.png>]
-<Figuras//Apendices/Pruebas//coberturaPaquetes.png, id=253, 1184.425pt x 443.65
-75pt>
-File: Figuras//Apendices/Pruebas//coberturaPaquetes.png Graphic file (type png)
-
- <use Figuras//Apendices/Pruebas//coberturaPaquetes.png>
-Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaPaquetes.png used
- on input line 76.
-(pdftex.def)             Requested size: 441.01773pt x 165.19322pt.
-
-Overfull \hbox (4.0pt too wide) in paragraph at lines 76--77
- [] 
- []
-
-
-<Figuras//Apendices/Pruebas//coberturaControl.png, id=254, 1013.7875pt x 410.53
+<Figuras//Apendices/Manual//server-configurar.png, id=173, 292.09125pt x 354.32
 375pt>
-File: Figuras//Apendices/Pruebas//coberturaControl.png Graphic file (type png)
- <use Figuras//Apendices/Pruebas//coberturaControl.png>
-Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaControl.png used 
-on input line 87.
-(pdftex.def)             Requested size: 441.01773pt x 178.587pt.
+File: Figuras//Apendices/Manual//server-configurar.png Graphic file (type png)
+ <use Figuras//Apendices/Manual//server-configurar.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//server-configurar.png used 
+on input line 28.
+(pdftex.def)             Requested size: 175.25609pt x 212.59589pt.
+ [4 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//se
+rver-ventanaprincipal.png>]
+<Figuras//Apendices/Manual//server-idioma.png, id=177, 243.91125pt x 287.0725pt
+>
+File: Figuras//Apendices/Manual//server-idioma.png Graphic file (type png)
+ <use Figuras//Apendices/Manual//server-idioma.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//server-idioma.png used on i
+nput line 34.
+(pdftex.def)             Requested size: 146.34787pt x 172.24483pt.
 
-Overfull \hbox (4.0pt too wide) in paragraph at lines 87--88
- [] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-) [27 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Pruebas/
-/coberturaTotal.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Ape
-ndices/Pruebas//coberturaPaquetes.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memoria
-Modif/Figuras//Apendices/Pruebas//coberturaControl.png>] [28
+ [5 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//se
+rver-configurar.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Ape
+ndices/Manual//server-idioma.png>]
+<Figuras//Apendices/Manual//client-ventanaprincipal.png, id=181, 1027.84pt x 73
+0.73pt>
+File: Figuras//Apendices/Manual//client-ventanaprincipal.png Graphic file (type
+ png)
+ <use Figuras//Apendices/Manual//client-ventanaprincipal.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-ventanaprincipal.png
+ used on input line 53.
+(pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
 
-
-]
+<Figuras//Apendices/Manual//client-login.png, id=182, 371.3875pt x 316.18124pt>
+File: Figuras//Apendices/Manual//client-login.png Graphic file (type png)
+<use Figuras//Apendices/Manual//client-login.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-login.png used on in
+put line 61.
+(pdftex.def)             Requested size: 222.83421pt x 189.7102pt.
+ [6] [7 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual
+//client-ventanaprincipal.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Fi
+guras//Apendices/Manual//client-login.png>]
+<Figuras//Apendices/Manual//client-principalLogin.png, id=189, 1027.84pt x 730.
+73pt>
+File: Figuras//Apendices/Manual//client-principalLogin.png Graphic file (type p
+ng)
+ <use Figuras//Apendices/Manual//client-principalLogin.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-principalLogin.png u
+sed on input line 65.
+(pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
+) [8 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
+lient-principalLogin.png>]
 No file PlantillaPFC.ind.
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Portadas.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Previos.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Listas.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualUsuario.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualInstalacion.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoCodigo.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.aux))
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualUsuario.aux))
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 12406 strings out of 494045
- 184865 string characters out of 3145971
- 658725 words of memory out of 3000000
- 15203 multiletter control sequences out of 15000+200000
- 81823 words of font info for 174 fonts, out of 3000000 for 9000
+ 11546 strings out of 494045
+ 171754 string characters out of 3145971
+ 294399 words of memory out of 3000000
+ 14468 multiletter control sequences out of 15000+200000
+ 75768 words of font info for 138 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 46i,12n,62p,823b,2590s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,11n,45p,873b,570s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files (
-x86)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiK
-TeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
-ts/type1/urw/times/utmbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/u
-rw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/ut
-mri8a.pfb>
-Output written on PlantillaPFC.pdf (50 pages, 1092080 bytes).
+m Files (x86)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
+/type1/urw/times/utmri8a.pfb>
+Output written on PlantillaPFC.pdf (30 pages, 607802 bytes).
 PDF statistics:
- 285 PDF objects out of 1000 (max. 8388607)
+ 208 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 32307 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 30756 words of extra memory for PDF output out of 35830 (max. 10000000)
 
