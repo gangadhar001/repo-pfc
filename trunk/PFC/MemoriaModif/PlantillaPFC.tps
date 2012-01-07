@@ -3,7 +3,7 @@ Type=TeXnicCenterProjectSessionInformation
 Version=2
 
 [SessionInfo]
-ActiveTab=2
+ActiveTab=0
 FrameCount=2
 ActiveFrame=0
 
@@ -32,9 +32,9 @@ cxCur=1411
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=12
-Cursor.column=18
-TopSubLine=1
+Cursor.row=102
+Cursor.column=0
+TopSubLine=92
 
 [Frame1]
 Columns=1
@@ -45,12 +45,12 @@ MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
 MaxPos.y=-30
-NormalPos.left=25
-NormalPos.top=25
-NormalPos.right=1357
-NormalPos.bottom=281
+NormalPos.left=50
+NormalPos.top=50
+NormalPos.right=1382
+NormalPos.bottom=306
 Class=CLatexEdit
-Document=PFCBib.bib
+Document=ManualUsuario.tex
 
 [Frame1_Row0]
 cyCur=197
@@ -61,7 +61,7 @@ cxCur=1295
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=566
-Cursor.column=31
-TopSubLine=559
+Cursor.row=161
+Cursor.column=206
+TopSubLine=200
 
