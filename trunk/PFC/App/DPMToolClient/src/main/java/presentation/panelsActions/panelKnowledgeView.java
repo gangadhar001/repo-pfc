@@ -7,13 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import model.business.knowledge.File;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -38,6 +36,7 @@ import javax.swing.tree.TreeSelectionModel;
 import model.business.knowledge.Address;
 import model.business.knowledge.Answer;
 import model.business.knowledge.Company;
+import model.business.knowledge.File;
 import model.business.knowledge.Knowledge;
 import model.business.knowledge.Operations;
 import model.business.knowledge.Proposal;
@@ -45,7 +44,6 @@ import model.business.knowledge.Topic;
 import model.business.knowledge.TopicWrapper;
 import model.business.knowledge.User;
 
-import org.apache.bcel.generic.CPInstruction;
 import org.japura.gui.CollapsiblePanel;
 import org.japura.gui.CollapsibleRootPanel;
 import org.japura.gui.Gradient;
@@ -261,8 +259,9 @@ public class panelKnowledgeView extends ImagePanel {
 			this.setMinimumSize(new java.awt.Dimension(1008, 601));
 			{
 				panelGraph = new GraphZoomScrollPane(KnowGraph.getVisualGraph());
-				this.add(panelGraph, new AnchorConstraint(12, 779, 974, 229, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
+				this.add(panelGraph, new AnchorConstraint(12, 223, 974, 229, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_ABS));
 				panelGraph.setPreferredSize(new java.awt.Dimension(556, 573));
+				panelGraph.setName("panelGraph");
 			}
 			{
 				panelTree = new JPanel();
@@ -645,6 +644,7 @@ public class panelKnowledgeView extends ImagePanel {
 			collapsiblePanelKnowInfo = new CollapsiblePanel();
 			collapsiblePanelKnowInfo.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM,Color.CYAN,Color.WHITE));
 			collapsiblePanelKnowInfo.setLayout(null);
+			collapsiblePanelKnowInfo.setAutoscrolls(true);
 			collapsiblePanelKnowInfo.setBounds(12, 206, 156, 185);
 			collapsiblePanelKnowInfo.add(getPanelUserKnowledge());
 			collapsiblePanelKnowInfo.setName("collapsiblePanelKnowInfo");
@@ -662,6 +662,7 @@ public class panelKnowledgeView extends ImagePanel {
 			collapsiblePanelCompany = new CollapsiblePanel();
 			collapsiblePanelCompany.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM,Color.CYAN,Color.WHITE));
 			collapsiblePanelCompany.setLayout(null);
+			collapsiblePanelCompany.setAutoscrolls(true);
 			collapsiblePanelCompany.add(getPanelUserCompany());
 			collapsiblePanelCompany.setBackground(Color.WHITE);
 			collapsiblePanelCompany.setTitle(ApplicationInternationalization.getString("CompanyInfo"));
@@ -758,7 +759,7 @@ public class panelKnowledgeView extends ImagePanel {
 	 private JPanel getPanelUserInfo() {
 		 if(panelUserInfo == null) {
 			 panelUserInfo = new JPanel();
-			 panelUserInfo.setBounds(820, 49, 156, 182);
+			 panelUserInfo.setBounds(6, 0, 156, 182);
 			 panelUserInfo.setLayout(new BoxLayout(panelUserInfo, BoxLayout.Y_AXIS));
 		 }
 		 return panelUserInfo;
@@ -767,8 +768,7 @@ public class panelKnowledgeView extends ImagePanel {
 	 private JPanel getPanelUserCompany() {
 		 if(panelUserCompany == null) {
 			 panelUserCompany = new JPanel();
-			 panelUserCompany.setPreferredSize(new java.awt.Dimension(155, 115));
-			 panelUserCompany.setBounds(0, 0, 156, 115);
+			 panelUserCompany.setBounds(6, 0, 150, 114);
 			 panelUserCompany.setLayout(new BoxLayout(panelUserCompany, BoxLayout.Y_AXIS));
 		 }
 		 return panelUserCompany;
@@ -777,8 +777,7 @@ public class panelKnowledgeView extends ImagePanel {
 	 private JPanel getPanelUserKnowledge() {
 		 if(panelUserKnowledge == null) {
 			 panelUserKnowledge = new JPanel();
-			 panelUserKnowledge.setPreferredSize(new java.awt.Dimension(155, 173));
-			 panelUserKnowledge.setBounds(0, 0, 156, 185);
+			 panelUserKnowledge.setBounds(0, 0, 150, 185);
 			 panelUserKnowledge.setLayout(new BoxLayout(panelUserKnowledge, BoxLayout.Y_AXIS));
 		 }
 		 return panelUserKnowledge;

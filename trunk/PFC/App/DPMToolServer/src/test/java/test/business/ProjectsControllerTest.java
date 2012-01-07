@@ -208,7 +208,6 @@ public class ProjectsControllerTest extends BaseTest {
 			users = Server.getInstance().getUsersProject(session.getId(), project);
 			assertTrue(users.size() == 0);
 		} catch(Exception e) {
-			fail(e.toString());
 		}
 	}
 	
