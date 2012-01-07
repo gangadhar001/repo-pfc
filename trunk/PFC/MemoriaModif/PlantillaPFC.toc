@@ -8,26 +8,11 @@
 \select@language {english}
 \select@language {spanish}
 \contentsline {chapter}{\numberline {A}Manual de usuario}{3}
-\contentsline {section}{\numberline {A.1}Ventana principal}{3}
-\contentsline {section}{\numberline {A.2}Configurar el servidor}{4}
-\contentsline {section}{\numberline {A.3}Cambiar el idioma del servidor}{4}
-\contentsline {section}{\numberline {A.4}Activar el servidor}{4}
-\contentsline {section}{\numberline {A.5}Manual de usuario de GCADClient}{4}
-\contentsline {chapter}{\numberline {B}Manual de Instalaci\'on y Configuraci\'on del Entorno}{5}
-\contentsline {section}{\numberline {B.1}Requisitos del sistema}{5}
-\contentsline {section}{\numberline {B.2}Instalaci\'on y configuraci\'on de los entornos}{6}
-\contentsline {subsection}{\numberline {B.2.1}Entorno de Java}{6}
-\contentsline {subsection}{\numberline {B.2.2}Servidor MySQL}{7}
-\contentsline {chapter}{\numberline {C}C\'odigo Fuente}{11}
-\contentsline {section}{\numberline {C.1}Implementaci\'on de los patrones Fachada}{11}
-\contentsline {subsection}{\numberline {C.1.1}Fachada para el sistema servidor}{11}
-\contentsline {subsection}{\numberline {C.1.2}Fachada para el sistema cliente}{15}
-\contentsline {section}{\numberline {C.2}Invocaci\'on de un Servicio Web}{15}
-\contentsline {section}{\numberline {C.3}Controlador de clientes}{16}
-\contentsline {section}{\numberline {C.4}Soporte multi-hilo}{17}
-\contentsline {section}{\numberline {C.5}Algoritmo \textbf {NN} de CBR}{18}
-\contentsline {section}{\numberline {C.6}Generaci\'on de PDF}{20}
-\contentsline {section}{\numberline {C.7}Generaci\'on de un \textit {dataset} para un gr\'afico}{21}
-\contentsline {chapter}{\numberline {D}Informe de pruebas}{23}
-\contentsline {section}{\numberline {D.1}Informe de JUnit}{24}
-\contentsline {section}{\numberline {D.2}Informe de cobertura}{24}
+\contentsline {section}{\numberline {A.1}Manual de usuario de DPMTool - Server}{3}
+\contentsline {subsection}{\numberline {A.1.1}Ventana principal}{3}
+\contentsline {subsection}{\numberline {A.1.2}Configuraci\'on del servidor}{4}
+\contentsline {subsection}{\numberline {A.1.3}Cambio de idioma del servidor}{5}
+\contentsline {subsection}{\numberline {A.1.4}Activaci\'on del servidor}{6}
+\contentsline {section}{\numberline {A.2}Manual de usuario de DPMTool - Client}{6}
+\contentsline {subsection}{\numberline {A.2.1}Ventana principal}{6}
+\contentsline {subsection}{\numberline {A.2.2}Acceso al sistema}{6}

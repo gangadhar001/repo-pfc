@@ -1,40 +1,65 @@
 \chapter{Manual de usuario}
-\label{ch:manualServer}
+\label{ch:manualUsuario}
 
-\textit{DPMTool - Server} es el sistema servidor que debe encontrarse en ejecución para poder ejecutar la práctica totalidad de las funcionalidades del sistema  \textit{DMPTool - Client}. 
+En el presenta anexo se detalla el manual de usuario de la aplicación, compuesta por el subsistema \textbf{DPMTool - Server}, que es el servidor, y por el subsistema \textbf{DMPTool - Client}, que es el cliente.
 
-Dicho servidor debe contar con un servidor de base de datos MySQL activo, bien en la misma máquina o en otra. En el apéndice \ref{ch:manualEntorno} se detallan los requisitos del sistema y se explica como instalar y configurar el entorno. 
+En las posteriores secciones se describe cómo utilizar cada uno de dichos sistemas, mostrando capturas de pantalla de la aplicación.
 
-\section{Ventana principal}
+\section{Manual de usuario de DPMTool - Server} \label{sec:manualServer}
 
-Al ejecutar el fichero JAR correspondiente al servidor, obtenemos una ventana como la que se muestra en la figura \ref{fig:server-ventanaprincipal}. Si la describimos de arriba abajo se aprecian los siguientes elementos:
+Para poder utilizar la práctica totalidad de las funcionalidades del sistema cliente, es necesario en primer lugar activar y poner a la escucha el servidor, ya que es el que atenderá las peticiones del cliente. Además, para iniciar el servidor es necesario tener iniciado el servicio de bases de datos MySQL, con la base de datos preparada. Para obtener más información acerca de los requisitos del sistema y cómo configurar el entorno, ver el Apéndice \ref{appendix:manualEntorno}.
+
+\subsection{Ventana principal}
+
+Al ejecutar el fichero Java correspondiente al servidor, se obtiene una ventana como la que se muestra en la figura \ref{fig:server-ventanaprincipal}. Dicha ventana, descrita desde arriba hacia abajo, cuenta con los siguientes elementos:
 \begin{itemize}
-	\item Una barra de menús (\textit{Archivo}, \textit{Opciones} y \textit{Ayuda}).
-	\item Una toolbar con botones para poner el servidor a la escucha, pararlo o cerrarlo.
+	\item Una barra de menús, con diferentes menús y submenús para realizar acciones disponibles en el servidor.
+	\item Una barra de herramientas (\textit{toolbar}) con botones para poner el servidor a la escucha, detenerlo o configurarlo.
 	\item Un área de texto donde se va mostrando el log de las acciones que realizan los clientes sobre el servidor.
-	\item Una barra de estado donde se muestra información relativa a las comunicaciones: clientes conectados, datos de conexión del servidor, datos de conexión del sistema gestor de bases de datos, y datos de conexión del servidor de respaldo.
+	\item Una barra de estado donde se muestra información relativa a las comunicaciones: clientes conectados, datos de conexión del servidor y datos de conexión del sistema gestor de bases de datos.
 \end{itemize}
 
-%\imagen{Apendices//server-ventanaprincipal}{0.70}{Ventana principal del servidor}{fig:server-ventanaprincipal}
+\imagenBorde{Apendices/Manual//server-ventanaprincipal}{0.60}{Ventana principal del servidor}{fig:server-ventanaprincipal}
 
-\section{Configurar el servidor}
+\subsection{Configuración del servidor}
 
-Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Configurar} aparecerá una ventana para configurar el servidor, es decir, los datos de conexión del SGBD y el puerto en que el servidor deberá ponerse a la escucha. Para confirmar los cambios, haga clic en \textit{Aceptar} (ver Figura \ref{fig:server-configurar}).
+Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Configurar} aparecerá una ventana, como la mostrada en la Figura \ref{fig:server-configurar}), utilizada para configurar el servidor, es decir, los datos de conexión del SGBD y el puerto en que el servidor deberá ponerse a la escucha. Para confirmar los cambios, hacer clic en el botón aceptar\textit{Aceptar}.
 
-%\imagen{Apendices//server-configurar}{0.70}{Ventana de configuración servidor front-end}{fig:server-configurar}
+\imagenBorde{Apendices/Manual//server-configurar}{0.60}{Ventana de configuración del servidor}{fig:server-configurar}
 
-\section{Cambiar el idioma del servidor}
+\subsection{Cambio de idioma del servidor}
 
 Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Cambiar idioma} aparecerá una ventana para poder cambiar el idioma de la interfaz y de los mensajes de log mostrados (ver Figura \ref{fig:server-idioma}). El cambio de idioma requerirá el reinicio de la aplicación.
 
-%\imagen{Apendices//server-configurar}{0.70}{Ventana de configuración servidor front-end}{fig:server-configurar}
-
-\section{Activar el servidor}
-
-Para poner el servidor a la escucha, se debe hacer clic en el botón \textit{Conectar} (o en su homólogo de la toolbar). Cuando algún cliente se conecte aparecerá reflejado en la barra de estado. Si hay clientes conectados y desea desconectar o cerrar el servidor, se le pedirá confirmación para forzar la desconexión de los clientes activos.
+\imagenBorde{Apendices/Manual//server-idioma}{0.60}{Ventana para seleccionar el idioma del servidor}{fig:server-idioma}
 
 
-\section{Manual de usuario de GCADClient}
-\label{ch:manualClient}
+\subsection{Activación del servidor}
+
+Para poner el servidor a la escucha, se debe hacer clic en el botón \textit{Conectar} (o en su homólogo de la \textit{toolbar} o del submenú correspondiente del menú \textit{Archivo}). Cuando algún cliente se conecte, aparecerá reflejado en la barra de estado. 
+
+Para detener el servidor, se debe hacer clic en el botón \textit{Desconectar}, o bien en el botón de la \textit{toolbar} o en el submenú del menú \textit{Archivo}, como en el caso anterior. Si existen clientes conectados a la hora de detener o cerrar el servidor, se pedirá confirmación para forzar la desconexión de los clientes activos.
 
 
+
+\section{Manual de usuario de DPMTool - Client} \label{sec:manualClient}
+
+En esta sección se presenta el manual de usuario para el subsistema cliente, con diferentes capturas de pantalla que ilustran las funcionalidades disponibles en el sistema. Recordar que es necesario previamente iniciar el subsistema servidor antes de iniciar sesión con el cliente y poder utilizarlo.
+
+\subsection{Ventana principal}
+
+Tras ejecutar DPMTool - Client, aparecerá una \textit{Splash Screen} indicando que la aplicación se está iniciando y, tras ella, se mostrará la ventana principal del sistema, que aparece reflejada en la Figura \ref{fig:client-ventanaprincipal}. 
+
+\imagenBorde{Apendices/Manual//client-ventanaprincipal}{0.42}{Ventana principal del cliente}{fig:client-ventanaprincipal}
+
+En este momento, sin haber iniciado aún sesión en el sistema, las únicas acciones que se pueden realizar son: iniciar sesión, salir, cambiar idioma y ver la ayuda, todas ellas accesibles desde los menús de la ventana.
+
+\subsection{Acceso al sistema}
+
+Para iniciar sesión en el sistema, se elige el submenú \textit{Iniciar Sesión} bajo el menú \textit{Archivo}. Al seleccionar dicho submenú, aparecerá la ventana mostrada en la Figura \ref{fig:client-login}, donde el usuario debe introducir su nombre de usuario y contraseña, proporcionados por la empresa donde trabaja. Además, puede desplegar un panel con los datos del servidor, para introducir la dirección IP y el puerto donde se puso el servidor a la escucha.
+
+\imagenBorde{Apendices/Manual//client-login}{0.60}{Ventana de \textit{login}}{fig:client-login}
+
+Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, redirigiéndose a la ventana principal cuando se completa el acceso al sistema. En este caso, en la ventana principal ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema. En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la \textit{toolbar} ya se encuentran habilitadas las vistas a las que puede acceder, así como en los menús, y la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado y de la dirección IP del servidor.
+
+\imagenBorde{Apendices/Manual//client-principalLogin}{0.42}{Ventana principal del cliente al acceder al sistema}{fig:client-principalLogin}
