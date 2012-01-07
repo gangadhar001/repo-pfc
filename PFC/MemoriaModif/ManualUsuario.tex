@@ -25,13 +25,13 @@ Al ejecutar el fichero Java correspondiente al servidor, se obtiene una ventana 
 
 Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Configurar} aparecerá una ventana, como la mostrada en la Figura \ref{fig:server-configurar}), utilizada para configurar el servidor, es decir, los datos de conexión del SGBD y el puerto en que el servidor deberá ponerse a la escucha. Para confirmar los cambios, hacer clic en el botón aceptar\textit{Aceptar}.
 
-\imagenBorde{Apendices/Manual//server-configurar}{0.60}{Ventana de configuración del servidor}{fig:server-configurar}
+\imagenBorde{Apendices/Manual//server-configurar}{0.60}{Diálogo de configuración del servidor}{fig:server-configurar}
 
 \subsection{Cambio de idioma del servidor}
 
 Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Cambiar idioma} aparecerá una ventana para poder cambiar el idioma de la interfaz y de los mensajes de log mostrados (ver Figura \ref{fig:server-idioma}). El cambio de idioma requerirá el reinicio de la aplicación.
 
-\imagenBorde{Apendices/Manual//server-idioma}{0.60}{Ventana para seleccionar el idioma del servidor}{fig:server-idioma}
+\imagenBorde{Apendices/Manual//server-idioma}{0.60}{Diálogo para seleccionar el idioma del servidor}{fig:server-idioma}
 
 
 \subsection{Activación del servidor}
@@ -39,6 +39,8 @@ Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Cambiar idioma} a
 Para poner el servidor a la escucha, se debe hacer clic en el botón \textit{Conectar} (o en su homólogo de la \textit{toolbar} o del submenú correspondiente del menú \textit{Archivo}). Cuando algún cliente se conecte, aparecerá reflejado en la barra de estado. 
 
 Para detener el servidor, se debe hacer clic en el botón \textit{Desconectar}, o bien en el botón de la \textit{toolbar} o en el submenú del menú \textit{Archivo}, como en el caso anterior. Si existen clientes conectados a la hora de detener o cerrar el servidor, se pedirá confirmación para forzar la desconexión de los clientes activos.
+
+
 
 
 
@@ -60,6 +62,107 @@ Para iniciar sesión en el sistema, se elige el submenú \textit{Iniciar Sesión} b
 
 \imagenBorde{Apendices/Manual//client-login}{0.60}{Ventana de \textit{login}}{fig:client-login}
 
-Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, redirigiéndose a la ventana principal cuando se completa el acceso al sistema. En este caso, en la ventana principal ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema. En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la \textit{toolbar} ya se encuentran habilitadas las vistas a las que puede acceder, así como en los menús, y la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado y de la dirección IP del servidor.
+Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, para poder gestionar las decisiones y demás información de dicho proyecto. Al finalizar, la aplicación se redirigirá a la ventana principal nuevamente. En este caso, en dicha ventana ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema, según su rol ((ver Tabla \ref{table:acciones2}). En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la \textit{toolbar} ya se encuentran habilitadas las vistas a las que puede acceder, así como los menús, y la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado y de la dirección IP del servidor.
 
 \imagenBorde{Apendices/Manual//client-principalLogin}{0.42}{Ventana principal del cliente al acceder al sistema}{fig:client-principalLogin}
+
+Como se puede apreciar en la Figura \ref{fig:client-principalLogin}, la ventana principal del sistema cliente se divide en los siguientes elementos:
+
+\begin{itemize}
+	\item La barra de menús, donde se puede acceder a diferentes submenús que representan las acciones que pueden llevarse a cabo en el sistema, según el rol logueado: exportar información, gestionar proyectos, gestionar decisiones, etc.
+	\item A la derecha de los menús, aparecen las distintas vistas a las que el usuario tiene permisos para visualizar, que son (en el caso del jefe de proyecto): la vista de decisiones de un proyecto, la vista de alertas o notificaciones, la vista para generar gráficos estadísticos y la vista utilizada para componer documentos PDF.
+	\item El espacio central, donde se visualizarán los elementos de las diferentes vistas, cuando se seleccionen.
+	\item Una barra de estado, donde se indica, entre otras cosas, el nombre de usuario logueado, su rol, la IP del servidor, etc.
+\end{itemize}
+
+
+\subsection{Cambio de idioma del cliente}
+
+Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Cambiar idioma} aparecerá una ventana, como la mostrada en la Figura \ref{fig:client-idioma} para poder cambiar el idioma de la interfaz, que requerirá del reinicio de la aplicación.
+
+\imagenBorde{Apendices/Manual//client-idioma}{0.60}{Diálogo para seleccionar el idioma del cliente}{fig:client-idioma}
+
+
+\subsection{Exportar información}
+
+Para exportar a un fichero XML toda la información de un proyecto, información de sus decisiones, empleados que en él trabajan, etc, es necesario seleccionar el menú \textit{Archivo} -\textgreater \textit{Exportar Información}. Aparecerá una ventana como la mostrada en la Figura \ref{fig:client-export}, donde se debe elegir el proyecto del cual se desea exportar su información y, a continuación, seleccionar una ruta para guardar el archivo XML resultante.
+
+Esta acción sólo esta disponible para los jefes de proyecto. 
+
+\imagenBorde{Apendices/Manual//client-export}{0.60}{Diálogo de selección de proyecto para exportar información}{fig:client-export}
+
+
+\subsection{Seleccionar proyecto activo}
+
+Si tras haber iniciado sesión en el sistema, se desea trabajar sobre otro proyecto, para poder visualizar y gestionar sus alertas y decisiones, se puede cambiar el proyecto activo, seleccionando el menú \textit{Opciones} -\textgreater \textit{Cambiar Proyecto} y seleccionando un nuevo proyecto en el diálogo correspondiente, mostrado en la Figura \ref{fig:client-seleccionarProyecto}. Esta acción requiere reiniciar a la vista principal del sistema.
+
+\imagenBorde{Apendices/Manual//client-seleccionarProyecto}{0.60}{Diálogo de selección de proyecto}{fig:client-seleccionarProyecto}
+
+
+\subsection{Gestionar proyectos}
+
+Para dar de alta nuevos proyectos, o modificar alguno de los existentes, seleccionar el menú \textit{Herramientas} -\textgreater \textit{Gestionar Proyectos}. Se abrirá un nuevo diálogo para permitir la introducción de los datos del proyecto que se desea crear, siendo obligatorios aquellos marcados con *, como aparece en la Figura \ref{fig:client-proyectos}. Dichos datos son:
+
+\begin{itemize}
+	\item Nombre: nombre identificativo del proyecto, como cadena de texto.
+	\item Descripción: descripción del proyecto, como cadena de texto.
+	\item Fecha de inicio y finalización.
+	\item Presupuesto: presupuesto asignado para el proyecto, en formato numérico decimal.
+	\item Número de líneas: número de líneas de código estimadas del proyecto, en formato numérico.
+	\item Dominio: dominio de aplicación del proyecto software, como puede ser banca, sanidad, defensa, etc.
+	\item Lenguaje de programación elegido para el desarrollo del proyecto software.
+	\item Número de horas estimadas para el desarrollo del proyecto completo, en formato numérico.
+\end{itemize}
+
+Además, se podrán seleccionar los empleados que deban trabajar en ese proyecto, entre todos los disponibles. Al aceptar, se validarán los datos introducidos y se creará el nuevo proyecto, mostrando un mensaje de finalización al usuario.
+
+%\imagenBorde{Apendices/Manual//client-proyectos}{0.60}{Diálogo para la creación de proyectos}{fig:client-proyectos}
+
+Por otra parte, se puede seleccionar la pestaña \textit{Modificar Proyecto} para modificar los datos y/o empleados de algunos de los proyectos existentes en el sistema (ver Figura \ref{fig:client-modificarProyecto}).
+
+%\imagenBorde{Apendices/Manual//client-modificarProyecto}{0.60}{Diálogo para la modificación de proyectos}{fig:client-modificarProyecto}
+
+Esta acción sólo esta disponible para los jefes de proyecto. 
+
+
+\subsection{Generación informes PDF}
+
+Esta acción está disponible únicamente para los jefes de proyectos, y permite la creación de informes en formato PDF donde, además del texto introducido, se representarán las decisiones tomadas en un proyecto en forma de tabla en el PDF.
+
+Para componer dichos documentos, en primer lugar debe hacerse clic en el icono de la vista \textit{Generación PDF} de la barra de menús superior de la ventana principal del cliente. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-pdf}.
+
+\imagenBorde{Apendices/Manual//client-pdf}{0.42}{Vista para la composición de documentos PDF}{fig:client-pdf}
+
+Para generar un documento PDF válido, éste debe contar con al menos una sección, y dicha sección debe contener al menos un título. Por tanto, desde la \textit{toolbar} se pueden añadir y eliminar secciones, haciendo clic en los botones correspondientes, pero la sección 1 nunca se podrá borrar.
+
+Por otra parte, se pueden ir añadiendo elementos del documento PDF a las secciones, seleccionando la pestaña de la sección correspondiente y haciendo clic sobre el icono de la flecha del elemento que se desee añadir (ver Figura \ref{fig:client-añadirPDF}).
+
+\imagenBorde{Apendices/Manual//client-añadirPDF}{0.42}{Icono para insertar elementos en las secciones del PDF}{fig:client-añadirPDF}
+
+Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado.
+
+%\imagenBorde{Apendices/Manual//client-drag}{0.42}{Vista para la composición de documentos PDF}{fig:client-pdf}
+
+Una vez añadidos y colocados los elementos a las secciones, se debe introducir texto para aquellos elementos de tipo ``título'' o ``texto'', y se debe seleccionar un proyecto para generar la tabla de decisiones en el informe PDF. Para ello, se hace clic en el icono de las herramientas del elemento ``tabla'' y se selecciona un proyecto de los disponibles.
+
+Para terminar, y para generar el documento PDF, debe hacer clic sobre el icono correspondiente de la \textit{toolbar}, mostrándose el diálogo que aparece en la Figura \ref{fig:client-dialogoPDF}, previa validación de las secciones que han sido compuestas en la vista. En dicho diálogo, puede introducirse un nombre interno al documento, un asunto, el usuario que lo crea, y se pueden seleccionar imágenes para colocar en el encabezado y pie de página de todas las páginas del documento. Esto puede ser útil para, por ejemplo, mostrar el logo de una compañía en el encabezado de las páginas. Finalmente, se hace clic en el botón de \textit{Guardar} y se elige la ruta donde se almacenará el documento generado.
+
+%\imagenBorde{Apendices/Manual//client-dialogoPDF}{0.42}{Diálogo para generar y guardar el documento PDF}{fig:client-dialogoPDF}
+
+
+
+\subsection{Generación gráficos estadísticos}
+
+Esta acción está disponible únicamente para los jefes de proyectos, y permite la generación de gráficos estadísticos a partir de la información de decisiones almacenadas para cada proyecto, los empleados que en ellos trabajan, etc.
+
+Para generar dichas gráficas, en primer lugar debe hacerse clic en el icono de la vista \textit{Estadísticas} de la barra de menús superior de la ventana principal del cliente. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-estadísticas}.
+
+%\imagenBorde{Apendices/Manual//client-estadísticas}{0.42}{Vista para la generación de gráficos estadísticos}{fig:client-estadísticas}
+
+A continuación, para generar y visualizar un gráfico, es necesario hacer clic en el botón presente en la \textit{toolbar}, con lo que se mostrará un nuevo diálogo. En dicho diálogo, lo primero es seleccionar un tipo de gráfico de los existentes en el panel izquierdo. A continuación, seleccionar el gráfico que se desea generar y rellenar los datos solicitados para poder generar dicho gráfico, como se muestra en la Figura \ref{fig:estadisticasRelleno}.
+
+%\imagenBorde{Apendices/Manual//client-estadisticasRelleno}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-estadíestadisticasRellenosticas}
+
+Al aceptar el diálogo anterior, el gráfico se genera y se muestra en una ventana interna, tal y como aparece en la Figura \ref{fig:internalFrame}. De este modo, se pueden generar y visualizar diferentes gráficos.
+
+%\imagenBorde{Apendices/Manual//client-estadisticasRelleno}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-estadíestadisticasRellenosticas}

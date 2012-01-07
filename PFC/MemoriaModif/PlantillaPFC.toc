@@ -16,3 +16,9 @@
 \contentsline {section}{\numberline {A.2}Manual de usuario de DPMTool - Client}{6}
 \contentsline {subsection}{\numberline {A.2.1}Ventana principal}{6}
 \contentsline {subsection}{\numberline {A.2.2}Acceso al sistema}{6}
+\contentsline {subsection}{\numberline {A.2.3}Cambio de idioma del cliente}{9}
+\contentsline {subsection}{\numberline {A.2.4}Exportar informaci\'on}{9}
+\contentsline {subsection}{\numberline {A.2.5}Seleccionar proyecto activo}{10}
+\contentsline {subsection}{\numberline {A.2.6}Gestionar proyectos}{10}
+\contentsline {subsection}{\numberline {A.2.7}Generaci\'on informes PDF}{11}
+\contentsline {subsection}{\numberline {A.2.8}Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{13}
