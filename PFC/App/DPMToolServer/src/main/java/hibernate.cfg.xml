@@ -11,9 +11,9 @@
 	
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/dbgcad</property>
-        <property name="connection.password">gcad</property>
-        <property name="connection.username">gcad</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/dpmtooldb</property>
+        <property name="connection.password">admin</property>
+        <property name="connection.username">dpmtooladmin</property>
 		<property name="connection.pool_size">1</property>		
 				
 		<property name="current_session_context_class">thread</property>

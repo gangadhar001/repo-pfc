@@ -129,6 +129,7 @@ public class KnowledgeGraph {
 		/*** SET GRAPH VISUALIZATION ***/
 		Dimension preferredSize = new Dimension(700, 700);
 		vv = new VisualizationViewer<Knowledge,String>(layout, preferredSize);
+		vv.setOpaque(false);
 				
 		/*** SET GRAPH TRANSFORMERS ***/		
 		Transformer<Knowledge,Paint> vpf = new PickableVertexPaintTransformer<Knowledge>(vv.getPickedVertexState(), Color.white, Color.yellow);	        

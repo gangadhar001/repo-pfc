@@ -16,9 +16,9 @@ public class ServerConfiguration {
 	public ServerConfiguration() {
 		DBIp = "127.0.0.1";
 		DBPort = 3306;
-		DBSchema = "bdgcad";
-		DBUser = "gcad";
-		DBPassword = "gcad";
+		DBSchema = "dpmtooldb";
+		DBUser = "dpmtooladmin";
+		DBPassword = "admin";
 		serverPort = 2995;		
 	} 	
 	
