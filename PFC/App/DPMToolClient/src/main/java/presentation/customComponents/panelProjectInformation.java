@@ -13,6 +13,8 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import model.business.control.CBR.Attribute;
@@ -57,8 +59,8 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	*/
 		
 	private final int POSX_COLUMN1 = 17;
-	private final int POSX_COLUMN2 = 135;	
-	private final int POSY = 0;
+	private final int POSX_COLUMN2 = 145;	
+	private int POSY = 0;
 	private final int INCREMENT_POSY = 35;
 	
 	public panelProjectInformation() {
@@ -80,7 +82,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void showData(Project project, boolean editable) {
+	public void showData(Project project, boolean editable, boolean showMandatory) {
 		clearPanel();
 		
 		// Show attributes of the project
@@ -95,6 +97,8 @@ public class panelProjectInformation extends javax.swing.JPanel {
 					JLabel lblAtt = new JLabel ();
 					lblAtt.setName("attribute_"+att.getName()+"_"+numberAttributes);
 					lblAtt.setText(ApplicationInternationalization.getString(att.getName()));
+					if (showMandatory && (!att.getName().equals("budget") && !att.getName().equals("quantityLines") && !att.getName().equals("estimatedHours")))
+						lblAtt.setText(lblAtt.getText() + " * ");
 					this.add(lblAtt);
 					lblAtt.setBounds(POSX_COLUMN1, POSY + INCREMENT_POSY * numberAttributes, 150, 20);
 					
@@ -102,7 +106,7 @@ public class panelProjectInformation extends javax.swing.JPanel {
 					Field attField = Project.class.getDeclaredField(att.getName());
 					attField.setAccessible(true);
 					NumericTextField tbNumericAttValue;
-					JTextField tbStringAttValue;
+					Component tbStringAttValue;
 					CalendarField tbDateAttValue;
 					
 					if (att.getType() == int.class || att.getType() == double.class) {
@@ -140,22 +144,35 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							tbDateAttValue.setEnabled(editable);
 					}
 					else {
-						tbStringAttValue = new JTextField();
-						tbStringAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
-						if (attField.get(project) != null) {	
-							tbStringAttValue.setText(attField.get(project).toString());
+						int height = 20;
+						if (att.getName().equals("description")) {
+							tbStringAttValue = new JTextArea();
+							height = 100;
+							((JTextArea)tbStringAttValue).setCaretPosition(0);	
+							((JTextArea)tbStringAttValue).setWrapStyleWord(true);
+							((JTextArea)tbStringAttValue).setLineWrap(true);
+							if (attField.get(project) != null) {	
+								((JTextArea)tbStringAttValue).setText(attField.get(project).toString());
+							}
+							((JTextArea)tbStringAttValue).setEditable(editable);
+							JScrollPane scroll = new JScrollPane(tbStringAttValue);
+							this.add(scroll);							
+							scroll.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, height);
 						}
-
-//						tbAttValue = tbStringAttValue;
-						this.add(tbStringAttValue);
-						tbStringAttValue.setEditable(editable);
-						tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, 20);						
-					}
-					
-					
-//					if (mandatoryFields.contains(att.getName()))
-//						tbAttValue.setInputVerifier(new NotEmptyValidator(parent, tbAttValue, ApplicationInternationalization.getString("fieldMandatory")));
-					
+						else {
+							tbStringAttValue = new JTextField();
+							if (attField.get(project) != null) {	
+								((JTextField)tbStringAttValue).setText(attField.get(project).toString());
+							}
+							((JTextField)tbStringAttValue).setEditable(editable);
+							this.add(tbStringAttValue);
+							
+							tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, 180, height);
+						}
+						
+						tbStringAttValue.setName("attributeValue_"+att.getName()+"_"+numberAttributes);
+						if (height > 20) POSY = 80;
+					}					
 					numberAttributes++;
 				}			
 			}
@@ -200,8 +217,15 @@ public class panelProjectInformation extends javax.swing.JPanel {
 					found = true;
 				}
 			}
-			if (components[i] instanceof JTextField) {
+			else if (components[i] instanceof JTextField) {
 				JTextField tf = (JTextField)components[i];
+				if (tf.getName().contains("_"+name)) {					
+					value = tf.getText();
+					found = true;
+				}
+			}
+			else if (components[i] instanceof JScrollPane) {
+				JTextArea tf = (JTextArea)((JScrollPane)components[i]).getViewport().getComponent(0);
 				if (tf.getName().contains("_"+name)) {					
 					value = tf.getText();
 					found = true;
@@ -218,20 +242,22 @@ public class panelProjectInformation extends javax.swing.JPanel {
 		return value;
 	}
 
-	public void clean() {
-		showData(new Project(), true);		
+	public void clean(boolean showMandatory) {
+		showData(new Project(), true, showMandatory);		
 	}
 
 	// Method used to validate data
-	public boolean isValidData() {
+	public boolean isValidData(boolean mandatory) {
 		boolean result = true;
 		result = !findAttValue("name").toString().isEmpty();
-		result = !findAttValue("description").toString().isEmpty();		
-		result = !findAttValue("budget").toString().isEmpty();
-		result = !findAttValue("domain").toString().isEmpty();
-		result = !findAttValue("estimatedHours").toString().isEmpty();
-		result = !findAttValue("progLanguage").toString().isEmpty();
-		result = !findAttValue("quantityLines").toString().isEmpty();
+		result = !findAttValue("description").toString().isEmpty();	
+		if (mandatory) {
+			result = !findAttValue("budget").toString().isEmpty();
+			result = !findAttValue("estimatedHours").toString().isEmpty();
+			result = !findAttValue("quantityLines").toString().isEmpty();
+		}
+		result = !findAttValue("domain").toString().isEmpty();		
+		result = !findAttValue("progLanguage").toString().isEmpty();		
 		
 		if (result) {
 			Calendar endCal = Calendar.getInstance();

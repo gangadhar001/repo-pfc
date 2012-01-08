@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -84,8 +86,9 @@ public class JDManageProject extends javax.swing.JDialog {
 	private JButton btnCancelCreate;
 	
 	private List<User> selectedUsersCreate;
-	private List<User> selectedUsersModify;
-	private DefaultListModel model;
+	private List<User> selectedUsersModify;	
+	private DefaultListModel modelCreate;
+	private DefaultListModel modelModify;
 
 	/**
 	* Auto-generated main method to display this JDialog
@@ -95,7 +98,19 @@ public class JDManageProject extends javax.swing.JDialog {
 		super(frame);
 		selectedUsersCreate = new ArrayList<User>();
 		selectedUsersModify = new ArrayList<User>();
+		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
 	}
 	
 	private ActionMap getAppActionMap() {
@@ -121,7 +136,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							panelProjectInformationCreate = new panelProjectInformation();
 							tabCreateProject.add(panelProjectInformationCreate);
-							panelProjectInformationCreate.setBounds(12, 12, 339, 450);
+							panelProjectInformationCreate.setBounds(12, 12, 351, 450);
 						}
 						{
 							pnlUsersCreate = new JPanel();
@@ -136,9 +151,7 @@ public class JDManageProject extends javax.swing.JDialog {
 								{
 									txtUserInfo = new txtUserInformation();
 									jScrollPane2.setViewportView(txtUserInfo);
-									txtUserInfo.setBounds(17, 306, 220, 92);
 									txtUserInfo.setEditable(false);
-									txtUserInfo.setPreferredSize(new java.awt.Dimension(234, 94));
 								}
 							}
 							{
@@ -169,8 +182,6 @@ public class JDManageProject extends javax.swing.JDialog {
 										}
 									});
 									
-									listUsers.setBounds(5, 131, 247, 128);
-									listUsers.setPreferredSize(new java.awt.Dimension(214, 239));
 								}
 							}
 							{
@@ -206,7 +217,7 @@ public class JDManageProject extends javax.swing.JDialog {
 						{
 							panelProjectInformationModify = new panelProjectInformation();
 							tabModifyProject.add(panelProjectInformationModify);
-							panelProjectInformationModify.setBounds(12, 44, 339, 439);
+							panelProjectInformationModify.setBounds(11, 44, 352, 439);
 							panelProjectInformationModify.setName("panelProjectInformationModify");
 						}
 						{
@@ -223,8 +234,6 @@ public class JDManageProject extends javax.swing.JDialog {
 								{
 									txtUserInfoModify = new txtUserInformation();
 									jScrollPane3.setViewportView(txtUserInfoModify);
-									txtUserInfoModify.setPreferredSize(new java.awt.Dimension(220, 117));
-									txtUserInfoModify.setBounds(17, 306, 220, 92);
 									txtUserInfoModify.setName("txtUserInfoModify");
 								}
 							}
@@ -236,12 +245,10 @@ public class JDManageProject extends javax.swing.JDialog {
 									listUsersModify = new JList();
 									jScrollPane4.setViewportView(listUsersModify);
 									listUsersModify.setCellRenderer(new CheckListRenderer());
-									listUsersModify.setPreferredSize(new java.awt.Dimension(213, 232));
-									listUsersModify.setBounds(5, 131, 247, 128);
 									listUsersModify.addMouseListener(new MouseAdapter() {
 										public void mouseClicked(MouseEvent e) {
 											int index = listUsersModify.locationToIndex(e.getPoint());
-											CheckableItem item = (CheckableItem) listUsers.getModel().getElementAt(index);
+											CheckableItem item = (CheckableItem) listUsersModify.getModel().getElementAt(index);
 											item.setSelected(!item.isSelected());
 											Rectangle rect = listUsersModify.getCellBounds(index, index);
 											listUsersModify.repaint(rect);
@@ -292,8 +299,7 @@ public class JDManageProject extends javax.swing.JDialog {
 							cbProjects = new JComboBox();
 							tabModifyProject.add(cbProjects);
 							cbProjects.setBounds(89, 9, 201, 23);
-							cbProjects.addActionListener(new ActionListener() {
-								
+							cbProjects.addActionListener(new ActionListener() {								
 								@Override
 								public void actionPerformed(ActionEvent e) {
 									txtUserInfoModify.setText("");
@@ -311,7 +317,7 @@ public class JDManageProject extends javax.swing.JDialog {
 				fillUsers();
 				fillProjects();
 				
-				panelProjectInformationCreate.showData(new Project(), true);
+				panelProjectInformationCreate.showData(new Project(), true, true);
 				cbProjects.setSelectedIndex(0);
 				
 			}
@@ -346,7 +352,7 @@ public class JDManageProject extends javax.swing.JDialog {
 
 	private void selectUserInList(int index) {
 		CheckableItem item = (CheckableItem) listUsersModify.getModel().getElementAt(index);
-		item.setSelected(!item.isSelected());
+		item.setSelected(true);
 		Rectangle rect = listUsersModify.getCellBounds(index, index);
 		listUsersModify.repaint(rect);
 	}
@@ -354,8 +360,8 @@ public class JDManageProject extends javax.swing.JDialog {
 	private int getIndexofUserInList(User u) {
 		boolean found = false;
 		int result = -1;
-		for(int i=0; i<model.getSize() && !found; i++) {
-			CheckableItem item = (CheckableItem) model.get(i);
+		for(int i=0; i<modelModify.getSize() && !found; i++) {
+			CheckableItem item = (CheckableItem) modelModify.get(i);
 			if(item.getUser().equals(u)) {
 				result = i;
 				found = true;
@@ -389,7 +395,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	
 	private void fillProjectData() {
 		if (cbProjects.getSelectedItem() != null) {
-			panelProjectInformationModify.showData((Project) cbProjects.getSelectedItem(), true);
+			panelProjectInformationModify.showData((Project) cbProjects.getSelectedItem(), true, true);
 			btnCancelModify.setEnabled(true);
 			btnModify.setEnabled(true);
 		}		
@@ -399,15 +405,16 @@ public class JDManageProject extends javax.swing.JDialog {
 	private void fillUsers() {
 		try {
 			List<User> users = ClientController.getInstance().getUsers();
-			model = new DefaultListModel();
+			modelCreate = new DefaultListModel();
+			modelModify = new DefaultListModel();
 			int cont = 0;
 			for(User u: users) {
-				CheckableItem chkItem = new CheckableItem(u);
-				model.add(cont, chkItem);
+				modelCreate.add(cont, new CheckableItem(u));
+				modelModify.add(cont, new CheckableItem(u));
 				cont++;
 			}
-			listUsers.setModel(model);
-			listUsersModify.setModel(model);
+			listUsers.setModel(modelCreate);
+			listUsersModify.setModel(modelModify);
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		} catch (SQLException e) {
@@ -424,79 +431,87 @@ public class JDManageProject extends javax.swing.JDialog {
 	@Action
 	public void Create() {
 		CursorUtilities.showWaitCursor(this);
-		// Create project and update users
-		Project newProject = panelProjectInformationCreate.getProject();
-		try {
-			Project p = ClientController.getInstance().createProject(newProject);
-			if (p != null)
-				// Update id of the project
-				newProject.setId(p.getId());			
-			for (User u : selectedUsersCreate) {
-                ClientController.getInstance().addProjectsUser(u, p);
+		if (panelProjectInformationCreate.isValidData(false)) {
+			// Create project and update users
+			Project newProject = panelProjectInformationCreate.getProject();
+			try {
+				Project p = ClientController.getInstance().createProject(newProject);
+				if (p != null)
+					// Update id of the project
+					newProject.setId(p.getId());			
+				for (User u : selectedUsersCreate) {
+	                ClientController.getInstance().addProjectsUser(u, p);
+				}
+				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+				CursorUtilities.showDefaultCursor(this);
+				this.dispose();
+			} catch (RemoteException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRoleException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-			CursorUtilities.showDefaultCursor(this);
-			this.dispose();
-		} catch (RemoteException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+		else
+			CursorUtilities.showDefaultCursor(this);
 	}
 	
 	@Action
 	public void Modify() {
 		CursorUtilities.showWaitCursor(this);
-		// Modify project and update users
-		Project oldProject = (Project)cbProjects.getSelectedItem();
-		Project projectModified = panelProjectInformationModify.getProject();
-		projectModified.setId(oldProject.getId());
-		try {
-			ClientController.getInstance().updateProject(projectModified);
-			List<User> oldUsers = ClientController.getInstance().getUsersProject(oldProject);
-			// Update users
-			// Add new users, if any
-			for (User u : selectedUsersModify) {
-				if (!oldUsers.contains(u)) {
-					ClientController.getInstance().addProjectsUser(u, projectModified);
+		if (panelProjectInformationCreate.isValidData(false)) {
+			// Modify project and update users
+			Project oldProject = (Project)cbProjects.getSelectedItem();
+			Project projectModified = panelProjectInformationModify.getProject();
+			projectModified.setId(oldProject.getId());
+			try {
+				ClientController.getInstance().updateProject(projectModified);
+				List<User> oldUsers = ClientController.getInstance().getUsersProject(oldProject);
+				// Update users
+				// Add new users, if any
+				for (User u : selectedUsersModify) {
+					if (!oldUsers.contains(u)) {
+						ClientController.getInstance().addProjectsUser(u, projectModified);
+					}
 				}
-			}
-			// Remove old users, if any
-			for (User u : oldUsers) {
-				if (!selectedUsersModify.contains(u)) {
-					ClientController.getInstance().removeProjectsUser(u, projectModified);
+				// Remove old users, if any
+				for (User u : oldUsers) {
+					if (!selectedUsersModify.contains(u)) {
+						ClientController.getInstance().removeProjectsUser(u, projectModified);
+					}
 				}
+				JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+				CursorUtilities.showDefaultCursor(this);
+				this.dispose();
+			} catch (RemoteException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (SQLException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NonPermissionRoleException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (NotLoggedException e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				CursorUtilities.showDefaultCursor(this);
+				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			}
-			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("operationSuccesfully"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
-			CursorUtilities.showDefaultCursor(this);
-			this.dispose();
-		} catch (RemoteException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (SQLException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NonPermissionRoleException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (NotLoggedException e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			CursorUtilities.showDefaultCursor(this);
-			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
+		else
+			CursorUtilities.showDefaultCursor(this);
 	}
 	
 	@Action

@@ -65,6 +65,7 @@ public class ClientController {
 	private String clientIP;
 	private String login;
 	private String role;
+	private String projectName;
 
 	public ClientController() {
 		availableOperations = new ArrayList<Operation>();
@@ -387,15 +388,16 @@ public class ClientController {
 		return login;
 	}
 
-	public void restartLoginFrame() throws InterruptedException {
-		Thread.sleep(700);
-		startApplication(null);		
-	}
+//	public void restartLoginFrame() throws InterruptedException {
+//		Thread.sleep(700);
+//		startApplication(null);		
+//	}
 	
 	public void restartMainFrame() throws InterruptedException {
 		Application.getInstance(JFMain.class).getMainFrame().dispose();
-		Thread.sleep(700);
-		Application.launch(JFMain.class, null);
+		Thread.sleep(600);
+		startApplication(null);
+		Application.getInstance(JFMain.class).show();
 	}
 
 	public void addProjectsUser(User user, Project p) throws RemoteException, SQLException, NonPermissionRoleException, NotLoggedException, Exception {
@@ -434,6 +436,23 @@ public class ClientController {
 
 	public ArrayList<Notification> getNotificationsUser() throws SQLException, NotLoggedException, RemoteException, Exception {
 		return server.getNotificationsUser(session.getId());
+	}
+
+	public String getCurrentProjectName() {
+		return projectName;
+	}
+	
+	public void setCurrentProjectName(String name) {
+		projectName = name;
+	}
+
+	public void clearMainFrame() {
+		JFMain.clearContent();
+		
+	}
+
+	public void closeSessionApproachlessServer() {
+		session= null;
 	}
 	
 }

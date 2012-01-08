@@ -1,11 +1,15 @@
 package presentation;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import internationalization.ApplicationInternationalization;
 
 import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 import model.business.knowledge.Project;
 
@@ -29,7 +33,20 @@ public class JDConfigurePDFTable extends JDialog {
 
 	public JDConfigurePDFTable() {
 		super();
+		
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
 	}
 
 	private ActionMap getAppActionMap() {

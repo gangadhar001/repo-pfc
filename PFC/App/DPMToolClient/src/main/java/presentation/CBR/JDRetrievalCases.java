@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -24,7 +26,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
@@ -100,15 +101,26 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		this.parentD = jfMain;
 		setTitle(ApplicationInternationalization.getString("retrievalCases"));
 		currentProject = 1;
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
 		// Show information about the case (project)
 		showCaseInformation();
-	}	
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
+	}
 	
 	// Method used to show information about the case (project)
 	private void showCaseInformation() {
 		txtUserInfo.setText("");
-		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false);
+		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false, false);
 		fillUsers();
 		showUsers(cases.get(currentProject-1).getCaseP());
 		String sim = String.valueOf(cases.get(currentProject-1).getEval() * 100.0);

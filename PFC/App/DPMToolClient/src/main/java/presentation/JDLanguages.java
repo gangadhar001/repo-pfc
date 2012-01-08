@@ -4,6 +4,8 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -58,7 +60,19 @@ public class JDLanguages extends javax.swing.JDialog {
 	public JDLanguages(Object parent) {
 		super();
 		this.parent = parent;
+		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
 	}
 	
 	private ApplicationActionMap getAppActionMap() {
@@ -133,8 +147,6 @@ public class JDLanguages extends javax.swing.JDialog {
 					this.dispose();
 					if (parent instanceof JFMain)
 						ClientController.getInstance().restartMainFrame();
-					else
-						ClientController.getInstance().restartLoginFrame();
 				} catch (JDOMException e) {
 					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 				} catch (IOException e) {

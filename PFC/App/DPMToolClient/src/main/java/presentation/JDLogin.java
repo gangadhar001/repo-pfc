@@ -100,14 +100,14 @@ public class JDLogin extends JDialog {
     	this.menuBar = menuBar;
     	
     	// Listener to confirm exit
-    	setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.setTitle(AppInternationalization.getString("JFConfig_Title"));
+    	setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
                   closeWin();
 			}
          });
         
+		this.setTitle(AppInternationalization.getString("JFConfig_Title"));
         this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
         this.setGlassPane(glassPane);
 
@@ -115,7 +115,6 @@ public class JDLogin extends JDialog {
                 this.setSize(360, 230);
                 this.setResizable(false);
                 this.setTitle(ApplicationInternationalization.getString("titleLogin"));
-                this.setResizable(false);
         }
 
         getContentPane().setLayout(null);
@@ -341,14 +340,6 @@ public class JDLogin extends JDialog {
 	}
     
     @Action
-    public void ChangeLanguage() {
-    	JDLanguages lang = new JDLanguages(this);
-		lang.setLocationRelativeTo(this);
-		lang.setModal(true);
-		lang.setVisible(true);
-    }
-    
-    @Action
     public void acceptAction() {
     	try {
     		int index = projectpanel.getProjectId();
@@ -357,6 +348,7 @@ public class JDLogin extends JDialog {
     		}
     		else {
     			ClientController.getInstance().setCurrentProject(index);
+    			ClientController.getInstance().setCurrentProjectName(projectpanel.getProject().getName());
     			menuBar.enableMenuItemsLogin();
     			this.dispose();
     		}
@@ -493,23 +485,4 @@ public class JDLogin extends JDialog {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
-	// When closes session, return to the login frame
-	public void forceCloseSession() {
-		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ForceCloseSession"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
-		try {
-			ClientController.getInstance().restartLoginFrame();
-		} catch (InterruptedException e) {
-		}
-		
-	}
-
-	// When the server goes offline, then return to the login frame
-	public void approachlessServer() {
-		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_approachlessServer"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
-		try {
-			ClientController.getInstance().restartLoginFrame();
-		} catch (InterruptedException e) {
-		}	
-	}	
 }
