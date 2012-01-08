@@ -5,13 +5,13 @@ Version=2
 [SessionInfo]
 ActiveTab=0
 FrameCount=2
-ActiveFrame=0
+ActiveFrame=1
 
 [Frame0]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -24,23 +24,23 @@ Class=CLatexEdit
 Document=PlantillaPFC.tex
 
 [Frame0_Row0]
-cyCur=335
+cyCur=193
 cyMin=10
 
 [Frame0_Col0]
-cxCur=1411
+cxCur=1291
 cxMin=10
 
 [Frame0_View0,0]
 Cursor.row=102
 Cursor.column=0
-TopSubLine=92
+TopSubLine=94
 
 [Frame1]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -53,15 +53,15 @@ Class=CLatexEdit
 Document=ManualUsuario.tex
 
 [Frame1_Row0]
-cyCur=197
+cyCur=335
 cyMin=10
 
 [Frame1_Col0]
-cxCur=1295
+cxCur=1411
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=161
-Cursor.column=206
-TopSubLine=200
+Cursor.row=183
+Cursor.column=30
+TopSubLine=233
 
