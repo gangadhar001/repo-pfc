@@ -35,6 +35,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 
+import model.business.control.ClientsController;
 import model.business.control.ServerController;
 
 import org.jdesktop.application.Application;
@@ -164,8 +165,6 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 						txtLog.setFont(new java.awt.Font("Tahoma",0,12));
 						txtLog.setName("txtLog");
 						txtLog.setEditable(false);
-						txtLog.setPreferredSize(new java.awt.Dimension(524, 265));
-						txtLog.setMaximumSize(new java.awt.Dimension(0, 0));
 
 					}
 				}
@@ -494,6 +493,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		} else {
 			lblStatusBar.setText(AppInternationalization.getString("StatusBar_Label"));
 		}
+		lblConnectedClients.setText(clientsNumber + " " + AppInternationalization.getString("Connected_Clients"));
 		lblConfigBD.setText(AppInternationalization.getString("DB_Main_Label") + " " + configuration.getDBIp() + ":" + String.valueOf(configuration.getDBPort()));
 		}
 	
@@ -556,7 +556,7 @@ public class JFServer extends javax.swing.JFrame implements IWindowState {
 		try {
 			// Disconnect clients disconnect and stop the server 
 			controller.stopServer(configuration);
-
+			clientsNumber = 0;
 			btnConnectToolbar.setEnabled(true);
 			btnConnect.setEnabled(true);
 			mniConnect.setEnabled(true);

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
@@ -63,7 +65,18 @@ public class JDConfigProject extends javax.swing.JDialog {
 	public JDConfigProject(JFMain main) {
 		super(main.getMainFrame());
 		this.parentD = main;
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
 	}
 	
 	private ActionMap getAppActionMap() {
@@ -134,7 +147,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 					panelProjectInformationCreate.setBounds(6, 49, 520, 471);
 				}
 				
-				panelProjectInformationCreate.showData(new Project(), true);
+				panelProjectInformationCreate.showData(new Project(), true, false);
 				
 				// Config Simil Panel
 				panelConfigSimil = new panelConfigSimil(this);
@@ -158,7 +171,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	
 	@Action
 	public void Next() {
-		if (panelProjectInformationCreate.isValidData()) {
+		if (panelProjectInformationCreate.isValidData(true)) {
 			chkProject.setVisible(false);
 			cbProjects.setVisible(false);
 			lblProjects.setVisible(false);
@@ -183,7 +196,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	public void Clean() {
 		if (panelConfigSimil != null)
 			panelConfigSimil.Clean();
-		panelProjectInformationCreate.clean();
+		panelProjectInformationCreate.clean(false);
 		chkProject.setSelected(false);
 	}
 
@@ -214,7 +227,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 		if (!selected) {
 			cbProjects.setSelectedIndex(-1);
 			cbProjects.setEnabled(false);
-			panelProjectInformationCreate.clean();
+			panelProjectInformationCreate.clean(false);
 		}
 		else {
 			fillCbProjects();
@@ -247,7 +260,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	private void cbProjectsActionPerformed() {
 		Project p = (Project) cbProjects.getSelectedItem();
 		if (p!= null && cbProjects.getSelectedIndex()!= -1)
-			panelProjectInformationCreate.showData(p, true);
+			panelProjectInformationCreate.showData(p, true, false);
 	}
 
 	public JFMain getParentD() {

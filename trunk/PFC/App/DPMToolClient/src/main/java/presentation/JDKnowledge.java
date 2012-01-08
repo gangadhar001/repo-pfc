@@ -77,9 +77,20 @@ public class JDKnowledge extends javax.swing.JDialog {
 		dialog = this;
 		data = null;
 		this.parentFrame = parentFrame;
+		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
 	}
-	
+
+	protected void closeWin() {
+		this.dispose();
+		
+	}
 	public JDKnowledge(JFMain parentFrame, String subgroupSelected, Object data, String operationToDo) {
 		super();
 		this.subgroupSelected = subgroupSelected;

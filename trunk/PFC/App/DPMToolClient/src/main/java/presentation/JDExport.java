@@ -1,4 +1,7 @@
 package presentation;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import internationalization.ApplicationInternationalization;
 
 import javax.swing.ActionMap;
@@ -39,7 +42,18 @@ public class JDExport extends javax.swing.JDialog {
 	public JDExport(JFMain frame) {
 		super(frame.getMainFrame());
 		this.parentD = frame;
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
 		initGUI();
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
 	}
 	
 	private ActionMap getAppActionMap() {

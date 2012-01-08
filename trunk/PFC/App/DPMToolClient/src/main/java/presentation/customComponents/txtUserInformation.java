@@ -22,9 +22,19 @@ public class txtUserInformation extends JTextPane {
 	public void showUserInfo(User val) {
 		// Create text and styles for TxetPane
 		String[] initString = {
-				ApplicationInternationalization.getString("user")+ ": ", 
-				val.getName() + ", " + val.getSurname(),
+				ApplicationInternationalization.getString("UserInfo")+ "\n", 
+				"    " + ApplicationInternationalization.getString("userName") + " ",
+				val.getName(),
 				"\n",
+				"    " + ApplicationInternationalization.getString("userSurname") + " ",
+				val.getSurname(),
+				"\n",
+				"    " + ApplicationInternationalization.getString("userRole") + " ", 
+				ApplicationInternationalization.getString(val.getRole().name()),
+				"\n",
+				"    " + ApplicationInternationalization.getString("userSeniority") + " ",
+				String.valueOf(val.getSeniority()),
+				"\n\n",
 				ApplicationInternationalization.getString("company") + ": ",
 				val.getCompany().getName() + ", " + val.getCompany().getAddress().getCity() + "(" 
 				+ val.getCompany().getAddress().getCountry() + ")", 
@@ -32,8 +42,13 @@ public class txtUserInformation extends JTextPane {
 		};
 		
 		String[] initStyles = { 
+				"bold", 
 				"bold", "regular", "regular",
 				"bold", "regular", "regular",
+				"bold", "regular", "regular",
+				"bold", "regular", "regular",
+				"bold", 
+				"regular", "regular",
 		};
 		
 		TextPaneUtilities.setStyledText(this, initString, initStyles);

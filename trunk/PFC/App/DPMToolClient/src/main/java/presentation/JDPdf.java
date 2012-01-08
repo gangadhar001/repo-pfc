@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -91,7 +93,19 @@ public class JDPdf extends JDialog {
 		super();
 		this.configuration = config;
 		this.setTitle(ApplicationInternationalization.getString("PDFDialog_Title"));
-		initGUI();			
+		
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+                  closeWin();
+			}
+         });
+		
+		initGUI();
+	}
+
+	protected void closeWin() {
+		this.dispose();
+		
 	}
 
 	private void initGUI() {

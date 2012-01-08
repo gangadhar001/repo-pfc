@@ -101,7 +101,7 @@ public class JFMain extends SingleFrameApplication {
 	private JLabel lblStatus;
 	private JPanel statusBar;
 	private JToolBar toolbar;
-	private JPanel mainPanel;
+	private static JPanel mainPanel;
 	private JLabel lblRole;
 
 	private panelKnowledgeView panelKnowledge;
@@ -155,13 +155,13 @@ public class JFMain extends SingleFrameApplication {
 			{
 				AnchorLayout statusLayout = new AnchorLayout();
 				statusBar = new JPanel();
-				getMainFrame().getContentPane().add(statusBar, new AnchorConstraint(942, 1000, 999, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-				statusBar.setPreferredSize(new java.awt.Dimension(1008, 39));
+				getMainFrame().getContentPane().add(statusBar, new AnchorConstraint(932, 1000, 999, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				statusBar.setPreferredSize(new java.awt.Dimension(1008, 46));
 				statusBar.setLayout(statusLayout);
 				{
 					btnDownloadAttached = new JButton();
-					statusBar.add(btnDownloadAttached, new AnchorConstraint(237, 156, 737, 119, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-					btnDownloadAttached.setPreferredSize(new java.awt.Dimension(37, 20));
+					statusBar.add(btnDownloadAttached, new AnchorConstraint(228, 148, 728, 116, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					btnDownloadAttached.setPreferredSize(new java.awt.Dimension(32, 23));
 					btnDownloadAttached.setName("btnDownloadAttached");
 					btnDownloadAttached.setAction(getAppActionMap().get("DownloadFiles"));
 					btnDownloadAttached.setText("");
@@ -181,6 +181,8 @@ public class JFMain extends SingleFrameApplication {
 				}
 				{
 					lblStatus = new JLabel();
+					lblStatus.setVerticalAlignment(SwingConstants.CENTER);
+					lblStatus.setHorizontalAlignment(SwingConstants.LEFT);
 					statusBar.add(lblStatus, new AnchorConstraint(212, 450, 712, 7, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					lblStatus.setPreferredSize(new java.awt.Dimension(447, 20));
 					lblStatus.setName("lblStatus");
@@ -211,13 +213,17 @@ public class JFMain extends SingleFrameApplication {
 			}
 			{
 				lblPort = new JLabel();
+				lblPort.setVerticalAlignment(SwingConstants.CENTER);
+				lblPort.setHorizontalAlignment(SwingConstants.RIGHT);
 				statusBar.add(lblPort, new AnchorConstraint(940, 7, 4, 778, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblPort.setPreferredSize(new java.awt.Dimension(238, 10));
+				lblPort.setPreferredSize(new java.awt.Dimension(272, 18));
 			}
 			{
 				lblRole = new JLabel();
-				statusBar.add(lblRole, new AnchorConstraint(954, 7, 20, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblRole.setPreferredSize(new java.awt.Dimension(238, 16));
+				lblRole.setVerticalAlignment(SwingConstants.CENTER);
+				lblRole.setHorizontalAlignment(SwingConstants.RIGHT);
+				statusBar.add(lblRole, new AnchorConstraint(954, 5, 25, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
+				lblRole.setPreferredSize(new java.awt.Dimension(329, 21));
 			}     
 
 	        // Create menu bar
@@ -518,7 +524,12 @@ public class JFMain extends SingleFrameApplication {
 	// When the server goes offline, then return to the login frame
 	public void approachlessServer() {
 		JOptionPane.showMessageDialog(getMainFrame(), ApplicationInternationalization.getString("message_approachlessServer"), ApplicationInternationalization.getString("Warning"), JOptionPane.WARNING_MESSAGE);
-		ClientController.getInstance().closeMainFrame();		
+		ClientController.getInstance().closeSessionApproachlessServer();
+		showStatusBar(ApplicationInternationalization.getString("NotUserLogged"));
+		lblRole.setText("");
+		lblPort.setText("");
+		lblAction.setVisible(false);
+		menuBar.disableMenuItemsLogin();		
 	}	
 
 	public void closeSessionConfirm() {
@@ -839,12 +850,21 @@ public class JFMain extends SingleFrameApplication {
 		lblAction.setVisible(false);
 		showStatusBar(ApplicationInternationalization.getString("UserLogued"));
 		lblPort.setText(ApplicationInternationalization.getString("lblStatusClient") + " " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
-		lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole());		
+		lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole() +
+				" " + ApplicationInternationalization.getString("activeProject") + ": " + ClientController.getInstance().getCurrentProjectName());		
 	}
 
 	public panelKnowledgeView getPanelKnowledge() {
-		return panelKnowledge;
+        return panelKnowledge;
 	}
-
+	
+	public static void clearContent() {
+		for(Component c: Application.getInstance(JFMain.class).getMainFrame().getContentPane().getComponents()) {
+			Application.getInstance(JFMain.class).getMainFrame().getContentPane().remove(c);
+		}
+		Application.getInstance(JFMain.class).getMainFrame().getContentPane().add(mainPanel);
+		mainPanel.setVisible(true);
+		Application.getInstance(JFMain.class).showLoginLabels();
+	}
 	
 }
