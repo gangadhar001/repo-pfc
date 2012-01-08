@@ -162,6 +162,11 @@ public class JDStatistics extends javax.swing.JDialog {
 	
 	private void initGUI() {
 		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		try {
+			setResizable(false);
 			setTitle(ApplicationInternationalization.getString("createStatisticTitle"));
 			{
 				btnCreate = new JButton();
@@ -469,7 +474,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	private JLabel getLblDate() {
 		if(lblDate == null) {
 			lblDate = new JLabel();
-			lblDate.setBounds(10, 208, 40, 16);
+			lblDate.setBounds(10, 208, 69, 16);
 			lblDate.setName("lblDate");
 			lblDate.setText(ApplicationInternationalization.getString("chartRange"));
 		}
@@ -487,7 +492,7 @@ public class JDStatistics extends javax.swing.JDialog {
 	private JComboBox getCbRange() {
 		if(cbRange == null) {
 			cbRange = new JComboBox();
-			cbRange.setBounds(84, 205, 91, 23);
+			cbRange.setBounds(84, 205, 229, 23);
 			cbRange.addItem(ApplicationInternationalization.getString("rangeAnnually"));
 			cbRange.addItem(ApplicationInternationalization.getString("rangeMonthly"));
 			cbRange.setSelectedIndex(-1);
@@ -514,6 +519,7 @@ public class JDStatistics extends javax.swing.JDialog {
 					cbProjects.setEnabled(oneProject);
 					cbUsers.setEnabled(oneUser);
 					cbRange.setEnabled(historical);
+					cbRange.setSelectedIndex(-1);
 					txtDescription.setText(selectedChart.getDescription());
 					// Show all users
 					if (oneUser)

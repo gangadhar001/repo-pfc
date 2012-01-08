@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.EventObject;
 
 import javax.swing.BorderFactory;
@@ -25,6 +26,7 @@ import org.jdesktop.application.Application;
 import presentation.auxiliary.CloseWindowListener;
 import presentation.auxiliary.Validation;
 import resources.IPValidator;
+import resources.ImagesUtilities;
 import resources.NotEmptyValidator;
 import resources.PortValidator;
 
@@ -91,6 +93,11 @@ public class JDConfig extends javax.swing.JDialog {
 				}
 			});
 			{
+				try {
+					setIconImage(ImagesUtilities.loadCompatibleImage("iconoServer.png"));
+				} catch (IOException e1) { }
+				
+				setResizable(false);
 				pnlPanel = new JPanel();
 				getContentPane().add(pnlPanel, BorderLayout.CENTER);
 				pnlPanel.setLayout(null);

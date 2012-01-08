@@ -29,11 +29,13 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.business.knowledge.PDFConfiguration;
+import model.business.knowledge.User;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import resources.CursorUtilities;
+import resources.ImagesUtilities;
 
 import bussiness.control.ClientController;
 
@@ -67,6 +69,8 @@ public class JDPdf extends JDialog {
 	private JLabel lblTitle;
 	private JLabel lblHeader;
 	private JTextField txtPathHeader;
+	private JTextField txtAuthor;
+	private JLabel lblAuthor;
 	private JButton btnCancel;
 	private JButton btnSave;
 	private JCheckBox chkFoot;
@@ -94,6 +98,7 @@ public class JDPdf extends JDialog {
 		this.configuration = config;
 		this.setTitle(ApplicationInternationalization.getString("PDFDialog_Title"));
 		
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
                   closeWin();
@@ -110,14 +115,18 @@ public class JDPdf extends JDialog {
 
 	private void initGUI() {
 		try {
-			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		try {
+			setResizable(false);
 			getContentPane().setLayout(null);
 			{
 				panelData = new JPanel();
 				getContentPane().add(panelData, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 0, 5), 0, 0));
 				panelData.setLayout(null);
 				panelData.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("groupMetaData")));
-				panelData.setBounds(5, 5, 442, 103);
+				panelData.setBounds(5, 5, 442, 133);
 				{
 					lblTitle = new JLabel();
 					panelData.add(lblTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
@@ -145,13 +154,26 @@ public class JDPdf extends JDialog {
 					txtSubject.setPreferredSize(new java.awt.Dimension(206, 23));
 					txtSubject.setBounds(68, 60, 359, 23);
 				}
+				{
+					lblAuthor = new JLabel();
+					panelData.add(lblAuthor);
+					lblAuthor.setBounds(10, 94, 52, 17);
+					lblAuthor.setText(ApplicationInternationalization.getString("author"));
+				}
+				{
+					txtAuthor = new JTextField();
+					panelData.add(txtAuthor);
+					txtAuthor.setBounds(68, 93, 359, 23);
+					User u = ClientController.getInstance().getLoggedUser();
+					txtAuthor.setText(u.getName() + " " + u.getSurname());
+				}
 			}
 			{
 				mainContainer = new JPanel();
 				getContentPane().add(mainContainer, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 0, 5), 0, 0));
 				mainContainer.setLayout(null);
-				mainContainer.setBorder(BorderFactory.createTitledBorder("Content"));
-				mainContainer.setBounds(5, 120, 442, 162);
+				mainContainer.setBorder(BorderFactory.createTitledBorder(ApplicationInternationalization.getString("Content")));
+				mainContainer.setBounds(5, 150, 442, 161);
 				{
 					panelContent = new JPanel();
 					mainContainer.add(panelContent, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
@@ -235,7 +257,7 @@ public class JDPdf extends JDialog {
 				btnSave.setName("btnSave");
 				btnSave.setAction(getAppActionMap().get("save"));
 				btnSave.setText(ApplicationInternationalization.getString("btnSave"));
-				btnSave.setBounds(252, 311, 86, 25);
+				btnSave.setBounds(256, 338, 85, 27);
 			}
 			{
 				btnCancel = new JButton();
@@ -243,11 +265,11 @@ public class JDPdf extends JDialog {
 				btnCancel.setName("btnCancel");
 				btnCancel.setAction(getAppActionMap().get("Cancel"));
 				btnCancel.setText(ApplicationInternationalization.getString("CancelButton"));
-				btnCancel.setBounds(357, 311, 85, 25);
+				btnCancel.setBounds(357, 339, 85, 25);
 				
 			}
 			pack();
-			this.setSize(469, 385);
+			this.setSize(469, 415);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

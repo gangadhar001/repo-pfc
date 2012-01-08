@@ -61,13 +61,12 @@ public class panelPDFDraggedText extends panelPDFDragged {
 			{
 				jScrollPane1 = new JScrollPane();
 				this.add(jScrollPane1);
-				jScrollPane1.setBounds(79, 6, 536, 83);
+				jScrollPane1.setBounds(68, 6, 536, 83);
 				{
 					txtDescription = new JTextArea();
 					jScrollPane1.setViewportView(txtDescription);
 					txtDescription.setBounds(79, 12, 555, 93);
 					txtDescription.setName("txtDescription");
-					txtDescription.setPreferredSize(new java.awt.Dimension(525, 74));
 				}
 			}
 			{

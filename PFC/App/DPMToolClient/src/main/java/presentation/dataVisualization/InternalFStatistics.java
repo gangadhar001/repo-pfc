@@ -69,8 +69,7 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 		}
 	}
 
-	public void addChartPanel(String projectName, String type, boolean showProjectName, ChartPanel chartPanel) {
-		System.out.println(type);
+	public void addChartPanel(String projectName, String type, boolean showProjectName, ChartPanel chartPanel) {		
 		panelChart.setSize(chartPanel.getPreferredSize());
 		this.setSize(chartPanel.getPreferredSize().width + 20, chartPanel.getPreferredSize().height + 20);
 		lblType.setFont(new Font(lblType.getFont().getName(), Font.BOLD, lblType.getFont().getSize()));

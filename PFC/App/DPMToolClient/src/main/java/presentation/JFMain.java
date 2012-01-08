@@ -223,7 +223,7 @@ public class JFMain extends SingleFrameApplication {
 				lblRole.setVerticalAlignment(SwingConstants.CENTER);
 				lblRole.setHorizontalAlignment(SwingConstants.RIGHT);
 				statusBar.add(lblRole, new AnchorConstraint(954, 5, 25, 773, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_NONE));
-				lblRole.setPreferredSize(new java.awt.Dimension(329, 21));
+				lblRole.setPreferredSize(new java.awt.Dimension(361, 21));
 			}     
 
 	        // Create menu bar
@@ -642,8 +642,8 @@ public class JFMain extends SingleFrameApplication {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }
 		
-		getMainFrame().getContentPane().add(panelKnowledge, new AnchorConstraint(58, 1000, 941, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 609));
+		getMainFrame().getContentPane().add(panelKnowledge, new AnchorConstraint(58, 1000, 929, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+		panelKnowledge.setPreferredSize(new java.awt.Dimension(1008, 601));
 		mainPanel.setVisible(false);
 		createToolbarKnowledgeView();
 		//panelKnowledge.activateToolbarButtons(false);
@@ -851,7 +851,7 @@ public class JFMain extends SingleFrameApplication {
 		showStatusBar(ApplicationInternationalization.getString("UserLogued"));
 		lblPort.setText(ApplicationInternationalization.getString("lblStatusClient") + " " + ClientController.getInstance().getClientIP() + ":" + String.valueOf(ClientController.getInstance().getPort()));
 		lblRole.setText(ApplicationInternationalization.getString("lblStatusLogged") + " " + ClientController.getInstance().getUserLogin() + "@" + ClientController.getInstance().getRole() +
-				" " + ApplicationInternationalization.getString("activeProject") + ": " + ClientController.getInstance().getCurrentProjectName());		
+				".   " + ApplicationInternationalization.getString("activeProject") + ": " + ClientController.getInstance().getCurrentProjectName());		
 	}
 
 	public panelKnowledgeView getPanelKnowledge() {

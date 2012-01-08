@@ -2,6 +2,7 @@ package presentation;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import internationalization.ApplicationInternationalization;
 
@@ -19,6 +20,7 @@ import org.jdesktop.application.Application;
 import bussiness.control.ClientController;
 
 import presentation.customComponents.panelChooseProject;
+import resources.ImagesUtilities;
 
 public class JDConfigurePDFTable extends JDialog {
 
@@ -29,7 +31,7 @@ public class JDConfigurePDFTable extends JDialog {
 	private panelChooseProject pnlChooseProject;
 	private JButton btnOK;
 	private JButton btnCancel;
-	private Project selectedProject;
+	private Project selectedProject = null;
 
 	public JDConfigurePDFTable() {
 		super();
@@ -55,9 +57,13 @@ public class JDConfigurePDFTable extends JDialog {
 
 	public void initGUI() {
 		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		try {
 			{
+				setResizable(false);
 				getContentPane().setLayout(null);
-				this.setResizable(false);
 				this.setTitle(ApplicationInternationalization
 						.getString("chooseProjectTitle"));
 				pnlChooseProject = new panelChooseProject();

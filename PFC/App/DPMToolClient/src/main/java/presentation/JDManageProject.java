@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import presentation.customComponents.CheckableItem;
 import presentation.customComponents.panelProjectInformation;
 import presentation.customComponents.txtUserInformation;
 import resources.CursorUtilities;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -119,9 +121,13 @@ public class JDManageProject extends javax.swing.JDialog {
 	
 	private void initGUI() {
 		try {
-			this.setResizable(false);
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		try {
 			this.setTitle(ApplicationInternationalization.getString("manageProjectTitle"));
 			{
+				setResizable(false);
 				getContentPane().setLayout(null);
 				{
 					jTabbedPane = new JTabbedPane();					

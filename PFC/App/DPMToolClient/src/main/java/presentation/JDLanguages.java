@@ -14,7 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.WindowConstants;
 
+import resources.ImagesUtilities;
 import resources.Language;
 
 import org.jdesktop.application.Action;
@@ -61,6 +63,7 @@ public class JDLanguages extends javax.swing.JDialog {
 		super();
 		this.parent = parent;
 		
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
                   closeWin();
@@ -81,9 +84,13 @@ public class JDLanguages extends javax.swing.JDialog {
 	
 	private void initGUI() {
 		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		try {
 			{
+				setResizable(false);
 				getContentPane().setLayout(null);
-				this.setResizable(false);
 				this.setTitle(ApplicationInternationalization.getString("changeLanguageTitle"));
 			}
 			{

@@ -107,16 +107,20 @@ public class JDLogin extends JDialog {
 			}
          });
         
+		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
 		this.setTitle(AppInternationalization.getString("JFConfig_Title"));
         this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassLogin"));
         this.setGlassPane(glassPane);
 
         {
                 this.setSize(360, 230);
-                this.setResizable(false);
                 this.setTitle(ApplicationInternationalization.getString("titleLogin"));
         }
 
+        setResizable(false);
         getContentPane().setLayout(null);
         {
         	userDataPanel = new JPanel();

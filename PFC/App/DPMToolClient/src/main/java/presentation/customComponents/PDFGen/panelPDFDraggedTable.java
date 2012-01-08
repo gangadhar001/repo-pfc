@@ -118,7 +118,7 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 			btnConfigure.setBounds(65, 40, 22, 22);
 			btnConfigure.setText("");
 			btnConfigure.setContentAreaFilled(false);
-			lblWarning.setToolTipText(ApplicationInternationalization.getString("ConfigureTablePDF"));
+			btnConfigure.setToolTipText(ApplicationInternationalization.getString("ConfigureTablePDF"));
 			try {
 				btnConfigure.setIcon(ImagesUtilities.loadIcon("configure.png"));
 			}
@@ -140,9 +140,11 @@ public class panelPDFDraggedTable extends panelPDFDragged {
 		ct.setModal(true);
 		ct.setVisible(true);
 		// Get the selected project
-		lblWarning.setVisible(false);
 		project = ct.getSelectedProject();
-		lblProjectName.setText(ApplicationInternationalization.getString("ProjectNameLabel") + " " + project.getName());
+		if (project != null) {
+			lblProjectName.setText(ApplicationInternationalization.getString("ProjectNameLabel") + " " + project.getName());
+			lblWarning.setVisible(false);
+		}
 	}
 
 	public Project getProject() {
