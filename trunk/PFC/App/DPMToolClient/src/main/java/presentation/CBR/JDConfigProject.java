@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,6 +32,7 @@ import bussiness.control.ClientController;
 
 import presentation.JFMain;
 import presentation.customComponents.panelProjectInformation;
+import resources.ImagesUtilities;
 import resources.InfiniteProgressPanel;
 
 /**
@@ -85,10 +87,15 @@ public class JDConfigProject extends javax.swing.JDialog {
 	
 	private void initGUI() {
 		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		try {
+			setResizable(false);
 			this.glassPane = new InfiniteProgressPanel(ApplicationInternationalization.getString("glassProcessing"));
 	        this.setGlassPane(glassPane);
 	        
-			this.setResizable(false);
+		
 			this.setTitle(ApplicationInternationalization.getString("configProjectTitle"));
 			this.setSize(540, 590);
 			{

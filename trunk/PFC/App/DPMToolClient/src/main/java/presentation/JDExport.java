@@ -1,6 +1,7 @@
 package presentation;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import internationalization.ApplicationInternationalization;
 
@@ -14,6 +15,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.customComponents.panelChooseProject;
+import resources.ImagesUtilities;
 import bussiness.control.ClientController;
 
 /**
@@ -61,10 +63,15 @@ public class JDExport extends javax.swing.JDialog {
     }
 	
 	private void initGUI() {
+		
+		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
 		try {
 			{
+				setResizable(false);
 				getContentPane().setLayout(null);
-				this.setResizable(false);
 				this.setTitle(ApplicationInternationalization.getString("exportProject"));
 				pnlChooseProject = new panelChooseProject();
 				pnlChooseProject.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());

@@ -3,6 +3,7 @@ import internationalization.ApplicationInternationalization;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 import javax.swing.ActionMap;
@@ -15,6 +16,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
 import presentation.customComponents.panelChooseProject;
+import resources.ImagesUtilities;
 
 import bussiness.control.ClientController;
 import exceptions.NotLoggedException;
@@ -64,11 +66,15 @@ public class JDChooseProject extends javax.swing.JDialog {
     }
 	
 	private void initGUI() {
+		
+		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+			
 		try {
 			{
-				this.setIconImage(null);
 				getContentPane().setLayout(null);
-				this.setResizable(false);
+				setResizable(false);
 				this.setTitle(ApplicationInternationalization.getString("chooseProjectTitle"));
 				pnlChooseProject = new panelChooseProject();
 				pnlChooseProject.setProjects(ClientController.getInstance().getProjectsFromCurrentUser());

@@ -78,6 +78,7 @@ public class JDKnowledge extends javax.swing.JDialog {
 		data = null;
 		this.parentFrame = parentFrame;
 		
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
                   closeWin();
@@ -104,15 +105,13 @@ public class JDKnowledge extends javax.swing.JDialog {
 	}		
 	
 	private void initGUI() {
-		this.setTitle(ApplicationInternationalization.getString("titleJFKnowledge"));
-		this.setResizable(false);
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent evt) {
-				closeWindow();
-			}
-		});
-		
 		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
+		this.setTitle(ApplicationInternationalization.getString("titleJFKnowledge"));
+		try {
+			setResizable(false);
 			getContentPane().setLayout(null);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			{

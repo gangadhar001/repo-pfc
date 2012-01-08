@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+import resources.ImagesUtilities;
 import resources.Language;
 
 import model.business.control.Server;
@@ -69,9 +70,14 @@ public class JDLanguages extends javax.swing.JDialog {
 	private void initGUI() {
 		try {
 			{
+				try {
+					setIconImage(ImagesUtilities.loadCompatibleImage("iconoServer.png"));
+				} catch (IOException e1) { }
+				
+				setResizable(false);
+				
 				getContentPane().setLayout(null);
 				setTitle(AppInternationalization.getString("Title_Language"));
-				setResizable(false);
 			}
 			{
 				lblChoose = new JLabel();

@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -146,9 +147,14 @@ public class JDRetrievalCases extends javax.swing.JDialog {
         return Application.getInstance().getContext().getActionMap(this);
 	}
 	
-	private void initGUI() {		
+	private void initGUI() {	
+		try {
+			setIconImage(ImagesUtilities.loadCompatibleImage("icono.png"));
+		} catch (IOException e1) { }
+		
 		try {
 			{
+				setResizable(false);
 				getContentPane().setLayout(null);
 				{
 					lblNumberCases = new JLabel();

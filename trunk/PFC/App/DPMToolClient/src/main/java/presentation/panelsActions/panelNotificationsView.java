@@ -212,6 +212,8 @@ public class panelNotificationsView extends ImagePanel {
 				chkAll.setFont(new Font(chkAll.getFont().getName(), Font.BOLD, chkAll.getFont().getSize()));
 				chkAll.setText(ApplicationInternationalization.getString("chkAll"));
 				chkAll.addItemListener(list);
+				if (notifications!= null && notifications.size()==0)
+					chkAll.setEnabled(false);
 			}
 			{
 				lblDetail = new JLabel();

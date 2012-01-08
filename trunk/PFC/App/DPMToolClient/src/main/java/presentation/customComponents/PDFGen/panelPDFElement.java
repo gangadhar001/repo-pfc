@@ -48,14 +48,16 @@ public class panelPDFElement extends RoundedPanel {
     
 	private String elementName;
 	private panelPDFGeneration parent;
+	private String label;
 	
 	public panelPDFElement() {
 		super();
 		initGUI();
 	}
 	
-	public panelPDFElement(String elementName, panelPDFGeneration parent) {
+	public panelPDFElement(String label, String elementName, panelPDFGeneration parent) {
 		super();
+		this.label = label;
 		this.elementName = elementName;
 		this.parent = parent;
 		initGUI();
@@ -100,7 +102,7 @@ public class panelPDFElement extends RoundedPanel {
 			{
 				lblTitle = new JLabel();
 				lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-				lblTitle.setText(elementName);
+				lblTitle.setText(label);
 				this.add(lblTitle, new AnchorConstraint(5, 108, 98, 12, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS, AnchorConstraint.ANCHOR_ABS));
 				lblTitle.setName("lblTitle");
 				lblTitle.setBounds(7, 7, 77, 17);

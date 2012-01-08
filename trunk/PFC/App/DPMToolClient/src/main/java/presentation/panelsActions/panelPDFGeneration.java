@@ -125,19 +125,19 @@ public class panelPDFGeneration extends ImagePanel {
 				panelElements.setMinimumSize(new java.awt.Dimension(133, 522));
 				panelElements.setMaximumSize(new java.awt.Dimension(133, 522));
 				{
-					panelPDFElementTitle = new panelPDFElement("Title", this);
+					panelPDFElementTitle = new panelPDFElement(ApplicationInternationalization.getString("title"), "Title", this);
 					panelElements.add(panelPDFElementTitle);
 					panelPDFElementTitle.setBounds(20, 89, 96, 102);
 					panelPDFElementTitle.setOpaque(false);
 				}
 				{
-					panelPDFElementText = new panelPDFElement("Text", this);
+					panelPDFElementText = new panelPDFElement(ApplicationInternationalization.getString("text"), "Text", this);
 					panelElements.add(panelPDFElementText);
 					panelPDFElementText.setBounds(20, 231, 96, 102);
 					panelPDFElementText.setOpaque(false);
 				}
 				{
-					panelPDFElementTable = new panelPDFElement("Table", this);
+					panelPDFElementTable = new panelPDFElement(ApplicationInternationalization.getString("table"), "Table", this);
 					panelElements.add(panelPDFElementTable);
 					panelElements.add(getPanelHeader());
 					panelPDFElementTable.setBounds(20, 370, 96, 102);
@@ -316,6 +316,7 @@ public class panelPDFGeneration extends ImagePanel {
 			 JDPdf dialog = new JDPdf(config);
 			 dialog.setLocationRelativeTo(this);
 			 dialog.setModal(true);
+			 CursorUtilities.showDefaultCursor(this);
 			 dialog.setVisible(true);
 		 }
 		 else {
