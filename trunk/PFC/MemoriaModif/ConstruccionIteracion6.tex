@@ -60,20 +60,17 @@ A continuación, se explican cada uno de estos elementos involucrados en esta fun
 Cabe destacar este último elemento, que es la configuración utilizada en los algoritmos del CBR. Dicha configuración contiene el conjunto de pesos que los atributos van a tomar al calcular el valor final de la semejanza entre casos. Además contiene, para cada atributo, una función que indica como valorar y comparar ese atributo con los atributos de los diferentes casos, llamada \textit{función de semejanza local}. Dicha función establece como comparar los atributos entre dos casos, devolviendo el valor de semejanza entre esos atributos. Existen tres tipos de esta función:
 
 \begin{itemize}
-\item \textbf{Diferencia}: esta función devuelve la diferencia entre dos valores numéricos o fechas. Si los valores son de tipo cadena, devuelve 1 si las cadenas son iguales, o 0 en caso contrario.
-\item \textbf{Igualdad}: función que devuelve 1 si los valores son iguales, y en caso contrario.
-\item \textbf{Intervalo}: función utilizada para evaluar si la diferencia de dos valores numéricos se encuentran en un determinado margen, devolviendo la desviación con respecto a ese margen.
+\item \textbf{Diferencia}: esta función devuelve la diferencia entre dos valores numéricos o fechas. Si los valores son de tipo cadena, devuelve 1 si las cadenas son iguales, o 0 en caso contrario. Para el resto de casos, el resultado se normaliza al intervalo [0,1], de tal modo que son más semejantes si la diferencia es más pequeña.
+\item \textbf{Igualdad}: función que devuelve 1 si los valores son iguales, y 0 en caso contrario.
+\item \textbf{Intervalo}: función utilizada para evaluar la semejanza entre los valores de dos atributos, dentro de un intervalo. Así, esta función se describe como: \texttt{|x-y|/interval}. El resultado se normaliza al intervalo [0,1].
 \end{itemize}
 
 En lo que respecta a los algoritmos utilizados para calcular el valor de la semejanza final, o \textit{global}, entre casos, se han diseñado e implementado diferentes algoritmos, basándose en la literatura estudiada y comentada en la sección \ref{sec:CBR}. Dichos algoritmos son:
 
 \begin{itemize}
-\item \textbf{Nearest neighbor}: este algoritmo, conocido también como \textit{NN Method}, calcula el valor de semejanza global entre dos casos realizando la media aritmética de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) por su peso, y se divide por la suma del peso total de todos los atributos. En la ecuación \ref{eq:media} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
+\item \textbf{Nearest Neighbor}: este algoritmo, conocido también como \textit{NN Method}, calcula el valor de semejanza global entre dos casos realizando la media aritmética de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) por su peso, y se divide por la suma del peso total de todos los atributos. En la ecuación \ref{eq:media} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
 \item \textbf{Euclidean Distance}; este algoritmo calcula el valor de semejanza global entre dos casos realizando la distancia euclídea de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) elevado al cuadrado, por su peso. En la ecuación \ref{eq:eucl} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
 \end{itemize}
-
-
-%% OTRO METODO
 
 
 \begin{equation} \label{eq:media}

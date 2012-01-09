@@ -4,7 +4,7 @@ Version=2
 
 [SessionInfo]
 ActiveTab=0
-FrameCount=2
+FrameCount=3
 ActiveFrame=1
 
 [Frame0]
@@ -53,15 +53,44 @@ Class=CLatexEdit
 Document=ManualUsuario.tex
 
 [Frame1_Row0]
-cyCur=335
+cyCur=499
 cyMin=10
 
 [Frame1_Col0]
-cxCur=1411
+cxCur=971
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=183
-Cursor.column=30
-TopSubLine=233
+Cursor.row=168
+Cursor.column=157
+TopSubLine=245
+
+[Frame2]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-8
+MaxPos.y=-30
+NormalPos.left=100
+NormalPos.top=100
+NormalPos.right=942
+NormalPos.bottom=470
+Class=CLatexEdit
+Document=ConstruccionIteracion6.tex
+
+[Frame2_Row0]
+cyCur=311
+cyMin=10
+
+[Frame2_Col0]
+cxCur=805
+cxMin=10
+
+[Frame2_View0,0]
+Cursor.row=64
+Cursor.column=236
+TopSubLine=94
 
