@@ -125,6 +125,74 @@ Por otra parte, se puede seleccionar la pestaña \textit{Modificar Proyecto} para
 Esta acción sólo esta disponible para los jefes de proyecto. 
 
 
+\subsection{Gestionar decisiones}
+
+
+\subsection{Visualizar decisiones}
+
+
+\subsection{Reutilizar decisiones de proyectos semejantes}
+
+El proceso para buscar y reutilizar decisiones en un proyecto, en base a proyectos anteriores, se divide en varios pasos, desarrollados a continuación. Esta acción sólo puede ser llevada a cabo por los jefes de proyecto.
+
+En primer lugar, es necesario configurar el proyecto que servirá de base para buscar las decisiones de los proyectos semejantes a ese dado. Para ello, seleccionar el menú \textit{Herramientas} -\textgreater \textit{CBR} e introducir los datos del proyecto en la ventana que se muestra, que aparece en la Figura \ref{fig:client-cbr1}. También puede seleccionarse uno de los proyectos existentes en el sistema, rellenándose sus datos de manera automática.
+
+%\imagenBorde{Apendices/Manual//client-cbr1}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr1}
+
+Una vez configurado el proyecto del que se desean buscar decisiones de otros proyectos semejantes, pinchar sobre el botón \textit{Siguiente} y, si los datos introducidos son correctos, se mostrará la ventana de la Figura \ref{fig:client-CBR2}. En dicha ventana, se debe seleccionar un algoritmo de búsqueda y se deben configurar los parámetros que intervienen en esos algoritmos, utilizados para calcular la semejanza entre proyectos.
+
+%\imagenBorde{Apendices/Manual//client-cbr1}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr1}
+
+Así, los elementos que componen esta ventana son:
+
+\begin{itemize}
+	\item Algoritmo: algoritmo seleccionado para realizar la búsqueda del CBR. Puede ser el algoritmo \textbf{NN (Nearest Neighbor)} o \textit{Euclidean Distance}.
+	\item K (Número casos): es el número de proyectos semejantes que se desean recuperar. Si es vacío, se recuperan todos los proyectos que existan en el sistema (ya finalizados).
+	\item La lista de atributos que componen un proyecto y que son los utilizados para calcular la semejanza o similitud entre proyectos.
+	\item El tipo de función que se va a aplicar para comparar un par de atributos entre proyectos. Por ejemplo, que función se utilizaría para comparar el presupuesto de dos proyectos. Las funciones disponibles son:
+	\begin{enumerate}
+	\item \textit{Equal}: función utilizada para comparar si el valor de dos atributos de dos proyectos diferentes es el mismo, ya sea de tipo numérico, cadena de texto, fecha, etc.
+	\item \textit{Interval}: esta función, aplicada a formatos numéricos, calcula la semejanza entre los valores de dos atributos, en valor absoluto, dentro respecto de un intervalo. Así, esta función se describe como: \texttt{|x-y|/interval}.
+	\item \textit{Difference}: esta función calcula la semejanza basándose en la diferencia entre los valores de un par de atributos, ya sean numéricos, fechas o cadenas de texto. En este último caso, la diferencia es 1 si las cadenas son iguales, y 0 en caso contrario.
+\end{enumerate}
+	\item Peso: este valor, comprendido entre 0.0 y 1.0, corresponde al peso que se le va a dar a cada atributo en el cálculo final de la semejanza entre proyectos. Así, un peso de 0.0 significa que ese atributo se ignorará en el cálculo, mientras que 1.0 significa que ese atributo se considera muy relevante para calcular la semejanza.
+\end{itemize}
+
+Una vez configurados estos parámetros (ver Figura \ref{fig:client-cbr3} a modo de ejemplo), se hace clic sobre el botón \textit{Terminar}, con lo que comenzará la búsqueda de proyectos semejantes según el algoritmo y parámetros configurados. Al terminar, aparecerá un aviso con el número de proyectos encontrados y se mostrará a continuación otra ventana donde se visualizan los proyectos similares encontrados, como se refleja en la captura de pantalla de la Figura \ref{fig:client-cbr4}.
+
+%\imagenBorde{Apendices/Manual//client-cbr3}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr3}
+
+%\imagenBorde{Apendices/Manual//client-cbr4}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr4}
+
+En esa ventana, se muestran los datos del proyecto recuperado, los empleados que en él trabajan, las decisiones tomadas en dicho proyecto y el porcentaje de semejanza que tiene con respecto al proyecto base con el que se inició la búsqueda. Además, se podrá navegar entre los diferentes proyectos encontrados, utilizando las flechas de la parte inferior.
+
+Por otra parte, las decisiones pueden filtrarse según su estado (Abiertas, Aceptadas o Rechazadas) (ver Figura \ref{fig:cbr-5}) y se puede almacenar también la información del proyecto visualizado en un fichero PDF o XML, utilizando los botones que se encuentran en la toolbar. De este modo, su información y decisiones podrán reutilizarse en el proyecto similar a éste.
+
+%\imagenBorde{Apendices/Manual//client-cbr4}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr4}
+
+
+
+
+
+
+\subsection{Gestionar notificaciones}
+
+Esta funcionalidad se refiere a la visualización de las notificaciones o alertas que se han creado para el proyecto donde el usuario está trabajando, así como la modificación o eliminación de dichas notificaciones.
+
+Para visualizar esas alertas, se hace clic en el icono de la vista \textit{Notificaciones} de la barra de menús superior de la ventana principal. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-notificaciones}.
+
+%\imagenBorde{Apendices/Manual//client-notificaciones}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificaciones}
+
+En esta vista aparecen todas las alertas que tiene el usuario que ha accedido al sistema para el proyecto actualmente activo. Las alertas que aún no han sido marcadas como ``leídas'', aparecen resaltadas, como se observa en la Figura \ref{fig:client-notificaciones}. 
+
+Desde esta vista de notificaciones, el usuario puede marcar como leídas o no leídas sus alertas, o eliminar una o más de dichas éstas. Para ello, se utilizan los botones presentes en la \textit{toolbar}. Además, las alertas pueden ordenarse haciendo clic sobre las diferentes columnas de la tabla, de tal modo que pueden ordenarse por fecha, título, etc.
+
+Por otra parte, al seleccionar una de esas alertas en la tabla, en el cuadro de texto inferior aparecen los detalles de dicha alerta, como puede ser la fecha de creación de la alerta, su autor, el tipo de decisión afectada, información de dicha decisión, etc (ver Figura \ref{fig:client-notificacionDetalles}).
+
+%\imagenBorde{Apendices/Manual//client-notificacionDetalles}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificacionDetalles}
+
+
+
 \subsection{Generación informes PDF}
 
 Esta acción está disponible únicamente para los jefes de proyectos, y permite la creación de informes en formato PDF donde, además del texto introducido, se representarán las decisiones tomadas en un proyecto en forma de tabla en el PDF.
@@ -166,19 +234,3 @@ A continuación, para generar y visualizar un gráfico, es necesario hacer clic en
 Al aceptar el diálogo anterior, el gráfico se genera y se muestra en una ventana interna, tal y como aparece en la Figura \ref{fig:internalFrame}. De este modo, se pueden generar y visualizar diferentes gráficos.
 
 %\imagenBorde{Apendices/Manual//client-estadisticasRelleno}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-estadíestadisticasRellenosticas}
-
-\subsection{Gestionar notificaciones}
-
-Esta funcionalidad se refiere a la visualización de las notificaciones o alertas que se han creado para el proyecto donde el usuario está trabajando, así como la modificación o eliminación de dichas notificaciones.
-
-Para visualizar esas alertas, se hace clic en el icono de la vista \textit{Notificaciones} de la barra de menús superior de la ventana principal. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-notificaciones}.
-
-%\imagenBorde{Apendices/Manual//client-notificaciones}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificaciones}
-
-En esta vista aparecen todas las alertas que tiene el usuario que ha accedido al sistema para el proyecto actualmente activo. Las alertas que aún no han sido marcadas como ``leídas'', aparecen resaltadas, como se observa en la Figura \ref{fig:client-notificaciones}. 
-
-Desde esta vista de notificaciones, el usuario puede marcar como leídas o no leídas sus alertas, o eliminar una o más de dichas éstas. Para ello, se utilizan los botones presentes en la \textit{toolbar}. Además, las alertas pueden ordenarse haciendo clic sobre las diferentes columnas de la tabla, de tal modo que pueden ordenarse por fecha, título, etc.
-
-Por otra parte, al seleccionar una de esas alertas en la tabla, en el cuadro de texto inferior aparecen los detalles de dicha alerta, como puede ser la fecha de creación de la alerta, su autor, el tipo de decisión afectada, información de dicha decisión, etc (ver Figura \ref{fig:client-notificacionDetalles}).
-
-%\imagenBorde{Apendices/Manual//client-notificacionDetalles}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificacionDetalles}
