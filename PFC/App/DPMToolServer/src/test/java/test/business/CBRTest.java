@@ -12,8 +12,8 @@ import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.EnumSimilFunctions;
 import model.business.control.CBR.similarity.local.Difference;
 import model.business.control.CBR.similarity.local.Equal;
-import model.business.control.CBR.similarity.local.Interval;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
+import model.business.control.CBR.similarity.local.Threshold;
 import model.business.knowledge.Address;
 import model.business.knowledge.ChiefProject;
 import model.business.knowledge.Company;
@@ -78,7 +78,8 @@ public class CBRTest extends BaseTest {
 			configCBR = null;			
 			EnumSimilFunctions.Enum.name();
 			EnumSimilFunctions.Equal.name();
-			EnumSimilFunctions.Interval.name();
+			EnumSimilFunctions.Difference.name();
+			EnumSimilFunctions.Threshold.name();
 		} catch(Exception e) {
 			fail(e.toString());
 		}
@@ -140,8 +141,8 @@ public class CBRTest extends BaseTest {
 			configCBR.addLocalSimFunction(atts.get(4), new Equal());
 			configCBR.addLocalSimFunction(atts.get(5), new Equal());
 			// Presupuesto en un intervalo
-			function = new Interval();
-			((Interval)function).setInterval(2);
+			function = new Threshold();
+			((Threshold)function).setThreshold(2);
 			configCBR.addLocalSimFunction(atts.get(6), function);
 			// Diferencia de lineas de codigo
 			configCBR.addLocalSimFunction(atts.get(7), new Difference());
@@ -149,8 +150,8 @@ public class CBRTest extends BaseTest {
 			configCBR.addLocalSimFunction(atts.get(8), new Equal());
 			configCBR.addLocalSimFunction(atts.get(9), new Equal());
 			// Numero de horas en un intervalo
-			function2 = new Interval();
-			((Interval)function2).setInterval(3);
+			function2 = new Threshold();
+			((Threshold)function2).setThreshold(3);
 			configCBR.addLocalSimFunction(atts.get(10), function);
 			
 			/* PESOS */
@@ -167,8 +168,8 @@ public class CBRTest extends BaseTest {
 			configCBR.setWeight(atts.get(8), 1);
 			configCBR.setWeight(atts.get(9), 1);
 			// Numero de horas con peso 0.8
-			function2 = new Interval();
-			((Interval)function2).setInterval(3);
+			function2 = new Threshold();
+			((Threshold)function2).setThreshold(3);
 			configCBR.setWeight(atts.get(10),0.8);
 			
 			/* Se ejecuta el algoritmo con el modo NN. cogiendo todos los proyectos y método NN (k=0)

@@ -121,7 +121,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 	// Method used to show information about the case (project)
 	private void showCaseInformation() {
 		txtUserInfo.setText("");
-		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false, false);
+		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false, false, 180);
 		fillUsers();
 		showUsers(cases.get(currentProject-1).getCaseP());
 		String sim = String.valueOf(cases.get(currentProject-1).getEval() * 100.0);
@@ -159,14 +159,14 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblNumberCases = new JLabel();
 					getContentPane().add(lblNumberCases);
-					lblNumberCases.setBounds(7, 603, 111, 25);
+					lblNumberCases.setBounds(7, 609, 111, 26);
 					lblNumberCases.setName("lblNumberCases");					
 					lblNumberCases.setText(ApplicationInternationalization.getString("lblNumberCases") + " " + currentProject+"/"+cases.size());
 				}
 				{
 					btnForward = new ArrowButton(ArrowButton.DOUBLE_RIGHT);
 					getContentPane().add(btnForward);
-					btnForward.setBounds(289, 609, 18, 13);
+					btnForward.setBounds(286, 617, 24, 17);
 					btnForward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -178,7 +178,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnBackward = new ArrowButton(ArrowButton.DOUBLE_LEFT);
 					getContentPane().add(btnBackward);
-					btnBackward.setBounds(257, 610, 23, 10);
+					btnBackward.setBounds(257, 618, 23, 14);
 					btnBackward.addActionListener(new ActionListener() {						
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -191,7 +191,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					btnOk = new JButton();
 					getContentPane().add(btnOk);
-					btnOk.setBounds(820, 598, 82, 27);
+					btnOk.setBounds(827, 608, 82, 27);
 					btnOk.setName("btnOk");
 					btnOk.setAction(getAppActionMap().get("OK"));
 					btnOk.setText(ApplicationInternationalization.getString("btnOK"));
@@ -200,6 +200,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 					panelTree = new panelKnowledgeTree();
 					getContentPane().add(panelTree);
 					panelTree.setBounds(623, 46, 283, 546);
+					panelTree.setSize(286, 550);
 				}
 				{
 					pnlProject = new JPanel();
@@ -280,7 +281,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblSimilarity = new JLabel();
 					getContentPane().add(lblSimilarity);
-					lblSimilarity.setBounds(119, 607, 126, 16);
+					lblSimilarity.setBounds(119, 613, 126, 18);
 					lblSimilarity.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, btnSave.getFont().getSize()));
 					lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity"));
 				}
@@ -290,6 +291,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 			}
 			this.setSize(929, 674);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
+			getRootPane().setDefaultButton(btnOk);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

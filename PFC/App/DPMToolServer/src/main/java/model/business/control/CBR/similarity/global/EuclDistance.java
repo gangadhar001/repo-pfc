@@ -3,6 +3,8 @@ package model.business.control.CBR.similarity.global;
 /**
  * Class used to calculate the global similarity between two cases, using Euclidean Distance
  */
+
+//REFERENCE: http://gaia.fdi.ucm.es/research/colibri/jcolibri
 public class EuclDistance implements GlobalSimilarityFunction {
 
 	// Uses the evaluation and weights for each attribute of the case

@@ -149,7 +149,7 @@ public class panelKnowledgeView extends ImagePanel {
 	private void showTree() {	
 		panelTree.removeAll();
 		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Knowledge");
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Decisions");
 		TreeContentProvider.setContentRootNode(root, topicWrapper);
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);

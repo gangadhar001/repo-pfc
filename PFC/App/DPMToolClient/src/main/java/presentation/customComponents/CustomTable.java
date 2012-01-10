@@ -124,10 +124,10 @@ public class CustomTable extends JTable {
                     int w = width - 8;
                     int h = rowHeight - 4;
                     int arcSize = 12;
-                    Color c = new Color(255, 235, 125);
-                    ((Graphics2D)g).setPaint(new GradientPaint(x, y, c, x, y + h, new Color(200, 175, 170)));
+                    Color c = new Color(155, 199, 216);
+                    ((Graphics2D)g).setPaint(new GradientPaint(x, y, c, x, y + h, new Color(237, 242, 249)));
                     g.fillRoundRect(x, y, w, h, arcSize, arcSize);
-                    g.setColor(new Color(250, 220, 220));
+                    g.setColor(new Color(237, 242, 249));
 				}
 			}
 			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);

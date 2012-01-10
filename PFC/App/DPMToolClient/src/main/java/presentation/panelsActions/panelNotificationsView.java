@@ -195,8 +195,8 @@ public class panelNotificationsView extends ImagePanel {
 									enableToolbarButtons(true);
 									markRead(rowSelected, getNotification(rowSelected));
 								}
-								else 
-									clearSelection();
+//								else 
+//									clearSelection();
 							}
 							else
 								clearSelection();

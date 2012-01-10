@@ -63,6 +63,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 	
 	private InfiniteProgressPanel glassPane;
 	private JFMain parentD;
+	private Project caseToEval;
 		
 	public JDConfigProject(JFMain main) {
 		super(main.getMainFrame());
@@ -154,7 +155,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 					panelProjectInformationCreate.setBounds(6, 49, 520, 471);
 				}
 				
-				panelProjectInformationCreate.showData(new Project(), true, false);
+				panelProjectInformationCreate.showData(new Project(), true, false, 360);
 				
 				// Config Simil Panel
 				panelConfigSimil = new panelConfigSimil(this);
@@ -185,7 +186,9 @@ public class JDConfigProject extends javax.swing.JDialog {
 			btnCleanCreate.setVisible(false);
 			panelProjectInformationCreate.setVisible(false);
 			this.setTitle(ApplicationInternationalization.getString("configSimiTitle"));
-			panelConfigSimil.setProject(panelProjectInformationCreate.getProject());
+			if (caseToEval == null)
+				caseToEval = panelProjectInformationCreate.getProject();
+			panelConfigSimil.setProject(caseToEval);
 			panelConfigSimil.setVisible(true);
 			btnCancel.setVisible(false);
 			btnForward.setVisible(false);
@@ -205,6 +208,7 @@ public class JDConfigProject extends javax.swing.JDialog {
 			panelConfigSimil.Clean();
 		panelProjectInformationCreate.clean(false);
 		chkProject.setSelected(false);
+		caseToEval = null;
 	}
 
 	public JPanel getPanelCreateProject() {
@@ -266,8 +270,11 @@ public class JDConfigProject extends javax.swing.JDialog {
 	
 	private void cbProjectsActionPerformed() {
 		Project p = (Project) cbProjects.getSelectedItem();
-		if (p!= null && cbProjects.getSelectedIndex()!= -1)
-			panelProjectInformationCreate.showData(p, true, false);
+		if (p!= null && cbProjects.getSelectedIndex()!= -1) {
+			panelProjectInformationCreate.showData(p, true, false, 360);
+			caseToEval = p;
+		}
+		
 	}
 
 	public JFMain getParentD() {
