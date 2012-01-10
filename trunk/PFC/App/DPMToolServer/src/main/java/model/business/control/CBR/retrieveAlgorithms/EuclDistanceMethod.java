@@ -30,7 +30,9 @@ public class EuclDistanceMethod {
 		List<CaseEval> result = new ArrayList<CaseEval>();
 		for(Project caseP: cases)
 		{
-			result.add(new CaseEval(caseP, getEval(caseToEval, caseP, config)));
+			// Ignore same project
+			if (!caseToEval.equals(caseP))
+				result.add(new CaseEval(caseP, getEval(caseToEval, caseP, config)));
 		}
 		// Sort the result (higher to lower)
 		Collections.sort(result);

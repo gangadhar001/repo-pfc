@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -19,10 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -32,16 +30,17 @@ import model.business.control.CBR.CaseEval;
 import model.business.control.CBR.ConfigCBR;
 import model.business.control.CBR.EnumAlgorithmCBR;
 import model.business.control.CBR.EnumSimilFunctions;
+import model.business.control.CBR.similarity.local.Difference;
 import model.business.control.CBR.similarity.local.Equal;
-import model.business.control.CBR.similarity.local.Interval;
 import model.business.control.CBR.similarity.local.LocalSimilarityFunction;
+import model.business.control.CBR.similarity.local.Threshold;
 import model.business.knowledge.Project;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 
+import presentation.customComponents.NumericTextField;
 import resources.CursorUtilities;
-
 import bussiness.control.ClientController;
 import exceptions.NonPermissionRoleException;
 import exceptions.NotLoggedException;
@@ -93,6 +92,7 @@ public class panelConfigSimil extends javax.swing.JPanel {
 	private List<Attribute> attributes;
 	private Project caseToEval;
 	private JDConfigProject parent;
+	private JLabel lblThreshold;
 		
 	public panelConfigSimil(JDConfigProject parent) {
 		this.parent = parent;
@@ -207,15 +207,23 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		{
 			lblFunction = new JLabel();
 			pnlAttributes.add(lblFunction);
-			lblFunction.setBounds(POSX_COLUMN2 + 10, 23, 99, 16);
+			lblFunction.setBounds(POSX_COLUMN2 + 15, 23, 99, 16);
 			lblFunction.setName("lblFunction");
 			lblFunction.setText(ApplicationInternationalization.getString("lblFunction"));
 			lblFunction.setFont(new Font(lblFunction.getFont().getName(), Font.BOLD, 12));
 		}
 		{
+			lblThreshold = new JLabel();
+			pnlAttributes.add(lblThreshold);
+			lblThreshold.setBounds(POSX_COLUMN3 + 15, 23, 99, 16);
+			lblThreshold.setName("lblThreshold");
+			lblThreshold.setText(ApplicationInternationalization.getString("lblThreshold"));
+			lblThreshold.setFont(new Font(lblThreshold.getFont().getName(), Font.BOLD, 12));
+		}
+		{
 			lblWeight = new JLabel();
 			pnlAttributes.add(lblWeight);
-			lblWeight.setBounds(433, 23, 38, 16);
+			lblWeight.setBounds(POSX_COLUMN4 + 20, 23, 38, 16);
 			lblWeight.setName("lblWeight");
 			lblWeight.setText(ApplicationInternationalization.getString("lblWeight"));
 			lblWeight.setFont(new Font(lblWeight.getFont().getName(), Font.BOLD, 12));
@@ -242,15 +250,14 @@ public class panelConfigSimil extends javax.swing.JPanel {
 				// Show local similarity function supported for that attribute type
 				JComboBox cbFunctions = new JComboBox();
 				cbFunctions.addItem(EnumSimilFunctions.Equal.name());
-				if ((att.getType() == double.class) || (att.getType() == int.class)) {
-					cbFunctions.addItem(EnumSimilFunctions.Interval.name());
-					// Add spinner used to select the value of the function parameter
-					SpinnerModel jSpinnerModel = new SpinnerNumberModel(1, 1, 100, 1);
-					JSpinner spinner = new JSpinner();
-					pnlAttributes.add(spinner);
-					spinner.setModel(jSpinnerModel);
-					spinner.setName("spinner_"+numberAttributes);
-					spinner.setBounds(POSX_COLUMN3, POSY + INCREMENT_POSY * numberAttributes, 50, 25);
+				cbFunctions.addItem(EnumSimilFunctions.Difference.name());
+				if ((att.getType() == double.class) || (att.getType() == int.class) || (att.getType() == Date.class)) {
+					cbFunctions.addItem(EnumSimilFunctions.Threshold.name());
+					// Add numeric text field in order to select the threshold
+					NumericTextField nText = new NumericTextField();
+					nText.setName("nText"+numberAttributes);
+					pnlAttributes.add(nText);
+					nText.setBounds(POSX_COLUMN3, POSY + INCREMENT_POSY * numberAttributes, 100, 25);
 					
 				}
 				if (att.getType() == Enum.class)
@@ -299,23 +306,32 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		}		
 	}
 	
-	// Disable the function parameter when its type isn't Interval
+	// Disable the function parameter when its type isn't Threshold
 	private void cbFunctionsActionPerformed(ActionEvent evt) {
 		JComboBox combo = (JComboBox) evt.getSource();
+		// Row from selected attribute
 		int row = Integer.parseInt(combo.getName().substring(combo.getName().lastIndexOf("_")+1));
-		if (!combo.getSelectedItem().toString().equals(EnumSimilFunctions.Interval.name())) {
+		if (!combo.getSelectedItem().toString().equals(EnumSimilFunctions.Threshold.name())) {
 			for (Object o : pnlAttributes.getComponents()) {
-				if (o instanceof JSpinner) {
-					if (((JSpinner)o).getName().contains(String.valueOf(row)))
-						((JSpinner)o).setEnabled(false);
+				if (o instanceof JComboBox) {
+					if (((JComboBox)o).getName().equals("cbOperations_"+row))
+						((JComboBox)o).setEnabled(false);
+				}
+				else if (o instanceof NumericTextField) {
+					if (((NumericTextField)o).getName().contains(String.valueOf(row)))
+						((NumericTextField)o).setEnabled(false);
 				}
 			}
 		}
 		else {
 			for (Object o : pnlAttributes.getComponents()) {
-				if (o instanceof JSpinner) {
-					if (((JSpinner)o).getName().contains(String.valueOf(row)))
-						((JSpinner)o).setEnabled(true);
+				if (o instanceof JComboBox) {
+					if (((JComboBox)o).getName().equals("cbOperations_"+row))
+						((JComboBox)o).setEnabled(true);
+				}
+				else if (o instanceof NumericTextField) {
+					if (((NumericTextField)o).getName().contains(String.valueOf(row)))
+						((NumericTextField)o).setEnabled(true);
 				}
 			}	
 		}
@@ -422,12 +438,13 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		
 	}
 
+	// Search the value of the local similarity function for one attribute
 	private List<Object> searchValuesFromRow(int row) {
 		List<Object> result = new ArrayList<Object>();
 		for(Object o : pnlAttributes.getComponents()) {
 			if (o instanceof JLabel) {
 				JLabel lbl = (JLabel)o;
-				// Weight
+				// Get Weight
 				if (lbl.getName() != null && lbl.getName().contains("lbl_slider")) {
 					int index = Integer.parseInt(lbl.getName().substring(lbl.getName().lastIndexOf("_")+1));
 					if (index == row) {
@@ -438,12 +455,17 @@ public class panelConfigSimil extends javax.swing.JPanel {
 			if (o instanceof JComboBox) {
 				JComboBox cb = (JComboBox)o;
 				// Similarity Function
-				if (cb.getName().contains(String.valueOf(row))) {
+				if (cb.getName().equals("cb_" + String.valueOf(row))) {
 					LocalSimilarityFunction function = null;
-					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Interval.name())) {
-						function = new Interval();
-						((Interval)function).setInterval(getIntervalValue(row));
+					if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Threshold.name())) {
+						function = new Threshold();
+						((Threshold)function).setThreshold(getThresholdValue(row));
 					}
+					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Difference.name()))
+						function = new Difference();
+					// TODO: enum
+//					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Enum.name()))
+//						function = new Enum();
 					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Equal.name()))
 						function = new Equal();
 					result.add(function);					
@@ -454,16 +476,17 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		return result;
 	}
 
-	private double getIntervalValue(int row) {
+	// Get value of threshold for one attribute
+	private double getThresholdValue(int row) {
 		boolean found = false;
 		double result = 0.0;
 		Object[] components = pnlAttributes.getComponents();
 		for (int i = 0; i < components.length && !found; i++) {
-			if (components[i] instanceof JSpinner) {
-				JSpinner sp = (JSpinner)components[i];
+			if (components[i] instanceof NumericTextField) {
+				NumericTextField sp = (NumericTextField)components[i];
 				// Function parameter
 				if (sp.getName().contains(String.valueOf(row))) {					
-					result = Double.parseDouble(sp.getValue().toString());
+					result = Double.parseDouble(sp.getText().toString());
 					found = true;
 				}
 			}

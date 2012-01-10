@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Class used to calculate the similarity between attributes.
  * This value is 1 if both are equals, and 0 otherwise
  */
+
+// REFERENCE: http://gaia.fdi.ucm.es/research/colibri/jcolibri
 public class Equal implements LocalSimilarityFunction, Serializable {
 
     /**

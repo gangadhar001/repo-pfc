@@ -323,7 +323,7 @@ public class JDManageProject extends javax.swing.JDialog {
 				fillUsers();
 				fillProjects();
 				
-				panelProjectInformationCreate.showData(new Project(), true, true);
+				panelProjectInformationCreate.showData(new Project(), true, true, 180);
 				cbProjects.setSelectedIndex(0);
 				
 			}
@@ -401,7 +401,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	
 	private void fillProjectData() {
 		if (cbProjects.getSelectedItem() != null) {
-			panelProjectInformationModify.showData((Project) cbProjects.getSelectedItem(), true, true);
+			panelProjectInformationModify.showData((Project) cbProjects.getSelectedItem(), true, true, 180);
 			btnCancelModify.setEnabled(true);
 			btnModify.setEnabled(true);
 		}		

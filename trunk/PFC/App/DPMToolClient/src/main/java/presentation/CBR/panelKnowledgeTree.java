@@ -107,7 +107,7 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 				{
 					lblFilter = new JLabel();
 					this.add(lblFilter);
-					lblFilter.setBounds(10, 26, 92, 24);
+					lblFilter.setBounds(10, 26, 38, 24);
 					lblFilter.setText(ApplicationInternationalization.getString("lblFilterName"));
 				}
 				{
@@ -119,10 +119,9 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 										ApplicationInternationalization.getString("FilterOpen"),
 								});
 					cbFilter = new JComboBox();
-					cbFilter.setSelectedIndex(0);
 					this.add(cbFilter);
 					cbFilter.setModel(cbFilterModel);
-					cbFilter.setBounds(114, 26, 161, 23);
+					cbFilter.setBounds(48, 26, 161, 23);
 					cbFilter.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							cbFilterActionPerformed();
@@ -140,7 +139,7 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		this.remove(scrollTree);
 		this.wrapper = topicWrapper;
 		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Knowledge");
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Decisions");
 		if (filter.equals(KnowledgeStatus.All))
 			TreeContentProvider.setContentRootNode(root, topicWrapper);
 		else 
