@@ -20,5 +20,9 @@
 \contentsline {subsection}{\numberline {A.2.4}Exportar informaci\'on}{9}
 \contentsline {subsection}{\numberline {A.2.5}Seleccionar proyecto activo}{10}
 \contentsline {subsection}{\numberline {A.2.6}Gestionar proyectos}{10}
-\contentsline {subsection}{\numberline {A.2.7}Generaci\'on informes PDF}{11}
-\contentsline {subsection}{\numberline {A.2.8}Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{13}
+\contentsline {subsection}{\numberline {A.2.7}Gestionar decisiones}{11}
+\contentsline {subsection}{\numberline {A.2.8}Visualizar decisiones}{12}
+\contentsline {subsection}{\numberline {A.2.9}Reutilizar decisiones de proyectos semejantes}{13}
+\contentsline {subsection}{\numberline {A.2.10}Gestionar notificaciones}{15}
+\contentsline {subsection}{\numberline {A.2.11}Generaci\'on informes PDF}{15}
+\contentsline {subsection}{\numberline {A.2.12}Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{18}
