@@ -62,7 +62,7 @@ Para iniciar sesión en el sistema, se elige el submenú \textit{Iniciar Sesión} b
 
 \imagenBorde{Apendices/Manual//client-login}{0.60}{Ventana de \textit{login}}{fig:client-login}
 
-Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, para poder gestionar las decisiones y demás información de dicho proyecto. Al finalizar, la aplicación se redirigirá a la ventana principal nuevamente. En este caso, en dicha ventana ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema, según su rol ((ver Tabla \ref{table:acciones2}). En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la \textit{toolbar} ya se encuentran habilitadas las vistas a las que puede acceder, así como los menús, y la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado y de la dirección IP del servidor.
+Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, para poder gestionar las decisiones y demás información de dicho proyecto. Al finalizar, la aplicación se redirigirá a la ventana principal nuevamente. En este caso, en dicha ventana ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema, según su rol. En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la \textit{toolbar} ya se encuentran habilitadas las vistas a las que puede acceder, así como los menús, y la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado y de la dirección IP del servidor.
 
 \imagenBorde{Apendices/Manual//client-principalLogin}{0.42}{Ventana principal del cliente al acceder al sistema}{fig:client-principalLogin}
 
@@ -127,8 +127,57 @@ Esta acción sólo esta disponible para los jefes de proyecto.
 
 \subsection{Gestionar decisiones}
 
+Esta funcionalidad permite la gestión de las decisiones de un proyecto, pudiendo crearlas y modificarlas. Para ello, se selecciona el menú \textit{Herramientas} -\textgreater \textit{Gestionar Decisiones} y, a continuación, se selecciona el tipo de decisión a gestionar del panel izquierdo de la ventana que se muestra tras seleccionar dicho menú (ver Figura \ref{fig:client-decision})
+
+%\imagenBorde{Apendices/Manual//client-decision}{0.60}{Diálogo para la modificación de proyectos}{fig:client-decision}
+
+En dicha ventana, se puede seleccionar la pestaña para añadir una nueva decisión, o para modificarla. En ambos casos, introducir todos los datos correspondientes a cada tipo de decisión y aceptar la acción, mostrándose un mensaje de confirmación si la operación se ha realizado de manera correcta. 
+
+Tras crear o modificar una decisión, los cambios aparecerán reflejados de manera visual en la vista de decisiones. Es en esta vista donde, además de visualizar las decisiones, se pueden realizar otras tareas para la gestión de decisiones, tales como: eliminar una decisión, incluir archivos como adjuntos, o cambiar el estado de una decisión (Aceptada o Rechazada). Dichas operaciones se detallan en la siguiente sección.
+
+Cabe destacar que el jefe de proyecto es el rol con permisos para poder crear o modificar un \textit{Tema (Topic)}.
+
+
 
 \subsection{Visualizar decisiones}
+
+Esta funcionalidad se refiere a la visualización de las decisiones tomadas en un proyecto, así como algunas tareas de gestión de decisiones que se pueden llevar a cabo desde esta vista.
+
+Para mostrar esta vista, se hace clic en el icono de la vista \textit{Decisiones} de la barra de menús superior de la ventana principal. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-vistaDecisiones}.
+
+%\imagenBorde{Apendices/Manual//client-vistaDecisiones}{0.42}{Diálogo para la modificación de proyectos}{fig:client-vistaDecisiones}
+
+A continuación, se describen los elementos que la componen:
+
+\begin{itemize}
+	\item A la izquierda, se muestra un árbol donde se representan de manera jerárquica las decisiones del proyecto software. Así, cada Tema tendrá una serie de Propuestas y éstas, a su vez, tendrán una serie de Respuestas.
+	\item En el centro, se visualizan las mismas decisiones, pero en forma de grafo, y de manera más amplia. Además, en este grafo, sobre el icono de cada decisión, se muestra información adicional de esa decisión, como puede ser su estado, si tiene archivos adjuntos, y, si el modo \textit{Vista avanzada} está activo, se muestra también el rol del autor que creó la decisión y su país.
+	\item A la derecha, se encuentran una serie de paneles, que pueden extenderse o colapsarse, donde se muestra información detallada acerca del autor de una decisión, de la compañía donde trabaja y de la decisión en sí. Además, en el panel donde se muestra la información de la compañía, ésta puede visualizarse en mayor detalle y obtener su posición geográfica, geoposicionándola en un mapa. Para ello, hacer clic en el icono de la lupa de este panel (ver Figura \ref{fig:client-lupa}) para que se muestre una ventana con la información de la compañía en mayor detalle, como se refleja en la captura de pantalla de la Figura \ref{fig:client-detallesCompanya}.
+\end{itemize}
+
+%\imagenBorde{Apendices/Manual//client-lupa}{0.42}{Diálogo para la modificación de proyectos}{fig:client-lupa}
+
+%\imagenBorde{Apendices/Manual//client-detallesCompanya}{0.6}{Diálogo para la modificación de proyectos}{fig:client-detallesCompanya}
+
+Una vez visualizadas las decisiones y su información asociada, dichas decisiones pueden gestionarse también desde esta vista. Para ello, se selecciona una decisión en el grafo o en el árbol, con lo que se habilitarán los botones de la \textit{toolbar}, que permitirán añadir una nueva decisión como hija de la decisión seleccionada (en el caso de no haber seleccionado una Respuesta, que no admite más hijos), modificar esa decisión, o eliminarla. En estos dos últimos casos, la decisión seleccionada sólo puede ser modificada o eliminada por su autor, no por otro empleado. 
+
+Por ejemplo, al seleccionar en el grafo una decisión de tipo Propuesta y pinchar sobre el botón \textit{Editar} de la \textit{toolbar}, aparece la ventana utilizada en la sección anterior para gestionar decisiones, pero ya con los datos de la decisión rellenos, como se muestra en la Figura \ref{fig:client-toolbarDecision}.
+
+%\imagenBorde{Apendices/Manual//client-toolbarDecision}{0.6}{Diálogo para la modificación de proyectos}{fig:client-toolbarDecision}
+
+
+
+
+%% Vista avanzada
+
+%% Adjuntar archivos
+%% Cambiar estado
+
+%% Aviso cambios síncronos
+
+
+
+
 
 
 \subsection{Reutilizar decisiones de proyectos semejantes}
@@ -172,9 +221,6 @@ Por otra parte, las decisiones pueden filtrarse según su estado (Abiertas, Acept
 
 
 
-
-
-
 \subsection{Gestionar notificaciones}
 
 Esta funcionalidad se refiere a la visualización de las notificaciones o alertas que se han creado para el proyecto donde el usuario está trabajando, así como la modificación o eliminación de dichas notificaciones.
@@ -203,13 +249,13 @@ Para componer dichos documentos, en primer lugar debe hacerse clic en el icono d
 
 Para generar un documento PDF válido, éste debe contar con al menos una sección, y dicha sección debe contener al menos un título. Por tanto, desde la \textit{toolbar} se pueden añadir y eliminar secciones, haciendo clic en los botones correspondientes, pero la sección 1 nunca se podrá borrar.
 
-Por otra parte, se pueden ir añadiendo elementos del documento PDF a las secciones, seleccionando la pestaña de la sección correspondiente y haciendo clic sobre el icono de la flecha del elemento que se desee añadir (ver Figura \ref{fig:client-añadirPDF}).
+Por otra parte, se pueden ir añadiendo elementos del documento PDF a las secciones, seleccionando la pestaña de la sección correspondiente y haciendo clic sobre el icono de la flecha del elemento que se desee añadir (ver Figura \ref{fig:client-anyadirPDF}).
 
-\imagenBorde{Apendices/Manual//client-añadirPDF}{0.42}{Icono para insertar elementos en las secciones del PDF}{fig:client-añadirPDF}
+\imagenBorde{Apendices/Manual//client-anyadirPDF}{0.42}{Icono para insertar elementos en las secciones del PDF}{fig:client-anyadirPDF}
 
-Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado.
+Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado, como se muestra en la Figura \ref{fig:client-drag}.
 
-%\imagenBorde{Apendices/Manual//client-drag}{0.42}{Vista para la composición de documentos PDF}{fig:client-pdf}
+%\imagenBorde{Apendices/Manual//client-drag}{0.42}{Vista para la composición de documentos PDF}{fig:client-drag}
 
 Una vez añadidos y colocados los elementos a las secciones, se debe introducir texto para aquellos elementos de tipo ``título'' o ``texto'', y se debe seleccionar un proyecto para generar la tabla de decisiones en el informe PDF. Para ello, se hace clic en el icono de las herramientas del elemento ``tabla'' y se selecciona un proyecto de los disponibles.
 
