@@ -627,7 +627,7 @@ public class panelKnowledgeView extends ImagePanel {
 			collapsiblePanelUserInfo = new CollapsiblePanel();			
 			collapsiblePanelUserInfo.setAutoscrolls(true);
 			collapsiblePanelUserInfo.setTitle(ApplicationInternationalization.getString("UserInfo"));
-			collapsiblePanelUserInfo.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM,Color.CYAN, Color.WHITE));
+			collapsiblePanelUserInfo.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM, new Color(131, 185, 208), Color.WHITE));
 			collapsiblePanelUserInfo.setBounds(12, 12, 156, 182);
 			collapsiblePanelUserInfo.setLayout(null);
 			collapsiblePanelUserInfo.add(getPanelUserInfo());
@@ -642,7 +642,7 @@ public class panelKnowledgeView extends ImagePanel {
 	private CollapsiblePanel getCollapsiblePanelKnowInfo() {
 		if(collapsiblePanelKnowInfo == null) {
 			collapsiblePanelKnowInfo = new CollapsiblePanel();
-			collapsiblePanelKnowInfo.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM,Color.CYAN,Color.WHITE));
+			collapsiblePanelKnowInfo.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM, new Color(131, 185, 208),Color.WHITE));
 			collapsiblePanelKnowInfo.setLayout(null);
 			collapsiblePanelKnowInfo.setAutoscrolls(true);
 			collapsiblePanelKnowInfo.setBounds(12, 206, 156, 185);
@@ -660,7 +660,7 @@ public class panelKnowledgeView extends ImagePanel {
 	private CollapsiblePanel getCollapsiblePanelCompany() {
 		if(collapsiblePanelCompany == null) {
 			collapsiblePanelCompany = new CollapsiblePanel();
-			collapsiblePanelCompany.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM,Color.CYAN,Color.WHITE));
+			collapsiblePanelCompany.setTitleBackground(new Gradient(Direction.TOP_TO_BOTTOM, new Color(131, 185, 208), Color.WHITE));
 			collapsiblePanelCompany.setLayout(null);
 			collapsiblePanelCompany.setAutoscrolls(true);
 			collapsiblePanelCompany.add(getPanelUserCompany());
@@ -777,7 +777,7 @@ public class panelKnowledgeView extends ImagePanel {
 	 private JPanel getPanelUserKnowledge() {
 		 if(panelUserKnowledge == null) {
 			 panelUserKnowledge = new JPanel();
-			 panelUserKnowledge.setBounds(0, 0, 150, 185);
+			 panelUserKnowledge.setBounds(0, 0, 160, 193);
 			 panelUserKnowledge.setLayout(new BoxLayout(panelUserKnowledge, BoxLayout.Y_AXIS));
 		 }
 		 return panelUserKnowledge;
