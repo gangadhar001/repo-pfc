@@ -7,9 +7,7 @@ En este anexo se detallan los requisitos del sistema, así como los pasos a segui
 
 Los dos subsistemas que conforman el sistema final se han desarrollado bajo el lenguaje de programación Java para hacer posible su portabilidad entre distintos sistemas, siempre y cuando éstos tengan instalada una máquina virtual de Java. De este modo, las aplicaciones son compatibles tanto en entornos basados en Windows 98/NT/XP/Vista/7, como en entornos GNU/Linux.
 
-Como se observa en el diagrama de despliegue de la Figura \ref{fig:despliegue}, el sistema es altamente distribuido ya que se pueden utilizar máquinas dedicadas a soportar los sistemas gestores de bases de datos, máquinas separadas para el servidor y una o varias máquinas para cada uno de los clientes. 
-
-Por tanto, como requisitos para la ejecución del sistema se debe contar con una instalación de Java, en su versión 1.6, y de una base de datos bajo MySQL. En el siguiente apartado se describe como llevar a cabo la instalación y configuración de los componentes mencionados.
+Como requisitos para la ejecución del sistema se debe contar con una instalación de Java, en su versión 1.6, y de una base de datos bajo MySQL. En el siguiente apartado se describe como llevar a cabo la instalación y configuración de los componentes mencionados.
 
 \section{Instalación y configuración de los entornos}
 
@@ -51,9 +49,9 @@ Si se ha introducido correctamente la dirección IP del servidor, el nombre del u
 \begin{enumerate}
 	\item En la barra de menús de la parte superior de MySQL Administrator, se debe seleccionar \textit{Tools -\textgreater{} MySQL Query Browser}, abriendo una nueva aplicación.
 	\item En la nueva ventana, elegir \textit{File -\textgreater{} Open Script...}. Se mostrará un cuadro de diálogo en el que se tendrá que cargar el fichero \textbf{installDB.sql} proporcionado junto al sistema.
-	\item A continuación, se pulsa el botón \textit{Execute} que se encuentra en la barra de herramientas (ver Figura \ref{fig:query}), creando de este modo la base de datos y el usuario que puede operar con ella, con todos sus permisos adecuados.
+	\item A continuación, se pulsa el botón \textit{Execute} que se encuentra en la barra de herramientas, creando de este modo la base de datos y el usuario que puede operar con ella, con todos sus permisos adecuados.
 \end{enumerate}
 
-\imagen{Apendices/Manual//mysql-administrator2.png}{0.50}{Creación de la base de datos con MySQL Query Browser}{fig:query}
+%\imagen{Apendices/Manual//mysql-administrator2.png}{0.50}{Creación de la base de datos con MySQL Query Browser}{fig:query}
 
 Con ello, queda instalado el servidor MySQL y configurada la base de datos que va a utilizarse y gestionarse con el sistema DPMTool. Recordar que es necesario iniciar el servicio de MySQL antes de activar el servidor del sistema.

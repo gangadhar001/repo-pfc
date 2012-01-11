@@ -60,9 +60,9 @@ A continuación, se explican cada uno de estos elementos involucrados en esta fun
 Cabe destacar este último elemento, que es la configuración utilizada en los algoritmos del CBR. Dicha configuración contiene el conjunto de pesos que los atributos van a tomar al calcular el valor final de la semejanza entre casos. Además contiene, para cada atributo, una función que indica como valorar y comparar ese atributo con los atributos de los diferentes casos, llamada \textit{función de semejanza local}. Dicha función establece como comparar los atributos entre dos casos, devolviendo el valor de semejanza entre esos atributos. Existen tres tipos de esta función:
 
 \begin{itemize}
-\item \textbf{Diferencia}: esta función devuelve la diferencia entre dos valores numéricos o fechas. Si los valores son de tipo cadena, devuelve 1 si las cadenas son iguales, o 0 en caso contrario. Para el resto de casos, el resultado se normaliza al intervalo [0,1], de tal modo que son más semejantes si la diferencia es más pequeña.
+\item \textbf{Diferencia}: esta función devuelve la diferencia entre dos valores numéricos o fechas. Si los valores son de tipo cadena, devuelve 1 si las cadenas son iguales, o 0 en caso contrario. Para el resto de casos, el resultado se normaliza al intervalo [0,1], de tal modo que son más semejantes si la diferencia entre los valores es más pequeña.
 \item \textbf{Igualdad}: función que devuelve 1 si los valores son iguales, y 0 en caso contrario.
-\item \textbf{Intervalo}: función utilizada para evaluar la semejanza entre los valores de dos atributos, dentro de un intervalo. Así, esta función se describe como: \texttt{|x-y|/interval}. El resultado se normaliza al intervalo [0,1].
+\item \textbf{Umbral}: esta función, llamada también \textit{Threshold}, es utilizada para evaluar la semejanza entre los valores de dos atributos, comprobando que la diferencia de los valores es menor a un determinado umbral.
 \end{itemize}
 
 En lo que respecta a los algoritmos utilizados para calcular el valor de la semejanza final, o \textit{global}, entre casos, se han diseñado e implementado diferentes algoritmos, basándose en la literatura estudiada y comentada en la sección \ref{sec:CBR}. Dichos algoritmos son:
@@ -103,7 +103,7 @@ Para terminar, en el fragmento de código \ref{list:cbr} del Apéndice \ref{append
 
 \subparagraph{Cliente}
 
-Respecto al subsistema cliente, tiene especial interés el diseño e implementación del caso de uso \textit{Solicitar recomendaciones}. A continuación se comentan algunos detalles tenidos en cuenta a la hora del diseño y la implementación, ya que en el Apéndice \ref{appendix:manualCliente} se muestra paso a paso el proceso que hay que seguir para poder crear la configuración necesaria para ejecutar el CBR.
+Respecto al subsistema cliente, tiene especial interés el diseño e implementación del caso de uso \textit{Solicitar recomendaciones}. A continuación se comentan algunos detalles tenidos en cuenta a la hora del diseño y la implementación, ya que en el Apéndice \ref{sec:manualClient} se muestra paso a paso el proceso que hay que seguir para poder crear la configuración necesaria para ejecutar el CBR.
 
 En primer, al igual que en el subsistema servidor, se ha utilizado el API de reflexión de Java para poder mostrar en la interfaz gráfica los atributos de un proyecto y poder introducir sus valores, creando el proyecto que se desea comparar y evaluar. A continuación, utilizando también reflexión, se ha diseñado otra ventana donde se pueden configurar los pesos de cada atributo y seleccionar el tipo de función de semejanza local a utilizar para cada uno de ellos. Para introducir los pesos, como deben ser valores numéricos entre 0 y 1, se ha utilizado un \textit{slider}, que permite seleccionar de manera sencilla valores en el rango indicado.
 

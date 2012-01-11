@@ -2,8 +2,46 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: D:\UCLM\5Curso\PFC\re
 A level-1 auxiliary file: Portadas.aux
 A level-1 auxiliary file: Previos.aux
 A level-1 auxiliary file: Listas.aux
+A level-1 auxiliary file: Introduccion.aux
+A level-1 auxiliary file: MotivacionObjetivos.aux
+A level-1 auxiliary file: EstadoArte.aux
+A level-1 auxiliary file: MetodoTrabajo.aux
+A level-1 auxiliary file: Resultados.aux
+A level-1 auxiliary file: ConsecucionObjetivos.aux
+A level-1 auxiliary file: ConclusionesPropuestas.aux
 The style file: babplai3.bst
 A level-1 auxiliary file: ManualUsuario.aux
-I found no \citation commands---while reading file D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.aux
+A level-1 auxiliary file: ManualInstalacion.aux
+A level-1 auxiliary file: AnexoCodigo.aux
+A level-1 auxiliary file: AnexoPruebas.aux
 Database file #1: PFCBib.bib
+Warning--entry type for "wernerHeij" isn't style-file defined
+--line 257 of file PFCBib.bib
+Warning--I'm ignoring Dutoit2006Ibis's extra "year" field
+--line 562 of file PFCBib.bib
+Warning--I'm ignoring Dutoit2006Casual's extra "year" field
+--line 573 of file PFCBib.bib
+Warning--entry type for "download-mysql" isn't style-file defined
+--line 603 of file PFCBib.bib
+Repeated entry---line 609 of file PFCBib.bib
+ : @electronic{download-mysql
+ :                           ,
+I'm skipping whatever remains of this entry
+Warning--entry type for "download-jdk" isn't style-file defined
+--line 615 of file PFCBib.bib
+Warning--entry type for "download-workbench" isn't style-file defined
+--line 621 of file PFCBib.bib
+Warning--entry type for "condicionesGoogle" isn't style-file defined
+--line 627 of file PFCBib.bib
+Warning--entry type for "condicionesYahoo" isn't style-file defined
+--line 633 of file PFCBib.bib
+Warning--empty journal in fitzgerald2010global
+Warning--empty year in Hovland
+Warning--empty year in insightinc
+Warning--empty journal in Kanagasabapathy2006
+Warning--empty journal in sangwan2006global
+Warning--empty language in download-jdk
+Warning--empty journal in torossi
+Warning--empty year in torossi
+Warning--empty language in condicionesYahoo
 (There was 1 error message)
