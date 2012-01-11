@@ -32,9 +32,9 @@ cxCur=1891
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=102
-Cursor.column=0
-TopSubLine=92
+Cursor.row=45
+Cursor.column=126
+TopSubLine=39
 
 [Frame1]
 Columns=1
@@ -61,9 +61,9 @@ cxCur=1295
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=255
-Cursor.column=502
-TopSubLine=341
+Cursor.row=210
+Cursor.column=284
+TopSubLine=274
 
 [Frame2]
 Columns=1
@@ -74,23 +74,23 @@ MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
 MaxPos.y=-30
-NormalPos.left=100
-NormalPos.top=100
-NormalPos.right=942
-NormalPos.bottom=470
+NormalPos.left=75
+NormalPos.top=75
+NormalPos.right=1812
+NormalPos.bottom=436
 Class=CLatexEdit
-Document=ConstruccionIteracion6.tex
+Document=Previos.tex
 
 [Frame2_Row0]
-cyCur=311
+cyCur=302
 cyMin=10
 
 [Frame2_Col0]
-cxCur=805
+cxCur=1700
 cxMin=10
 
 [Frame2_View0,0]
-Cursor.row=0
-Cursor.column=0
+Cursor.row=21
+Cursor.column=40
 TopSubLine=0
 
