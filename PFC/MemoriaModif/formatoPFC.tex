@@ -94,41 +94,30 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 % Macro para insertar una imagen
 %       Uso: \imagen{nombreFichero}{Factor escala}{Caption (leyenda)}{Label (identificador para referenciarla)}
 \def\imagen#1#2#3#4{
- \begin{figure}[!htbp]
- \begin{center}
+ \floatstyle{plain} % plain, boxed,ruled
+ \restylefloat{figure}
+ \begin{figure}[!ht]
+ \centering
    \includegraphics[keepaspectratio,scale=#2]{#1}
- \caption {#3}
+ \vspace{-0.1cm}
+ \caption{#3}
  \label{#4}
- \end{center}
  \end{figure}
 }
 
 % Macro para insertar una imagen con borde en el marco
 %       Uso: \imagenBorde{nombreFichero}{Factor escala}{Caption (leyenda)}{Label (identificador para referenciarla)}
 \def\imagenBorde#1#2#3#4{
-\setlength\fboxsep{0pt}
-\setlength\fboxrule{0.5pt}
- \begin{figure}[!htbp]
- \begin{center}
-  \fbox{\includegraphics[keepaspectratio,scale=#2]{#1}}
+ \floatstyle{boxed} % plain, boxed,ruled
+ \restylefloat{figure}
+ \begin{figure}[!ht]
+ \centering
+ 	\includegraphics[keepaspectratio,scale=#2]{#1}
+ \vspace{0.15cm}
  \caption{#3}
  \label{#4}
- \end{center}
 \end{figure}}
 
-% Macro para insertar una imagen y escribir texto alrededor de ella
-%       Uso: \imagenWrapped{nombreFichero}{Factor escala}{Caption (leyenda)}{Label (identificador para referenciarla)}{r (right) ó l (left)}
-\def\imagenWrapped#1#2#3#4#5{
-\begin{wrapfigure}{#5}{0.5\textwidth}
-  \vspace{-20pt}
-  \begin{center}
-    \includegraphics[keepaspectratio,scale=#2]{#1}
-  \end{center}
-  \vspace{-20pt}
-  \caption{#3}
-  \label{#4}
-  \vspace{-10pt}
-\end{wrapfigure}}
 
 % Para llegar hasta subsubsecciones en el indice
 \setcounter{secnumdepth}{3}
@@ -167,7 +156,7 @@ format=hang]{caption} % Personalización de títulos de figuras y tablas
 %====================================
 % Control de espaciado entre párrafos e indentación
 
-\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+%\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
 %\setlength{\parindent}{8ex}
 %====================================
 %====================================
