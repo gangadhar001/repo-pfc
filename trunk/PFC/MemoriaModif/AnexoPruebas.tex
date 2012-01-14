@@ -4,11 +4,10 @@
 En el presente anexo se incluyen las pruebas realizadas en el sistema. En el subsistema servidor, nombrado como \textbf{DMPTool - Server}, es donde se centraliza todo el control de la aplicación, los objetos de dominio y las capas de persistencia y comunicaciones, por lo que se han realizado \textit{test cases} para todas y cada una de las capas de dicho sistema, con el fin de asegurar su correcto funcionamiento y obtener los resultados esperados.
 
 Cabe destacar que se han realizado pruebas unitarias (funcionamiento de las clases), pruebas de integración (interacción
-entre objetos), pruebas de sistema (comunicación entre subsistemas) y pruebas de aceptación
-(casos de uso o funcionalidades del sistema), basándose en una combinación de los enfoques de
+entre objetos) y pruebas de sistema (comunicación entre subsistemas), basándose en una combinación de los enfoques de
 caja negra y caja blanca, tratando de maximizar la cobertura de instrucciones, considerando más de un 80\% de cobertura como aceptable.
 
-Por otra parte, las pruebas realizadas al subsistema cliente, nombrado como \textbf{DMPTool - Client} se refieren a los diferentes \textit{checklist} que se han creado para asegurar el correcto funcionamiento de la interfaz gráfica, obteniendo el resultado esperado en cada situación, así como las pruebas para la generación de gráficos estadísticos, mostradas en el Capítulo 5.
+Por otra parte, las pruebas realizadas al subsistema cliente, nombrado como \textbf{DMPTool - Client}, se refieren a los diferentes \textit{checklist} que se han creado para asegurar el correcto funcionamiento de la interfaz gráfica, obteniendo el resultado esperado en cada situación, así como las pruebas para la generación de gráficos estadísticos, mostradas en el Capítulo 5.
 Como el sistema cliente obtiene todos los datos realizando peticiones al servidor, si se asegura el correcto funcionamiento de este último, se podrá esperar que los datos recibidos por el cliente sean los correctos. Es por ello que resulta más relevante y crucial probar el subsistema servidor.
 
 En las posteriores secciones se presenta el informe obtenido al ejecutar la \textit{suite} de pruebas completas con JUnit en el subsistema servidor, así como el informe de cobertura obtenido en dicho sistema con Eclemma.
@@ -50,7 +49,7 @@ En la Figura \ref{fig:coberturaTotal} se aprecia el resultado de cobertura obten
 
 Como se puede apreciar, existen clases en las que no se alcanza ese umbral de 80\%, debido a que existen ciertos bloques correspondientes al tratamiento
 de excepciones que no se han forzado en las pruebas. Dichas excepciones estarían relacionadas con
-problemas de integridad e inconsistencias en las bases de datos, no pudiéndose dar en éstas, debido
+problemas de integridad e inconsistencias en las bases de datos, no pudiéndose dar éstas, debido
 a que el sistema obliga a una correcta inserción de datos. De todos modos, si por causas externas
 al sistema (por ejemplo, corrupción física de los datos) se diesen dichas excepciones, el sistema las
 tratará y notificará debidamente. 

@@ -1,7 +1,7 @@
 \chapter{Manual de usuario}
 \label{ch:manualUsuario}
 
-En el presente anexo se detalla el manual de usuario de la aplicación, compuesta por el subsistema \textbf{DPMTool - Server}, que es el servidor, y por el subsistema \textbf{DMPTool - Client}, que es el cliente.
+En el presente anexo se detalla el manual de usuario de la aplicación, compuesta por el subsistema \textbf{DPMTool - Server}, que es el servidor, y por el subsistema \textbf{DPMTool - Client}, que es el cliente.
 
 En las posteriores secciones se describe cómo utilizar cada uno de dichos sistemas, mostrando capturas de pantalla de la aplicación.
 
@@ -11,7 +11,7 @@ Para poder utilizar la práctica totalidad de las funcionalidades del sistema cli
 
 \subsection{Ventana principal}
 
-Al ejecutar el fichero Java correspondiente al servidor, se obtiene una ventana como la que se muestra en la figura \ref{fig:server-ventanaprincipal}. Dicha ventana, descrita desde arriba hacia abajo, cuenta con los siguientes elementos:
+Al ejecutar el fichero Java JAR correspondiente al servidor, se obtiene una ventana como la que se muestra en la figura \ref{fig:server-ventanaprincipal}. Dicha ventana, descrita desde arriba hacia abajo, cuenta con los siguientes elementos:
 \begin{itemize}
 	\item Una barra de menús, con diferentes menús y submenús para realizar acciones disponibles en el servidor.
 	\item Una barra de herramientas (\textit{toolbar}) con botones para poner el servidor a la escucha, detenerlo o configurarlo.
@@ -23,7 +23,7 @@ Al ejecutar el fichero Java correspondiente al servidor, se obtiene una ventana 
 
 \subsection{Configuración del servidor}
 
-Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Configurar} aparecerá una ventana, como la mostrada en la Figura \ref{fig:server-configurar}), utilizada para configurar el servidor, es decir, los datos de conexión del SGBD y el puerto en que el servidor deberá ponerse a la escucha. Para confirmar los cambios, hacer clic en el botón aceptar\textit{Aceptar}.
+Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Configurar} aparecerá una ventana, como la mostrada en la Figura \ref{fig:server-configurar}, utilizada para configurar el servidor, es decir, los datos de conexión del SGBD y el puerto en que el servidor deberá ponerse a la escucha. Para confirmar los cambios, hacer clic en el botón \textit{Aceptar}.
 
 \imagen{Apendices/Manual//server-configurar}{0.60}{Diálogo de configuración del servidor}{fig:server-configurar}
 
@@ -39,9 +39,6 @@ Al seleccionar el menú \textit{Opciones} -\textgreater \textit{Cambiar idioma} a
 Para poner el servidor a la escucha, se debe hacer clic en el botón \textit{Conectar} (o en su homólogo de la \textit{toolbar} o del submenú correspondiente del menú \textit{Archivo}). Cuando algún cliente se conecte, aparecerá reflejado en la barra de estado. 
 
 Para detener el servidor, se debe hacer clic en el botón \textit{Desconectar}, o bien en el botón de la \textit{toolbar} o en el submenú del menú \textit{Archivo}, como en el caso anterior. Si existen clientes conectados a la hora de detener o cerrar el servidor, se pedirá confirmación para forzar la desconexión de los clientes activos.
-
-
-
 
 
 \section{Manual de usuario de DPMTool - Client} \label{sec:manualClient}
@@ -60,9 +57,9 @@ En este momento, sin haber iniciado aún sesión en el sistema, las únicas accione
 
 Para iniciar sesión en el sistema, se elige el submenú \textit{Iniciar Sesión} bajo el menú \textit{Archivo}. Al seleccionar dicho submenú, aparecerá la ventana mostrada en la Figura \ref{fig:client-login}, donde el usuario debe introducir su nombre de usuario y contraseña, proporcionados por la empresa donde trabaja. Además, puede desplegar un panel con los datos del servidor, para introducir la dirección IP y el puerto donde se puso el servidor a la escucha.
 
-\imagen{Apendices/Manual//client-login}{0.60}{Ventana de \textit{login}}{fig:client-login}
+\imagen{Apendices/Manual//client-login}{0.60}{Ventana de \textit{Login}}{fig:client-login}
 
-Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, para poder gestionar las decisiones y demás información de dicho proyecto. Al finalizar, la aplicación se redirigirá a la ventana principal nuevamente. En este caso, en dicha ventana ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema, según su rol. En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la barra de menús, ya se encuentran habilitadas las vistas a las que puede acceder, así como los diferentes menús. Además, la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado, el proyecto activo y la dirección IP del servidor.
+Si el login es correcto, se pedirá a continuación al usuario que seleccione uno de los proyectos en los que trabaja, para poder gestionar las decisiones y demás información de dicho proyecto. Al finalizar, la aplicación se redirigirá a la ventana principal nuevamente. En este caso, en dicha ventana ya estarán disponibles todas las acciones que el usuario logueado puede realizar en el sistema, según su rol. En la Figura \ref{fig:client-principalLogin} se muestra la ventana principal cuando un usuario que tiene como rol \textit{jefe de proyecto} ha accedido al sistema. En este caso, en la barra de menús, ya se encuentran habilitadas también las vistas a las que puede acceder, así como los diferentes menús. Además, la barra de estado de la aplicación se actualiza para mostrar información acerca del usuario logueado, el proyecto activo y la dirección IP del servidor.
 
 \imagen{Apendices/Manual//client-principalLogin}{0.42}{Ventana principal del cliente al acceder al sistema}{fig:client-principalLogin}
 
@@ -118,7 +115,7 @@ Por otra parte, si se desea modificar un proyecto, se selecciona la pestaña \tex
 
 \imagen{Apendices/Manual//client-modificarProyecto}{0.60}{Diálogo para la modificación de proyectos}{fig:client-modificarProyecto}
 
-Esta acción sólo esta disponible para los jefes de proyecto. 
+Estas acciones sólo están disponibles para los jefes de proyecto. 
 
 
 \subsection{Gestionar decisiones}
@@ -146,7 +143,7 @@ A continuación, se describen los elementos que la componen:
 
 \begin{itemize}
 	\item A la izquierda, se muestra un árbol donde se representan de manera jerárquica las decisiones del proyecto software. Así, cada Tema tendrá una serie de Propuestas y éstas, a su vez, tendrán una serie de Respuestas.
-	\item En el centro, se visualizan las mismas decisiones, pero en forma de grafo, y de manera más amplia. Además, en este grafo, sobre el icono de cada decisión, se muestra información adicional de dicha decisión de manera visual, como puede ser su estado, archivos adjuntos, y, si el modo \textit{Vista avanzada} está activo, se muestra también el rol del autor que creó la decisión y su país. Para activar o desactivar esta vista avanzada, se hace clic sobre el botón correspondiente en la \textit{toolbar}. Un ejemplo de vista avanzada aparece en la Figura \ref{fig:client-decisionesAvanzada}.
+	\item En el centro, se visualizan las mismas decisiones, pero en forma de grafo, y de manera más amplia. Además, en este grafo, sobre el icono de cada decisión, se muestra información adicional de dicha decisión de manera visual, como puede ser su estado, archivos adjuntos, y, si el modo \textit{Vista Avanzada} está activo, se muestra también el rol del autor que creó la decisión y su país. Para activar o desactivar esta vista avanzada, se hace clic sobre el botón correspondiente en la \textit{toolbar}. Un ejemplo de vista avanzada aparece en la Figura \ref{fig:client-decisionesAvanzada}.
 	\item A la derecha, se encuentran una serie de paneles, que pueden extenderse o contraerse, donde se muestra información detallada acerca del autor de una decisión, de la compañía donde trabaja y de la decisión en sí. Además, en el panel donde se muestra la información de la compañía, ésta puede visualizarse en mayor detalle y obtener su posición geográfica, geoposicionándola en un mapa. Para ello, hacer clic en el icono de la lupa de este panel para que se muestre una ventana con la información de la compañía en mayor detalle, como se refleja en la captura de pantalla de la Figura \ref{fig:client-detallesCompanya}.
 \end{itemize}
 
@@ -156,7 +153,9 @@ A continuación, se describen los elementos que la componen:
 
 Una vez visualizadas las decisiones, éstas pueden gestionarse también desde esta vista. Para ello, se selecciona una decisión en el grafo o en el árbol, con lo que se habilitarán los botones de la \textit{toolbar}, que permiten añadir una nueva decisión como hija de la decisión seleccionada (en el caso de no haber seleccionado una \textit{Respuesta}, que no admite más hijos), modificar esa decisión, o eliminarla. En estos dos últimos casos, la decisión seleccionada sólo puede ser modificada o eliminada por su autor, no por otro empleado. Por ejemplo, al seleccionar en el grafo una decisión de tipo \textit{Propuesta} y pinchar sobre el botón \textit{Editar} de la \textit{toolbar}, aparece la ventana utilizada en la sección anterior para gestionar decisiones, pero ya con los datos de la decisión rellenos.
 
-Por otra parte, al hacer clic con el botón derecho sobre una decisión que aparece en el grafo, se muestra un menú que permite eliminar esa decisión, adjuntar un archivo o modificar su estado, como se refleja en la Figura \ref{fig:client-menuDecisiones}. Además, si una decisión seleccionada tiene archivos adjuntos, en la barra de estado de la parte inferior de la ventana aparece un botón, como se puede apreciar en la Figura \ref{fig:client-menuDecisiones}, para poder descargar una copia de dichos archivos.
+%\imagen{Apendices/Manual//client-detallesCompanya}{0.6}{Diálogo para la modificación de proyectos}{fig:client-detallesCompanya}
+
+Por otra parte, al hacer clic con el botón derecho sobre una decisión que aparece en el grafo, se muestra un menú que permite eliminar esa decisión, adjuntar un archivo o modificar su estado, como se refleja en la Figura \ref{fig:client-menuDecisiones}. Además, si una decisión seleccionada tiene archivos adjuntos, en la barra de estado de la parte inferior de la ventana aparece un botón, como se puede apreciar en la Figura \ref{fig:client-menuDecisiones}, para poder descargar una copia local de dichos archivos.
 
 %\imagen{Apendices/Manual//client-menuDecisiones}{0.42}{Diálogo para la modificación de proyectos}{fig:client-menuDecisiones}
 
@@ -182,7 +181,7 @@ Una vez configurado el proyecto del que se desean buscar decisiones en otros pro
 Así, los elementos que componen esta ventana son:
 
 \begin{itemize}
-	\item Algoritmo: algoritmo seleccionado para realizar la búsqueda en CBR. Puede ser el algoritmo \textbf{NN (Nearest Neighbor)} o \textit{Euclidean Distance}.
+	\item Algoritmo: algoritmo seleccionado para realizar la búsqueda en CBR. Puede ser el algoritmo \textit{NN (Nearest Neighbor)} o \textit{Euclidean Distance}.
 	\item K: es el número de proyectos semejantes que se desean recuperar. Si es vacío, se recuperan todos los proyectos finalizados que existan en el sistema, ordenados por semejanza al proyecto dado.
 	\item La lista de atributos que componen un proyecto y que son los utilizados para calcular la semejanza o similitud entre proyectos.
 	\item El tipo de función que se va a aplicar para comparar cada par de atributos entre proyectos. Por ejemplo, qué función se utilizaría para comparar el presupuesto de dos proyectos. Las funciones disponibles son:
@@ -196,7 +195,7 @@ Así, los elementos que componen esta ventana son:
 
 Una vez configurados estos parámetros (ver Figura \ref{fig:client-cbr3} a modo de ejemplo), se hace clic sobre el botón \textit{Terminar}, con lo que comenzará la búsqueda de proyectos semejantes según el algoritmo y parámetros configurados. Al terminar, aparecerá un aviso con el número de proyectos encontrados y se mostrará a continuación otra ventana donde se visualizan los proyectos similares encontrados, como se refleja en la captura de pantalla de la Figura \ref{fig:client-cbr4}.
 
-%\imagen{Apendices/Manual//client-cbr3}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr3}
+\imagen{Apendices/Manual//client-cbr3}{0.60}{Ejemplo de configuración para el algoritmo \textit{NN}}{fig:client-cbr3}
 
 %\imagen{Apendices/Manual//client-cbr4}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr4}
 
@@ -237,13 +236,13 @@ Por otra parte, se pueden ir añadiendo elementos del documento PDF a las seccion
 
 \imagen{Apendices/Manual//client-anyadirPDF}{0.42}{Icono para insertar elementos en las secciones del PDF}{fig:client-anyadirPDF}
 
-Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado, como se muestra en la Figura \ref{fig:client-drag}.
+Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado.
 
-%\imagen{Apendices/Manual//client-drag}{0.42}{Vista para la composición de documentos PDF}{fig:client-drag}
+Una vez añadidos y colocados los elementos a las secciones, se debe introducir texto para aquellos elementos de tipo ``Título'' o ``Párrafo'', y se debe seleccionar un proyecto para generar la tabla de decisiones en el informe PDF. Para ello, se hace clic en el icono de las herramientas del elemento ``Tabla'', como se muestra en la Figura \ref{fig:client-tablePDF} y se selecciona un proyecto de los disponibles.
 
-Una vez añadidos y colocados los elementos a las secciones, se debe introducir texto para aquellos elementos de tipo ``título'' o ``texto'', y se debe seleccionar un proyecto para generar la tabla de decisiones en el informe PDF. Para ello, se hace clic en el icono de las herramientas del elemento ``tabla'' y se selecciona un proyecto de los disponibles.
+%\imagen{Apendices/Manual//client-tablePDF}{0.42}{Icono para configurar un elemento de tipo Tabla en el }{fig:client-tablePDF}
 
-Para terminar, y para generar el documento PDF, debe hacer clic sobre el icono correspondiente de la \textit{toolbar}, mostrándose el diálogo que aparece en la Figura \ref{fig:client-dialogoPDF}, previa validación de las secciones que han sido compuestas en la vista. En dicho diálogo, puede introducirse un nombre interno al documento, un asunto, el usuario que lo crea, y se pueden seleccionar imágenes para colocar en el encabezado y pie de página de todas las páginas del documento. Esto puede ser útil para, por ejemplo, mostrar el logo de una compañía en el encabezado de las páginas. Finalmente, se hace clic en el botón de \textit{Guardar} y se elige la ruta donde se almacenará el documento generado.
+Para terminar, y para generar el documento PDF, debe hacer clic sobre el icono de los engranajes de la \textit{toolbar}, mostrándose el diálogo que aparece en la Figura \ref{fig:client-dialogoPDF}, previa validación de las secciones que han sido compuestas en la vista. En dicho diálogo, puede introducirse un nombre interno al documento, un asunto, el usuario que lo crea, y se pueden seleccionar imágenes para colocar en el encabezado y pie de página de todas las páginas del documento. Esto puede ser útil para, por ejemplo, mostrar el logo de una compañía en el encabezado de las páginas. Finalmente, se hace clic en el botón de \textit{Guardar} y se elige la ruta donde se almacenará el documento generado.
 
 \imagen{Apendices/Manual//client-dialogoPDF}{0.60}{Diálogo para generar y guardar el documento PDF}{fig:client-dialogoPDF}
 
@@ -257,10 +256,10 @@ Para generar dichas gráficas, en primer lugar debe hacerse clic en el icono de l
 
 \imagen{Apendices/Manual//client-estadisticas}{0.42}{Vista para la generación de gráficos estadísticos}{fig:client-estadisticas}
 
-A continuación, para generar y visualizar un gráfico, es necesario hacer clic en el botón presente en la \textit{toolbar}, con lo que se mostrará un nuevo diálogo. En dicho diálogo, lo primero es seleccionar un tipo de gráfico de los existentes en el panel izquierdo. A continuación, seleccionar el gráfico que se desea generar y rellenar los datos solicitados para poder generar dicho gráfico, como se muestra en la Figura \ref{fig:client-estadisticasRelleno}.
+A continuación, para generar y visualizar un gráfico, es necesario hacer clic en el botón presente en la \textit{toolbar}, con lo que se mostrará un nuevo diálogo. En dicho diálogo, lo primero es seleccionar un tipo de gráfico de los existentes en el panel izquierdo. Después, seleccionar el gráfico que se desea generar y rellenar los datos solicitados para poder generar dicho gráfico, como se muestra en la Figura \ref{fig:client-estadisticasRelleno}.
 
 \imagen{Apendices/Manual//client-estadisticasRelleno}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-estadisticasRelleno}
 
-Al aceptar el diálogo anterior, el gráfico se genera y se muestra en una ventana interna, tal y como aparece en la Figura \ref{fig:internalFrame}. De este modo, se pueden generar y visualizar diferentes gráficos. Además, haciendo clic con el botón derecho de un gráfico, aparece un menú con diferentes opciones, tales como cambiar el título, guardar el gráfico en una imagen PNG, etc.
+Al aceptar el diálogo anterior, el gráfico se genera y se muestra en una ventana interna, tal y como aparece en la Figura \ref{fig:internalFrame}. De este modo, se pueden generar y visualizar diferentes gráficos. Además, haciendo clic con el botón derecho sobre un gráfico, aparece un menú con diferentes opciones, tales como cambiar el título, guardar el gráfico en una imagen PNG, etc.
 
 %\imagen{Apendices/Manual//client-internalFrame}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-internalFrame}
