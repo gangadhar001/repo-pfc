@@ -19,18 +19,17 @@
 \contentsline {table}{\numberline {5.4}{\ignorespaces Primera versi\'on del plan de iteraciones\relax }}{56}
 \contentsline {table}{\numberline {5.5}{\ignorespaces Grupos funcionales del sistema - v2.0\relax }}{59}
 \contentsline {table}{\numberline {5.6}{\ignorespaces Acciones que un usuario puede realizar en el sistema - v2.0\relax }}{60}
-\contentsline {table}{\numberline {5.7}{\ignorespaces Primera versi\'on del plan de iteraciones\relax }}{71}
-\contentsline {table}{\numberline {5.8}{\ignorespaces Descripci\'on del caso de prueba 1 para la comunicaci\'on entre subsistemas\relax }}{87}
-\contentsline {table}{\numberline {5.9}{\ignorespaces Descripci\'on del caso de prueba 2 para la comunicaci\'on entre subsistemas\relax }}{87}
-\contentsline {table}{\numberline {5.10}{\ignorespaces Descripci\'on del caso de prueba 2 para la comunicaci\'on entre subsistemas\relax }}{87}
-\contentsline {table}{\numberline {5.11}{\ignorespaces Especificaci\'on del caso de uso \textit {Login}\relax }}{91}
-\contentsline {table}{\numberline {5.12}{\ignorespaces Especificaci\'on del caso de uso \textit {Visualizar decisiones}\relax }}{99}
-\contentsline {table}{\numberline {5.13}{\ignorespaces Informe de pruebas para la funcionalidad \textit {Visualizaci\'on Informaci\'on}\relax }}{108}
-\contentsline {table}{\numberline {5.14}{\ignorespaces Especificaci\'on del caso de uso \textit {Modificar decisi\'on - Modificar Propuesta}\relax }}{110}
-\contentsline {table}{\numberline {5.15}{\ignorespaces Especificaci\'on del caso de uso \textit {Aceptar o rechazar decisi\'on}\relax }}{112}
-\contentsline {table}{\numberline {5.16}{\ignorespaces Informe de pruebas para el caso de uso \textit {Aconsejar Decisiones (CBR)}\relax }}{128}
-\contentsline {table}{\numberline {5.17}{\ignorespaces Especificaci\'on del caso de uso \textit {Generaci\'on gr\'afico estad\IeC {\'\i }stico}\relax }}{135}
-\contentsline {table}{\numberline {5.18}{\ignorespaces Especificaci\'on del caso de uso \textit {Exportar informaci\'on}\relax }}{140}
+\contentsline {table}{\numberline {5.7}{\ignorespaces Versi\'on definitiva del plan de iteraciones\relax }}{68}
+\contentsline {table}{\numberline {5.8}{\ignorespaces Descripci\'on del caso de prueba 1 para la comunicaci\'on entre subsistemas\relax }}{84}
+\contentsline {table}{\numberline {5.9}{\ignorespaces Descripci\'on del caso de prueba 2 para la comunicaci\'on entre subsistemas\relax }}{84}
+\contentsline {table}{\numberline {5.10}{\ignorespaces Descripci\'on del caso de prueba 3 para la comunicaci\'on entre subsistemas\relax }}{84}
+\contentsline {table}{\numberline {5.11}{\ignorespaces Especificaci\'on del caso de uso \textit {Login}\relax }}{88}
+\contentsline {table}{\numberline {5.12}{\ignorespaces Especificaci\'on del caso de uso \textit {Visualizar decisiones}\relax }}{96}
+\contentsline {table}{\numberline {5.13}{\ignorespaces Informe de pruebas para la funcionalidad \textit {Visualizaci\'on Informaci\'on}\relax }}{105}
+\contentsline {table}{\numberline {5.14}{\ignorespaces Especificaci\'on del caso de uso \textit {Modificar decisi\'on - Modificar Propuesta}\relax }}{107}
+\contentsline {table}{\numberline {5.15}{\ignorespaces Especificaci\'on del caso de uso \textit {Aceptar o rechazar decisi\'on}\relax }}{109}
+\contentsline {table}{\numberline {5.16}{\ignorespaces Informe de pruebas para el caso de uso \textit {Aconsejar Decisiones (CBR)}\relax }}{126}
+\contentsline {table}{\numberline {5.17}{\ignorespaces Especificaci\'on del caso de uso \textit {Generaci\'on gr\'afico estad\IeC {\'\i }stico}\relax }}{132}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \select@language {english}

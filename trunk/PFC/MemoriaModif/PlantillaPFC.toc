@@ -90,108 +90,105 @@
 \contentsline {subsection}{\numberline {5.1.3}Glosario de t\'erminos}{55}
 \contentsline {subsection}{\numberline {5.1.4}Gesti\'on del riesgo}{55}
 \contentsline {subsection}{\numberline {5.1.5}Plan de iteraciones}{55}
-\contentsline {section}{\numberline {5.2}Fase de Elaboraci\'on}{55}
+\contentsline {section}{\numberline {5.2}Fase de Elaboraci\'on}{57}
 \contentsline {subsection}{\numberline {5.2.1}Iteraci\'on 1}{57}
-\contentsline {subsubsection}{\numberline {5.2.1.1}Identificaci\'on de requisitos}{57}
-\contentsline {subsubsection}{\numberline {5.2.1.2}Modelo de casos de uso}{58}
-\contentsline {paragraph}{\numberline {5.2.1.2.1}Acceso al sistema}{60}
+\contentsline {subsubsection}{\numberline {5.2.1.1}Identificaci\'on de requisitos}{58}
+\contentsline {subsubsection}{\numberline {5.2.1.2}Modelo de casos de uso}{59}
+\contentsline {paragraph}{\numberline {5.2.1.2.1}Acceso al sistema}{61}
 \contentsline {paragraph}{\numberline {5.2.1.2.2}Gesti\'on de decisiones}{61}
 \contentsline {paragraph}{\numberline {5.2.1.2.3}Visualizaci\'on de informaci\'on}{61}
-\contentsline {paragraph}{\numberline {5.2.1.2.4}Gesti\'on de notificaciones}{61}
-\contentsline {paragraph}{\numberline {5.2.1.2.5}Gesti\'on de proyectos}{62}
-\contentsline {paragraph}{\numberline {5.2.1.2.6}Generaci\'on de estad\IeC {\'\i }sticas}{63}
-\contentsline {paragraph}{\numberline {5.2.1.2.7}Generaci\'on de informes}{64}
-\contentsline {paragraph}{\numberline {5.2.1.2.8}Gesti\'on de idiomas}{64}
-\contentsline {paragraph}{\numberline {5.2.1.2.9}Exportar informaci\'on}{65}
-\contentsline {subsubsection}{\numberline {5.2.1.3}Plan de iteraciones}{70}
-\contentsline {subsubsection}{\numberline {5.2.1.4}Arquitectura del sistema}{70}
-\contentsline {paragraph}{\numberline {5.2.1.4.1}Arquitectura cliente-servidor}{70}
-\contentsline {paragraph}{\numberline {5.2.1.4.2}Arquitectura multicapa}{72}
-\contentsline {paragraph}{\numberline {5.2.1.4.3}Patrones utilizados}{74}
-\contentsline {subsection}{\numberline {5.2.2}Iteraci\'on 2}{75}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Diagrama de clases de dominio}{76}
-\contentsline {subsubsection}{\numberline {5.2.2.2}Dise\~no de la base de datos}{78}
-\contentsline {subsubsection}{\numberline {5.2.2.3}Dise\~no e implementaci\'on de la arquitectura cliente-servidor}{80}
-\contentsline {paragraph}{\numberline {5.2.2.3.1}Comunicaci\'on entre cliente y servidor}{80}
-\contentsline {paragraph}{\numberline {5.2.2.3.2}Comunicaci\'on entre servidor y base de datos}{84}
-\contentsline {subsubsection}{\numberline {5.2.2.4}Pruebas}{86}
-\contentsline {section}{\numberline {5.3}Fase de construcci\'on}{88}
-\contentsline {subsection}{\numberline {5.3.1}Iteraci\'on 3}{89}
-\contentsline {subsubsection}{\numberline {5.3.1.1}Grupo funcional \textbf {F1:} \textit {Acceso al sistema}}{89}
-\contentsline {paragraph}{\numberline {5.3.1.1.1}An\'alisis de casos de uso}{89}
-\contentsline {subparagraph}{Login}{90}
-\contentsline {paragraph}{\numberline {5.3.1.1.2}Dise\~no e implementaci\'on de acceso al sistema}{90}
-\contentsline {subparagraph}{Servidor}{92}
-\contentsline {subparagraph}{Cliente}{95}
-\contentsline {subsubsection}{\numberline {5.3.1.2}Pruebas}{97}
-\contentsline {subsection}{\numberline {5.3.2}Iteraci\'on 4}{98}
-\contentsline {subsubsection}{\numberline {5.3.2.1}Grupo funcional \textbf {F3:} \textit {Visualizaci\'on informaci\'on}}{98}
-\contentsline {paragraph}{\numberline {5.3.2.1.1}An\'alisis de casos de uso}{98}
-\contentsline {subparagraph}{Visualizar decisiones}{98}
-\contentsline {paragraph}{\numberline {5.3.2.1.2}Dise\~no e implementaci\'on}{98}
-\contentsline {subparagraph}{Servidor}{101}
-\contentsline {subparagraph}{Cliente}{105}
-\contentsline {paragraph}{\numberline {5.3.2.1.3}Pruebas}{107}
-\contentsline {subsection}{\numberline {5.3.3}Iteraci\'on 5}{107}
-\contentsline {subsubsection}{\numberline {5.3.3.1}Grupo funcional \textbf {F2:} \textit {Gesti\'on de decisiones}}{109}
-\contentsline {paragraph}{\numberline {5.3.3.1.1}An\'alisis de casos de uso}{109}
-\contentsline {subparagraph}{Modificar decisi\'on}{109}
-\contentsline {subparagraph}{Aceptar o rechazar decisi\'on}{109}
-\contentsline {paragraph}{\numberline {5.3.3.1.2}Dise\~no e implementaci\'on}{111}
-\contentsline {subparagraph}{Servidor}{112}
-\contentsline {subparagraph}{Cliente}{114}
-\contentsline {paragraph}{\numberline {5.3.3.1.3}Pruebas}{117}
-\contentsline {subsubsection}{\numberline {5.3.3.2}Grupo funcional \textbf {F4:} \textit {Gesti\'on de notificaciones}}{117}
-\contentsline {paragraph}{\numberline {5.3.3.2.1}Dise\~no e implementaci\'on}{117}
-\contentsline {subparagraph}{Servidor}{118}
-\contentsline {subparagraph}{Cliente}{118}
-\contentsline {paragraph}{\numberline {5.3.3.2.2}Pruebas}{119}
-\contentsline {subsection}{\numberline {5.3.4}Iteraci\'on 6}{119}
-\contentsline {subsubsection}{\numberline {5.3.4.1}Grupo Funcional \textbf {F5:} \textit {Gesti\'on de proyectos}}{119}
-\contentsline {paragraph}{\numberline {5.3.4.1.1}An\'alisis de casos de uso}{119}
-\contentsline {paragraph}{\numberline {5.3.4.1.2}Dise\~no e implementaci\'on}{119}
-\contentsline {subparagraph}{Servidor}{122}
-\contentsline {subparagraph}{Cliente}{125}
-\contentsline {paragraph}{\numberline {5.3.4.1.3}Pruebas}{127}
-\contentsline {subsection}{\numberline {5.3.5}Iteraci\'on 7}{129}
-\contentsline {subsubsection}{\numberline {5.3.5.1}Grupo funcional \textbf {F6:} \textit {Generaci\'on de informes}}{129}
-\contentsline {paragraph}{\numberline {5.3.5.1.1}An\'alisis de casos de uso}{129}
-\contentsline {paragraph}{\numberline {5.3.5.1.2}Dise\~no e implementaci\'on}{129}
-\contentsline {subparagraph}{Servidor}{129}
-\contentsline {subparagraph}{Cliente}{131}
-\contentsline {paragraph}{\numberline {5.3.5.1.3}Pruebas}{134}
-\contentsline {subsubsection}{\numberline {5.3.5.2}Grupo funcional \textbf {F7:} \textit {Generaci\'on de estad\IeC {\'\i }sticas}}{134}
-\contentsline {paragraph}{\numberline {5.3.5.2.1}An\'alisis de casos de uso}{134}
-\contentsline {subparagraph}{Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{134}
-\contentsline {paragraph}{\numberline {5.3.5.2.2}Dise\~no e implementaci\'on}{135}
-\contentsline {paragraph}{\numberline {5.3.5.2.3}Pruebas}{138}
-\contentsline {subsection}{\numberline {5.3.6}Iteraci\'on 8}{138}
-\contentsline {subsubsection}{\numberline {5.3.6.1}Grupo funcional \textbf {F8:} \textit {Exportar conocimiento}}{139}
-\contentsline {paragraph}{\numberline {5.3.6.1.1}An\'alisis de casos de uso}{139}
-\contentsline {subparagraph}{Exportar informaci\'on}{139}
-\contentsline {paragraph}{\numberline {5.3.6.1.2}Dise\~no e implementaci\'on}{139}
-\contentsline {subparagraph}{Servidor}{139}
-\contentsline {subparagraph}{Cliente}{142}
-\contentsline {paragraph}{\numberline {5.3.6.1.3}Pruebas}{142}
-\contentsline {subsubsection}{\numberline {5.3.6.2}Grupo funcional \textbf {F9:} \textit {Gesti\'on de idiomas}}{142}
-\contentsline {paragraph}{\numberline {5.3.6.2.1}An\'alisis de casos de uso}{142}
-\contentsline {paragraph}{\numberline {5.3.6.2.2}Dise\~no e implementaci\'on}{142}
-\contentsline {paragraph}{\numberline {5.3.6.2.3}Pruebas}{143}
-\contentsline {section}{\numberline {5.4}Fase de Transici\'on}{143}
-\contentsline {subsection}{\numberline {5.4.1}Iteraci\'on 9}{143}
-\contentsline {chapter}{\numberline {6}Consecuci\'on de Objetivos}{145}
-\contentsline {section}{\numberline {6.1}\textbf {O1:} Acceso desde diferentes localizaciones}{145}
-\contentsline {section}{\numberline {6.2}\textbf {O2:} Facilitar y favorecer la gesti\'on de decisiones}{145}
-\contentsline {section}{\numberline {6.3}\textbf {O3:} Favorecer la representaci\'on y visualizaci\'on de la informaci\'on almacenada}{146}
-\contentsline {section}{\numberline {6.4}\textbf {O4:} Facilitar la comunicaci\'on}{146}
-\contentsline {section}{\numberline {6.5}\textbf {O5:} Adaptaci\'on al idioma local}{147}
-\contentsline {section}{\numberline {6.6}\textbf {O6:} Facilitar la gesti\'on de proyectos software}{147}
-\contentsline {section}{\numberline {6.7}\textbf {O7:} Favorecer aspectos de control de proyectos}{147}
-\contentsline {section}{\numberline {6.8}\textbf {O8:} Facilitar la reutilizaci\'on de informaci\'on}{147}
-\contentsline {chapter}{\numberline {7}Conclusiones y Propuestas}{149}
-\contentsline {section}{\numberline {7.1}Conclusiones}{149}
-\contentsline {section}{\numberline {7.2}Trabajo Futuro}{151}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{152}
+\contentsline {paragraph}{\numberline {5.2.1.2.4}Gesti\'on de proyectos}{62}
+\contentsline {paragraph}{\numberline {5.2.1.2.5}Generaci\'on de estad\IeC {\'\i }sticas}{63}
+\contentsline {subsubsection}{\numberline {5.2.1.3}Plan de iteraciones}{67}
+\contentsline {subsubsection}{\numberline {5.2.1.4}Arquitectura del sistema}{67}
+\contentsline {paragraph}{\numberline {5.2.1.4.1}Arquitectura cliente-servidor}{67}
+\contentsline {paragraph}{\numberline {5.2.1.4.2}Arquitectura multicapa}{69}
+\contentsline {paragraph}{\numberline {5.2.1.4.3}Patrones utilizados}{71}
+\contentsline {subsection}{\numberline {5.2.2}Iteraci\'on 2}{72}
+\contentsline {subsubsection}{\numberline {5.2.2.1}Diagrama de clases de dominio}{73}
+\contentsline {subsubsection}{\numberline {5.2.2.2}Dise\~no de la base de datos}{75}
+\contentsline {subsubsection}{\numberline {5.2.2.3}Dise\~no e implementaci\'on de la arquitectura cliente-servidor}{77}
+\contentsline {paragraph}{\numberline {5.2.2.3.1}Comunicaci\'on entre cliente y servidor}{77}
+\contentsline {paragraph}{\numberline {5.2.2.3.2}Comunicaci\'on entre servidor y base de datos}{81}
+\contentsline {subsubsection}{\numberline {5.2.2.4}Pruebas}{83}
+\contentsline {section}{\numberline {5.3}Fase de construcci\'on}{85}
+\contentsline {subsection}{\numberline {5.3.1}Iteraci\'on 3}{86}
+\contentsline {subsubsection}{\numberline {5.3.1.1}Grupo funcional \textbf {F1:} \textit {Acceso al sistema}}{86}
+\contentsline {paragraph}{\numberline {5.3.1.1.1}An\'alisis de casos de uso}{86}
+\contentsline {subparagraph}{Login}{87}
+\contentsline {paragraph}{\numberline {5.3.1.1.2}Dise\~no e implementaci\'on de acceso al sistema}{87}
+\contentsline {subparagraph}{Servidor}{89}
+\contentsline {subparagraph}{Cliente}{92}
+\contentsline {paragraph}{\numberline {5.3.1.1.3}Pruebas}{94}
+\contentsline {subsection}{\numberline {5.3.2}Iteraci\'on 4}{95}
+\contentsline {subsubsection}{\numberline {5.3.2.1}Grupo funcional \textbf {F3:} \textit {Visualizaci\'on informaci\'on}}{95}
+\contentsline {paragraph}{\numberline {5.3.2.1.1}An\'alisis de casos de uso}{95}
+\contentsline {subparagraph}{Visualizar decisiones}{95}
+\contentsline {paragraph}{\numberline {5.3.2.1.2}Dise\~no e implementaci\'on}{95}
+\contentsline {subparagraph}{Servidor}{98}
+\contentsline {subparagraph}{Cliente}{103}
+\contentsline {paragraph}{\numberline {5.3.2.1.3}Pruebas}{104}
+\contentsline {subsection}{\numberline {5.3.3}Iteraci\'on 5}{106}
+\contentsline {subsubsection}{\numberline {5.3.3.1}Grupo funcional \textbf {F2:} \textit {Gesti\'on de decisiones}}{106}
+\contentsline {paragraph}{\numberline {5.3.3.1.1}An\'alisis de casos de uso}{106}
+\contentsline {subparagraph}{Modificar decisi\'on}{106}
+\contentsline {subparagraph}{Aceptar o rechazar decisi\'on}{108}
+\contentsline {paragraph}{\numberline {5.3.3.1.2}Dise\~no e implementaci\'on}{109}
+\contentsline {subparagraph}{Servidor}{110}
+\contentsline {subparagraph}{Cliente}{111}
+\contentsline {paragraph}{\numberline {5.3.3.1.3}Pruebas}{114}
+\contentsline {subsubsection}{\numberline {5.3.3.2}Grupo funcional \textbf {F4:} \textit {Gesti\'on de notificaciones}}{115}
+\contentsline {paragraph}{\numberline {5.3.3.2.1}An\'alisis de casos de uso}{115}
+\contentsline {paragraph}{\numberline {5.3.3.2.2}Dise\~no e implementaci\'on}{115}
+\contentsline {subparagraph}{Servidor}{115}
+\contentsline {subparagraph}{Cliente}{116}
+\contentsline {paragraph}{\numberline {5.3.3.2.3}Pruebas}{116}
+\contentsline {subsection}{\numberline {5.3.4}Iteraci\'on 6}{116}
+\contentsline {subsubsection}{\numberline {5.3.4.1}Grupo Funcional \textbf {F5:} \textit {Gesti\'on de proyectos}}{117}
+\contentsline {paragraph}{\numberline {5.3.4.1.1}An\'alisis de casos de uso}{117}
+\contentsline {paragraph}{\numberline {5.3.4.1.2}Dise\~no e implementaci\'on}{117}
+\contentsline {subparagraph}{Servidor}{119}
+\contentsline {subparagraph}{Cliente}{122}
+\contentsline {paragraph}{\numberline {5.3.4.1.3}Pruebas}{124}
+\contentsline {subsection}{\numberline {5.3.5}Iteraci\'on 7}{125}
+\contentsline {subsubsection}{\numberline {5.3.5.1}Grupo funcional \textbf {F6:} \textit {Generaci\'on de informes}}{125}
+\contentsline {paragraph}{\numberline {5.3.5.1.1}An\'alisis de casos de uso}{125}
+\contentsline {paragraph}{\numberline {5.3.5.1.2}Dise\~no e implementaci\'on}{126}
+\contentsline {subparagraph}{Servidor}{127}
+\contentsline {subparagraph}{Cliente}{129}
+\contentsline {paragraph}{\numberline {5.3.5.1.3}Pruebas}{131}
+\contentsline {subsubsection}{\numberline {5.3.5.2}Grupo funcional \textbf {F7:} \textit {Generaci\'on de estad\IeC {\'\i }sticas}}{132}
+\contentsline {paragraph}{\numberline {5.3.5.2.1}An\'alisis de casos de uso}{132}
+\contentsline {subparagraph}{Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{132}
+\contentsline {paragraph}{\numberline {5.3.5.2.2}Dise\~no e implementaci\'on}{133}
+\contentsline {paragraph}{\numberline {5.3.5.2.3}Pruebas}{135}
+\contentsline {subsection}{\numberline {5.3.6}Iteraci\'on 8}{136}
+\contentsline {subsubsection}{\numberline {5.3.6.1}Grupo funcional \textbf {F8:} \textit {Exportar informaci\'on}}{136}
+\contentsline {paragraph}{\numberline {5.3.6.1.1}An\'alisis de casos de uso}{136}
+\contentsline {subparagraph}{Exportar informaci\'on}{136}
+\contentsline {paragraph}{\numberline {5.3.6.1.2}Dise\~no e implementaci\'on}{137}
+\contentsline {subparagraph}{Servidor}{137}
+\contentsline {subparagraph}{Cliente}{138}
+\contentsline {paragraph}{\numberline {5.3.6.1.3}Pruebas}{139}
+\contentsline {subsubsection}{\numberline {5.3.6.2}Grupo funcional \textbf {F9:} \textit {Gesti\'on de idiomas}}{139}
+\contentsline {paragraph}{\numberline {5.3.6.2.1}An\'alisis de casos de uso}{139}
+\contentsline {paragraph}{\numberline {5.3.6.2.2}Dise\~no e implementaci\'on}{139}
+\contentsline {paragraph}{\numberline {5.3.6.2.3}Pruebas}{139}
+\contentsline {section}{\numberline {5.4}Fase de Transici\'on}{140}
+\contentsline {subsection}{\numberline {5.4.1}Iteraci\'on 9}{140}
+\contentsline {chapter}{\numberline {6}Consecuci\'on de Objetivos}{141}
+\contentsline {section}{\numberline {6.1}\textbf {O1:} Acceso desde diferentes localizaciones}{141}
+\contentsline {section}{\numberline {6.2}\textbf {O2:} Facilitar y favorecer la gesti\'on de decisiones}{141}
+\contentsline {section}{\numberline {6.3}\textbf {O3:} Favorecer la representaci\'on y visualizaci\'on de la informaci\'on almacenada}{142}
+\contentsline {section}{\numberline {6.4}\textbf {O4:} Facilitar la comunicaci\'on}{142}
+\contentsline {section}{\numberline {6.5}\textbf {O5:} Adaptaci\'on al idioma local}{143}
+\contentsline {section}{\numberline {6.6}\textbf {O6:} Facilitar la gesti\'on de proyectos software}{143}
+\contentsline {section}{\numberline {6.7}\textbf {O7:} Favorecer aspectos de control de proyectos}{143}
+\contentsline {section}{\numberline {6.8}\textbf {O8:} Facilitar la reutilizaci\'on de informaci\'on}{143}
+\contentsline {chapter}{\numberline {7}Conclusiones y Propuestas}{145}
+\contentsline {section}{\numberline {7.1}Conclusiones}{145}
+\contentsline {section}{\numberline {7.2}Trabajo Futuro}{147}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{148}
 \select@language {english}
 \select@language {english}
 \select@language {spanish}
@@ -208,40 +205,40 @@
 \select@language {english}
 \select@language {english}
 \select@language {spanish}
-\contentsline {chapter}{\numberline {A}Manual de usuario}{157}
-\contentsline {section}{\numberline {A.1}Manual de usuario de DPMTool - Server}{157}
-\contentsline {subsection}{\numberline {A.1.1}Ventana principal}{157}
-\contentsline {subsection}{\numberline {A.1.2}Configuraci\'on del servidor}{158}
-\contentsline {subsection}{\numberline {A.1.3}Cambio de idioma del servidor}{158}
-\contentsline {subsection}{\numberline {A.1.4}Activaci\'on del servidor}{159}
-\contentsline {section}{\numberline {A.2}Manual de usuario de DPMTool - Client}{160}
-\contentsline {subsection}{\numberline {A.2.1}Ventana principal}{160}
-\contentsline {subsection}{\numberline {A.2.2}Acceso al sistema}{161}
-\contentsline {subsection}{\numberline {A.2.3}Cambio de idioma del cliente}{162}
-\contentsline {subsection}{\numberline {A.2.4}Exportar informaci\'on}{163}
-\contentsline {subsection}{\numberline {A.2.5}Seleccionar proyecto activo}{163}
-\contentsline {subsection}{\numberline {A.2.6}Gestionar proyectos}{163}
-\contentsline {subsection}{\numberline {A.2.7}Gestionar decisiones}{164}
-\contentsline {subsection}{\numberline {A.2.8}Visualizar decisiones}{165}
-\contentsline {subsection}{\numberline {A.2.9}Reutilizar decisiones de proyectos semejantes}{168}
-\contentsline {subsection}{\numberline {A.2.10}Gestionar notificaciones}{171}
-\contentsline {subsection}{\numberline {A.2.11}Generaci\'on informes PDF}{171}
-\contentsline {subsection}{\numberline {A.2.12}Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{173}
-\contentsline {chapter}{\numberline {B}Manual de Instalaci\'on y Configuraci\'on del Entorno}{177}
-\contentsline {section}{\numberline {B.1}Requisitos del sistema}{177}
-\contentsline {section}{\numberline {B.2}Instalaci\'on y configuraci\'on de los entornos}{177}
-\contentsline {subsection}{\numberline {B.2.1}Entorno de Java}{178}
-\contentsline {subsection}{\numberline {B.2.2}Servidor MySQL}{179}
-\contentsline {chapter}{\numberline {C}C\'odigo Fuente}{181}
-\contentsline {section}{\numberline {C.1}Implementaci\'on de los patrones Fachada}{181}
-\contentsline {subsection}{\numberline {C.1.1}Fachada para el sistema servidor}{181}
-\contentsline {subsection}{\numberline {C.1.2}Fachada para el sistema cliente}{184}
-\contentsline {section}{\numberline {C.2}Invocaci\'on de un Servicio Web}{185}
-\contentsline {section}{\numberline {C.3}Controlador de clientes}{186}
-\contentsline {section}{\numberline {C.4}Soporte multi-hilo}{187}
-\contentsline {section}{\numberline {C.5}Algoritmo \textbf {NN} de CBR}{188}
-\contentsline {section}{\numberline {C.6}Generaci\'on de PDF}{189}
-\contentsline {section}{\numberline {C.7}Generaci\'on de un \textit {dataset} para un gr\'afico}{191}
-\contentsline {chapter}{\numberline {D}Informe de pruebas}{193}
-\contentsline {section}{\numberline {D.1}Informe de JUnit}{194}
-\contentsline {section}{\numberline {D.2}Informe de cobertura}{194}
+\contentsline {chapter}{\numberline {A}Manual de usuario}{153}
+\contentsline {section}{\numberline {A.1}Manual de usuario de DPMTool - Server}{153}
+\contentsline {subsection}{\numberline {A.1.1}Ventana principal}{153}
+\contentsline {subsection}{\numberline {A.1.2}Configuraci\'on del servidor}{154}
+\contentsline {subsection}{\numberline {A.1.3}Cambio de idioma del servidor}{154}
+\contentsline {subsection}{\numberline {A.1.4}Activaci\'on del servidor}{155}
+\contentsline {section}{\numberline {A.2}Manual de usuario de DPMTool - Client}{156}
+\contentsline {subsection}{\numberline {A.2.1}Ventana principal}{156}
+\contentsline {subsection}{\numberline {A.2.2}Acceso al sistema}{157}
+\contentsline {subsection}{\numberline {A.2.3}Cambio de idioma del cliente}{158}
+\contentsline {subsection}{\numberline {A.2.4}Exportar informaci\'on}{159}
+\contentsline {subsection}{\numberline {A.2.5}Seleccionar proyecto activo}{159}
+\contentsline {subsection}{\numberline {A.2.6}Gestionar proyectos}{159}
+\contentsline {subsection}{\numberline {A.2.7}Gestionar decisiones}{160}
+\contentsline {subsection}{\numberline {A.2.8}Visualizar decisiones}{161}
+\contentsline {subsection}{\numberline {A.2.9}Reutilizar decisiones de proyectos semejantes}{164}
+\contentsline {subsection}{\numberline {A.2.10}Gestionar notificaciones}{167}
+\contentsline {subsection}{\numberline {A.2.11}Generaci\'on informes PDF}{167}
+\contentsline {subsection}{\numberline {A.2.12}Generaci\'on gr\'aficos estad\IeC {\'\i }sticos}{169}
+\contentsline {chapter}{\numberline {B}Manual de Instalaci\'on y Configuraci\'on del Entorno}{173}
+\contentsline {section}{\numberline {B.1}Requisitos del sistema}{173}
+\contentsline {section}{\numberline {B.2}Instalaci\'on y configuraci\'on de los entornos}{173}
+\contentsline {subsection}{\numberline {B.2.1}Entorno de Java}{174}
+\contentsline {subsection}{\numberline {B.2.2}Servidor MySQL}{175}
+\contentsline {chapter}{\numberline {C}C\'odigo Fuente}{177}
+\contentsline {section}{\numberline {C.1}Implementaci\'on de los patrones Fachada}{177}
+\contentsline {subsection}{\numberline {C.1.1}Fachada para el sistema servidor}{177}
+\contentsline {subsection}{\numberline {C.1.2}Fachada para el sistema cliente}{180}
+\contentsline {section}{\numberline {C.2}Invocaci\'on de un Servicio Web}{181}
+\contentsline {section}{\numberline {C.3}Controlador de clientes}{182}
+\contentsline {section}{\numberline {C.4}Soporte multi-hilo}{183}
+\contentsline {section}{\numberline {C.5}Algoritmo \textbf {NN} de CBR}{184}
+\contentsline {section}{\numberline {C.6}Generaci\'on de PDF}{185}
+\contentsline {section}{\numberline {C.7}Generaci\'on de un \textit {dataset} para un gr\'afico}{187}
+\contentsline {chapter}{\numberline {D}Informe de pruebas}{189}
+\contentsline {section}{\numberline {D.1}Informe de JUnit}{190}
+\contentsline {section}{\numberline {D.2}Informe de cobertura}{190}

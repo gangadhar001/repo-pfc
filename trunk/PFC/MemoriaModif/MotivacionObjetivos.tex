@@ -7,13 +7,13 @@ En este capítulo se presenta la motivación para el desarrollo del presente PFC, 
 
 La globalización y competitividad de los mercados ha obligado a que las empresas vayan evolucionando y adaptando sus procesos de negocio y sus procesos de gestión de proyectos hacia una nueva tendencia de mercados globales. Estas nuevas estrategias requieren de cooperación intensiva entre las compañías, de nuevos procesos, de mejoras en las comunicaciones entre organizaciones que se encuentran en diferentes husos horarios, etc. Todo ello ha provocado que aparezcan nuevas organizaciones, llamadas \textit{organizaciones virtuales}, que son aquellas que se encuentran deslocalizadas, con proyectos en los que participan empleados de cualquier parte del mundo y que utilizan las tecnologías de la información para sus procesos de comunicación, coordinación y control \cite{evaristo1999typology}.
 
-Anteriormente a este marco de globalización, las empresas gestionaban sus proyectos de manera co-localizada, es decir, en el mismo lugar y al mismo tiempo. Sin embargo, ahora se ven obligadas a desarrollar procesos de gestión que permitan la gestión de \textit{proyectos virtuales}, es decir, proyectos que ya no están centralizados en un único lugar y se realizan de manera distribuida. En la Figura \ref{fig:projects-locations} se muestran las dimensiones de los proyectos que las compañías deben gestionar \cite{evaristo1999typology}.
+Anteriormente a este marco de globalización, las empresas gestionaban sus proyectos de manera co-localizada, es decir, en el mismo lugar y al mismo tiempo. Sin embargo, ahora se ven obligadas a desarrollar procesos de gestión que permitan la gestión de \textit{proyectos virtuales}, esto es, proyectos que ya no están centralizados en un único lugar y se realizan de manera distribuida. En la Figura \ref{fig:projects-locations} se muestran las dimensiones de los proyectos que las compañías deben gestionar \cite{evaristo1999typology}.
 
-\imagenBorde{Cap2//projects-locations}{0.35}{Proyectos según su localización \cite{evaristo1999typology}}{fig:projects-locations}
+\imagenBorde{Cap2//projects-locations}{0.35}{Clasificación de proyectos según su localización \cite{evaristo1999typology}}{fig:projects-locations}
 
-Sin embargo, este marco de \textit{proyectos virtuales} y, por tanto, del desarrollo de los proyectos de manera distribuida, acarrea una serie de dificultades, siendo las más destacables los problemas de comunicación, coordinación y control entre las diferentes localizaciones de los centro de desarrollo de las organizaciones. 
+Sin embargo, este marco de \textit{proyectos virtuales} y, por tanto, del desarrollo de los proyectos de manera distribuida, acarrea una serie de dificultades, siendo las más destacables los problemas de comunicación, coordinación y control entre las diferentes localizaciones de los centros de desarrollo de las organizaciones. 
 
-Otro de los problemas encontrados, muy relacionado con el anterior, es como las empresas, que ahora se encuentran en localizaciones diferentes y que tienen mayor problema para la comunicación y control, pueden crear, organizar y gestionar su conocimiento organizacional, recurso intangible imprescindible para que la empresa pueda innovar y ser competitiva. 
+Otro de los problemas encontrados, muy relacionado con el anterior, es como las empresas, que ahora se encuentran en localizaciones diferentes y que tienen mayor problema para la comunicación y control, pueden crear, organizar y gestionar su conocimiento organizacional, recurso intangible e imprescindible para que la empresa pueda innovar y ser competitiva. 
 
 En las empresas dedicadas al sector de desarrollo software, gran parte de este conocimiento organizacional lo componen las decisiones tomadas durante el ciclo de vida de desarrollo de un proyecto software, tales como decisiones de diseño, decisiones de análisis del proyecto, etc., que con frecuencia no se documentan de manera adecuada o se documentan por un equipo de desarrollo y el resto no son conscientes de que dicha documentación existe, dificultando la posterior reutilización de dicho conocimiento. Este es un problema importante del desarrollo global de software, ya que al generarse conocimiento, información y toma de decisiones en los diferentes equipos de desarrollo, ésta queda distribuida en numerosas ocasiones. Es por este motivo que se produce una pérdida de dicha información y no se aprende de las decisiones tomadas en los proyectos.
 
@@ -28,7 +28,7 @@ De este modo, se intenta reducir o eliminar algunas de las problemáticas que apa
 A continuación, se enumeran los objetivos parciales que se deben cumplir para alcanzar el objetivo principal. Para ello, la herramienta deberá:
 
 \begin{itemize}
-	\item Representar las decisiones tomadas en los proyectos software de una manera visual, clara e intuitiva, evitando malentendidos, puesto que aunque el inglés pueda utilizarse como medio de comunicación, con frecuencia no es la lengua nativa de todos los miembros de los equipos de desarrollo y esto da lugar a malentendidos. De este modo, se representan dichas decisiones de la misma manera para todos los equipos de desarrollo y empleados, facilitando su transmisión y evitando confusiones.
+	\item Representar las decisiones tomadas en los proyectos software de una manera visual, clara e intuitiva, evitando malentendidos, puesto que aunque el inglés pueda utilizarse como medio de comunicación, con frecuencia no es la lengua nativa de todos los miembros de los equipos de desarrollo y ésto da lugar a malentendidos. De este modo, se representan dichas decisiones de la misma manera para todos los equipos de desarrollo y empleados, facilitando su transmisión y evitando confusiones.
 	\item Proveer formularios para crear y modificar decisiones, estandarizando el conocimiento almacenado y facilitando su posterior recuperación y comunicación.
 	\item Crear un mecanismo de comunicación síncrona, es decir, que si un empleado se encuentra visualizando decisiones de un determinado proyecto en la aplicación y, en ese momento, otro empleado de otra localización diferente realiza un cambio sobre ese proyecto, dicho cambio debe ser notificado al primer empleado en tiempo real, actualizando su vista. Además, deberá crearse también una notificación o alerta de manera automática, favoreciendo de este modo la comunicación asíncrona.
 	\item Adaptación a diferentes idiomas.
@@ -48,7 +48,7 @@ A continuación, se enumeran los objetivos parciales que se deben cumplir para al
 A modo de síntesis, en la Tabla \ref{table:objetivos} se resumen los objetivos que el sistema a desarrollar debe cumplir para alcanzar su objetivo principal. En dicha tabla se muestran además los desafíos del Desarrollo Global de Software que se intentan mitigar con la compleción de cada uno de esos objetivos.
 
 
-\begin{table}[!htbp]%
+\begin{table}[!ht]%
 \centering
 \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\arraybackslash}m{8cm} | >{\centering\arraybackslash}m{3cm} |}
 	\hline
@@ -77,7 +77,7 @@ A modo de síntesis, en la Tabla \ref{table:objetivos} se resumen los objetivos q
 \label{table:objetivos}
 \end{table}
 
-Destacar que esta herramienta es en cierto modo un sistema para la gestión de conocimiento, ya que como se detalla en el Capítulo \ref{ch:estadodelarte}, permite la creación, almacenamiento, recuperación, transmisión y aplicación de decisiones. En el caso concreto del presente PFC, dicho conocimiento son las decisiones y alternativas planteadas durante las fases del ciclo de vida de los proyectos software, siguiendo de este modo el enfoque de \textit{Rationale} (ver capítulo \ref{ch:estadodelarte}).
+Destacar que esta herramienta es en cierto modo un sistema para la gestión de conocimiento, ya que como se detalla en el Capítulo \ref{ch:estadodelarte}, permite la creación, almacenamiento, recuperación, transmisión y aplicación de conocimiento. En el caso concreto del presente PFC, dicho conocimiento son las decisiones y alternativas planteadas durante las fases del ciclo de vida de los proyectos software, siguiendo de este modo el enfoque de \textit{Rationale} (ver capítulo \ref{ch:estadodelarte}).
 
 Para terminar, a continuación se resumen los términos de mayor relevancia y que con más frecuencia aparecen en el presente documento, para facilitar la lectura y comprensión de posteriores capítulos:
 

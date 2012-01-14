@@ -2,13 +2,13 @@
 
 Al finalizar la iteración anterior, se realizó otra reunión de seguimiento para revisar y validar todos estos artefactos obtenidos.
 
-En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones definitivo y el resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comenzó con el desarrollo de los casos de uso identificados, utilizando como entrada el modelo de casos de uso y de análisis obtenido en la iteración anterior.
+En dicha reunión, ya no se identificaron más requisitos y se validó el plan de iteraciones definitivo y el resto de artefactos obtenidos, por lo que en sucesivas iteraciones y fases se comenzó con el desarrollo de los casos de uso identificados, utilizando como entrada el modelo de casos de uso y la arquitectura definida en la iteración anterior.
 
 Cabe destacar que, como se explicó en el apartado \ref{sec:arquitectura}, al utilizar una arquitectura cliente-servidor, el subsistema del servidor es el encargado de toda la lógica y control de dominio y persistencia, por lo que es donde más hincapié se hará en los diagramas de diseño, mientras que el cliente se encarga de proporcionar la interfaz gráfica del sistema, validar los datos que introduce el usuario y enviar y recibir las peticiones del servidor.
 
-Señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso.
+Señalar que la implementación de ambos subsistemas se irá haciendo en paralelo, es decir, cada caso de uso se desarrollará para el servidor y para el cliente, cerrando así la implementación completa de ese caso de uso. \\
 
-Las tareas a realizar en esta iteración son:
+\indent Las tareas a realizar en esta iteración son:
 
 \begin{itemize}
 	\item Análisis e identificación de los objetos de dominio, creando un modelo de alto nivel.
@@ -64,7 +64,8 @@ En la Figura \ref{fig:clasesDominio} se puede observar este diagrama de clases d
 \begin{figure}[!htbp]
  \begin{center}
    \includegraphics[scale=2.35,angle=90]{Cap5/Server2//clasesDominio}
- \caption {Diagrama de clases de dominio}
+   \vspace{-0.12cm}
+ \caption {Diagrama de clases de dominio de alto nivel}
  \label{fig:clasesDominio}
  \end{center}
  \end{figure}
@@ -221,7 +222,7 @@ A continuación se muestran algunos de los casos de prueba diseñados para esta it
 	\textbf{Resultado}: Cuando se realiza cualquier operación utilizando la fachada (interfaz) del servidor, se crea una entrada de \textit{log} que se refleja en la base de datos y en la interfaz gráfica, de manera sincronizada y automática \\
 	\hline 
 \end{tabular}
-\caption{Descripción del caso de prueba 2 para la comunicación entre subsistemas}
+\caption{Descripción del caso de prueba 3 para la comunicación entre subsistemas}
 \label{table:case3Communication}
 \end{table}
 		

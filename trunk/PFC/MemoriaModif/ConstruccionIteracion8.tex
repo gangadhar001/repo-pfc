@@ -1,78 +1,78 @@
-\subsection{Iteración 8} 
+\subsection{Iteración 8}
 
-Siguiendo los casos del grupo funcional \textbf{F8:} \textit{Exportar información} (ver Figura \ref{fig:CduExportarConocimiento2Server}) y del grupo funcional \textbf{F9:} \textit{Gestión de idiomas} (ver Figura \ref{fig:CduGestionIdiomas2Cliente}), se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos del grupo funcional \textbf{F8:} \textit{Exportar información} y del grupo funcional \textbf{F9:} \textit{Gestión de idiomas}, se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
 \item Análisis de los casos de uso.
-	\item Diseño de la funcionalidad relativa a la gestión de idiomas y a exportar la información de las decisiones.
-	\item Implementación de dichas funcionalidades.
-	\item Diseño e implementación de pruebas relativas a la gestión de idiomas y a exportar la información de las decisiones.
+\item Diseño de la funcionalidad relativa a la gestión de idiomas y a exportar la información de las decisiones.
+\item Implementación de dichas funcionalidades.
+\item Diseño e implementación de pruebas relativas a la gestión de idiomas y a exportar la información de las decisiones.
 \end{itemize}
 
 
-\subsubsection{Grupo funcional \textbf{F8:} \textit{Exportar conocimiento}} \label{sec:exportarConocimiento}
+\subsubsection{Grupo funcional \textbf{F8:} \textit{Exportar información}} \label{sec:exportarConocimiento}
 
 \paragraph{Análisis de casos de uso}
 
-En esta etapa se aborda el análisis de los casos de uso de esta funcionalidad, mostrados en la Figura \ref{fig:CduExportarConocimiento2Server}. A partir del diagrama de casos de uso, se realiza su especificación y descripción de escenarios y se generan sus diagramas de clases de análisis.
+En esta etapa se aborda el análisis de los casos de uso de esta funcionalidad. A partir del diagrama de casos de uso, se realiza su especificación y descripción de escenarios y se generan sus diagramas de clases de análisis.
 
 
 \subparagraph{Exportar información}
 
 En la Tabla \ref{table:export} se describe el caso de uso \textit{Exportar información}.
 
-\begin{table}[!ht]%
-\centering
-\begin{tabular}{| >{\arraybackslash}m{15cm} |}
-	\hline
-	\textbf{Nombre}: Exportar información\\
-	\hline
-	\textbf{Descripción}: Funcionalidad para exportar la información de proyectos y sus decisiones a un fichero XML.\\
-	\hline
-	\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
-	\hline
-	\textbf{Post-condiciones}: Se genera y almacena un fichero XML con la información de proyectos y sus decisiones. \\
-	\hline 
-	\textbf{Flujo principal}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El jefe de proyecto inicia la acción de exportar información.	
-	\item Se consulta en el sistema los proyectos disponibles.
-	\item El jefe de proyecto selecciona un proyecto para exportar la información de ese proyecto.
-	\item Se validan los datos introducidos.
-	\item El sistema consulta el proyecto seleccionado, sus decisiones y la información asociada a éstas.
-	\item Los datos consultados se serializan y se guardan en un fichero XML.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-	\textbf{Flujo alternativo 1: no existen proyectos}:
-	\begin{enumerate}
-	\vspace{-4mm}
-	\setlength{\itemsep}{-7.5pt}
-	\setlength{\parsep}{\itemsep}
-	\setlength{\partopsep}{\itemsep}
-	\setlength{\topsep}{-7.5pt}
-	\item El jefe de proyecto inicia la acción de exportar información.	
-	\item Se consulta en el sistema los proyectos disponibles.
-	\item No existen proyectos. Se muestra mensaje informando de esta situación.
-	\vspace{-4mm}
-	\end{enumerate}
-	\\
-	\hline
-\end{tabular}
-\caption{Especificación del caso de uso \textit{Exportar información}}
-\label{table:export}
-\end{table}
+%\begin{table}[!ht]%
+%\centering
+%\begin{tabular}{| >{\arraybackslash}m{15cm} |}
+%\hline
+%\textbf{Nombre}: Exportar información\\
+%\hline
+%\textbf{Descripción}: Funcionalidad para exportar la información de proyectos y sus decisiones a un fichero XML.\\
+%\hline
+%\textbf{Precondiciones}: Que el usuario haya accedido al sistema y tenga permisos para realizar la operación. \\
+%\hline
+%\textbf{Post-condiciones}: Se genera y almacena un fichero XML con la información de proyectos y sus decisiones. \\
+%\hline
+%\textbf{Flujo principal}:
+%\begin{enumerate}
+%\vspace{-4mm}
+%\setlength{\itemsep}{-7.5pt}
+%\setlength{\parsep}{\itemsep}
+%\setlength{\partopsep}{\itemsep}
+%\setlength{\topsep}{-7.5pt}
+%\item El jefe de proyecto inicia la acción de exportar información.
+%\item Se consulta en el sistema los proyectos disponibles.
+%\item El jefe de proyecto selecciona un proyecto para exportar la información de ese proyecto.
+%\item Se validan los datos introducidos.
+%\item El sistema consulta el proyecto seleccionado, sus decisiones y la información asociada a éstas.
+%\item Los datos consultados se serializan y se guardan en un fichero XML.
+%\vspace{-4mm}
+%\end{enumerate}
+%\\
+%\hline
+%\textbf{Flujo alternativo 1: no existen proyectos}:
+%\begin{enumerate}
+%\vspace{-4mm}
+%\setlength{\itemsep}{-7.5pt}
+%\setlength{\parsep}{\itemsep}
+%\setlength{\partopsep}{\itemsep}
+%\setlength{\topsep}{-7.5pt}
+%\item El jefe de proyecto inicia la acción de exportar información.
+%\item Se consulta en el sistema los proyectos disponibles.
+%\item No existen proyectos. Se muestra mensaje informando de esta situación.
+%\vspace{-4mm}
+%\end{enumerate}
+%\\
+%\hline
+%\end{tabular}
+%\caption{Especificación del caso de uso \textit{Exportar información}}
+%\label{table:export}
+%\end{table}
+%
 
 La Figura \ref{fig:analisisExportarCliente} representa el diagrama de clases de análisis para el subsistema cliente. La Figura \ref{fig:analisisExportarServer} refleja el diagrama de clases de análisis para el subsistema servidor.
 
 \imagen{Cap5/Cliente2//analisisExportarCliente}{2.2}{Diagrama de clases de análisis - Cliente - Exportar información}{fig:analisisExportarCliente}
-
 \imagen{Cap5/Server2//analisisExportarServer}{2.2}{Diagrama de clases de análisis - Servidor - Exportar información}{fig:analisisExportarServer}
 
 
@@ -114,9 +114,6 @@ Al igual que en el resto de casos, se comienza analizando los casos de uso que c
 
 El sistema debe dar soporte a la internacionalización, por lo que se ha diseñado e implementado un gestor de lenguajes. Dicho gestor será el encargado de, según el idioma elegido en la aplicación, mostrar la diferente información de la interfaz gráfica de usuario en ese idioma. Para ello, se han creado ficheros de propiedades (o \textit{properties)} que contienen las cadenas de texto a internacionalizar, utilizando uno u otro según el idioma escogido. El nombre de dichos ficheros terminan con el código del idioma de cada país, para poder cargar uno u otro según el idioma.
 
-%En el fragmento de código \ref{list:internacionalizacion} se muestra cómo utilizar los archivos \textit{properties} para dar soporte al multi-idioma.
-%
-%\texttt{\lstinputlisting[caption=Soporte multi-idioma, breaklines=true, label=list:internacionalizacion, inputencoding=latin1, style=JavaStyle]{Codigo//internacionalizacion.java}}
 
 Para terminar, señalar que los idiomas disponibles para configurar la aplicación se encuentran un fichero XML, para que no sea necesario una conexión a base de datos y se pueda modificar el idioma de la aplicación sin tener que acceder previamente a dicha base de datos. Además, se facilita la extensibilidad y adición de nuevos idiomas, ya que sólo abría que crear su fichero de propiedades y agregar ese idioma al fichero XML.
 
