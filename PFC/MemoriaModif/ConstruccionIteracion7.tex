@@ -1,6 +1,6 @@
 \subsection{Iteración 7} 
 
-Siguiendo los casos de uso del grupo funcional \textbf{F6:} \textit{Generación de informes} (ver Figura \ref{fig:CduGeneracionInformes2Server}) y de grupo funcional \textbf{F7:} \textit{Generación de estadísticas} (ver Figura \ref{fig:CduGeneracionEstadisticas2Cliente}), se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos de uso del grupo funcional \textbf{F6:} \textit{Generación de informes} y del grupo funcional \textbf{F7:} \textit{Generación de estadísticas}, se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
 	\item Análisis de los casos de uso.
@@ -18,13 +18,13 @@ Como en iteraciones anteriores, se comienza analizando los casos de uso que comp
 
 \paragraph{Diseño e implementación} \label{sec:diseñoGenerarPDF}
 
-Una vez analizados los casos de uso, se comienza con el diseño, utilizando dicho análisis como base. De este modo, en la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia de diseño para el escenario del caso de uso de \textit{Generación de informes PDf} en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento en el servidor.
+Una vez analizados los casos de uso, se comienza con el diseño, utilizando dicho análisis como base. De este modo, en la Figura \ref{fig:secuenciaGenerarInformeNormalCliente} se muestra el diagrama de secuencia de diseño para el escenario del caso de uso de \textit{Generación de informes PDF} en el cliente, y en la Figura \ref{fig:secuenciaGenerarInformeNormalServer} se muestra su comportamiento en el servidor.
 
 Hay que señalar que en esta funcionalidad se incluye el comportamiento del caso de uso \textit{Consultar decisiones}, por lo que dicho comportamiento se muestra de manera simplificada en estos diagramas de secuencia.
 
 \imagen{Cap5/Cliente2//secuenciaGenerarInformeNormalCliente}{1.9}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalCliente}
 
-\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{1.9}{Diagrama de secuencia - Cliente - Generar informe}{fig:secuenciaGenerarInformeNormalServer}
+\imagen{Cap5/Server2//secuenciaGenerarInformeNormalServer}{1.9}{Diagrama de secuencia - Servidor - Generar informe}{fig:secuenciaGenerarInformeNormalServer}
 
 
 
@@ -44,14 +44,14 @@ Se ha utilizado una jerarquía de herencia para diseñar los elementos que forman 
 
 Como se observa en la Figura \ref{fig:clasesGenerarPdf}, cabe señalar el uso de la clase \textit{HeaderFooter} para colocar una imagen en el encabezado y pie de página de cada página del documento PDF. Esto es útil, por ejemplo, para colocar el logo de una compañía en cada página del informe.
 
-En cuanto a aspectos de implementación, se utiliza la librería \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las forman, según hayan sido configuradas en el cliente. En el listado de código \ref{list:generarPDF}, incluido en el Apéndice \ref{appendix:pdf} se muestra un fragmento de código de cómo crear el documento y como se insertan en él los elementos.
+En cuanto a aspectos de implementación, se utiliza la librería \textbf{iText} (ver sección \ref{sec:marco}) para crear el documento PDF y para ir componiendo sus secciones con los diferentes elementos que las forman, según hayan sido configuradas en el cliente. En el listado de código \ref{list:generarPDF}, incluido en el Apéndice \ref{appendix:codigo} se muestra un fragmento de código de cómo crear el documento y como se insertan en él los elementos.
 
 
 
 
 \subparagraph{Cliente}
 
-Para configurar los elementos que van a formar las secciones del PDF, se han utilizado paneles para representar cada uno de los tres elementos que componen el PDF (tabla, título y texto) y éstos se irán insertando en los paneles que representan las secciones, de tal modo que se pueden ir configurando dichas secciones de una manera visual e intuitiva. 
+Para configurar los elementos que van a formar las secciones del PDF, se han utilizado paneles para representar cada uno de los tres elementos que componen el PDF (tabla, título y párrafo) y éstos se irán insertando en los paneles que representan las secciones, de tal modo que se pueden ir configurando dichas secciones de una manera visual e intuitiva. 
 
 En este aspecto de configuración de las secciones, cabe destacar el uso de la técnica de \textit{Drag \& Drop} (\textit{arrastrar y soltar}), que permite la reordenación de los paneles que ya se han insertado en una sección. De este modo, por ejemplo, si en una sección ya se han incorporado los paneles que representan un título, un texto y una tabla, se puede arrastrar y soltar el panel que representa el texto para colocarlo antes que la tabla. Esto es útil para configurar de manera sencilla el orden en que se quiere que aparezcan los diferentes elementos en las secciones que componen el informe PDF.
 
@@ -61,6 +61,7 @@ En la Figura \ref{fig:clasesGenerarPDF} se muestra el diagrama de clases para es
  \begin{center}
    \includegraphics[scale=2.0,angle=90]{Cap5/Cliente2//clasesGenerarPDF}
  \caption {Diagrama de clases - Generación de documentos PDF - Cliente}
+ \vspace{-0.12cm}
  \label{fig:clasesGenerarPDF}
  \end{center}
 \end{figure}
@@ -131,7 +132,7 @@ En la Tabla \ref{table:flujosEstadisticas} se describe el caso de uso \textit{Ge
 	\setlength{\partopsep}{\itemsep}
 	\setlength{\topsep}{-7.5pt}
 	\item El jefe de proyecto selecciona un tipo de gráfico a generar.
-	\item El generar y visualizar un gráfico estadístico selecciona los datos a usar en ese gráfico.
+	\item El jefe de proyecto selecciona los datos a usar en ese gráfico.
 	\item Se validan los datos introducidos.
 	\item El sistema consulta los proyectos y decisiones, según la selección del usuario.
 	\item Se procesan los datos consultados.
@@ -186,7 +187,7 @@ En la Figura \ref{fig:clasesGenerarEstadisticas} se muestra el diagrama de clase
 
 \imagen{Cap5/Cliente2//clasesGenerarEstadisticas}{2.0}{Diagrama de clases - Cliente - Generar estadísticas}{fig:clasesGenerarEstadisticas}
 
-Por tanto, la clase controladora se encarga de realizar las peticiones al servidor para consultar los datos que se necesitan para poder componer los \textit{datasets} necesarios para generar los gráficos. Los datos consultados dependerán del tipo de gráfico a generar, pudiendo representar la cantidad de decisiones realizadas por un usuario, la cantidad de decisiones realizadas en un proyecto, un histórico de un proyecto, etc. En el fragmento de código \ref{list:dataset} del Apéndice \ref{appendix:dataset} se muestra un ejemplo de como generar un \textit{dataset} para un diagrama de barras y de pastel que sirve para representar el número de decisiones que un determinado usuario ha realizado en todos los proyectos en los que participa.
+Por tanto, la clase controladora se encarga de realizar las peticiones al servidor para consultar los datos que se necesitan para poder componer los \textit{datasets} necesarios para generar los gráficos. Los datos consultados dependerán del tipo de gráfico a generar, pudiendo representar la cantidad de decisiones realizadas por un usuario, la cantidad de decisiones realizadas en un proyecto, un histórico de un proyecto, etc. En el fragmento de código \ref{list:dataset} del Apéndice \ref{appendix:codigo} se muestra un ejemplo de como generar un \textit{dataset} para un diagrama de barras y de pastel que sirve para representar el número de decisiones que un determinado usuario ha realizado en todos los proyectos en los que participa.
 
 Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear y representar el gráfico estadístico cuando ya se ha generado su \textit{dataset}. Para ello, se hace uso de la clase \textit{ChartFactory} de la librería \textbf{JFreeChart}. Además, una vez representado el gráfico, esta librería permite interactuar con dicho gráfico, pudiendo cambiar el tamaño de su título, el color, la leyenda, guardar el gráfico como imagen, etc.
 
@@ -197,4 +198,4 @@ Para terminar, en el fragmento de código \ref{list:chart} se muestra como crear 
 
 Al igual que en el caso anterior, se diseñan e implementan los casos de prueba unitarios para el servidor, así como \textit{checklists} para asegurar el correcto comportamiento de la interfaz gráfica y obtener los resultados esperados. Además, en este caso, se crean casos de prueba específicos en el subsistema cliente para probar la correcta generación de los \textit{datasets}, a partir de los datos recuperados del servidor. En la Figura \ref{fig:testEstadisticas} se observa una captura de pantalla de la ejecución de la \textit{suite} de pruebas para la generación de estadísticas.
 
-\imagen{Cap5/Pruebas//pruebasEstadisticas}{0.8}{\textit{Test Suite} para la generación de gráficos estadísticos en el sistema cliente}{fig:testEstadisticas}
+\imagenBorde{Cap5/Pruebas//pruebasEstadisticas}{0.8}{\textit{Test Suite} para la generación de gráficos estadísticos en el sistema cliente}{fig:testEstadisticas}

@@ -7,7 +7,7 @@ Para el modelado de los diagramas del producto software se utilizará el Lenguaje
 
 \section{Proceso Unificado de Desarrollo} \label{sec:pud}
 
-El Proceso Unificado de Desarrollo es una evolución del Proceso Unificado de Rational (RUP), que define un ``\textit{conjunto de actividades necesarias para transformar los requisitos de usuario en un sistema software}'' \cite{jac00}. Más concretamente se puede definir como ``\textit{un marco de trabajo marco genérico que puede especializarse para una gran variedad de sistemas de software,
+El Proceso Unificado de Desarrollo es una evolución del Proceso Unificado de Rational (RUP), que define un ``\textit{conjunto de actividades necesarias para transformar los requisitos de usuario en un sistema software}'' \cite{jac00}. Más concretamente se puede definir como ``\textit{un marco genérico de trabajo que puede especializarse para una gran variedad de sistemas de software,
 para diferentes áreas de aplicación, diferentes tipos de organizaciones, diferentes niveles de
 aptitud y diferentes tamaños de proyectos.}'' \cite{jac00}.
 
@@ -27,7 +27,7 @@ En cada iteración, los desarrolladores identifican y especifican los casos de us
 Finalmente, cada iteración aporta un \textbf{incremento} en la funcionalidad del sistema, por eso que el PUD se considere un proceso incremental (ver Figura \ref{fig:incremental}) \cite{kruchten2004rational}.
 \end{itemize}
 
-\imagenBorde{Cap4//incremental}{0.50}{Proceso iterativo e incremental \cite{jacobson1999unified}}{fig:incremental}
+\imagenBorde{Cap4//incremental}{0.50}{Proceso iterativo e incremental en el PUD \cite{jacobson1999unified}}{fig:incremental}
 
 
 \subsection{Fases de desarrollo basado en PUD} \label{sec:fasesPUD}
@@ -159,9 +159,9 @@ El PUD está compuesto de ciclos, donde cada ciclo consta de cuatro fases y cada 
 \centering
 \begin{tabular}{| >{\centering\arraybackslash}m{2cm} | >{\arraybackslash}m{7cm} | >{\arraybackslash}m{5cm} |}
 	\hline
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Fase}} &
-			\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Resumen}} &
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Artefactos generados}} \\
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Fase}} &
+			\multicolumn{1}{|c|}{\colorCabecera\textbf{Resumen}} &
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Artefactos generados}} \\
 	\hline
 		 \multicolumn{1}{|c|}{\cellcolor[gray]{0.9}Inicio} & 
 		 Se identifican los requisitos \newline 
@@ -224,11 +224,11 @@ Subversion es un sistema de control de versiones donde, a diferencia de CVS (Con
 
 En el proyecto, se utilizará un repositorio Subversión (o SVN) para gestionar las diferentes versiones del mismo. El repositorio SVN estará alojado en \textit{Google Code}, de manera que será accesible en red. Para acceder a dicho repositorio, se utilizará la herramienta \textbf{TortoiseSVN}, que es un cliente de Subversion implementado como una extensión del shell de sistemas Windows y que permite gestionar el repositorio. En la Figura \ref{fig:tortoise} se puede observar esta herramienta.
 
-\imagenBorde{Cap4//tortoise}{0.6}{Herramienta \textit{TortoiseSVN}}{fig:tortoise}
+\imagenBorde{Cap4//tortoise}{0.6}{Herramienta TortoiseSVN}{fig:tortoise}
  
 \subsubsection{Maven}
 
-Maven es una herramienta de gestión y construcción de proyectos, creada por Jason van Zyl en 2002. Maven permite describir el proyecto a construir, sus dependencias con otros módulos y el orden de construcción utilizando un Modelo de Objetos del Proyecto (POM, por sus siglas del inglés Project Object Model), que es un fichero XML donde se describe el proyecto, sus dependencias, etc.
+Maven es una herramienta de gestión y construcción de proyectos, creada por Jason van Zyl en 2002. Maven permite describir el proyecto a construir, sus dependencias con otros módulos y el orden de construcción utilizando un Modelo de Objetos del Proyecto (POM, por sus siglas del inglés \textit{Project Object Model}), que es un fichero XML donde se describe el proyecto, sus dependencias, etc.
 
 Maven tiene una arquitectura dinámica basada en \textit{plugins} que son descargables desde su repositorio central, de tal modo que permite la reutilización para diferentes proyectos, cambiando los plugins a utilizar y su configuración y manteniendo patrones similares en diferentes proyectos. 
 
@@ -251,7 +251,7 @@ Esta herramienta, en su versión 8.0, se utilizará para realizar los diagramas de
 
 Eclipse es un IDE (Integrated Development Environment o Entorno Integrado de Desarrollo) multiplataforma, de código abierto y basado en plugins para aumentar su funcionalidad.
 
-Es el entorno de desarrollo utilizado para la codificación de proyecto utilizando el lenguaje de programación Java, junto a plugins utilizados para la gestión de proyectos con Maven (plugin \textbf{m2eclipse}) y diseño de interfaces gráficas con Swing (plugin \textbf{Jigloo}). 
+Es el entorno de desarrollo utilizado para la codificación del proyecto utilizando el lenguaje de programación Java, junto a plugins utilizados para la gestión de proyectos con Maven (plugin \textbf{m2eclipse}) y diseño de interfaces gráficas con Swing (plugin \textbf{Jigloo}). 
 
 \subsubsection{Yahoo! PlaceFinder} \label{label:web}
 
@@ -274,7 +274,7 @@ Se utilizará para mostrar mapas y poder localizar posiciones geográficas en ello
 
 Se utilizará, en su versión 2.2.4, para poder convertir objetos del dominio de aplicación en ficheros XML, y viceversa.
 
-\imagenBorde{Cap4//jaxb}{0.9}{JAXB}{fig:jaxb}
+\imagenBorde{Cap4//jaxb}{0.9}{JAXB: \textit{Java Architecture for XML Binding}}{fig:jaxb}
 
 
 \subsubsection{JDOM}
@@ -293,7 +293,7 @@ Se utilizará en su versión 1.1.1 para la búsqueda de nodos en ficheros XML utili
 
 \subsubsection{Hibernate}
 
-Hibernate es un framework para el mapeo objeto-relacional (ORM, por sus siglas en inglés Object Relational-Mapping) utilizado en plataformas Java y que permite realizar el mapeo de atributos entre una base de datos relacional y un modelo de objetos, utilizando archivos XML o anotaciones sobre los objetos para realizar dicho mapeo. Proporciona también un lenguaje de consultas de bases de datos de alto nivel, llamado HQL (Hibernate Query Language).
+Hibernate es un framework para el mapeo objeto-relacional (ORM, por sus siglas en inglés \textit{Object Relational-Mapping}) utilizado en plataformas Java y que permite realizar el mapeo de atributos entre una base de datos relacional y un modelo de objetos, utilizando archivos XML o anotaciones sobre los objetos para realizar dicho mapeo. Proporciona también un lenguaje de consultas de bases de datos de alto nivel, llamado HQL (Hibernate Query Language).
 
 Las ventajas de utilizar este framework es que permite al desarrollador abstraerse del código que hay que escribir para dar soporte a la persistencia, facilita la mantenibilidad, proporciona independencia del proveedor del sistema gestor de base de datos y flexibilidad para adaptarse al esquema de tablas utilizado.
 
@@ -301,19 +301,19 @@ Se utilizará Hibernate, en su versión 3.5.4, para gestionar la persistencia de l
 
 \subsubsection{Swing}
 
-Swing es una librería gráfica para Java, la cual incluye \textit{widgets} para generar interfaces gráficas de usuario, como son cajas de texto, botones, paneles, tablas, etc. Swing fue desarrollado para proveer un conjunto de elementos gráficos más sofisticado que su antecesor, AWT (Abstract Window Toolkit), de tal modo que los componentes Swing están escritos en Java y son independientes de la plataforma, a diferencia de AWT.
+Swing es una librería gráfica para Java, la cual incluye \textit{widgets} para generar interfaces gráficas de usuario, como son cajas de texto, botones, paneles, tablas, etc. Swing fue desarrollado para proveer un conjunto de elementos gráficos más sofisticado que su antecesor, AWT (\textit{Abstract Window Toolkit}), de tal modo que los componentes Swing están escritos en Java y son independientes de la plataforma, a diferencia de AWT.
 
-Swing sigue el modelo vista controlador (MVC), es independiente de la plataforma y extensible, ya que los componentes puede extenderse y sobrescribir las implementaciones por defecto.
+Swing sigue el modelo vista controlador (MVC), es independiente de la plataforma y extensible, ya que los componentes pueden extenderse y sobrescribir las implementaciones por defecto.
 
-Existe una extensión a Swing, llamada SwingX, que incluye nuevos componentes gráficos que normalmente se demandan en aplicaciones avanzadas (Rich Client Applications), como son selectores de fechas, framework para la autenticación de usuarios, auto-completado, paneles expandibles, etc.
+Existe una extensión a Swing, llamada \textbf{SwingX}, que incluye nuevos componentes gráficos que normalmente se demandan en aplicaciones avanzadas (Rich Client Applications), como son selectores de fechas, framework para la autenticación de usuarios, auto-completado, paneles expandibles, etc.
 
-Por otra parte, existe un framework para Swing, llamado Swing Application Framework, que forma parte de la JSR 296 (Java Specification Request) y que permite gestionar la arquitectura, ciclo de vida, hilos, manejo de eventos y almacenamiento del estado de una aplicación Swing.
+Por otra parte, existe un framework para Swing, llamado \textbf{Swing Application Framework}, que forma parte de la JSR 296 (Java Specification Request) y que permite gestionar la arquitectura, ciclo de vida, hilos, manejo de eventos y almacenamiento del estado de una aplicación Swing.
 
 Estos tres componentes, Swing, SwingX y Swing Application Framework se utilizarán para el desarrollo de una interfaz gráfica de usuario extensible, personalizable y adaptable. Además, para realizar el diseño de la interfaz, se uitlizará el plugin para eclipse \textbf{Jigloo}.
 
 \subsubsection{JUNG}
 
-Jung (\textit{Java Universal Network/Graph Framework}) es una librería que provee mecanismos para el modelado, análisis y visualización de datos que pueden ser representados en una red o en un grafo. Su arquitectura está diseñada para soportar variedad de representaciones de entidades y sus relaciones, como grafos dirigidos, no dirigidos, hipergrafos, grafos con arcos paralelos, entidades con metadatos, etc. Además, incluye numerosos algoritmos para la visualización de grafos, para su optimización, cálculo de distancias, métricas, etc. En la Figura \ref{fig:JUNG} se puede observar un grafo generado con este framework.
+Jung (\textit{Java Universal Network/Graph Framework}) es un framework que provee mecanismos para el modelado, análisis y visualización de datos que pueden ser representados en una red o en un grafo. Su arquitectura está diseñada para soportar variedad de representaciones de entidades y sus relaciones, como grafos dirigidos, no dirigidos, hipergrafos, grafos con arcos paralelos, entidades con metadatos, etc. Además, incluye numerosos algoritmos para la visualización de grafos, para su optimización, cálculo de distancias, métricas, etc. En la Figura \ref{fig:JUNG} se puede observar un grafo generado con este framework.
 
 Se utilizará, en su versión 2.0, para la creación y visualización de grafos.
 
@@ -340,7 +340,7 @@ JFreeChart es una librería escrita en Java que permite la creación y visualizaci
 \begin{itemize}
 	\item Proporciona un API para generar una amplia variedad de gráficos.
 	\item Diseño flexible y extensible.
-	\item Soporte para diferentes tipos de salida, como componentes de Swing, imágenes (PNG y JPEG) y gráfixos vectoriales (EPS y SVG)
+	\item Soporte para diferentes tipos de salida, como componentes de Swing, imágenes (PNG y JPEG) y gráficos vectoriales (EPS y SVG)
 	\item Es \textit{OpenSource}
 \end{itemize}
 
@@ -412,7 +412,7 @@ Se utilizará la versión MySQL Commnunity Server 5.5.17 como sistema gestor de ba
 MySQL Workbench es una herramienta CASE que permite el modelado de bases de datos MySQL en un entorno visual (ver Figura \ref{fig:mysqlWorkbench}). Sus características principales son:
 
 \begin{itemize}
-	\item \textbf{Modelado}: proporciona las herramientas necesarias para el modelado Entidad-Interrelación (modelo ER) de la base de datos: además, soporta ingeniería directa, obteniendo el código SQL a partir del modelo, e ingeniería inversa.
+	\item \textbf{Modelado}: proporciona las herramientas necesarias para el modelado Entidad-Interrelación (modelo ER) de la base de datos. Además, soporta ingeniería directa, obteniendo el código SQL a partir del modelo, e ingeniería inversa.
 	\item \textbf{Desarrollo}: proporciona herramientas visuales para crear, ejecutar y optimizar sentencias SQL.
 	\item \textbf{Administración}: proporciona una consola visual para administrar fácilmente el servidor MySQL, cuentas de usuario, permisos, etc.
 \end{itemize}
@@ -432,7 +432,7 @@ Se utilizará JUnit, como un plug-in de Eclipse en su versión 4.8.1 para ejecutar
 
 \subsubsection{Eclemma}
 
-Eclemma es una herramienta gratuita de cobertura de código Java que permite analizar y visualizar las instrucciones, métodos y bloques cubiertos por un conjunto de pruebas. Además, permite exportar los resultados a informes HTM, a ficheros CSV o a ficheros XML.
+Eclemma es una herramienta gratuita de cobertura de código Java que permite analizar y visualizar las instrucciones, métodos y bloques cubiertos por un conjunto de pruebas. Además, permite exportar los resultados a informes HTML, a ficheros CSV o a ficheros XML.
 
 Se ha utilizado Eclemma, en forma de plugin para Eclipse en su versión 2.0.1, para medir la cobertura de código alcanzada con las pruebas realizadas en el sistema.
 
@@ -444,7 +444,7 @@ Se ha utilizado Eclemma, en forma de plugin para Eclipse en su versión 2.0.1, pa
 
 \LaTeX{} es un lenguaje de marcado utilizado para la creación de documentos, especialmente libros y documentos científico-técnicos. Está formado por un gran conjunto de macros (u órdenes) del lenguaje TeX, de código abierto y que permite crear libros, tesis y artículos técnicos con una elevada calidad tipográfica, comparable a la de una editorial científica.
 
-A diferencia de los editores de texto habituales, conocidos como \textit{WYSIWYG} (es decir, \textit{What You See Is What You Get}, o \textit{lo que ves es lo que obtienes}), \LaTeX{} permite centrarse exclusivamente en el contenido del documento, sin preocuparse de los detalles del formato del texto. También posee capacidades gráficas para representar fórmulas complejas, ecuaciones, notación científica, etc y permite estructurar de una manera muy sencilla el documento, con capítulos, secciones, generación automática de índices, etc. 
+A diferencia de los editores de texto habituales, conocidos como \textit{WYSIWYG} (es decir, \textit{What You See Is What You Get}, o \textit{lo que ves es lo que obtienes}), \LaTeX{} permite centrarse exclusivamente en el contenido del documento, sin preocuparse de los detalles del formato del texto. También posee capacidades gráficas para representar fórmulas complejas, ecuaciones, notación científica, etc, y permite estructurar de una manera muy sencilla el documento, con capítulos, secciones, generación automática de índices, etc. 
 
 Para crear un documento con \LaTeX{}, hay que utilizar un editor de texto para crear los archivos fuente, con las macros y el contenido adecuado para, posteriormente, procesarlo, compilarlo y generar la salida, normalmente en PDF, aunque se pueden generar diferentes salidas como DVI, PS, etc. 
 
@@ -460,6 +460,6 @@ Se ha utilizado \BibTeX{} para formatear las citas literarias y bibliográficas d
 
 \subsubsection{GIMP}
 
-GIMP (GNU Image Manipulation Program) es una aplicación diseñada para la manipulación y edición de imágenes, con una potencia similar a Adobe Photoshop, siendo de código abierto, gratuitas y multiplataforma.
+GIMP (GNU Image Manipulation Program) es una aplicación diseñada para la manipulación y edición de imágenes, con una potencia similar a Adobe Photoshop, siendo de código abierto, gratuita y multiplataforma.
 
 Se ha utilizado esta herramienta para la generación y edición de las imágenes utilizadas en la documentación y en el sistema software desarrollado.

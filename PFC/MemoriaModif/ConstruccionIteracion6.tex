@@ -1,6 +1,6 @@
 \subsection{Iteración 6} 
 
-Siguiendo los casos de uso del grupo funcional \textbf{F5:} \textit{Gestión de proyectos} (ver Figura \ref{fig:CduGestionProyectos2Server}), se abordan las siguientes tareas en esta iteración:
+Siguiendo los casos de uso del grupo funcional \textbf{F5:} \textit{Gestión de proyectos}, se abordan las siguientes tareas en esta iteración:
 
 \begin{itemize}
 	\item Análisis de los casos de uso.
@@ -30,7 +30,7 @@ Como se ha mencionado anteriormente, es importante destacar el caso de uso \text
 
 \imagen{Cap5/Server2//secuenciaCBRServer}{1.9}{Diagrama de secuencia - Servidor - Aconsejar decisiones}{fig:secuenciaCBRServer}
 
-Hay que señalar que esta funcionalidad incluye el comportamiento de los casos de uso \textit{Consultar decisiones} y \textit{Consultar proyectos}, por lo que dichos comportamientos se muestran de manera simplificada en estos diagramas de secuencia.
+Hay que señalar que esta funcionalidad incluye el comportamiento de los casos de uso \textit{Consultar decisiones} y \textit{Consultar proyectos}, por lo que dichos comportamientos se muestran de manera simplificada en estos diagramas de secuencia, ya que han sido modelados en iteraciones anteriores a esta.
 
 En los siguientes apartados se detallan aspectos de diseño e implementación tenidos en cuenta en este grupo funcional.
 
@@ -38,7 +38,7 @@ En los siguientes apartados se detallan aspectos de diseño e implementación teni
 
 Como se comentó en el modelo de negocio en el apartado \ref{sec:modeloDominio}, cada usuario trabaja en 1 o más proyectos, y en cada proyecto participan varios usuarios, por lo que, como se refleja en los diagramas de secuencia anteriores, para crear y modificar un proyecto hay que asignar los usuarios que en dicho proyecto trabajan. En el diagrama de la Figura \ref{fig:clasesGestionProyecto} se observan las clases que participan en la gestión de proyectos y las asociaciones que existen entre los usuarios y los proyectos, y sus clases controladoras correspondientes.
 
-\imagen{Cap5/Server2//clasesGestionProyecto}{2.0}{Diagrama de secuencia - Servidor - Controlador proyectos}{fig:clasesGestionProyecto}
+\imagen{Cap5/Server2//clasesGestionProyecto}{2.0}{Diagrama de clases - Controlador proyectos}{fig:clasesGestionProyecto}
 
 Sin embargo, en este grupo funcional, lo que cabe destacar es el diseño e implementación del caso de uso de \textit{Aconsejar decisiones}. Este caso de uso representa el requisito de recuperar proyectos similares a uno dado, para poder mostrar las decisiones que en él se tomaron, cuáles fueron aceptadas o rechazadas, etc, para poder tenerlas en cuenta en un nuevo proyecto. De este modo, a partir de un nuevo proyecto, y basándose en proyectos anteriores ya terminados, se recuperan aquellos que sean más similares al proyecto dado y se muestran sus decisiones. Para ello, se utiliza el \textbf{Razonamiento Basado en Casos}, o CBR, detallado en la sección \ref{sec:CBR}.
 
@@ -57,7 +57,7 @@ A continuación, se explican cada uno de estos elementos involucrados en esta fun
 \end{itemize}
 
 
-Cabe destacar este último elemento, que es la configuración utilizada en los algoritmos del CBR. Dicha configuración contiene el conjunto de pesos que los atributos van a tomar al calcular el valor final de la semejanza entre casos. Además contiene, para cada atributo, una función que indica como valorar y comparar ese atributo con los atributos de los diferentes casos, llamada \textit{función de semejanza local}. Dicha función establece como comparar los atributos entre dos casos, devolviendo el valor de semejanza entre esos atributos. Existen tres tipos de esta función:
+Cabe destacar este último elemento, que es la configuración utilizada en los algoritmos del CBR. Dicha configuración contiene el conjunto de pesos que los atributos van a tomar al calcular el valor final de la semejanza entre casos. Además contiene, para cada atributo, una función que indica como valorar y comparar ese atributo con los atributos de los diferentes casos, llamada \textit{función de semejanza local}, devolviendo el valor de semejanza entre esos atributos. Existen tres tipos de esta función:
 
 \begin{itemize}
 \item \textbf{Diferencia}: esta función devuelve la diferencia entre dos valores numéricos o fechas. Si los valores son de tipo cadena, devuelve 1 si las cadenas son iguales, o 0 en caso contrario. Para el resto de casos, el resultado se normaliza al intervalo [0,1], de tal modo que son más semejantes si la diferencia entre los valores es más pequeña.
@@ -69,7 +69,7 @@ En lo que respecta a los algoritmos utilizados para calcular el valor de la seme
 
 \begin{itemize}
 \item \textbf{Nearest Neighbor}: este algoritmo, conocido también como \textit{NN Method}, calcula el valor de semejanza global entre dos casos realizando la media aritmética de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) por su peso, y se divide por la suma del peso total de todos los atributos. En la ecuación \ref{eq:media} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
-\item \textbf{Euclidean Distance}; este algoritmo calcula el valor de semejanza global entre dos casos realizando la distancia euclídea de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) elevado al cuadrado, por su peso. En la ecuación \ref{eq:eucl} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
+\item \textbf{Euclidean Distance}: este algoritmo calcula el valor de semejanza global entre dos casos realizando la distancia euclídea de los valores de los atributos. Así, se calcula el sumatorio del producto del valor de cada atributo (calculado por la función de semejanza local) elevado al cuadrado, por su peso. En la ecuación \ref{eq:eucl} se muestra esta función de semejanza global utilizada en este algoritmo, siendo \textit{c1} y \textit{c2} los casos a evaluar; $w_i$ el peso de cada atributo, y $sem(att1_i, att2_i)$ el valor de semejanza calculado por la función de semejanza local entre los atributos de ambos casos. 
 \end{itemize}
 
 
@@ -90,13 +90,13 @@ En la Figura \ref{fig:clasesCBR} se muestra el diagrama de clases de diseño de l
 
 \begin{figure}[!htbp]
  \begin{center}
-   \includegraphics[scale=1.95,angle=90]{Cap5/Server2//clasesCBR}
+   \includegraphics[scale=2.0,angle=90]{Cap5/Server2//clasesCBR}
  \caption {Diagrama de clases - Servidor - Razonamiento Basado en Casos}
  \label{fig:clasesCBR}
  \end{center}
  \end{figure}
 
-Para terminar, en el fragmento de código \ref{list:cbr} del Apéndice \ref{appendix:CBR}, se muestra la implementación del algoritmo \textit{NN}, haciendo uso del diseño y elementos comentados anteriormente. Un aspecto a señalar es el uso del API de reflexión de Java, utilizado para acceder a los atributos de un proyecto en tiempo de ejecución.
+Para terminar, en el fragmento de código \ref{list:cbr} del Apéndice \ref{appendix:codigo}, se muestra la implementación del algoritmo \textit{NN}, haciendo uso del diseño y elementos comentados anteriormente. Un aspecto a señalar es el uso del API de reflexión de Java, utilizado para acceder a los atributos de un proyecto en tiempo de ejecución.
 
 
 
@@ -105,11 +105,11 @@ Para terminar, en el fragmento de código \ref{list:cbr} del Apéndice \ref{append
 
 Respecto al subsistema cliente, tiene especial interés el diseño e implementación del caso de uso \textit{Solicitar recomendaciones}. A continuación se comentan algunos detalles tenidos en cuenta a la hora del diseño y la implementación, ya que en el Apéndice \ref{sec:manualClient} se muestra paso a paso el proceso que hay que seguir para poder crear la configuración necesaria para ejecutar el CBR.
 
-En primer, al igual que en el subsistema servidor, se ha utilizado el API de reflexión de Java para poder mostrar en la interfaz gráfica los atributos de un proyecto y poder introducir sus valores, creando el proyecto que se desea comparar y evaluar. A continuación, utilizando también reflexión, se ha diseñado otra ventana donde se pueden configurar los pesos de cada atributo y seleccionar el tipo de función de semejanza local a utilizar para cada uno de ellos. Para introducir los pesos, como deben ser valores numéricos entre 0 y 1, se ha utilizado un \textit{slider}, que permite seleccionar de manera sencilla valores en el rango indicado.
+En primer lugar, al igual que en el subsistema servidor, se ha utilizado el API de reflexión de Java para poder mostrar en la interfaz gráfica los atributos de un proyecto y poder introducir sus valores, creando el proyecto que se desea comparar y evaluar. A continuación, utilizando también reflexión, se ha diseñado otra ventana donde se pueden configurar los pesos de cada atributo y seleccionar el tipo de función de semejanza local a utilizar para cada uno de ellos. Para introducir los pesos, como deben ser valores numéricos entre 0 y 1, se ha utilizado un \textit{slider}, que permite seleccionar de manera sencilla valores en el rango indicado.
 
 De este modo, con la configuración creada, se envían los datos al servidor y se obtiene su respuesta, mostrando todos los datos de los proyectos semejantes obtenidos. Además, para cada uno de esos proyectos, se consultan sus decisiones e información asociada a éstas y se muestran también en la interfaz. Con ello, se completa la fase de \textbf{Reutilización} del CBR.
 
-Así, el jefe de proyecto podría modificar el proyecto inicial (el usado para obtener recomendaciones) con algunos de los datos y decisiones de los proyectos más semejantes, si lo considera oportuno, cerrando así las fases de \textit{Revisión} y \textbf{Almacenamiento} del CBR, ya que ese proyecto actualizado quedaría almacenado en la base de datos.
+Así, el jefe de proyecto podría modificar el proyecto inicial (el usado para obtener recomendaciones) con algunos de los datos y decisiones de los proyectos más semejantes, si lo considera oportuno, cerrando así las fases de \textbf{Revisión} y \textbf{Almacenamiento} del CBR, ya que ese proyecto actualizado quedaría almacenado en la base de datos.
 
 Para terminar, señalar que gracias a la reflexión de Java, la interfaz gráfica es independiente de los atributos definidos en un proyecto, adaptándose a nuevos atributos que se pudieran añadir a la clase \textit{Proyecto}, sin tener que revisar la implementación de la interfaz. Además, gracias a la estructura de composición de elementos diseñada para la interfaz de usuario, muchos de los paneles y elementos se pueden reutilizar para diferentes casos de uso, como por ejemplo, el panel para introducir los datos de un proyecto, el árbol donde se muestran las decisiones, etc. Esto, como se comentó anteriormente, facilita la reutilización, flexibilidad y extensibilidad del subsistema cliente.
 
@@ -119,11 +119,11 @@ Para terminar, señalar que gracias a la reflexión de Java, la interfaz gráfica e
 		
 En esta fase, se diseñan los casos de prueba unitarios que componen la \textit{suite} de pruebas utilizada para probar los casos de uso para la gestión de proyectos y CBR. En la Figura \ref{fig:testProyectos} se observa una captura de pantalla de la ejecución de la \textit{suite} de pruebas para probar los métodos del servidor, que posteriormente el cliente invocará. 
 
-\imagen{Cap5/Pruebas//pruebasProjects}{0.8}{\textit{Test Suite} para la gestión de proyectos en el servidor}{fig:testProyectos}
+\imagenBorde{Cap5/Pruebas//pruebasProjects}{0.8}{\textit{Test Suite} para la gestión de proyectos en el servidor}{fig:testProyectos}
 
 Por otro lado, para comprobar el correcto funcionamiento de la interfaz gráfica de usuario para los casos de uso, se han creado \textit{checklists}, como en casos anteriores, donde se muestra en la Tabla \ref{table:checkCBR}, a modo de ejemplo relevante, parte de la \textit{checklist} utilizada para probar la interfaz asociada al CBR.
 
-\begin{table}[!htbp]%
+\begin{table}[!ht]%
 	\centering
 	\begin{tabular}{| >{\arraybackslash}m{4cm} | >{\arraybackslash}m{8cm} | >{\center\arraybackslash}m{2cm} |}
 	\hline

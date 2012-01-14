@@ -1,7 +1,7 @@
 \chapter{Estado del Arte}
 \label{ch:estadodelarte}
 
-La forma de desarrollar software está evolucionando hacia el Desarrollo Global de Software, donde los proyectos software se desarrollan por diferentes equipos de desarrollo que se encuentran deslocalizados en diversos países. Este nuevo paradigma de desarrollo implica una serie de ventajas, pero también introduce una serie de desafíos, siendo uno de estos desafíos la Gestión de Conocimiento. 
+El desarrollo de software está evolucionando hacia el Desarrollo Global de Software, donde los proyectos software se llevan a cabo por diferentes equipos de desarrollo que se encuentran deslocalizados en diversos países. Este nuevo paradigma de desarrollo implica una serie de ventajas, pero también introduce una serie de desafíos, siendo uno de estos desafíos la Gestión de Conocimiento. 
 
 En Desarrollo Global, la información proviene de fuentes muy diversas, en diferentes formatos e incluso idiomas, lo que dificulta conocer las decisiones tomadas en proyectos software, su documentación y, en general, la gestión de conocimiento y su reutilización. Es por ello que existe una tendencia a usar el método \textit{Rationale}, el cuál proporciona mecanismos para capturar y representar las decisiones tomadas en cualquier fase del ciclo de vida del desarrollo del proyecto software, así como todo el razonamiento que se hace para tomar esas decisiones. Por tanto, gracias a \textit{Rationale}, se facilita la generación, almacenamiento y representación de decisiones y su razonamiento.
 
@@ -9,10 +9,9 @@ Además, una vez que este tipo de información ha sido capturada y almacenada, otr
 
 En la imagen \ref{fig:relaciones} se refleja de manera visual cómo estos conceptos están relacionados con el sistema que se pretende desarrollar en el presente PFC, nombrado como \textbf{DPMTool}.
 
+De este modo, en las siguientes secciones del capítulo se presenta el estado del arte sobre Desarrollo Global de Software, así como se detalla el método de \textit{Rationale} y el Razonamiento Basado en Casos.
+
 \imagenBorde{Cap3//relaciones}{0.35}{Relaciones entre Desarrollo Global, \textit{Rationale}, Razonamiento Basado en Casos y el sistema \textbf{DPMTool}}{fig:relaciones}
-
-
-De este modo, en las siguientes secciones se presenta el estado del arte sobre Desarrollo Global de Software, así como se detalla el método de \textit{Rationale} y el Razonamiento Basado en Casos.
 
 
 
@@ -22,16 +21,14 @@ De este modo, en las siguientes secciones se presenta el estado del arte sobre D
 
 En los últimos años, la globalización económica está provocando que la industria y el comercio se adapten a nuevos modelos de negocios, en búsqueda de aumentar la competitividad y minimizar los costes, por lo que las empresas se han visto obligadas a evolucionar en su modo de trabajo. Así, se ha cambiado el concepto de \textit{mercado nacional} por el de \textit{mercado global} \cite{damian2006guest} \cite{herbsleb2002global}.
 
-Centrándose en el desarrollo de software, hasta hace unos años el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando en los últimos años, tendiendo a un desarrollo distribuido del mismo. Los CDS comenzaron a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés Global Software Development. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
+Centrándose en el desarrollo de software, hasta hace unos años el desarrollo era llevado a cabo por Centros de Desarrollo Software (en adelante CDS) que estaban co-localizados en un mismo edificio. Sin embargo, debido a este nuevo modelo de economía global, la manera de desarrollar software está evolucionando, tendiendo a un desarrollo distribuido del mismo. Los CDS comienzan a distribuirse en diferentes ciudades e incluso diferentes provincias de un mismo país, hasta llegar al punto en que los CDS se encuentran distribuidos en diferentes países y continentes. Esto es lo que se conoce como \textbf{Desarrollo Global de Software}, denominado a partir de este punto como GSD, por sus siglas en inglés \textit{Global Software Development}. En la Tabla \ref{table:evolucionSD} se muestran los diferentes modelos de desarrollo de software existentes, en base a la dispersión geográfica.
 
-EL GSD puede definirse como: ``\textit{el desarrollo de software que se realiza en localizaciones separadas geográficamente más allá de fronteras nacionales, de manera coordinada e involucrando participación en tiempo real (síncrona) e interacción asíncrona}'' \cite{wernerHeij}.
-
-\begin{table}[h]%
+\begin{table}[!ht]%
 \centering
 \begin{tabular}{| p{3.5cm} | p{8cm} |}
 	\hline
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Localización}} &
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Tipo de desarrollo}} \\
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Localización}} &
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Tipo de desarrollo}} \\
 	\hline
 		\cellcolor[gray]{0.9}Mismo lugar &
 		Desarrollo tradicional (Co-localizado)\\
@@ -47,6 +44,8 @@ EL GSD puede definirse como: ``\textit{el desarrollo de software que se realiza 
 \label{table:evolucionSD}
 \end{table}
 
+El GSD puede definirse como: ``\textit{el desarrollo de software que se realiza en localizaciones separadas geográficamente más allá de fronteras nacionales, de manera coordinada e involucrando participación en tiempo real (síncrona) e interacción asíncrona}'' \cite{wernerHeij}.
+
 En este nuevo modelo de GSD, además de tener en cuenta que los \textit{stakeholders}\footnote{Stakeholders: \textit{aquellos que pueden afectar o son afectados por las actividades de una empresa} \cite{freeman2010strategic}.} se encuentran distribuidos geográficamente, hay que contar con el número de compañías que colaboran en un mismo proyecto. Un mismo proyecto bien puede ser desarrollado por una misma compañía, pero con CDS distribuidos en diferentes países, o bien puede llevarse a cabo por un conjunto de compañías que colaboran o están subcontratadas por la primera \cite{sangwan2006global}. Así, surgen los conceptos de outsourcing, offshoring y nearshoring.
 
 Por \textbf{outsourcing} se entiende la externalización o subcontratación de uno o varios servicios a terceros, ya que resulta más rentable, en términos de disminución de costes, que la compañía subcontratada realice estos servicios, ya que la mano de obra puedes ser más barata en un país diferente al país de la compañía contratante \cite{sahay:globalit}.
@@ -57,7 +56,8 @@ En GSD, estas prácticas son cada vez más utilizadas, debido a la rentabilidad qu
 
 \imagenBorde{Cap3//beneficios}{0.5}{Incremento en actividades de \textit{offshoring} y ahorro que conlleva  \cite{insightinc}}{fig:beneficios}
 
-Como se puede apreciar, el GSD y sus prácticas introducen una serie de beneficios o ventajas, pero también de dificultades o inconvenientes a tener en cuenta. En el siguiente apartado se desarrollan los más importantes.
+Como se puede apreciar, el GSD y sus prácticas introducen una serie de beneficios o ventajas, pero también de dificultades o inconvenientes a tener en cuenta. 
+
 
 \subsection{Beneficios del Desarrollo Global de Software}
 
@@ -77,7 +77,7 @@ El GSD provee la posibilidad de poder encontrar mano de obra más cualificada o m
 
 En GSD, se puede aplicar el modelo de desarrollo ``\textit{follow-the-sun}''. Esto significa que, gracias a que existen varios centros de desarrollo en diferentes países, una compañía puede aprovechar las diferencias horarias entre sus diferentes centros de desarrollo para estar desarrollando software las 24 horas del día (ver Figura \ref{fig:sun}). De este modo, se consigue maximizar la productividad y disminuir el tiempo de salida al mercado (\textit{time-to-market)} de un producto software.
 
-De este modo, cada uno de los CDS localizados en cada país, pueden ir realizando diferentes actividades, como, por ejemplo, diseño, implementación, pruebas, etc. Para que este modelo de trabajo sea efectivo, debe existir una coordinación entre todos los CDS, que es una de las dificultades del GSD, como se comentará posteriormente.
+De este modo, cada uno de los CDS localizados en cada país, pueden ir realizando diferentes actividades, como, por ejemplo, diseño, implementación, pruebas, etc. Para que este modelo de trabajo sea efectivo, debe existir una coordinación entre todos los CDS, que es una de las dificultades del GSD.
 
 \imagenBorde{Cap3//follow_the_sun}{1.0}{Modelo de desarrollo \textit{Follow-the-sun} \cite{carmel2010follow}}{fig:sun}
 
@@ -87,9 +87,9 @@ Al establecer filiales en aquellos países donde se localizan potenciales cliente
 
 \subsubsection{Mejoras en la innovación}
 
-Al disponer de CDS en diferentes países, se puede tomar ventaja de las diferentes nacionalidades, culturas, experiencias y habilidades de cada uno de ellos, pudiendo así evolucionar, innovar y enriquecer la compartición de conocimiento.
+Al disponer de CDS en diferentes países, se puede tomar ventaja de las diferentes nacionalidades, culturas, experiencias y habilidades de cada uno de ellos, pudiendo así evolucionar, innovar y enriquecer la compartición de conocimiento. \\
 
-Como se ha visto, el GSD acarrea una serie de ventajas y beneficios que lo han convertido en un nuevo modelo de desarrollo utilizado por muchas empresas del sector. Sin embargo, existen también una serie de dificultades y problemas derivados de la deslocalización de los recursos, que se detallan en el siguiente apartado.
+\indent Como se ha visto, el GSD acarrea una serie de ventajas y beneficios que lo han convertido en un nuevo modelo de desarrollo utilizado por muchas empresas del sector. Sin embargo, existen también una serie de dificultades y problemas derivados de la deslocalización de los recursos, que se detallan en el siguiente apartado.
 
 \subsection{Desafíos del Desarrollo Global de Software}
 
@@ -98,9 +98,9 @@ El GSD provee a las compañías y organizaciones unos beneficios muy prometedores.
 Según \cite{fitzgerald2010global}, existen tres tipos de distancia que dificultan el GSD:
 
 \begin{itemize}
-	\item \textbf{Distancia geográfica}. En GSD, se define como ``\textit{la medida de esfuerzo que un individuo necesita realizar para visitar otro punto, alejado del primero}''. Por ejemplo, dos lugares dentro del mismo país con un enlace aéreo directo y vuelos regulares, se pueden considerar relativamente cercanos, aunque estén separados por grandes distancias kilométricas. Sin embargo, no se puede decir lo mismo de dos lugares que están cerca geográficamente (separación de pocos kilómetros) pero con poca infraestructura de transporte. Este último caso tendría una elevada distancia geográfica.
-	\item \textbf{Distancia temporal}. En GSD, se define como ``\textit{la medida de la deslocalización en tiempo, experimentada por dos individuos que desean interactuar}''. Esta distancia normalmente va unida a la anterior, provocando que existan husos horarios diferentes entre dos puntos debidos a la distancia geográfica existente entre dichos puntos.
-	\item \textbf{Distancia socio-cultural}. Se define como ``\textit{la medida en que un individuo comprende las costumbres (símbolos, normas y valores sociales) y cultura de otro individuo}''. Aunque esta distancia es muy frecuente en el GSD, también aparece en equipos de desarrollo co-localizados, ya que cada miembro del equipo puede tener nacionalidades y culturas diferentes. Este tipo de distancia es el mayor desafío a superar en el GSD, ya que con mucha frecuencia se producen conflictos y malentendidos entre los diferentes equipos de desarrollo, debido al carácter multicultural y multinacional del GSD.
+	\item \textbf{Distancia geográfica}. En GSD, se define como ``\textit{la medida de esfuerzo que un individuo necesita realizar para visitar otro punto, alejado del primero}'' \cite{fitzgerald2010global}. Por ejemplo, dos lugares dentro del mismo país con un enlace aéreo directo y vuelos regulares, se pueden considerar relativamente cercanos, aunque estén separados por grandes distancias kilométricas. Sin embargo, no se puede decir lo mismo de dos lugares que están cerca geográficamente (separación de pocos kilómetros) pero con poca infraestructura de transporte. Este último caso tendría una elevada distancia geográfica.
+	\item \textbf{Distancia temporal}. En GSD, se define como ``\textit{la medida de la deslocalización en tiempo, experimentada por dos individuos que desean interactuar}'' \cite{fitzgerald2010global}. Esta distancia normalmente va unida a la anterior, provocando que existan husos horarios diferentes entre dos puntos debidos a la distancia geográfica existente entre dichos puntos.
+	\item \textbf{Distancia socio-cultural}. Se define como ``\textit{la medida en que un individuo comprende las costumbres (símbolos, normas y valores sociales) y cultura de otro individuo}'' \cite{fitzgerald2010global}. Aunque esta distancia es muy frecuente en el GSD, también aparece en equipos de desarrollo co-localizados, ya que cada miembro del equipo puede tener nacionalidades y culturas diferentes. Este tipo de distancia es el mayor desafío a superar en el GSD, ya que con mucha frecuencia se producen conflictos y malentendidos entre los diferentes equipos de desarrollo, debido al carácter multicultural y multinacional del GSD.
 \end{itemize}
 
 \imagenBorde{Cap3//distances}{1.0}{Influencia de la distancia en el desarrollo de software \cite{fitzgerald2010global}}{fig:distances}
@@ -120,8 +120,8 @@ En la Tabla \ref{table:distanciasGSD} se observa como afecta cada una de las dis
 \centering
 \begin{tabular}{| >{\centering\arraybackslash}m{2.5cm} | >{\centering\arraybackslash}m{3.5cm} | >{\centering\arraybackslash}m{3.5cm} | >{\centering\arraybackslash}m{3.5cm} |}
 	\hline
-		\multicolumn{1}{|c|}{\cellcolor[gray]{0.4}\textbf{Proceso}} &
-		\multicolumn{3}{|c|}{\cellcolor[gray]{0.4}\textbf{Distancia}} \\
+		\multicolumn{1}{|c|}{\colorCabecera\textbf{Proceso}} &
+		\multicolumn{3}{|c|}{\colorCabecera\textbf{Distancia}} \\
 	\hline
 		 & \cellcolor[gray]{0.9}Geográfica & \cellcolor[gray]{0.9}Temporal & \cellcolor[gray]{0.9}Socio-Cultural\\
 	\hline
@@ -183,11 +183,11 @@ La naturaleza de la autoridad dentro de un proyecto puede variar entre las difer
 
 \subsubsection{Desafíos en la Gestión de Conocimiento}
 
-En la \textbf{Gestión del Conocimiento} también aparecen dificultades debidas a las distancias y desafíos presentes en el Desarrollo Global de Software, comentados anteriormente.
+En la \textbf{Gestión del Conocimiento} también aparecen dificultades debidas a las distancias y a los desafíos presentes en el Desarrollo Global de Software, comentados anteriormente.
 
 La gestión de conocimiento (en adelante KM, por sus siglas en inglés \textit{Knowledge Management}) puede definirse como ``\textit{un proceso que permite crear, capturar, almacenar, buscar, recuperar, compartir, transferir y diseminar el conocimiento existente dentro de una organización, con el fin de incrementarlo y evitar su pérdida y sub-utilización}'' \cite{Bornemann2003} \cite{Hovland} \cite{Kanagasabapathy2006}. 
 
-En los siguientes apartados se comentan los desafíos encontrados en cada una de los cuatro procesos que componen la Gestión de Conocimiento dentro de una empresa, mostrados en la Figura \ref{fig:KMCycle}. 
+En los siguientes apartados se comentan los desafíos encontrados en cada una de los cuatro procesos que componen la Gestión de Conocimiento, mostrados en la Figura \ref{fig:KMCycle}. 
 
 \imagenBorde{Cap3//KMCycle}{0.8}{Ciclo de gestión de conocimiento \cite{holzner1979knowledge}}{fig:KMCycle} 
 
@@ -210,7 +210,7 @@ El objetivo primordial de KM es que el conocimiento pueda ser utilizado y conoci
 
 La transmisión de conocimiento principalmente se produce por procesos de socialización, donde un grupo de individuos, normalmente con intereses comunes, comparten el conocimiento e intentan aprender y resolver problemas juntos \cite{wenger1998communities}.
 
-En GSD, este proceso se ve dificultado debido a los desafíos que aparecen en la comunicación, ya que las herramientas de comunicación pueden no estar siempre disponibles y pueden impedir o dificultar esta transmisión de conocimiento. Además, debido a las diferencias socio-culturales, este proceso de compartición del conocimiento es más difícil de llevar a cabo, ya que dicho conocimiento puede ser interpretado de manera diferente en diferentes países, además de existir la barrera del idioma.
+En GSD, este proceso se ve dificultado debido a los desafíos que aparecen en la comunicación, ya que las herramientas de comunicación pueden no estar siempre disponibles y pueden impedir o dificultar esta transmisión de conocimiento. Además, debido a las diferencias socio-culturales, este proceso de compartición del conocimiento es más difícil de llevar a cabo, ya que dicho conocimiento puede ser interpretado de manera diferente en diferentes países, además de existir la barrera idiomática.
 
 \paragraph{Aplicación del conocimiento}
 
@@ -228,7 +228,7 @@ A la hora de aplicar el conocimiento recuperado, también existen dificultades, d
 De este modo, se pueden capturar todas las decisiones y alternativas que se van produciendo a lo largo del desarrollo del proyecto, y las razones de por qué son tomadas esas decisiones. Así, \textit{Rationale} se centra en capturar \cite{Dutoit2006}:
 \begin{itemize}
 	\item Decisiones tomadas.
-	\item Las razones detrás de la decisión tomada.
+	\item Las razones detrás de cada decisión tomada.
 	\item Argumentos a favor o en contra de las decisiones tomadas.
 	\item Decisiones evaluadas y su resultado.
 \end{itemize} 
@@ -273,7 +273,7 @@ En lo que respecta a representación del conocimiento, existen, principalmente, d
 %% CBR
 \section{Razonamiento basado en casos} \label{sec:CBR}
 
-Estrechamente relacionado con la gestión de conocimiento, está el concepto de \textbf{Razonamiento Basado en Casos} (en adelante CBR, por sus siglas en inglés Case-Based Reasoning), utilizado para la recuperación de conocimiento, o experiencias previas, y su aplicación y reutilización en nuevos casos. Por tanto, el CBR puede plantearse como una solución para mitigar los problemas de recuperación y aplicación del conocimiento en GSD, comentados con anterioridad. Además, en este caso, el proceso de CBR se simplifica ya que, gracias al uso de \textit{Rationale}, el formato y tipo del conocimiento a recuperar y reutilizar es el mismo: decisiones tomadas en proyectos software.
+Estrechamente relacionado con la gestión de conocimiento, está el concepto de \textbf{Razonamiento Basado en Casos} (en adelante CBR, por sus siglas en inglés \textit{Case-Based Reasoning}), utilizado para la recuperación de conocimiento, o experiencias previas, y su aplicación y reutilización en nuevos casos. Por tanto, el CBR puede plantearse como una solución para mitigar los problemas de recuperación y aplicación del conocimiento en GSD, comentados con anterioridad. Además, en este caso, el proceso de CBR se simplifica ya que, gracias al uso de \textit{Rationale}, el formato y tipo del conocimiento a recuperar y reutilizar es el mismo: decisiones tomadas en proyectos software.
 
 El CBR puede definirse como ``\textit{un proceso en el que experiencias específicas son recuperadas, reutilizadas, revisadas y almacenadas para utilizarse en la solución de problemas similares}'' \cite{CBRCommentaries}. De este modo, se pueden encontrar soluciones a nuevos problemas basándose en soluciones de problemas similares anteriores. Dichas soluciones puede que sea necesario adaptarlas para resolver el nuevo problema y se almacenarán en forma de nuevas experiencias (casos) para poder reutilizarlas en un futuro. Es por esto que un sistema CBR puede ``aprender'' a partir de nuevas soluciones \cite{kolodner1992introduction}.
 
@@ -292,6 +292,6 @@ Conceptualmente, el CBR se describe como un ciclo con cuatro grandes etapas \cit
 
 Estas cuatro etapas son las que constituyen la metodología del CBR. Así, para solucionar un nuevo problema, primero se debe obtener una descripción de éste, midiendo la similitud del nuevo problema con otros problemas previos almacenados en el sistema. A continuación, se recuperan las soluciones de estos problemas similares y se reutiliza la solución de uno de estos casos, adaptándola si es necesario. Para terminar, este nuevo problema, junto a la solución encontrada, se almacena en el sistema, formando un nuevo caso. 
 
-Uno de los puntos críticos en el CBR es la función de similitud que se va a utilizar para buscar casos similares a uno dado. Por ejemplo, un problema se podría describir como una serie de atributos (o características) que pueden ser cuantificadas con un ``peso'' numérico, obteniendo un vector numérico, y utilizar como función de similitud la distancia Euclídea entre los vectores que representan cada problema. 
+Uno de los puntos críticos en el CBR es la función de similitud que se va a utilizar para buscar casos similares a uno dado. Por ejemplo, un problema se podría describir como una serie de atributos (o características) que pueden ser cuantificados con un ``peso'' numérico, obteniendo un vector numérico, y utilizar como función de similitud la distancia Euclídea entre los vectores que representan cada problema. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

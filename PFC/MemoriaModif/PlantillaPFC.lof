@@ -6,7 +6,7 @@
 \select@language {spanish}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Proyectos seg\'un su localizaci\'on \cite {evaristo1999typology}\relax }}{6}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Clasificaci\'on de proyectos seg\'un su localizaci\'on \cite {evaristo1999typology}\relax }}{6}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Relaciones entre Desarrollo Global, \textit {Rationale}, Razonamiento Basado en Casos y el sistema \textbf {DPMTool}\relax }}{12}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Incremento en actividades de \textit {offshoring} y ahorro que conlleva \cite {insightinc}\relax }}{14}
@@ -16,12 +16,12 @@
 \contentsline {figure}{\numberline {3.6}{\ignorespaces ``Causal Graph'' utilizado para representar decisiones en \textit {Rationale} \cite {Dutoit2006Casual}\relax }}{24}
 \contentsline {figure}{\numberline {3.7}{\ignorespaces ``Dialogue Map'' utilizado para representar decisiones en \textit {Rationale} \cite {Dutoit2006Ibis}\relax }}{25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Proceso iterativo e incremental \cite {jacobson1999unified}\relax }}{28}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Proceso iterativo e incremental en el PUD \cite {jacobson1999unified}\relax }}{28}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Fases y flujo de trabajo del PUD \cite {jac00}\relax }}{29}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Herramienta \textit {TortoiseSVN}\relax }}{35}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Herramienta TortoiseSVN\relax }}{35}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Herramienta Visual Paradigm\relax }}{36}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Ejemplo de mapa de OpenStreetMap\relax }}{37}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces JAXB\relax }}{38}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces JAXB: \textit {Java Architecture for XML Binding}\relax }}{38}
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Ejemplo de grafo generado con JUNG\relax }}{40}
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Ejemplo de gr\'aficos generados con JFreeChart\relax }}{42}
 \contentsline {figure}{\numberline {4.9}{\ignorespaces MySQL Workbench\relax }}{45}
@@ -38,62 +38,55 @@
 \contentsline {figure}{\numberline {5.10}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on decisiones\relax }}{64}
 \contentsline {figure}{\numberline {5.11}{\ignorespaces Diagrama de casos de uso - Cliente - Visualizaci\'on informaci\'on\relax }}{64}
 \contentsline {figure}{\numberline {5.12}{\ignorespaces Diagrama de casos de uso - Servidor - Visualizaci\'on informaci\'on\relax }}{65}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on notificaciones\relax }}{65}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on notificaciones\relax }}{66}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on Proyectos\relax }}{66}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on Proyectos\relax }}{67}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Diagrama de casos de uso - Cliente - Generaci\'on Estad\IeC {\'\i }sticas\relax }}{67}
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Diagrama de casos de uso - Cliente - Generaci\'on Informes\relax }}{68}
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Diagrama de casos de uso - Servidor - Generaci\'on Informes\relax }}{68}
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on Idiomas\relax }}{68}
-\contentsline {figure}{\numberline {5.21}{\ignorespaces Diagrama de casos de uso - Cliente - Exportar informaci\'on\relax }}{69}
-\contentsline {figure}{\numberline {5.22}{\ignorespaces Diagrama de casos de uso - Servidor - Exportar informaci\'on\relax }}{69}
-\contentsline {figure}{\numberline {5.23}{\ignorespaces Arquitectura cliente-servidor\relax }}{72}
-\contentsline {figure}{\numberline {5.24}{\ignorespaces Arquitectura multicapa\relax }}{73}
-\contentsline {figure}{\numberline {5.25}{\ignorespaces Arquitectura multicapa\relax }}{74}
-\contentsline {figure}{\numberline {5.26}{\ignorespaces Diagrama de clases de dominio\relax }}{79}
-\contentsline {figure}{\numberline {5.27}{\ignorespaces Diagrama EER de la base de datos\relax }}{81}
-\contentsline {figure}{\numberline {5.28}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on cliente-servidor\relax }}{82}
-\contentsline {figure}{\numberline {5.29}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on para bases de datos\relax }}{85}
-\contentsline {figure}{\numberline {5.30}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on para gestionar el log\relax }}{86}
-\contentsline {figure}{\numberline {5.31}{\ignorespaces \textit {Test Suite} para la capa de comunicaciones en el servidor\relax }}{88}
-\contentsline {figure}{\numberline {5.32}{\ignorespaces Fase de construcci\'on en el PUD\relax }}{89}
-\contentsline {figure}{\numberline {5.33}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Login\relax }}{92}
-\contentsline {figure}{\numberline {5.34}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Login\relax }}{92}
-\contentsline {figure}{\numberline {5.35}{\ignorespaces Diagrama de secuencia - Cliente - Login\relax }}{93}
-\contentsline {figure}{\numberline {5.36}{\ignorespaces Diagrama de secuencia - Servidor - Login\relax }}{94}
-\contentsline {figure}{\numberline {5.37}{\ignorespaces Diagrama de clases - Gestor de sesiones\relax }}{95}
-\contentsline {figure}{\numberline {5.38}{\ignorespaces Ejemplo de \textit {spinner} de carga\relax }}{96}
-\contentsline {figure}{\numberline {5.39}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Visualizar Decisiones\relax }}{99}
-\contentsline {figure}{\numberline {5.40}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Visualizar Decisiones\relax }}{100}
-\contentsline {figure}{\numberline {5.41}{\ignorespaces Diagrama de secuencia - Cliente - Consultar decisiones\relax }}{100}
-\contentsline {figure}{\numberline {5.42}{\ignorespaces Diagrama de secuencia - Servidor - Consultar decisiones\relax }}{101}
-\contentsline {figure}{\numberline {5.43}{\ignorespaces Diagrama de clases - Jerarqu\IeC {\'\i }a de decisiones\relax }}{103}
-\contentsline {figure}{\numberline {5.44}{\ignorespaces Ejemplo de jerarqu\IeC {\'\i }a de decisiones en foros de debates\relax }}{104}
-\contentsline {figure}{\numberline {5.45}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Modificar Propuesta\relax }}{111}
-\contentsline {figure}{\numberline {5.46}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Modificar Propuesta\relax }}{111}
-\contentsline {figure}{\numberline {5.47}{\ignorespaces Diagrama de secuencia - Cliente - Crear decisi\'on (\textit {Topic})\relax }}{113}
-\contentsline {figure}{\numberline {5.48}{\ignorespaces Diagrama de secuencia - Servidor - Crear decisi\'on\relax }}{113}
-\contentsline {figure}{\numberline {5.49}{\ignorespaces Diagrama de clases - Gesti\'on de decisiones\relax }}{115}
-\contentsline {figure}{\numberline {5.50}{\ignorespaces Diagrama de clases - Observador para actualizar clientes conectados\relax }}{116}
-\contentsline {figure}{\numberline {5.51}{\ignorespaces \textit {Test Suite} para la gesti\'on de decisiones en el servidor\relax }}{117}
-\contentsline {figure}{\numberline {5.52}{\ignorespaces Diagrama de secuencia - Cliente - Crear proyecto\relax }}{120}
-\contentsline {figure}{\numberline {5.53}{\ignorespaces Diagrama de secuencia - Servidor - Crear proyecto\relax }}{120}
-\contentsline {figure}{\numberline {5.54}{\ignorespaces Diagrama de secuencia - Cliente - Aconsejar decisiones\relax }}{121}
-\contentsline {figure}{\numberline {5.55}{\ignorespaces Diagrama de secuencia - Servidor - Aconsejar decisiones\relax }}{121}
-\contentsline {figure}{\numberline {5.56}{\ignorespaces Diagrama de secuencia - Servidor - Controlador proyectos\relax }}{122}
-\contentsline {figure}{\numberline {5.57}{\ignorespaces Diagrama de clases - Servidor - Razonamiento Basado en Casos\relax }}{126}
-\contentsline {figure}{\numberline {5.58}{\ignorespaces \textit {Test Suite} para la gesti\'on de proyectos en el servidor\relax }}{127}
-\contentsline {figure}{\numberline {5.59}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe\relax }}{130}
-\contentsline {figure}{\numberline {5.60}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe\relax }}{130}
-\contentsline {figure}{\numberline {5.61}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Servidor\relax }}{131}
-\contentsline {figure}{\numberline {5.62}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Cliente\relax }}{133}
-\contentsline {figure}{\numberline {5.63}{\ignorespaces Proceso simplificado de \textit {Drag \& Drop}\relax }}{134}
-\contentsline {figure}{\numberline {5.64}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Generaci\'on gr\'aficos estad\IeC {\'\i }sticos\relax }}{136}
-\contentsline {figure}{\numberline {5.65}{\ignorespaces Diagrama de clases - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{137}
-\contentsline {figure}{\numberline {5.66}{\ignorespaces \textit {Test Suite} para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos en el sistema cliente\relax }}{138}
-\contentsline {figure}{\numberline {5.67}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Exportar informaci\'on\relax }}{139}
-\contentsline {figure}{\numberline {5.68}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Exportar informaci\'on\relax }}{141}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Diagrama de casos de uso - Cliente - Gesti\'on Proyectos\relax }}{65}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Diagrama de casos de uso - Servidor - Gesti\'on Proyectos\relax }}{66}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Diagrama de casos de uso - Cliente - Generaci\'on Estad\IeC {\'\i }sticas\relax }}{66}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Arquitectura cliente-servidor\relax }}{69}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Arquitectura multicapa\relax }}{70}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Relaciones entre capas\relax }}{71}
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Diagrama de clases de dominio de alto nivel\relax }}{76}
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Diagrama EER de la base de datos\relax }}{78}
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on cliente-servidor\relax }}{79}
+\contentsline {figure}{\numberline {5.22}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on para bases de datos\relax }}{82}
+\contentsline {figure}{\numberline {5.23}{\ignorespaces Diagrama de clases - Capa de comunicaci\'on para gestionar el log\relax }}{83}
+\contentsline {figure}{\numberline {5.24}{\ignorespaces \textit {Test Suite} para la capa de comunicaciones en el servidor\relax }}{85}
+\contentsline {figure}{\numberline {5.25}{\ignorespaces Fase de construcci\'on en el PUD\relax }}{86}
+\contentsline {figure}{\numberline {5.26}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Login\relax }}{89}
+\contentsline {figure}{\numberline {5.27}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Login\relax }}{89}
+\contentsline {figure}{\numberline {5.28}{\ignorespaces Diagrama de secuencia - Cliente - Login\relax }}{90}
+\contentsline {figure}{\numberline {5.29}{\ignorespaces Diagrama de secuencia - Servidor - Login\relax }}{91}
+\contentsline {figure}{\numberline {5.30}{\ignorespaces Diagrama de clases - Gestor de sesiones\relax }}{92}
+\contentsline {figure}{\numberline {5.31}{\ignorespaces Ejemplo de \textit {spinner} de carga\relax }}{93}
+\contentsline {figure}{\numberline {5.32}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Visualizar Decisiones\relax }}{96}
+\contentsline {figure}{\numberline {5.33}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Visualizar Decisiones\relax }}{97}
+\contentsline {figure}{\numberline {5.34}{\ignorespaces Diagrama de secuencia - Cliente - Visualizar decisiones\relax }}{97}
+\contentsline {figure}{\numberline {5.35}{\ignorespaces Diagrama de secuencia - Servidor - Visualizar decisiones\relax }}{98}
+\contentsline {figure}{\numberline {5.36}{\ignorespaces Diagrama de clases - Jerarqu\IeC {\'\i }a de decisiones\relax }}{99}
+\contentsline {figure}{\numberline {5.37}{\ignorespaces Ejemplo de jerarqu\IeC {\'\i }a de decisiones en foros de debates\relax }}{100}
+\contentsline {figure}{\numberline {5.38}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Modificar Propuesta\relax }}{108}
+\contentsline {figure}{\numberline {5.39}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Modificar Propuesta\relax }}{108}
+\contentsline {figure}{\numberline {5.40}{\ignorespaces Diagrama de secuencia - Cliente - Crear decisi\'on (\textit {Propuesta})\relax }}{110}
+\contentsline {figure}{\numberline {5.41}{\ignorespaces Diagrama de secuencia - Servidor - Crear decisi\'on\relax }}{110}
+\contentsline {figure}{\numberline {5.42}{\ignorespaces Diagrama de clases - Gesti\'on de decisiones\relax }}{112}
+\contentsline {figure}{\numberline {5.43}{\ignorespaces Diagrama de clases - Observador para actualizar clientes conectados\relax }}{113}
+\contentsline {figure}{\numberline {5.44}{\ignorespaces \textit {Test Suite} para la gesti\'on de decisiones en el servidor\relax }}{114}
+\contentsline {figure}{\numberline {5.45}{\ignorespaces Diagrama de secuencia - Cliente - Crear proyecto\relax }}{117}
+\contentsline {figure}{\numberline {5.46}{\ignorespaces Diagrama de secuencia - Servidor - Crear proyecto\relax }}{118}
+\contentsline {figure}{\numberline {5.47}{\ignorespaces Diagrama de secuencia - Cliente - Aconsejar decisiones\relax }}{118}
+\contentsline {figure}{\numberline {5.48}{\ignorespaces Diagrama de secuencia - Servidor - Aconsejar decisiones\relax }}{119}
+\contentsline {figure}{\numberline {5.49}{\ignorespaces Diagrama de clases - Controlador proyectos\relax }}{120}
+\contentsline {figure}{\numberline {5.50}{\ignorespaces Diagrama de clases - Servidor - Razonamiento Basado en Casos\relax }}{123}
+\contentsline {figure}{\numberline {5.51}{\ignorespaces \textit {Test Suite} para la gesti\'on de proyectos en el servidor\relax }}{125}
+\contentsline {figure}{\numberline {5.52}{\ignorespaces Diagrama de secuencia - Cliente - Generar informe\relax }}{127}
+\contentsline {figure}{\numberline {5.53}{\ignorespaces Diagrama de secuencia - Servidor - Generar informe\relax }}{127}
+\contentsline {figure}{\numberline {5.54}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Servidor\relax }}{128}
+\contentsline {figure}{\numberline {5.55}{\ignorespaces Diagrama de clases - Generaci\'on de documentos PDF - Cliente\relax }}{130}
+\contentsline {figure}{\numberline {5.56}{\ignorespaces Proceso simplificado de \textit {Drag \& Drop}\relax }}{131}
+\contentsline {figure}{\numberline {5.57}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Generaci\'on gr\'aficos estad\IeC {\'\i }sticos\relax }}{133}
+\contentsline {figure}{\numberline {5.58}{\ignorespaces Diagrama de clases - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{134}
+\contentsline {figure}{\numberline {5.59}{\ignorespaces \textit {Test Suite} para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos en el sistema cliente\relax }}{136}
+\contentsline {figure}{\numberline {5.60}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Exportar informaci\'on\relax }}{137}
+\contentsline {figure}{\numberline {5.61}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Exportar informaci\'on\relax }}{137}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \select@language {english}
@@ -113,30 +106,30 @@
 \select@language {english}
 \select@language {spanish}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Ventana principal del servidor\relax }}{158}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Di\'alogo de configuraci\'on del servidor\relax }}{159}
-\contentsline {figure}{\numberline {A.3}{\ignorespaces Di\'alogo para seleccionar el idioma del servidor\relax }}{159}
-\contentsline {figure}{\numberline {A.4}{\ignorespaces Ventana principal del cliente\relax }}{160}
-\contentsline {figure}{\numberline {A.5}{\ignorespaces Ventana de \textit {login}\relax }}{161}
-\contentsline {figure}{\numberline {A.6}{\ignorespaces Ventana principal del cliente al acceder al sistema\relax }}{162}
-\contentsline {figure}{\numberline {A.7}{\ignorespaces Di\'alogo de selecci\'on de proyecto para exportar informaci\'on\relax }}{163}
-\contentsline {figure}{\numberline {A.8}{\ignorespaces Di\'alogo para la creaci\'on de proyectos\relax }}{165}
-\contentsline {figure}{\numberline {A.9}{\ignorespaces Di\'alogo para la modificaci\'on de proyectos\relax }}{166}
-\contentsline {figure}{\numberline {A.10}{\ignorespaces Di\'alogo para la gesti\'on de decisiones\relax }}{166}
-\contentsline {figure}{\numberline {A.11}{\ignorespaces Di\'alogo para introducir datos de un proyecto en CBR\relax }}{168}
-\contentsline {figure}{\numberline {A.12}{\ignorespaces Di\'alogo para configurar el algoritmo y par\'ametros de semejanza en CBR\relax }}{169}
-\contentsline {figure}{\numberline {A.13}{\ignorespaces Vista para la composici\'on de documentos PDF\relax }}{172}
-\contentsline {figure}{\numberline {A.14}{\ignorespaces Icono para insertar elementos en las secciones del PDF\relax }}{173}
-\contentsline {figure}{\numberline {A.15}{\ignorespaces Di\'alogo para generar y guardar el documento PDF\relax }}{174}
-\contentsline {figure}{\numberline {A.16}{\ignorespaces Vista para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos\relax }}{174}
-\contentsline {figure}{\numberline {A.17}{\ignorespaces Di\'alogo para configurar el gr\'afico a generar\relax }}{175}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Ventana principal del servidor\relax }}{154}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Di\'alogo de configuraci\'on del servidor\relax }}{155}
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Di\'alogo para seleccionar el idioma del servidor\relax }}{155}
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Ventana principal del cliente\relax }}{156}
+\contentsline {figure}{\numberline {A.5}{\ignorespaces Ventana de \textit {login}\relax }}{157}
+\contentsline {figure}{\numberline {A.6}{\ignorespaces Ventana principal del cliente al acceder al sistema\relax }}{158}
+\contentsline {figure}{\numberline {A.7}{\ignorespaces Di\'alogo de selecci\'on de proyecto para exportar informaci\'on\relax }}{159}
+\contentsline {figure}{\numberline {A.8}{\ignorespaces Di\'alogo para la creaci\'on de proyectos\relax }}{161}
+\contentsline {figure}{\numberline {A.9}{\ignorespaces Di\'alogo para la modificaci\'on de proyectos\relax }}{162}
+\contentsline {figure}{\numberline {A.10}{\ignorespaces Di\'alogo para la gesti\'on de decisiones\relax }}{162}
+\contentsline {figure}{\numberline {A.11}{\ignorespaces Di\'alogo para introducir datos de un proyecto en CBR\relax }}{164}
+\contentsline {figure}{\numberline {A.12}{\ignorespaces Di\'alogo para configurar el algoritmo y par\'ametros de semejanza en CBR\relax }}{165}
+\contentsline {figure}{\numberline {A.13}{\ignorespaces Vista para la composici\'on de documentos PDF\relax }}{168}
+\contentsline {figure}{\numberline {A.14}{\ignorespaces Icono para insertar elementos en las secciones del PDF\relax }}{169}
+\contentsline {figure}{\numberline {A.15}{\ignorespaces Di\'alogo para generar y guardar el documento PDF\relax }}{170}
+\contentsline {figure}{\numberline {A.16}{\ignorespaces Vista para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos\relax }}{170}
+\contentsline {figure}{\numberline {A.17}{\ignorespaces Di\'alogo para configurar el gr\'afico a generar\relax }}{171}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces C\'omo averiguar la versi\'on de Java\relax }}{178}
-\contentsline {figure}{\numberline {B.2}{\ignorespaces Variable de sistema JAVA\_HOME\relax }}{179}
-\contentsline {figure}{\numberline {B.3}{\ignorespaces Conexi\'on de MySQL Administrator con el servidor MySQL\relax }}{179}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces C\'omo averiguar la versi\'on de Java\relax }}{174}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces Variable de sistema JAVA\_HOME\relax }}{175}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Conexi\'on de MySQL Administrator con el servidor MySQL\relax }}{175}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Informe de pruebas de JUnit\relax }}{196}
-\contentsline {figure}{\numberline {D.2}{\ignorespaces Informe de cobertura para el sistema servidor\relax }}{197}
-\contentsline {figure}{\numberline {D.3}{\ignorespaces Informe de cobertura para las diferentes capas del sistema servidor\relax }}{197}
-\contentsline {figure}{\numberline {D.4}{\ignorespaces Informe de cobertura para la capa de control de la l\'ogica de dominio del sistema servidor\relax }}{197}
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Informe de pruebas de JUnit\relax }}{192}
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Informe de cobertura para el sistema servidor\relax }}{193}
+\contentsline {figure}{\numberline {D.3}{\ignorespaces Informe de cobertura para las diferentes capas del sistema servidor\relax }}{193}
+\contentsline {figure}{\numberline {D.4}{\ignorespaces Informe de cobertura para la capa de control de la l\'ogica de dominio del sistema servidor\relax }}{193}

@@ -1,6 +1,6 @@
 \subsection{Iteración 3}
 
-Siguiendo los casos del grupo funcional \textit{F1: Acceso al sistema} (ver Figura \ref{fig:CduVisualizarDecisiones2Server}), se abordan las siguientes tareas en esta primera iteración de la fase de Construcción: 
+Siguiendo los casos del grupo funcional \textit{F1: Acceso al sistema}, se abordan las siguientes tareas en esta primera iteración de la fase de Construcción: 
 
 \begin{itemize}
   \item Análisis de los casos de uso.
@@ -42,7 +42,7 @@ En la Tabla \ref{table:flujosLogin} se describe el caso de uso \textit{Login}.
 	\hline
 	\textbf{Descripción}: Funcionalidad para que un usuario pueda acceder al sistema \\
 	\hline
-	\textbf{Precondiciones}: Disponer de nombre de usuario y contraseña y estar dado de alta en al menos un proyecto \\
+	\textbf{Precondiciones}: Disponer de nombre de usuario y contraseña. \\
 	\hline
 	\textbf{Post-condiciones}: El usuario accede al sistema \\
 	\hline 
@@ -132,7 +132,6 @@ En la Tabla \ref{table:flujosLogin} se describe el caso de uso \textit{Login}.
 En la Figura \ref{fig:analisisLoginCliente} se muestra el diagrama de clases de análisis para el subsistema cliente. La Figura \ref{fig:analisisLoginServer} refleja el diagrama de clases de análisis para el subsistema servidor.
 
 \imagen{Cap5/Cliente2//analisisLoginCliente}{2.2}{Diagrama de clases de análisis - Cliente - Login}{fig:analisisLoginCliente}
-
 \imagen{Cap5/Server2//analisisLoginServer}{2.2}{Diagrama de clases de análisis - Servidor - Login}{fig:analisisLoginServer}
 
 
@@ -163,7 +162,7 @@ sección \ref{sec:requisitos}), como se observa en el diagrama de clases de la Fi
 
 Además, esta solución propuesta facilita la extensibilidad futura del sistema, ya que el
 rol de cada usuario se define mediante una enumeración, de tal modo que cada subclase
-de la clase Usuario redefinirá el método abstracto \textit{getRol()}, devolviendo el valor correspondiente
+de la clase Usuario redefinirá el método abstracto \textit{getRole()}, devolviendo el valor correspondiente
 a su rol en la enumeración. Por tanto, para añadir un nuevo rol de usuario, basta con añadir una
 nueva clase que herede de la superclase y un nuevo rol a la enumeración.
 
@@ -203,7 +202,7 @@ En el fragmento de código \ref{list:login} se muestra como se ha utilizado el mé
 
 % PROTOTIPO DE LA INTERFAZ PRINCIPAL Y COMO SALEN MENUS SEGUN ROL
 
-\subsubsection{Pruebas}
+\paragraph{Pruebas}
 
 Al final de esta iteración se implementan y ejecutan las pruebas unitarias correspondientes a esta funcionalidad del sistema. Para ello, al igual que en la iteración anterior, se diseñan los casos de prueba para los diferentes escenarios de los casos de uso que componen esta funcionalidad, y se ejecutan con JUnit. Además, en el subsistema cliente, se elabora una \textit{checklist} para asegurar que el comportamiento de los diferentes elementos que componen la interfaz gráfica de usuario es el esperado y adecuado. 
 
