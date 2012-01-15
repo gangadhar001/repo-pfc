@@ -96,6 +96,8 @@ Si tras haber iniciado sesión en el sistema, se desea trabajar sobre otro proyec
 
 Para dar de alta nuevos proyectos, o modificar alguno de los existentes, seleccionar el menú \textit{Herramientas} -\textgreater \textit{Gestionar Proyectos}. Se abrirá un nuevo diálogo para permitir la introducción de los datos del proyecto que se desea crear, siendo obligatorio rellenar los datos marcados con *, como aparece en la Figura \ref{fig:client-proyectos}. Dichos datos son:
 
+\imagen{Apendices/Manual//client-proyectos}{0.60}{Diálogo para la creación de proyectos}{fig:client-proyectos}
+
 \begin{itemize}
 	\item Nombre: nombre identificativo del proyecto, como cadena de texto.
 	\item Descripción: descripción del proyecto, como cadena de texto.
@@ -108,8 +110,6 @@ Para dar de alta nuevos proyectos, o modificar alguno de los existentes, selecci
 \end{itemize}
 
 Además, se podrán seleccionar los empleados que deban trabajar en ese proyecto, entre todos los disponibles. Al aceptar, se validarán los datos introducidos y se creará el nuevo proyecto, mostrando un mensaje de finalización al usuario.
-
-\imagen{Apendices/Manual//client-proyectos}{0.60}{Diálogo para la creación de proyectos}{fig:client-proyectos}
 
 Por otra parte, si se desea modificar un proyecto, se selecciona la pestaña \textit{Modificar Proyecto} y se elige un proyecto de los existentes, pudiendo modificar sus datos y/o empleados que en él trabajan (ver Figura \ref{fig:client-modificarProyecto}).
 
@@ -137,32 +137,95 @@ Esta funcionalidad se refiere a la visualización de las decisiones tomadas en un
 
 Para mostrar esta vista, se hace clic en el icono \textit{Decisiones} de la barra de menús superior de la ventana principal. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-vistaDecisiones}.
 
-%\imagen{Apendices/Manual//client-vistaDecisiones}{0.42}{Diálogo para la modificación de proyectos}{fig:client-vistaDecisiones}
+\imagen{Apendices/Manual//client-vistaDecisiones}{0.42}{Vista de decisiones}{fig:client-vistaDecisiones}
 
 A continuación, se describen los elementos que la componen:
 
 \begin{itemize}
 	\item A la izquierda, se muestra un árbol donde se representan de manera jerárquica las decisiones del proyecto software. Así, cada Tema tendrá una serie de Propuestas y éstas, a su vez, tendrán una serie de Respuestas.
-	\item En el centro, se visualizan las mismas decisiones, pero en forma de grafo, y de manera más amplia. Además, en este grafo, sobre el icono de cada decisión, se muestra información adicional de dicha decisión de manera visual, como puede ser su estado, archivos adjuntos, y, si el modo \textit{Vista Avanzada} está activo, se muestra también el rol del autor que creó la decisión y su país. Para activar o desactivar esta vista avanzada, se hace clic sobre el botón correspondiente en la \textit{toolbar}. Un ejemplo de vista avanzada aparece en la Figura \ref{fig:client-decisionesAvanzada}.
-	\item A la derecha, se encuentran una serie de paneles, que pueden extenderse o contraerse, donde se muestra información detallada acerca del autor de una decisión, de la compañía donde trabaja y de la decisión en sí. Además, en el panel donde se muestra la información de la compañía, ésta puede visualizarse en mayor detalle y obtener su posición geográfica, geoposicionándola en un mapa. Para ello, hacer clic en el icono de la lupa de este panel para que se muestre una ventana con la información de la compañía en mayor detalle, como se refleja en la captura de pantalla de la Figura \ref{fig:client-detallesCompanya}.
+	\item En el centro, se visualizan las mismas decisiones, pero en forma de grafo, y de manera más amplia. Además, en este grafo, sobre el icono de cada decisión, se muestra información adicional de dicha decisión de manera visual, como puede ser su estado (aceptada o rechazda), archivos adjuntos, y, si el modo \textit{Vista Avanzada} está activo, se muestra también el rol del autor que creó la decisión y su país. Para activar o desactivar esta vista avanzada, se hace clic sobre el botón en forma de prismáticos de la \textit{toolbar}. Un ejemplo de vista avanzada aparece en la Figura \ref{fig:client-decisionesAvanzada}.
+	\item A la derecha, se encuentran una serie de paneles, que pueden extenderse o contraerse, donde se muestra información detallada acerca del autor de una decisión, de la compañía donde trabaja y de la decisión en sí. Además, en el panel donde se muestra la información de la compañía, ésta puede visualizarse en mayor detalle y obtener su posición geográfica, geoposicionándola en un mapa. Para ello, hacer clic en el icono de la lupa de este panel para que se muestre una ventana con la información de la compañía en mayor detalle, como se refleja en la captura de pantalla de la Figura \ref{fig:client-companya}.
 \end{itemize}
 
-%\imagen{Apendices/Manual//client-decisionesAvanzada}{0.42}{Diálogo para la modificación de proyectos}{fig:client-decisionesAvanzada}
+\imagen{Apendices/Manual//client-avanzada}{0.42}{Vista avanzada de decisiones}{fig:client-decisionesAvanzada}
 
-%\imagen{Apendices/Manual//client-detallesCompanya}{0.6}{Diálogo para la modificación de proyectos}{fig:client-detallesCompanya}
+\imagen{Apendices/Manual//client-companya}{0.42}{Detalles de una compañía}{fig:client-companya}
 
-Una vez visualizadas las decisiones, éstas pueden gestionarse también desde esta vista. Para ello, se selecciona una decisión en el grafo o en el árbol, con lo que se habilitarán los botones de la \textit{toolbar}, que permiten añadir una nueva decisión como hija de la decisión seleccionada (en el caso de no haber seleccionado una \textit{Respuesta}, que no admite más hijos), modificar esa decisión, o eliminarla. En estos dos últimos casos, la decisión seleccionada sólo puede ser modificada o eliminada por su autor, no por otro empleado. Por ejemplo, al seleccionar en el grafo una decisión de tipo \textit{Propuesta} y pinchar sobre el botón \textit{Editar} de la \textit{toolbar}, aparece la ventana utilizada en la sección anterior para gestionar decisiones, pero ya con los datos de la decisión rellenos.
+Una vez visualizadas las decisiones, éstas pueden gestionarse también desde esta vista. Para ello, se selecciona una decisión en el grafo o en el árbol, con lo que se habilitarán los botones de la \textit{toolbar}, que permiten añadir una nueva decisión como hija de la decisión seleccionada (en el caso de no haber seleccionado una \textit{Respuesta}, que no admite más hijos), modificar esa decisión, o eliminarla. En estos dos últimos casos, la decisión seleccionada sólo puede ser modificada o eliminada por su autor, no por otro empleado. Por ejemplo, al seleccionar en el grafo una decisión de tipo \textit{Propuesta} y pinchar sobre el botón \textit{Editar} de la \textit{toolbar}, aparece la ventana utilizada en la sección anterior para gestionar decisiones, pero ya con los datos de la decisión rellenos, como se muestra en la Figura \ref{fig:client-decisionesRellenas}.
 
-%\imagen{Apendices/Manual//client-detallesCompanya}{0.6}{Diálogo para la modificación de proyectos}{fig:client-detallesCompanya}
+\imagen{Apendices/Manual//client-decisionesRellenas}{0.55}{Diálogo para gestionar decisiones desde la vista de decisiones}{fig:client-decisionesRellenas}
 
-Por otra parte, al hacer clic con el botón derecho sobre una decisión que aparece en el grafo, se muestra un menú que permite eliminar esa decisión, adjuntar un archivo o modificar su estado, como se refleja en la Figura \ref{fig:client-menuDecisiones}. Además, si una decisión seleccionada tiene archivos adjuntos, en la barra de estado de la parte inferior de la ventana aparece un botón, como se puede apreciar en la Figura \ref{fig:client-menuDecisiones}, para poder descargar una copia local de dichos archivos.
+Por otra parte, al hacer clic con el botón derecho sobre una decisión que aparece en el grafo, se muestra un menú que permite eliminar esa decisión, adjuntar un archivo o modificar su estado, como se refleja en la Figura \ref{fig:client-menuDecisiones}. Además, si una decisión seleccionada tiene archivos adjuntos, en la barra de estado de la parte inferior de la ventana aparece un botón, como se puede apreciar en la Figura \ref{fig:client-decisionesAttachResalt}, para poder descargar una copia local de dichos archivos.
 
-%\imagen{Apendices/Manual//client-menuDecisiones}{0.42}{Diálogo para la modificación de proyectos}{fig:client-menuDecisiones}
+\imagen{Apendices/Manual//client-menuDecisiones}{0.42}{Menú contextual para gestionar decisiones}{fig:client-menuDecisiones}
+
+\imagen{Apendices/Manual//client-decisionesAttachResalt}{0.42}{Archivos adjuntos en una decisión}{fig:client-decisionesAttachResalt}
 
 
 Para terminar, cabe destacar que si mientras el usuario está visualizando y gestionando las decisiones en esta vista, y otro usuario, haciendo uso de la herramienta desde otro lugar, realiza un cambio sobre las decisiones del mismo proyecto, el primer usuario será notificado en tiempo real que se han producido cambios por otro usuario, como se muestra en la Figura \ref{fig:client-aviso}, y se refrescará su vista para reflejar dichos cambios.
 
-%\imagen{Apendices/Manual//client-aviso}{0.42}{Diálogo para la modificación de proyectos}{fig:client-aviso}
+\imagen{Apendices/Manual//client-aviso}{0.42}{Aviso al producirse un cambio en la vista de decisiones por otro cliente}{fig:client-aviso}
+
+
+\subsection{Gestionar notificaciones}
+
+Esta funcionalidad se refiere a la visualización de las notificaciones o alertas que se han creado para el proyecto donde el usuario está trabajando, así como la modificación o eliminación de dichas notificaciones.
+
+Para visualizar esas alertas, se hace clic en el icono de la vista \textit{Notificaciones} de la barra de menús superior de la ventana principal. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-notificaciones}.
+
+\imagen{Apendices/Manual//client-notificaciones}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificaciones}
+
+
+En esta vista aparecen todas las alertas que tiene el usuario que ha accedido al sistema para el proyecto actualmente activo. Las alertas que aún no han sido leídas, aparecen resaltadas, como se observa en la Figura \ref{fig:client-notificaciones}. 
+
+Desde esta vista de notificaciones, el usuario puede marcar como leídas o no leídas sus alertas, o eliminar una o más de éstas. Para ello, se utilizan los botones presentes en la \textit{toolbar} o a través del menú que aparece al hacer clic con el botón derecho del ratón. Además, las alertas pueden ordenarse haciendo clic sobre las diferentes columnas de la tabla, de tal modo que pueden ordenarse por fecha, título, etc.
+
+Por otra parte, al seleccionar una de esas alertas en la tabla, en el cuadro de texto inferior aparecen los detalles de dicha alerta, como puede ser la fecha de creación de la alerta, su autor, el tipo de decisión afectada, información de dicha decisión, etc (ver Figura \ref{fig:client-notificacionDetalles}).
+
+\imagen{Apendices/Manual//client-notificacionesDetalle}{0.42}{Detalles de una alerta}{fig:client-notificacionDetalles}
+
+\subsection{Generación informes PDF}
+
+Esta acción está disponible únicamente para los jefes de proyectos, y permite la creación de informes en formato PDF donde, además del texto introducido, se representarán las decisiones tomadas en un proyecto en forma de tabla.
+
+Para componer dichos documentos, en primer lugar debe hacerse clic en el icono de la vista \textit{Generación PDF} de la barra de menús superior de la ventana principal del cliente. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-pdf}.
+
+\imagen{Apendices/Manual//client-pdf}{0.42}{Vista para la composición de documentos PDF}{fig:client-pdf}
+
+Para generar un documento PDF válido, éste debe contar con al menos una sección, y dicha sección debe contener al menos un título. Desde la \textit{toolbar} se pueden añadir y eliminar secciones, haciendo clic en los botones correspondientes, pero la sección 1 nunca se podrá borrar.
+
+Por otra parte, se pueden ir añadiendo elementos del documento PDF a las secciones, seleccionando la pestaña de la sección correspondiente y haciendo clic sobre el icono de la flecha del elemento que se desee añadir (ver Figura \ref{fig:client-anyadirPDF}).
+
+\imagen{Apendices/Manual//client-anyadirPDF}{0.42}{Icono para insertar elementos en las secciones del PDF}{fig:client-anyadirPDF}
+
+Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado.
+
+Una vez añadidos y colocados los elementos a las secciones, se debe introducir texto para aquellos elementos de tipo ``Título'' o ``Párrafo'', y se debe seleccionar un proyecto para generar la tabla de decisiones en el informe PDF. Para ello, se hace clic en el icono de las herramientas del elemento ``Tabla'', como se muestra en la Figura \ref{fig:client-tablePDF}, y se selecciona un proyecto de los disponibles.
+
+\imagen{Apendices/Manual//client-tablePDF}{0.42}{Icono para configurar un elemento de tipo Tabla en la vista de PDF}{fig:client-tablePDF}
+
+Para terminar, y para generar el documento PDF, debe hacer clic sobre el icono de los engranajes de la \textit{toolbar}, mostrándose el diálogo que aparece en la Figura \ref{fig:client-dialogoPDF}, previa validación de las secciones que han sido compuestas en la vista. En dicho diálogo, puede introducirse un nombre interno al documento, un asunto, el usuario que lo crea, y se pueden seleccionar imágenes para colocar en el encabezado y pie de página de todas las páginas del documento. Esto puede ser útil para, por ejemplo, mostrar el logo de una compañía en el encabezado de las páginas. Finalmente, se hace clic en el botón de \textit{Guardar} y se elige la ruta donde se almacenará el documento generado.
+
+\imagen{Apendices/Manual//client-dialogoPDF}{0.60}{Diálogo para generar y guardar el documento PDF}{fig:client-dialogoPDF}
+
+
+\subsection{Generación gráficos estadísticos}
+
+Esta acción está disponible únicamente para los jefes de proyectos, y permite la generación de gráficos estadísticos a partir de la información de decisiones almacenadas para cada proyecto, los empleados que en ellos trabajan, etc.
+
+Para generar dichas gráficas, en primer lugar debe hacerse clic en el icono de la vista \textit{Estadísticas} de la barra de menús superior de la ventana principal del cliente. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-estadisticas}.
+
+\imagen{Apendices/Manual//client-estadisticas}{0.42}{Vista para la generación de gráficos estadísticos}{fig:client-estadisticas}
+
+A continuación, para generar y visualizar un gráfico, es necesario hacer clic en el botón presente en la \textit{toolbar}, con lo que se mostrará un nuevo diálogo. En dicho diálogo, lo primero es seleccionar un tipo de gráfico de los existentes en el panel izquierdo. Después, seleccionar el gráfico que se desea generar y rellenar los datos solicitados para poder generar dicho gráfico, como se muestra en la Figura \ref{fig:client-estadisticasRelleno}.
+
+\imagen{Apendices/Manual//client-estadisticasRelleno}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-estadisticasRelleno}
+
+Al aceptar el diálogo anterior, el gráfico se genera y se muestra en una ventana interna, tal y como aparece en la Figura \ref{fig:client-internalFrame}. De este modo, se pueden generar y visualizar diferentes gráficos. Además, haciendo clic con el botón derecho sobre un gráfico, aparece un menú con diferentes opciones, tales como cambiar el título, guardar el gráfico en una imagen PNG, etc.
+
+\imagen{Apendices/Manual//client-internalFrame}{0.42}{Vista con gráficos estadísticos generados}{fig:client-internalFrame}
+
+
 
 
 
@@ -196,70 +259,8 @@ Así, los elementos que componen esta ventana son:
 Una vez configurados estos parámetros (ver Figura \ref{fig:client-cbr3} a modo de ejemplo), se hace clic sobre el botón \textit{Terminar}, con lo que comenzará la búsqueda de proyectos semejantes según el algoritmo y parámetros configurados. Al terminar, aparecerá un aviso con el número de proyectos encontrados y se mostrará a continuación otra ventana donde se visualizan los proyectos similares encontrados, como se refleja en la captura de pantalla de la Figura \ref{fig:client-cbr4}.
 
 \imagen{Apendices/Manual//client-cbr3}{0.60}{Ejemplo de configuración para el algoritmo \textit{NN}}{fig:client-cbr3}
-
-%\imagen{Apendices/Manual//client-cbr4}{0.60}{Diálogo para la modificación de proyectos}{fig:client-cbr4}
+\imagen{Apendices/Manual//client-cbr4}{0.46}{Resultados de la búsqueda de proyectos y decisiones semejantes}{fig:client-cbr4}
 
 En esa ventana, se muestran los datos del proyecto recuperado, los empleados que en él trabajan, las decisiones tomadas en dicho proyecto y el porcentaje de semejanza que tiene con respecto al proyecto base con el que se inició la búsqueda. Además, se puede navegar entre los diferentes proyectos encontrados, utilizando las flechas de la parte inferior.
 
 Por otra parte, las decisiones pueden filtrarse según su estado (Abiertas, Aceptadas o Rechazadas), y se puede almacenar también la información del proyecto visualizado en un fichero PDF o XML, utilizando los botones que se encuentran en la \textit{toolbar}. De este modo, la información y decisiones del proyecto podrán reutilizarse en el proyecto inicial semejante a éste.
-
-
-\subsection{Gestionar notificaciones}
-
-Esta funcionalidad se refiere a la visualización de las notificaciones o alertas que se han creado para el proyecto donde el usuario está trabajando, así como la modificación o eliminación de dichas notificaciones.
-
-Para visualizar esas alertas, se hace clic en el icono de la vista \textit{Notificaciones} de la barra de menús superior de la ventana principal. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-notificaciones}.
-
-%\imagen{Apendices/Manual//client-notificaciones}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificaciones}
-
-En esta vista aparecen todas las alertas que tiene el usuario que ha accedido al sistema para el proyecto actualmente activo. Las alertas que aún no han sido marcadas como ``leídas'', aparecen resaltadas, como se observa en la Figura \ref{fig:client-notificaciones}. 
-
-Desde esta vista de notificaciones, el usuario puede marcar como leídas o no leídas sus alertas, o eliminar una o más de éstas. Para ello, se utilizan los botones presentes en la \textit{toolbar}. Además, las alertas pueden ordenarse haciendo clic sobre las diferentes columnas de la tabla, de tal modo que pueden ordenarse por fecha, título, etc.
-
-Por otra parte, al seleccionar una de esas alertas en la tabla, en el cuadro de texto inferior aparecen los detalles de dicha alerta, como puede ser la fecha de creación de la alerta, su autor, el tipo de decisión afectada, información de dicha decisión, etc (ver Figura \ref{fig:client-notificacionDetalles}).
-
-%\imagen{Apendices/Manual//client-notificacionDetalles}{0.42}{Vista de notificaciones (alertas)}{fig:client-notificacionDetalles}
-
-
-
-\subsection{Generación informes PDF}
-
-Esta acción está disponible únicamente para los jefes de proyectos, y permite la creación de informes en formato PDF donde, además del texto introducido, se representarán las decisiones tomadas en un proyecto en forma de tabla.
-
-Para componer dichos documentos, en primer lugar debe hacerse clic en el icono de la vista \textit{Generación PDF} de la barra de menús superior de la ventana principal del cliente. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-pdf}.
-
-\imagen{Apendices/Manual//client-pdf}{0.42}{Vista para la composición de documentos PDF}{fig:client-pdf}
-
-Para generar un documento PDF válido, éste debe contar con al menos una sección, y dicha sección debe contener al menos un título. Desde la \textit{toolbar} se pueden añadir y eliminar secciones, haciendo clic en los botones correspondientes, pero la sección 1 nunca se podrá borrar.
-
-Por otra parte, se pueden ir añadiendo elementos del documento PDF a las secciones, seleccionando la pestaña de la sección correspondiente y haciendo clic sobre el icono de la flecha del elemento que se desee añadir (ver Figura \ref{fig:client-anyadirPDF}).
-
-\imagen{Apendices/Manual//client-anyadirPDF}{0.42}{Icono para insertar elementos en las secciones del PDF}{fig:client-anyadirPDF}
-
-Cabe destacar que aunque los elementos se pueden insertar en cualquier orden, es necesario que el título sea el primer elemento en una sección. Por tanto, los elementos ya añadidos a las secciones pueden recolocarse, pinchando sobre ellos y arrastrándolos y soltándolos en una nueva posición. Durante esta acción de \textit{Drag and Drop}, se observará como el puntero del ratón cambia y señala lugares donde no se puede soltar el elemento arrastrado.
-
-Una vez añadidos y colocados los elementos a las secciones, se debe introducir texto para aquellos elementos de tipo ``Título'' o ``Párrafo'', y se debe seleccionar un proyecto para generar la tabla de decisiones en el informe PDF. Para ello, se hace clic en el icono de las herramientas del elemento ``Tabla'', como se muestra en la Figura \ref{fig:client-tablePDF} y se selecciona un proyecto de los disponibles.
-
-%\imagen{Apendices/Manual//client-tablePDF}{0.42}{Icono para configurar un elemento de tipo Tabla en el }{fig:client-tablePDF}
-
-Para terminar, y para generar el documento PDF, debe hacer clic sobre el icono de los engranajes de la \textit{toolbar}, mostrándose el diálogo que aparece en la Figura \ref{fig:client-dialogoPDF}, previa validación de las secciones que han sido compuestas en la vista. En dicho diálogo, puede introducirse un nombre interno al documento, un asunto, el usuario que lo crea, y se pueden seleccionar imágenes para colocar en el encabezado y pie de página de todas las páginas del documento. Esto puede ser útil para, por ejemplo, mostrar el logo de una compañía en el encabezado de las páginas. Finalmente, se hace clic en el botón de \textit{Guardar} y se elige la ruta donde se almacenará el documento generado.
-
-\imagen{Apendices/Manual//client-dialogoPDF}{0.60}{Diálogo para generar y guardar el documento PDF}{fig:client-dialogoPDF}
-
-
-
-\subsection{Generación gráficos estadísticos}
-
-Esta acción está disponible únicamente para los jefes de proyectos, y permite la generación de gráficos estadísticos a partir de la información de decisiones almacenadas para cada proyecto, los empleados que en ellos trabajan, etc.
-
-Para generar dichas gráficas, en primer lugar debe hacerse clic en el icono de la vista \textit{Estadísticas} de la barra de menús superior de la ventana principal del cliente. Al hacerlo, se mostrará dicha vista, como se refleja en la Figura \ref{fig:client-estadisticas}.
-
-\imagen{Apendices/Manual//client-estadisticas}{0.42}{Vista para la generación de gráficos estadísticos}{fig:client-estadisticas}
-
-A continuación, para generar y visualizar un gráfico, es necesario hacer clic en el botón presente en la \textit{toolbar}, con lo que se mostrará un nuevo diálogo. En dicho diálogo, lo primero es seleccionar un tipo de gráfico de los existentes en el panel izquierdo. Después, seleccionar el gráfico que se desea generar y rellenar los datos solicitados para poder generar dicho gráfico, como se muestra en la Figura \ref{fig:client-estadisticasRelleno}.
-
-\imagen{Apendices/Manual//client-estadisticasRelleno}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-estadisticasRelleno}
-
-Al aceptar el diálogo anterior, el gráfico se genera y se muestra en una ventana interna, tal y como aparece en la Figura \ref{fig:internalFrame}. De este modo, se pueden generar y visualizar diferentes gráficos. Además, haciendo clic con el botón derecho sobre un gráfico, aparece un menú con diferentes opciones, tales como cambiar el título, guardar el gráfico en una imagen PNG, etc.
-
-%\imagen{Apendices/Manual//client-internalFrame}{0.6}{Diálogo para configurar el gráfico a generar}{fig:client-internalFrame}

@@ -86,7 +86,7 @@
 \contentsline {figure}{\numberline {5.58}{\ignorespaces Diagrama de clases - Cliente - Generar estad\IeC {\'\i }sticas\relax }}{134}
 \contentsline {figure}{\numberline {5.59}{\ignorespaces \textit {Test Suite} para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos en el sistema cliente\relax }}{136}
 \contentsline {figure}{\numberline {5.60}{\ignorespaces Diagrama de clases de an\'alisis - Cliente - Exportar informaci\'on\relax }}{137}
-\contentsline {figure}{\numberline {5.61}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Exportar informaci\'on\relax }}{137}
+\contentsline {figure}{\numberline {5.61}{\ignorespaces Diagrama de clases de an\'alisis - Servidor - Exportar informaci\'on\relax }}{138}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \select@language {english}
@@ -106,30 +106,43 @@
 \select@language {english}
 \select@language {spanish}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Ventana principal del servidor\relax }}{154}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Di\'alogo de configuraci\'on del servidor\relax }}{155}
-\contentsline {figure}{\numberline {A.3}{\ignorespaces Di\'alogo para seleccionar el idioma del servidor\relax }}{155}
-\contentsline {figure}{\numberline {A.4}{\ignorespaces Ventana principal del cliente\relax }}{156}
-\contentsline {figure}{\numberline {A.5}{\ignorespaces Ventana de \textit {login}\relax }}{157}
-\contentsline {figure}{\numberline {A.6}{\ignorespaces Ventana principal del cliente al acceder al sistema\relax }}{158}
-\contentsline {figure}{\numberline {A.7}{\ignorespaces Di\'alogo de selecci\'on de proyecto para exportar informaci\'on\relax }}{159}
-\contentsline {figure}{\numberline {A.8}{\ignorespaces Di\'alogo para la creaci\'on de proyectos\relax }}{161}
-\contentsline {figure}{\numberline {A.9}{\ignorespaces Di\'alogo para la modificaci\'on de proyectos\relax }}{162}
-\contentsline {figure}{\numberline {A.10}{\ignorespaces Di\'alogo para la gesti\'on de decisiones\relax }}{162}
-\contentsline {figure}{\numberline {A.11}{\ignorespaces Di\'alogo para introducir datos de un proyecto en CBR\relax }}{164}
-\contentsline {figure}{\numberline {A.12}{\ignorespaces Di\'alogo para configurar el algoritmo y par\'ametros de semejanza en CBR\relax }}{165}
-\contentsline {figure}{\numberline {A.13}{\ignorespaces Vista para la composici\'on de documentos PDF\relax }}{168}
-\contentsline {figure}{\numberline {A.14}{\ignorespaces Icono para insertar elementos en las secciones del PDF\relax }}{169}
-\contentsline {figure}{\numberline {A.15}{\ignorespaces Di\'alogo para generar y guardar el documento PDF\relax }}{170}
-\contentsline {figure}{\numberline {A.16}{\ignorespaces Vista para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos\relax }}{170}
-\contentsline {figure}{\numberline {A.17}{\ignorespaces Di\'alogo para configurar el gr\'afico a generar\relax }}{171}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Ventana principal del servidor\relax }}{156}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Di\'alogo de configuraci\'on del servidor\relax }}{157}
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Di\'alogo para seleccionar el idioma del servidor\relax }}{157}
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Ventana principal del cliente\relax }}{158}
+\contentsline {figure}{\numberline {A.5}{\ignorespaces Ventana de \textit {Login}\relax }}{159}
+\contentsline {figure}{\numberline {A.6}{\ignorespaces Ventana principal del cliente al acceder al sistema\relax }}{160}
+\contentsline {figure}{\numberline {A.7}{\ignorespaces Di\'alogo de selecci\'on de proyecto para exportar informaci\'on\relax }}{161}
+\contentsline {figure}{\numberline {A.8}{\ignorespaces Di\'alogo para la creaci\'on de proyectos\relax }}{162}
+\contentsline {figure}{\numberline {A.9}{\ignorespaces Di\'alogo para la modificaci\'on de proyectos\relax }}{163}
+\contentsline {figure}{\numberline {A.10}{\ignorespaces Di\'alogo para la gesti\'on de decisiones\relax }}{164}
+\contentsline {figure}{\numberline {A.11}{\ignorespaces Vista de decisiones\relax }}{165}
+\contentsline {figure}{\numberline {A.12}{\ignorespaces Vista avanzada de decisiones\relax }}{166}
+\contentsline {figure}{\numberline {A.13}{\ignorespaces Detalles de una compa\~n\IeC {\'\i }a\relax }}{167}
+\contentsline {figure}{\numberline {A.14}{\ignorespaces Di\'alogo para gestionar decisiones desde la vista de decisiones\relax }}{167}
+\contentsline {figure}{\numberline {A.15}{\ignorespaces Men\'u contextual para gestionar decisiones\relax }}{168}
+\contentsline {figure}{\numberline {A.16}{\ignorespaces Archivos adjuntos en una decisi\'on\relax }}{169}
+\contentsline {figure}{\numberline {A.17}{\ignorespaces Aviso al producirse un cambio en la vista de decisiones por otro cliente\relax }}{170}
+\contentsline {figure}{\numberline {A.18}{\ignorespaces Vista de notificaciones (alertas)\relax }}{171}
+\contentsline {figure}{\numberline {A.19}{\ignorespaces Detalles de una alerta\relax }}{172}
+\contentsline {figure}{\numberline {A.20}{\ignorespaces Vista para la composici\'on de documentos PDF\relax }}{173}
+\contentsline {figure}{\numberline {A.21}{\ignorespaces Icono para insertar elementos en las secciones del PDF\relax }}{173}
+\contentsline {figure}{\numberline {A.22}{\ignorespaces Icono para configurar un elemento de tipo Tabla en la vista de PDF\relax }}{174}
+\contentsline {figure}{\numberline {A.23}{\ignorespaces Di\'alogo para generar y guardar el documento PDF\relax }}{174}
+\contentsline {figure}{\numberline {A.24}{\ignorespaces Vista para la generaci\'on de gr\'aficos estad\IeC {\'\i }sticos\relax }}{175}
+\contentsline {figure}{\numberline {A.25}{\ignorespaces Di\'alogo para configurar el gr\'afico a generar\relax }}{175}
+\contentsline {figure}{\numberline {A.26}{\ignorespaces Vista con gr\'aficos estad\IeC {\'\i }sticos generados\relax }}{176}
+\contentsline {figure}{\numberline {A.27}{\ignorespaces Di\'alogo para introducir datos de un proyecto en CBR\relax }}{177}
+\contentsline {figure}{\numberline {A.28}{\ignorespaces Di\'alogo para configurar el algoritmo y par\'ametros de semejanza en CBR\relax }}{178}
+\contentsline {figure}{\numberline {A.29}{\ignorespaces Ejemplo de configuraci\'on para el algoritmo \textit {NN}\relax }}{179}
+\contentsline {figure}{\numberline {A.30}{\ignorespaces Resultados de la b\'usqueda de proyectos y decisiones semejantes\relax }}{180}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces C\'omo averiguar la versi\'on de Java\relax }}{174}
-\contentsline {figure}{\numberline {B.2}{\ignorespaces Variable de sistema JAVA\_HOME\relax }}{175}
-\contentsline {figure}{\numberline {B.3}{\ignorespaces Conexi\'on de MySQL Administrator con el servidor MySQL\relax }}{175}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces C\'omo averiguar la versi\'on de Java\relax }}{182}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces Variable de sistema JAVA\_HOME\relax }}{183}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Conexi\'on de MySQL Administrator con el servidor MySQL\relax }}{183}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Informe de pruebas de JUnit\relax }}{192}
-\contentsline {figure}{\numberline {D.2}{\ignorespaces Informe de cobertura para el sistema servidor\relax }}{193}
-\contentsline {figure}{\numberline {D.3}{\ignorespaces Informe de cobertura para las diferentes capas del sistema servidor\relax }}{193}
-\contentsline {figure}{\numberline {D.4}{\ignorespaces Informe de cobertura para la capa de control de la l\'ogica de dominio del sistema servidor\relax }}{193}
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Informe de pruebas de JUnit\relax }}{200}
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Informe de cobertura para el sistema servidor\relax }}{201}
+\contentsline {figure}{\numberline {D.3}{\ignorespaces Informe de cobertura para las diferentes capas del sistema servidor\relax }}{201}
+\contentsline {figure}{\numberline {D.4}{\ignorespaces Informe de cobertura para la capa de control de la l\'ogica de dominio del sistema servidor\relax }}{201}
