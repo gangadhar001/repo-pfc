@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  14 JAN 2012 18:52
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.22)  15 JAN 2012 18:57
 entering extended mode
 **D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/PlantillaPFC.tex
 (D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/PlantillaPFC.tex
@@ -1736,13 +1736,9 @@ File: Figuras//Cap5/Pruebas//pruebasEstadisticas.png Graphic file (type png)
 Package pdftex.def Info: Figuras//Cap5/Pruebas//pruebasEstadisticas.png used on
  input line 201.
 (pdftex.def)             Requested size: 257.76334pt x 140.52518pt.
-) [135]
+)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ConstruccionIteracion8.tex
-
-LaTeX Warning: Reference `table:export' on page 136 undefined on input line 22.
-
-
-
+[135]
 <Figuras//Cap5/Cliente2//analisisExportarCliente.png, id=732, 195.129pt x 59.26
 14pt>
 File: Figuras//Cap5/Cliente2//analisisExportarCliente.png Graphic file (type pn
@@ -1761,24 +1757,31 @@ Package pdftex.def Info: Figuras//Cap5/Server2//analisisExportarServer.png used
  on input line 76.
 (pdftex.def)             Requested size: 428.22217pt x 233.72023pt.
  [136 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Cap5/Pruebas//prue
-basEstadisticas.png>] [137 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figura
-s//Cap5/Cliente2//analisisExportarCliente.png (PNG copy)> <D:/UCLM/5Curso/PFC/r
-epo-pfc/PFC/MemoriaModif/Figuras//Cap5/Server2//analisisExportarServer.png>]
+basEstadisticas.png>]
+Overfull \vbox (12.77141pt too high) has occurred while \output is active []
+
+
+[137 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Cap5/Cliente2//anal
+isisExportarCliente.png (PNG copy)>]
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//JAXBTopics.java)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//JAXBTopics.java) [138 <D:
+/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Cap5/Server2//analisisExpor
+tarServer.png>] ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
-)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//marshal.java) [138])
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\FaseTransicion.tex [139])
-[140] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ConsecucionObjetivos.tex
-Cap\'{\i }tulo 6.
-[141
+) (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//marshal.java)
+Underfull \vbox (badness 1259) has occurred while \output is active []
+
+ [139])
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\FaseTransicion.tex) [140]
+[141] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ConsecucionObjetivos.tex
+[142
 
 
 ]
+Cap\'{\i }tulo 6.
+[143]
 Underfull \vbox (badness 1789) has occurred while \output is active []
 
 
@@ -1788,18 +1791,18 @@ Package Fancyhdr Warning: \headheight is too small (18.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[142] [143]) [144]
+[144] [145]) [146]
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ConclusionesPropuestas.tex
 Cap\'{\i }tulo 7.
-[145
+[147
 
 
 
 ]
 Underfull \vbox (badness 5105) has occurred while \output is active []
 
- [146])
-[147] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.bbl [148
+ [148])
+[149] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\PlantillaPFC.bbl [150
 
 
 ]
@@ -1814,15 +1817,15 @@ babelbib: Using the BibTeX style's default font for `ISBN'.
 babelbib: Using the BibTeX style's default font for `ISSN'.
 babelbib: Using the BibTeX style's default font for `url'.
 babelbib: Using the BibTeX style's default font for `numeral'.
-[149] [150] [151]) [152]
+[151] [152] [153]) [154]
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualUsuario.tex
 Ap\'{e}ndice A.
-[153
+[155
 
 
 
 ]
-<Figuras//Apendices/Manual//server-ventanaprincipal.png, id=792, 567.11874pt x 
+<Figuras//Apendices/Manual//server-ventanaprincipal.png, id=798, 567.11874pt x 
 468.75125pt>
 File: Figuras//Apendices/Manual//server-ventanaprincipal.png Graphic file (type
  png)
@@ -1831,7 +1834,7 @@ Package pdftex.def Info: Figuras//Apendices/Manual//server-ventanaprincipal.png
  used on input line 22.
 (pdftex.def)             Requested size: 340.27386pt x 281.25291pt.
 
-<Figuras//Apendices/Manual//server-configurar.png, id=793, 292.09125pt x 354.32
+<Figuras//Apendices/Manual//server-configurar.png, id=799, 292.09125pt x 354.32
 375pt>
 File: Figuras//Apendices/Manual//server-configurar.png Graphic file (type png)
  <use Figuras//Apendices/Manual//server-configurar.png>
@@ -1839,242 +1842,371 @@ Package pdftex.def Info: Figuras//Apendices/Manual//server-configurar.png used
 on input line 28.
 (pdftex.def)             Requested size: 175.25609pt x 212.59589pt.
 
-<Figuras//Apendices/Manual//server-idioma.png, id=794, 243.91125pt x 287.0725pt
+<Figuras//Apendices/Manual//server-idioma.png, id=800, 243.91125pt x 287.0725pt
 >
 File: Figuras//Apendices/Manual//server-idioma.png Graphic file (type png)
  <use Figuras//Apendices/Manual//server-idioma.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//server-idioma.png used on i
 nput line 34.
 (pdftex.def)             Requested size: 146.34787pt x 172.24483pt.
- [154 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+ [156 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
 server-ventanaprincipal.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [155 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+ [157 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
 server-configurar.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//A
 pendices/Manual//server-idioma.png>]
-<Figuras//Apendices/Manual//client-ventanaprincipal.png, id=801, 1027.84pt x 73
+<Figuras//Apendices/Manual//client-ventanaprincipal.png, id=807, 1027.84pt x 73
 0.73pt>
 File: Figuras//Apendices/Manual//client-ventanaprincipal.png Graphic file (type
  png)
  <use Figuras//Apendices/Manual//client-ventanaprincipal.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-ventanaprincipal.png
- used on input line 55.
+ used on input line 52.
 (pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
- [156 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+ [158 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
 client-ventanaprincipal.png>]
-<Figuras//Apendices/Manual//client-login.png, id=805, 371.3875pt x 316.18124pt>
+<Figuras//Apendices/Manual//client-login.png, id=811, 371.3875pt x 316.18124pt>
 File: Figuras//Apendices/Manual//client-login.png Graphic file (type png)
 <use Figuras//Apendices/Manual//client-login.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-login.png used on in
-put line 63.
+put line 60.
 (pdftex.def)             Requested size: 222.83421pt x 189.7102pt.
 
-<Figuras//Apendices/Manual//client-principalLogin.png, id=806, 1027.84pt x 730.
+<Figuras//Apendices/Manual//client-principalLogin.png, id=812, 1027.84pt x 730.
 73pt>
 File: Figuras//Apendices/Manual//client-principalLogin.png Graphic file (type p
 ng)
  <use Figuras//Apendices/Manual//client-principalLogin.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-principalLogin.png u
-sed on input line 67.
+sed on input line 64.
 (pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
- [157 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-client-login.png>]
-Underfull \vbox (badness 1281) has occurred while \output is active []
-
- [158 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-client-principalLogin.png>]
-<Figuras//Apendices/Manual//client-export.png, id=813, 341.275pt x 208.78pt>
+ [159 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-login.png>] [160 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//
+Apendices/Manual//client-principalLogin.png>]
+<Figuras//Apendices/Manual//client-export.png, id=820, 341.275pt x 208.78pt>
 File: Figuras//Apendices/Manual//client-export.png Graphic file (type png)
 
 <use Figuras//Apendices/Manual//client-export.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-export.png used on i
-nput line 90.
+nput line 87.
 (pdftex.def)             Requested size: 204.76657pt x 125.26895pt.
- [159 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-client-export.png>]
-<Figuras//Apendices/Manual//client-proyectos.png, id=818, 655.44875pt x 617.306
+
+<Figuras//Apendices/Manual//client-proyectos.png, id=821, 655.44875pt x 617.306
 24pt>
 File: Figuras//Apendices/Manual//client-proyectos.png Graphic file (type png)
  <use Figuras//Apendices/Manual//client-proyectos.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-proyectos.png used o
-n input line 115.
+n input line 99.
 (pdftex.def)             Requested size: 393.27228pt x 370.3866pt.
-
-<Figuras//Apendices/Manual//client-modificarProyecto.png, id=819, 655.44875pt x
+ [161 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-export.png>]
+[162 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
+lient-proyectos.png>]
+<Figuras//Apendices/Manual//client-modificarProyecto.png, id=828, 655.44875pt x
  617.30624pt>
 File: Figuras//Apendices/Manual//client-modificarProyecto.png Graphic file (typ
 e png)
  <use Figuras//Apendices/Manual//client-modificarProyecto.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-modificarProyecto.pn
-g used on input line 119.
+g used on input line 116.
 (pdftex.def)             Requested size: 393.27228pt x 370.3866pt.
 
-<Figuras//Apendices/Manual//client-decision.png, id=820, 782.925pt x 351.3125pt
+<Figuras//Apendices/Manual//client-decision.png, id=829, 782.925pt x 351.3125pt
 >
 File: Figuras//Apendices/Manual//client-decision.png Graphic file (type png)
  <use Figuras//Apendices/Manual//client-decision.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-decision.png used on
- input line 128.
+ input line 125.
 (pdftex.def)             Requested size: 391.46155pt x 175.6558pt.
- [160]
+ [163 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-modificarProyecto.png>]
+<Figuras//Apendices/Manual//client-vistaDecisiones.png, id=833, 1060.96375pt x 
+730.73pt>
+File: Figuras//Apendices/Manual//client-vistaDecisiones.png Graphic file (type 
+png)
+ <use Figuras//Apendices/Manual//client-vistaDecisiones.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-vistaDecisiones.png 
+used on input line 140.
+(pdftex.def)             Requested size: 445.60173pt x 306.9045pt.
 
-LaTeX Warning: Reference `fig:client-vistaDecisiones' on page 161 undefined on 
-input line 141.
+Overfull \hbox (4.584pt too wide) in paragraph at lines 140--140
+ [][] 
+ []
 
-[161 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
-lient-proyectos.png>]
-
-LaTeX Warning: Reference `fig:client-decisionesAvanzada' on page 162 undefined 
-on input line 149.
-
-[162 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
-lient-modificarProyecto.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figu
-ras//Apendices/Manual//client-decision.png>]
-
-LaTeX Warning: Reference `fig:client-detallesCompanya' on page 163 undefined on
+[164 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
+lient-decision.png>]
+<Figuras//Apendices/Manual//client-avanzada.png, id=837, 1063.975pt x 821.0675p
+t>
+File: Figuras//Apendices/Manual//client-avanzada.png Graphic file (type png)
+ <use Figuras//Apendices/Manual//client-avanzada.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-avanzada.png used on
  input line 150.
+(pdftex.def)             Requested size: 446.86646pt x 344.84601pt.
+
+Overfull \hbox (5.84872pt too wide) in paragraph at lines 150--150
+ [][] 
+ []
 
 
-LaTeX Warning: Reference `fig:client-menuDecisiones' on page 163 undefined on i
-nput line 159.
+<Figuras//Apendices/Manual//client-companya.png, id=838, 1060.96375pt x 814.041
+24pt>
+File: Figuras//Apendices/Manual//client-companya.png Graphic file (type png)
+ <use Figuras//Apendices/Manual//client-companya.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-companya.png used on
+ input line 152.
+(pdftex.def)             Requested size: 445.60173pt x 341.89499pt.
+
+Overfull \hbox (4.584pt too wide) in paragraph at lines 152--152
+ [][] 
+ []
+
+[165 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
+lient-vistaDecisiones.png>]
+<Figuras//Apendices/Manual//client-decisionesRellenas.png, id=844, 782.925pt x 
+351.3125pt>
+File: Figuras//Apendices/Manual//client-decisionesRellenas.png Graphic file (ty
+pe png)
+ <use Figuras//Apendices/Manual//client-decisionesRellenas.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-decisionesRellenas.p
+ng used on input line 156.
+(pdftex.def)             Requested size: 430.61008pt x 193.22246pt.
+
+<Figuras//Apendices/Manual//client-menuDecisiones.png, id=845, 1066.98625pt x 7
+36.7525pt>
+File: Figuras//Apendices/Manual//client-menuDecisiones.png Graphic file (type p
+ng)
+ <use Figuras//Apendices/Manual//client-menuDecisiones.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-menuDecisiones.png u
+sed on input line 160.
+(pdftex.def)             Requested size: 448.13118pt x 309.43394pt.
+
+Overfull \hbox (7.11345pt too wide) in paragraph at lines 160--160
+ [][] 
+ []
 
 
-LaTeX Warning: Reference `fig:client-menuDecisiones' on page 163 undefined on i
-nput line 159.
+<Figuras//Apendices/Manual//client-decisionesAttachResalt.png, id=846, 1060.963
+75pt x 730.73pt>
+File: Figuras//Apendices/Manual//client-decisionesAttachResalt.png Graphic file
+ (type png)
+
+<use Figuras//Apendices/Manual//client-decisionesAttachResalt.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-decisionesAttachResa
+lt.png used on input line 162.
+(pdftex.def)             Requested size: 445.60173pt x 306.9045pt.
+
+Overfull \hbox (4.584pt too wide) in paragraph at lines 162--162
+ [][] 
+ []
 
 
-LaTeX Warning: Reference `fig:client-aviso' on page 163 undefined on input line
- 164.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[163]
-<Figuras//Apendices/Manual//client-cbr1.png, id=833, 552.0625pt x 602.25pt>
-File: Figuras//Apendices/Manual//client-cbr1.png Graphic file (type png)
+ [166 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-avanzada.png>] [167 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figura
+s//Apendices/Manual//client-companya.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memo
+riaModif/Figuras//Apendices/Manual//client-decisionesRellenas.png>]
+<Figuras//Apendices/Manual//client-aviso.png, id=854, 1063.975pt x 821.0675pt>
+File: Figuras//Apendices/Manual//client-aviso.png Graphic file (type png)
 
-<use Figuras//Apendices/Manual//client-cbr1.png>
-Package pdftex.def Info: Figuras//Apendices/Manual//client-cbr1.png used on inp
-ut line 176.
-(pdftex.def)             Requested size: 331.24005pt x 361.35278pt.
- [164 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-client-cbr1.png>]
-<Figuras//Apendices/Manual//client-cbr2.png, id=837, 552.0625pt x 602.25pt>
-File: Figuras//Apendices/Manual//client-cbr2.png Graphic file (type png)
+<use Figuras//Apendices/Manual//client-aviso.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-aviso.png used on in
+put line 167.
+(pdftex.def)             Requested size: 446.86646pt x 344.84601pt.
 
-<use Figuras//Apendices/Manual//client-cbr2.png>
-Package pdftex.def Info: Figuras//Apendices/Manual//client-cbr2.png used on inp
-ut line 180.
-(pdftex.def)             Requested size: 331.24005pt x 361.35278pt.
- [165 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-client-cbr2.png>]
-
-LaTeX Warning: Reference `fig:client-cbr3' on page 166 undefined on input line 
-197.
+Overfull \hbox (5.84872pt too wide) in paragraph at lines 167--167
+ [][] 
+ []
 
 
-LaTeX Warning: Reference `fig:client-cbr4' on page 166 undefined on input line 
-197.
+<Figuras//Apendices/Manual//client-notificaciones.png, id=855, 1060.96375pt x 8
+14.04124pt>
+File: Figuras//Apendices/Manual//client-notificaciones.png Graphic file (type p
+ng)
+ <use Figuras//Apendices/Manual//client-notificaciones.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-notificaciones.png u
+sed on input line 176.
+(pdftex.def)             Requested size: 445.60173pt x 341.89499pt.
 
+Overfull \hbox (4.584pt too wide) in paragraph at lines 176--176
+ [][] 
+ []
 
-Underfull \vbox (badness 1817) has occurred while \output is active []
+[168 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
+lient-menuDecisiones.png>]
+<Figuras//Apendices/Manual//client-notificacionesDetalle.png, id=859, 1063.975p
+t x 876.27374pt>
+File: Figuras//Apendices/Manual//client-notificacionesDetalle.png Graphic file 
+(type png)
 
- [166]
+<use Figuras//Apendices/Manual//client-notificacionesDetalle.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-notificacionesDetall
+e.png used on input line 185.
+(pdftex.def)             Requested size: 446.86646pt x 368.03246pt.
 
-LaTeX Warning: Reference `fig:client-notificaciones' on page 167 undefined on i
-nput line 212.
+Overfull \hbox (5.84872pt too wide) in paragraph at lines 185--185
+ [][] 
+ []
 
-
-LaTeX Warning: Reference `fig:client-notificaciones' on page 167 undefined on i
-nput line 216.
-
-
-LaTeX Warning: Reference `fig:client-notificacionDetalles' on page 167 undefine
-d on input line 220.
-
-<Figuras//Apendices/Manual//client-pdf.png, id=845, 1027.84pt x 730.73pt>
+<Figuras//Apendices/Manual//client-pdf.png, id=860, 1027.84pt x 730.73pt>
 File: Figuras//Apendices/Manual//client-pdf.png Graphic file (type png)
 
 <use Figuras//Apendices/Manual//client-pdf.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-pdf.png used on inpu
-t line 232.
+t line 193.
 (pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
-
-<Figuras//Apendices/Manual//client-anyadirPDF.png, id=846, 1027.84pt x 730.73pt
+ [169 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-decisionesAttachResalt.png>]
+<Figuras//Apendices/Manual//client-anyadirPDF.png, id=865, 1027.84pt x 730.73pt
 >
 File: Figuras//Apendices/Manual//client-anyadirPDF.png Graphic file (type png)
  <use Figuras//Apendices/Manual//client-anyadirPDF.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-anyadirPDF.png used 
-on input line 238.
+on input line 199.
 (pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
- [167]
 
-LaTeX Warning: Reference `fig:client-drag' on page 168 undefined on input line 
-240.
+Underfull \vbox (badness 3049) has occurred while \output is active []
 
-[168 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
-lient-pdf.png>]
-<Figuras//Apendices/Manual//client-dialogoPDF.png, id=853, 480.79625pt x 426.59
+ [170 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-aviso.png>]
+<Figuras//Apendices/Manual//client-tablePDF.png, id=870, 1027.84pt x 730.73pt>
+File: Figuras//Apendices/Manual//client-tablePDF.png Graphic file (type png)
+
+<use Figuras//Apendices/Manual//client-tablePDF.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-tablePDF.png used on
+ input line 205.
+(pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
+
+<Figuras//Apendices/Manual//client-dialogoPDF.png, id=871, 480.79625pt x 426.59
 375pt>
 File: Figuras//Apendices/Manual//client-dialogoPDF.png Graphic file (type png)
  <use Figuras//Apendices/Manual//client-dialogoPDF.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-dialogoPDF.png used 
-on input line 248.
+on input line 209.
 (pdftex.def)             Requested size: 288.47997pt x 255.95822pt.
 
-<Figuras//Apendices/Manual//client-estadisticas.png, id=854, 1027.84pt x 730.73
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [171 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-notificaciones.png>]
+<Figuras//Apendices/Manual//client-estadisticas.png, id=876, 1027.84pt x 730.73
 pt>
 File: Figuras//Apendices/Manual//client-estadisticas.png Graphic file (type png
 )
  <use Figuras//Apendices/Manual//client-estadisticas.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-estadisticas.png use
-d on input line 258.
+d on input line 218.
 (pdftex.def)             Requested size: 431.68987pt x 306.9045pt.
 
-<Figuras//Apendices/Manual//client-estadisticasRelleno.png, id=855, 550.055pt x
+<Figuras//Apendices/Manual//client-estadisticasRelleno.png, id=877, 550.055pt x
  429.605pt>
 File: Figuras//Apendices/Manual//client-estadisticasRelleno.png Graphic file (t
 ype png)
  <use Figuras//Apendices/Manual//client-estadisticasRelleno.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//client-estadisticasRelleno.
-png used on input line 262.
+png used on input line 222.
 (pdftex.def)             Requested size: 330.03554pt x 257.76498pt.
 
+Underfull \vbox (badness 4391) has occurred while \output is active []
 
-LaTeX Warning: Reference `fig:internalFrame' on page 169 undefined on input lin
-e 264.
+ [172 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-notificacionesDetalle.png>]
 
-[169 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
-lient-anyadirPDF.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Text page 173 contains only floats.
 
- [170 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-client-dialogoPDF.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//A
-pendices/Manual//client-estadisticas.png>]) [171 <D:/UCLM/5Curso/PFC/repo-pfc/P
-FC/MemoriaModif/Figuras//Apendices/Manual//client-estadisticasRelleno.png>]
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualInstalacion.tex [172
+
+Overfull \vbox (2.13501pt too high) has occurred while \output is active []
+
+
+[173 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//c
+lient-pdf.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices
+/Manual//client-anyadirPDF.png>]
+Underfull \vbox (badness 5533) has occurred while \output is active []
+
+ [174 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-tablePDF.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Ape
+ndices/Manual//client-dialogoPDF.png>]
+<Figuras//Apendices/Manual//client-internalFrame.png, id=890, 1099.10625pt x 97
+0.62625pt>
+File: Figuras//Apendices/Manual//client-internalFrame.png Graphic file (type pn
+g)
+ <use Figuras//Apendices/Manual//client-internalFrame.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-internalFrame.png us
+ed on input line 226.
+(pdftex.def)             Requested size: 461.62148pt x 407.66025pt.
+
+Overfull \hbox (20.60374pt too wide) in paragraph at lines 226--226
+ [][] 
+ []
+
+
+Underfull \vbox (badness 8019) has occurred while \output is active []
+
+ [175 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-estadisticas.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras/
+/Apendices/Manual//client-estadisticasRelleno.png>] [176 <D:/UCLM/5Curso/PFC/re
+po-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//client-internalFrame.png>]
+<Figuras//Apendices/Manual//client-cbr1.png, id=897, 552.0625pt x 602.25pt>
+File: Figuras//Apendices/Manual//client-cbr1.png Graphic file (type png)
+
+<use Figuras//Apendices/Manual//client-cbr1.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-cbr1.png used on inp
+ut line 238.
+(pdftex.def)             Requested size: 331.24005pt x 361.35278pt.
+
+<Figuras//Apendices/Manual//client-cbr2.png, id=898, 552.0625pt x 602.25pt>
+File: Figuras//Apendices/Manual//client-cbr2.png Graphic file (type png)
+
+<use Figuras//Apendices/Manual//client-cbr2.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-cbr2.png used on inp
+ut line 242.
+(pdftex.def)             Requested size: 331.24005pt x 361.35278pt.
+ [177 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-cbr1.png>] [178 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//A
+pendices/Manual//client-cbr2.png>]
+<Figuras//Apendices/Manual//client-cbr3.png, id=906, 552.0625pt x 602.25pt>
+File: Figuras//Apendices/Manual//client-cbr3.png Graphic file (type png)
+
+<use Figuras//Apendices/Manual//client-cbr3.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-cbr3.png used on inp
+ut line 261.
+(pdftex.def)             Requested size: 331.24005pt x 361.35278pt.
+
+<Figuras//Apendices/Manual//client-cbr4.png, id=907, 942.52126pt x 686.565pt>
+File: Figuras//Apendices/Manual//client-cbr4.png Graphic file (type png)
+
+<use Figuras//Apendices/Manual//client-cbr4.png>
+Package pdftex.def Info: Figuras//Apendices/Manual//client-cbr4.png used on inp
+ut line 262.
+(pdftex.def)             Requested size: 433.56505pt x 315.82373pt.
+ [179 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+client-cbr3.png>]) [180 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//
+Apendices/Manual//client-cbr4.png>] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaMod
+if\ManualInstalacion.tex
+Ap\'{e}ndice B.
+[181
 
 
 
 ]
-Ap\'{e}ndice B.
-[173]
-<Figuras//Apendices/Manual//java-version.png, id=873, 436.63126pt x 134.75343pt
->
+<Figuras//Apendices/Manual//java-version.png, id=917, 679.53876pt x 222.8325pt>
 File: Figuras//Apendices/Manual//java-version.png Graphic file (type png)
- <use Figuras//Apendices/Manual//java-version.png>
+<use Figuras//Apendices/Manual//java-version.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//java-version.png used on in
 put line 20.
-(pdftex.def)             Requested size: 349.30548pt x 107.80289pt.
+(pdftex.def)             Requested size: 373.74748pt x 122.55824pt.
 
-<Figuras//Apendices/Manual//javahome.png, id=874, 380.42125pt x 153.57375pt>
+<Figuras//Apendices/Manual//javahome.png, id=918, 380.42125pt x 153.57375pt>
 File: Figuras//Apendices/Manual//javahome.png Graphic file (type png)
 
 <use Figuras//Apendices/Manual//javahome.png>
 Package pdftex.def Info: Figuras//Apendices/Manual//javahome.png used on input 
 line 32.
 (pdftex.def)             Requested size: 228.2545pt x 92.14494pt.
- [174 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
-java-version.png (PNG copy)>]
-<Figuras//Apendices/Manual//mysql-administrator1.png, id=878, 435.6275pt x 336.
+ [182 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+java-version.png>]
+<Figuras//Apendices/Manual//mysql-administrator1.png, id=922, 435.6275pt x 336.
 25626pt>
 File: Figuras//Apendices/Manual//mysql-administrator1.png Graphic file (type pn
 g)
@@ -2082,145 +2214,145 @@ g)
 Package pdftex.def Info: Figuras//Apendices/Manual//mysql-administrator1.png us
 ed on input line 45.
 (pdftex.def)             Requested size: 261.37851pt x 201.75531pt.
- [175 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
+ [183 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Manual//
 javahome.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/
-Manual//mysql-administrator1.png>]) [176]
+Manual//mysql-administrator1.png>]) [184]
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoCodigo.tex
 Ap\'{e}ndice C.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//facadeServer.java
-[177
+[185
 
 
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [178]
+ [186]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [179])
+ [187])
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//facadeClient.java
-[180]) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+[188]) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//GeoCoder.java [181])
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//GeoCoder.java [189])
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//observadorClientes.java
-[182]) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
+[190]) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//hilos.java [183])
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//hilos.java [191])
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//cbr.java [184])
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//cbr.java [192])
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//generarPDF.java [185]
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//generarPDF.java [193]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [186])
+ [194])
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 )
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//dataset.java [187]))
-[188] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.tex
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\Codigo//dataset.java [195]))
+[196] (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.tex
 Ap\'{e}ndice D.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [189
+ [197
 
 
 
 ]
-<Figuras//Apendices/Pruebas//UnitTest1.png, id=927, 1866.22218pt x 2640.86626pt
+<Figuras//Apendices/Pruebas//UnitTest1.png, id=971, 1866.22218pt x 2640.86626pt
 >
 File: Figuras//Apendices/Pruebas//UnitTest1.png Graphic file (type png)
  <use Figuras//Apendices/Pruebas//UnitTest1.png>
 Package pdftex.def Info: Figuras//Apendices/Pruebas//UnitTest1.png used on inpu
-t line 26.
+t line 25.
 (pdftex.def)             Requested size: 441.01123pt x 702.76787pt.
 
-Overfull \hbox (3.9935pt too wide) in paragraph at lines 26--27
+Overfull \hbox (3.9935pt too wide) in paragraph at lines 25--26
  [] 
  []
 
 
-LaTeX Warning: Float too large for page by 45.38478pt on input line 30.
+LaTeX Warning: Float too large for page by 45.38478pt on input line 29.
 
 
-<Figuras//Apendices/Pruebas//UnitTest2.png, id=928, 1866.22218pt x 2640.86626pt
+<Figuras//Apendices/Pruebas//UnitTest2.png, id=972, 1866.22218pt x 2640.86626pt
 >
 File: Figuras//Apendices/Pruebas//UnitTest2.png Graphic file (type png)
  <use Figuras//Apendices/Pruebas//UnitTest2.png>
 Package pdftex.def Info: Figuras//Apendices/Pruebas//UnitTest2.png used on inpu
-t line 37.
+t line 36.
 (pdftex.def)             Requested size: 441.01123pt x 702.76787pt.
 
-Overfull \hbox (3.9935pt too wide) in paragraph at lines 37--38
+Overfull \hbox (3.9935pt too wide) in paragraph at lines 36--37
  [] 
  []
 
 
-LaTeX Warning: Float too large for page by 45.38478pt on input line 41.
+LaTeX Warning: Float too large for page by 45.38478pt on input line 40.
 
 
-<Figuras//Apendices/Pruebas//coberturaTotal.png, id=929, 911.405pt x 128.48pt>
+<Figuras//Apendices/Pruebas//coberturaTotal.png, id=973, 911.405pt x 128.48pt>
 File: Figuras//Apendices/Pruebas//coberturaTotal.png Graphic file (type png)
 
 <use Figuras//Apendices/Pruebas//coberturaTotal.png>
 Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaTotal.png used on
- input line 65.
+ input line 64.
 (pdftex.def)             Requested size: 441.01773pt x 62.17155pt.
 
-Overfull \hbox (4.0pt too wide) in paragraph at lines 65--66
+Overfull \hbox (4.0pt too wide) in paragraph at lines 64--65
  [] 
  []
 
 
-<Figuras//Apendices/Pruebas//coberturaPaquetes.png, id=930, 1184.425pt x 443.65
+<Figuras//Apendices/Pruebas//coberturaPaquetes.png, id=974, 1184.425pt x 443.65
 75pt>
 File: Figuras//Apendices/Pruebas//coberturaPaquetes.png Graphic file (type png)
 
  <use Figuras//Apendices/Pruebas//coberturaPaquetes.png>
 Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaPaquetes.png used
- on input line 76.
+ on input line 75.
 (pdftex.def)             Requested size: 441.01773pt x 165.19322pt.
 
-Overfull \hbox (4.0pt too wide) in paragraph at lines 76--77
+Overfull \hbox (4.0pt too wide) in paragraph at lines 75--76
  [] 
  []
 
 
-<Figuras//Apendices/Pruebas//coberturaControl.png, id=931, 1013.7875pt x 410.53
+<Figuras//Apendices/Pruebas//coberturaControl.png, id=975, 1013.7875pt x 410.53
 375pt>
 File: Figuras//Apendices/Pruebas//coberturaControl.png Graphic file (type png)
  <use Figuras//Apendices/Pruebas//coberturaControl.png>
 Package pdftex.def Info: Figuras//Apendices/Pruebas//coberturaControl.png used 
-on input line 87.
+on input line 86.
 (pdftex.def)             Requested size: 441.01773pt x 178.587pt.
 
-Overfull \hbox (4.0pt too wide) in paragraph at lines 87--88
+Overfull \hbox (4.0pt too wide) in paragraph at lines 86--87
  [] 
  []
 
-) [190] [191 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/P
-ruebas//UnitTest1.png (PNG copy)>] [192 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memori
-aModif/Figuras//Apendices/Pruebas//UnitTest2.png>] [193 <D:/UCLM/5Curso/PFC/rep
+) [198] [199 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/P
+ruebas//UnitTest1.png (PNG copy)>] [200 <D:/UCLM/5Curso/PFC/repo-pfc/PFC/Memori
+aModif/Figuras//Apendices/Pruebas//UnitTest2.png>] [201 <D:/UCLM/5Curso/PFC/rep
 o-pfc/PFC/MemoriaModif/Figuras//Apendices/Pruebas//coberturaTotal.png> <D:/UCLM
 /5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Pruebas//coberturaPaqu
 etes.png> <D:/UCLM/5Curso/PFC/repo-pfc/PFC/MemoriaModif/Figuras//Apendices/Prue
-bas//coberturaControl.png>] [194
+bas//coberturaControl.png>] [202
 
 
 ]
@@ -2239,26 +2371,19 @@ No file PlantillaPFC.ind.
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualUsuario.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\ManualInstalacion.aux)
 (D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoCodigo.aux)
-(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.aux))
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- )
+(D:\UCLM\5Curso\PFC\repo-pfc\PFC\MemoriaModif\AnexoPruebas.aux)) )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 8 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13659 strings out of 494045
- 222512 string characters out of 3145971
- 670203 words of memory out of 3000000
- 16045 multiletter control sequences out of 15000+200000
+ 13726 strings out of 494045
+ 225717 string characters out of 3145971
+ 670385 words of memory out of 3000000
+ 16099 multiletter control sequences out of 15000+200000
  105872 words of font info for 282 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 43i,13n,60p,1030b,3079s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,13n,60p,1030b,3070s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.
 enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pf
 b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
@@ -2272,9 +2397,9 @@ X 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
 /type1/urw/times/utmbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw
 /times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr
 i8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on PlantillaPFC.pdf (222 pages, 5944036 bytes).
+Output written on PlantillaPFC.pdf (230 pages, 7849597 bytes).
 PDF statistics:
- 998 PDF objects out of 1000 (max. 8388607)
+ 1043 PDF objects out of 1200 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 44553 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 44618 words of extra memory for PDF output out of 51595 (max. 10000000)
 
