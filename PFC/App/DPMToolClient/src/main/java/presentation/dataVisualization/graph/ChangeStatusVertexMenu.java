@@ -31,8 +31,10 @@ public class ChangeStatusVertexMenu<V>  extends JMenu implements VertexMenuListe
 		this.vertex = v;
 		this.visComp = visComp;
         this.setText(ApplicationInternationalization.getString("statusVertex"));
-        if (!((Knowledge)v).getStatus().equals(KnowledgeStatus.Open.name()))
+        if (!(((Knowledge)v).getStatus().name().equals(KnowledgeStatus.Open.name())))
         	this.setEnabled(false);
+        else
+        	this.setEnabled(true);
 	}
 
 	public V getVertex() {

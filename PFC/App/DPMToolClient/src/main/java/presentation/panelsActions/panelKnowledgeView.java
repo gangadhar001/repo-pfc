@@ -149,7 +149,7 @@ public class panelKnowledgeView extends ImagePanel {
 	private void showTree() {	
 		panelTree.removeAll();
 		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Decisions");
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(ApplicationInternationalization.getString("treeDecisions"));
 		TreeContentProvider.setContentRootNode(root, topicWrapper);
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);
@@ -221,6 +221,12 @@ public class panelKnowledgeView extends ImagePanel {
             panelUserKnowledge.setBackground(Color.WHITE);
             panelUserKnowledge.revalidate();
             panelUserKnowledge.repaint();
+            if (advanced) {
+            	if (k instanceof Proposal)
+            		panelUserKnowledge.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("Category") + "</b> " +  ApplicationInternationalization.getString(((Proposal)k).getCategory().name())));
+            	else if (k instanceof Answer)
+            		panelUserKnowledge.add(getJLabelInfo("<html><b>" + ApplicationInternationalization.getString("Argument") + "</b> " +  ((Answer)k).getArgument()));
+            }
             
             // Show company information
             Company c = u.getCompany();

@@ -1,14 +1,20 @@
 package presentation.dataVisualization;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.io.IOException;
 
 import internationalization.ApplicationInternationalization;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.japura.gui.WrapLabel;
 import org.jdesktop.application.Application;
+import org.jdesktop.swingx.JXLabel;
 import org.jfree.chart.ChartPanel;
+
+import resources.ImagesUtilities;
 
 
 /**
@@ -30,7 +36,7 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	 */
 	private static final long serialVersionUID = 7190463711080941025L;
 	private JPanel panelChart;
-	private WrapLabel lblType;
+	private JXLabel lblType;
 
 	/**
 	* Auto-generated main method to display this 
@@ -45,22 +51,22 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 	private void initGUI() {
 		setResizable(true);
 		setClosable(true);
+	
 		
 		try {
-			this.setPreferredSize(new java.awt.Dimension(578, 354));
-			this.setBounds(0, 0, 578, 354);
+			this.setPreferredSize(new java.awt.Dimension(582, 354));
+			this.setBounds(0, 0, 582, 354);
 			setVisible(true);
-			this.setName("this");
 			getContentPane().setLayout(null);
 			{
 				panelChart = new JPanel();
 				getContentPane().add(panelChart);
-				panelChart.setBounds(0, 69, 576, 260);
+				panelChart.setBounds(5, 49, 571, 280);
 			}
 			{
-				lblType = new WrapLabel();
+				lblType = new JXLabel();
 				getContentPane().add(lblType);
-				lblType.setBounds(6, 7, 565, 30);
+				lblType.setBounds(5, 0, 571, 50);
 				lblType.setName("lblType");
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
@@ -71,16 +77,17 @@ public class InternalFStatistics extends javax.swing.JInternalFrame {
 
 	public void addChartPanel(String projectName, String type, boolean showProjectName, ChartPanel chartPanel) {		
 		panelChart.setSize(chartPanel.getPreferredSize());
-		this.setSize(chartPanel.getPreferredSize().width + 20, chartPanel.getPreferredSize().height + 20);
-		lblType.setFont(new Font(lblType.getFont().getName(), Font.BOLD, lblType.getFont().getSize()));
-		lblType.setWrapWidth(chartPanel.getPreferredSize().width);
-		lblType.setSize(new Dimension(chartPanel.getPreferredSize().width, 30));
-		lblType.setText(ApplicationInternationalization.getString(type));
-		if (showProjectName)
-			lblType.setText(lblType.getText() + ": " + projectName);
 		panelChart.add(chartPanel);
 		panelChart.revalidate();
 		panelChart.repaint();
+		this.setSize(panelChart.getSize().width + 20, panelChart.getSize().height + 100);
+		lblType.setFont(new Font(lblType.getFont().getName(), Font.BOLD, 15));
+		lblType.setLineWrap(true);
+		lblType.setSize(new Dimension(panelChart.getSize().width, 50));
+		lblType.setText(ApplicationInternationalization.getString(type));
+		if (showProjectName)
+			lblType.setText(lblType.getText() + ": " + projectName);
+		
 		this.revalidate();
 		this.repaint();
 	}

@@ -453,7 +453,10 @@ public class JDManageProject extends javax.swing.JDialog {
 				this.dispose();
 			} catch (RemoteException e) {
 				CursorUtilities.showDefaultCursor(this);
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				if (e.getLocalizedMessage().contains("AssertionFailure"))
+					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("ProjectExists"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
 				CursorUtilities.showDefaultCursor(this);
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
@@ -475,7 +478,7 @@ public class JDManageProject extends javax.swing.JDialog {
 	@Action
 	public void Modify() {
 		CursorUtilities.showWaitCursor(this);
-		if (panelProjectInformationCreate.isValidData(false)) {
+		if (panelProjectInformationModify.isValidData(false)) {
 			// Modify project and update users
 			Project oldProject = (Project)cbProjects.getSelectedItem();
 			Project projectModified = panelProjectInformationModify.getProject();
@@ -501,7 +504,10 @@ public class JDManageProject extends javax.swing.JDialog {
 				this.dispose();
 			} catch (RemoteException e) {
 				CursorUtilities.showDefaultCursor(this);
-				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				if (e.getLocalizedMessage().contains("Constraint"))
+					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("ProjectExists"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);
 			} catch (SQLException e) {
 				CursorUtilities.showDefaultCursor(this);
 				JOptionPane.showMessageDialog(this, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

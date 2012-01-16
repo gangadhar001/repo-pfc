@@ -343,7 +343,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 	
 	@Action
 	public void Save() {
-		if (validData(proposalInfoAdd)) {
+		if (validData(proposalInfoAdd) && cbTopics.getSelectedItem()!=null) {
 			CursorUtilities.showWaitCursor(this);
 			Proposal newPro = new Proposal(proposalInfoAdd.getProposalTitle(), proposalInfoAdd.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoAdd.getProposalCategory()));
 			try {
@@ -378,7 +378,7 @@ public class JPManageProposal extends javax.swing.JPanel {
 	
 	@Action
 	public void Modify() {
-		if (validData(proposalInfoModify)) {
+		if (validData(proposalInfoModify) && cbTopicsModify.getSelectedItem()!=null && cbProposals.getSelectedItem()!=null) {
 			CursorUtilities.showWaitCursor(this);
 			Proposal oldPro = proposals[cbProposals.getSelectedIndex()];
 			Proposal newPro = new Proposal(proposalInfoModify.getProposalTitle(), proposalInfoModify.getProposalDescription(), new Date(), Categories.valueOf(proposalInfoModify.getProposalCategory()));

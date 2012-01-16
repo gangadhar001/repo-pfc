@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -42,7 +43,8 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 	private JLabel lblDescriptionAnswer;
 	private JTextField txtTitle;
 	private JTextArea txtDescription;
-	
+	private JScrollPane jScrollPane1;
+
 	public JPAnswerInfo() {
 		super();
 		initGUI();
@@ -78,10 +80,15 @@ public class JPAnswerInfo extends javax.swing.JPanel {
 					lblArgumentAnswer.setText(ApplicationInternationalization.getString("lblArgumentAnswer"));
 				}
 				{
-					txtDescription = new JTextArea();
-					//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
-					panelAnswerInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtDescription.setBounds(122, 58, 392, 65);
+					jScrollPane1 = new JScrollPane();
+					panelAnswerInfo.add(jScrollPane1, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+					jScrollPane1.setBounds(122, 58, 392, 65);
+					{
+						txtDescription = new JTextArea();
+						jScrollPane1.setViewportView(txtDescription);
+						//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+						txtDescription.setBounds(122, 58, 392, 65);
+					}
 				}
 				{
 					txtTitle = new JTextField();

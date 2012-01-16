@@ -340,7 +340,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 	
 	@Action
 	public void Save() {
-		if (validData(panelAnswerInfoAdd)) {
+		if (validData(panelAnswerInfoAdd) && cbProposalsAdd.getSelectedItem()!=null) {
 			CursorUtilities.showWaitCursor(this);
 			Answer newAn = new Answer(panelAnswerInfoAdd.getAnswerTitle(), panelAnswerInfoAdd.getAnswerDescription(), new Date(), panelAnswerInfoAdd.getAnswerArgument());
 			try {
@@ -369,7 +369,7 @@ public class JPManageAnswer extends javax.swing.JPanel {
 
 	@Action
 	public void Modify() {
-		if (validData(panelAnswerInfoAdd)) {
+		if (validData(panelAnswerInfoAdd) && cbAnswers.getSelectedItem()!=null && cbProposals.getSelectedItem()!=null) {
 			CursorUtilities.showWaitCursor(this);
 			Answer oldAn = answers[cbAnswers.getSelectedIndex()];
 			Answer newAn = new Answer(panelAnswerInfoModify.getAnswerTitle(), panelAnswerInfoModify.getAnswerDescription(), new Date(), panelAnswerInfoModify.getAnswerArgument());

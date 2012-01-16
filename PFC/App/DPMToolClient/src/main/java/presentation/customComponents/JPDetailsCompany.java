@@ -29,6 +29,7 @@ import model.business.knowledge.Coordinates;
 
 import org.japura.gui.WrapLabel;
 import org.jdesktop.application.Application;
+import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXMapKit;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.graphics.ShadowRenderer;
@@ -74,7 +75,7 @@ public class JPDetailsCompany extends JXPanel {
 	private JButton btnOK;
 	private JLabel lblCountry;
 	private JLabel lblZip;
-	private JLabel lblAddress;
+	private JXLabel lblAddress;
 	private JLabel lblCif;
 	private JLabel lblNameCompany;
 	private JPanel panelImageCompany;
@@ -131,9 +132,10 @@ public class JPDetailsCompany extends JXPanel {
 						lblZip.setFont(font); 
 					}
 					{
-						lblAddress = new JLabel();
+						lblAddress = new JXLabel();
 						panelDetailsCompany.add(lblAddress, new AnchorConstraint(474, 672, 559, 46, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 						lblAddress.setName("lblAddress");
+						lblAddress.setLineWrap(true);
 						lblAddress.setText(ApplicationInternationalization.getString("companyAddress"));
 						lblAddress.setBounds(21, 84, 268, 26);
 						lblAddress.setFont(font); 
@@ -268,11 +270,11 @@ public class JPDetailsCompany extends JXPanel {
 
 	private void setDetailsCompany() {
 		lblTitle.setText(company.getName() + ", " + company.getAddress().getCountry());
-		lblCif.setText(ApplicationInternationalization.getString("companyCif") + ": " + company.getCif());
-		lblNameCompany.setText(ApplicationInternationalization.getString("companyName") + ": " + company.getName());
-		lblCountry.setText(ApplicationInternationalization.getString("companyCountry") + ": " + company.getAddress().getCountry());
-		lblZip.setText(ApplicationInternationalization.getString("companyZip") + ": " + company.getAddress().getZip());
-		lblAddress.setText(ApplicationInternationalization.getString("companyAddress") + ": " + company.getAddress().getStreet() + ", " + company.getAddress().getCity());		
+		lblCif.setText("<html><b>" + ApplicationInternationalization.getString("companyCif") + "</b>" + ": " + company.getCif() + "</html>");
+		lblNameCompany.setText("<html><b>" +  ApplicationInternationalization.getString("companyName") + "</b>" + ": " + company.getName() + "</html>");
+		lblCountry.setText("<html><b>" + ApplicationInternationalization.getString("companyCountry") + "</b>" + " " + company.getAddress().getCountry() + "</html>");
+		lblZip.setText("<html><b>" + ApplicationInternationalization.getString("companyZip") + ": " + "</b>" + company.getAddress().getZip() + "</html>");
+		lblAddress.setText("<html><b>" + ApplicationInternationalization.getString("companyAddress") + "</b>" + ": " + company.getAddress().getStreet() + ", " + company.getAddress().getCity() + "</html>");		
 	}
 
 	@SuppressWarnings("rawtypes")
