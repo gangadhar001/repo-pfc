@@ -345,15 +345,15 @@ public class panelKnowledgeView extends ImagePanel {
 			try {
 				// If the logged user isn't the chief of the project, can only delete if the user is the same as the author's knowledge
 				if (ClientController.getInstance().getLoggedUser().equals(k.getUser())) {
-					if (k instanceof Topic)				
-						ClientController.getInstance().deleteTopic((Topic) k);
-					else if (k instanceof Proposal)				
-						ClientController.getInstance().deleteProposal((Proposal) k);
-					else			
-						ClientController.getInstance().deleteAnswer((Answer) k);
-					
-					//notifyKnowledgeRemoved(k);
-					refreshKnowledgeRemoved(k);
+					if(JOptionPane.showConfirmDialog(this, ApplicationInternationalization.getString("deleteConfirm")) == JOptionPane.YES_OPTION) {
+						if (k instanceof Topic)				
+							ClientController.getInstance().deleteTopic((Topic) k);
+						else if (k instanceof Proposal)				
+							ClientController.getInstance().deleteProposal((Proposal) k);
+						else			
+							ClientController.getInstance().deleteAnswer((Answer) k);
+						refreshKnowledgeRemoved(k);
+					}
 				}
 				else
 					JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("message_ErrorAuthorDelete"), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

@@ -401,6 +401,23 @@ public class KnowledgeController {
 		Server.getInstance().createNotification(sessionId, n);		
 	}
 
+	// Return the project associated to one type of decision
+	public static Project getProjectFromKnowledge(long sessionId, Knowledge k) throws SQLException, NonPermissionRoleException, NotLoggedException {
+		Project result = new Project();
+		if (k instanceof Topic) {
+			result = ((Topic)k).getProject();
+		}
+		else if (k instanceof Proposal)
+			result = findParentProposal(sessionId, (Proposal)k).getProject();
+		else {
+			Proposal pro = findParentAnswer(sessionId, (Answer)k);
+			result = findParentProposal(sessionId, pro).getProject();
+		}				
+		return result;
+		
+	}
+	
+	
 	// Return the project that has a specified ID
 	private static Project searchCurrentProject(List<Project> projects, int currentProject) {
 		Project result = null;

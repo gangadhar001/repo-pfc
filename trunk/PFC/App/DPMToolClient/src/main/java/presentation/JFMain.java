@@ -538,6 +538,8 @@ public class JFMain extends SingleFrameApplication {
 			lblRole.setText("");
 			lblPort.setText("");
 			lblAction.setVisible(false);
+			clearViews();
+			mainPanel.setVisible(true);
 			// Close session
 			ClientController.getInstance().signout();
 		} catch (RemoteException e) {
@@ -619,8 +621,8 @@ public class JFMain extends SingleFrameApplication {
 	
 	private void createStatisticsView() {
 		clearViews();
-
-		panelStatistics = new panelStatisticsGeneration();
+		if (panelStatistics == null)
+			panelStatistics = new panelStatisticsGeneration();
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }		
@@ -674,8 +676,8 @@ public class JFMain extends SingleFrameApplication {
 	private void createPdfView() 
 	{
 		clearViews();
-
-		panelPDF = new panelPDFGeneration(this);
+		if (panelPDF == null)
+			panelPDF = new panelPDFGeneration(this);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) { }
@@ -765,7 +767,9 @@ public class JFMain extends SingleFrameApplication {
 	}
 
 	public void notifyNotificationAvailable(Notification n) {
-		// TODO Auto-generated method stub		
+		if (panelNotifications != null && panelNotifications.isVisible()) {
+			panelNotifications.notifyNotificationAvailable(n);
+		}		
 	}
 	
 	public JButton getBtnDownloadAttached() {
