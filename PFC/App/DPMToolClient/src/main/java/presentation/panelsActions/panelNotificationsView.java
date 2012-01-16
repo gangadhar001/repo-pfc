@@ -474,9 +474,20 @@ public class panelNotificationsView extends ImagePanel {
 	public List<Notification> getNotifications() {
 		return notifications;
 	}
-	
-	
-	
-	
+
+	public void notifyNotificationAvailable(Notification n) {
+		String title;
+		try {
+			 title = n.getKnowledge().getTitle();
+		}
+		catch (NullPointerException e) {
+			// If knowledge is null, means that this knowledge has been removed, making it necessary to 
+			// parse the subject of the notification in order to extract the knowledge information
+			Object [] information = parseSubject(n.getSubject());
+			title = information[1].toString();
+		}
+		JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("notificationAdded") + " " + title, ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
+		showNotifications();
+	}
 
 }

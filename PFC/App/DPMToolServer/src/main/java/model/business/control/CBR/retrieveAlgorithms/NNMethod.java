@@ -3,6 +3,7 @@ package model.business.control.CBR.retrieveAlgorithms;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,10 +28,17 @@ public class NNMethod {
 	{
 		List<CaseEval> similCases = new ArrayList<CaseEval>();
 		List<CaseEval> result = new ArrayList<CaseEval>();
+		// Current date
+		Calendar currentcal = Calendar.getInstance();
+		Calendar projectCal = Calendar.getInstance();
+		currentcal.set(currentcal.get(Calendar.YEAR), currentcal.get(Calendar.MONTH), currentcal.get(Calendar.DAY_OF_MONTH));
+		  
+			  
 		for(Project caseP: cases)
 		{
+			projectCal.setTime(caseP.getEndDate());
 			// Ignore same project
-			if (!caseToEval.equals(caseP))
+			if (!caseToEval.equals(caseP) && projectCal.before(currentcal))
 				result.add(new CaseEval(caseP, getEval(caseToEval, caseP, config)));
 		}
 		// Sort the result

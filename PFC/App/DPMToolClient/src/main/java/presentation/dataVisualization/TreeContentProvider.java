@@ -30,22 +30,25 @@ public class TreeContentProvider {
 	
 	public static void setContentRootNodeFilter(DefaultMutableTreeNode root, TopicWrapper wr, KnowledgeStatus filter) {
 		for (Topic t: wr.getTopics()) {
-			if (t.getStatus().equals(filter)) {
+			//if (t.getStatus().equals(filter)) {
 				DefaultMutableTreeNode childTopic = new DefaultMutableTreeNode(t);			
 				for (Proposal p: t.getProposals()) {
-					if (p.getStatus().equals(filter)) {
+					//if (p.getStatus().equals(filter)) {
 						DefaultMutableTreeNode childProposal = new DefaultMutableTreeNode(p);					
 						for (Answer a: p.getAnswers()) {
+							DefaultMutableTreeNode childAnswer;
 							if (a.getStatus().equals(filter)) {
-								DefaultMutableTreeNode childAnswer = new DefaultMutableTreeNode(a);
+								childAnswer = new DefaultMutableTreeNode(a);
 								childProposal.add(childAnswer);
 							}
 						}
-						childTopic.add(childProposal);
-					}
+						if (childProposal.getChildCount() > 0 || (p.getAnswers().size() == 0 && p.getStatus().equals(filter)))
+							childTopic.add(childProposal);
+					//}
 				}
-				root.add(childTopic);
+				if (childTopic.getChildCount() > 0 || (t.getProposals().size() == 0 && t.getStatus().equals(filter)))
+					root.add(childTopic);
 			}
-		}		
+		//}		
 	}
 }

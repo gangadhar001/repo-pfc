@@ -148,7 +148,7 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		tree = new JTree(treeModel);
 		tree.setBorder(new EmptyBorder(5, 10, 5, 5));
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		tree.setCellRenderer(new ImageKnowledgeTreeCellRenderer());
+		tree.setCellRenderer(new ImageKnowledgeTreeCellRenderer(true, filter));
 		tree.addTreeSelectionListener(new TreeSelectionListener() {				
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
