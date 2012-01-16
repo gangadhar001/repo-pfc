@@ -665,7 +665,7 @@ public class JDStatistics extends javax.swing.JDialog {
 					}
 				}
 				CursorUtilities.showDefaultCursor(this);
-				chartPanel = new ChartPanel(chart);
+				chartPanel = new ChartPanel(chart, true, true, true, true, true);
 				this.dispose();
 			} catch (RemoteException e) {
 				JOptionPane.showMessageDialog(frame, e.getLocalizedMessage(), ApplicationInternationalization.getString("Error"), JOptionPane.ERROR_MESSAGE);

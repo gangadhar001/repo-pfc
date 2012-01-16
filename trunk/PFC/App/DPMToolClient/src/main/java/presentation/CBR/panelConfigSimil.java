@@ -409,10 +409,10 @@ public class panelConfigSimil extends javax.swing.JPanel {
 		// Launch the algorithm
 		try {
 			List<CaseEval> result = ClientController.getInstance().executeAlgorithm(EnumAlgorithmCBR.valueOf(cbAlgorithm.getSelectedItem().toString()), caseToEval, configCBR, numberCases);
+			parent.getGlassPane().stop();
 			JOptionPane.showMessageDialog(this, ApplicationInternationalization.getString("retrievalCases") + ": " + result.size() + " " + ApplicationInternationalization.getString("casesName"), ApplicationInternationalization.getString("Information"), JOptionPane.INFORMATION_MESSAGE);
 			if (result.size() > 0) {
 				JDRetrievalCases showCases = new JDRetrievalCases(result, parent.getParentD());
-				parent.getGlassPane().stop();
 				parent.dispose();
 				CursorUtilities.showDefaultCursor(this);
 				showCases.setLocationRelativeTo(null);
@@ -463,9 +463,6 @@ public class panelConfigSimil extends javax.swing.JPanel {
 					}
 					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Difference.name()))
 						function = new Difference();
-					// TODO: enum
-//					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Enum.name()))
-//						function = new Enum();
 					else if (cb.getSelectedItem().toString().equals(EnumSimilFunctions.Equal.name()))
 						function = new Equal();
 					result.add(function);					

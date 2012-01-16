@@ -139,7 +139,7 @@ public class panelKnowledgeTree extends javax.swing.JPanel {
 		this.remove(scrollTree);
 		this.wrapper = topicWrapper;
 		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Decisions");
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(ApplicationInternationalization.getString("treeDecisions"));
 		if (filter.equals(KnowledgeStatus.All))
 			TreeContentProvider.setContentRootNode(root, topicWrapper);
 		else 

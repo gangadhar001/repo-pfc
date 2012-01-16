@@ -152,23 +152,22 @@ public class panelProjectInformation extends javax.swing.JPanel {
 							height = 100;
 							((JTextArea)tbStringAttValue).setCaretPosition(0);	
 							((JTextArea)tbStringAttValue).setWrapStyleWord(true);
-							((JTextArea)tbStringAttValue).setLineWrap(true);
+							((JTextArea)tbStringAttValue).setLineWrap(true);							
+							((JTextArea)tbStringAttValue).setEditable(editable);
+							JScrollPane scroll = new JScrollPane(tbStringAttValue);
+							this.add(scroll);	
 							if (attField.get(project) != null) {	
 								((JTextArea)tbStringAttValue).setText(attField.get(project).toString());
 							}
-							((JTextArea)tbStringAttValue).setEditable(editable);
-							JScrollPane scroll = new JScrollPane(tbStringAttValue);
-							this.add(scroll);							
 							scroll.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, WIDTH, height);
 						}
 						else {
-							tbStringAttValue = new JTextField();
-							if (attField.get(project) != null) {	
-								((JTextField)tbStringAttValue).setText(attField.get(project).toString());
-							}
+							tbStringAttValue = new JTextField();							
 							((JTextField)tbStringAttValue).setEditable(editable);
 							this.add(tbStringAttValue);
-							
+							if (attField.get(project) != null) {	
+								((JTextField)tbStringAttValue).setText(attField.get(project).toString());
+							}							
 							tbStringAttValue.setBounds(POSX_COLUMN2, POSY + INCREMENT_POSY * numberAttributes, WIDTH, height);
 						}
 						
@@ -253,14 +252,14 @@ public class panelProjectInformation extends javax.swing.JPanel {
 	public boolean isValidData(boolean mandatory) {
 		boolean result = true;
 		result = !findAttValue("name").toString().isEmpty();
-		result = !findAttValue("description").toString().isEmpty();	
+		result = result && !findAttValue("description").toString().isEmpty();	
 		if (mandatory) {
-			result = !findAttValue("budget").toString().isEmpty();
-			result = !findAttValue("estimatedHours").toString().isEmpty();
-			result = !findAttValue("quantityLines").toString().isEmpty();
+			result = result && !findAttValue("budget").toString().isEmpty();
+			result = result && !findAttValue("estimatedHours").toString().isEmpty();
+			result = result && !findAttValue("quantityLines").toString().isEmpty();
 		}
-		result = !findAttValue("domain").toString().isEmpty();		
-		result = !findAttValue("progLanguage").toString().isEmpty();		
+		result = result && !findAttValue("domain").toString().isEmpty();		
+		result = result && !findAttValue("progLanguage").toString().isEmpty();		
 		
 		if (result) {
 			Calendar endCal = Calendar.getInstance();

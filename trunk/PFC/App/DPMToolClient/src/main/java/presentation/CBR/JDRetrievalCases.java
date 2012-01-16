@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,10 +125,12 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 		currentPanel.showData(cases.get(currentProject-1).getCaseP(), false, false, 180);
 		fillUsers();
 		showUsers(cases.get(currentProject-1).getCaseP());
-		String sim = String.valueOf(cases.get(currentProject-1).getEval() * 100.0);
-		if (sim.equals("NaN"))
-			sim = "0.00";	
-		lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity") + " " + String.valueOf(sim) + "%");
+		double sim = cases.get(currentProject-1).getEval() * 100.0;
+		DecimalFormat df = new DecimalFormat("#.##");
+        String simS = (df.format(sim));
+		if (String.valueOf(sim).equals("NaN"))
+			simS = "0.00";	
+		lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity") + " " + simS + "%");
 		try {
 			panelTree.showTree(ClientController.getInstance().getTopicsWrapper(cases.get(currentProject-1).getCaseP()), KnowledgeStatus.All);
 		} catch (RemoteException e) {
@@ -159,7 +162,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblNumberCases = new JLabel();
 					getContentPane().add(lblNumberCases);
-					lblNumberCases.setBounds(7, 609, 111, 26);
+					lblNumberCases.setBounds(7, 609, 106, 26);
 					lblNumberCases.setName("lblNumberCases");					
 					lblNumberCases.setText(ApplicationInternationalization.getString("lblNumberCases") + " " + currentProject+"/"+cases.size());
 				}
@@ -281,7 +284,7 @@ public class JDRetrievalCases extends javax.swing.JDialog {
 				{
 					lblSimilarity = new JLabel();
 					getContentPane().add(lblSimilarity);
-					lblSimilarity.setBounds(119, 613, 126, 18);
+					lblSimilarity.setBounds(119, 613, 138, 18);
 					lblSimilarity.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, btnSave.getFont().getSize()));
 					lblSimilarity.setText(ApplicationInternationalization.getString("lblSimilarity"));
 				}

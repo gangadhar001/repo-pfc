@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
@@ -38,6 +39,7 @@ public class JPProposalInfo extends javax.swing.JPanel {
 	private JPanel panelProposalInfo;
 	private JComboBox cbCategories;
 	private JLabel lblCategoryProposal;
+	private JScrollPane jScrollPane1;
 	private JLabel lblProposalTitle;
 	private JLabel lblDescriptionProposal;
 	private JTextField txtTitle;
@@ -78,10 +80,15 @@ public class JPProposalInfo extends javax.swing.JPanel {
 					lblCategoryProposal.setText(ApplicationInternationalization.getString("lblCategoryAnswer"));
 				}
 				{
-					txtDescription = new JTextPane();
-					panelProposalInfo.add(txtDescription, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
-					txtDescription.setBounds(122, 58, 392, 65);
-					//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					jScrollPane1 = new JScrollPane();
+					panelProposalInfo.add(jScrollPane1, new AnchorConstraint(210, 968, 585, 281, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE, AnchorConstraint.ANCHOR_NONE));
+					jScrollPane1.setBounds(122, 58, 392, 65);
+					{
+						txtDescription = new JTextPane();
+						jScrollPane1.setViewportView(txtDescription);
+						txtDescription.setBounds(122, 58, 392, 65);
+						//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					}
 				}
 				{
 					txtTitle = new JTextField();

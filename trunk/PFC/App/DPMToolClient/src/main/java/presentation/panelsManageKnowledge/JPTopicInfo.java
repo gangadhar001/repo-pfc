@@ -5,6 +5,7 @@ import internationalization.ApplicationInternationalization;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -33,6 +34,7 @@ public class JPTopicInfo extends javax.swing.JPanel {
 	private static final long serialVersionUID = -429329559937627955L;
 	private JPanel panelTopicInfo;
 	private JTextArea txtDescription;
+	private JScrollPane jScrollPane1;
 	private JLabel lblTopicTitle;
 	private JLabel lblDescriptionTopic;
 	private JTextField txtTitle;
@@ -56,10 +58,15 @@ public class JPTopicInfo extends javax.swing.JPanel {
 				panelTopicInfo.setSize(531, 172);
 				panelTopicInfo.setPreferredSize(new java.awt.Dimension(531, 172));
 				{
-					txtDescription = new JTextArea();
-					panelTopicInfo.add(txtDescription);
-					txtDescription.setBounds(122, 56, 392, 105);
-					//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					jScrollPane1 = new JScrollPane();
+					panelTopicInfo.add(jScrollPane1);
+					jScrollPane1.setBounds(122, 56, 392, 105);
+					{
+						txtDescription = new JTextArea();
+						jScrollPane1.setViewportView(txtDescription);
+						txtDescription.setBounds(122, 56, 392, 105);
+						//txtDescription.setInputVerifier(new NotEmptyValidator(parentD, txtDescription, ApplicationInternationalization.getString("fieldValidateEmpty")));
+					}
 				}
 				{
 					txtTitle = new JTextField();
